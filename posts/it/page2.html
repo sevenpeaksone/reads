@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IT - SevenPeaks 블로그</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+  :root { --bg:#0f1117; --card:#1a1d27; --line:#2a2e3a; --text:#e8eaf0; --muted:#9aa0ad;
+    --it:#4f8cff; --philosophy:#b07cff; --economy:#2bb673; --bio:#ff7c7c; --counseling:#f0a532; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:'Pretendard','Pretendard Variable','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; }
+  a { color:inherit; }
+  .hero { text-align:center; padding:64px 20px 44px; border-bottom:1px solid var(--line);
+    background:linear-gradient(160deg,#161a2b,#0f1117); }
+  .hero.sub { padding:46px 20px 32px; }
+  .hero h1 { margin:0; font-size:34px; font-weight:800; letter-spacing:-.6px; }
+  .hero.sub h1 { font-size:24px; }
+  .hero h1 a { text-decoration:none; }
+  .hero p { margin:12px 0 0; color:var(--muted); font-size:15px; }
+  main { max-width:1200px; margin:0 auto; padding:36px 20px 80px; }
+  .cat-section { margin-bottom:46px; }
+  .cat-bar { display:flex; align-items:center; justify-content:space-between; margin:0 0 18px; }
+  .cat-head { font-size:15px; font-weight:700; display:inline-block; padding:5px 14px;
+    border-radius:20px; color:#fff; }
+  .cat-head[data-cat=it]{background:var(--it);}
+  .cat-head[data-cat=philosophy]{background:var(--philosophy);}
+  .cat-head[data-cat=economy]{background:var(--economy);}
+  .cat-head[data-cat=bio]{background:var(--bio);}
+  .cat-head[data-cat=counseling]{background:var(--counseling);}
+  .more-link { font-size:13px; color:var(--muted); text-decoration:none; white-space:nowrap; }
+  .more-link:hover { color:var(--text); }
+  .back { display:inline-block; margin-bottom:22px; color:var(--muted); text-decoration:none; font-size:14px; }
+  .back:hover { color:var(--text); }
+
+  /* 카드 그리드 (홈: 한 줄 5개 / 자동 반응형) */
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:18px; }
+  .card { display:flex; flex-direction:column; background:var(--card); border:1px solid var(--line);
+    border-radius:14px; overflow:hidden; text-decoration:none; color:var(--text);
+    transition:transform .14s ease, border-color .14s, box-shadow .14s; }
+  .card:hover { transform:translateY(-4px); border-color:#3a4050; box-shadow:0 12px 30px rgba(0,0,0,.38); }
+  .thumb { width:100%; aspect-ratio:16/10; object-fit:cover; display:block; background:#11141d; }
+  .thumb.ph { display:flex; align-items:center; justify-content:center; }
+  .thumb.ph span { font-weight:800; color:#fff; font-size:20px; letter-spacing:-.3px; opacity:.92; }
+  .thumb.ph[data-cat=it]{background:linear-gradient(135deg,#1b2140,var(--it));}
+  .thumb.ph[data-cat=philosophy]{background:linear-gradient(135deg,#241b40,var(--philosophy));}
+  .thumb.ph[data-cat=economy]{background:linear-gradient(135deg,#10301f,var(--economy));}
+  .thumb.ph[data-cat=bio]{background:linear-gradient(135deg,#3a1b1b,var(--bio));}
+  .thumb.ph[data-cat=counseling]{background:linear-gradient(135deg,#3a2c12,var(--counseling));}
+  .card-body { padding:13px 15px 15px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .badge { align-self:flex-start; font-size:11px; font-weight:700; color:#fff; padding:3px 10px; border-radius:20px; }
+  .badge[data-cat=it]{background:var(--it);}
+  .badge[data-cat=philosophy]{background:var(--philosophy);}
+  .badge[data-cat=economy]{background:var(--economy);}
+  .badge[data-cat=bio]{background:var(--bio);}
+  .badge[data-cat=counseling]{background:var(--counseling);}
+  .card-title { margin:0; font-size:15px; font-weight:600; line-height:1.45;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .card-date { margin-top:auto; font-size:12px; color:var(--muted); }
+
+  .pager { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:40px; }
+  .pager a, .pager span { min-width:38px; text-align:center; padding:8px 12px; border-radius:9px;
+    border:1px solid var(--line); font-size:14px; text-decoration:none; color:var(--text); background:var(--card); }
+  .pager a:hover { border-color:#3a4050; }
+  .pager .cur { background:#3a4050; border-color:#3a4050; font-weight:700; }
+  .pager .dots { border:none; background:none; color:var(--muted); min-width:auto; padding:8px 4px; }
+
+  /* 상단 카테고리 탭 + 검색 */
+  .topnav { position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    padding:10px 20px; background:rgba(15,17,23,.92); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line); }
+  .topnav .tn-brand { font-weight:800; font-size:16px; text-decoration:none; letter-spacing:-.3px; }
+  .topnav .tn-cats { display:flex; gap:4px; flex-wrap:wrap; }
+  .topnav .tn-cats a { font-size:14px; text-decoration:none; color:var(--muted); padding:5px 10px; border-radius:8px; }
+  .topnav .tn-cats a:hover { color:var(--text); background:var(--card); }
+  .topnav #site-search { margin-left:auto; background:var(--card); border:1px solid var(--line); border-radius:9px;
+    color:var(--text); padding:8px 12px; font-size:14px; min-width:150px; outline:none;
+    font-family:inherit; }
+  .topnav #site-search:focus { border-color:#3a4050; }
+  #search-meta { color:var(--muted); font-size:14px; margin:0 0 18px; }
+
+  footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; border-top:1px solid var(--line); }
+</style>
+</head>
+<body>
+  <nav class="topnav">
+    <a class="tn-brand" href="/blog/index.html">SevenPeaks</a>
+    <div class="tn-cats">
+      <a href="/blog/index.html">홈</a>
+      <a href="/blog/posts/it/index.html" data-cat="it">IT</a>
+      <a href="/blog/posts/philosophy/index.html" data-cat="philosophy">철학/인문</a>
+      <a href="/blog/posts/economy/index.html" data-cat="economy">경제</a>
+      <a href="/blog/posts/bio/index.html" data-cat="bio">바이오</a>
+      <a href="/blog/posts/counseling/index.html" data-cat="counseling">상담</a>
+    </div>
+    <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
+  </nav>
+  <div class="hero sub">
+    <h1><a href="../../index.html">SevenPeaks 블로그</a></h1>
+    <p><span class="cat-head" data-cat="it">IT</span> 전체 13편 · 2/2 페이지</p>
+  </div>
+  <main>
+    <div id="search-wrap" hidden>
+      <p id="search-meta"></p>
+      <div id="search-results" class="grid"></div>
+    </div>
+    <div id="page-content">
+    <a class="back" href="../../index.html">← 홈으로</a>
+    <div class="grid">
+      <a class="card" href="./2026-06-06-00/index.html">
+        <img class="thumb" src="./2026-06-06-00/images/thumbnail.png" alt="온디바이스 AI 시대, 스마트폰과 PC는 어떻게 달라지나 — 2026년이 변곡점인 이유" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="it">IT</span>
+          <h3 class="card-title">온디바이스 AI 시대, 스마트폰과 PC는 어떻게 달라지나 — 2026년이 변곡점인 이유</h3>
+          <span class="card-date">2026-06-06 00시</span>
+        </div>
+      </a>
+    </div>
+<nav class="pager">
+<a href="./index.html">← 이전</a>
+<a href="./index.html">1</a>
+<span class="cur">2</span>
+</nav>
+    </div>
+  </main>
+<script id="site-search-js">
+(function(){
+  var input=document.getElementById('site-search');
+  if(!input) return;
+  var wrap=document.getElementById('search-wrap'),
+      content=document.getElementById('page-content'),
+      meta=document.getElementById('search-meta'),
+      results=document.getElementById('search-results');
+  var BASE="/blog", data=null;
+  function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
+  function load(cb){ if(data){cb();return;}
+    fetch(BASE+'/search.json').then(function(r){return r.json();}).then(function(j){data=j;cb();}).catch(function(){data=[];cb();}); }
+  function card(it){
+    var cover = it.thumb ? '<img class="thumb" src="'+BASE+it.thumb+'" alt="" loading="lazy">'
+      : '<div class="thumb ph" data-cat="'+it.cslug+'"><span>'+esc(it.cat)+'</span></div>';
+    return '<a class="card" href="'+BASE+it.url+'">'+cover+
+      '<div class="card-body"><span class="badge" data-cat="'+it.cslug+'">'+esc(it.cat)+'</span>'+
+      '<h3 class="card-title">'+esc(it.title)+'</h3><span class="card-date">'+esc(it.label)+'</span></div></a>';
+  }
+  function run(q){
+    q=(q||'').trim().toLowerCase();
+    if(!q){ wrap.hidden=true; if(content) content.hidden=false; return; }
+    load(function(){
+      var hits=data.filter(function(it){
+        return (it.title||'').toLowerCase().indexOf(q)>=0 || (it.cat||'').toLowerCase().indexOf(q)>=0;
+      });
+      meta.textContent='“'+q+'” 검색결과 '+hits.length+'편';
+      results.innerHTML = hits.length ? hits.map(card).join('') : '<p style="color:var(--muted)">결과가 없습니다.</p>';
+      if(content) content.hidden=true; wrap.hidden=false;
+    });
+  }
+  input.addEventListener('input',function(){run(input.value);});
+})();
+</script>
+<footer>© 2026 SevenPeaks · 자동 생성 블로그</footer>
+</body>
+</html>

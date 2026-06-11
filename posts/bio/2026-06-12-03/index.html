@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>액체생검 2026 — 피 한 방울로 암을 조기에 잡는다</title>
+<style>
+  :root{ --ink:#222; --sub:#555; --line:#e5e7eb; --accent:#1f6feb; }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:#f4f5f7;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    color:var(--ink); line-height:1.8;
+  }
+  .wrap{ max-width:700px; margin:0 auto; padding:48px 22px 80px; background:#fff; }
+  .cat{ display:inline-block; font-size:13px; font-weight:700; color:var(--accent);
+        letter-spacing:1px; background:#eaf1ff; padding:5px 12px; border-radius:20px; margin-bottom:18px; }
+  h1{ font-size:29px; line-height:1.4; font-weight:800; margin:0 0 14px; letter-spacing:-0.5px; }
+  .lead{ color:var(--sub); font-size:16px; }
+  h2{ font-size:21px; font-weight:800; margin:14px 0 14px; letter-spacing:-0.3px; }
+  p{ font-size:16.5px; margin:0 0 18px; }
+  hr{ border:0; border-top:1px solid var(--line); margin:34px 0; }
+  img{ max-width:100%; height:auto; display:block; margin:26px auto; border-radius:12px;
+       box-shadow:0 4px 16px rgba(0,0,0,.08); }
+  table{ width:100%; border-collapse:collapse; margin:26px 0; font-size:15.5px; }
+  th,td{ border:1px solid var(--line); padding:11px 14px; text-align:left; }
+  th{ background:#f4f7ff; font-weight:700; color:#1a4ba0; }
+  tr:nth-child(even) td{ background:#fafbfc; }
+  blockquote{ margin:26px 0; padding:18px 22px; background:#f7f9fc; border-left:4px solid var(--accent);
+              border-radius:0 10px 10px 0; font-size:17px; color:#333; font-weight:600; }
+  .notice{ font-size:14px; color:#777; background:#fafafa; border:1px solid var(--line);
+           border-radius:10px; padding:16px 18px; margin-top:8px; }
+  .tags{ margin-top:30px; font-size:14px; color:var(--accent); line-height:2; }
+  .tags span{ display:inline-block; margin-right:8px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+
+  <span class="cat">BIO · 바이오</span>
+  <h1>액체생검 2026 — 피 한 방울로 암을 조기에 잡는다</h1>
+
+  <img src="./images/thumbnail.png" alt="액체생검 2026 — 피 한 방울로 암을 조기에 잡는다">
+
+  <p class="lead">이번 글에서는 2026년의 액체생검을 정리해 보겠습니다.</p>
+  <p>채혈 한 번으로 여러 암을 동시에 살피는 검사가 어디까지 왔는지, 무엇은 아직 멀었는지 함께 짚어봅니다. 결론부터 말씀드리면, 분명한 진전이 있었지만 아직 표준 검진을 대체하지는 못합니다.</p>
+
+  <hr>
+
+  <h2>■ 액체생검이 무엇인지부터</h2>
+  <p>액체생검은 조직을 떼어내지 않습니다. 혈액을 한 번 뽑아 암의 흔적을 찾는 검사입니다. 소변이나 뇌척수액 같은 다른 체액도 쓸 수 있습니다.</p>
+  <p>핵심은 피 속을 떠다니는 짧은 DNA 조각입니다. 세포가 죽으면서 혈류로 흘려보낸 조각을 cfDNA(세포유리 DNA)라고 부릅니다. 길이는 대략 180~200 염기쌍 정도로 짧습니다.</p>
+  <p>이 가운데 암세포에서 나온 것을 ctDNA(순환종양 DNA)라고 합니다. 종양이 혈류에 흘린 미량의 단서를 추적하는 셈입니다.</p>
+  <p>예전엔 변이 하나를 찾는 데 집중했습니다. 지금은 여러 신호를 함께 봅니다. 암 초기부터 나타나는 메틸화 변화, DNA 조각의 길이와 끝 모양을 읽는 프래그멘토믹스, 카피수 변이까지 종합합니다.</p>
+
+  <img src="./images/body-1.png" alt="cfDNA와 ctDNA의 차이, 그리고 함께 보는 메틸화·프래그멘토믹스·변이 세 가지 신호">
+
+  <hr>
+
+  <h2>■ 한 번의 채혈로 여러 암을 — MCED와 Galleri</h2>
+  <p>MCED는 다중암 조기검진을 뜻합니다. 혈액 검사 한 번으로 여러 암을 동시에 살피고, 신호가 어느 장기에서 왔는지까지 추정합니다. 대표 주자는 GRAIL사의 Galleri입니다.</p>
+  <p>세계 최초의 MCED 무작위대조시험인 NHS-Galleri의 전체 결과가 2026년 ASCO에서 발표됐습니다. 숫자를 그대로 옮기면 이렇습니다.</p>
+
+  <table>
+    <thead>
+      <tr><th>지표</th><th>결과</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>특이도</td><td>99.55% (위양성률 0.45%)</td></tr>
+      <tr><td>민감도 (사전 지정 12개 암종)</td><td>54.7%</td></tr>
+      <tr><td>민감도 (전체 암종)</td><td>30.7%</td></tr>
+      <tr><td>양성예측도(PPV)</td><td>52.0% (첫 라운드 58.0%)</td></tr>
+      <tr><td>암 신호 기원 정확도</td><td>92.5%</td></tr>
+    </tbody>
+  </table>
+
+  <p>세 번의 검진 라운드에서 참가자의 0.91%가 양성 판정을 받았고, 그중 937명이 실제 암으로 진단됐습니다. 표준 검진에 Galleri를 더했더니, 첫 1년 뒤 측정 가능한 암에서 4기 진단이 20% 이상 줄었습니다.</p>
+  <p>PATHFINDER 2 연구의 톱라인 데이터도 같은 방향입니다. 표준 검진에 Galleri를 추가하자 암 검출이 7배 이상 늘었고, 새로 찾은 암의 절반 이상이 조기 단계였습니다.</p>
+
+  <img src="./images/body-2.png" alt="NHS-Galleri 핵심 성능 지표 — 특이도, 12개 암종 민감도, 전체 암종 민감도, PPV 비교">
+
+  <hr>
+
+  <h2>■ 치료의 판을 바꾼 쪽 — MRD와 Signatera</h2>
+  <p>조기 검진만큼 주목받는 영역이 미세잔존질환(MRD)입니다. 수술이나 치료 뒤, 영상으로는 보이지 않는 잔존 암을 ctDNA로 찾아냅니다.</p>
+  <p>Natera사의 Signatera는 근육침윤성 방광암에서 의미 있는 승인을 받았습니다. ctDNA가 양성인 환자를 가려내 보조 면역항암제 아테졸리주맙을 쓸 대상을 정하는 동반진단으로 FDA 승인을 받았습니다.</p>
+  <p>이것은 작지 않은 변화입니다. 영상이 아니라 분자 증거로 잔존 암을 판단하는 길이 처음으로 규제 승인을 받은 사례이기 때문입니다.</p>
+  <p>임상 결과도 이를 뒷받침합니다. IMvigor011 3상에서 ctDNA 양성 환자의 무병생존은 9.9개월 대 4.8개월, 전체생존은 32.8개월 대 21.1개월로 개선됐습니다. 반대로 MRD 음성 환자는 보조요법 없이도 2년 전체생존 97%에 이르렀습니다.</p>
+  <p>치료를 더할 사람과 덜어줄 사람을 함께 가린다는 점이 인상적입니다.</p>
+
+  <hr>
+
+  <h2>■ 대장암 1차 검진으로 들어선 Shield</h2>
+  <p>Guardant Health의 Shield는 2024년 7월 FDA 승인을 받았습니다. 평균 위험군 45세 이상 성인의 대장암 1차 검진용으로 승인된 최초이자 유일한 혈액검사입니다.</p>
+  <p>2만 명 이상이 참여한 ECLIPSE 연구에서 대장암 검출 민감도는 83.1%, 1~3기 민감도는 87.5%, 특이도는 90%였습니다. 이후 NCCN이 대장암 검진 가이드라인에 1차 옵션으로 추가했고, 미국암학회도 2026년 업데이트에서 새 옵션으로 권고했습니다.</p>
+
+  <img src="./images/body-3.png" alt="2024~2026년 액체생검 주요 이정표 타임라인 — Shield, Signatera, NHS-Galleri">
+
+  <hr>
+
+  <h2>■ 한국은 어디까지 왔나</h2>
+  <p>국내에서는 아이엠비디엑스의 캔서파인드가 앞서 있습니다. 한 번의 채혈로 대장·위·간·췌장·폐·유방·난소·전립선암 8개 암종을 동시에 살피고 원발부위를 예측합니다. 2024년 11월 출시돼, 현재 국내 10개 상급종합병원에서 상용화됐습니다.</p>
+  <p>성능 수치는 임상과 발표 시점에 따라 조금씩 다릅니다. 1,034명 임상에서는 특이도 97.3%, 민감도 89.6%, 암종 예측 정확도 86.9%였고, ESMO 2024 발표에서는 민감도 87.7%, 특이도 96.1%, 예측 정확도 84.1%였습니다. 하나의 숫자로 단정하기보다, 이 정도 범위로 이해하시면 좋겠습니다.</p>
+  <p>회사는 적용 암종을 8종에서 20종으로 넓히고, 검사 비용을 100만 원에서 30만 원 수준으로 낮추는 것을 목표로 합니다. GC지놈의 아이캔서치는 2023년 9월 출시됐습니다(세부 성능 수치는 확인되지 않았습니다).</p>
+
+  <hr>
+
+  <h2>■ 그럼에도 남는 한계</h2>
+  <p>좋은 소식만 있는 것은 아닙니다. 2025년 2월 기준, MCED 검사 중 글로벌 규제기관의 의료기기로 정식 승인된 것은 없습니다. 주요 임상 가이드라인은 MCED를 권고하지 않으며, 표준 검진의 대체가 아닙니다.</p>
+  <p>가장 자주 지적되는 약점은 양성예측도입니다. 초기 PATHFINDER에서 PPV는 38%였습니다. 특이도가 99%대로 높아도, 암이 드문 일반 인구에서는 양성 판정의 다수가 위양성일 수 있습니다. 불필요한 추가 검사, 침습적 시술, 그리고 환자의 불안으로 이어질 수 있습니다.</p>
+  <p>극초기 암을 놓치기 쉽다는 점도 분명합니다. 진행된 암일수록 ctDNA가 많아 잘 잡히지만, 치료 효과가 가장 큰 극초기 암은 ctDNA가 적어 놓치기 쉽습니다. 전체 암종 민감도가 30.7%에 머문 것도 이 한계를 보여줍니다.</p>
+  <p>학계의 표현을 빌리면, 액체생검을 "큰 희망"으로 볼지 "과장"으로 볼지는 여전히 논쟁 중입니다. 조기 발견의 이득과 위양성·과진단의 해악, 그 사이의 균형이 핵심입니다.</p>
+
+  <hr>
+
+  <p>정리하면 이렇습니다.</p>
+  <p>액체생검은 2026년에 분명한 발판을 마련했습니다. 대장암 1차 검진과 방광암 치료 결정에서 규제 승인이라는 실질적 진전이 나왔고, 다중암 검진은 4기 진단을 줄이는 효과를 보여줬습니다. 다만 위양성과 극초기 암 검출이라는 숙제는 그대로 남아 있습니다.</p>
+
+  <blockquote>피 한 방울이 검진의 시작을 앞당길 수는 있어도, 아직 그것이 결론을 대신하지는 않습니다.</blockquote>
+
+  <div class="notice">이 글은 정보 제공을 위한 것이며, 의료적 진단이나 치료를 대체하지 않습니다. 검사 여부는 반드시 의료진과 상의해 결정하시길 권합니다.</div>
+
+  <div class="tags">
+    <span>#액체생검</span><span>#다중암조기진단</span><span>#ctDNA</span><span>#암조기검진</span><span>#Galleri</span><span>#Signatera</span><span>#Shield</span><span>#바이오트렌드2026</span>
+  </div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

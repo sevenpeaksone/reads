@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>불면증 자가진단부터 수면 회복까지 — 잠 못 드는 밤, 마음건강 돌보기</title>
+<style>
+  :root{ --ink:#222; --sub:#555; --line:#e5e7eb; --accent:#5b8def; }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:#f4f5f7;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    color:var(--ink); line-height:1.85;
+  }
+  .wrap{ max-width:700px; margin:0 auto; padding:48px 22px 80px; background:#fff; }
+  .cat{ display:inline-block; font-size:13px; font-weight:700; color:var(--accent);
+        letter-spacing:1px; background:#eaf1ff; padding:5px 12px; border-radius:20px; margin-bottom:18px; }
+  h1{ font-size:29px; line-height:1.4; font-weight:800; margin:0 0 14px; letter-spacing:-0.5px; }
+  .lead{ color:var(--sub); font-size:16px; }
+  h2{ font-size:21px; font-weight:800; margin:14px 0 14px; letter-spacing:-0.3px; }
+  p{ font-size:16.5px; margin:0 0 18px; }
+  ul{ font-size:16.5px; margin:0 0 18px; padding-left:22px; }
+  li{ margin:0 0 9px; }
+  hr{ border:0; border-top:1px solid var(--line); margin:34px 0; }
+  img{ max-width:100%; height:auto; display:block; margin:26px auto; border-radius:12px;
+       box-shadow:0 4px 16px rgba(0,0,0,.08); }
+  blockquote{ margin:26px 0; padding:18px 22px; background:#f7f9fc; border-left:4px solid var(--accent);
+              border-radius:0 10px 10px 0; font-size:17px; color:#333; font-weight:600; }
+  table{ width:100%; border-collapse:collapse; margin:24px 0; font-size:15.5px; }
+  th,td{ border:1px solid var(--line); padding:11px 14px; text-align:left; vertical-align:top; }
+  th{ background:#f4f7fc; font-weight:700; }
+  .notice{ font-size:14px; color:#777; background:#fafafa; border:1px solid var(--line);
+           border-radius:10px; padding:16px 18px; margin-top:8px; }
+  .tags{ margin-top:30px; font-size:14px; color:var(--accent); line-height:2; }
+  .tags span{ display:inline-block; margin-right:8px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+
+  <span class="cat">상담</span>
+  <h1>불면증 자가진단부터 수면 회복까지 — 잠 못 드는 밤, 마음건강 돌보기</h1>
+
+  <img src="./images/thumbnail.png" alt="잠 못 드는 밤, 마음을 돌보다 — 불면증 자가진단부터 수면 회복까지">
+
+  <p class="lead">이번 글에서는 불면과 마음건강, 그리고 수면 회복의 첫걸음을 정리해 보겠습니다.</p>
+  <p>먼저 세 줄로 요약하겠습니다.</p>
+  <ul>
+    <li>며칠의 불면은 흔하지만, 주 3회 이상·3개월 이상 지속되며 낮 생활에 지장을 준다면 만성 불면을 의심해 볼 수 있습니다.</li>
+    <li>불면과 불안·우울은 한쪽이 다른 쪽을 악화시키는 양방향 관계여서, 둘을 함께 돌봐야 합니다.</li>
+    <li>회복의 토대는 거창한 결심이 아니라 카페인·빛 관리, 일정한 기상 시간, 그리고 이완 같은 작은 습관입니다.</li>
+  </ul>
+  <p>한 가지 먼저 말씀드립니다. 이 글은 일반적인 정보 안내이며, 전문 상담이나 진료를 대체하지 않습니다. 증상이 오래가거나 일상에 큰 지장을 준다면 정신건강의학과 전문의나 수면 전문 의료진의 도움을 받으시길 권합니다.</p>
+
+  <hr>
+
+  <h2>■ 어디까지가 불면이고, 언제 '불면증'일까</h2>
+  <p>불면은 크게 세 가지 모습으로 나타납니다. 잠들기 어려운 입면 곤란, 자주 깨거나 다시 잠들기 어려운 수면 유지 곤란, 너무 일찍 깨어 다시 잠들지 못하는 조기 각성입니다.</p>
+  <p>며칠에서 몇 주의 일시적 불면은 흔하고, 정상 범위일 수 있습니다. 문제는 이것이 길게 이어질 때입니다.</p>
+  <p>DSM-5 진단 기준은 만성 불면장애를 이렇게 봅니다. 위 증상이 주 3회 이상, 최소 3개월 이상 지속되고, 충분히 잘 수 있는 기회가 있었는데도 나타나며, 낮 동안 피로·집중력 저하·기분 저하 같은 의미 있는 고통이나 기능 저하를 일으킬 때입니다.</p>
+  <p>여기서 '3개월'은 스스로 회복되는 일시적 수면 곤란과, 적극적 개입이 필요한 만성 불면증을 가르는 선입니다.</p>
+  <p>다만 이 기준은 참고용일 뿐, 스스로 병명을 단정하기 위한 도구가 아닙니다. 증상이 3개월 넘게 이어지거나 우울·불안이 함께 온다면, 혼자 가늠하기보다 전문가 상담을 받아보시길 권합니다.</p>
+
+  <img src="./images/body-1.png" alt="만성 불면 자가 점검 — 주 3회 이상, 3개월 이상 지속, 낮 기능 저하 체크리스트">
+
+  <hr>
+
+  <h2>■ 잠을 못 자서 힘든 걸까, 마음이 힘들어 잠을 못 자는 걸까</h2>
+  <p>불면과 마음건강은 서로 단단히 얽혀 있습니다.</p>
+  <p>우울증을 겪는 분의 60~90%가 수면장애를 호소하고, 만성 불면증을 겪는 분의 25% 이상에서 우울증이 나타납니다. 전체 불면증의 약 60~70%는 정서적 영역의 공존 증상을 동반합니다.</p>
+  <p>불안도 마찬가지입니다. 걱정과 불안은 몸의 각성을 높여 잠을 방해하고, 수면 문제가 심해지면 다시 불안이 깊어집니다. 불면증이 있는 분은 일반적인 경우보다 범불안장애를 겪을 확률이 약 2배 높다고 알려져 있습니다.</p>
+  <p>그래서 닭과 달걀 같습니다. 잠을 못 자서 마음이 힘든 건지, 마음이 힘들어 잠을 못 자는 건지 가려내기 어렵습니다.</p>
+  <p>중요한 것은 둘 중 하나만 보지 않는 것입니다. 수면만 붙들거나 기분만 다스리려 하기보다, 둘을 함께 돌볼 때 악순환의 고리가 느슨해집니다.</p>
+
+  <hr>
+
+  <h2>■ 자려고 애쓸수록 잠이 달아나는 역설</h2>
+  <p>상담에서 자주 만나는 장면이 있습니다. 잠을 자야 한다는 생각이 간절할수록, 오히려 더 말똥말똥해지는 경우입니다.</p>
+  <p>수면 연구는 이것을 '수면 노력(sleep effort)'이라 부릅니다. 잠을 통제하려는 인지적·행동적 시도가 도리어 각성을 높여 불면을 지속시킨다는 것입니다.</p>
+  <p>침대에 누워 "왜 잠이 안 오지"라고 곱씹는 순간, 몸은 긴장하고 잠은 더 멀어집니다. 앞서 말한 불안과 불면의 악순환이 바로 여기서 작동합니다.</p>
+  <p>흥미롭게도, 잠을 자려는 노력 자체가 불안과 우울 사이를 양방향으로 매개한다는 연구도 있습니다. 즉 애쓰는 행위 그 자체가 돌봄의 대상이 될 수 있다는 뜻입니다.</p>
+  <p>그래서 저는 이렇게 권합니다.</p>
+
+  <blockquote>"잠은 노력으로 붙잡는 것이 아니라, 힘을 뺄 때 찾아온다."</blockquote>
+
+  <p>물론 이것을 단순한 위로로만 두면 공허합니다. 이 통찰은 잠이 오지 않을 때 침대에서 일단 나오는 자극조절, 그리고 몸의 긴장을 푸는 이완 같은 구체적 행동으로 이어질 때 비로소 힘을 갖습니다.</p>
+
+  <hr>
+
+  <h2>■ 오늘 밤부터 할 수 있는 것 — 카페인과 빛</h2>
+  <p>가장 손에 잡히는 두 가지는 카페인과 빛 관리입니다.</p>
+  <p>먼저 카페인입니다. 건강한 성인에서 카페인 반감기는 보통 약 5시간(자료에 따라 4~6시간) 정도이며, 개인차가 큽니다. 카페인은 잠드는 시각을 늦추고 총 수면시간을 줄일 뿐 아니라, 깊은 잠의 비중을 줄여 자고 일어나도 개운하지 않게 만듭니다.</p>
+  <p>끊는 시점은 자료마다 조금 다릅니다. 통상 '취침 6시간 전'이면 충분하다는 지침이 있고, 반감기와 개인차를 고려해 '취침 8~10시간 전'을 권하는 보수적 견해도 있습니다. 정리하면 이렇습니다. 최소 6시간 전, 카페인에 민감하다면 8~10시간 전부터 줄여 보시길 권합니다.</p>
+  <p>카페인을 천천히 분해하는 분, 또는 경구 피임약을 복용하는 여성은 반감기가 더 길어질 수 있으니 더 일찍 끊는 편이 안전합니다.</p>
+  <p>다음은 빛입니다.</p>
+
+  <table>
+    <thead>
+      <tr><th>구분</th><th>수면에 미치는 영향</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>카페인</td><td>입면 지연·총 수면시간 감소·깊은 잠 비중 감소(효과는 일시적)</td></tr>
+      <tr><td>블루라이트</td><td>멜라토닌 분비 억제, 일주기 리듬 교란(영향이 며칠간 지속될 수 있음)</td></tr>
+    </tbody>
+  </table>
+
+  <p>스마트폰과 화면이 내뿜는 블루라이트는 멜라토닌 분비를 억제해 잠드는 시각을 늦추고 수면의 질을 떨어뜨립니다. 한 인용에 따르면 블루라이트가 멜라토닌을 최대 50%까지 줄일 수 있다고 하는데, 이는 특정 조건의 수치이므로 "줄일 수 있다" 정도로 받아들이는 편이 정확합니다.</p>
+  <p>저녁 화면 사용은 단 2시간만으로도 잠드는 시각을 늦추고 수면의 질을 떨어뜨릴 수 있습니다. 그래서 취침 최소 30분 전부터 TV·컴퓨터·스마트폰처럼 빛을 내는 기기를 멈추시길 권합니다.</p>
+  <p>예전엔 잠이 안 오면 습관처럼 휴대폰을 켰습니다. 지금은 그 시간을 화면을 끄는 신호로 바꿔 봅니다.</p>
+
+  <img src="./images/body-2.png" alt="취침 전 타임라인 — 오후 1~2시 이후 커피 자제, 취침 30분 전 화면 끄기">
+
+  <hr>
+
+  <h2>■ 회복의 토대 — 일정한 기상 시간과 아침 햇빛</h2>
+  <p>빛은 우리 몸의 일주기 시계를 환경에 맞추는 가장 강력한 신호입니다. 눈으로 받는 빛 노출이 24시간 주기의 수면-각성 리듬을 조율합니다.</p>
+  <p>송과체에서 나오는 멜라토닌은 '생물학적 밤' 동안 분비되어 몸에 어둠 신호를 보내고, 잠을 시작하고 유지하도록 돕습니다. 아침 빛은 리듬을 앞당겨 일찍 자고 일찍 깨기 쉽게 만들고, 늦은 밤의 빛은 리듬을 뒤로 밀어냅니다.</p>
+  <p>그래서 의외로 중요한 것이 잠드는 시각보다 일어나는 시각입니다. 주말에도 같은 시각에 일어나 아침 햇빛을 쬐는 일이 리듬을 안정시키는 토대가 됩니다.</p>
+  <p>다만 솔직히 인정하겠습니다. 이 습관은 하루아침에 완성되지 않습니다. 며칠 흔들려도 괜찮습니다. 다시 제자리로 돌아오면 됩니다.</p>
+
+  <hr>
+
+  <h2>■ 약보다 먼저 — CBT-I, 그리고 작은 이완</h2>
+  <p>만성 불면증의 1차 치료는 약물이 아닙니다.</p>
+  <p>미국내과학회와 DSM-5 가이드라인 기준으로, 성인의 만성 불면증에는 약물보다 불면증 인지행동치료(CBT-I)를 먼저 시도하도록 권합니다. CBT-I의 주요 구성은 다음과 같습니다.</p>
+  <ul>
+    <li>수면 교육·수면위생: 카페인·빛·불규칙한 시간 같은 방해 습관 교정</li>
+    <li>자극조절: 침대는 잠잘 때만. 잠이 오지 않으면 일어나 다른 공간에 있다가 졸릴 때 다시 눕기</li>
+    <li>수면제한: 침대에 누워 있는 시간을 실제 수면 시간에 가깝게 줄여 수면 효율 높이기</li>
+    <li>이완훈련: 호흡 운동, 점진적 근육이완, 마음챙김 명상으로 각성 줄이기</li>
+    <li>인지치료: 잠에 대한 비합리적 걱정과 믿음 바로잡기</li>
+  </ul>
+  <p>메타분석에서 CBT-I는 수면 효율과 수면의 질을 모두 개선했고, 불면증지수와 수면 질 지수 점수를 낮췄습니다. 다만 수면제한이나 이완훈련을 단독으로 쓰기보다 통합 프로그램으로 진행하는 편이 권장됩니다. 그리고 CBT-I는 전문가의 안내 아래 진행할 때 더 효과적입니다.</p>
+  <p>오늘 밤 혼자 시도해 볼 수 있는 작은 한 걸음은 이완입니다. 복식호흡, 점진적 근육이완, 마음챙김 명상은 몸과 마음의 각성을 낮춰 줍니다. 점진적 근육이완은 몸의 근육을 한 곳씩 차례로 긴장시켰다가 풀어 주며 긴장을 흘려보내는 방법입니다.</p>
+  <p>잠들기 전 마지막 1시간을 화면 없이 차분하게 보내면, 몸은 '이제 쉴 시간'이라는 신호를 알아차립니다.</p>
+
+  <img src="./images/body-3.png" alt="몸의 긴장을 흘려보내는 이완 — 복식호흡·점진적 근육이완·마음챙김 명상">
+
+  <hr>
+
+  <p>끝으로 한 마디만 더 드리겠습니다.</p>
+  <p>수면 회복은 완벽한 하룻밤을 만드는 일이 아니라, 회복으로 향하는 작은 첫걸음을 떼는 일입니다. 오늘은 커피를 조금 일찍 내려놓고, 잠들기 전 화면을 끄고, 내일 같은 시각에 일어나는 것 — 그 하나면 충분합니다.</p>
+  <p>그리고 혼자 버겁다면, 도움을 청하는 것도 회복의 일부입니다. 증상이 오래 이어지거나 마음까지 무겁다면, 전문가의 문을 두드려 보시길 권합니다.</p>
+  <p>잠이 다시 찾아오겠냐고 물으신다면, 천천히 그렇다고 답하겠습니다.</p>
+
+  <div class="notice">이 글은 일반적인 정보 안내이며, 전문 상담이나 진료를 대체하지 않습니다. 증상이 오래가거나 일상에 큰 지장을 준다면 정신건강의학과 전문의나 수면 전문 의료진의 도움을 받으시길 권합니다.</div>
+
+  <div class="tags">
+    <span>#불면증</span><span>#불면증자가진단</span><span>#수면장애</span><span>#수면위생</span><span>#불면과우울</span><span>#CBTI</span><span>#수면회복</span><span>#마음건강</span><span>#카페인반감기</span><span>#일주기리듬</span>
+  </div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

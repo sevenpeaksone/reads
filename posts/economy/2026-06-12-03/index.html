@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>비트코인 가상자산 2026, 제도권 편입과 개인투자자 체크리스트</title>
+<style>
+  :root{ --ink:#222; --sub:#555; --line:#e5e7eb; --accent:#f7931a; }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:#f4f5f7;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    color:var(--ink); line-height:1.8;
+  }
+  .wrap{ max-width:700px; margin:0 auto; padding:48px 22px 80px; background:#fff; }
+  .cat{ display:inline-block; font-size:13px; font-weight:700; color:var(--accent);
+        letter-spacing:1px; background:#fff3e3; padding:5px 12px; border-radius:20px; margin-bottom:18px; }
+  h1{ font-size:29px; line-height:1.4; font-weight:800; margin:0 0 14px; letter-spacing:-0.5px; }
+  .lead{ color:var(--sub); font-size:16px; }
+  h2{ font-size:21px; font-weight:800; margin:14px 0 14px; letter-spacing:-0.3px; }
+  p{ font-size:16.5px; margin:0 0 18px; }
+  hr{ border:0; border-top:1px solid var(--line); margin:34px 0; }
+  img{ max-width:100%; height:auto; display:block; margin:26px auto; border-radius:12px;
+       box-shadow:0 4px 16px rgba(0,0,0,.08); }
+  table{ width:100%; border-collapse:collapse; margin:8px 0 26px; font-size:15.5px; }
+  th,td{ border:1px solid var(--line); padding:11px 13px; text-align:left; }
+  th{ background:#fafafa; font-weight:700; }
+  blockquote{ margin:26px 0; padding:18px 22px; background:#fdf6ec; border-left:4px solid var(--accent);
+              border-radius:0 10px 10px 0; font-size:17px; color:#333; font-weight:600; }
+  .notice{ font-size:14px; color:#777; background:#fafafa; border:1px solid var(--line);
+           border-radius:10px; padding:16px 18px; margin-top:8px; }
+  .tags{ margin-top:30px; font-size:14px; color:var(--accent); line-height:2; }
+  .tags span{ display:inline-block; margin-right:8px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+
+  <span class="cat">경제</span>
+  <h1>비트코인 가상자산 2026, 제도권 편입과 개인투자자 체크리스트</h1>
+
+  <p class="lead">이번 글에서는 2026년 비트코인과 가상자산이 제도권으로 들어오는 흐름, 그리고 개인투자자가 알아두면 좋을 점들을 정리해 보겠습니다.</p>
+  <p>먼저 결론부터 짧게 말씀드립니다. 2026년은 미국과 한국 모두에서 가상자산 관련 법·제도가 빠르게 정비되는 해입니다. 다만 가격은 여전히 변동성이 크고, 제도 정비는 "진행 중"이지 완성된 상태가 아닙니다. 이 글은 투자 권유가 아니며, 특정 매수나 매도를 권하지 않습니다.</p>
+
+  <img src="./images/thumbnail.png" alt="2026년 비트코인 가상자산 제도권 편입 대표 이미지">
+
+  <hr>
+
+  <h2>■ 2026년 비트코인 시세, 지금 어디쯤인가</h2>
+  <p>먼저 가격부터 살펴봅니다. 2026년 6월 11일 비트코인은 약 6만 2,879달러에 거래되었습니다. 하루 전인 6월 10일에는 약 6만 1,531달러였습니다.</p>
+  <p>흐름을 거슬러 보면 변화가 또렷합니다. 비트코인은 2025년 10월 6일 약 12만 6,198달러로 사상 최고가를 찍었습니다. 지금 가격은 그 직전 고점보다 절반가량 낮은 수준인 셈입니다.</p>
+  <p>올해 안에서도 출렁임은 컸습니다. 4월 초에는 한때 7만 달러를 터치했고, 5월에는 ETF 자금이 몰리며 8만 달러 위에서 거래되기도 했습니다. 그러나 6월 들어 기관과 장기 보유자가 비중을 줄이면서 하방 압력이 커졌습니다. 6월 6일에는 6만 달러 선이 무너졌고, 하루 약 840억 달러 규모의 시가총액이 사라졌다는 보도가 나왔습니다.</p>
+  <p>한 가지는 분명히 짚고 가겠습니다. 가상자산은 전통 자산보다 변동성이 현저히 큰 자산군입니다. 가격이 예측하기 어렵게 급등락하며, 투자금 전액을 잃을 위험도 있습니다.</p>
+
+  <img src="./images/body-1.png" alt="2025년 10월 고점에서 2026년 6월까지 비트코인 가격 흐름 라인 그래프">
+
+  <hr>
+
+  <h2>■ 미국의 두 법, GENIUS Act와 CLARITY Act</h2>
+  <p>제도권 편입의 큰 축은 미국에서 먼저 움직였습니다. 두 개의 법을 나눠 보겠습니다.</p>
+  <p>먼저 스테이블코인을 다루는 GENIUS Act입니다. 이 법은 2025년 7월 18일 트럼프 대통령의 서명으로 이미 법제화되었습니다. 핵심은 스테이블코인을 미 달러나 저위험 자산으로 1대 1 완전 준비금으로 뒷받침하도록 의무화한 것입니다. 발행자에게 준비금·감사·재무건전성 요건을 부과하는 연방 규제 틀이라고 이해하시면 됩니다. 규제당국은 2026년 7월까지 최종 시행규칙을 마련하는 것을 목표로 하고 있습니다.</p>
+  <p>다음은 시장 구조를 정리하는 CLARITY Act입니다. 정식 명칭은 디지털자산 시장구조법(H.R.3633)입니다. SEC와 CFTC 사이의 오래된 관할권 다툼을 정리하는 것이 이 법의 핵심입니다. 자산을 세 갈래로 나누는데, 정리하면 이렇습니다.</p>
+
+  <table>
+    <thead>
+      <tr><th>분류</th><th>예시</th><th>담당 규제기관</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>디지털 상품</td><td>비트코인, 이더리움 등</td><td>CFTC</td></tr>
+      <tr><td>투자계약자산</td><td>중앙팀 자금조달용 토큰</td><td>SEC</td></tr>
+      <tr><td>결제용 스테이블코인</td><td>달러 연동 코인 등</td><td>은행 규제당국</td></tr>
+    </tbody>
+  </table>
+
+  <p>다만 여기서 신중하게 봐야 할 부분이 있습니다. CLARITY Act는 2026년 6월 현재 아직 통과되지 않았습니다. 2026년 5월 14일 상원 은행위원회를 15대 9로 통과했고, 하원은 이미 통과한 상태입니다. 6월 1일에는 상원 본회의 일정에 등재되어 표결을 기다리고 있습니다. 백악관은 7월 4일 통과를 목표로 한다고 알려져 있습니다. 즉 "통과됐다"가 아니라 "통과 절차가 진행 중"이라고 보는 편이 정확합니다.</p>
+
+  <hr>
+
+  <h2>■ 기관은 들어오고, 또 일부는 나가고</h2>
+  <p>2026년의 또 다른 키워드는 기관 채택입니다. 다만 흐름이 한 방향만은 아니라는 점이 중요합니다.</p>
+  <p>좋은 신호부터 보겠습니다. 미국 현물 비트코인 ETF는 출시 이후 누적 530억 달러 이상이 유입됐습니다. 출시 전 애널리스트들이 제시한 최대 예상치의 세 배를 넘는 규모입니다. 2026년 4월에는 월 24억 4,000만 달러 순유입을 기록하며 3월의 거의 두 배로 늘었습니다. 블랙록의 IBIT, 피델리티의 FBTC가 유입의 대부분을 이끌었습니다.</p>
+  <p>기업의 곳간에도 비트코인이 쌓였습니다. 2026년 1분기에만 기업 트레저리가 약 6만 2,000 BTC를 추가했습니다. MicroStrategy는 보유량을 45만 BTC까지 늘렸습니다.</p>
+  <p>그러나 아쉬운 장면도 같은 해에 함께 있었습니다. 2026년 5월에는 현물 비트코인 ETF에서 약 23억 달러가 순유출되며 올해 최대 월간 이탈을 기록했습니다. 장기 누적으로는 대규모 유입, 5~6월 단기로는 이탈 국면. 같은 시장 안에서 두 흐름이 공존하고 있는 셈입니다.</p>
+
+  <img src="./images/body-2.png" alt="비트코인 ETF 자금 흐름 비교 — 누적 유입과 5월 순유출">
+
+  <hr>
+
+  <h2>■ 한국은 어디까지 왔나</h2>
+  <p>이제 국내 상황입니다. 한국도 여러 갈래에서 제도를 정비하고 있지만, 아직 갈 길이 남아 있습니다.</p>
+  <p>과세부터 보겠습니다. 가상자산 투자소득 과세는 시행 시점이 2027년 1월 1일로 2년 유예됐습니다. 기타소득으로 분류해 250만 원을 공제하고 22% 세율을 적용하는 방식이 거론됩니다.</p>
+  <p>다만 과세는 2027년이라 해도, 정보 수집은 더 빨리 시작됩니다. CARF, 즉 암호화자산 자동정보교환체계에 따라 2026년 1월 1일부터 국내 가상자산사업자는 고객의 해외 납세의무 관련 정보를 의무적으로 수집해야 합니다. 정보 제공을 거부하면 거래가 제한될 수 있습니다.</p>
+  <p>법 제도도 단계적으로 진행 중입니다. 이용자 보호에 초점을 둔 1단계법은 이미 시행되고 있습니다. 시장 인프라까지 규율하는 2단계법(디지털자산기본법)은 2026년 내 통과가 예상됩니다. 스테이블코인 입법도 미국과 홍콩의 영향으로 정부가 완료를 약속한 상태입니다.</p>
+  <p>국내 투자자들이 자주 묻는 현물 ETF는 어떨까요. 미국과 홍콩이 승인했음에도, 한국 금융당국은 여전히 신중한 입장입니다. 가상자산이 자본시장법상 기초자산에 해당하는지 불명확하다는 이유로, 해외 현물 ETF 투자까지 제한하고 있습니다. 도입에는 법령 개정과 수탁 인프라 구축 같은 정비가 먼저 필요합니다. 법인의 시장 참여 역시 2026년이 본격화의 첫 해가 될 것으로 전망됩니다.</p>
+  <p>정리하자면, 한국은 "준비 중"이라는 표현이 가장 정확합니다.</p>
+
+  <hr>
+
+  <h2>■ 개인투자자가 꼭 알아둘 리스크</h2>
+  <p>제도가 정비된다고 위험이 사라지는 것은 아닙니다. 오히려 이 대목을 가장 차분히 읽으셨으면 합니다.</p>
+  <p>첫째, 변동성과 전액 손실 위험입니다. 앞서 본 것처럼 가격은 극심하게 등락합니다. 매매·대출 플랫폼은 전통 금융 같은 투자자 보호장치가 부족할 수 있습니다.</p>
+  <p>둘째, 사기 규모가 작지 않습니다. 2025년 한 해 가상자산 사기·부정으로 약 170억 달러가 손실됐다는 집계가 있습니다. 2026년 들어서는 고수익을 보장한다는 투자사기와 이른바 "돼지 도살" 수법이 특히 흔합니다. AI 기반 딥페이크 사기가 고액 사기의 약 40%를 차지한다는 점도 눈여겨볼 만합니다.</p>
+  <p>규제당국의 경고는 한 문장으로 압축됩니다. "쉽고 보장된 수익을 약속하면 사기일 가능성이 매우 높습니다."</p>
+
+  <img src="./images/body-3.png" alt="가상자산 투자 주요 사기 유형 인포그래픽 — 돼지 도살, 딥페이크, 고수익 보장">
+
+  <hr>
+
+  <p>끝으로 한 가지만 더 짚겠습니다. 2026년의 풍경은 분명 예전과 다릅니다. 예전엔 가상자산이 제도 바깥의 영역처럼 여겨졌습니다. 지금은 미국과 한국 모두에서 법과 규제가 빠르게 자리를 잡아가고 있습니다.</p>
+  <p>그러나 제도화가 곧 안전을 보장하지는 않습니다. 가격은 여전히 출렁이고, 국내 제도는 아직 다듬어지는 중입니다.</p>
+
+  <blockquote>제도는 빠르게 들어오고 있지만, 위험은 그대로 남아 있습니다.</blockquote>
+
+  <p>그러니 무엇을 사고 팔지 결정하기 전에, 먼저 자신이 감당할 수 있는 범위부터 헤아려 보시길 권합니다.</p>
+
+  <div class="notice">이 글은 일반적 정보 제공을 목적으로 하며, 투자 권유가 아닙니다. 가상자산은 변동성이 매우 크고 원금 전액 손실의 위험이 있습니다. 투자 판단과 책임은 본인에게 있습니다.</div>
+
+  <div class="tags">
+    <span>#비트코인2026</span><span>#가상자산제도화</span><span>#비트코인시세</span><span>#CLARITY법</span><span>#GENIUS법</span><span>#디지털자산기본법</span><span>#비트코인ETF</span><span>#가상자산과세</span><span>#가상자산투자리스크</span><span>#암호화폐규제</span>
+  </div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>
