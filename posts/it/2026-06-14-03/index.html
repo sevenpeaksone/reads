@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 데이터센터 전력난 2026 — HBM4와 전력이 가른 반도체 슈퍼사이클</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: #f5f6f7;
+    font-family: 'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    color: #1a1a1a;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .post {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 48px 36px 64px;
+  }
+  @media (max-width: 740px) {
+    .post { padding: 28px 18px 48px; }
+  }
+  h1.title {
+    font-size: 27px;
+    font-weight: 800;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px;
+    color: #111;
+  }
+  .post p {
+    font-size: 16.5px;
+    line-height: 1.85;
+    margin: 0 0 16px;
+    letter-spacing: -0.01em;
+  }
+  .post img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 28px auto;
+    border-radius: 6px;
+  }
+  h2.subhead {
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1.45;
+    letter-spacing: -0.02em;
+    margin: 40px 0 18px;
+    padding-bottom: 10px;
+    color: #0d0d0d;
+    border-bottom: 2px solid #1a1a1a;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #e3e5e8;
+    margin: 36px 0;
+  }
+  ul {
+    margin: 0 0 18px;
+    padding-left: 22px;
+  }
+  ul li {
+    font-size: 16.5px;
+    line-height: 1.8;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  blockquote {
+    margin: 22px 0;
+    padding: 14px 20px;
+    background: #f4f7fb;
+    border-left: 4px solid #3a6ea5;
+    color: #2a3b4d;
+    font-size: 16px;
+    line-height: 1.75;
+    border-radius: 0 6px 6px 0;
+  }
+  blockquote p { margin: 0; font-size: 16px; }
+  .pullquote {
+    margin: 30px 0;
+    padding: 22px 24px;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.7;
+    border-radius: 8px;
+    text-align: center;
+    letter-spacing: -0.01em;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 15.5px;
+  }
+  table th, table td {
+    border: 1px solid #dcdfe3;
+    padding: 12px 14px;
+    text-align: center;
+    line-height: 1.6;
+  }
+  table th {
+    background: #f0f3f6;
+    font-weight: 700;
+    color: #111;
+  }
+  table tr:nth-child(even) td { background: #fafbfc; }
+  .tags {
+    margin-top: 36px;
+    line-height: 2.1;
+  }
+  .tags span {
+    display: inline-block;
+    color: #2f6db5;
+    font-size: 15px;
+    margin-right: 8px;
+    font-weight: 500;
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="post">
+
+  <h1 class="title">[IT] AI 데이터센터 전력난 2026 — HBM4와 전력이 가른 반도체 슈퍼사이클</h1>
+
+  <img src="./images/thumbnail.png" alt="AI 데이터센터 서버랙과 전력 인프라를 배경으로 'AI 데이터센터 전력난 2026'과 'HBM4'를 강조한 대표 썸네일 이미지">
+
+  <p>2026년 반도체 슈퍼사이클의 두 축은 분명합니다.<br>
+  하나는 HBM4라는 메모리 기술, 다른 하나는 그 칩을 돌릴 전력입니다.<br>
+  이 글에서는 AI 데이터센터 전력난과 HBM4가 어떻게 맞물려 흘러가는지 정리해 보겠습니다.</p>
+
+  <p>먼저 핵심부터 세 줄로 요약합니다.</p>
+
+  <ul>
+    <li>데이터센터 전력 소비가 급증해, 한 추정치는 2026년 1,000TWh 돌파를 전망합니다(집계 범위에 따라 편차가 큽니다).</li>
+    <li>HBM4는 2026년 2월 삼성·SK하이닉스가 세계 최초 양산에 들어갔고, 엔비디아 '베라 루빈'에 처음 탑재됐습니다.</li>
+    <li>진짜 병목은 칩이 아니라 변압기·송전망 같은 전력 인프라로 옮겨갔습니다.</li>
+  </ul>
+
+  <hr>
+
+  <h2 class="subhead">■ 데이터센터가 먹어 치우는 전력, 얼마나 늘었나</h2>
+
+  <p>전 세계 데이터센터 전력 소비량은 2024년 약 415TWh였습니다.<br>
+  전 세계 전력 소비의 약 1.5%에 해당하는 규모입니다.<br>
+  이 수치는 2017년 이후 연평균 약 12%씩 늘었습니다.<br>
+  전체 전력 수요 증가 속도의 네 배가 넘습니다.</p>
+
+  <p>증가 속도는 더 빨라지는 추세입니다.<br>
+  IEA는 2026년 데이터센터 전력 소비가 1,000TWh를 넘어설 것으로 봤습니다.<br>
+  한 추정치는 약 1,050TWh에 이를 것으로 전망합니다.<br>
+  데이터센터를 하나의 국가로 친다면, 일본과 러시아 사이의 세계 5위 전력 소비국에 해당하는 양입니다.</p>
+
+  <img src="./images/body-1.png" alt="2024년 415TWh에서 2026년 1,000TWh로 치솟는 전 세계 데이터센터 전력 수요 증가 추이 그래프">
+
+  <p>다만 수치는 출처마다 차이가 납니다.<br>
+  '2026년 1,000TWh 돌파'는 암호화폐 채굴을 포함한 단기 전망입니다.<br>
+  반면 IEA의 다른 전망은 2030년 약 945TWh로 2024년 대비 두 배가 될 것으로 봅니다.<br>
+  보고서 버전과 집계 범위가 달라 직접 비교가 어렵습니다.<br>
+  어느 쪽이든 방향은 같습니다 — 데이터센터가 전력 수요 증가를 끌고 간다는 것입니다.</p>
+
+  <p>증가의 핵심 동인은 AI입니다.<br>
+  AI 가속 서버의 전력 소비는 연 30% 성장이 예상됩니다.<br>
+  데이터센터는 2030년까지 전 세계 전력 수요 증가분의 거의 절반을 차지할 전망입니다.</p>
+
+  <hr>
+
+  <h2 class="subhead">■ HBM4, 무엇이 달라졌나</h2>
+
+  <p>HBM4는 2026년 AI 반도체 슈퍼사이클의 기술적 분수령입니다.<br>
+  고대역폭메모리, 즉 칩과 칩 사이로 데이터를 빠르게 실어 나르는 메모리의 4세대입니다.<br>
+  스택당 대역폭은 2.0~2.8TB/s에 이르고, 2026년 양산 기준으로 2.0TB/s 이상을 목표로 합니다.<br>
+  전 세대인 HBM3E와 비교하면 큰 폭의 향상입니다.</p>
+
+  <p>흥미로운 점은 전력입니다.<br>
+  HBM4 스택은 피크 동작 시 12~15W가량을 씁니다.<br>
+  HBM3E 대비 30~40% 늘어난 수치입니다.<br>
+  그런데 와트당 효율 지표는 오히려 최대 40% 개선됐습니다.<br>
+  동작 주파수를 낮춰 PHY 전압을 떨어뜨린 덕분입니다.</p>
+
+  <img src="./images/body-2.png" alt="HBM3E와 HBM4 핵심 사양(대역폭, 스택당 소비전력, 와트당 효율) 비교 표 그래픽">
+
+  <p>효율 개선의 또 다른 비결은 베이스 다이입니다.<br>
+  이전엔 메모리 업체가 직접 만들던 부분입니다.<br>
+  지금은 TSMC의 12nm 로직 공정을 빌려 만듭니다.<br>
+  이 변화로 대역폭을 두 배, 전력 효율을 40% 이상 끌어올렸습니다.</p>
+
+  <p>물론 한계도 있습니다.<br>
+  가장 큰 과제는 발열입니다.<br>
+  스택이 높고 조밀해질수록 중앙부의 열을 빼내기가 어려워집니다.<br>
+  그래서 2026~2027년에는 칩에 직접 액체를 흘리는 액체냉각 도입이 급증할 것으로 전문가들은 봅니다.<br>
+  실제로 중국 창신메모리(CXMT)는 발열 등 기술 난항으로 HBM4 일정이 밀렸습니다.</p>
+
+  <hr>
+
+  <h2 class="subhead">■ 양산 경쟁과 엔비디아 '루빈'</h2>
+
+  <p>양산의 출발선은 2026년 2월이었습니다.<br>
+  삼성전자와 SK하이닉스가 이 시점에 HBM4 양산을 확정했습니다.<br>
+  세계 최초입니다.<br>
+  미국 마이크론은 2026년 2분기 양산을 전망합니다.</p>
+
+  <p>시장 판도도 흔들리고 있습니다.<br>
+  HBM3E까지는 SK하이닉스가 독보적이었습니다.<br>
+  HBM4로 넘어오면 삼성과 마이크론의 추격이 거세질 전망입니다.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>기업</th>
+        <th>2026년 HBM4 점유율 전망</th>
+        <th>양산 시점</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>SK하이닉스</td><td>54~55%</td><td>2026년 2월</td></tr>
+      <tr><td>삼성전자</td><td>28~29%</td><td>2026년 2월</td></tr>
+      <tr><td>마이크론</td><td>17~18%</td><td>2026년 2분기</td></tr>
+    </tbody>
+  </table>
+
+  <blockquote><p>점유율은 엔비디아·구글·AMD 합산 기준 전망치입니다.</p></blockquote>
+
+  <p>이 HBM4를 처음 품은 칩이 엔비디아 '베라 루빈'입니다.<br>
+  2026년 1월 CES에서 젠슨 황 CEO가 공개했습니다.<br>
+  전 세대 블랙웰 대비 추론 성능 5배, 토큰당 비용은 10분의 1로 줄였다고 합니다.</p>
+
+  <img src="./images/body-3.png" alt="엔비디아 베라 루빈 플랫폼 구조와 HBM4 탑재를 보여주는 다이어그램">
+
+  <p>다만 순항만 한 것은 아닙니다.<br>
+  2026년 4월에는 엔비디아가 루빈 생산을 25% 줄였다는 보도가 나왔습니다.<br>
+  HBM4 공급 병목이 원인으로 지목됐습니다.<br>
+  이후 6월 컴퓨텍스에서는 젠슨 황이 "본격 양산에 들어갔다"고 밝혔습니다.<br>
+  상반기 내내 상황이 유동적이었던 셈입니다.</p>
+
+  <hr>
+
+  <h2 class="subhead">■ 진짜 병목은 변압기와 송전망</h2>
+
+  <p>이쯤에서 시선을 칩 바깥으로 돌릴 필요가 있습니다.<br>
+  예전엔 병목이 서버 랙 안에 있었습니다.<br>
+  지금은 변전소로 옮겨갔습니다.<br>
+  전력을 끌어올 수 있느냐가 신규 데이터센터 건설의 최대 제약이 됐습니다.</p>
+
+  <p>특히 변압기 부족이 심각합니다.<br>
+  북미 대형 변압기의 약 70%가 기대수명 25년을 넘긴 노후 설비입니다.<br>
+  교체 수요는 쌓이는데 만들 곳이 부족합니다.<br>
+  리드타임은 과거 1년 전후에서 한국 보도 기준 최대 3~4년으로 늘었습니다.<br>
+  미국에서는 최대 5년까지 연장됐다는 보도도 있습니다.</p>
+
+  <img src="./images/body-4.png" alt="변압기·송전망 등 전력 인프라 병목으로 지연되는 데이터센터 건설 현장 이미지">
+
+  <p>결과는 차질입니다.<br>
+  빅테크가 2026년 AI에 6,500억 달러 이상을 쓰겠다고 했습니다.<br>
+  그럼에도 미국 데이터센터 프로젝트의 거의 절반이 계통·부품 병목으로 지연되거나 취소될 수 있다는 전망이 나옵니다.<br>
+  2026년 목표 미국 용량 약 12GW 중 실제 착공 중인 것은 3분의 1 수준입니다.</p>
+
+  <p>한국도 예외가 아닙니다.<br>
+  노후 전력망 교체 시기와 AI 데이터센터 수요가 겹치면서, 변압기·송전선로·배전반 관련주가 오르는 전력 인프라 슈퍼사이클이 진행 중입니다.</p>
+
+  <hr>
+
+  <h2 class="subhead">■ 슈퍼사이클의 빛, 그리고 해법</h2>
+
+  <p>전력난의 이면에는 사상 최대 실적이 있습니다.<br>
+  2026년 SK하이닉스와 삼성전자의 영업이익 합계가 200조 원을 넘어 최대 250조 원에 달할 것이라는 관측이 나옵니다.<br>
+  KB증권은 삼성전자 145조 원, SK하이닉스 115조 원으로 양사 모두 '영업이익 100조 클럽' 진입을 전망했습니다.<br>
+  보도에 따르면 SK하이닉스는 2026년 1분기에 창사 이래 최고 실적을 냈습니다.</p>
+
+  <p>이 호황의 엔진은 HBM입니다.<br>
+  SK하이닉스 뉴스룸조차 2026년을 "HBM이 이끄는 메모리 슈퍼사이클"로 규정했습니다.</p>
+
+  <p>해법 쪽도 빠르게 움직입니다.<br>
+  빅테크는 원전에 베팅하고 있습니다.<br>
+  메타는 원전 기업 세 곳과 2035년까지 총 6.6GW 규모 전력 공급 계약을 맺었습니다.<br>
+  마이크로소프트는 스리마일아일랜드 원전 재가동에 나섰습니다.<br>
+  구글은 SMR 스타트업 카이로스파워와 총 500MW 전력 구매 계약을 체결했습니다.</p>
+
+  <p>한국 정부도 재생에너지만으로는 한계가 있다고 보고 원전 2기와 SMR 1기 신규 구축을 결정했습니다.</p>
+
+  <p>다만 근본 문제는 따로 있습니다.<br>
+  데이터센터를 짓는 속도와, 발전·송전 설비가 돌아가는 시점 사이의 '시간 격차'입니다.<br>
+  발전만 늘려선 풀리지 않습니다.<br>
+  변압기와 송전망 병목을 함께 풀어야 합니다.</p>
+
+  <hr>
+
+  <p>정리하면 이렇습니다.<br>
+  2026년 반도체 슈퍼사이클은 HBM4라는 가속 페달과 전력난이라는 제동을 동시에 안고 달립니다.<br>
+  빠른 칩은 이미 나왔습니다.<br>
+  문제는 그 칩에 전기를 댈 인프라가 제때 따라붙느냐입니다.</p>
+
+  <div class="pullquote">"칩의 시간과 전력의 시간, 그 격차를 메우는 쪽이 이번 사이클의 승자가 될 것입니다."</div>
+
+  <p>가속과 제동 사이, 2026년의 균형점은 어디일지 함께 지켜보면 좋겠습니다.</p>
+
+  <hr>
+
+  <div class="tags">
+    <span>#AI데이터센터</span><span>#전력난</span><span>#HBM4</span><span>#반도체슈퍼사이클</span><span>#SK하이닉스</span><span>#삼성전자</span><span>#엔비디아루빈</span><span>#변압기부족</span><span>#SMR</span><span>#메모리반도체</span>
+  </div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>
