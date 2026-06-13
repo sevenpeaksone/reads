@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>애착 유형 이해하기 — 불안형·회피형, 내 관계 패턴의 뿌리</title>
+<style>
+  :root {
+    --text: #2b2b2b;
+    --sub: #555;
+    --accent: #3a6ea5;
+    --line: #e3e3e3;
+    --tag-bg: #f0f4f8;
+    --tag-text: #3a6ea5;
+    --quote-bg: #f7f9fb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+    color: var(--text);
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+    line-height: 1.8;
+    font-size: 16.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    background: #ffffff;
+  }
+  h1 {
+    font-size: 27px;
+    font-weight: 800;
+    line-height: 1.45;
+    letter-spacing: -0.4px;
+    margin: 0 0 28px;
+    color: #1a1a1a;
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: -0.3px;
+    margin: 52px 0 18px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    color: #1a1a1a;
+  }
+  p {
+    margin: 0 0 20px;
+  }
+  strong { font-weight: 700; color: #1a1a1a; }
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 28px auto;
+    border-radius: 8px;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
+  ul {
+    margin: 0 0 20px;
+    padding-left: 22px;
+  }
+  li {
+    margin-bottom: 12px;
+  }
+  blockquote {
+    margin: 32px 0;
+    padding: 22px 26px;
+    background: var(--quote-bg);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+  blockquote p { margin: 0; }
+  .type-block { margin-bottom: 22px; }
+  .type-block .label {
+    display: block;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .disclaimer {
+    font-size: 15px;
+    color: var(--sub);
+    background: #f7f7f7;
+    padding: 20px 22px;
+    border-radius: 8px;
+    margin: 32px 0;
+    line-height: 1.75;
+  }
+  .tags {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tags span {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 16px;
+  }
+  @media (max-width: 600px) {
+    .wrap { padding: 32px 18px 60px; }
+    h1 { font-size: 23px; }
+    h2 { font-size: 19px; }
+    body { font-size: 16px; }
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+
+  <h1>[상담] 애착 유형 이해하기 — 불안형·회피형, 내 관계 패턴의 뿌리</h1>
+
+  <img src="./images/thumbnail.png" alt="애착 유형 이해하기 — 불안형·회피형, 내 관계 패턴의 뿌리">
+
+  <hr>
+
+  <p>오늘은 애착 유형에 대해 이야기해 보려 합니다.</p>
+
+  <p>누군가와 가까워지면 불안해지는 사람이 있고, 반대로 가까워질수록 거리를 두고 싶어지는 사람이 있습니다. 이 글은 그 차이가 어디서 오는지, 불안형과 회피형이라는 패턴의 뿌리를 차분히 정리한 것입니다.</p>
+
+  <p>먼저 짧게 결론부터 말씀드리면 이렇습니다. 애착 유형은 어릴 적 관계 경험에서 만들어진 마음의 습관이며, 낙인이 아니라 이해의 출발점입니다. 그리고 무엇보다 — 바뀔 수 있습니다.</p>
+
+  <hr>
+
+  <h2>애착이론은 어디서 시작됐나</h2>
+
+  <p>애착이론의 창시자는 존 볼비입니다.</p>
+
+  <p>그는 인간에게 여러 행동 체계가 내재되어 있다고 보았습니다. 그중 가장 중요한 것으로 영아의 애착 체계, 탐색 체계, 그리고 성인의 양육 체계를 꼽았습니다.</p>
+
+  <p>볼비의 이론에 실증적 근거를 더한 사람은 메리 에인스워스입니다. 그는 우간다와 볼티모어 연구를 통해 이론을 발전시켰습니다.</p>
+
+  <p>여기서 중요한 개념이 하나 등장합니다. 바로 '안전기지(secure base)'입니다.</p>
+
+  <p>에인스워스는 애착을 "탐색을 위한 안전기지"로 정의했습니다. 양육자가 스트레스 상황에서 안정감을 제공할 때 이 안전기지가 만들어집니다. 그리고 이 토대가 있어야 아이는 안심하고 바깥 세상을 탐색합니다.</p>
+
+  <img src="./images/body-1.png" alt="안전기지(secure base) 개념 일러스트 — 양육자를 중심으로 아이가 탐색을 나갔다 돌아오는 모습">
+
+  <hr>
+
+  <h2>낯선 상황 실험과 네 가지 분류</h2>
+
+  <p>에인스워스는 조수 바버라 위티그와 함께 구조화된 실험실 절차를 설계했습니다. '낯선 상황 절차(Strange Situation Procedure)'라 불리는 실험입니다.</p>
+
+  <p>절차는 이렇습니다. 생후 약 11개월 된 영아 56명을 새로운 환경에 둡니다. 양육자가 두 차례 아이를 떠납니다. 처음엔 낯선 사람과 함께, 다음엔 혼자 남깁니다. 그 후 양육자가 돌아오고, 연구진은 아이의 반응을 기록해 애착 유형을 분류했습니다.</p>
+
+  <p>안정적으로 애착된 아이는 양육자를 탐색의 안전기지로 삼았습니다. 분리라는 스트레스를 겪은 뒤에도 다시 위로받고 안정을 회복할 수 있는 아이였습니다.</p>
+
+  <p>에인스워스의 원래 분류는 세 가지였습니다 — 안정형, 회피형, 양가(저항)형. 이후 메인과 솔로몬이 혼란형을 네 번째 유형으로 더했습니다.</p>
+
+  <hr>
+
+  <h2>성인 애착 유형 네 가지</h2>
+
+  <p>성인의 애착은 두 개의 축으로 설명됩니다.</p>
+
+  <p>하나는 불안 축입니다. 버림받음과 거절에 대한 두려움이 얼마나 큰가를 말합니다. 다른 하나는 회피 축입니다. 친밀함과 의존을 얼마나 불편해하는가를 말합니다.</p>
+
+  <p>이 두 축이 결합해 네 가지 유형을 만듭니다.</p>
+
+  <img src="./images/body-2.png" alt="성인 애착 유형 2x2 사분면 표 — 불안 축과 회피 축으로 본 안정형·불안형·회피형·혼란형">
+
+  <div class="type-block">
+    <span class="label">안정형 — 낮은 불안, 낮은 회피</span>
+    친밀함과 독립을 모두 편안하게 다룹니다. 필요할 때 곁에 있어줄 것이라 타인을 신뢰합니다. 갈등 상황에서도 비교적 안정적으로 소통합니다.
+  </div>
+
+  <div class="type-block">
+    <span class="label">불안형(불안집착형) — 높은 불안, 낮은 회피</span>
+    정서적 친밀감과 가까움을 깊이 갈망합니다. 끊임없이 가까움을 추구하면서, 작은 거리감에도 괴로워합니다. 파트너에게 자주 안심과 인정을 구하고, 그 욕구가 채워지지 않으면 쉽게 불안과 고통을 느낍니다. 그래서 의존적이고 요구가 많아 보이기도 합니다. 양육자의 반응이 일관되지 않았던 경우 — 때론 반응하고 때론 무반응이었던 경우와 자주 연결됩니다.
+  </div>
+
+  <div class="type-block">
+    <span class="label">회피형(무시형) — 낮은 불안, 높은 회피</span>
+    정서적 친밀함을 멀리하고, 친밀한 관계의 중요성을 축소하는 경향이 있습니다. 대개 스스로를 보호하기 위한 방식입니다. 강한 자기충족감과 독립성을 중시합니다. 때로 무심하거나 거리를 두는 듯 보이고, 타인에 대한 의존을 두려워합니다.
+  </div>
+
+  <div class="type-block">
+    <span class="label">혼란형(두려움-회피형) — 높은 불안, 높은 회피</span>
+    친밀한 관계를 원하면서 동시에 두려워합니다. 과거의 트라우마나 부정적 경험 때문에 너무 가까워지는 것을 겁냅니다. 거절의 신호가 없는데도 거절을 미리 감지하고, 스스로 물러나 관계를 끊어 자기를 보호하려 들기도 합니다. 관계가 흔들릴 때면 "모든 것이 무너진다"는 압도적 두려움과 분노를 느끼며 투쟁-도피에 가까운 상태로 휘청이기도 합니다. 사랑을 원하는 마음과 두려워하는 마음 사이를 오가는 패턴이 긴장과 오해를 낳습니다.
+  </div>
+
+  <hr>
+
+  <h2>불안형과 회피형, 왜 자꾸 부딪힐까</h2>
+
+  <p>연애와 인간관계에서 가장 자주 보이는 조합이 불안형과 회피형입니다.</p>
+
+  <p>불안형은 높은 친밀감을 원합니다. 거리감을 느끼면 괴로워합니다. 회피형은 친밀함을 피합니다. 독립과 자기신뢰를 강하게 원합니다.</p>
+
+  <p>이 둘이 만나면 고통스러운 악순환에 갇히기 쉽습니다. 관계 전문가 아미르 레빈과 레이철 헬러는 저서 『Attached』에서 이를 '불안-회피의 덫(Anxious–Avoidant Trap)'이라 불렀습니다. 커플이 수개월에서 수년간 이 패턴에 갇히기 때문입니다.</p>
+
+  <p>악순환은 이렇게 돌아갑니다.</p>
+
+  <p>예를 들어, 한쪽은 답장이 늦으면 불안해 연락을 늘립니다. 다른 한쪽은 그 연락을 부담으로 느껴 더 멀어집니다. 그 위축이 다시 불안한 쪽의 거절 공포를 확인시킵니다. 쫓을수록 상대는 더 도망갑니다. 추격과 회피가 맞물려 돌아가는 셈입니다.</p>
+
+  <img src="./images/body-3.png" alt="추격-회피 악순환 순환 다이어그램 — 불안형의 연락, 회피형의 물러남, 거절 공포 확인이 맞물리는 패턴">
+
+  <p>흥미로운 점이 있습니다. 두 유형은 종종 자석처럼 끌립니다. 회피형은 상대가 집착하는 듯 보이니 자기 '공간'이 정당하다고 느낍니다. 불안형은 상대의 거리감으로 거절 공포가 확인됩니다. 서로의 패턴이 상대의 패턴을 강화하는 — 잘못된 방식으로 맞아떨어지는 끌림입니다.</p>
+
+  <p>다만 안정형은 결이 다릅니다. 안정형은 비교적 안정적인 관계를 만듭니다. 불안형이나 회피형이 안정형 파트너를 만나 처음으로 안정감을 경험하는 경우도 있습니다.</p>
+
+  <hr>
+
+  <h2>이 패턴은 어디서 왔을까</h2>
+
+  <p>애착은 초기 양육 상호작용에서 만들어집니다.</p>
+
+  <p>양육자가 아이의 욕구에 어떻게 반응하는가, 그 일상의 반복을 통해 발달합니다. 생후 1년 안에 영아와 양육자의 유대가 충분히 자리 잡아, 그 무렵이면 유대의 질을 검사할 수 있을 정도입니다.</p>
+
+  <p>핵심은 양육자의 반응성입니다. 민감하고 일관되게 돌봄을 받은 아이는 "필요할 때 누군가 곁에 있어줄 것"이라는 기대를 품게 됩니다. 안정 애착으로 이어질 가능성이 높습니다. 반대로 예측 불가능하거나 거부적·방임적인 돌봄은 불안정 애착으로 이어지기 쉽습니다.</p>
+
+  <p>이렇게 만들어진 초기 관계는 '내적 작동 모델'을 형성합니다. 자기 가치와 타인의 신뢰성에 대한 내면화된 믿음입니다. 어린 시절의 유대가 미래 관계의 주형이 되는 셈입니다.</p>
+
+  <p>다만 여기서 한 가지를 분명히 해두고 싶습니다.</p>
+
+  <p>애착 유형을 전부 '부모 탓'으로 돌리는 것은 지나친 단순화입니다. 영아기부터 초기 성인기까지 추적한 종단연구는, 성인 애착이 대인관계 경험뿐 아니라 유전적 기원도 함께 가진다는 점을 시사합니다. 환경만의 산물이 아니라는 뜻입니다. 양육 경험, 타고난 기질, 이후의 경험이 함께 작용한다고 보는 편이 균형 잡힌 시각입니다.</p>
+
+  <hr>
+
+  <h2>그래서, 애착 유형은 바뀔 수 있을까</h2>
+
+  <p>결론부터 말씀드리면, 바뀔 수 있습니다.</p>
+
+  <p>대부분의 사람은 자신의 애착 유형을 쉽게 바꾸지는 않습니다. 하지만 경험과 의식적 노력에 따라 더 안정적인 방향으로 — 혹은 덜 안정적인 방향으로 — 변할 수 있습니다. 애착 유형은 불변이 아닙니다. 시간에 따라 상당히 달라질 수 있고, 관계마다 다르게 나타나기도 합니다.</p>
+
+  <p>애착 기반 치료자들이 쓰는 '획득된 안정 애착(Earned Secure Attachment)'이라는 개념이 있습니다. 안정 애착 속에서 자라지 못했더라도, 건강하고 상호적인 관계 경험을 통해 안정을 새로 '획득'할 수 있다는 뜻입니다.</p>
+
+  <p>건강한 방향으로 나아가는 길은 대략 이렇습니다.</p>
+
+  <ul>
+    <li><strong>상담과 치료</strong> — 좋은 치료 관계는 그 자체로 안전한 애착을 만들어, 교정적 정서 경험을 제공합니다. 특화된 접근뿐 아니라 일반 상담도 도움이 될 수 있습니다.</li>
+    <li><strong>안정적인 관계 맺기</strong> — 안정형인 사람과 관계를 맺으면 "관계가 이렇게도 작동하는구나"라는 새로운 모델을 몸으로 경험하게 됩니다.</li>
+    <li><strong>자기 인식과 자기 작업</strong> — 자신의 반응을 알아차리고, 자기 자신과 상대에게 취약함과 호기심을 가지고 다가가는 법을 익히는 것입니다.</li>
+    <li><strong>부정적 자기 대화 반박하기</strong> — "나는 사랑받을 수 없다" 같은 생각이 들 때, 자신을 소중히 여기는 사람을 반례로 떠올려 그 생각을 검증해 보는 연습입니다.</li>
+    <li><strong>일관되고 믿을 만한 파트너 선택</strong> — 꾸준히 다정하고 신뢰할 수 있는 사람을 곁에 두는 것도 건강한 애착을 돕는 좋은 습관입니다.</li>
+  </ul>
+
+  <img src="./images/body-4.png" alt="불안정 애착에서 안정 애착으로 나아가는 변화의 길 일러스트 — 자기 인식·안정적 관계·상담을 거쳐 획득된 안정에 이르는 디딤돌">
+
+  <p>다만 솔직히 덧붙이자면, 변화는 하루아침에 오지 않습니다.</p>
+
+  <p>시간이 필요하고, 기술이 필요하고, 무엇보다 반복되는 안전한 경험이 필요합니다. 자책은 도움이 되지 않습니다. 관건은 꾸준한 연습입니다.</p>
+
+  <hr>
+
+  <p>정리하면 이렇습니다.</p>
+
+  <p>애착 유형은 나라는 사람을 가두는 꼬리표가 아닙니다. 내 관계 패턴이 어디서 왔는지 이해하고, 다른 방향으로 걸어볼 수 있게 해주는 지도에 가깝습니다.</p>
+
+  <blockquote><p>"애착 유형은 낙인이 아니라, 변화의 출발점입니다."</p></blockquote>
+
+  <div class="disclaimer">
+    한 가지만 짚어두겠습니다. 이 글은 일반적인 정보 제공을 목적으로 하며, 전문적인 심리 상담·진단·치료를 대체하지 않습니다. 관계의 어려움이 오래 지속되거나 일상이 흔들릴 만큼 힘들다면, 정신건강 전문가나 상담사를 찾아보시길 권합니다. 도움을 구하는 일은 약함이 아니라, 자신을 돌보는 용기입니다.
+  </div>
+
+  <p>내 패턴의 뿌리를 알게 된다면, 그다음 한 걸음은 조금 더 가벼워지지 않을까요.</p>
+
+  <div class="tags">
+    <span>#애착유형</span>
+    <span>#불안형애착</span>
+    <span>#회피형애착</span>
+    <span>#애착이론</span>
+    <span>#관계패턴</span>
+    <span>#안정애착</span>
+    <span>#애착유형변화</span>
+    <span>#심리상담</span>
+  </div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>
