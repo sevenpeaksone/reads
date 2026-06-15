@@ -7,7 +7,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
 <style>
   :root { --bg:#0f1117; --card:#1a1d27; --line:#2a2e3a; --text:#e8eaf0; --muted:#9aa0ad;
-    --it:#4f8cff; --philosophy:#b07cff; --economy:#2bb673; --bio:#ff7c7c; --counseling:#f0a532; }
+    --it:#4f8cff; --philosophy:#b07cff; --economy:#2bb673; --bio:#ff7c7c; --counseling:#f0a532;
+    --science:#20c4cf; --world:#c2883f; --religion:#6f86d6; }
   * { box-sizing:border-box; }
   body { margin:0; font-family:'Pretendard','Pretendard Variable','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
     background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; }
@@ -29,6 +30,9 @@
   .cat-head[data-cat=economy]{background:var(--economy);}
   .cat-head[data-cat=bio]{background:var(--bio);}
   .cat-head[data-cat=counseling]{background:var(--counseling);}
+  .cat-head[data-cat=science]{background:var(--science);}
+  .cat-head[data-cat=world]{background:var(--world);}
+  .cat-head[data-cat=religion]{background:var(--religion);}
   .more-link { font-size:13px; color:var(--muted); text-decoration:none; white-space:nowrap; }
   .more-link:hover { color:var(--text); }
   .back { display:inline-block; margin-bottom:22px; color:var(--muted); text-decoration:none; font-size:14px; }
@@ -48,6 +52,9 @@
   .thumb.ph[data-cat=economy]{background:linear-gradient(135deg,#10301f,var(--economy));}
   .thumb.ph[data-cat=bio]{background:linear-gradient(135deg,#3a1b1b,var(--bio));}
   .thumb.ph[data-cat=counseling]{background:linear-gradient(135deg,#3a2c12,var(--counseling));}
+  .thumb.ph[data-cat=science]{background:linear-gradient(135deg,#10302f,var(--science));}
+  .thumb.ph[data-cat=world]{background:linear-gradient(135deg,#2e2410,var(--world));}
+  .thumb.ph[data-cat=religion]{background:linear-gradient(135deg,#191f3a,var(--religion));}
   .card-body { padding:13px 15px 15px; display:flex; flex-direction:column; gap:8px; flex:1; }
   .badge { align-self:flex-start; font-size:11px; font-weight:700; color:#fff; padding:3px 10px; border-radius:20px; }
   .badge[data-cat=it]{background:var(--it);}
@@ -55,6 +62,9 @@
   .badge[data-cat=economy]{background:var(--economy);}
   .badge[data-cat=bio]{background:var(--bio);}
   .badge[data-cat=counseling]{background:var(--counseling);}
+  .badge[data-cat=science]{background:var(--science);}
+  .badge[data-cat=world]{background:var(--world);}
+  .badge[data-cat=religion]{background:var(--religion);}
   .card-title { margin:0; font-size:15px; font-weight:600; line-height:1.45;
     display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
   .card-date { margin-top:auto; font-size:12px; color:var(--muted); }
@@ -89,16 +99,17 @@
     <div class="tn-cats">
       <a href="/blog/index.html">홈</a>
       <a href="/blog/posts/it/index.html" data-cat="it">IT</a>
-      <a href="/blog/posts/philosophy/index.html" data-cat="philosophy">철학/인문</a>
+      <a href="/blog/posts/science/index.html" data-cat="science">과학</a>
       <a href="/blog/posts/economy/index.html" data-cat="economy">경제</a>
       <a href="/blog/posts/bio/index.html" data-cat="bio">바이오</a>
+      <a href="/blog/posts/philosophy/index.html" data-cat="philosophy">철학/인문</a>
       <a href="/blog/posts/counseling/index.html" data-cat="counseling">상담</a>
     </div>
     <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
   </nav>
   <div class="hero">
     <h1>SevenPeaks 블로그</h1>
-    <p>IT · 철학/인문 · 경제 · 바이오 · 상담 — AI가 매일 리서치하고 쓴 글</p>
+    <p>IT · 과학 · 경제 · 바이오 · 철학/인문 · 상담 — AI가 매일 리서치하고 쓴 글</p>
   </div>
   <main>
     <div id="search-wrap" hidden>
@@ -109,9 +120,17 @@
     <section class="cat-section">
       <div class="cat-bar">
         <h2 class="cat-head" data-cat="it">IT</h2>
-        <a class="more-link" href="./posts/it/">전체 20편 보기 →</a>
+        <a class="more-link" href="./posts/it/">전체 21편 보기 →</a>
       </div>
       <div class="grid home">
+      <a class="card" href="./posts/it/2026-06-16-03/index.html">
+        <img class="thumb" src="./posts/it/2026-06-16-03/images/thumbnail.png" alt="[IT] AI 규제 2026 — 미국·EU는 후퇴, 한국은 시행: 흔들리는 AI 거버넌스 지형" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="it">IT</span>
+          <h3 class="card-title">[IT] AI 규제 2026 — 미국·EU는 후퇴, 한국은 시행: 흔들리는 AI 거버넌스 지형</h3>
+          <span class="card-date">2026-06-16 03시</span>
+        </div>
+      </a>
       <a class="card" href="./posts/it/2026-06-15-20/index.html">
         <img class="thumb" src="./posts/it/2026-06-15-20/images/thumbnail.png" alt="[IT] AI 스마트글래스 2026 — 메타·삼성·구글, 얼굴에 쓰는 AI 비서 경쟁" loading="lazy">
         <div class="card-body">
@@ -144,12 +163,116 @@
           <span class="card-date">2026-06-14 03시</span>
         </div>
       </a>
-      <a class="card" href="./posts/it/2026-06-13-20/index.html">
-        <img class="thumb" src="./posts/it/2026-06-13-20/images/thumbnail.png" alt="[IT] AI 에이전트 보안 2026 — 자율 AI 시대의 새로운 위협과 방어" loading="lazy">
+      </div>
+    </section>
+    <section class="cat-section">
+      <div class="cat-bar">
+        <h2 class="cat-head" data-cat="science">과학</h2>
+        <a class="more-link" href="./posts/science/">전체 보기 →</a>
+      </div>
+      <div class="grid home">
+      <a class="card" href="./posts/science/2026-06-16-03/index.html">
+        <img class="thumb" src="./posts/science/2026-06-16-03/images/thumbnail.png" alt="[과학] 2026 우주 탐사 정리 — 수성에 닿는 베피콜롬보와 행성 방어 미션 헤라" loading="lazy">
         <div class="card-body">
-          <span class="badge" data-cat="it">IT</span>
-          <h3 class="card-title">[IT] AI 에이전트 보안 2026 — 자율 AI 시대의 새로운 위협과 방어</h3>
-          <span class="card-date">2026-06-13 20시</span>
+          <span class="badge" data-cat="science">과학</span>
+          <h3 class="card-title">[과학] 2026 우주 탐사 정리 — 수성에 닿는 베피콜롬보와 행성 방어 미션 헤라</h3>
+          <span class="card-date">2026-06-16 03시</span>
+        </div>
+      </a>
+      </div>
+    </section>
+    <section class="cat-section">
+      <div class="cat-bar">
+        <h2 class="cat-head" data-cat="economy">경제</h2>
+        <a class="more-link" href="./posts/economy/">전체 21편 보기 →</a>
+      </div>
+      <div class="grid home">
+      <a class="card" href="./posts/economy/2026-06-16-03/index.html">
+        <img class="thumb" src="./posts/economy/2026-06-16-03/images/thumbnail.png" alt="기준금리 동결 2026, 7월 분수령 — 금리·물가·환율 삼중고 속 내 돈 지키는 법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">기준금리 동결 2026, 7월 분수령 — 금리·물가·환율 삼중고 속 내 돈 지키는 법</h3>
+          <span class="card-date">2026-06-16 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./posts/economy/2026-06-15-20/index.html">
+        <img class="thumb" src="./posts/economy/2026-06-15-20/images/thumbnail.png" alt="[경제] 서학개미 미국주식 2026 — 환율과 빅테크 쏠림, 분산이 답일까" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">[경제] 서학개미 미국주식 2026 — 환율과 빅테크 쏠림, 분산이 답일까</h3>
+          <span class="card-date">2026-06-15 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./posts/economy/2026-06-15-03/index.html">
+        <img class="thumb" src="./posts/economy/2026-06-15-03/images/thumbnail.png" alt="[재테크] 공모주 IPO 2026 청약 전략 — 대어 상장 러시, 개인투자자가 점검할 것" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">[재테크] 공모주 IPO 2026 청약 전략 — 대어 상장 러시, 개인투자자가 점검할 것</h3>
+          <span class="card-date">2026-06-15 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./posts/economy/2026-06-14-20/index.html">
+        <img class="thumb" src="./posts/economy/2026-06-14-20/images/thumbnail.png" alt="원화 스테이블코인 제도화 2026 — 디지털 화폐 경쟁과 51% 룰 쟁점 정리" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">원화 스테이블코인 제도화 2026 — 디지털 화폐 경쟁과 51% 룰 쟁점 정리</h3>
+          <span class="card-date">2026-06-14 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./posts/economy/2026-06-14-03/index.html">
+        <img class="thumb" src="./posts/economy/2026-06-14-03/images/thumbnail.png" alt="국민연금 개혁 2026, 더 내고 더 받는 시대 — 내 노후 대비법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">국민연금 개혁 2026, 더 내고 더 받는 시대 — 내 노후 대비법</h3>
+          <span class="card-date">2026-06-14 03시</span>
+        </div>
+      </a>
+      </div>
+    </section>
+    <section class="cat-section">
+      <div class="cat-bar">
+        <h2 class="cat-head" data-cat="bio">바이오</h2>
+        <a class="more-link" href="./posts/bio/">전체 21편 보기 →</a>
+      </div>
+      <div class="grid home">
+      <a class="card" href="./posts/bio/2026-06-16-03/index.html">
+        <img class="thumb" src="./posts/bio/2026-06-16-03/images/thumbnail.png" alt="[바이오] 비만 치료제 2026 — 위고비·마운자로 이후 차세대 비만 신약 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">[바이오] 비만 치료제 2026 — 위고비·마운자로 이후 차세대 비만 신약 어디까지 왔나</h3>
+          <span class="card-date">2026-06-16 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./posts/bio/2026-06-15-20/index.html">
+        <img class="thumb" src="./posts/bio/2026-06-15-20/images/thumbnail.png" alt="[바이오] mRNA 암백신 2026 — 개인맞춤 항암 백신은 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">[바이오] mRNA 암백신 2026 — 개인맞춤 항암 백신은 어디까지 왔나</h3>
+          <span class="card-date">2026-06-15 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./posts/bio/2026-06-15-03/index.html">
+        <img class="thumb" src="./posts/bio/2026-06-15-03/images/thumbnail.png" alt="[바이오] AI 신약개발 2026 — 인공지능이 신약 발굴을 바꾸는 법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">[바이오] AI 신약개발 2026 — 인공지능이 신약 발굴을 바꾸는 법</h3>
+          <span class="card-date">2026-06-15 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./posts/bio/2026-06-14-20/index.html">
+        <img class="thumb" src="./posts/bio/2026-06-14-20/images/thumbnail.png" alt="마이크로바이옴 2026 정리 — 장내 미생물이 여는 건강과 신약" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">마이크로바이옴 2026 정리 — 장내 미생물이 여는 건강과 신약</h3>
+          <span class="card-date">2026-06-14 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./posts/bio/2026-06-14-03/index.html">
+        <img class="thumb" src="./posts/bio/2026-06-14-03/images/thumbnail.png" alt="[바이오] 알츠하이머 치매 신약 2026 — 레카네맙·도나네맙, 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">[바이오] 알츠하이머 치매 신약 2026 — 레카네맙·도나네맙, 어디까지 왔나</h3>
+          <span class="card-date">2026-06-14 03시</span>
         </div>
       </a>
       </div>
@@ -197,102 +320,6 @@
         <div class="card-body">
           <span class="badge" data-cat="philosophy">철학/인문</span>
           <h3 class="card-title">알고리즘과 자유의지 — 추천이 내 선택을 대신하는 시대</h3>
-          <span class="card-date">2026-06-13 20시</span>
-        </div>
-      </a>
-      </div>
-    </section>
-    <section class="cat-section">
-      <div class="cat-bar">
-        <h2 class="cat-head" data-cat="economy">경제</h2>
-        <a class="more-link" href="./posts/economy/">전체 20편 보기 →</a>
-      </div>
-      <div class="grid home">
-      <a class="card" href="./posts/economy/2026-06-15-20/index.html">
-        <img class="thumb" src="./posts/economy/2026-06-15-20/images/thumbnail.png" alt="[경제] 서학개미 미국주식 2026 — 환율과 빅테크 쏠림, 분산이 답일까" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="economy">경제</span>
-          <h3 class="card-title">[경제] 서학개미 미국주식 2026 — 환율과 빅테크 쏠림, 분산이 답일까</h3>
-          <span class="card-date">2026-06-15 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/economy/2026-06-15-03/index.html">
-        <img class="thumb" src="./posts/economy/2026-06-15-03/images/thumbnail.png" alt="[재테크] 공모주 IPO 2026 청약 전략 — 대어 상장 러시, 개인투자자가 점검할 것" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="economy">경제</span>
-          <h3 class="card-title">[재테크] 공모주 IPO 2026 청약 전략 — 대어 상장 러시, 개인투자자가 점검할 것</h3>
-          <span class="card-date">2026-06-15 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/economy/2026-06-14-20/index.html">
-        <img class="thumb" src="./posts/economy/2026-06-14-20/images/thumbnail.png" alt="원화 스테이블코인 제도화 2026 — 디지털 화폐 경쟁과 51% 룰 쟁점 정리" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="economy">경제</span>
-          <h3 class="card-title">원화 스테이블코인 제도화 2026 — 디지털 화폐 경쟁과 51% 룰 쟁점 정리</h3>
-          <span class="card-date">2026-06-14 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/economy/2026-06-14-03/index.html">
-        <img class="thumb" src="./posts/economy/2026-06-14-03/images/thumbnail.png" alt="국민연금 개혁 2026, 더 내고 더 받는 시대 — 내 노후 대비법" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="economy">경제</span>
-          <h3 class="card-title">국민연금 개혁 2026, 더 내고 더 받는 시대 — 내 노후 대비법</h3>
-          <span class="card-date">2026-06-14 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/economy/2026-06-13-20/index.html">
-        <img class="thumb" src="./posts/economy/2026-06-13-20/images/thumbnail.png" alt="환율 1,500원 시대 2026 — 강달러 속 가계와 투자 전략" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="economy">경제</span>
-          <h3 class="card-title">환율 1,500원 시대 2026 — 강달러 속 가계와 투자 전략</h3>
-          <span class="card-date">2026-06-13 20시</span>
-        </div>
-      </a>
-      </div>
-    </section>
-    <section class="cat-section">
-      <div class="cat-bar">
-        <h2 class="cat-head" data-cat="bio">바이오</h2>
-        <a class="more-link" href="./posts/bio/">전체 20편 보기 →</a>
-      </div>
-      <div class="grid home">
-      <a class="card" href="./posts/bio/2026-06-15-20/index.html">
-        <img class="thumb" src="./posts/bio/2026-06-15-20/images/thumbnail.png" alt="[바이오] mRNA 암백신 2026 — 개인맞춤 항암 백신은 어디까지 왔나" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="bio">바이오</span>
-          <h3 class="card-title">[바이오] mRNA 암백신 2026 — 개인맞춤 항암 백신은 어디까지 왔나</h3>
-          <span class="card-date">2026-06-15 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/bio/2026-06-15-03/index.html">
-        <img class="thumb" src="./posts/bio/2026-06-15-03/images/thumbnail.png" alt="[바이오] AI 신약개발 2026 — 인공지능이 신약 발굴을 바꾸는 법" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="bio">바이오</span>
-          <h3 class="card-title">[바이오] AI 신약개발 2026 — 인공지능이 신약 발굴을 바꾸는 법</h3>
-          <span class="card-date">2026-06-15 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/bio/2026-06-14-20/index.html">
-        <img class="thumb" src="./posts/bio/2026-06-14-20/images/thumbnail.png" alt="마이크로바이옴 2026 정리 — 장내 미생물이 여는 건강과 신약" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="bio">바이오</span>
-          <h3 class="card-title">마이크로바이옴 2026 정리 — 장내 미생물이 여는 건강과 신약</h3>
-          <span class="card-date">2026-06-14 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/bio/2026-06-14-03/index.html">
-        <img class="thumb" src="./posts/bio/2026-06-14-03/images/thumbnail.png" alt="[바이오] 알츠하이머 치매 신약 2026 — 레카네맙·도나네맙, 어디까지 왔나" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="bio">바이오</span>
-          <h3 class="card-title">[바이오] 알츠하이머 치매 신약 2026 — 레카네맙·도나네맙, 어디까지 왔나</h3>
-          <span class="card-date">2026-06-14 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/bio/2026-06-13-20/index.html">
-        <img class="thumb" src="./posts/bio/2026-06-13-20/images/thumbnail.png" alt="[바이오] 뇌-컴퓨터 인터페이스(BCI) 2026 — 생각으로 기계를 움직이는 시대, 어디까지 왔나" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="bio">바이오</span>
-          <h3 class="card-title">[바이오] 뇌-컴퓨터 인터페이스(BCI) 2026 — 생각으로 기계를 움직이는 시대, 어디까지 왔나</h3>
           <span class="card-date">2026-06-13 20시</span>
         </div>
       </a>

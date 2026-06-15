@@ -7,7 +7,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
 <style>
   :root { --bg:#0f1117; --card:#1a1d27; --line:#2a2e3a; --text:#e8eaf0; --muted:#9aa0ad;
-    --it:#4f8cff; --philosophy:#b07cff; --economy:#2bb673; --bio:#ff7c7c; --counseling:#f0a532; }
+    --it:#4f8cff; --philosophy:#b07cff; --economy:#2bb673; --bio:#ff7c7c; --counseling:#f0a532;
+    --science:#20c4cf; --world:#c2883f; --religion:#6f86d6; }
   * { box-sizing:border-box; }
   body { margin:0; font-family:'Pretendard','Pretendard Variable','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
     background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; }
@@ -29,6 +30,9 @@
   .cat-head[data-cat=economy]{background:var(--economy);}
   .cat-head[data-cat=bio]{background:var(--bio);}
   .cat-head[data-cat=counseling]{background:var(--counseling);}
+  .cat-head[data-cat=science]{background:var(--science);}
+  .cat-head[data-cat=world]{background:var(--world);}
+  .cat-head[data-cat=religion]{background:var(--religion);}
   .more-link { font-size:13px; color:var(--muted); text-decoration:none; white-space:nowrap; }
   .more-link:hover { color:var(--text); }
   .back { display:inline-block; margin-bottom:22px; color:var(--muted); text-decoration:none; font-size:14px; }
@@ -48,6 +52,9 @@
   .thumb.ph[data-cat=economy]{background:linear-gradient(135deg,#10301f,var(--economy));}
   .thumb.ph[data-cat=bio]{background:linear-gradient(135deg,#3a1b1b,var(--bio));}
   .thumb.ph[data-cat=counseling]{background:linear-gradient(135deg,#3a2c12,var(--counseling));}
+  .thumb.ph[data-cat=science]{background:linear-gradient(135deg,#10302f,var(--science));}
+  .thumb.ph[data-cat=world]{background:linear-gradient(135deg,#2e2410,var(--world));}
+  .thumb.ph[data-cat=religion]{background:linear-gradient(135deg,#191f3a,var(--religion));}
   .card-body { padding:13px 15px 15px; display:flex; flex-direction:column; gap:8px; flex:1; }
   .badge { align-self:flex-start; font-size:11px; font-weight:700; color:#fff; padding:3px 10px; border-radius:20px; }
   .badge[data-cat=it]{background:var(--it);}
@@ -55,6 +62,9 @@
   .badge[data-cat=economy]{background:var(--economy);}
   .badge[data-cat=bio]{background:var(--bio);}
   .badge[data-cat=counseling]{background:var(--counseling);}
+  .badge[data-cat=science]{background:var(--science);}
+  .badge[data-cat=world]{background:var(--world);}
+  .badge[data-cat=religion]{background:var(--religion);}
   .card-title { margin:0; font-size:15px; font-weight:600; line-height:1.45;
     display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
   .card-date { margin-top:auto; font-size:12px; color:var(--muted); }
@@ -89,16 +99,17 @@
     <div class="tn-cats">
       <a href="/blog/index.html">홈</a>
       <a href="/blog/posts/it/index.html" data-cat="it">IT</a>
-      <a href="/blog/posts/philosophy/index.html" data-cat="philosophy">철학/인문</a>
+      <a href="/blog/posts/science/index.html" data-cat="science">과학</a>
       <a href="/blog/posts/economy/index.html" data-cat="economy">경제</a>
       <a href="/blog/posts/bio/index.html" data-cat="bio">바이오</a>
+      <a href="/blog/posts/philosophy/index.html" data-cat="philosophy">철학/인문</a>
       <a href="/blog/posts/counseling/index.html" data-cat="counseling">상담</a>
     </div>
     <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
   </nav>
   <div class="hero sub">
     <h1><a href="../../index.html">SevenPeaks 블로그</a></h1>
-    <p><span class="cat-head" data-cat="bio">바이오</span> 전체 20편 · 2/2 페이지</p>
+    <p><span class="cat-head" data-cat="bio">바이오</span> 전체 21편 · 2/2 페이지</p>
   </div>
   <main>
     <div id="search-wrap" hidden>
@@ -108,6 +119,14 @@
     <div id="page-content">
     <a class="back" href="../../index.html">← 홈으로</a>
     <div class="grid">
+      <a class="card" href="./2026-06-10-03/index.html">
+        <img class="thumb" src="./2026-06-10-03/images/thumbnail.png" alt="CRISPR 유전자가위 치료제 2026, 맞춤형 치료 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">CRISPR 유전자가위 치료제 2026, 맞춤형 치료 어디까지 왔나</h3>
+          <span class="card-date">2026-06-10 03시</span>
+        </div>
+      </a>
       <a class="card" href="./2026-06-09-20/index.html">
         <img class="thumb" src="./2026-06-09-20/images/thumbnail.png" alt="AI 신약개발 2026, 알파폴드 이후 정말 빨라졌나" loading="lazy">
         <div class="card-body">
