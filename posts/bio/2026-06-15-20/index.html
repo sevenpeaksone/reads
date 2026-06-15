@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[바이오] mRNA 암백신 2026 — 개인맞춤 항암 백신은 어디까지 왔나</title>
+<style>
+  :root {
+    --text: #222;
+    --muted: #777;
+    --line: #e5e5e5;
+    --accent: #1a73a8;
+    --bg-note: #f6f8fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+    color: var(--text);
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    background: #fff;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.4;
+    font-weight: 800;
+    margin: 0 0 28px;
+    letter-spacing: -0.02em;
+    color: #111;
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.45;
+    margin: 48px 0 16px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: -0.01em;
+    color: #111;
+  }
+  h3 {
+    font-size: 17.5px;
+    font-weight: 700;
+    margin: 28px 0 12px;
+    color: #111;
+  }
+  p {
+    font-size: 16.5px;
+    margin: 0 0 16px;
+  }
+  ul {
+    margin: 0 0 16px;
+    padding-left: 22px;
+  }
+  li {
+    font-size: 16.5px;
+    margin: 0 0 8px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 28px auto;
+    border-radius: 8px;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
+  blockquote {
+    margin: 24px 0;
+    padding: 14px 18px;
+    background: var(--bg-note);
+    border-left: 4px solid #cfd8dc;
+    border-radius: 4px;
+    color: #444;
+    font-size: 15.5px;
+  }
+  blockquote p { margin: 0; }
+  blockquote.pull {
+    border-left: 4px solid var(--accent);
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a3a4a;
+    line-height: 1.6;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 15px;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--bg-note);
+    font-weight: 700;
+  }
+  tbody tr:nth-child(even) { background: #fcfcfc; }
+  .tags {
+    margin-top: 36px;
+    font-size: 14.5px;
+    line-height: 2;
+    color: var(--accent);
+  }
+  .tags span { margin-right: 8px; white-space: nowrap; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="container">
+
+  <img src="./images/thumbnail.png" alt="2026 mRNA 개인맞춤 암백신 — 종양 데이터에서 mRNA·LNP를 거쳐 T세포 훈련으로 이어지는 흐름을 담은 대표 이미지">
+
+  <h1>[바이오] mRNA 암백신 2026 — 개인맞춤 항암 백신은 어디까지 왔나</h1>
+
+  <hr>
+
+  <p>이번 글에서는 2026년 현재 mRNA 개인맞춤 암백신이 어디까지 왔는지 정리해 보겠습니다.<br>
+  환자 한 사람의 종양만 겨냥하는 백신이라는 점, 그리고 아직은 임상시험 단계라는 점을 함께 짚겠습니다.</p>
+
+  <blockquote><p>이 글은 일반 정보 정리이며, 의학적 자문이 아닙니다. 아래 후보 물질들은 대부분 임상시험 단계로, 정식 시판 승인 전입니다. 진단·치료에 관한 판단은 반드시 의료진과 상의하시길 권합니다.</p></blockquote>
+
+  <h3>3줄 요약</h3>
+
+  <ul>
+  <li>mRNA 암백신은 환자 종양에만 있는 돌연변이(네오안티젠)를 표적으로 면역계를 훈련시키는 개인맞춤 방식입니다.</li>
+  <li>흑색종에서 앞서 있으며, 모더나·머크의 mRNA-4157/V940은 키트루다 병용 2b상에서 재발·사망 위험 감소를 보였고 3상이 진행 중입니다.</li>
+  <li>다만 제조 비용·시간, 확정적 3상 결과 미공개 등 한계가 남아 있어, 효능은 &#x27;유망하나 입증 진행 중&#x27;으로 보는 것이 정확합니다.</li>
+  </ul>
+
+  <hr>
+
+  <h2>개인맞춤 암백신, 무엇이 다른가</h2>
+
+  <p>원리는 의외로 단순합니다.<br>
+  정상 세포에는 없고, 환자의 종양에만 있는 단백질 조각이 있습니다.<br>
+  이를 네오안티젠이라 부릅니다.</p>
+
+  <p>면역계는 이 조각을 &#x27;암 고유의 표적&#x27;으로 인식할 수 있습니다.<br>
+  개인맞춤 백신은 바로 이 환자별 돌연변이를 겨냥해, 암을 공격하는 T세포 반응을 활성화하는 것을 목표로 합니다.</p>
+
+  <p>제작 흐름은 다섯 단계로 정리됩니다.<br>
+  환자의 종양과 정상 조직을 채취해 유전체를 분석하고, 돌연변이를 비교해 종양 특이 변이를 찾습니다.<br>
+  그다음 AI가 면역 반응을 잘 일으킬 후보를 선별하고, 그 항원을 코딩하는 mRNA를 합성해 지질나노입자에 담습니다.<br>
+  투여하면 체내 세포가 항원을 만들고, 면역계가 이를 인식해 T세포를 훈련합니다.</p>
+
+  <p>예전엔 항암 치료가 &#x27;모두에게 같은 약&#x27;이었습니다.<br>
+  지금은 &#x27;한 사람만을 위한 백신&#x27;을 만드는 방향으로 움직이고 있습니다.</p>
+
+  <img src="./images/body-1.png" alt="개인맞춤 mRNA 암백신 작동 원리 5단계 다이어그램 — 종양·정상 조직 채취 및 유전체 분석, 종양 특이 변이 도출, AI 네오안티젠 후보 선별, mRNA 합성·LNP 봉입, 투여 후 T세포 훈련">
+
+  <hr>
+
+  <h2>가장 앞선 흑색종 — mRNA-4157/V940</h2>
+
+  <p>현재 가장 앞서 있는 분야는 흑색종입니다.<br>
+  모더나와 머크가 함께 개발하는 mRNA-4157(V940)이 그 중심에 있습니다.<br>
+  완전 절제된 고위험 흑색종 환자를 대상으로, 면역관문억제제 키트루다와 병용하는 방식입니다.</p>
+
+  <p>핵심 근거는 2b상 KEYNOTE-942 시험입니다.<br>
+  이 시험에서 백신과 키트루다 병용군은 키트루다 단독군 대비 재발 또는 사망 위험을 유의하게 줄였습니다.</p>
+
+  <p>수치는 추적 시점에 따라 다릅니다.<br>
+  18개월 시점에서는 무재발생존율이 병용 79% 대 단독 62%, 위험비 0.56으로 보고됐습니다.<br>
+  중앙값 약 34.9개월을 추적한 데이터에서는 재발 또는 사망 위험이 49% 감소한 것으로 나타났습니다.</p>
+
+  <p>이 결과를 바탕으로 약 1,089명 규모의 3상(V940-001)이 진행되고 있습니다.<br>
+  2023년 2월에는 FDA로부터 혁신치료제 지정도 받았습니다.</p>
+
+  <img src="./images/body-2.png" alt="KEYNOTE-942 2b상 임상 결과 비교표 — 18개월 무재발생존율 병용 79% 대 단독 62%, 위험비 0.56, 약 34.9개월 추적 시 재발·사망 위험 49% 감소">
+
+  <p>다만 짚어둘 점이 있습니다.<br>
+  위 결과는 모두 임상시험 단계의 데이터입니다.<br>
+  흑색종 보조요법으로 아직 정식 시판 승인을 받은 상태가 아닙니다.</p>
+
+  <hr>
+
+  <h2>췌장암·폐암으로 넓어지는 도전</h2>
+
+  <p>흑색종 너머로도 시험이 이어지고 있습니다.</p>
+
+  <p>바이오엔텍의 autogene cevumeran은 췌장암에서 주목받습니다.<br>
+  절제된 췌장암 환자 대상 1상에서, 16명 중 8명에게 면역 반응이 유도됐습니다.<br>
+  그 반응은 투여 후 최대 3년까지 지속됐습니다.<br>
+  면역 반응자의 75%는 3년 시점에 재발이 없었던 반면, 비반응자의 87.5%는 종양이 재발했습니다.</p>
+
+  <p>이 물질은 현재 약 260명 규모의 2상으로 넘어갔습니다.<br>
+  다만 1상은 16명이라는 작은 표본이라는 점은 분명히 기억해야 합니다.</p>
+
+  <p>폐암에서도 mRNA-4157/V940의 여러 3상이 가동 중입니다.<br>
+  비소세포폐암 보조요법을 평가하는 INTerpath-002, INTerpath-009 등이 그것입니다.<br>
+  임상 개발 중인 RNA 암백신 후보는 전체적으로 60개를 넘는 것으로 집계됩니다.</p>
+
+  <img src="./images/body-3.png" alt="mRNA 암백신 적응증별 진행 현황 카드 — 흑색종 3상 및 FDA 혁신치료제 지정, 비소세포폐암 여러 3상, 췌장암 2상 약 260명, 전체 후보 60개 이상">
+
+  <hr>
+
+  <h2>남은 과제 — 비용, 시간, 그리고 시간표</h2>
+
+  <p>기대가 큰 만큼, 현실의 벽도 분명합니다.</p>
+
+  <p>먼저 제조입니다.<br>
+  개인맞춤 백신 생산 기간은 과거 약 9주에서 4주 미만으로 단축됐습니다.<br>
+  빨라졌습니다만, 환자 한 사람을 위해 매번 새로 만들어야 한다는 본질은 그대로입니다.</p>
+
+  <p>비용도 큰 장벽입니다.<br>
+  자료에 따라 환자 1인당 10만 달러를 넘고, 일부는 약 10만~30만 달러까지 보고됩니다.</p>
+
+  <p>승인 시점도 아직 확정되지 않았습니다.<br>
+  규제 제출은 2026년에 예상된다는 보도가 있고, 첫 승인 전망은 자료에 따라 2026년 말~2027년과 2029년경으로 갈립니다.<br>
+  어느 쪽이든 핵심 3상 결과에 좌우된다는 점은 같습니다.</p>
+
+  <p>무엇보다 장기 생존이나 전체생존 같은 확정적 3상 결과는 아직 공개되지 않았습니다.<br>
+  그래서 지금의 효능은 &#x27;특정 임상에서 재발 지연·면역 반응 유도&#x27;로 한정해 이해하는 편이 정확합니다.</p>
+
+  <hr>
+
+  <p>정리하면 이렇습니다.<br>
+  mRNA 개인맞춤 암백신은 분명한 진전을 보였지만, 아직 완성된 치료법은 아닙니다.</p>
+
+  <blockquote class="pull"><p>— &quot;유망하나, 입증은 진행 중이다.&quot;</p></blockquote>
+
+  <p>몇 해 뒤 이 글을 다시 읽을 때, 그 한 줄이 어떻게 바뀌어 있을지 조용히 지켜보려 합니다.</p>
+
+  <hr>
+
+  <div class="tags"><span>#mRNA암백신</span><span>#개인맞춤항암백신</span><span>#네오안티젠</span><span>#흑색종</span><span>#모더나머크</span><span>#키트루다병용</span><span>#바이오엔텍</span><span>#췌장암백신</span><span>#항암면역치료</span><span>#2026바이오트렌드</span></div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

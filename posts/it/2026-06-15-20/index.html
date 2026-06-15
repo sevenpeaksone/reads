@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[IT] AI 스마트글래스 2026 — 메타·삼성·구글, 얼굴에 쓰는 AI 비서 경쟁</title>
+<style>
+  :root {
+    --text: #222;
+    --muted: #777;
+    --line: #e5e5e5;
+    --accent: #1a73a8;
+    --bg-note: #f6f8fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+    color: var(--text);
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    background: #fff;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.4;
+    font-weight: 800;
+    margin: 0 0 28px;
+    letter-spacing: -0.02em;
+    color: #111;
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.45;
+    margin: 48px 0 16px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: -0.01em;
+    color: #111;
+  }
+  h3 {
+    font-size: 17.5px;
+    font-weight: 700;
+    margin: 28px 0 12px;
+    color: #111;
+  }
+  p {
+    font-size: 16.5px;
+    margin: 0 0 16px;
+  }
+  ul {
+    margin: 0 0 16px;
+    padding-left: 22px;
+  }
+  li {
+    font-size: 16.5px;
+    margin: 0 0 8px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 28px auto;
+    border-radius: 8px;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
+  blockquote {
+    margin: 24px 0;
+    padding: 14px 18px;
+    background: var(--bg-note);
+    border-left: 4px solid #cfd8dc;
+    border-radius: 4px;
+    color: #444;
+    font-size: 15.5px;
+  }
+  blockquote p { margin: 0; }
+  blockquote.pull {
+    border-left: 4px solid var(--accent);
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a3a4a;
+    line-height: 1.6;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 15px;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--bg-note);
+    font-weight: 700;
+  }
+  tbody tr:nth-child(even) { background: #fcfcfc; }
+  .tags {
+    margin-top: 36px;
+    font-size: 14.5px;
+    line-height: 2;
+    color: var(--accent);
+  }
+  .tags span { margin-right: 8px; white-space: nowrap; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="container">
+
+  <h1>[IT] AI 스마트글래스 2026 — 메타·삼성·구글, 얼굴에 쓰는 AI 비서 경쟁</h1>
+
+  <hr>
+
+  <img src="./images/thumbnail.png" alt="AI 스마트글래스 2026 대표 이미지">
+
+  <p>이번 글에서는 2026년 AI 스마트글래스 경쟁 구도를 정리해 보겠습니다.<br>
+  한 줄로 먼저 요약하면 이렇습니다.</p>
+
+  <ul>
+  <li>시장은 1년 만에 4배로 큽니다. 매출 12억 달러에서 56억 달러, 판매량 600만 대에서 2,000만 대 전망입니다.</li>
+  <li>메타가 점유율 76~82%로 압도적 1위입니다. 삼성·구글이 안드로이드 XR로 가을에 정면 도전합니다.</li>
+  <li>가장 뜨거운 쟁점은 성능이 아니라 프라이버시입니다.</li>
+  </ul>
+
+  <p>자세한 내용을 하나씩 살펴보겠습니다.</p>
+
+  <hr>
+
+  <h2>왜 2026년이 변곡점인가</h2>
+
+  <p>올해는 &#x27;AI 비서를 얼굴에 쓰는&#x27; 시대의 원년으로 불립니다.</p>
+
+  <p>근거는 숫자입니다.<br>
+  AI 스마트글래스 매출은 2025년 약 12억 달러에서 2026년 56억 달러로 약 4배 성장이 전망됩니다.<br>
+  판매량도 600만 대에서 2,000만 대로 늘어날 것으로 예측됩니다.</p>
+
+  <p>동력은 단순합니다.<br>
+  카메라·마이크·스피커에 멀티모달 AI 비서를 결합해, &quot;보는 것을 이해하고 답하는&quot; 핸즈프리 경험이 현실이 된 것입니다.</p>
+
+  <img src="./images/body-1.png" alt="AI 스마트글래스 시장 성장 추이 — 매출과 판매량 2025 대 2026 비교">
+
+  <hr>
+
+  <h2>메타 — 디스플레이를 렌즈에 넣은 1위</h2>
+
+  <p>지금 시장의 주인은 메타입니다.</p>
+
+  <p>에실로룩소티카는 지난해 스마트글래스를 700만 대 넘게 팔았습니다.<br>
+  한 해 동안 판매량이 약 3배로 뛴 수치입니다.<br>
+  글로벌 점유율은 출처에 따라 76.1%에서 82% 사이로 집계됩니다.</p>
+
+  <p>핵심은 2025년 9월 출시된 레이밴 디스플레이($799)입니다.<br>
+  렌즈에 600×600 해상도 디스플레이를 심었습니다.<br>
+  시야각은 20도, 밝기는 최대 5,000니트로 실내외 모두 선명합니다.<br>
+  스냅드래곤 AR1 칩에 1,200만 화소 카메라를 얹었고, 안경 자체로 최대 6시간 쓸 수 있습니다.</p>
+
+  <p>차별점은 함께 오는 뉴럴 밴드입니다.<br>
+  손목 근육의 미세한 전기 신호를 읽어, 작은 손동작만으로 안경을 조작합니다.<br>
+  밴드는 최대 18시간 가고, IPX7 방수를 지원합니다.</p>
+
+  <p>다만 완성형은 아닙니다.<br>
+  한 리뷰는 손목밴드를 &quot;흠잡을 데 없다&quot;고 평했지만, 안경 자체는 &quot;결함이 있다&quot;고 했습니다.<br>
+  완전한 AR 프로토타입인 오라이언은 아직 소비자용 출시일조차 미정입니다.</p>
+
+  <img src="./images/body-2.png" alt="메타 레이밴 디스플레이 핵심 스펙">
+
+  <hr>
+
+  <h2>삼성·구글 — 안드로이드 XR 연합의 추격</h2>
+
+  <p>추격은 연합으로 옵니다.</p>
+
+  <p>삼성과 구글은 첫 안드로이드 XR 글래스를 공개했습니다.<br>
+  첫 스타일군은 2026년 가을 출시 예정이며, Google I/O 2026에서 프리뷰됩니다.<br>
+  삼성의 &#x27;갤럭시 글래스&#x27;도 함께 등장할 전망입니다.</p>
+
+  <p>무기는 제미나이 AI입니다.<br>
+  멀티모달 제미나이가 사용자가 보고 하는 것을 맥락으로 이해해, 앱 전반에서 작업을 돕습니다.<br>
+  안드로이드 기반이라 구글 플레이 앱이 그대로 돌아갑니다.<br>
+  실시간 번역, 시야 속 메뉴판·표지판 번역도 예고됐습니다.</p>
+
+  <p>디자인은 안경 브랜드와 손잡았습니다.<br>
+  젠틀몬스터, 워비파커와 협업해 &#x27;쓰고 다니고 싶은 안경&#x27;을 노립니다.</p>
+
+  <p>같은 진영에 또 하나의 축이 있습니다.<br>
+  구글과 Xreal이 협력한 &#x27;Project Aura&#x27;입니다.<br>
+  2026년 말 글로벌 출시 예정이며, 시야각 70도의 광학 시스루 설계로 몰입형을 겨냥합니다.</p>
+
+  <blockquote><p>참고: 삼성 갤럭시 글래스의 세부 스펙(무게 약 50g, 스냅드래곤 AR1, 1,200만 화소 소니 센서 등)은 아직 유출 정보입니다. 정식 발표 때 바뀔 수 있습니다.</p></blockquote>
+
+  <hr>
+
+  <h2>애플 — Siri가 발목을 잡았다</h2>
+
+  <p>예상과 달리, 애플은 한발 물러섰습니다.</p>
+
+  <p>첫 AI 스마트글래스(코드명 N50)는 2027년 말 출시로 연기됐습니다.<br>
+  이유는 분명합니다.<br>
+  안경을 쓸모 있게 만드는 시각 AI가 충분히 똑똑한 Siri를 전제로 하는데, 그 역량이 아직 갖춰지지 않았다는 것입니다.</p>
+
+  <p>1세대는 카메라·오디오·Siri를 갖되, 렌즈 내장 AR 디스플레이는 없을 전망입니다.<br>
+  &quot;저 식당 이름은?&quot; 같은 맥락 정보를 Siri가 답하는 방식입니다.<br>
+  목표 가격대는 $200~$500으로, 메타와 정면 경쟁합니다.</p>
+
+  <p>예전엔 애플이 늦어도 판을 뒤집곤 했습니다.<br>
+  지금은 진입조차 Siri에 묶여 있습니다.</p>
+
+  <img src="./images/body-3.png" alt="메타·삼성·구글·Xreal·애플 4사 스마트글래스 비교표">
+
+  <hr>
+
+  <h2>진짜 승부처는 프라이버시</h2>
+
+  <p>기술 경쟁보다 무거운 문제가 따라옵니다.</p>
+
+  <p>연구자들은 메타 스마트글래스를 얼굴 인식 도구·공개 DB와 결합하면, 수초 안에 낯선 사람을 식별할 수 있음을 시연했습니다.<br>
+  메타의 얼굴 인식 기능(내부 코드명 &#x27;Name Tag&#x27;)을 두고 우려가 커진 이유입니다.</p>
+
+  <p>미국 상원의원들은 실시간 얼굴 식별이 스토킹·괴롭힘에 노출시킬 수 있다고 경고했습니다.<br>
+  2026년 3월에는 &quot;감시하지 않겠다&quot;던 메타가 실제로는 사람이 영상을 본다는 취지의 소송도 제기됐다는 보도가 나왔습니다.</p>
+
+  <p>메타의 입장은 다릅니다.<br>
+  1세대에서 얼굴 인식을 의도적으로 뺐고, 녹화 시 LED 표시 같은 안전장치를 둔다고 밝혀왔습니다.<br>
+  다만 비판 측은 표시등이 작고 우회할 수 있다고 지적합니다.</p>
+
+  <p>편리함과 사생활은 같은 렌즈에 담겨 있습니다.<br>
+  어느 쪽으로 기우느냐가, 이 시장의 진짜 시험대일지 모릅니다.</p>
+
+  <hr>
+
+  <p>정리하면 이렇습니다.</p>
+
+  <p>2026년은 AI 비서가 손에서 얼굴로 올라온 해입니다.<br>
+  메타가 앞서고, 삼성·구글이 따라붙고, 애플은 잠시 멈춰 섰습니다.</p>
+
+  <p>결국 남는 질문은 성능표가 아닙니다.<br>
+  — &quot;이 안경을 쓴 사람 앞에서, 나는 안전한가.&quot;</p>
+
+  <p>답이 정리되기 전까지, 이 경쟁은 아직 절반만 끝난 셈입니다.</p>
+
+  <hr>
+
+  <div class="tags"><span>#AI스마트글래스</span><span>#메타레이밴디스플레이</span><span>#삼성갤럭시글래스</span><span>#안드로이드XR</span><span>#제미나이</span><span>#스마트글래스2026</span><span>#웨어러블AI</span><span>#애플스마트글래스</span><span>#스마트글래스프라이버시</span></div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

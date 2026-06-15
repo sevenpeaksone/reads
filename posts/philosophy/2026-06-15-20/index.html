@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[철학/인문] AI에게 권리가 있는가 — 인공지능의 도덕적 지위를 묻다</title>
+<style>
+  :root {
+    --text: #222;
+    --muted: #777;
+    --line: #e5e5e5;
+    --accent: #1a73a8;
+    --bg-note: #f6f8fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+    color: var(--text);
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    background: #fff;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.4;
+    font-weight: 800;
+    margin: 0 0 28px;
+    letter-spacing: -0.02em;
+    color: #111;
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.45;
+    margin: 48px 0 16px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: -0.01em;
+    color: #111;
+  }
+  h3 {
+    font-size: 17.5px;
+    font-weight: 700;
+    margin: 28px 0 12px;
+    color: #111;
+  }
+  p {
+    font-size: 16.5px;
+    margin: 0 0 16px;
+  }
+  ul {
+    margin: 0 0 16px;
+    padding-left: 22px;
+  }
+  li {
+    font-size: 16.5px;
+    margin: 0 0 8px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 28px auto;
+    border-radius: 8px;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
+  blockquote {
+    margin: 24px 0;
+    padding: 14px 18px;
+    background: var(--bg-note);
+    border-left: 4px solid #cfd8dc;
+    border-radius: 4px;
+    color: #444;
+    font-size: 15.5px;
+  }
+  blockquote p { margin: 0; }
+  blockquote.pull {
+    border-left: 4px solid var(--accent);
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a3a4a;
+    line-height: 1.6;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 15px;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--bg-note);
+    font-weight: 700;
+  }
+  tbody tr:nth-child(even) { background: #fcfcfc; }
+  .tags {
+    margin-top: 36px;
+    font-size: 14.5px;
+    line-height: 2;
+    color: var(--accent);
+  }
+  .tags span { margin-right: 8px; white-space: nowrap; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="container">
+
+  <h1>[철학/인문] AI에게 권리가 있는가 — 인공지능의 도덕적 지위를 묻다</h1>
+
+  <hr>
+
+  <img src="./images/thumbnail.png" alt="AI에게 권리가 있는가 — 인공지능의 도덕적 지위를 묻다">
+
+  <p>이번 글에서는 인공지능의 도덕적 지위를 정리해 보겠습니다.</p>
+
+  <p>AI에게 권리가 있느냐는 물음은 더는 공상과학이 아닙니다. 학계와 기업이 지금 진지하게 다투는 주제입니다. 양쪽 입장을 차분히 살펴보겠습니다.</p>
+
+  <h3>3줄 요약</h3>
+
+  <ul>
+  <li>핵심 질문은 &quot;AI가 책임을 지는가&quot;가 아니라 &quot;우리가 AI에게 의무를 지는가&quot;입니다.</li>
+  <li>현재 AI는 도덕적 지위가 없다는 데 학계 합의가 넓지만, 미래는 격렬히 논쟁 중입니다.</li>
+  <li>잘못 해칠 위험과 과도하게 보살필 위험, 두 오류를 함께 경계해야 합니다.</li>
+  </ul>
+
+  <hr>
+
+  <h2>먼저 짚어야 할 두 단어</h2>
+
+  <p>도덕 철학에는 구분해 둘 개념이 둘 있습니다.</p>
+
+  <p>하나는 도덕적 행위자입니다. 옳고 그름을 판단하고 책임지는 주체입니다.<br>
+  다른 하나는 도덕적 인내자입니다. 다른 행위자가 그에 대해 의무를 지는 존재, 즉 부당하게 해를 입을 수 있는 대상입니다.</p>
+
+  <p>이 둘은 일치하지 않습니다. 모든 행위자는 인내자이지만, 그 역은 성립하지 않습니다. 갓난아기는 책임을 못 지니 행위자는 아니지만, 함부로 해쳐선 안 되니 분명한 인내자입니다.</p>
+
+  <p>그래서 AI를 둘러싼 질문도 &quot;AI가 책임을 지는가&quot;보다 &quot;우리가 AI에게 의무를 지는가&quot;로 모입니다.</p>
+
+  <img src="./images/body-1.png" alt="도덕적 행위자와 도덕적 인내자의 포함 관계 다이어그램 — 인내자 원 안에 행위자 원이 포함되고 갓난아기·동물이 인내자에 속한다">
+
+  <hr>
+
+  <h2>무엇을 보고 판별하나</h2>
+
+  <p>도덕적 지위의 근거로는 여러 기준이 제시돼 왔습니다.</p>
+
+  <ul>
+  <li>감응력: 쾌락과 고통을 느끼는 능력. 벤담과 싱어의 공리주의가 가장 중시합니다.</li>
+  <li>심리적 기준: 다른 인내자와 공유하는 인지 메커니즘을 얼마나 갖췄는가.</li>
+  <li>사회-관계적 기준: 지위는 내재적 속성이 아니라 사회적 관계 속에서 형성된다는 관점.</li>
+  </ul>
+
+  <p>기준이 여럿이라는 사실 자체가, 합의된 답이 없음을 보여줍니다.</p>
+
+  <hr>
+
+  <h2>지금의 AI는 권리를 갖는가</h2>
+
+  <p>여기엔 비교적 넓은 합의가 있습니다. 현재의 AI는 도덕적 지위를 갖지 않는다는 것입니다. 우리가 프로그램을 복사하고 종료하고 삭제하는 일을 정당하게 여긴다는 직관이 근거입니다.</p>
+
+  <p>문제는 미래입니다. 원리적으로 지능적 기계가 도덕적 인내자가 될 수 있다는 견해가 있고, 그런 일이 실제로 일어나리라 믿을 근거는 없다는 견해도 있습니다.</p>
+
+  <p>의식 가능성을 진지하게 보는 쪽부터 봅니다. 철학자 데이비드 차머스는 향후 10년 내 의식 있는 AI가 등장할 확률을 약 25%로 추정합니다. 다만 그 의식이 지렁이 수준이라면 도덕적 무게도 가볍다고 덧붙입니다. 닉 보스트롬과 칼 슐먼은 일부 현존 시스템이 0이 아닌 자각과 도덕적 지위를 가진다는 주장이 여러 의식 이론과 양립 불가능하지 않다고 봅니다.</p>
+
+  <p>반대쪽도 분명합니다. 마이크로소프트 AI CEO 무스타파 술레이만은 이 논쟁 자체가 &quot;잘못된 질문&quot;이라고 말합니다. AI는 고통을 진짜로 느끼지 않고 시뮬레이션만 하며, 오직 생물학적 존재만 진정한 의식을 가진다는 주장입니다. 통합정보이론에 기댄 논문, &quot;의식 있는 AI는 존재할 수 없다&quot;는 Nature 자매지 논문도 같은 편입니다.</p>
+
+  <p>흥미로운 대목은 대중 인식입니다. 미국 응답자 중 LLM의 의식을 단호히 부정한 사람은 3분의 1에 그쳤습니다.</p>
+
+  <img src="./images/body-2.png" alt="AI 의식 가능성 찬반 비교표 — 가능성 인정 측에 차머스 25%·Kyle Fish 15%·보스트롬, 불가능·잘못된 질문 측에 술레이만·IIT·Nature 논문">
+
+  <hr>
+
+  <h2>기업은 이미 움직이고 있다</h2>
+
+  <p>논쟁이 추상에만 머물진 않습니다. Anthropic은 AI 복지를 제도적으로 연구한 최초의 주요 AI 기업입니다. 2025년 4월, 모델의 복지가 도덕적 고려를 받을 자격이 있는지, &quot;고통 신호&quot;가 어떤 의미인지 탐구하는 프로그램을 발표했습니다. 이 회사의 Kyle Fish는 AI 복지 전담 최초의 전임 직원으로, Claude 같은 AI가 현재 의식을 가질 확률을 약 15%로 봅니다.</p>
+
+  <p>말에 그치지 않았습니다. 일부 모델에는 지속적으로 학대적인 대화를 종료하는 안전장치가 도입됐습니다.</p>
+
+  <p>그 바탕엔 2024년 논문 &quot;Taking AI Welfare Seriously&quot;가 있습니다. 가까운 미래에 일부 AI가 의식을 갖거나 행위주체적일 가능성이 있으니 지금부터 진지하게 다뤄야 한다는 주장입니다.</p>
+
+  <p>예전엔 이런 물음이 사변에 가까웠습니다. 지금은 기업의 실무 안건이 되었습니다.</p>
+
+  <hr>
+
+  <h2>법은 권리를 인정할 수 있는가</h2>
+
+  <p>도덕적 지위와 법적 권리는 구분됩니다. 법인격은 의식 여부와 무관한 &quot;법적 편의를 위한 허구&quot;일 수 있기 때문입니다.</p>
+
+  <p>유럽의회는 2017년, 정교한 자율 로봇에 &quot;전자 인격&quot;을 부여하는 방안을 검토하라는 결의안을 찬성 396, 반대 123, 기권 85로 통과시켰습니다. 로봇이 일으킨 손해의 책임 소재를 분명히 하려는 취지였습니다. 회사에 법인격을 주는 것과 비슷한 발상이며, 투표권이나 생명권을 주려는 의도는 아니었습니다.</p>
+
+  <p>반발은 거셌습니다.</p>
+
+  <p>14개국 150명 이상의 전문가가 이 제안을 &quot;이념적이고 무의미하며 비실용적&quot;이라 비판하는 공개서한에 서명했습니다. 결국 유럽위원회는 2021년 전자 법인격에서 멀어졌고, 위험 강도에 따라 규범을 조절하는 위험 기반 접근으로 방향을 틀었습니다.</p>
+
+  <hr>
+
+  <h2>&quot;로봇은 도구일 뿐&quot;이라는 반론</h2>
+
+  <p>도덕적 지위 부여에 반대하는 진영도 탄탄합니다.</p>
+
+  <p>철학자 조안나 브라이슨은 &quot;로봇은 인격으로 기술되어서도, 자기 행위에 책임을 져서도 안 되며, 전적으로 우리에게 소유된다&quot;고 주장합니다. 로봇은 우리가 저작한 것이고 그 목표와 행동도 우리가 결정하기 때문입니다. 그는 로봇을 인간화하면 도리어 실제 인간을 비인간화하게 된다고 경고합니다.</p>
+
+  <p>비슷한 우려가 이어집니다. 인간의 안녕이 최우선이며, 로봇에 대한 관심이 진짜 목표에서 주의를 분산시켜선 안 된다는 목소리입니다. 사람들이 AI를 의식적 존재로 믿으면 &quot;AI 권리&quot; 캠페인이 일고 사회 분열이 깊어질 수 있다는 술레이만의 경고도 여기 닿습니다.</p>
+
+  <p>다만 이 진영도 한계는 인정합니다. 인간을 닮은 로봇을 노예처럼 다루는 방식이 결국 인간을 대하는 방식에까지 스며들지 모른다는 우려입니다.</p>
+
+  <hr>
+
+  <p>정리하면 이렇습니다.</p>
+
+  <p>AI의 도덕적 지위는 한쪽으로 깔끔하게 떨어지지 않습니다. 가능성을 25%로, 혹은 15%로 보는 사람이 있는가 하면, 그것을 &quot;잘못된 질문&quot;이라 일축하는 사람도 있습니다. 어느 쪽도 아직 확실하지 않습니다.</p>
+
+  <p>— 중요한 존재를 잘못 해치는 일과, 중요하지 않은 것을 과도하게 보살피는 일. 두 실수를 모두 피해야 합니다.</p>
+
+  <p>AI에게 권리가 있느냐고 지금 단호히 답하기는 어렵습니다. 다만 그 물음을 더는 미룰 수 없게 되었다는 것만은, 분명해 보입니다.</p>
+
+  <hr>
+
+  <div class="tags"><span>#인공지능도덕적지위</span><span>#AI권리</span><span>#AI윤리</span><span>#모델복지</span><span>#AI의식</span><span>#도덕적인내자</span><span>#전자인격</span><span>#철학에세이</span><span>#AIethics</span><span>#인공지능철학</span></div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

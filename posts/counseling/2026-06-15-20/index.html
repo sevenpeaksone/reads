@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[상담] 불안한 마음 다스리기 — 걱정이 멈추지 않을 때</title>
+<style>
+  :root {
+    --text: #222;
+    --muted: #777;
+    --line: #e5e5e5;
+    --accent: #1a73a8;
+    --bg-note: #f6f8fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+    color: var(--text);
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    background: #fff;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.4;
+    font-weight: 800;
+    margin: 0 0 28px;
+    letter-spacing: -0.02em;
+    color: #111;
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.45;
+    margin: 48px 0 16px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: -0.01em;
+    color: #111;
+  }
+  h3 {
+    font-size: 17.5px;
+    font-weight: 700;
+    margin: 28px 0 12px;
+    color: #111;
+  }
+  p {
+    font-size: 16.5px;
+    margin: 0 0 16px;
+  }
+  ul {
+    margin: 0 0 16px;
+    padding-left: 22px;
+  }
+  li {
+    font-size: 16.5px;
+    margin: 0 0 8px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 28px auto;
+    border-radius: 8px;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
+  blockquote {
+    margin: 24px 0;
+    padding: 14px 18px;
+    background: var(--bg-note);
+    border-left: 4px solid #cfd8dc;
+    border-radius: 4px;
+    color: #444;
+    font-size: 15.5px;
+  }
+  blockquote p { margin: 0; }
+  blockquote.pull {
+    border-left: 4px solid var(--accent);
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a3a4a;
+    line-height: 1.6;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 15px;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--bg-note);
+    font-weight: 700;
+  }
+  tbody tr:nth-child(even) { background: #fcfcfc; }
+  .tags {
+    margin-top: 36px;
+    font-size: 14.5px;
+    line-height: 2;
+    color: var(--accent);
+  }
+  .tags span { margin-right: 8px; white-space: nowrap; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="container">
+
+  <h1>[상담] 불안한 마음 다스리기 — 걱정이 멈추지 않을 때</h1>
+
+  <hr>
+
+  <img src="./images/thumbnail.png" alt="불안한 마음 다스리는 법 - 걱정이 멈추지 않을 때 오늘부터 해 볼 수 있는 것들">
+
+  <p>이번 글에서는 걱정이 좀처럼 멈추지 않을 때 불안을 다스리는 법을 정리해 보겠습니다.</p>
+
+  <p>요약부터 먼저 전합니다.</p>
+
+  <ul>
+  <li>불안은 원래 우리를 지키는 정상적인 반응입니다. 문제는 그 걱정이 상황에 비해 지나치고, 통제가 어렵고, 끝없이 이어질 때입니다.</li>
+  <li>걱정은 잠깐의 안도감을 주지만, 길게 보면 불안을 더 키우는 악순환을 만듭니다.</li>
+  <li>호흡과 마음챙김, 걱정 시간 정하기 같은 방법이 도움이 됩니다. 다만 이 글은 일반적인 정보이며, 전문 상담·치료를 대신하지 않습니다.</li>
+  </ul>
+
+  <hr>
+
+  <h2>불안은 원래 나쁜 것이 아닙니다</h2>
+
+  <p>먼저 짚고 싶은 것이 있습니다. 불안은 고장난 감정이 아닙니다.</p>
+
+  <p>불안은 위협이나 스트레스에 대한 자연스럽고 건강한 반응입니다. 위험에 대비하고 경계를 늦추지 않도록 돕는 보호 기능을 합니다. 적당한 걱정은 미래를 준비하게 하고, 중요한 일을 잊지 않게 합니다.</p>
+
+  <p>보통은 일이 지나가면 걱정도 멈춥니다. 그러니 걱정한다는 사실 자체를 탓하지 않으셔도 됩니다.</p>
+
+  <p>문제는 다른 곳에 있습니다.</p>
+
+  <hr>
+
+  <h2>정상적인 걱정과 과도한 걱정을 가르는 선</h2>
+
+  <img src="./images/body-1.png" alt="정상적인 걱정과 과도한 걱정을 가르는 세 가지 기준 - 상황 비례, 통제 가능, 시간 경과">
+
+  <p>걱정이 있느냐 없느냐는 기준이 아닙니다. 핵심은 세 가지입니다.</p>
+
+  <p>그 걱정이 상황에 비례하는지, 스스로 통제할 수 있는지, 시간이 지나면 멈추는지를 봅니다.</p>
+
+  <p>예전엔 시험을 앞두고 며칠 긴장했다가 끝나면 풀렸습니다. 지금은 시험과 무관한 일까지, 끝난 뒤에도 걱정이 멈추지 않는다면 — 결이 다릅니다.</p>
+
+  <p>과도한 불안은 사라지지 않고, 여러 상황에서 느껴지며, 시간이 지나며 더 심해지기도 합니다. 강도가 더 세고 오래 지속되어, 여러 방법을 써도 좀처럼 멈추기 어렵습니다.</p>
+
+  <p>다만 이런 설명은 스스로 병명을 붙이기 위한 것이 아닙니다. 이해를 돕기 위한 것입니다. 이런 신호가 길게 이어진다면 전문가와 상의하시길 권합니다.</p>
+
+  <hr>
+
+  <h2>걱정은 왜 멈추지 않을까</h2>
+
+  <p>걱정에는 묘한 구석이 있습니다. 괴로운데도 자꾸 붙들게 됩니다.</p>
+
+  <p>이유가 있습니다. 걱정에 몰두하면, 두려운 결과를 마주할 때의 신체적 흥분이 잠시 낮아집니다. 일종의 회피인 셈입니다. 불편한 감정을 잠깐 피하게 해 주니, 걱정이라는 습관이 스스로 강화됩니다. 결과를 알 수 없는 상황을 못 견딜수록 걱정은 더 커집니다.</p>
+
+  <p>걱정이 많은 분들은 흔히 이렇게 믿습니다. &quot;걱정해 두면 나쁜 일에 대비할 수 있다.&quot;</p>
+
+  <p>그런데 우리가 두려워하는 최악의 일은 원래 잘 일어나지 않습니다. 그 일이 안 일어나면, 사람은 &quot;내가 걱정한 덕분&quot;이라고 잘못 해석하기 쉽습니다. 그렇게 걱정이 틀렸음을 확인할 기회를 놓칩니다. 회로는 더 단단해집니다.</p>
+
+  <p>정리하면 이렇습니다. 걱정은 단기적으로 &#x27;뭔가 하고 있다&#x27;는 안도감을 줍니다. 그러나 길게 보면 불안을 유지하고 키우는 핵심 고리입니다.</p>
+
+  <hr>
+
+  <h2>피할수록 커지는 역설</h2>
+
+  <img src="./images/body-2.png" alt="회피에서 잠깐의 안도, 두려움 강화, 더 큰 회피로 돌아가는 불안의 악순환 다이어그램">
+
+  <p>불안에는 역설이 하나 있습니다.</p>
+
+  <p>가장 본능적이고 안전해 보이는 행동, 즉 두려운 것에서 도망치는 일이 오히려 불안을 키웁니다.</p>
+
+  <p>회피하면 불안이 빠르게 줄어듭니다. 그 안도감이 보상처럼 작용해, 뇌는 &quot;회피하면 안전하다&quot;고 학습합니다. 실제로는 위험하지 않았는데도 그렇습니다.</p>
+
+  <p>동시에 회피는 중요한 배움을 막습니다. 직접 마주했다면 &quot;생각보다 괜찮더라&quot;를 배웠을 텐데, 그 기회가 사라집니다. 그러면 &quot;그 상황은 위험하다&quot;는 믿음만 조용히 더 굳어집니다.</p>
+
+  <p>그래서 방향은 반대입니다. 아주 작은 단위로 조금씩 마주해 보는 것이 악순환을 끊습니다. 다만 혼자 무리하기보다 전문가의 안내 아래 안전하게 밟아 가시는 편이 좋겠습니다.</p>
+
+  <hr>
+
+  <h2>오늘 해 볼 수 있는 것들</h2>
+
+  <img src="./images/body-3.png" alt="오늘 해 볼 수 있는 네 가지 - 천천히 숨쉬기, 걱정 적어 미뤄두기, 생각 다시 들여다보기, 몸 돌보고 나누기">
+
+  <p>거창한 결심이 아니어도 됩니다. 작은 것부터 시작해 보시면 좋겠습니다.</p>
+
+  <p>첫째, 호흡입니다. 의식적인 호흡은 몸의 이완을 담당하는 신경계를 깨워 불안을 가라앉힙니다. 배에 손을 얹고, 들숨에 배가 부풀고 날숨에 배가 꺼지도록 천천히 쉽니다. 들숨보다 날숨을 길게 하면 더 편안해집니다. 들숨 4초, 멈춤 4초, 날숨 4초, 멈춤 4초의 박스 호흡도 좋습니다.</p>
+
+  <p>둘째, 걱정 시간을 정해 둡니다. 하루 중 15~20분을 &#x27;걱정 시간&#x27;으로 비워 둡니다. 낮에 걱정이 떠오르면 짧게 적어 두고 &quot;이건 그때 생각하자&quot;며 미룹니다. 정해진 시간에만 그 목록을 봅니다. 막상 그 시간이 되면 덜 급하게 느껴진다는 분이 많습니다.</p>
+
+  <p>셋째, 떠오른 생각을 다시 들여다봅니다. 걱정을 적고, &quot;이 생각의 근거는 무엇이고 반대 증거는 없나&quot;를 묻습니다. &quot;최악 말고 가장 현실적인 결과는 무엇일까&quot;를 따져, 균형 잡힌 문장으로 바꿔 적습니다.</p>
+
+  <p>넷째, 몸을 돌보고 나눕니다. 불안에 매달리기보다 충분한 수면과 양질의 식사, 꾸준한 신체활동에 마음을 둡니다. 그리고 신뢰하는 사람과 이야기를 나눕니다. 누군가 내 이야기를 들어주는 것만으로도 불안은 한결 낮아집니다.</p>
+
+  <p>물론 이 방법들이 모든 것을 단번에 풀어주지는 않습니다. 꾸준히 연습할 때 효과가 천천히 자리를 잡습니다.</p>
+
+  <hr>
+
+  <h2>전문가의 손이 필요한 때</h2>
+
+  <img src="./images/body-4.png" alt="도움을 받을 수 있는 곳 - 정신건강 위기상담 1577-0199, 자살예방 상담 109, 보건복지상담센터 129">
+
+  <p>스스로 다스리는 데에는 한계가 있습니다. 그 선을 아는 것도 중요합니다.</p>
+
+  <p>불안이나 걱정이 학교, 직장, 사람과의 관계 같은 일상에 지장을 주기 시작하면 전문적 도움을 구할 때입니다. 불안이 사라지지 않고 여러 상황에서 이어지며 점점 심해진다면, 또 흔한 상황에서도 강한 두려움을 느끼거나 사람 만남과 외출을 자꾸 피하게 된다면, 혼자 버티지 마시길 권합니다.</p>
+
+  <p>진단과 치료는 정신건강의학과 전문의와 임상심리·상담 전문가의 영역입니다. 이 글은 스스로 진단하거나 약을 정하기 위한 글이 아닙니다.</p>
+
+  <p>도움을 받을 수 있는 곳을 적어 둡니다.</p>
+
+  <ul>
+  <li>정신건강 위기상담 전화 1577-0199 — 전국 어디서나, 365일 24시간</li>
+  <li>자살예방상담 전화 109</li>
+  <li>보건복지상담센터 129</li>
+  <li>거주지의 시·군·구 정신건강복지센터</li>
+  <li>국가정신건강정보포털(mentalhealth.go.kr)</li>
+  </ul>
+
+  <hr>
+
+  <p>끝으로 한 마디만 더 드리겠습니다.</p>
+
+  <p>불안을 완전히 없애는 것이 목표가 아닙니다. 불안과 너무 싸우지 않으면서, 함께 지내는 법을 익히는 것입니다.</p>
+
+  <blockquote class="pull"><p>— &quot;걱정을 멈추려 애쓰기보다, 걱정과 거리를 두는 연습을 합니다.&quot;</p></blockquote>
+
+  <p>지금 마음이 무겁다면, 오늘은 그저 숨 한 번 길게 내쉬는 것부터 시작해 보시면 어떨까요.</p>
+
+  <hr>
+
+  <div class="tags"><span>#불안다스리기</span><span>#걱정멈추는법</span><span>#불안한마음</span><span>#마음챙김</span><span>#복식호흡</span><span>#걱정시간</span><span>#불안극복</span><span>#정신건강</span><span>#심리상담</span><span>#마음돌봄</span></div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>
