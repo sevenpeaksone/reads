@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[철학/인문] 스토아 철학 — 불확실한 시대에 마음을 지키는 고대의 지혜</title>
+<style>
+  :root {
+    --text: #222;
+    --muted: #777;
+    --line: #e5e5e5;
+    --accent: #1a73a8;
+    --bg-note: #f6f8fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+    color: var(--text);
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    background: #fff;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.4;
+    font-weight: 800;
+    margin: 0 0 28px;
+    letter-spacing: -0.02em;
+    color: #111;
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.45;
+    margin: 48px 0 16px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: -0.01em;
+    color: #111;
+  }
+  h3 {
+    font-size: 17.5px;
+    font-weight: 700;
+    margin: 28px 0 12px;
+    color: #111;
+  }
+  p {
+    font-size: 16.5px;
+    margin: 0 0 16px;
+  }
+  ul {
+    margin: 0 0 16px;
+    padding-left: 22px;
+  }
+  li {
+    font-size: 16.5px;
+    margin: 0 0 8px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 28px auto;
+    border-radius: 8px;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
+  blockquote {
+    margin: 24px 0;
+    padding: 14px 18px;
+    background: var(--bg-note);
+    border-left: 4px solid #cfd8dc;
+    border-radius: 4px;
+    color: #444;
+    font-size: 15.5px;
+  }
+  blockquote p { margin: 0; }
+  blockquote.pull {
+    border-left: 4px solid var(--accent);
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a3a4a;
+    line-height: 1.6;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 15px;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--bg-note);
+    font-weight: 700;
+  }
+  tbody tr:nth-child(even) { background: #fcfcfc; }
+  .tags {
+    margin-top: 36px;
+    font-size: 14.5px;
+    line-height: 2;
+    color: var(--accent);
+  }
+  .tags span { margin-right: 8px; white-space: nowrap; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="container">
+
+  <h1>[철학/인문] 스토아 철학 — 불확실한 시대에 마음을 지키는 고대의 지혜</h1>
+
+  <hr>
+
+  <img src="./images/thumbnail.png" alt="고대 아테네의 채색된 주랑을 모티프로 한 &#x27;스토아 철학 — 불확실한 시대에 마음을 지키는 고대의 지혜&#x27; 썸네일">
+
+  <p>이번 글에서는 스토아 철학을 마음을 지키는 실천 지혜로서 정리해 보겠습니다.</p>
+
+  <p>먼저 결론부터 말씀드립니다. 스토아 철학은 감정을 억누르는 차가운 금욕이 아닙니다. 통제할 수 있는 것에 집중하고, 나머지는 받아들이며, 미덕에 따라 사는 마음의 기술입니다. 2천 년 전의 지혜가 오늘날 인지행동치료(CBT)의 뿌리로 다시 주목받는 이유가 여기에 있습니다.</p>
+
+  <hr>
+
+  <h2>채색된 주랑에서 시작된 철학</h2>
+
+  <p>스토아 철학은 기원전 약 300년경, 키프로스 키티온 출신의 제논이 아테네에서 창시했습니다.</p>
+
+  <p>&#x27;스토아&#x27;라는 이름의 유래가 재미있습니다. 아테네 공공 시장에 있던 &#x27;스토아 포이킬레&#x27;, 곧 &#x27;채색된 주랑&#x27;에서 왔습니다. 제논과 초기 학파가 이 열린 회랑에 모여 가르쳤기에 그대로 학파의 이름이 되었습니다.</p>
+
+  <p>제논은 본래 상인이었습니다. 난파 사건을 겪은 뒤 아테네에서 철학에 입문한 것으로 전해집니다. 잃음에서 출발한 철학이라는 점이, 어쩐지 이 사상의 결을 미리 보여주는 듯합니다.</p>
+
+  <p>그의 체계는 논리학·자연학·윤리학 세 분야로 이루어지며, 그중 중심은 윤리학입니다. 어떻게 살 것인가 — 스토아 철학은 처음부터 이 질문을 향하고 있었습니다.</p>
+
+  <hr>
+
+  <h2>노예, 정치가, 황제가 같은 철학을 실천했다</h2>
+
+  <p>스토아 철학은 후기 로마 시대로 가면서 이론보다 실천으로 무게중심이 옮겨갑니다. 그 흐름을 가장 잘 보여주는 세 인물이 있습니다.</p>
+
+  <ul>
+  <li><strong>세네카</strong> (기원전 약 4년 ~ 기원후 65년): 로마의 정치가이자 극작가, 네로 황제의 스승. 당대 가장 부유한 사람 중 하나였습니다. 『도덕에 관한 편지』가 유명합니다.</li>
+  <li><strong>에픽테토스</strong> (기원후 약 50~135년): 노예 출신. 현재 튀르키예 파묵칼레에 해당하는 히에라폴리스에서 노예로 태어났습니다. &#x27;Epictetus&#x27;라는 이름 자체가 &#x27;얻어진 자&#x27;라는 뜻이라고 합니다. 훗날 자유를 얻어 철학을 가르쳤습니다.</li>
+  <li><strong>마르쿠스 아우렐리우스</strong> (기원후 121~180년): 로마 황제. 그의 사적인 기록 『명상록』은 스토아 철학의 중요한 1차 사료입니다.</li>
+  </ul>
+
+  <img src="./images/body-1.png" alt="노예 에픽테토스, 정치가 세네카, 황제 마르쿠스 아우렐리우스를 신분과 함께 나란히 비교한 일러스트">
+
+  <p>신분의 양 끝이 여기 다 있습니다. 노예와 황제. 부유한 권력자와 가진 것 없는 자.</p>
+
+  <p>그렇게 다른 자리에 선 사람들이 같은 철학을 붙들었습니다. 황제 마르쿠스 아우렐리우스가 노예 출신 에픽테토스의 가르침을 깊이 받아들였다는 사실은 그 자체로 하나의 메시지입니다. 스토아 철학은 자리를 가리지 않는 지혜였던 셈입니다.</p>
+
+  <hr>
+
+  <h2>통제할 수 있는 것과 없는 것</h2>
+
+  <p>스토아 철학의 핵심을 하나만 꼽으라면 &#x27;통제의 이분법&#x27;을 들겠습니다. 에픽테토스가 정식화한 개념입니다.</p>
+
+  <p>세상일은 둘로 나뉩니다. 내 통제 안에 있는 것과 밖에 있는 것.</p>
+
+  <p>안에 있는 것은 나의 판단과 의견, 욕구, 그리고 어느 정도까지의 내 행동입니다. 밖에 있는 것은 타인의 행동, 외부 사건, 그리고 결과입니다.</p>
+
+  <p>여기서 한 가지를 짚고 넘어가야 합니다. 흔히 이 개념을 &quot;X는 통제 가능, Y는 불가능&quot;으로 너무 단순하게 가르는 경우가 많습니다. 모던 스토이시즘의 마이클 트렘블레이는 바로 이 지점을 사람들이 오해한다고 지적합니다. 온전히 우리에게 달린 것은 우리의 판단과 의지의 작용이지, 행동의 결과까지 100% 손에 쥔다는 뜻이 아닙니다.</p>
+
+  <p>그러니 핵심은 이렇습니다. 내가 할 수 있는 일에 힘을 쏟고, 나머지는 담담히 받아들이는 것.</p>
+
+  <p>예전엔 결과에 매달려 마음을 졸였습니다. 지금은 내가 한 노력까지가 내 몫이라 여깁니다. 이 작은 선 긋기 하나가 마음의 부담을 크게 덜어줍니다.</p>
+
+  <hr>
+
+  <h2>미덕, 평정심, 그리고 운명을 사랑하는 법</h2>
+
+  <p>스토아 철학에서 삶의 목표는 &#x27;자연과 일치하여 사는 것&#x27;입니다. 이성과 미덕에 따라, 우주의 질서와 모든 인간에게 공통된 가치를 인정하며 사는 삶을 뜻합니다.</p>
+
+  <p>그 중심에 네 가지 미덕이 있습니다.</p>
+
+  <ul>
+  <li><strong>지혜</strong> — 무엇이 옳고 그른지 분별하는 힘</li>
+  <li><strong>용기</strong> — 두려움 앞에서 물러서지 않는 힘</li>
+  <li><strong>정의</strong> — 타인을 공정하게 대하는 마음</li>
+  <li><strong>절제</strong> — 욕망을 다스리는 균형</li>
+  </ul>
+
+  <p>이 미덕을 길러 도달하려는 것이 &#x27;에우다이모니아&#x27;입니다. 흔히 &#x27;행복&#x27;으로 옮기지만, 본뜻은 &#x27;번영&#x27; 혹은 &#x27;충만함&#x27;에 더 가깝습니다.</p>
+
+  <p>또 하나 알아둘 개념이 &#x27;아파테이아&#x27;, 곧 평정심입니다. 분노·두려움·질투 같은 파괴적 감정에서 자유로운 마음 상태를 가리킵니다. 삶의 부침 속에서도 명료한 판단을 잃지 않는 것입니다.</p>
+
+  <p>오해하지 마시길 권합니다. 아파테이아는 사람을 &#x27;감정 없는 돌&#x27;로 만드는 것이 아닙니다. 지성의 조화로운 앎 속에서 평온해지는 것입니다.</p>
+
+  <p>여기에 &#x27;아모르 파티&#x27;, 운명애를 더할 수 있습니다. 일어나는 모든 일을, 고통과 상실까지도 받아들이고 긍정하는 태도입니다. 다만 이 라틴어 표현은 니체가 정식화한 것으로 널리 알려져 있는데, 니체가 스토아 사상을 그대로 계승한 것은 아닙니다. 통하는 데가 있되, 같은 것은 아니라고 보는 편이 정확합니다.</p>
+
+  <hr>
+
+  <h2>최악을 미리 그려보는 연습</h2>
+
+  <p>스토아 철학자들이 즐겨 행한 정신 수련이 있습니다. &#x27;프레메디타티오 말로룸&#x27;, 우리말로 옮기면 &#x27;부정적 시각화&#x27;입니다.</p>
+
+  <p>나쁜 일을 미리 머릿속으로 그려보는 것입니다. 최악의 상황을 차분히 예행연습함으로써, 막상 역경이 닥쳤을 때 더 이성적으로 대응하게 하는 도구입니다.</p>
+
+  <img src="./images/body-2.png" alt="눈을 감고 차분히 생각에 잠겨 최악의 상황을 미리 그려보는 부정적 시각화 장면 일러스트">
+
+  <p>여기서 중요한 단서가 있습니다. 이것은 불안한 생각의 소용돌이가 아닙니다. 의도적이고 구조화된 정신적 리허설입니다. 목적은 더 큰 걱정이 아니라 더 큰 평정심입니다.</p>
+
+  <p>우리는 보통 최선만 계획합니다. 그러다 나머지에 기습당합니다. 부정적 시각화는 세상을 조금 더 현실적으로 바라보게 해 줍니다.</p>
+
+  <hr>
+
+  <h2>현대 심리치료의 뿌리가 된 고대 철학</h2>
+
+  <p>스토아 철학이 현대 인지행동치료(CBT)의 철학적 뿌리라는 점은 폭넓게 인정됩니다.</p>
+
+  <p>CBT의 직접적 선구자인 합리적 정서행동치료(REBT)는 1950년대 후반 앨버트 엘리스가 개발했습니다. 그는 치료사로 훈련받기 전, 청년기에 이미 에픽테토스와 세네카, 마르쿠스 아우렐리우스를 읽었습니다.</p>
+
+  <p>엘리스가 즐겨 인용한 에픽테토스의 말이 있습니다.</p>
+
+  <blockquote><p>&quot;사람은 사물 자체가 아니라, 그것에 대한 견해에 의해 동요된다.&quot;</p></blockquote>
+
+  <p>정서적 문제는 외부 사건 그 자체가 아니라 그 사건을 바라보는 비합리적 신념에서 비롯된다 — 이 통찰이 그대로 현대 치료의 핵심이 되었습니다. 잘못된 생각을 식별하고 바꾸는 &#x27;인지 재구조화&#x27;가 그 해법입니다.</p>
+
+  <p>2천 년 전의 철학이 오늘의 치료실에서 살아 있는 셈입니다.</p>
+
+  <hr>
+
+  <h2>&quot;스토아 = 감정 억압&quot;이라는 오해</h2>
+
+  <p>가장 흔한 오해를 짚고 넘어가야겠습니다. 스토아 철학이 &#x27;감정 없는 사람이 되는 것&#x27;이라는 통념입니다.</p>
+
+  <p>이는 사실과 다릅니다. 스토아 철학은 감정을 두 종류로 구분했습니다.</p>
+
+  <ul>
+  <li><strong>파테(정념)</strong>: 분노·질투·두려움처럼 이성을 압도하고 파괴하는 비합리적 격정.</li>
+  <li><strong>에우파테이아이(좋은 감정)</strong>: 미덕과 이성을 통해 도달하는 상태. 기쁨, 선의, 우정, 사랑 같은 정서가 담긴 반응입니다.</li>
+  </ul>
+
+  <p>스토아 철학이 가르친 것은 감정의 억압이 아니라 감정의 조절입니다. 이성과 자연에 부합하는 감정은 오히려 길러냅니다. 정신건강을 이야기할 때 이 구분은 결코 사소하지 않습니다.</p>
+
+  <p>좋은 면만 말씀드리지는 않겠습니다. 통제의 이분법을 거칠게 받아들이면, 바꿀 수 있는 현실 앞에서도 너무 쉽게 체념하는 핑계가 될 수 있습니다. 어떤 지혜든 오용될 여지는 있습니다. 그래서 뉘앙스를 함께 읽는 일이 중요합니다.</p>
+
+  <hr>
+
+  <h2>왜 지금, 다시 스토아인가</h2>
+
+  <p>스토아 철학은 최근 다시 큰 주목을 받고 있습니다.</p>
+
+  <p>현대적 부흥의 중심에는 작가 라이언 홀리데이가 있습니다. 2014년경부터 『The Obstacle Is the Way』, 『The Daily Stoic』 같은 베스트셀러로 대중적 부흥을 이끌었습니다.</p>
+
+  <p>인기 요인은 대체로 이렇게 정리됩니다.</p>
+
+  <ul>
+  <li><strong>회복탄력성</strong>: 스트레스와 불안을 다루는 감정 관리 도구를 제공합니다.</li>
+  <li><strong>접근성</strong>: 고대의 개념이 쉽게 풀려 널리 전해졌습니다.</li>
+  <li><strong>실용성</strong>: 기업가·작가·운동선수 등 다양한 사람들이 그 원리에서 가치를 찾습니다.</li>
+  </ul>
+
+  <p>특히 고강도·고속의 테크 업계에서 호응이 컸습니다. 한 보고에 따르면 온라인 플랫폼에서 스토아 관련 논의가 크게 늘었다고도 합니다. 다만 이 수치는 단일 출처라 단정해 말씀드리기는 조심스럽습니다.</p>
+
+  <p>분명한 것은 흐름입니다. 빠르고 불확실한 시대일수록, 마음을 지키는 오래된 기술을 찾는 사람이 늘고 있다는 것.</p>
+
+  <hr>
+
+  <p>끝으로 한 마디만 더 드리겠습니다.</p>
+
+  <p>스토아 철학이 건네는 핵심은 결국 한 줄로 압축됩니다.</p>
+
+  <blockquote><p>&quot;바꿀 수 있는 것에 힘을 쏟고, 바꿀 수 없는 것은 받아들인다.&quot;</p></blockquote>
+
+  <p>거창한 깨달음이 아닙니다. 오늘 하루, 내 손에 달린 일과 그렇지 않은 일을 한 번 구분해 보는 것 — 그 작은 연습에서 시작됩니다.</p>
+
+  <p>불확실한 시대에 마음 둘 곳을 찾으신다면, 2천 년을 건너온 이 고요한 지혜를 한번 곁에 두어 보시면 좋겠습니다.</p>
+
+  <hr>
+
+  <p><strong>해시태그</strong>: #스토아철학 #마르쿠스아우렐리우스 #에픽테토스 #통제의이분법 #회복탄력성 #스토아주의 #명상록 #마음챙김 #인지행동치료 #철학</p>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>
