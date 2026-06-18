@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[상담] 번아웃 증후군, 소진된 마음을 알아차리고 회복하는 법</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: #f5f6f7;
+    font-family: 'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+  }
+  .post {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 24px 64px;
+    background: #ffffff;
+    line-height: 1.8;
+    font-size: 16.5px;
+  }
+  .post h1 {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.45;
+    color: #1a1a1a;
+    margin: 0 0 28px;
+    letter-spacing: -0.5px;
+  }
+  .post h2 {
+    font-size: 21px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 48px 0 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+    letter-spacing: -0.3px;
+  }
+  .post p {
+    margin: 0 0 16px;
+  }
+  .post img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 24px auto;
+    border-radius: 6px;
+  }
+  .post .thumbnail {
+    margin: 0 auto 32px;
+  }
+  .post ul {
+    padding-left: 22px;
+    margin: 0 0 18px;
+  }
+  .post li {
+    margin-bottom: 10px;
+  }
+  .post strong { color: #1a1a1a; font-weight: 700; }
+  .summary {
+    background: #f3f7f4;
+    border-left: 4px solid #5bА77a;
+    border-left: 4px solid #5ba77a;
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+  .summary .summary-title {
+    font-weight: 800;
+    color: #2f7a52;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  .summary ol {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .summary li { margin-bottom: 8px; }
+  blockquote.pull {
+    margin: 32px 0;
+    padding: 22px 26px;
+    background: #fafafa;
+    border-left: 4px solid #cfcfcf;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #444;
+    line-height: 1.7;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #e5e5e5;
+    margin: 40px 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 22px 0;
+    font-size: 15px;
+  }
+  th, td {
+    border: 1px solid #dcdcdc;
+    padding: 11px 13px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #f3f4f5;
+    font-weight: 700;
+    color: #222;
+  }
+  tbody tr:nth-child(even) td { background: #fafafa; }
+  .hashtags {
+    margin-top: 40px;
+    padding: 18px 20px;
+    background: #f4f6f8;
+    border-radius: 8px;
+    color: #5a6b7a;
+    font-size: 14px;
+    line-height: 2;
+    word-break: keep-all;
+  }
+  .hashtags span { margin-right: 8px; white-space: nowrap; display: inline-block; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="post">
+
+  <h1>[상담] 번아웃 증후군, 소진된 마음을 알아차리고 회복하는 법</h1>
+
+  <img class="thumbnail" src="./images/thumbnail.png" alt="번아웃 증후군 대표 이미지">
+
+  <p>이번 글에서는 번아웃 증후군을 어떻게 알아차리고, 어떻게 회복할 수 있는지를 정리해 보겠습니다.<br>
+  바쁘게 달리다 어느 날 마음이 텅 비어버린 느낌이 든다면, 이 글이 작은 단서가 되었으면 합니다.</p>
+
+  <div class="summary">
+    <div class="summary-title">3줄 요약</div>
+    <ol>
+      <li>번아웃은 WHO가 분류한, 만성적인 직장 스트레스에서 비롯된 '증후군'입니다. 질병은 아닙니다.</li>
+      <li>핵심 신호는 세 가지 — 정서적 소진, 냉소·거리두기, 효능감 저하입니다.</li>
+      <li>경계 설정, 충분한 휴식, 사회적 지지가 회복의 출발점이며, 어려움이 길어지면 전문가의 도움을 권합니다.</li>
+    </ol>
+  </div>
+
+  <hr>
+
+  <h2>■ 번아웃이란 무엇인가</h2>
+
+  <p>세계보건기구(WHO)는 2019년, 국제질병분류 11판(ICD-11)에 번아웃을 등재했습니다.<br>
+  정의는 이렇습니다. "성공적으로 관리되지 못한 만성적인 직장 스트레스에서 비롯된 증후군."</p>
+
+  <p>한 가지 짚어둘 점이 있습니다.<br>
+  번아웃은 ICD-11에서 '질병'이나 '의학적 상태'로 분류되지 않습니다.<br>
+  '건강 상태에 영향을 미치는 요인'이라는 항목에 들어 있을 뿐입니다.</p>
+
+  <p>WHO는 번아웃을 직업적 맥락의 현상에만 한정한다고 명시합니다.<br>
+  삶의 다른 영역을 설명하는 데 함부로 가져다 쓰지 말라는 뜻이기도 합니다.</p>
+
+  <p>다시 말해, 번아웃은 개인의 나약함이 아닙니다.<br>
+  '일과 사람의 관계'에서 생겨나는 현상에 가깝습니다.</p>
+
+  <hr>
+
+  <h2>■ 세 가지 핵심 신호</h2>
+
+  <p>크리스티나 매슬랙의 연구와 WHO 정의는 번아웃을 세 차원으로 봅니다.<br>
+  표현은 조금씩 다르지만 가리키는 것은 같습니다.</p>
+
+  <img src="./images/body-1.png" alt="번아웃 3대 핵심 증상 핵심 포인트 카드">
+
+  <ul>
+    <li><strong>정서적 소진</strong>: 정서적 자원이 바닥나 "더 이상 내어줄 것이 없다"고 느끼는 상태입니다. 대개 가장 먼저 찾아옵니다.</li>
+    <li><strong>냉소·거리두기</strong>: 자기 일이나 동료·고객에게 부정적이고 거리를 두는 태도가 생깁니다.</li>
+    <li><strong>효능감 저하</strong>: 자신의 능력과 성취를 부정적으로 평가하게 됩니다. "내가 잘 못하고 있다"는 느낌입니다.</li>
+  </ul>
+
+  <p>흔히 정서적 소진이 먼저 오고, 냉소와 효능감 저하가 뒤따른다고 보고됩니다.<br>
+  다만 모두가 같은 순서를 밟지는 않습니다. 사람마다 결이 다릅니다.</p>
+
+  <p>몸도 신호를 보냅니다.<br>
+  만성 피로, 수면의 변화, 두통과 소화기 문제, 집중력 저하, 사소한 일에 나는 짜증.<br>
+  이런 것들이 겹쳐 온다면 한 번쯤 멈춰 서서 자신을 들여다볼 때입니다.</p>
+
+  <hr>
+
+  <h2>■ 번아웃과 우울증은 어떻게 다른가</h2>
+
+  <p>번아웃과 우울증은 증상이 겹쳐 헷갈리기 쉽습니다.<br>
+  그러나 같은 것은 아닙니다.</p>
+
+  <img src="./images/body-2.png" alt="번아웃과 우울증 차이 비교 표">
+
+  <table>
+    <thead>
+      <tr><th>구분</th><th>번아웃</th><th>우울증</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>범위</td><td>주로 일·특정 맥락에 집중</td><td>삶의 모든 영역에 퍼짐</td></tr>
+      <tr><td>유발 요인</td><td>분명한 스트레스원이 있음</td><td>명확한 요인 없이도 발생 가능</td></tr>
+      <tr><td>휴식 반응</td><td>스트레스원에서 벗어나면 호전, 복귀 시 재발</td><td>환경을 바꿔도 잘 나아지지 않음</td></tr>
+      <tr><td>정서</td><td>좌절감 중심</td><td>깊은 절망감</td></tr>
+    </tbody>
+  </table>
+
+  <p>번아웃은 우울증의 한 종류가 아닙니다.<br>
+  다만 방치된 만성 번아웃은 우울 삽화로 이어질 수 있습니다.</p>
+
+  <p>여기서 조심스럽게 한 가지를 덧붙이고 싶습니다.<br>
+  증상이 겹치는 만큼, 자가 진단에는 분명한 한계가 있습니다.<br>
+  정확한 구분과 평가는 정신건강 전문가의 몫입니다.</p>
+
+  <hr>
+
+  <h2>■ 회복으로 가는 길</h2>
+
+  <p>회복은 단번에 오지 않습니다.<br>
+  근거 기반의 전략들을 차근히 쌓아가는 편이 현실적입니다.</p>
+
+  <img src="./images/body-3.png" alt="번아웃 회복 4단계 다이어그램">
+
+  <ul>
+    <li><strong>경계 설정</strong>: 우선순위가 낮은 요청에 "지금은 어렵다"고 말해 보시면 좋겠습니다. 업무 시간을 정하고 지키는 일, 위임도 여기에 포함됩니다.</li>
+    <li><strong>충분한 휴식과 수면</strong>: 하룻밤 7~9시간이 권장됩니다. 취침 시각의 일관성이 총 수면 시간만큼 중요하다고 합니다.</li>
+    <li><strong>사회적 지지</strong>: 고립은 번아웃을 악화시킵니다. 동료·가족·친구와의 관계를 놓지 않으시길 권합니다.</li>
+    <li><strong>몸을 움직이기</strong>: 20분 산책만으로도 스트레스 호르몬이 줄고 기분이 나아진다는 보고가 있습니다.</li>
+  </ul>
+
+  <p>한 가지 한계도 솔직히 인정해야겠습니다.<br>
+  번아웃은 개인의 노력만으로 다 해결되지 않습니다.<br>
+  업무량 조정, 통제권 부여, 공정한 보상 같은 직장 차원의 변화가 함께 가야 합니다.</p>
+
+  <p>예전에는 "내가 더 버티면 된다"고 생각하기 쉽습니다.<br>
+  지금은 "환경과 나의 관계를 함께 살핀다"는 쪽이 더 건강한 태도라고 생각합니다.</p>
+
+  <hr>
+
+  <h2>■ 전문가의 도움이 필요한 때</h2>
+
+  <p>다음과 같은 신호가 보인다면, 혼자 애쓰지 마시길 바랍니다.</p>
+
+  <ul>
+    <li>사소한 일에도 압도당하고, 갇힌 듯한 느낌이 이어질 때</li>
+    <li>설명되지 않는 신체 증상, 식욕·수면의 뚜렷한 변화가 있을 때</li>
+    <li>집이나 직장에서 제 기능을 하기 어렵고, 무력감과 절망감이 지속될 때</li>
+  </ul>
+
+  <p>이런 신호가 2주 이상 이어지거나 일상이 무너진다면, 정신건강 전문가의 상담을 권합니다.<br>
+  정신건강의학과, 임상심리·상담 전문가, 직장의 EAP 등을 떠올려 보시면 좋겠습니다.</p>
+
+  <p>이 글은 일반적이고 교육적인 정보를 정리한 것입니다.<br>
+  전문가의 진단이나 치료를 대체하지 않습니다.<br>
+  지금 마음이 많이 힘드시다면, 그 어려움을 혼자 떠안지 마시고 전문가의 도움을 받으시길 진심으로 권합니다.</p>
+
+  <hr>
+
+  <p>정리하면 이렇습니다.<br>
+  번아웃은 게으름의 증거가 아니라, 오래 애써온 사람에게 찾아오는 신호입니다.<br>
+  그 신호를 부끄러워하기보다, 알아차리는 일이 회복의 첫걸음입니다.</p>
+
+  <blockquote class="pull">"소진은 약함이 아니라, 잠시 쉬어가라는 마음의 언어입니다."</blockquote>
+
+  <p>지금 충분히 지쳐 있다면, 오늘 하루쯤은 자신에게 쉼을 허락해도 괜찮지 않을까요.</p>
+
+  <div class="hashtags">
+    <span>#번아웃</span><span>#번아웃증후군</span><span>#소진증후군</span><span>#번아웃회복</span><span>#번아웃극복</span><span>#직장인스트레스</span><span>#정서적소진</span><span>#마음건강</span><span>#스트레스관리</span><span>#번아웃자가진단</span>
+  </div>
+
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>
