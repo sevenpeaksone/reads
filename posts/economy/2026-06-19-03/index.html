@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>양도세 중과 재개 2026 — 다주택자 세금, 무엇이 어떻게 달라지나</title>
+<style>
+  :root {
+    --text: #2b2b2b;
+    --muted: #6b6b6b;
+    --line: #e2e2e2;
+    --accent: #1a4d8f;
+    --accent-soft: #f1f5fb;
+    --tag: #e9f0f9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #f5f5f5;
+    color: var(--text);
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+    line-height: 1.8;
+    font-size: 16.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    background: #ffffff;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 28px auto;
+    border-radius: 6px;
+  }
+  h1 {
+    font-size: 27px;
+    line-height: 1.4;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 28px 0 24px;
+    color: #1a1a1a;
+  }
+  .category {
+    color: var(--accent);
+    font-weight: 800;
+  }
+  h2 {
+    font-size: 21px;
+    line-height: 1.45;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 48px 0 18px;
+    padding-left: 14px;
+    border-left: 5px solid var(--accent);
+    color: #1a1a1a;
+  }
+  p { margin: 16px 0; }
+  strong { font-weight: 700; color: #111; }
+  ul {
+    margin: 18px 0;
+    padding-left: 22px;
+  }
+  li { margin: 10px 0; }
+  .summary {
+    background: var(--accent-soft);
+    border: 1px solid #dce6f3;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .summary p { margin: 0 0 10px; }
+  .summary ul { margin: 0; }
+  .notice {
+    color: var(--muted);
+    font-size: 15px;
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 24px 0;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 15.5px;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 11px 14px;
+    text-align: left;
+  }
+  thead th {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+  }
+  tbody tr:nth-child(even) { background: #f8fafc; }
+  .closing {
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .tags {
+    margin-top: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tags span {
+    background: var(--tag);
+    color: var(--accent);
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 16px;
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+
+  <img src="./images/thumbnail.png" alt="양도세 중과 재개 2026">
+
+  <h1><span class="category">[경제]</span> 양도세 중과 재개 2026 — 다주택자 세금, 무엇이 어떻게 달라지나</h1>
+
+  <p>2026년 5월 10일부터 다주택자 양도세 중과가 약 4년 만에 다시 시작되었습니다. 이번 글에서는 무엇이 바뀌었고, 누가 대상이며, 세 부담이 어떻게 늘어나는지를 차분히 정리해 보겠습니다.</p>
+
+  <div class="summary">
+    <p><strong>먼저 세 줄로 요약합니다.</strong></p>
+    <ul>
+      <li>4년간 멈춰 있던 양도세 중과가 2026년 5월 10일부터 재개되었습니다.</li>
+      <li>조정대상지역 주택을 파는 2주택자는 일반세율 +20%p, 3주택 이상자는 +30%p가 더해지고, 장기보유특별공제도 막힙니다.</li>
+      <li>다만 1세대 1주택 실수요자는 원칙적으로 대상이 아니며, 적용 여부는 개별 상황에 따라 크게 갈립니다.</li>
+    </ul>
+  </div>
+
+  <div class="notice">
+    한 가지 먼저 말씀드릴 점이 있습니다. 세법은 개별 상황에 따라 결과가 크게 달라집니다. 이 글은 정보 정리를 위한 것이며, 실제 매도나 증여를 결정하기 전에는 세무 전문가 상담과 최신 법령 확인이 필요합니다.
+  </div>
+
+  <hr>
+
+  <h2>■ 양도세 중과 재개란 무엇인가</h2>
+
+  <p>예전엔 다주택자도 한숨 돌릴 수 있었습니다. 지금은 사정이 달라졌습니다.</p>
+
+  <p>정부는 2022년 5월 10일부터 다주택자가 조정대상지역 주택을 팔 때 적용되던 양도세 중과를 한시적으로 멈춰 왔습니다. 이 기간에는 중과세율 대신 일반 누진세율(6~45%)만 적용됐고, 요건을 갖추면 장기보유특별공제도 받을 수 있었습니다.</p>
+
+  <p>이 한시 배제가 2026년 5월 9일자로 끝났습니다. 정부는 2026년 2월 두 차례에 걸쳐 "유예 연장은 없으며 예정대로 종료한다"고 공식 확인했습니다.</p>
+
+  <p>그 결과 2026년 5월 10일부터, 보유 2년 이상인 조정대상지역 주택을 파는 다주택자에게 중과세율이 다시 붙습니다. 약 4년 만의 부활인 셈입니다.</p>
+
+  <img src="./images/body-1.png" alt="양도세 중과 유예부터 재개까지 타임라인">
+
+  <hr>
+
+  <h2>■ 누가, 어떤 집에 적용되는가</h2>
+
+  <p>핵심은 두 가지입니다. 지역과 주택 수입니다.</p>
+
+  <p>중과는 조정대상지역 안에 있는 주택을 팔 때만 적용됩니다. 규제지역이 아닌 곳의 주택은 다주택자라도 원칙적으로 일반세율(6~45%)이 적용됩니다.</p>
+
+  <p>주택 수 산정도 단순하지 않습니다. 등기된 집만 세는 것이 아니라, 조합원 입주권과 분양권, 주거용 오피스텔도 조건에 따라 주택 수에 포함될 수 있습니다. 겉보기엔 2주택인데 세법상 3주택으로 계산되는 경우도 있습니다.</p>
+
+  <p>여기에 2026년 들어 적용 범위가 크게 넓어졌습니다. 2025년 10월 지정 확대로 서울 25개 자치구 전역이 조정대상지역이 됐습니다. 기존 강남·서초·송파·용산 네 곳에 더해 나머지 21개 구가 새로 들어왔습니다. 경기 12곳(과천, 광명, 성남 분당·수정·중원, 수원 영통·장안·팔달, 안양 동안, 용인 수지, 의왕, 하남)도 규제지역으로 묶였습니다.</p>
+
+  <p>서울에 집을 둔 다주택자 상당수가 중과 대상에 들어오게 된 셈입니다. 다만 조정대상지역은 수시로 지정·해제되므로, 파는 시점에 국토교통부·국세청 최신 고시를 다시 확인하시길 권합니다.</p>
+
+  <img src="./images/body-2.png" alt="2026년 서울 25개 자치구 + 경기 12곳 조정대상지역">
+
+  <hr>
+
+  <h2>■ 세 부담은 얼마나 늘어나는가</h2>
+
+  <p>먼저 일반 양도소득세 기본세율표를 봅니다.</p>
+
+  <table>
+    <thead>
+      <tr><th>과세표준</th><th>세율</th><th>누진공제액</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1,400만원 이하</td><td>6%</td><td>0</td></tr>
+      <tr><td>1,400만 ~ 5,000만원</td><td>15%</td><td>126만원</td></tr>
+      <tr><td>5,000만 ~ 8,800만원</td><td>24%</td><td>576만원</td></tr>
+      <tr><td>8,800만 ~ 1.5억원</td><td>35%</td><td>1,544만원</td></tr>
+      <tr><td>1.5억 ~ 3억원</td><td>38%</td><td>1,994만원</td></tr>
+      <tr><td>3억 ~ 5억원</td><td>40%</td><td>2,594만원</td></tr>
+      <tr><td>5억 ~ 10억원</td><td>42%</td><td>3,594만원</td></tr>
+      <tr><td>10억원 초과</td><td>45%</td><td>6,594만원</td></tr>
+    </tbody>
+  </table>
+
+  <p>산출세액은 '과세표준 × 세율 − 누진공제액'으로 구합니다. 여기에 중과가 붙으면 구간별 세율이 한 단계 위로 올라갑니다.</p>
+
+  <table>
+    <thead>
+      <tr><th>구분</th><th>가산</th><th>최고 명목세율</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1세대 2주택</td><td>+20%p</td><td>65%</td></tr>
+      <tr><td>1세대 3주택 이상</td><td>+30%p</td><td>75%</td></tr>
+    </tbody>
+  </table>
+
+  <p>여기서 끝이 아닙니다. 산출 양도세의 10%가 지방소득세로 따로 붙습니다. 이를 반영하면 3주택자의 최고 실효세율은 약 82.5%(75% × 1.1) 수준까지 오를 수 있습니다.</p>
+
+  <p>단기 보유는 별도 규정이 있습니다. 1년 미만은 70%, 1년 이상 2년 미만은 60% 단일세율입니다. 조정대상지역 주택을 단기 보유 후 팔면, 중과세율로 계산한 세액과 단기보유 세율로 계산한 세액 중 더 큰 쪽을 냅니다.</p>
+
+  <p>다만 위 수치는 자료 기준입니다. 실제 신고에서는 취득가, 필요경비, 기본공제(연 250만원) 등이 반영되어 단순 적용과는 달라집니다.</p>
+
+  <img src="./images/body-3.png" alt="다주택자 양도세 중과세율 비교">
+
+  <hr>
+
+  <h2>■ 진짜 부담은 '장기보유특별공제 배제'에 있다</h2>
+
+  <p>세율 가산만 보면 절반의 그림입니다. 숨은 핵심은 장기보유특별공제(장특공)입니다.</p>
+
+  <p>장특공은 오래 보유한 부동산의 양도차익 일부를 공제해 주는 제도입니다. 일반적으로는 보유기간에 따라 최대 30%, 1세대 1주택에 2년 이상 실거주를 더하면 최대 80%까지 공제받을 수 있습니다.</p>
+
+  <p>그런데 중과 대상 주택은 이 장특공이 배제됩니다. 오래 보유했어도, 실거주 기간이 길어도 공제를 받지 못합니다.</p>
+
+  <p>즉 중과 재개의 부담은 세율 가산과 장특공 배제가 겹쳐 이중으로 커집니다. "세금이 크게 는다"는 말의 진짜 이유가 여기에 있습니다.</p>
+
+  <p>다만 1세대 1주택 요건을 충족하면 기존 장특공 규정이 그대로 적용될 수 있습니다. 그러니 지금 팔려는 집이 어떤 유형인지 구분하는 일이 먼저입니다.</p>
+
+  <hr>
+
+  <h2>■ 정부의 보완 조치는 무엇인가</h2>
+
+  <p>정부는 유예 종료에 따른 충격을 줄이려 보완 방안을 마련했습니다.</p>
+
+  <p>계약 시점을 기준으로 한 중과 배제가 핵심입니다. 기존 조정대상지역(강남·서초·송파·용산) 주택은 5월 9일 이전 매매계약을 마치고 계약일로부터 4개월 안에 양도하면 중과를 피할 수 있습니다. 2025년 10월 신규 지정된 지역은 신규 지정을 감안해 6개월로 두 달 더 여유를 뒀습니다.</p>
+
+  <p>여기서 주의할 점이 있습니다. 양도세는 계약일이 아니라 잔금 지급일과 등기일 중 빠른 날을 기준으로 판단합니다. 종료 전에 계약만 했더라도 잔금·등기가 기준일을 넘기면, 보완 요건을 못 채우는 한 중과 대상이 될 수 있습니다.</p>
+
+  <p>무주택자에게 파는 경우에 한해 실거주 의무도 일부 완화됐습니다. 좋은 점과 아쉬운 점이 함께 있는 조치입니다. 충격을 덜어주긴 하지만, 적용 요건이 까다로워 모두에게 해당되지는 않습니다.</p>
+
+  <hr>
+
+  <h2>■ 거론되는 절세 방법과 시사점</h2>
+
+  <p>자주 언급되는 대응 방법을 정리합니다. 어느 것이든 조건과 위험이 따르므로 전문가 검토가 필요합니다.</p>
+
+  <ul>
+    <li><strong>분할 양도:</strong> 같은 해에 여러 집을 몰아 팔면 합산 과세표준이 커집니다. 과세연도를 나누면 적용 구간을 낮출 여지가 있습니다.</li>
+    <li><strong>증여 활용:</strong> 증여세 기본공제와 부담부증여 구조를 활용하는 방법입니다. 다만 조건에 따라 세금이 오히려 늘 수 있습니다.</li>
+    <li><strong>주택임대사업자 등록:</strong> 요건을 갖추면 양도세 과세특례 등 혜택을 활용할 수 있습니다.</li>
+    <li><strong>비과세 요건 점검:</strong> 1세대 1주택 비과세나 일시적 2주택 특례를 충족하면 중과·장특공 배제를 피하는 경우가 있어, 매도 순서와 시점 설계가 중요합니다.</li>
+  </ul>
+
+  <p>시장 방향은 단정하기 어렵습니다. '정리 매도' 증가 가능성과 '매물 잠김' 심화 가능성이 함께 거론됩니다. 세금만이 아니라 대출·금리·공급 정책이 같이 움직이기 때문입니다.</p>
+
+  <p>1세대 1주택 실수요자는 원칙적으로 중과 대상이 아닙니다. 요건을 갖추면 장특공과 비과세 혜택도 유지됩니다. 다만 조정대상지역이 서울 전역으로 넓어진 만큼, 본인 주택의 유형과 요건을 한 번 더 확인해 보시면 좋겠습니다.</p>
+
+  <hr>
+
+  <p>끝으로 한 마디만 더 드리겠습니다.</p>
+
+  <p class="closing">이번 변화의 핵심은 결국 하나입니다.<br>— "세율이 오른 것이 아니라, 내 집이 어떤 집인지가 더 중요해졌다."</p>
+
+  <p>같은 다주택자라도 지역, 주택 수, 보유·거주 기간에 따라 결과는 전혀 다르게 나옵니다. 숫자를 외우기보다, 내 상황을 정확히 들여다보는 일이 먼저입니다.</p>
+
+  <p>세법은 복잡하고 개별 사정에 따라 크게 달라집니다. 중요한 결정을 앞두고 계신다면, 단순한 세율 비교에 기대기보다 전체 보유 포트폴리오를 함께 살펴줄 전문가를 찾으시길 권합니다.</p>
+
+  <p>내 집의 셈법이 달라진 지금, 가장 먼저 확인할 것은 세율표가 아니라 내 집의 '신분'이 아닐까요.</p>
+
+  <div class="tags">
+    <span>#양도세중과</span>
+    <span>#양도세중과재개2026</span>
+    <span>#다주택자양도세</span>
+    <span>#조정대상지역</span>
+    <span>#장기보유특별공제</span>
+    <span>#양도소득세세율</span>
+    <span>#부동산세금</span>
+    <span>#양도세절세</span>
+    <span>#1세대1주택</span>
+  </div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

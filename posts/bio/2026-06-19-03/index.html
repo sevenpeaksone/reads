@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[바이오] 생체 내 유전자 편집 2026 — 주사 한 번으로 유전병을 고치는 시대가 올까</title>
+<style>
+  :root {
+    --text: #2b2b2b;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --accent: #1f7a5a;
+    --accent-soft: #eef6f2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 20px 80px;
+    background: #f5f6f7;
+    color: var(--text);
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+    line-height: 1.8;
+    font-size: 16.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .post {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 48px 44px 56px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .thumb {
+    margin: 0 0 32px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+  }
+  figure { margin: 28px 0; }
+  figure img { margin: 0 auto; }
+  .post-title {
+    font-size: 27px;
+    line-height: 1.4;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px;
+    color: #1a1a1a;
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 44px 0 18px;
+    padding-left: 12px;
+    border-left: 5px solid var(--accent);
+    color: #1a1a1a;
+  }
+  p { margin: 0 0 18px; }
+  ul {
+    margin: 0 0 22px;
+    padding: 18px 22px 18px 40px;
+    background: var(--accent-soft);
+    border-radius: 8px;
+    list-style: disc;
+  }
+  ul li { margin: 0 0 10px; }
+  ul li:last-child { margin-bottom: 0; }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 11px 13px;
+    text-align: left;
+    vertical-align: top;
+  }
+  thead th {
+    background: var(--accent);
+    color: #ffffff;
+    font-weight: 700;
+  }
+  tbody td:first-child {
+    background: var(--accent-soft);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  tbody tr:nth-child(even) td:not(:first-child) {
+    background: #fafbfc;
+  }
+  .hashtags {
+    margin-top: 36px;
+    color: var(--accent);
+    font-size: 15px;
+    line-height: 2;
+    font-weight: 600;
+  }
+  .closing {
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="post">
+
+  <div class="thumb">
+    <img src="./images/thumbnail.png" alt="생체 내 유전자 편집 2026 — 주사 한 번으로 유전병을 고치는 시대가 올까">
+  </div>
+
+  <h1 class="post-title">[바이오] 생체 내 유전자 편집 2026 — 주사 한 번으로 유전병을 고치는 시대가 올까</h1>
+
+  <p>이번 글에서는 2026년 현재 in vivo 유전자 편집이 어디까지 왔는지 정리해 보겠습니다.<br>세 줄로 먼저 요약하면 이렇습니다.</p>
+
+  <ul>
+    <li>몸 밖에서 세포를 편집하던 방식을 넘어, 도구를 몸 안에 직접 주사하는 in vivo 편집이 후기 임상 성과를 내고 있습니다.</li>
+    <li>유전성 혈관부종 치료제 lonvo-z가 3상에서 발작 87% 감소를 보고했고, 2027년 상반기 첫 상업화가 거론됩니다.</li>
+    <li>다만 대부분 아직 임상 단계이며, 한 환자 사망 사건이 보여주듯 안전성은 완전히 확립되지 않았습니다.</li>
+  </ul>
+
+  <p>핵심 답변을 먼저 드리면, 기술은 분명 현실로 다가왔지만 "완성된 치료"라고 부르기엔 이릅니다.</p>
+
+  <hr>
+
+  <h2>■ ex vivo와 in vivo는 무엇이 다른가</h2>
+
+  <p>먼저 두 방식의 차이부터 짚겠습니다.</p>
+
+  <p>예전엔 환자의 세포를 몸 밖으로 꺼내 실험실에서 편집한 뒤 다시 넣었습니다(ex vivo).<br>지금은 편집 도구를 몸 안에 직접 주사해 체내 세포를 고칩니다(in vivo).</p>
+
+  <p>ex vivo는 편집 결과를 미리 검증할 수 있다는 장점이 있습니다.<br>대신 세포 채취와 골수 전처리 같은 과정이 복잡하고, 시간과 비용이 큽니다.<br>in vivo는 세포를 꺼낼 필요가 없어 절차가 단순합니다.<br>다만 편집 결과를 사전에 확인할 수 없어, 도구를 정확한 세포에 보내는 정밀도가 관건입니다.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>ex vivo (몸 밖)</th>
+        <th>in vivo (몸 안)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>방식</td>
+        <td>세포를 꺼내 편집 후 재주입</td>
+        <td>편집 도구를 몸에 직접 주사</td>
+      </tr>
+      <tr>
+        <td>장점</td>
+        <td>결과 사전 검증·품질관리 가능</td>
+        <td>절차 단순, 간 같은 장기 표적 용이</td>
+      </tr>
+      <tr>
+        <td>한계</td>
+        <td>과정 복잡, 시간·비용 큼</td>
+        <td>사전 검증 불가, 전달 정밀도가 관건</td>
+      </tr>
+      <tr>
+        <td>대표 사례</td>
+        <td>Casgevy (겸상적혈구병)</td>
+        <td>lonvo-z, nex-z, VERVE-102</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <figure>
+    <img src="./images/body-1.png" alt="ex vivo와 in vivo 유전자 편집 방식 비교 표">
+  </figure>
+
+  <p>ex vivo의 대표 주자는 Casgevy입니다.<br>세계 최초로 임상 승인된 CRISPR 기반 편집 치료제로, 겸상적혈구병은 2023년 12월, 베타지중해빈혈은 2024년 1월 FDA 승인을 받았습니다.<br>24개월 추적에서 31명 중 29명이 최소 12개월간 중증 혈관폐색 위기를 겪지 않았습니다.<br>다만 1회 치료 정가가 약 220만 달러에 이릅니다.<br>접근성과 보험 적용이 큰 과제로 남아 있습니다.</p>
+
+  <hr>
+
+  <h2>■ 2026년, 어디까지 왔나</h2>
+
+  <p>올해 가장 주목받는 사례는 유전성 혈관부종(HAE) 치료제 lonvo-z입니다.</p>
+
+  <p>정맥주사 한 번으로 간세포의 KLKB1 유전자를 비활성화해, 붓는 발작을 막는 원리입니다.<br>3상(HAELO)에서 50mg 단회 투여군은 약 6개월간 발작률이 87% 감소했습니다.<br>월평균 발작이 치료군 0.26회, 위약군 2.10회였습니다.<br>복수 매체는 이를 "세계 최초 in vivo 편집 3상 성공"으로 평가합니다.<br>FDA에 허가 신청을 진행 중이며, 2026년 하반기 제출 완료와 2027년 상반기 미국 출시가 전망됩니다.</p>
+
+  <figure>
+    <img src="./images/body-2.png" alt="lonvo-z 3상 치료군 vs 위약군 월평균 발작 횟수 비교 막대그래프">
+  </figure>
+
+  <p>심혈관 쪽도 빠르게 움직이고 있습니다.<br>Verve(Eli Lilly 산하)의 VERVE-102는 염기편집으로 간의 PCSK9 유전자를 꺼 LDL 콜레스테롤을 낮춥니다.<br>1b상에서 PCSK9가 용량에 따라 51~88% 감소했고, LDL은 평균 53%, 최대 69%까지 떨어졌습니다.<br>효과는 최대 18개월 지속됐습니다.<br>희귀병을 넘어 거대한 심혈관 환자군으로 확장될 수 있다는 점에서, 상업적으로 가장 변혁적인 영역으로 꼽힙니다.</p>
+
+  <p>DNA를 자르지 않는 차세대 편집도 임상에 들어왔습니다.<br>한 염기만 바꾸는 염기편집, 점 돌연변이를 정밀하게 교정하는 프라임편집, 서열은 그대로 두고 발현만 켜고 끄는 에피지놈 편집이 그것입니다.<br>Tune Therapeutics의 TUNE-401은 만성 B형 간염을 표적해, 1상에서 강한 항바이러스 활성을 보고했습니다.</p>
+
+  <hr>
+
+  <h2>■ 그래도 남는 과제들</h2>
+
+  <p>여기서 균형을 잡아야 합니다.</p>
+
+  <p>가장 무겁게 다뤄야 할 사건이 있습니다.<br>Intellia의 ATTR 치료제 nex-z 3상에서, 한 환자가 2025년 9월 투여 후 Grade 4 간 기능부전을 겪고 11월 사망했습니다.<br>FDA는 해당 임상에 보류를 부과했고, 안전 강화 조치를 더한 뒤 2026년 초 보류를 해제했습니다.<br>발생률은 투여 환자 450여 명 중 1% 미만이었습니다.</p>
+
+  <p>중요한 점은, 독성의 원인이 아직 규명되지 않았다는 사실입니다.<br>전달에 쓰인 지질나노입자 때문인지, 편집 활성 때문인지, 환자 특이 취약성 때문인지 조사가 진행 중입니다.<br>업계에서는 "Cas9 기반 접근의 한계인가"라는 논의가 일었습니다.</p>
+
+  <p>전달 기술에도 분명한 한계가 있습니다.<br>지질나노입자(LNP)는 본질적으로 간에 잘 쌓입니다.<br>그래서 올해 임상들이 모두 간을 표적으로 삼습니다.<br>반대로 폐나 비장 같은 다른 장기로 보내는 일은 여전히 어렵습니다.</p>
+
+  <figure>
+    <img src="./images/body-3.png" alt="지질나노입자(LNP)가 정맥을 따라 간에 집중 축적되는 과정 도식">
+  </figure>
+
+  <p>비용과 윤리 문제도 남습니다.<br>앞서 본 치료들은 모두 다음 세대로 유전되지 않는 체세포 편집입니다.<br>유전되는 생식세포 편집과는 분명히 구분됩니다.<br>간 표적 in vivo 편집이 장기적으로 더 낮은 비용과 더 나은 안전 마진을 가질 수 있다는 기대가 있습니다만, 현재로선 미확정입니다.</p>
+
+  <p>한 가지 덧붙이면, 흔히 인용되는 시장 규모 수치는 기관마다 편차가 큽니다.<br>2035년 약 377억 달러 같은 전망은 어디까지나 추정치로 받아들이시길 권합니다.</p>
+
+  <hr>
+
+  <p>정리하면 이렇습니다.</p>
+
+  <p>2026년의 in vivo 유전자 편집은 "실험실의 약속"에서 "임상의 현실"로 한 걸음 넘어왔습니다.<br>첫 상업화가 눈앞에 있고, 심혈관처럼 큰 환자군으로 가는 길도 열리고 있습니다.<br>그러나 한 환자의 죽음이 일깨우듯, 안전성과 효능은 아직 충분히 검증되는 과정에 있습니다.</p>
+
+  <p class="closing">— 기대와 신중함을 같은 무게로 들어야 할 시간입니다.</p>
+
+  <p>새로운 치료법에 희망을 거는 분이 계신다면, 부디 담당 의료진과 충분히 상의하시길 바랍니다.</p>
+
+  <hr>
+
+  <p class="hashtags">#생체내유전자편집 #invivo유전자편집 #CRISPR #유전자치료2026 #염기편집 #유전성혈관부종 #PCSK9 #바이오트렌드</p>
+
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>
