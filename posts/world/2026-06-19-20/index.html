@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부탄 국민총행복(GNH), 행복을 국정으로 삼은 히말라야 왕국 — 빛과 그늘</title>
+<style>
+  :root {
+    --text: #222;
+    --muted: #666;
+    --line: #e2e2e2;
+    --accent: #2e7d57;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 16px 80px;
+    background: #f6f7f8;
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+  .post {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 48px 40px 56px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.4;
+    font-weight: 800;
+    margin: 0 0 28px;
+    letter-spacing: -0.02em;
+    color: #111;
+  }
+  h2 {
+    font-size: 21px;
+    line-height: 1.5;
+    font-weight: 700;
+    margin: 48px 0 18px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    color: #1a1a1a;
+    letter-spacing: -0.01em;
+  }
+  p {
+    font-size: 16.5px;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    word-break: keep-all;
+  }
+  ul {
+    margin: 0 0 22px;
+    padding-left: 22px;
+  }
+  li {
+    font-size: 16.5px;
+    line-height: 1.85;
+    margin-bottom: 6px;
+    word-break: keep-all;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 28px auto;
+    border-radius: 6px;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
+  .tags {
+    margin-top: 8px;
+    font-size: 15px;
+    line-height: 2;
+    color: var(--accent);
+    word-break: keep-all;
+  }
+  .tags span { margin-right: 6px; white-space: nowrap; }
+  .lead { color: var(--text); }
+  em { font-style: normal; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/world/index.html">세계 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="post">
+
+  <h1>[세계] 부탄 국민총행복(GNH), 행복을 국정으로 삼은 히말라야 왕국 — 빛과 그늘</h1>
+
+  <img src="./images/thumbnail.png" alt="부탄 국민총행복(GNH) — 행복을 국정으로 삼은 히말라야 왕국">
+
+  <p>오늘은 부탄의 국민총행복(GNH)을 이야기해 보려 합니다.<br>
+  GDP 대신 행복을 국정 철학으로 내건 나라입니다.<br>
+  이상은 분명히 높습니다. 그러나 그늘도 함께 깊습니다.</p>
+
+  <p>먼저 결론부터 말씀드립니다.<br>
+  부탄은 "GDP보다 행복"이라는 선언을 제도로 옮긴 드문 나라입니다.<br>
+  탄소 네거티브라는 성취도 이뤘습니다.<br>
+  다만 청년의 대규모 이민과 과거 인권 문제라는 한계가 분명히 남아 있습니다.</p>
+
+  <hr>
+
+  <h2>히말라야 사이의 작은 왕국</h2>
+
+  <p>부탄은 히말라야 동부에 있습니다.<br>
+  중국(티베트)과 인도 사이에 낀 내륙 산악국입니다.<br>
+  인구는 약 80만 명. 험준한 산지가 오래도록 외부 접촉을 막아 왔습니다.<br>
+  덕분에 독자적 문화가 살아남았습니다.</p>
+
+  <p>왕정의 출발은 1907년입니다.<br>
+  그해 12월 17일 왕축(Wangchuck) 가문이 나라를 통일했습니다.<br>
+  이 왕조는 지금까지 부탄을 이끌고 있습니다.</p>
+
+  <p>흥미로운 점은 민주화의 방향입니다.<br>
+  혁명이나 외압이 아니라 왕실이 스스로 권력을 내려놓았습니다.<br>
+  4대 국왕은 1998년 절대권력의 일부를 내려놓았습니다.<br>
+  2006년에는 아들인 5대 국왕에게 양위했습니다.<br>
+  2008년 7월 18일 헌법이 공포되며 입헌군주제 의회민주주의 국가가 됩니다.<br>
+  위에서 아래로 내려준 민주주의인 셈입니다.</p>
+
+  <hr>
+
+  <h2>"GDP보다 행복" — GNH의 4기둥과 9영역</h2>
+
+  <p>국민총행복(GNH)의 뿌리는 1970년대로 거슬러 올라갑니다.<br>
+  4대 국왕이 "국민총행복이 국내총생산(GDP)보다 더 중요하다"고 선언한 것이 출발점으로 인용됩니다.<br>
+  이후 이 철학은 부탄의 개발 정책 전반에 스며들었습니다.</p>
+
+  <p>GNH는 흔히 네 개의 기둥으로 설명됩니다.<br>
+  이를 다시 아홉 개 영역으로 나눠 측정합니다.</p>
+
+  <img src="./images/body-1.png" alt="GNH의 4기둥과 9영역 비교표">
+
+  <p>4기둥은 다음과 같습니다.</p>
+
+  <ul>
+    <li>좋은 거버넌스</li>
+    <li>지속가능한 사회·경제 발전</li>
+    <li>문화 보존</li>
+    <li>환경 보전</li>
+  </ul>
+
+  <p>9영역은 더 촘촘합니다.<br>
+  심리적 웰빙, 건강, 교육, 시간 사용, 문화적 다양성·회복력, 좋은 거버넌스, 공동체 활력, 생태적 다양성·회복력, 생활 수준입니다.</p>
+
+  <p>측정도 막연하지 않습니다.<br>
+  GNH 지수는 9개 영역 아래 33개 지표를 묶은 단일 숫자입니다.<br>
+  '알카이어-포스터' 방법이라는 다차원 방법론으로 계산합니다.<br>
+  행복을 구호가 아니라 숫자로 다루려는 시도라 하겠습니다.</p>
+
+  <hr>
+
+  <h2>선언에서 제도로 — 행복을 정책에 새기다</h2>
+
+  <p>부탄이 특별한 이유는 선언에 그치지 않았다는 데 있습니다.<br>
+  2008년 기존 기획위원회를 '국민총행복위원회(GNHC)'로 개편했습니다.<br>
+  GNH를 정책에 녹여 넣고 실행을 조율하는 기구입니다.</p>
+
+  <p>같은 해 'GNH 정책 심사 도구'도 마련했습니다.<br>
+  새 정책이 GNH 지표와 얼마나 맞는지 사전에 따져 보는 틀입니다.<br>
+  즉, 정책 하나하나가 행복 기준의 심사를 거칩니다.<br>
+  일부 가치는 아예 헌법에 못 박았습니다. 정권이 바뀌어도 흔들리지 않게 설계한 것입니다.</p>
+
+  <p>가장 최근의 실험은 '겔레푸 마인드풀니스 시티(GMC)'입니다.<br>
+  2024년 12월 왕실 헌장으로 세운 고도 자치의 특별행정구역입니다.<br>
+  면적은 2,600km² 이상으로 국토의 약 5%에 해당합니다.<br>
+  전통적 가치와 혁신·기술을 한데 묶으려는 도시 단위 시도입니다.<br>
+  덴마크 건축가 비야케 잉겔스(BIG)가 설계에 참여해 국제적 주목을 받았습니다.</p>
+
+  <hr>
+
+  <h2>탄소 네거티브와 문화 보존 — 밝은 면</h2>
+
+  <p>부탄을 세계에 알린 또 하나의 성취가 있습니다.<br>
+  배출하는 양보다 더 많은 탄소를 흡수하는 '탄소 네거티브' 국가라는 점입니다.</p>
+
+  <p>수치로 보면 분명합니다.<br>
+  2020년 기준 부탄의 숲은 매년 약 900만 톤의 탄소를 흡수합니다.<br>
+  반면 경제활동에서 나오는 배출은 약 200만 톤에 그칩니다.</p>
+
+  <p>이 균형은 우연이 아닙니다.<br>
+  헌법은 산림 비율을 '영구히 60% 이상' 유지하도록 명시합니다.<br>
+  실제 산림 비율은 자료에 따라 약 72%에서 81%에 이릅니다. 헌법 기준을 넉넉히 넘습니다.<br>
+  수력발전을 앞세우고 수출용 벌목을 금지한 정책이 이를 뒷받침했습니다.</p>
+
+  <p>문화 보존도 4기둥의 하나입니다.<br>
+  전통 의상, 건축, 언어, 불교 신앙이 국가 정책으로 지켜집니다.<br>
+  다만 이 '보존 서사'에 한계가 있다는 비판적 시선도 함께 존재합니다.</p>
+
+  <hr>
+
+  <h2>행복의 그늘 — 청년 이민과 두뇌 유출</h2>
+
+  <p>밝은 면만 보면 절반만 본 것입니다.<br>
+  부탄의 가장 무거운 고민은 청년에게 있습니다.</p>
+
+  <p>청년 실업률은 약 17.7%로 높습니다.<br>
+  민간 부문이 숙련 졸업자를 흡수하지 못한다는 지적이 따라붙습니다.</p>
+
+  <p>2022년 국경 재개 이후 해외 이주가 급증했습니다.<br>
+  약 66,000명의 청년이 일자리를 찾아 나라를 떠났다는 보도가 있습니다.<br>
+  일부 매체는 이를 '실존적 위기'라고까지 표현합니다.</p>
+
+  <p>문제는 떠나는 사람들의 면면입니다.<br>
+  이주자의 절반 이상이 대학 학위 소지자입니다.<br>
+  부탄 전체 노동연령 인구 중 대졸은 7%에 불과한데도 그렇습니다.<br>
+  거의 절반은 공무원 출신, 특히 교사와 보건 인력입니다.</p>
+
+  <img src="./images/body-2.png" alt="부탄 청년 이민과 두뇌 유출 핵심 수치">
+
+  <p>공백은 곧바로 드러났습니다.<br>
+  2025년 3월 교육부는 전국 1,126개 교사 공석을 메우려 재고용 계획을 내놨습니다.<br>
+  2024년 6월 보건부는 의사·전문의 172명, 간호사 824명 부족을 의회에 보고했습니다.<br>
+  2024년까지 호주의 부탄 인구는 25,000명을 넘어섰습니다.</p>
+
+  <p>물론 양면은 있습니다.<br>
+  해외에서 보내오는 송금은 빠르게 늘었습니다.<br>
+  2025년 첫 두 달간 부탄이 받은 송금은 3,600만 달러에 이릅니다.<br>
+  정부는 귀국을 유도하는 '국가 재통합 프로그램(REVIVE)'도 시작했습니다.</p>
+
+  <hr>
+
+  <h2>잊지 말아야 할 과거 — 로트샴파 난민</h2>
+
+  <p>행복의 나라라는 수식 뒤에는 어두운 역사도 있습니다.<br>
+  1980~1990년대 부탄 정부가 남부의 네팔계 주민인 로트샴파 10만 명 이상을 억압하고 강제 추방했다는 책임 문제가 제기되어 왔습니다.<br>
+  이들은 1990년대 네팔 동부의 난민 캠프에 등록되었습니다.<br>
+  2008년부터는 미국이 약 85,000명을 재정착시켰습니다.</p>
+
+  <p>행복 서사를 평가할 때, 이 역사는 반드시 함께 봐야 합니다.<br>
+  빛이 밝을수록 그늘도 함께 기억해야 한다고 생각합니다.</p>
+
+  <hr>
+
+  <h2>GNH 지수와 세계행복보고서는 다르다</h2>
+
+  <p>마지막으로 흔한 오해 하나를 짚겠습니다.<br>
+  부탄 자체의 GNH 지수와 유엔·갤럽의 세계행복보고서(WHR)는 서로 다른 지표입니다.</p>
+
+  <p>부탄의 GNH 지수는 2022년 기준 0.781입니다.<br>
+  2010년 0.743에서 꾸준히 오른 수치입니다.<br>
+  '깊이 행복'과 '폭넓게 행복'의 합은 2010년 40.9%에서 2022년 48.1%로 늘었습니다.</p>
+
+  <p>반면 세계행복보고서에는 사정이 다릅니다.<br>
+  갤럽이 부탄에서 여론조사를 하지 않아, 최근 보고서에 부탄은 사실상 빠져 있습니다.<br>
+  간혹 '95위' 같은 옛 수치가 인용되지만, 최근 순위로 보기는 어렵습니다.<br>
+  참고로 가장 최근판에서도 핀란드가 9년 연속 1위(7.764점)를 지켰습니다.</p>
+
+  <p>행복을 숫자로 잡는 일 자체가 어렵다는 비판도 있습니다.<br>
+  그래도 부탄은 그 어려운 일을 정면으로 시도해 온 나라입니다.</p>
+
+  <hr>
+
+  <p>끝으로 한 마디만 더 드리겠습니다.<br>
+  부탄의 실험은 완성형이 아닙니다. 청년은 떠나고, 과거의 짐은 남아 있습니다.<br>
+  그럼에도 한 가지는 분명합니다.</p>
+
+  <p>— "무엇을 위해 성장하는가"라는 질문을 국정에 새긴 나라가 있다는 것.</p>
+
+  <p>부탄이 끝내 답을 찾을지 묻는다면, 아직은 지켜보는 중이라고 답하겠습니다.</p>
+
+  <hr>
+
+  <p class="tags">
+    <span>#부탄</span> <span>#국민총행복</span> <span>#GNH</span> <span>#탄소네거티브</span> <span>#겔레푸마인드풀니스시티</span> <span>#세계행복보고서</span> <span>#히말라야왕국</span> <span>#청년이민</span> <span>#로트샴파난민</span> <span>#행복지수</span>
+  </p>
+
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>

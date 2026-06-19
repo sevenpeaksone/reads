@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키르케고르 불안의 개념 — "불안은 자유의 현기증이다"</title>
+<style>
+  :root {
+    --text: #2b2b2b;
+    --text-soft: #555;
+    --accent: #1a1a2e;
+    --line: #e2e2e2;
+    --quote-bg: #f6f6f8;
+    --quote-bar: #4b4b6a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 20px 80px;
+    background: #fafafa;
+    color: var(--text);
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .post {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 48px 44px 56px;
+    border-radius: 6px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+  }
+  .post img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 28px auto;
+    border-radius: 4px;
+  }
+  h1 {
+    font-size: 27px;
+    font-weight: 800;
+    line-height: 1.45;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    margin: 0 0 28px;
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--accent);
+    margin: 48px 0 18px;
+    padding-left: 12px;
+    border-left: 4px solid var(--quote-bar);
+  }
+  p {
+    font-size: 16.5px;
+    line-height: 1.85;
+    margin: 0 0 18px;
+    color: var(--text);
+    word-break: keep-all;
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
+  .lead p {
+    font-size: 17px;
+    color: var(--text-soft);
+  }
+  .tags {
+    margin-top: 36px;
+    font-size: 14.5px;
+    line-height: 2;
+    color: #4a6fa5;
+    word-break: keep-all;
+  }
+  .tags span { margin-right: 6px; white-space: nowrap; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="post">
+
+  <h1>키르케고르 불안의 개념<br>— "불안은 자유의 현기증이다"</h1>
+
+  <img src="./images/thumbnail.png" alt="키르케고르 불안의 개념 — 불안은 자유의 현기증이다">
+
+  <div class="lead">
+    <p>키르케고르의 불안은 없애야 할 병이 아닙니다. 자유로운 존재인 인간이 자기 가능성 앞에서 느끼는 근원적 기분입니다. 이번 글에서는 그 핵심 명제 "불안은 자유의 현기증이다"를 정리해 보겠습니다.</p>
+    <p>세 가지만 먼저 짚겠습니다. 불안은 공포와 다르고, 절벽 비유로 가장 잘 이해되며, 끝내 우리를 성장시키는 기분이라는 점입니다.</p>
+  </div>
+
+  <hr>
+
+  <h2>『불안의 개념』, 어떤 책인가</h2>
+  <p>쇠렌 키르케고르는 1813년에 태어나 1855년에 세상을 떠난 덴마크의 철학자이자 신학자입니다. 흔히 "실존주의의 아버지"로 불립니다.</p>
+  <p>『불안의 개념』은 1844년 6월 17일에 출간되었습니다. 그는 이 책을 본명이 아니라 "비길리우스 하우프니엔시스"라는 가명으로 냈습니다. 라틴어로 "코펜하겐의 파수꾼"이라는 뜻입니다.</p>
+  <p>가명은 단순한 익명이 아닙니다. 독자가 그 입장을 키르케고르 본인의 견해로 받아들이지 말고 스스로 평가하도록 의도한 장치, 곧 간접 전달의 방법이었습니다.</p>
+  <p>이 책의 본래 과제는 원죄라는 신학적 문제를 심리학으로 다루는 것이었습니다. 신학과 심리학을 교차시킨 책인 셈입니다. 그래서 키르케고르는 『죽음에 이르는 병』과 함께 "근대 심리학의 아버지"로 불리기도 합니다.</p>
+
+  <hr>
+
+  <h2>불안과 공포는 어떻게 다른가</h2>
+  <p>키르케고르 불안 개념의 출발점은 공포와의 구분입니다.</p>
+  <p>공포에는 대상이 있습니다. 맹수, 절벽, 적처럼 밖에서 나를 위협하는 분명한 무언가에 대한 반응입니다.</p>
+  <p>불안에는 대상이 없습니다. 불안은 밖이 아니라 안에서, 곧 나 자신의 의식과 자유로부터 옵니다. 자유롭게 선택할 수 있는 내가 무엇을 선택할지 모른다는 사실, 그것이 불안의 정체입니다.</p>
+  <p>한 문장으로 압축하면 이렇습니다. "공포는 무언가를 두려워하고, 불안은 나 자신의 자유를 두려워한다."</p>
+
+  <img src="./images/body-1.png" alt="공포와 불안의 차이를 정리한 비교 표">
+
+  <hr>
+
+  <h2>자유의 현기증 — 절벽 위에서</h2>
+  <p>가장 유명한 명제가 여기서 나옵니다. "불안은 자유의 현기증이다."</p>
+  <p>높은 절벽 끝에 선 사람을 떠올려 보시면 좋겠습니다. 그는 서로 다른 두 감정을 동시에 느낍니다.</p>
+  <p>첫째는 떨어질지 모른다는 공포입니다. 중력과 추락이라는 외부 위험에 대한 것입니다.</p>
+  <p>둘째는 더 깊은 곳에서 올라옵니다. 자신이 스스로 뛰어내릴 수도 있다는 자각에서 오는 어지러움입니다. 뛰어내리지 않는 것은 매 순간 내가 선택하고 있는 일이며, 언제든 그 선택을 버릴 수도 있습니다.</p>
+  <p>이 두 번째가 바로 자유의 현기증입니다. 나를 떨게 하는 것은 절벽이 아니라 나 자신의 절대적 자유입니다.</p>
+  <p>키르케고르는 우리가 모든 도덕적 선택에서 같은 어지러움을 경험한다고 보았습니다. 가장 끔찍한 결정을 내릴 자유조차 내게 있음을 깨달을 때 느끼는 현기증입니다.</p>
+
+  <hr>
+
+  <h2>불안은 죄가 아니다</h2>
+  <p>이 책은 본래 원죄를 다룹니다. 키르케고르는 전통 교리와 결정적으로 갈라섭니다.</p>
+  <p>그는 원죄가 성을 통해 유전된다는 견해를 거부했습니다. 대신 불안을 통해 죄가 세상에 들어온다고 주장했습니다.</p>
+  <p>여기서 중요한 점이 있습니다. 불안 자체는 죄가 아닙니다. 불안은 인간의 영혼이 자유라는 입을 벌린 심연 앞에 섰을 때 보이는 자연스러운 반응입니다.</p>
+  <p>그리고 이 추락은 보편적입니다. 아담이 죄로 무죄를 잃었듯이, 모든 사람도 같은 방식으로 자기 자신의 낙원에서 추락을 경험합니다.</p>
+  <p>불안이 정신적 차원의 것이라면, 영원한 것과 접촉하는 영적 차원에서 그것은 절망이 됩니다. 불안이 깊어지면 절망으로 건너가는 셈입니다.</p>
+
+  <hr>
+
+  <h2>오늘 우리에게 — 불안은 교육적이다</h2>
+  <p>키르케고르의 통찰은 책 속에만 머물지 않았습니다. 그의 불안론은 하이데거, 사르트르, 카뮈 같은 20세기 사상가에게 토대를 제공했습니다. 다만 이들 상당수는 그의 종교적 결론은 받아들이지 않았습니다.</p>
+  <p>현대 심리학으로도 이어졌습니다. 심리학자 롤로 메이의 『불안의 의미』(1950)는 키르케고르 독해에 토대를 둔 박사논문에서 출발했습니다. 메이는 실존적 불안과 신경증적 불안을 구분했고, "실존적 심리치료의 아버지"로 불립니다.</p>
+  <p>키르케고르는 불안을 제거해야 할 병이 아니라 성장의 기회로 보았습니다. 불안은 내가 자유롭다는 증거입니다. 가능성이 전혀 없다면 불안도 없습니다.</p>
+  <p>그래서 그는 이렇게 말합니다. "불안 안에 올바르게 있는 법을 배운 사람은 가장 중요한 것을 배운 것이다."</p>
+
+  <img src="./images/body-2.png" alt="불안을 통과해 성장으로 나아간다는 키르케고르의 메시지">
+
+  <hr>
+
+  <p>끝으로 한 마디만 더 드리겠습니다.</p>
+  <p>불안을 없애려 즉각적 안락으로 도피하는 것은, 오히려 자기 자신으로부터의 도피일 수 있습니다. 다음에 까닭 모를 불안이 찾아온다면, 없애려 애쓰기 전에 한 번 물어보시길 권합니다. 이 어지러움이 내게 어떤 가능성을 가리키고 있는가.</p>
+  <p>불안이 무엇이냐고 다시 물으신다면, 그것은 자유의 대가이자 자유의 증거라고 답하겠습니다.</p>
+
+  <hr>
+
+  <div class="tags">
+    <span>#키르케고르</span> <span>#불안의개념</span> <span>#자유의현기증</span> <span>#실존주의</span> <span>#철학</span> <span>#불안</span> <span>#죽음에이르는병</span> <span>#롤로메이</span> <span>#실존철학</span> <span>#인문학</span>
+  </div>
+
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>
