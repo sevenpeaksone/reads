@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>생물보안법과 K-CDMO 2026 — 바이오 공급망 재편이 만드는 기회</title>
+<style>
+  :root {
+    --text: #2b2b2b;
+    --muted: #6b7280;
+    --accent: #1f6f54;
+    --line: #e5e7eb;
+    --tag-bg: #eef6f2;
+    --tag-text: #1f6f54;
+    --table-head: #f4f7f6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 16px 80px;
+    background: #fafafa;
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+  .post {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 48px 44px 56px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .post-title {
+    font-size: 28px;
+    line-height: 1.45;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px;
+    color: #1a1a1a;
+  }
+  p {
+    font-size: 16.5px;
+    line-height: 1.85;
+    margin: 0 0 18px;
+    letter-spacing: -0.01em;
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+    margin: 44px 0 18px;
+    padding-left: 13px;
+    border-left: 5px solid var(--accent);
+    color: #1a1a1a;
+  }
+  ul {
+    margin: 0 0 20px;
+    padding-left: 22px;
+  }
+  li {
+    font-size: 16.5px;
+    line-height: 1.8;
+    margin-bottom: 9px;
+    letter-spacing: -0.01em;
+  }
+  strong { font-weight: 700; color: #111; }
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 28px auto;
+    border-radius: 6px;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 36px 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 22px 0 26px;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 11px 13px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--table-head);
+    font-weight: 700;
+    color: #222;
+  }
+  td { color: #333; }
+  .summary-lead { color: var(--muted); font-size: 16px; }
+  .disclaimer {
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+  .tags {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tags span {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="post">
+
+  <h1 class="post-title">[바이오] 생물보안법과 K-CDMO 2026 — 바이오 공급망 재편이 만드는 기회</h1>
+
+  <p>미국 생물보안법(BIOSECURE Act)을 두고 한국 CDMO 업계가 들썩이고 있습니다. 이번 글에서는 이 법이 정확히 어디까지 진행됐는지, 그리고 한국 바이오 기업에 어떤 기회를 만드는지 정리해 보겠습니다.</p>
+
+  <p>먼저 핵심부터 세 줄로 요약합니다.</p>
+
+  <ul>
+    <li>생물보안법은 2025년 12월 NDAA(국방수권법)에 포함돼 <strong>이미 서명·발효</strong>됐습니다.</li>
+    <li>다만 <strong>발효와 실제 시행은 다릅니다.</strong> 조달 금지 효력은 후속 절차를 거쳐 빠르면 2028년 하반기에야 발생할 전망입니다.</li>
+    <li>이 시차 속에서 삼성바이오로직스·SK팜테코·롯데바이오로직스 같은 한국 CDMO가 대체 생산기지로 떠오르고 있습니다.</li>
+  </ul>
+
+  <img src="./images/thumbnail.png" alt="생물보안법 발효(2025년 12월)부터 시행 예정(2028년 하반기)까지의 시차를 강조한 K-CDMO 2026 썸네일">
+
+  <hr>
+
+  <h2>생물보안법, 무엇을 막으려는 법인가</h2>
+
+  <p>생물보안법의 취지는 단순합니다. 미국 정부가 '우려 바이오기업'으로부터 장비나 서비스를 사들이거나, 보조금·대출을 주는 것을 제한하는 법입니다.</p>
+
+  <p>배경에는 미·중 기술경쟁이 있습니다. 바이오 공급망을 단순한 산업 문제가 아니라 국가안보 차원의 문제로 끌어올린 셈입니다.</p>
+
+  <p>한 가지 짚고 넘어갈 점이 있습니다. 규제 방식이 처음 발의안과 최종 법안 사이에서 크게 바뀌었습니다.</p>
+
+  <p>2024년 발의안은 우시앱텍, 우시바이오로직스, BGI, MGI, Complete Genomics 등 <strong>특정 기업 5곳을 직접 이름으로 명시</strong>했습니다. 하지만 위헌 논란 등으로 그 법안은 통과되지 못했습니다.</p>
+
+  <p>최종 발효된 법안에서는 이 기업 명단이 빠졌습니다. 대신 두 가지 장치를 두었습니다.</p>
+
+  <ul>
+    <li>미 국방부의 <strong>'1260H 리스트'(중국 군사기업 명단)에 오른 기업을 자동으로 우려 기업으로 간주</strong>합니다.</li>
+    <li>추가로 더 많은 기업을 우려 기업으로 지정할 수 있는 <strong>절차</strong>를 만들었습니다.</li>
+  </ul>
+
+  <p>즉 발효된 법은 기업명을 직접 못 박지 않습니다. 대신 1260H 리스트와 연동되는 구조로 바뀌었습니다. 한국 일부 언론은 여전히 "우려 기업 5곳"으로 묶어 보도하지만, 그것은 2024년 원안 기준 표현이라는 점을 기억해 두시면 좋겠습니다.</p>
+
+  <hr>
+
+  <h2>발효는 됐지만, 시행은 아직입니다</h2>
+
+  <p>여기가 가장 오해가 잦은 대목입니다. "법이 발효됐다"는 말과 "실제로 조달이 금지된다"는 말은 다릅니다.</p>
+
+  <p>확정된 사실부터 정리하겠습니다.</p>
+
+  <ul>
+    <li>2025년 12월 18일, 트럼프 대통령이 생물보안 조항(NDAA 제851조)이 담긴 2026 회계연도 NDAA에 서명하면서 법으로 발효됐습니다.</li>
+    <li>2026년 6월 8일, 미 국방부가 연례 1260H 리스트를 발표하며 우시앱텍을 신규 등재했습니다. 이 리스트에는 총 188개 중국 군사기업이 들어 있습니다.</li>
+  </ul>
+
+  <p>다음은 아직 진행 중이거나 미확정인 부분입니다.</p>
+
+  <table>
+    <thead>
+      <tr><th>단계</th><th>시점(대략)</th><th>내용</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>OMB 시행 가이던스</td><td>발효 후 180일 이내(≈2027년 6월)</td><td>관리예산국이 시행 지침 발표</td></tr>
+      <tr><td>FAR(연방조달규정) 개정</td><td>가이던스 후 1년 이내(≈2028년 6월)</td><td>실제 조달 규정에 반영</td></tr>
+      <tr><td>금지 효력 발생</td><td>FAR 개정 후 60~90일</td><td>1260H 등재 기업은 60일, 기타 우려 기업은 90일</td></tr>
+    </tbody>
+  </table>
+
+  <p>정부가 기한을 모두 사용한다고 가정하면, 실제 금지 효력은 <strong>2028년 하반기</strong>에야 발생할 전망입니다.</p>
+
+  <p>기존 계약에는 유예도 있습니다. 효력 발생일 이전에 맺은 계약은 해당 기업에 대한 FAR 개정일로부터 5년간 유예됩니다. 다만 한 가지 예외가 있습니다. 2025년 12월 18일 시점에 이미 1260H 리스트에 올라 있던 기업과의 기존 계약에는 이 5년 유예가 적용되지 않습니다.</p>
+
+  <img src="./images/body-1.png" alt="발효 → OMB 가이던스 → FAR 개정 → 금지 효력 발생으로 이어지는 생물보안법 시행 4단계 절차와 예상 시점 흐름도">
+
+  <hr>
+
+  <h2>우시(WuXi)를 둘러싼 쟁점</h2>
+
+  <p>이 법의 무게중심에는 중국 CDMO 견제, 그중에서도 우시 그룹이 있습니다.</p>
+
+  <p>2026년 6월 8일, 미 국방부는 우시앱텍을 1260H 리스트에 올렸습니다. 근거로는 중국 국유자산감독관리위원회의 간접 지분, 국방과학기술 기관 및 인민해방군과의 간접 연관성을 들었습니다.</p>
+
+  <p>우시앱텍은 같은 날 성명을 냈습니다. 이 지정을 "잘못되고 근거 없는" 것이라 반박하며, 재심을 추진하겠다고 밝혔습니다. 다시 말해 우시앱텍의 등재는 지금도 다툼이 진행 중인 사안입니다.</p>
+
+  <p>한 가지 더 구분할 점이 있습니다. 우시바이오로직스는 1260H 리스트에 포함되지 않았습니다. 우시앱텍의 자회사·모회사·승계기업이 아니어서, 우시앱텍 등재의 직접 영향권에 있지 않다는 분석입니다.</p>
+
+  <p>정리하면 이렇습니다. 우시앱텍은 등재됐으나 재심 중이고, 우시바이오로직스는 아직 명단 밖입니다. 이 둘을 뭉뚱그리면 사실관계가 어긋날 수 있습니다.</p>
+
+  <hr>
+
+  <h2>시장은 얼마나 큰가 — 숫자는 범위로 보셔야 합니다</h2>
+
+  <p>바이오의약품 CDMO 시장은 빠르게 성장하고 있습니다. 다만 조사기관마다 시장의 정의와 범위가 달라 수치 편차가 큽니다. 그래서 단일 숫자가 아니라 범위로 받아들이시길 권합니다.</p>
+
+  <table>
+    <thead>
+      <tr><th>조사기관</th><th>2026년 시장 규모</th><th>성장률(CAGR)</th><th>전망</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Mordor Intelligence</td><td>약 271억 달러</td><td>7.14% (2026–2031)</td><td>2031년 383억 달러</td></tr>
+      <tr><td>Precedence Research</td><td>약 251억 달러</td><td>9.14% (2026–2035)</td><td>2035년 551억 달러</td></tr>
+      <tr><td>Market.us</td><td>—</td><td>15.7% (2034까지)</td><td>2034년 849억 달러</td></tr>
+    </tbody>
+  </table>
+
+  <p>기관별로 갈리지만 공통된 해석은 분명합니다. 바이오 CDMO는 범위에 따라 연 7~15%대로 성장하며, 저분자 의약품보다 빠르다는 것입니다.</p>
+
+  <p>성장 동력도 짚어두겠습니다.</p>
+
+  <ul>
+    <li>외주 생산능력에 대한 수요 증가</li>
+    <li>세포·유전자치료제 같은 차세대 치료제의 복잡성 증가</li>
+    <li>자체 시설 구축에 드는 막대한 자본 부담 → 전문 CDMO 파트너로의 이동</li>
+  </ul>
+
+  <p>수치 편차가 큰 이유는 분명합니다. 조사기관마다 시장 범위와 지역 커버리지를 다르게 잡기 때문입니다. "바이오 CDMO 시장은 정확히 얼마"라고 단정하기보다, 추세를 읽는 편이 낫습니다.</p>
+
+  <img src="./images/body-2.png" alt="Mordor·Precedence·Market.us 등 조사기관 3곳의 바이오 CDMO 시장 규모와 성장률 전망을 비교한 막대그래프">
+
+  <hr>
+
+  <h2>한국 CDMO는 어디까지 와 있나</h2>
+
+  <p>법의 시차는 길지만, 한국 기업들은 이미 움직이고 있습니다.</p>
+
+  <p><strong>삼성바이오로직스</strong><br>
+  2026년 누적 수주 계약 규모는 약 3조 2천억 원입니다. 글로벌 상위 20개 제약사 중 17개사를 고객사로 확보했습니다. 5공장은 2025년 4월부터 가동을 시작해 램프업이 순조롭고, 2027년 2분기경 본격 매출 인식이 전망됩니다. 6공장은 2026년 연내 착공, 2027년 완공이 목표입니다.</p>
+
+  <p>수혜 논리는 이렇습니다. 기존 계약은 유예 기간(보도상 2032년)까지 유지되지만, 신약 개발에 걸리는 평균 기간을 고려하면 새로 맺는 계약은 중국 외 기업을 택할 가능성이 높습니다. 그래서 삼성바이오가 대체 생산기지로 부각되는 것입니다.</p>
+
+  <p><strong>SK팜테코 / SK바이오텍</strong><br>
+  SK바이오텍은 약 3,147억 원을 투자해 세종시에 저분자·펩타이드 생산공장을 증설하며, 2026년 말 가동을 예정하고 있습니다. 수주도 이어집니다. 2026년 5월 스위스 페링제약의 방광암 유전자치료제 원료의약품 계약을 따냈고, 6월 11일에는 글로벌 제약사와 GLP-1 계열 비만치료제 원료의약품 장기공급 계약을 맺었습니다. 이 계약 규모는 최소 1조에서 최대 2조 원 수준으로 알려졌습니다.</p>
+
+  <p><strong>롯데바이오로직스</strong><br>
+  2022년 미국 BMS의 시러큐스 공장을 인수하며 CDMO에 뛰어든 후발주자입니다. 송도 공장 완공으로 생산능력을 키우며, '틈새 수주' 전략으로 승부를 보고 있습니다.</p>
+
+  <p>산업연구원은 이렇게 평가합니다. 생물보안법이 NDAA의 일부로 법제화되며 미국 바이오 산업이 국가안보 차원으로 격상됐고, 중국 기업 대체 수요가 늘면서 신뢰도 높은 CDMO에 새로운 기회가 될 것이라는 진단입니다. 실제로 2025년 국내 제약·바이오 기술 수출액은 13조 원을 넘어 전년 동기 대비 15% 증가했습니다.</p>
+
+  <hr>
+
+  <h2>기회는 분명하되, 한계도 봐야 합니다</h2>
+
+  <p>좋은 신호만 있는 것은 아닙니다. 몇 가지는 차분히 짚어둘 필요가 있습니다.</p>
+
+  <p>가장 먼저, 시차입니다. 실제 금지 효력은 빠르면 2028년 하반기입니다. "법이 발효됐으니 당장 중국 물량이 한국으로 넘어온다"는 식의 해석은 성급합니다.</p>
+
+  <p>다음으로, 경쟁입니다. 대체 생산기지를 노리는 것은 한국만이 아닙니다. 일본, 유럽도 같은 기회를 두고 경쟁하고 있습니다.</p>
+
+  <p>마지막으로, 불확실성입니다. 우시앱텍은 재심을 추진 중이고, OMB의 우려 기업 명단도 아직 공표 전입니다. 변수가 적지 않습니다.</p>
+
+  <p>예전엔 공급망이 '가장 싸고 빠른 곳'을 향했습니다. 지금은 '믿을 수 있는 곳'을 함께 따집니다. 이 변화 자체가 한국 CDMO에 우호적인 흐름인 것은 맞습니다. 다만 그 속도와 폭은 아직 열려 있습니다.</p>
+
+  <hr>
+
+  <p>끝으로 한 마디만 더 드리겠습니다.</p>
+
+  <p>생물보안법이 한국 바이오에 기회의 문을 연 것은 분명합니다. 그러나 그 문은 단번에 활짝 열리는 종류가 아닙니다.</p>
+
+  <p>"발효는 끝, 시행은 시작" — 이 시차를 정확히 읽는 사람이 기회도 정확히 잡을 것입니다.</p>
+
+  <p>이 글이 그 시차를 가늠하는 데 작은 도움이 되었다면, 그것으로 충분합니다.</p>
+
+  <p class="disclaimer">(투자 판단은 전적으로 독자의 몫이며, 이 글은 특정 종목의 매매를 권하지 않습니다.)</p>
+
+  <hr>
+
+  <div class="tags">
+    <span>#생물보안법</span>
+    <span>#BIOSECURE</span>
+    <span>#CDMO</span>
+    <span>#삼성바이오로직스</span>
+    <span>#SK팜테코</span>
+    <span>#롯데바이오로직스</span>
+    <span>#바이오공급망</span>
+    <span>#K바이오</span>
+    <span>#우시앱텍</span>
+    <span>#1260H리스트</span>
+  </div>
+
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>
