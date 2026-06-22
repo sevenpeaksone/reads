@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>사회불안과 내향성, 무엇이 다를까</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#f0a532;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;
+ font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+ -webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;
+ min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;
+ border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;
+ border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;
+ border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;
+ display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;
+ padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#f0a532;border-color:#f0a532">상담</div>
+<h1>사회불안과 내향성, 무엇이 다를까</h1>
+<p class="subtitle">사람들 앞에서 위축되는 마음을 돌보는 법</p>
+<figure><img src="./images/thumbnail.png" alt="1200x630px 가로형"><figcaption>1200x630px 가로형</figcaption></figure>
+<p>오늘은 사회불안과 내향성의 차이를 정리해 보려 합니다.</p>
+<p>두 가지는 자주 한 묶음으로 불리지만, 본질이 다릅니다.</p>
+<p>사람들 앞에서 위축되는 마음을 어떻게 돌볼 수 있는지까지 차분히 살펴보겠습니다.</p>
+<p>먼저 한 가지 말씀드립니다. 이 글은 일반적인 정보를 나누기 위한 것입니다. 전문적인 진단이나 상담을 대체하지 않습니다. 자신을 어떤 틀에 서둘러 가두기보다, 마음을 이해하는 실마리 정도로 읽어주시면 좋겠습니다.</p>
+<hr>
+<h2>기질과 불안은 다릅니다</h2>
+<p>내향성은 성격의 한 결입니다.</p>
+<p>고쳐야 할 상태가 아니라, 사람 성격의 정상적인 변이입니다.</p>
+<p>내향적인 분은 혼자 있는 시간으로 기운을 채웁니다.</p>
+<p>사람들과 어울리는 것을 즐기다가도, 일정 시간이 지나면 소진을 느끼고 다시 혼자만의 자리로 돌아오는 편이 편안합니다.</p>
+<p>사회불안은 결이 다릅니다.</p>
+<p>이것은 선호가 아니라 두려움에서 비롯됩니다.</p>
+<p>DSM-5는 사회불안장애를 타인에게 평가받거나 관찰될 수 있는 상황에 대한 지속적이고 강한 공포로 설명합니다.</p>
+<p>한 자료에 따르면, 자신을 호감 가는 사람이라 여기는 외향적인 분도 사회불안을 겪을 수 있다고 합니다.</p>
+<p>결정적 차이는 동기에 있습니다.</p>
+<p>내향인은 에너지를 아끼려 스스로 고독을 택합니다.</p>
+<p>사회불안이 있는 분은 두려움에 떠밀려 그 상황을 피합니다.</p>
+<p>내향적인 것은 문제가 아닙니다.</p>
+<p>문제는 두려움이 나를 자꾸 작게 만들 때입니다.</p>
+<figure><img src="./images/body-1.png" alt="내향성과 사회불안을 좌우로 나눈 비교 카드"><figcaption>내향성과 사회불안을 좌우로 나눈 비교 카드</figcaption></figure>
+<hr>
+<h2>불안이 스스로를 키우는 방식</h2>
+<p>사회불안은 세 개의 톱니바퀴가 맞물려 돌아갑니다.</p>
+<p>첫째는 예기불안입니다.</p>
+<p>어떤 자리를 앞두고 며칠, 때로는 몇 주 전부터 걱정이 시작됩니다.</p>
+<p>창피와 거절을 미리 그려보는 마음입니다.</p>
+<p>둘째는 회피, 혹은 고통스러운 버팀입니다.</p>
+<p>발표나 모임, 전화 통화를 결국 피하게 됩니다.</p>
+<p>피하지 못할 때는 식은땀과 떨림, 빠른 심박을 견디며 자리를 지킵니다.</p>
+<p>셋째는 사후 반추입니다.</p>
+<p>자리가 끝난 뒤에도 장면을 거듭 되감으며 실수를 찾습니다.</p>
+<p>&quot;그 말은 하지 말걸.&quot; 이런 되새김이 실패감을 부풀립니다.</p>
+<p>그리고 이 셋은 다시 처음으로 이어집니다.</p>
+<p>부풀려진 실패감이 다음 자리의 예기불안을 키웁니다.</p>
+<p>악순환이 한 바퀴를 돕니다.</p>
+<figure><img src="./images/body-2.png" alt="사회불안 악순환을 보여주는 원형 순환 도식"><figcaption>사회불안 악순환을 보여주는 원형 순환 도식</figcaption></figure>
+<hr>
+<h2>흔한 오해 세 가지</h2>
+<p>첫째, &quot;사회불안은 그냥 수줍음이다.&quot;</p>
+<p>수줍음은 성격의 결입니다.</p>
+<p>사회불안은 판단과 거절에 대한 강한 공포가 특징인, 더 무거운 상태입니다.</p>
+<p>단순히 수줍은 분과 달리, 사회불안이 있는 분은 한 자리를 오래 앞서 걱정합니다.</p>
+<p>둘째, &quot;의지가 약해서 그렇다.&quot;</p>
+<p>사회불안은 성격 결함도 의지 부족도 아닙니다.</p>
+<p>경력과 관계, 일상에 영향을 줄 만큼 무게가 있습니다.</p>
+<p>마음만 단단히 먹는다고 벗어나지는 않습니다.</p>
+<p>셋째, &quot;내향적인 사람만 겪는다.&quot;</p>
+<p>앞서 보았듯, 외향적인 분도 평가 공포로 힘들어할 수 있습니다.</p>
+<p>사회불안은 전반적인 자기 인식의 문제가 아니라, &quot;나는 평가받고 반드시 실패할 것&quot;이라는 확신의 문제이기 때문입니다.</p>
+<hr>
+<h2>스스로 마음을 돌보는 법</h2>
+<p>아래는 전문 치료를 대신하는 처방이 아니라, 곁들일 수 있는 보조적인 돌봄입니다.</p>
+<p>자신을 몰아세우는 방식은 권하지 않습니다.</p>
+<p>생각을 점검해 봅니다.</p>
+<p>&quot;모두가 나를 비웃을 것&quot;이라는 자동적 생각이 떠오를 때, 정말 그런지 한 번 물어봅니다.</p>
+<p>이것이 인지 재구성의 출발입니다.</p>
+<p>작은 걸음으로 다가갑니다.</p>
+<p>두려운 상황은 한 번에 뛰어드는 것이 아니라, 견딜 수 있는 작은 단계부터 쌓아갑니다.</p>
+<p>무리한 자기 강요는 도움이 되지 않습니다. 가능하면 전문가와 함께가 좋습니다.</p>
+<p>자신에게 친절해집니다.</p>
+<p>실수한 순간 스스로를 가혹하게 깎아내리기보다, 가까운 사람을 대하듯 이해심을 보냅니다.</p>
+<p>높은 자기연민은 더 낮은 불안과 연관된다고 보고됩니다.</p>
+<p>호흡을 길게 가져갑니다.</p>
+<p>횡격막을 쓰는 복식 호흡, 날숨을 늘리는 호흡은 마음을 가라앉히는 데 도움이 됩니다.</p>
+<p>5-4-3-2-1 감각법처럼 오감으로 지금에 주의를 묶는 방법도 있습니다.</p>
+<p>한 가지 팁을 덧붙입니다.</p>
+<p>이런 연습은 평온할 때 미리 익혀두면, 정작 불안한 순간에 훨씬 잘 작동합니다.</p>
+<figure><img src="./images/body-3.png" alt="자가 돌봄 핵심 카드 4장을 한 화면에 모은 디자인"><figcaption>자가 돌봄 핵심 카드 4장을 한 화면에 모은 디자인</figcaption></figure>
+<hr>
+<h2>전문가를 찾아도 좋은 신호</h2>
+<p>다음과 같은 신호가 보인다면, 부끄러워하지 않으셔도 됩니다.</p>
+<p>회피 때문에 일과 관계, 학업과 일상이 흔들릴 때입니다.</p>
+<p>이런 어려움이 여섯 달 넘게 이어지며 생활을 눈에 띄게 방해할 때입니다.</p>
+<p>도움 요청이 늦어지는 일은 드물지 않습니다.</p>
+<p>한 자료에 따르면, 사회불안장애가 있는 분의 36%가 도움을 구하기까지 10년 넘게 증상을 견딘다고 합니다.</p>
+<p>근거 기반 치료도 자리를 잡았습니다.</p>
+<p>인지행동치료(CBT)는 여러 임상 지침에서 사회불안의 1차 치료로 권고됩니다.</p>
+<p>대개 꾸준한 12~16주의 과정으로 의미 있는 호전을 본다고 알려져 있습니다.</p>
+<p>약물치료가 필요한지는 전문의와 상의하시길 권합니다.</p>
+<p>예전에는 이런 마음을 혼자 삼키는 것이 당연했습니다.</p>
+<p>지금은 도움을 청하는 일이 약함이 아니라 돌봄이라는 이해가 자리를 넓혀가고 있습니다.</p>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다.</p>
+<p>내향적인 것은 다듬어야 할 흠이 아닙니다.</p>
+<p>다만 두려움이 삶을 좁히고 있다면, 그때는 손을 내밀어도 좋습니다.</p>
+<p>&quot;고요를 사랑하는 것과, 두려움에 갇히는 것은 다릅니다.&quot;</p>
+<p>조용함이 당신의 결이라면, 그 결을 지키며 사는 길도 분명히 있습니다.</p>
+<div class="tags"><span>#사회불안</span> <span>#내향성</span> <span>#사회불안장애</span> <span>#심리상담</span> <span>#자기연민</span> <span>#불안돌봄</span> <span>#인지행동치료</span> <span>#마음건강</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body></html>
