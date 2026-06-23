@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>가면 증후군</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#34b39e;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;
+ font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+ -webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;
+ min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;
+ border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;
+ border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;
+ border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;
+ display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;
+ padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#34b39e;border-color:#34b39e">상담</div>
+<h1>가면 증후군</h1>
+<p class="subtitle">인정받아도 불안한 임포스터 신드롬 다스리기</p>
+<p>이번 글에서는 가면 증후군, 곧 임포스터 신드롬을 정리해 보겠습니다.</p>
+<p>칭찬을 받고 성과를 내도 &quot;나는 사실 사기꾼 같다&quot;고 느끼는 마음에 관한 이야기입니다.</p>
+<p>정의와 유형, 악순환의 구조, 그리고 일상에서 시도해 볼 대처법까지 차근히 살펴보겠습니다.</p>
+<figure><img src="./images/thumbnail.png" alt="상단 썸네일"><figcaption>상단 썸네일</figcaption></figure>
+<hr>
+<h2>가면 증후군이란 무엇인가</h2>
+<p>1978년 심리학자 폴린 클랜스와 수잰 임스가 처음 이름 붙인 현상입니다.</p>
+<p>객관적으로 유능하고 인정받는데도, 스스로는 그만큼 유능하지 않다고 믿는 마음을 가리킵니다.</p>
+<p>핵심은 성공을 자기 능력으로 받아들이지 못하는 데 있습니다.</p>
+<p>&quot;운이 좋았을 뿐&quot;, &quot;타이밍이 맞았을 뿐&quot;, &quot;사람들을 속였을 뿐&quot;이라며 원인을 자꾸 바깥으로 돌립니다.</p>
+<p>그래서 인정이 쌓여도 &quot;언젠가 진짜 실력이 들통날 것&quot;이라는 불안이 좀처럼 가시지 않습니다.</p>
+<p>연구 참가자들은 자신을 두고 &quot;지적 사기꾼처럼 느껴진다&quot;고 표현하기도 했습니다.</p>
+<p>참고로 이것은 공식 진단명이 아니라, 많은 사람이 겪는 경험의 한 패턴입니다.</p>
+<p>널리 인용되는 추정으로는 약 70%의 사람이 평생 한 번쯤 이 감정을 겪는다고 합니다.</p>
+<p>미국 노동자의 약 33%는 자신의 능력을 자주 의심한다고 답하기도 했습니다.</p>
+<p>결코 드문 일이 아니라는 뜻입니다.</p>
+<hr>
+<h2>다섯 가지 흔한 유형</h2>
+<p>같은 가면이라도 쓰는 모양은 사람마다 다릅니다.</p>
+<figure><img src="./images/body-1.png" alt="다섯 가지 유형을 아이콘과 함께 카드로 정리한 인포그래픽"><figcaption>다섯 가지 유형을 아이콘과 함께 카드로 정리한 인포그래픽</figcaption></figure>
+<p>완벽주의자는 완벽하지 않으면 실패라 여깁니다.</p>
+<p>천재형은 단번에 해내지 못하면 가짜라고 느낍니다.</p>
+<p>전문가형은 조금이라도 모르면 무능이 드러났다고 생각합니다.</p>
+<p>독주자는 도움을 청하면 약점이 보인다며 혼자 짊어집니다.</p>
+<p>슈퍼우먼·슈퍼맨은 모든 역할에서 동시에 탁월해야 한다고 자신을 몰아붙입니다.</p>
+<hr>
+<h2>성공이 불안을 키우는 악순환</h2>
+<p>가면 증후군은 한 자리를 맴도는 고리를 만듭니다.</p>
+<figure><img src="./images/body-2.png" alt="새 과제→불안→과로 또는 회피→안도→평가절하→자기 의심으로 순환하는 5단계 흐름도"><figcaption>새 과제→불안→과로 또는 회피→안도→평가절하→자기 의심으로 순환하는 5단계 흐름도</figcaption></figure>
+<p>새 과제가 주어지면 불안이 솟습니다.</p>
+<p>그 불안을 과잉 준비로 메우거나, 반대로 미루며 피합니다.</p>
+<p>어렵게 끝내면 잠깐의 안도가 찾아옵니다.</p>
+<p>그러나 곧 &quot;운이 좋았다&quot;며 성과를 깎아내립니다.</p>
+<p>그 결과 자기 의심은 더 깊어지고, 다음 과제에서 같은 고리가 다시 돌아갑니다.</p>
+<p>예전에는 노력의 증거였던 것이, 지금은 &quot;역시 나는 부족하다&quot;는 근거로 뒤집힙니다.</p>
+<p>같은 성과를 두고도 해석만 정반대로 뒤바뀌는 셈입니다.</p>
+<p>이 과정이 오래 이어지면 만성적인 긴장과 소진, 우울로 번지기도 합니다.</p>
+<hr>
+<h2>누가 주로 겪을까</h2>
+<p>뜻밖에도 유능하고 성취도 높은 사람일수록 흔합니다.</p>
+<p>최초 연구가 성취도 높은 여성을 대상으로 했던 만큼, 여성에게서 특히 두드러집니다.</p>
+<p>성별·인종·계층에서 소수자에 속한 사람도 취약합니다.</p>
+<p>차별과 미세한 편견이 &quot;나는 이 자리에 어울리지 않는다&quot;는 느낌을 부추기기 때문입니다.</p>
+<p>새 환경에 막 들어선 신입과 학생에게도 자주 나타납니다.</p>
+<p>다시 말해, 능력이 부족해서가 아니라 진지하게 잘 해내고 싶은 사람일수록 이 마음에 시달리기 쉽습니다.</p>
+<hr>
+<h2>가면을 조금씩 내려놓는 법</h2>
+<figure><img src="./images/body-3.png" alt="가혹한 자기비난과 자기연민의 시선을 좌우로 대비한 대조 이미지"><figcaption>가혹한 자기비난과 자기연민의 시선을 좌우로 대비한 대조 이미지</figcaption></figure>
+<p>먼저 생각을 다시 짜는 연습입니다.</p>
+<p>&quot;나는 가짜다&quot;라는 자동적 생각이 들면, 그것이 사실인지 증거를 따져봅니다.</p>
+<p>사실을 기록하는 것도 큰 힘이 됩니다.</p>
+<p>받은 칭찬, 끝낸 일, 고마움의 메시지를 모아두면, 마음이 흔들릴 때 객관적 증거가 되어줍니다.</p>
+<p>자신에게 친절해지는 자기연민도 중요합니다.</p>
+<p>짧은 자기연민 연습만으로도 임포스터 감정과 완벽주의가 줄었다는 연구가 있습니다.</p>
+<p>혼자 삭이지 말고 나누시길 권합니다.</p>
+<p>동료와 털어놓으면 &quot;나만 그런 게 아니구나&quot; 하는 안도가 찾아옵니다.</p>
+<p>믿을 만한 멘토에게 솔직한 피드백을 구하는 것도 좋은 방법입니다.</p>
+<p>다만 이 글은 일반적 정보일 뿐, 전문 상담이나 치료를 대신하지 않습니다.</p>
+<p>일상과 업무가 흔들릴 만큼 힘들다면 전문가의 도움을 받으시길 권합니다.</p>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다.</p>
+<p>가면 증후군은 당신이 부족하다는 증거가 아니라, 오히려 진지하게 애쓰고 있다는 흔적에 가깝습니다.</p>
+<p>&quot;나는 사기꾼 같다&quot;는 느낌이 들 때, 그 느낌이 곧 사실은 아니라는 점만 기억하셔도 충분합니다.</p>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body></html>

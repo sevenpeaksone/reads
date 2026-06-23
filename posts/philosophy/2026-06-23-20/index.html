@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>카뮈의 부조리</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#a096ff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;
+ font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+ -webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;
+ min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;
+ border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;
+ border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;
+ border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;
+ display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;
+ padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#a096ff;border-color:#a096ff">철학/인문</div>
+<h1>카뮈의 부조리</h1>
+<p class="subtitle">시지프 신화, 의미 없는 세계에서 어떻게 살 것인가</p>
+<p>이번 글에서는 알베르 카뮈의 부조리 철학을 정리해 보겠습니다.</p>
+<p>무의미해 보이는 세계 앞에서 그가 어떤 답을 내놓았는지, 『시지프 신화』를 따라 짚어 봅니다.</p>
+<p>결론을 먼저 말씀드리면, 카뮈는 도망치지도 속이지도 말고 &quot;맞서며 살라&quot;고 권합니다.</p>
+<figure><img src="./images/thumbnail.png" alt="어두운 회청색 하늘 아래, 한 사람이 거대한 둥근 바위를 가파른 돌산 위로 밀어 올리는 실루엣"><figcaption>어두운 회청색 하늘 아래, 한 사람이 거대한 둥근 바위를 가파른 돌산 위로 밀어 올리는 실루엣</figcaption></figure>
+<hr>
+<h2>부조리란 무엇인가</h2>
+<p>먼저 용어부터 풀어 보겠습니다.</p>
+<p>부조리(absurd)는 세상이 우스꽝스럽다는 뜻이 아닙니다.</p>
+<p>카뮈가 말한 부조리는 두 가지의 충돌입니다.</p>
+<p>하나는 의미를 찾으려는 인간의 갈망.</p>
+<p>다른 하나는 그 물음에 답하지 않는, 침묵하는 세계.</p>
+<p>그는 이 어긋남을 인간과 세계의 &quot;이혼&quot;이라 불렀습니다.</p>
+<p>부조리는 인간에게만 있지도, 세계에만 있지도 않습니다.</p>
+<p>둘이 마주치는 자리에서 생겨납니다.</p>
+<p>그러니 부조리는 없앨 수 있는 문제가 아닙니다.</p>
+<p>피할 수 없는 인간의 조건입니다.</p>
+<hr>
+<h2>진지한 문제는 단 하나, 자살이다</h2>
+<p>『시지프 신화』는 1942년에 나온 철학 에세이입니다.</p>
+<p>그 유명한 첫 문장은 이렇게 시작합니다.</p>
+<p>&quot;참으로 진지한 철학적 문제는 단 하나뿐이다. 그것은 자살이다.&quot;</p>
+<p>도발적으로 들립니다만, 뜻은 분명합니다.</p>
+<p>삶이 살 만한 가치가 있는가.</p>
+<p>이 물음에 답하는 것이 철학의 근본이라는 것입니다.</p>
+<p>세계가 의미 없음을 깨달았을 때, 그래도 살아야 하는가.</p>
+<p>카뮈는 이 질문에서 출발합니다.</p>
+<figure><img src="./images/body-1.png" alt="세 갈래로 갈라지는 길을 위에서 내려다본 단순한 일러스트"><figcaption>세 갈래로 갈라지는 길을 위에서 내려다본 단순한 일러스트</figcaption></figure>
+<hr>
+<h2>부조리에 맞서는 세 가지 길</h2>
+<p>카뮈는 부조리를 깨달은 사람이 택할 수 있는 길을 셋으로 나눕니다.</p>
+<p>첫째는 자살입니다.</p>
+<p>삶을 끝내는 것은 부조리에 대한 반항이 아닙니다.</p>
+<p>부조리를 느끼는 주체를 없애 문제를 회피하는, 일종의 굴복입니다.</p>
+<p>둘째는 &quot;철학적 자살&quot;입니다.</p>
+<p>키르케고르 같은 이들처럼, 부조리를 직시하다 결국 신이나 초월로 &quot;도약&quot;하는 길입니다.</p>
+<p>이성을 끝까지 밀고 가다 멈추고, 스스로 발견한 부조리를 부정해 버립니다.</p>
+<p>카뮈는 이 사유의 도피를 자살이라 불렀습니다.</p>
+<p>셋째가 반항입니다.</p>
+<p>자살하지도, 희망으로 도약하지도 않습니다.</p>
+<p>부조리를 또렷이 의식한 채 계속 살아가며 맞서는 태도입니다.</p>
+<p>카뮈에게 일관된 답은 셋째뿐이었습니다.</p>
+<figure><img src="./images/body-2.png" alt="세 가지 선택지를 정리한 깔끔한 표 형태의 그래픽"><figcaption>세 가지 선택지를 정리한 깔끔한 표 형태의 그래픽</figcaption></figure>
+<hr>
+<h2>반항·자유·열정</h2>
+<p>반항은 폭력적인 거부가 아닙니다.</p>
+<p>거짓 위안에 굴복하지 않고, 의미 없음과의 대면을 끊임없이 이어가는 명징함입니다.</p>
+<p>이 태도는 두 가지를 더 낳습니다.</p>
+<p>내세의 목적에서 풀려나면 자유가 생깁니다.</p>
+<p>지금 이 삶을 어떻게 살지 스스로 정할 자유입니다.</p>
+<p>그리고 열정이 따라옵니다.</p>
+<p>의미가 보장되지 않기에, 오히려 지금을 더 강렬하게 살아냅니다.</p>
+<p>반항, 자유, 열정.</p>
+<p>부조리를 끌어안은 삶이 남기는 세 가지 결실입니다.</p>
+<figure><img src="./images/body-3.png" alt="카뮈와 사르트르 두 사람을 좌우로 나눈 대비형 그래픽"><figcaption>카뮈와 사르트르 두 사람을 좌우로 나눈 대비형 그래픽</figcaption></figure>
+<hr>
+<h2>카뮈와 사르트르</h2>
+<p>같은 시대, 비슷한 물음.</p>
+<p>그러나 카뮈와 사르트르의 답은 달랐습니다.</p>
+<p>사르트르는 &quot;실존은 본질에 앞선다&quot;고 했습니다.</p>
+<p>인간이 스스로 의미를 만들어 가는 능동적 참여를 강조했습니다.</p>
+<p>카뮈는 의미의 창조보다 태도를 앞세웠습니다.</p>
+<p>부조리를 또렷이 의식하고, 거기에 반항하며 사는 것.</p>
+<p>그래서 그는 자신이 실존주의자로 불리는 것을 달가워하지 않았습니다.</p>
+<p>예전엔 두 사람이 가까웠습니다.</p>
+<p>지금 우리가 기억하는 건, 1951년 『반항하는 인간』을 둘러싼 결별입니다.</p>
+<hr>
+<h2>시지프는 왜 행복한가</h2>
+<p>신화 속 시지프는 무거운 바위를 산꼭대기로 밀어 올립니다.</p>
+<p>정상에 닿으면 바위는 다시 굴러떨어집니다.</p>
+<p>그는 영원히 같은 일을 되풀이합니다.</p>
+<p>신들은 무용한 노동보다 더 가혹한 형벌은 없다고 여겼습니다.</p>
+<p>그런데 카뮈는 시지프를 &quot;부조리의 영웅&quot;이라 부릅니다.</p>
+<p>그가 주목한 건 바위가 굴러떨어진 뒤, 시지프가 산을 내려가는 순간입니다.</p>
+<p>그 순간 시지프는 자기 운명을 또렷이 의식합니다.</p>
+<p>의식하는 한, 그는 형벌보다 위에 있습니다.</p>
+<p>시지프가 행복한 이유는 바위가 좋아서가 아닙니다.</p>
+<p>그 바위가 그의 것이기 때문입니다.</p>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>카뮈는 의미 없는 세계를 부정하지 않았습니다.</p>
+<p>다만 도망치거나 자신을 속이지 말고, 그것을 또렷이 보며 살라고 했습니다.</p>
+<p>&quot;우리는 시지프가 행복하다고 상상해야 한다.&quot;</p>
+<p>오늘 밀어 올린 바위가 다시 굴러떨어진다 해도, 그 길을 자기 것으로 받아들일 수 있다면 우리는 충분히 행복할 수 있을 것입니다.</p>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body></html>
