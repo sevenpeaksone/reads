@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>온디바이스 AI 2026, 내 손안의 인공지능 어디까지 왔나</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;
+ font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+ -webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;
+ min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;
+ border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;
+ border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;
+ border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;
+ display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;
+ padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>온디바이스 AI 2026, 내 손안의 인공지능 어디까지 왔나</h1>
+<figure><img src="./images/thumbnail.png" alt="온디바이스 AI 2026 대표 이미지"><figcaption>온디바이스 AI 2026 대표 이미지</figcaption></figure>
+<p>이번 글에서는 2026년의 온디바이스 AI를 정리해 보겠습니다.</p>
+<p>클라우드 서버를 거치지 않고 스마트폰과 노트북 안에서 직접 돌아가는 인공지능 이야기입니다.</p>
+<p>어디까지 왔고, 무엇이 좋으며, 어디에 한계가 있는지 차분히 살펴보겠습니다.</p>
+<hr>
+<h2>온디바이스 AI란 무엇인가</h2>
+<p>온디바이스 AI는 데이터를 클라우드로 보내지 않습니다.</p>
+<p>스마트폰, 노트북, 웨어러블 같은 기기 안에서 직접 AI 추론을 수행하는 방식입니다.</p>
+<p>검색, 자막, 카메라 효과처럼 빠른 동작이 기기의 NPU에서 로컬로 처리됩니다.</p>
+<p>그 결과 응답이 빠르고, 배터리 낭비가 적으며, 인터넷 연결에 덜 의존합니다.</p>
+<p>2026년의 흐름을 끌어가는 동력은 셋입니다.</p>
+<p>AI 탑재 기기의 높은 채택률, NPU의 발전, 그리고 데이터 프라이버시 규제 강화에 대한 대응입니다.</p>
+<p>실시간 번역, AI 사진 편집, 건강 모니터링, 오프라인 음성 비서가 대표적인 실사용 사례로 꼽힙니다.</p>
+<figure><img src="./images/body-1.png" alt="온디바이스 AI 핵심 4가지"><figcaption>온디바이스 AI 핵심 4가지</figcaption></figure>
+<hr>
+<h2>NPU와 칩 경쟁이 달라졌습니다</h2>
+<p>예전엔 AI 연산을 서버에 맡겼습니다.</p>
+<p>지금은 기기 안의 NPU가 그 일을 떠맡습니다.</p>
+<p>NPU 통합은 사실상 모든 신형 노트북과 데스크톱 CPU 세대에서 표준이 되고 있습니다.</p>
+<p>2026년 노트북 NPU 경쟁은 세 갈래입니다.</p>
+<p>가장 성숙한 애플 실리콘의 뉴럴 엔진, 80 TOPS 이상을 내세운 퀄컴 스냅드래곤 X2 Elite Gen 2, 그리고 NPU 성능을 끌어올린 인텔 코어 울트라입니다.</p>
+<p>퀄컴은 CES 2026에서 스냅드래곤 X2 Elite를 공개했습니다.</p>
+<p>헥사곤 NPU 성능을 이전 세대의 45 TOPS에서 80 TOPS로 끌어올렸고, 3나노 공정으로 제조됩니다.</p>
+<p>한 주치 이메일을 교차 참조해 제안서를 작성하는 식의 &quot;에이전트형 AI&quot;를 겨냥해 설계됐습니다.</p>
+<p>애플은 WWDC 2026에서 Apple Foundation Models 3를 선보였습니다.</p>
+<p>온디바이스 모델은 두 종입니다.</p>
+<p>그중 가장 강력한 AFM 3 Core Advanced는 200억 파라미터 희소 구조로, 작업에 따라 요청당 10억에서 40억 파라미터만 활성화합니다.</p>
+<p>다만 이 모델은 신형 iPhone Pro나 M4 칩 Mac 같은 최신 실리콘이 있어야 돌아갑니다.</p>
+<p>구글의 Tensor G5는 TSMC 3나노 공정으로 만든 첫 Tensor 칩입니다.</p>
+<p>최신 Gemini Nano를 기기에서 완전히 구동하며, 구글 발표 기준 2.6배 빠르고 2배 더 효율적이라고 합니다.</p>
+<p>Pixel 10은 20개가 넘는 온디바이스 생성형 AI 경험을 제공합니다.</p>
+<p>삼성도 빠지지 않습니다.</p>
+<p>Galaxy S25는 맞춤형 스냅드래곤 8 Elite 칩셋으로 Galaxy AI의 온디바이스 처리 성능을 강화했습니다.</p>
+<p>Personal Data Engine이 사용자 데이터를 기기 안에서 분석해 개인화 경험을 만듭니다.</p>
+<hr>
+<h2>작은 모델, 소형언어모델의 부상</h2>
+<p>큰 모델만이 답은 아닙니다.</p>
+<p>파라미터가 수백만에서 약 70억 범위에 머무는 소형언어모델(SLM)이 온디바이스의 주역으로 떠올랐습니다.</p>
+<p>범용 성능을 일부 내려놓는 대신 추론 비용이 낮고, 응답이 빠르며, 프라이버시를 위해 기기 안에서 돌릴 수 있습니다.</p>
+<p>마이크로소프트의 Phi-4 Mini는 38억 파라미터로 전용 GPU 없는 노트북에서도 구동됩니다.</p>
+<p>구글의 Gemini Nano는 스마트 답장과 온디바이스 요약을 클라우드 없이 처리합니다.</p>
+<p>스마트폰의 스마트 답장, 예측 입력, 음성 비서는 모두 이런 작은 모델이 떠받치고 있는 셈입니다.</p>
+<figure><img src="./images/body-2.png" alt="온디바이스 AI vs 클라우드 AI 비교"><figcaption>온디바이스 AI vs 클라우드 AI 비교</figcaption></figure>
+<hr>
+<h2>좋은 점은 분명합니다</h2>
+<p>온디바이스 AI의 장점은 네 가지로 추릴 수 있습니다.</p>
+<p>먼저 프라이버시입니다.</p>
+<p>데이터가 기기에 머무니 음성 녹음, 얼굴 데이터, 입력 패턴 같은 민감 정보의 노출과 유출 위험이 줄어듭니다.</p>
+<p>다음은 지연입니다.</p>
+<p>결과가 초가 아니라 밀리초 단위로 도착합니다.</p>
+<p>2026년 안드로이드 폰의 온디바이스 추론은 프로덕션 컴퓨터 비전 모델 기준 20밀리초 미만의 지연을 넘어섰습니다.</p>
+<p>전력 효율도 무시할 수 없습니다.</p>
+<p>네트워크 전송을 피하면 클라우드 방식 대비 배터리 소모를 30~50% 줄일 수 있습니다.</p>
+<p>마지막은 오프라인 작동입니다.</p>
+<p>인터넷 연결 없이 돌아가니 인프라가 열악한 지역이나 현장 근무자에게 특히 쓸모가 큽니다.</p>
+<hr>
+<h2>한계도 솔직히 짚겠습니다</h2>
+<p>물론 아직 완벽하지는 않습니다.</p>
+<p>온디바이스 모델은 특정 작업은 잘 처리하지만, GPT-4나 Claude Sonnet 같은 클라우드 모델의 폭넓은 범용 능력에는 미치지 못합니다.</p>
+<p>배터리도 양면적입니다.</p>
+<p>가벼운 일상 작업은 전송을 줄여 아껴 주지만, 무거운 로컬 추론을 집중적으로 돌리면 2시간 안에 배터리의 30~50%를 소모하기도 합니다.</p>
+<p>하드웨어 의존도 분명합니다.</p>
+<p>20억 단위를 넘는 온디바이스 모델은 최신 고성능 실리콘이 있어야 제 성능을 냅니다.</p>
+<p>구형 기기는 최신 기능을 온전히 누리기 어렵습니다.</p>
+<p>그래서 애플과 삼성 모두 민감하지 않거나 더 복잡한 작업은 클라우드와 결합하는 하이브리드 구조를 택하고 있습니다.</p>
+<figure><img src="./images/body-3.png" alt="온디바이스 AI 기대와 한계"><figcaption>온디바이스 AI 기대와 한계</figcaption></figure>
+<hr>
+<h2>시장은 어디로 가는가</h2>
+<p>스마트폰은 2026년 온디바이스 AI 시장에서 47.2%로 가장 큰 비중을 차지할 것으로 추정됩니다.</p>
+<p>아시아·태평양은 35.6% 비중으로 가장 빠르게 성장하는 지역으로 전망됩니다.</p>
+<p>엣지 AI 전체 시장 규모는 기관별로 편차가 큽니다.</p>
+<p>2030년 전망만 해도 568억 달러에서 1,000억 달러를 웃도는 수치까지 갈립니다.</p>
+<p>기준 연도와 정의, 범위가 기관마다 다른 탓이니 숫자 하나에 너무 무게를 둘 필요는 없습니다.</p>
+<p>다만 방향은 한곳을 가리킵니다.</p>
+<p>실시간 데이터 처리 수요, IoT와 산업용 로봇의 확산, AI 기술의 발전이 흐름을 밀고 있습니다.</p>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>온디바이스 AI는 더 이상 먼 이야기가 아닙니다.</p>
+<p>내 손안의 기기가 이미 작은 인공지능을 품고 있고, 그 품은 해마다 넓어지고 있습니다.</p>
+<p>다만 그것이 클라우드를 완전히 대체하지는 않습니다.</p>
+<p>빠르고 사적인 일은 기기가, 무겁고 폭넓은 일은 클라우드가 — 둘은 경쟁이 아니라 분업으로 가고 있습니다.</p>
+<p>&quot;가장 똑똑한 AI보다, 내 곁에서 조용히 돌아가는 AI.&quot;</p>
+<p>앞으로의 인공지능을 가늠해 보고 싶으시다면, 멀리 있는 데이터센터가 아니라 지금 손에 쥔 기기부터 들여다보시길 권합니다.</p>
+<div class="tags"><span>#온디바이스AI</span> <span>#온디바이스AI2026</span> <span>#NPU</span> <span>#소형언어모델</span> <span>#엣지AI</span> <span>#AI스마트폰</span> <span>#온디바이스인공지능</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body></html>
