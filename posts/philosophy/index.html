@@ -502,7 +502,7 @@
   input.addEventListener('input',function(){run(input.value);});
 })();
 </script>
-<footer>© 2026 SevenPeaks · 자동 생성 블로그</footer>
+<footer><div class="visit" id="visit-count"></div>© 2026 SevenPeaks · 자동 생성 블로그</footer>
 <script id="site-prefs-js">
 (function(){
   var BASE="/blog";
@@ -597,7 +597,15 @@
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
 </script>
-
-
+<script id="site-visit-js">
+(function(){
+  var el=document.getElementById('visit-count'); if(!el)return;
+  fetch('https://sevenpeaks.goatcounter.com/counter/TOTAL.json')
+    .then(function(r){return r.json();})
+    .then(function(j){ el.innerHTML='누적 방문 <b>'+(j.count||'0')+'</b>'; })
+    .catch(function(){});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
