@@ -91,6 +91,41 @@
   #search-meta { color:var(--muted); font-size:14px; margin:0 0 18px; }
 
   footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; border-top:1px solid var(--line); }
+  .visit { margin-bottom:6px; font-size:12px; color:var(--muted); }
+  .visit b { color:var(--text); font-weight:700; }
+
+  /* 즐겨찾기 별 버튼 (카드 위) */
+  .card { position:relative; }
+  .fav { position:absolute; top:9px; right:9px; z-index:3; width:30px; height:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px; line-height:1;
+    color:#ffd24a; background:rgba(15,17,23,.62); border:1px solid rgba(255,255,255,.14);
+    -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); transition:transform .12s, background .12s; }
+  .fav:hover { transform:scale(1.12); background:rgba(15,17,23,.85); }
+  .fav.on { background:#ffd24a; color:#1a1d27; border-color:#ffd24a; }
+
+  /* 보기 설정 + 페이지당 카드수 컨트롤 바 */
+  .prefs { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin:0 0 22px; }
+  .prefs .seg { display:inline-flex; border:1px solid var(--line); border-radius:9px; overflow:hidden; }
+  .prefs .seg button { background:var(--card); color:var(--muted); border:none; padding:7px 15px;
+    font-size:13px; cursor:pointer; font-family:inherit; }
+  .prefs .seg button.on { background:#3a4050; color:#fff; font-weight:700; }
+  .prefs label { display:inline-flex; align-items:center; gap:7px; color:var(--muted); font-size:13px; }
+  .prefs select { background:var(--card); border:1px solid var(--line); color:var(--text);
+    border-radius:8px; padding:6px 10px; font-size:13px; font-family:inherit; outline:none; }
+  .prefs .grow { margin-left:auto; }
+  .prefs .fav-link { color:var(--muted); text-decoration:none; font-size:13px; }
+  .prefs .fav-link:hover { color:#ffd24a; }
+
+  /* 목록형 보기 */
+  .grid.view-list { display:block; }
+  .grid.view-list .card { flex-direction:row; margin-bottom:12px; align-items:stretch; }
+  .grid.view-list .thumb { width:170px; flex:0 0 170px; height:auto; aspect-ratio:16/10; }
+  .grid.view-list .thumb.ph { aspect-ratio:16/10; }
+  .grid.view-list .card-body { flex:1; }
+  .grid.view-list .card-title { -webkit-line-clamp:3; }
+  @media(max-width:560px){ .grid.view-list .thumb{ width:110px; flex-basis:110px; } }
+
+  #fav-empty { color:var(--muted); font-size:15px; padding:30px 0; }
 </style>
 </head>
 <body>
@@ -106,12 +141,13 @@
       <a href="/blog/posts/counseling/index.html" data-cat="counseling">상담</a>
       <a href="/blog/posts/world/index.html" data-cat="world">세계</a>
       <a href="/blog/posts/religion/index.html" data-cat="religion">종교</a>
+      <a href="/blog/favorites.html">★ 즐겨찾기</a>
     </div>
     <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
   </nav>
   <div class="hero sub">
     <h1><a href="../../index.html">SevenPeaks 블로그</a></h1>
-    <p><span class="cat-head" data-cat="philosophy">철학/인문</span> 전체 34편 · 1/3 페이지</p>
+    <p><span class="cat-head" data-cat="philosophy">철학/인문</span> 전체 34편</p>
   </div>
   <main>
     <div id="search-wrap" hidden>
@@ -120,8 +156,9 @@
     </div>
     <div id="page-content">
     <a class="back" href="../../index.html">← 홈으로</a>
-    <div class="grid">
+    <div class="grid" data-paginate="1">
       <a class="card" href="./2026-06-29-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-29-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-29-20/images/thumbnail.png" alt="칸트 정언명령 쉽게 이해하기" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="philosophy">철학/인문</span>
@@ -130,6 +167,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-28-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-28-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-28-20/images/thumbnail.png" alt="악의 평범성 뜻" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="philosophy">철학/인문</span>
@@ -138,6 +176,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-27-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-27-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-27-20/images/thumbnail.png" alt="[철학/인문] 장자 소요유, 쓸모없음의 쓸모와 나비의 꿈으로 보는 자유" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="philosophy">철학/인문</span>
@@ -146,6 +185,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-26-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-26-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-26-20/images/thumbnail.png" alt="니체 영원회귀와 아모르파티 — 운명을 사랑하라는 말의 의미" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="philosophy">철학/인문</span>
@@ -154,6 +194,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-25-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-25-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-25-20/images/thumbnail.png" alt="쇼펜하우어 행복론 쉽게 정리" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="philosophy">철학/인문</span>
@@ -162,6 +203,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-24-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-24-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-24-20/images/thumbnail.png" alt="비트겐슈타인" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="philosophy">철학/인문</span>
@@ -170,6 +212,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-23-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-23-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-23-20/images/thumbnail.png" alt="카뮈의 부조리" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="philosophy">철학/인문</span>
@@ -178,6 +221,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-22-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-22-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-22-20/images/thumbnail.png" alt="스토아 철학, 통제할 수 있는 것과 없는 것" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="philosophy">철학/인문</span>
@@ -186,6 +230,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-21-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-21-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-21-20/images/thumbnail.png" alt="한병철 피로사회 — 성과주의 시대의 피로와 우울" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="philosophy">철학/인문</span>
@@ -194,6 +239,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-20-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-20-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-20-20/images/thumbnail.png" alt="니체 영원회귀와 운명애 — 다시 살아도 좋은 삶" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="philosophy">철학/인문</span>
@@ -202,6 +248,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-19-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-19-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-19-20/images/thumbnail.png" alt="키르케고르 불안의 개념— &quot;불안은 자유의 현기증이다&quot;" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="philosophy">철학/인문</span>
@@ -210,6 +257,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-18-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-18-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-18-20/images/thumbnail.png" alt="악의 평범성, 한나 아렌트가 말한 &#x27;생각하지 않음&#x27;의 무게" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="philosophy">철학/인문</span>
@@ -217,13 +265,205 @@
           <span class="card-date">2026-06-18 20시</span>
         </div>
       </a>
+      <a class="card" href="./2026-06-17-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-17-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-17-20/images/thumbnail.png" alt="에피쿠로스 행복론, 더 적게 바랄수록 자유로워지는 이유" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">에피쿠로스 행복론, 더 적게 바랄수록 자유로워지는 이유</h3>
+          <span class="card-date">2026-06-17 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-16-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-16-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-16-20/images/thumbnail.png" alt="[철학/인문] 스토아 철학 — 불확실한 시대에 마음을 지키는 고대의 지혜" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">[철학/인문] 스토아 철학 — 불확실한 시대에 마음을 지키는 고대의 지혜</h3>
+          <span class="card-date">2026-06-16 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-15-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-15-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-15-20/images/thumbnail.png" alt="[철학/인문] AI에게 권리가 있는가 — 인공지능의 도덕적 지위를 묻다" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">[철학/인문] AI에게 권리가 있는가 — 인공지능의 도덕적 지위를 묻다</h3>
+          <span class="card-date">2026-06-15 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-15-03/index.html">
+        <span class="fav" data-id="philosophy/2026-06-15-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-15-03/images/thumbnail.png" alt="딥페이크 시대의 진실, 무엇을 믿을 것인가 — AI가 흔드는 인식론의 위기" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">딥페이크 시대의 진실, 무엇을 믿을 것인가 — AI가 흔드는 인식론의 위기</h3>
+          <span class="card-date">2026-06-15 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-14-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-14-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-14-20/images/thumbnail.png" alt="일의 의미, AI 자동화 시대에 인간은 왜 일하는가" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">일의 의미, AI 자동화 시대에 인간은 왜 일하는가</h3>
+          <span class="card-date">2026-06-14 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-14-03/index.html">
+        <span class="fav" data-id="philosophy/2026-06-14-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-14-03/images/thumbnail.png" alt="디지털 사후세계, 죽은 뒤에 남는 데이터로 우리는 어떻게 기억될까" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">디지털 사후세계, 죽은 뒤에 남는 데이터로 우리는 어떻게 기억될까</h3>
+          <span class="card-date">2026-06-14 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-13-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-13-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-13-20/images/thumbnail.png" alt="알고리즘과 자유의지 — 추천이 내 선택을 대신하는 시대" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">알고리즘과 자유의지 — 추천이 내 선택을 대신하는 시대</h3>
+          <span class="card-date">2026-06-13 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-13-03/index.html">
+        <span class="fav" data-id="philosophy/2026-06-13-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-13-03/images/thumbnail.png" alt="기다림의 가치 — 즉시성의 시대에 느림을 옹호하다" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">기다림의 가치 — 즉시성의 시대에 느림을 옹호하다</h3>
+          <span class="card-date">2026-06-13 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-12-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-12-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-12-20/images/thumbnail.png" alt="초연결 시대의 외로움 — 더 연결될수록 외로워지는 역설" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">초연결 시대의 외로움 — 더 연결될수록 외로워지는 역설</h3>
+          <span class="card-date">2026-06-12 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-12-03/index.html">
+        <span class="fav" data-id="philosophy/2026-06-12-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-12-03/images/thumbnail.png" alt="주의력 경제 — 우리의 집중력은 어떻게 상품이 되었나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">주의력 경제 — 우리의 집중력은 어떻게 상품이 되었나</h3>
+          <span class="card-date">2026-06-12 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-11-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-11-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-11-20/images/thumbnail.png" alt="능력주의는 공정한가— 노력과 운, 그리고 분배의 윤리" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">능력주의는 공정한가— 노력과 운, 그리고 분배의 윤리</h3>
+          <span class="card-date">2026-06-11 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-11-03/index.html">
+        <span class="fav" data-id="philosophy/2026-06-11-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-11-03/images/thumbnail.png" alt="AI 시대 교육, 암기의 끝에서 무엇을 배우고 가르칠까" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">AI 시대 교육, 암기의 끝에서 무엇을 배우고 가르칠까</h3>
+          <span class="card-date">2026-06-11 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-10-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-10-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-10-20/images/thumbnail.png" alt="잊혀질 권리, 모든 것이 기록되는 디지털 사회에서 우리는 무엇을 잊을 수 있나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">잊혀질 권리, 모든 것이 기록되는 디지털 사회에서 우리는 무엇을 잊을 수 있나</h3>
+          <span class="card-date">2026-06-10 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-10-03/index.html">
+        <span class="fav" data-id="philosophy/2026-06-10-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-10-03/images/thumbnail.png" alt="AI 친구는 진짜 관계일까 — 인공지능 동반자의 진정성" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">AI 친구는 진짜 관계일까 — 인공지능 동반자의 진정성</h3>
+          <span class="card-date">2026-06-10 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-09-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-09-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-09-20/images/thumbnail.png" alt="AI 시대 노동의 의미 — 우리는 왜 일하는가" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">AI 시대 노동의 의미 — 우리는 왜 일하는가</h3>
+          <span class="card-date">2026-06-09 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-09-03/index.html">
+        <span class="fav" data-id="philosophy/2026-06-09-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-09-03/images/thumbnail.png" alt="[철학/인문] 딥페이크 시대의 진실 — 생성형 AI 앞에서 무엇을 믿을 것인가" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">[철학/인문] 딥페이크 시대의 진실 — 생성형 AI 앞에서 무엇을 믿을 것인가</h3>
+          <span class="card-date">2026-06-09 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-08-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-08-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-08-20/images/thumbnail.png" alt="[철학·인문] 디지털 추모와 AI 부활, 죽은 이를 되살리는 기술은 윤리적인가" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">[철학·인문] 디지털 추모와 AI 부활, 죽은 이를 되살리는 기술은 윤리적인가</h3>
+          <span class="card-date">2026-06-08 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-08-03/index.html">
+        <span class="fav" data-id="philosophy/2026-06-08-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-08-03/images/thumbnail.png" alt="AI 예술은 예술인가 — 창작의 본질을 다시 묻다" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">AI 예술은 예술인가 — 창작의 본질을 다시 묻다</h3>
+          <span class="card-date">2026-06-08 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-07-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-07-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-07-20/images/thumbnail.png" alt="추천 알고리즘과 자유의지 — 내 선택은 정말 내 것인가" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">추천 알고리즘과 자유의지 — 내 선택은 정말 내 것인가</h3>
+          <span class="card-date">2026-06-07 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-07-03/index.html">
+        <span class="fav" data-id="philosophy/2026-06-07-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-07-03/images/thumbnail.png" alt="AI 도덕적 지위 논쟁 정리 — 디지털 야누스 앞에 선 인간" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">AI 도덕적 지위 논쟁 정리 — 디지털 야누스 앞에 선 인간</h3>
+          <span class="card-date">2026-06-07 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-06-20/index.html">
+        <span class="fav" data-id="philosophy/2026-06-06-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-06-20/images/thumbnail.png" alt="초연결 시대의 고독, 왜 더 연결될수록 외로워지는가" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">초연결 시대의 고독, 왜 더 연결될수록 외로워지는가</h3>
+          <span class="card-date">2026-06-06 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-06-00/index.html">
+        <span class="fav" data-id="philosophy/2026-06-06-00" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-06-00/images/thumbnail.png" alt="AI 시대 인간다움이란 무엇인가 — 철학자들이 내놓은 다섯 가지 답" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="philosophy">철학/인문</span>
+          <h3 class="card-title">AI 시대 인간다움이란 무엇인가 — 철학자들이 내놓은 다섯 가지 답</h3>
+          <span class="card-date">2026-06-06 00시</span>
+        </div>
+      </a>
     </div>
-<nav class="pager">
-<span class="cur">1</span>
-<a href="./page2.html">2</a>
-<a href="./page3.html">3</a>
-<a href="./page2.html">다음 →</a>
-</nav>
     </div>
   </main>
 <script id="site-search-js">
@@ -241,7 +481,8 @@
   function card(it){
     var cover = it.thumb ? '<img class="thumb" src="'+BASE+it.thumb+'" alt="" loading="lazy">'
       : '<div class="thumb ph" data-cat="'+it.cslug+'"><span>'+esc(it.cat)+'</span></div>';
-    return '<a class="card" href="'+BASE+it.url+'">'+cover+
+    var star = window.__starMarkup ? window.__starMarkup(it.cslug+'/'+it.slot) : '';
+    return '<a class="card" href="'+BASE+it.url+'">'+star+cover+
       '<div class="card-body"><span class="badge" data-cat="'+it.cslug+'">'+esc(it.cat)+'</span>'+
       '<h3 class="card-title">'+esc(it.title)+'</h3><span class="card-date">'+esc(it.label)+'</span></div></a>';
   }
@@ -254,6 +495,7 @@
       });
       meta.textContent='“'+q+'” 검색결과 '+hits.length+'편';
       results.innerHTML = hits.length ? hits.map(card).join('') : '<p style="color:var(--muted)">결과가 없습니다.</p>';
+      if(window.__refreshStars) window.__refreshStars();
       if(content) content.hidden=true; wrap.hidden=false;
     });
   }
@@ -261,5 +503,101 @@
 })();
 </script>
 <footer>© 2026 SevenPeaks · 자동 생성 블로그</footer>
+<script id="site-prefs-js">
+(function(){
+  var BASE="/blog";
+  var KV={view:'spk-view', per:'spk-perpage', favs:'spk-favs'};
+  function lsget(k,d){ try{var v=localStorage.getItem(k);return v===null?d:v;}catch(e){return d;} }
+  function lsset(k,v){ try{localStorage.setItem(k,v);}catch(e){} }
+  function favs(){ try{return JSON.parse(lsget(KV.favs,'[]'))||[];}catch(e){return [];} }
+  function saveFavs(a){ lsset(KV.favs, JSON.stringify(a)); }
+  function getView(){ return lsget(KV.view,'card')==='list'?'list':'card'; }
+  function getPer(){ var n=parseInt(lsget(KV.per,'12'),10); if(isNaN(n))n=12; return Math.min(15,Math.max(10,n)); }
+
+  // ── 즐겨찾기 별
+  window.__starMarkup=function(id){
+    return '<span class="fav" data-id="'+id+'" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>';
+  };
+  function refreshStars(){
+    var f=favs();
+    document.querySelectorAll('.fav').forEach(function(el){
+      var on=f.indexOf(el.dataset.id)>=0;
+      el.classList.toggle('on',on); el.textContent=on?'★':'☆';
+    });
+  }
+  window.__refreshStars=refreshStars;
+  document.addEventListener('click',function(e){
+    var s=e.target.closest && e.target.closest('.fav'); if(!s)return;
+    e.preventDefault(); e.stopPropagation();
+    var id=s.dataset.id, a=favs(), i=a.indexOf(id);
+    if(i>=0)a.splice(i,1); else a.unshift(id);
+    saveFavs(a); refreshStars();
+    if(window.__onFavChange)window.__onFavChange();
+  });
+
+  // ── 보기/페이지당 컨트롤
+  function applyView(v){
+    document.querySelectorAll('.grid').forEach(function(g){ g.classList.toggle('view-list', v==='list'); });
+  }
+  function buildPager(grid){
+    var page=1;
+    var nav=document.createElement('nav'); nav.className='pager'; grid.after(nav);
+    function render(){
+      var cards=[].slice.call(grid.querySelectorAll('.card'));
+      var per=getPer(), pages=Math.max(1,Math.ceil(cards.length/per));
+      if(page>pages)page=pages;
+      cards.forEach(function(c,i){ c.style.display=(i>=(page-1)*per&&i<page*per)?'':'none'; });
+      nav.innerHTML='';
+      if(pages>1){
+        var mk=function(label,p,cur,dis){
+          if(cur){var sp=document.createElement('span');sp.className='cur';sp.textContent=label;nav.appendChild(sp);return;}
+          if(dis)return;
+          var a=document.createElement('a');a.href='#';a.textContent=label;
+          a.addEventListener('click',function(e){e.preventDefault();page=p;render();window.scrollTo({top:0,behavior:'smooth'});});
+          nav.appendChild(a);
+        };
+        mk('← 이전',page-1,false,page<=1);
+        var nums=[],n; for(n=1;n<=pages;n++){ if(n===1||n===pages||Math.abs(n-page)<=1)nums.push(n); }
+        var prev=0; nums.forEach(function(n){
+          if(n-prev>1){var d=document.createElement('span');d.className='dots';d.textContent='…';nav.appendChild(d);}
+          mk(String(n),n,n===page,false); prev=n;
+        });
+        mk('다음 →',page+1,false,page>=pages);
+      }
+    }
+    window.__repaginate=render; render();
+  }
+  function init(){
+    refreshStars();
+    var pc=document.getElementById('page-content');
+    if(!pc || !pc.querySelector('.grid')) return;
+    var pg=pc.querySelector('.grid[data-paginate]');
+    var bar=document.createElement('div'); bar.className='prefs';
+    var perOpts=''; for(var n=10;n<=15;n++){ perOpts+='<option value="'+n+'"'+(n===getPer()?' selected':'')+'>'+n+'</option>'; }
+    bar.innerHTML=
+      '<div class="seg" id="view-seg">'+
+        '<button type="button" data-view="card">카드</button>'+
+        '<button type="button" data-view="list">목록</button>'+
+      '</div>'+
+      (pg?('<label>페이지당 <select id="perpage">'+perOpts+'</select> 개</label>'):'')+
+      '<span class="grow"></span>'+
+      '<a class="fav-link" href="'+BASE+'/favorites.html">★ 즐겨찾기</a>';
+    pc.insertBefore(bar, pc.firstChild);
+    var seg=bar.querySelector('#view-seg');
+    function paintSeg(v){ seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.dataset.view===v); }); }
+    seg.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b)return;
+      var v=b.dataset.view; lsset(KV.view,v); applyView(v); paintSeg(v); });
+    applyView(getView()); paintSeg(getView());
+    if(pg){
+      buildPager(pg);
+      var sel=bar.querySelector('#perpage');
+      sel.addEventListener('change',function(){ lsset(KV.per, sel.value); if(window.__repaginate)window.__repaginate(); });
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+
+
 </body>
 </html>

@@ -91,6 +91,41 @@
   #search-meta { color:var(--muted); font-size:14px; margin:0 0 18px; }
 
   footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; border-top:1px solid var(--line); }
+  .visit { margin-bottom:6px; font-size:12px; color:var(--muted); }
+  .visit b { color:var(--text); font-weight:700; }
+
+  /* 즐겨찾기 별 버튼 (카드 위) */
+  .card { position:relative; }
+  .fav { position:absolute; top:9px; right:9px; z-index:3; width:30px; height:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px; line-height:1;
+    color:#ffd24a; background:rgba(15,17,23,.62); border:1px solid rgba(255,255,255,.14);
+    -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); transition:transform .12s, background .12s; }
+  .fav:hover { transform:scale(1.12); background:rgba(15,17,23,.85); }
+  .fav.on { background:#ffd24a; color:#1a1d27; border-color:#ffd24a; }
+
+  /* 보기 설정 + 페이지당 카드수 컨트롤 바 */
+  .prefs { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin:0 0 22px; }
+  .prefs .seg { display:inline-flex; border:1px solid var(--line); border-radius:9px; overflow:hidden; }
+  .prefs .seg button { background:var(--card); color:var(--muted); border:none; padding:7px 15px;
+    font-size:13px; cursor:pointer; font-family:inherit; }
+  .prefs .seg button.on { background:#3a4050; color:#fff; font-weight:700; }
+  .prefs label { display:inline-flex; align-items:center; gap:7px; color:var(--muted); font-size:13px; }
+  .prefs select { background:var(--card); border:1px solid var(--line); color:var(--text);
+    border-radius:8px; padding:6px 10px; font-size:13px; font-family:inherit; outline:none; }
+  .prefs .grow { margin-left:auto; }
+  .prefs .fav-link { color:var(--muted); text-decoration:none; font-size:13px; }
+  .prefs .fav-link:hover { color:#ffd24a; }
+
+  /* 목록형 보기 */
+  .grid.view-list { display:block; }
+  .grid.view-list .card { flex-direction:row; margin-bottom:12px; align-items:stretch; }
+  .grid.view-list .thumb { width:170px; flex:0 0 170px; height:auto; aspect-ratio:16/10; }
+  .grid.view-list .thumb.ph { aspect-ratio:16/10; }
+  .grid.view-list .card-body { flex:1; }
+  .grid.view-list .card-title { -webkit-line-clamp:3; }
+  @media(max-width:560px){ .grid.view-list .thumb{ width:110px; flex-basis:110px; } }
+
+  #fav-empty { color:var(--muted); font-size:15px; padding:30px 0; }
 </style>
 </head>
 <body>
@@ -106,12 +141,13 @@
       <a href="/blog/posts/counseling/index.html" data-cat="counseling">상담</a>
       <a href="/blog/posts/world/index.html" data-cat="world">세계</a>
       <a href="/blog/posts/religion/index.html" data-cat="religion">종교</a>
+      <a href="/blog/favorites.html">★ 즐겨찾기</a>
     </div>
     <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
   </nav>
   <div class="hero sub">
     <h1><a href="../../index.html">SevenPeaks 블로그</a></h1>
-    <p><span class="cat-head" data-cat="economy">경제</span> 전체 33편 · 1/3 페이지</p>
+    <p><span class="cat-head" data-cat="economy">경제</span> 전체 33편</p>
   </div>
   <main>
     <div id="search-wrap" hidden>
@@ -120,8 +156,9 @@
     </div>
     <div id="page-content">
     <a class="back" href="../../index.html">← 홈으로</a>
-    <div class="grid">
+    <div class="grid" data-paginate="1">
       <a class="card" href="./2026-06-29-03/index.html">
+        <span class="fav" data-id="economy/2026-06-29-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-29-03/images/thumbnail.png" alt="원달러 환율 1500원, 고환율 17개월이 가계에 남긴 것 (2026)" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="economy">경제</span>
@@ -130,6 +167,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-28-03/index.html">
+        <span class="fav" data-id="economy/2026-06-28-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-28-03/images/thumbnail.png" alt="기준금리 전망 2026 하반기 — 인하 기대와 인상론 사이" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="economy">경제</span>
@@ -138,6 +176,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-27-03/index.html">
+        <span class="fav" data-id="economy/2026-06-27-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-27-03/images/thumbnail.png" alt="원·유로 환율 1,800원 돌파" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="economy">경제</span>
@@ -146,6 +185,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-26-03/index.html">
+        <span class="fav" data-id="economy/2026-06-26-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-26-03/images/thumbnail.png" alt="국제유가 100달러 위협 2026, 중동 리스크가 가계에 남긴 것" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="economy">경제</span>
@@ -154,6 +194,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-25-03/index.html">
+        <span class="fav" data-id="economy/2026-06-25-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-25-03/images/thumbnail.png" alt="원화 스테이블코인 2026" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="economy">경제</span>
@@ -162,6 +203,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-24-03/index.html">
+        <span class="fav" data-id="economy/2026-06-24-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-24-03/images/thumbnail.png" alt="대출 규제 강화 2026" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="economy">경제</span>
@@ -170,6 +212,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-23-03/index.html">
+        <span class="fav" data-id="economy/2026-06-23-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-23-03/images/thumbnail.png" alt="ISA 개편 2026 — 확정된 혜택과 추진 중인 변화, 절세 활용법" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="economy">경제</span>
@@ -178,6 +221,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-22-07/index.html">
+        <span class="fav" data-id="economy/2026-06-22-07" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-22-07/images/thumbnail.png" alt="금값 사상 최고 2026, 지금 금에 투자해도 될까" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="economy">경제</span>
@@ -186,6 +230,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-21-03/index.html">
+        <span class="fav" data-id="economy/2026-06-21-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-21-03/images/thumbnail.png" alt="[경제] 밸류업 프로그램 2026 — 코스피 상승과 주주환원, 내 투자 전략 정리" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="economy">경제</span>
@@ -194,6 +239,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-20-03/index.html">
+        <span class="fav" data-id="economy/2026-06-20-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-20-03/images/thumbnail.png" alt="[경제] 환율 관찰대상국 재지정 2026 — 고환율 시대의 구조와 내 자산 지키기" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="economy">경제</span>
@@ -202,6 +248,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-19-03/index.html">
+        <span class="fav" data-id="economy/2026-06-19-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-19-03/images/thumbnail.png" alt="[경제] 양도세 중과 재개 2026 — 다주택자 세금, 무엇이 어떻게 달라지나" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="economy">경제</span>
@@ -210,6 +257,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-18-03/index.html">
+        <span class="fav" data-id="economy/2026-06-18-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-18-03/images/thumbnail.png" alt="스트레스 DSR 3단계 2026 — 줄어든 대출 한도, 내 집 마련 전략 다시 짜기" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="economy">경제</span>
@@ -217,13 +265,196 @@
           <span class="card-date">2026-06-18 03시</span>
         </div>
       </a>
+      <a class="card" href="./2026-06-16-03/index.html">
+        <span class="fav" data-id="economy/2026-06-16-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-16-03/images/thumbnail.png" alt="기준금리 동결 2026, 7월 분수령 — 금리·물가·환율 삼중고 속 내 돈 지키는 법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">기준금리 동결 2026, 7월 분수령 — 금리·물가·환율 삼중고 속 내 돈 지키는 법</h3>
+          <span class="card-date">2026-06-16 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-15-20/index.html">
+        <span class="fav" data-id="economy/2026-06-15-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-15-20/images/thumbnail.png" alt="[경제] 서학개미 미국주식 2026 — 환율과 빅테크 쏠림, 분산이 답일까" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">[경제] 서학개미 미국주식 2026 — 환율과 빅테크 쏠림, 분산이 답일까</h3>
+          <span class="card-date">2026-06-15 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-15-03/index.html">
+        <span class="fav" data-id="economy/2026-06-15-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-15-03/images/thumbnail.png" alt="[재테크] 공모주 IPO 2026 청약 전략 — 대어 상장 러시, 개인투자자가 점검할 것" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">[재테크] 공모주 IPO 2026 청약 전략 — 대어 상장 러시, 개인투자자가 점검할 것</h3>
+          <span class="card-date">2026-06-15 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-14-20/index.html">
+        <span class="fav" data-id="economy/2026-06-14-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-14-20/images/thumbnail.png" alt="원화 스테이블코인 제도화 2026 — 디지털 화폐 경쟁과 51% 룰 쟁점 정리" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">원화 스테이블코인 제도화 2026 — 디지털 화폐 경쟁과 51% 룰 쟁점 정리</h3>
+          <span class="card-date">2026-06-14 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-14-03/index.html">
+        <span class="fav" data-id="economy/2026-06-14-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-14-03/images/thumbnail.png" alt="국민연금 개혁 2026, 더 내고 더 받는 시대 — 내 노후 대비법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">국민연금 개혁 2026, 더 내고 더 받는 시대 — 내 노후 대비법</h3>
+          <span class="card-date">2026-06-14 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-13-20/index.html">
+        <span class="fav" data-id="economy/2026-06-13-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-13-20/images/thumbnail.png" alt="환율 1,500원 시대 2026 — 강달러 속 가계와 투자 전략" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">환율 1,500원 시대 2026 — 강달러 속 가계와 투자 전략</h3>
+          <span class="card-date">2026-06-13 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-13-03/index.html">
+        <span class="fav" data-id="economy/2026-06-13-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-13-03/images/thumbnail.png" alt="2026 하반기 부동산 전망 — 서울·수도권 집값은 어디로" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">2026 하반기 부동산 전망 — 서울·수도권 집값은 어디로</h3>
+          <span class="card-date">2026-06-13 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-12-20/index.html">
+        <span class="fav" data-id="economy/2026-06-12-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-12-20/images/thumbnail.png" alt="AI 버블 논쟁 2026 — 지금 증시는 거품인가, 혁명인가" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">AI 버블 논쟁 2026 — 지금 증시는 거품인가, 혁명인가</h3>
+          <span class="card-date">2026-06-12 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-12-03/index.html">
+        <span class="fav" data-id="economy/2026-06-12-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-12-03/images/thumbnail.png" alt="비트코인 가상자산 2026, 제도권 편입과 개인투자자 체크리스트" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">비트코인 가상자산 2026, 제도권 편입과 개인투자자 체크리스트</h3>
+          <span class="card-date">2026-06-12 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-11-20/index.html">
+        <span class="fav" data-id="economy/2026-06-11-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-11-20/images/thumbnail.png" alt="금값 사상 최고 2026 — 안전자산 열풍, 지금 금에 투자해도 될까" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">금값 사상 최고 2026 — 안전자산 열풍, 지금 금에 투자해도 될까</h3>
+          <span class="card-date">2026-06-11 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-11-03/index.html">
+        <span class="fav" data-id="economy/2026-06-11-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-11-03/images/thumbnail.png" alt="기준금리 2026 하반기 향방, 내 대출은 어떻게 — 한국은행 금리 결정 읽는 법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">기준금리 2026 하반기 향방, 내 대출은 어떻게 — 한국은행 금리 결정 읽는 법</h3>
+          <span class="card-date">2026-06-11 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-10-20/index.html">
+        <span class="fav" data-id="economy/2026-06-10-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-10-20/images/thumbnail.png" alt="코리아 밸류업 2026 코스피 전망과 개인투자자 대응 정리" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">코리아 밸류업 2026 코스피 전망과 개인투자자 대응 정리</h3>
+          <span class="card-date">2026-06-10 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-10-03/index.html">
+        <span class="fav" data-id="economy/2026-06-10-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-10-03/images/thumbnail.png" alt="트럼프 관세 2.0과 2026 한국 경제, 내 가계의 대응법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">트럼프 관세 2.0과 2026 한국 경제, 내 가계의 대응법</h3>
+          <span class="card-date">2026-06-10 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-09-20/index.html">
+        <span class="fav" data-id="economy/2026-06-09-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-09-20/images/thumbnail.png" alt="국민연금 개혁 2026 총정리 — 보험료율·소득대체율 변화와 노후 준비" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">국민연금 개혁 2026 총정리 — 보험료율·소득대체율 변화와 노후 준비</h3>
+          <span class="card-date">2026-06-09 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-09-03/index.html">
+        <span class="fav" data-id="economy/2026-06-09-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-09-03/images/thumbnail.png" alt="2026 하반기 대출규제·세제개편, 내 집 마련 전략 점검" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">2026 하반기 대출규제·세제개편, 내 집 마련 전략 점검</h3>
+          <span class="card-date">2026-06-09 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-08-20/index.html">
+        <span class="fav" data-id="economy/2026-06-08-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-08-20/images/thumbnail.png" alt="퇴직연금 디폴트옵션, 내 노후 자금 어떻게 굴려야 하나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">퇴직연금 디폴트옵션, 내 노후 자금 어떻게 굴려야 하나</h3>
+          <span class="card-date">2026-06-08 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-08-03/index.html">
+        <span class="fav" data-id="economy/2026-06-08-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-08-03/images/thumbnail.png" alt="AI 버블 논쟁 정리 — 지금 증시는 거품인가, 산업혁명의 초입인가" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">AI 버블 논쟁 정리 — 지금 증시는 거품인가, 산업혁명의 초입인가</h3>
+          <span class="card-date">2026-06-08 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-07-20/index.html">
+        <span class="fav" data-id="economy/2026-06-07-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-07-20/images/thumbnail.png" alt="스태그플레이션 우려, 고환율·고물가 속 2026 한국 경제와 가계 대응" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">스태그플레이션 우려, 고환율·고물가 속 2026 한국 경제와 가계 대응</h3>
+          <span class="card-date">2026-06-07 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-07-03/index.html">
+        <span class="fav" data-id="economy/2026-06-07-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-07-03/images/thumbnail.png" alt="원·달러 환율 1500원 시대 — 원인과 가계·기업 대응 전략" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">원·달러 환율 1500원 시대 — 원인과 가계·기업 대응 전략</h3>
+          <span class="card-date">2026-06-07 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-06-20/index.html">
+        <span class="fav" data-id="economy/2026-06-06-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-06-20/images/thumbnail.png" alt="원화 스테이블코인, 한국 경제에 어떤 의미일까 — 기대와 우려 정리" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">원화 스테이블코인, 한국 경제에 어떤 의미일까 — 기대와 우려 정리</h3>
+          <span class="card-date">2026-06-06 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-06-00/index.html">
+        <span class="fav" data-id="economy/2026-06-06-00" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-06-00/images/thumbnail.png" alt="2026년 하반기 금리 전망과 가계 자산 전략, 핵심만 정리했습니다" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">2026년 하반기 금리 전망과 가계 자산 전략, 핵심만 정리했습니다</h3>
+          <span class="card-date">2026-06-06 00시</span>
+        </div>
+      </a>
     </div>
-<nav class="pager">
-<span class="cur">1</span>
-<a href="./page2.html">2</a>
-<a href="./page3.html">3</a>
-<a href="./page2.html">다음 →</a>
-</nav>
     </div>
   </main>
 <script id="site-search-js">
@@ -241,7 +472,8 @@
   function card(it){
     var cover = it.thumb ? '<img class="thumb" src="'+BASE+it.thumb+'" alt="" loading="lazy">'
       : '<div class="thumb ph" data-cat="'+it.cslug+'"><span>'+esc(it.cat)+'</span></div>';
-    return '<a class="card" href="'+BASE+it.url+'">'+cover+
+    var star = window.__starMarkup ? window.__starMarkup(it.cslug+'/'+it.slot) : '';
+    return '<a class="card" href="'+BASE+it.url+'">'+star+cover+
       '<div class="card-body"><span class="badge" data-cat="'+it.cslug+'">'+esc(it.cat)+'</span>'+
       '<h3 class="card-title">'+esc(it.title)+'</h3><span class="card-date">'+esc(it.label)+'</span></div></a>';
   }
@@ -254,6 +486,7 @@
       });
       meta.textContent='“'+q+'” 검색결과 '+hits.length+'편';
       results.innerHTML = hits.length ? hits.map(card).join('') : '<p style="color:var(--muted)">결과가 없습니다.</p>';
+      if(window.__refreshStars) window.__refreshStars();
       if(content) content.hidden=true; wrap.hidden=false;
     });
   }
@@ -261,5 +494,101 @@
 })();
 </script>
 <footer>© 2026 SevenPeaks · 자동 생성 블로그</footer>
+<script id="site-prefs-js">
+(function(){
+  var BASE="/blog";
+  var KV={view:'spk-view', per:'spk-perpage', favs:'spk-favs'};
+  function lsget(k,d){ try{var v=localStorage.getItem(k);return v===null?d:v;}catch(e){return d;} }
+  function lsset(k,v){ try{localStorage.setItem(k,v);}catch(e){} }
+  function favs(){ try{return JSON.parse(lsget(KV.favs,'[]'))||[];}catch(e){return [];} }
+  function saveFavs(a){ lsset(KV.favs, JSON.stringify(a)); }
+  function getView(){ return lsget(KV.view,'card')==='list'?'list':'card'; }
+  function getPer(){ var n=parseInt(lsget(KV.per,'12'),10); if(isNaN(n))n=12; return Math.min(15,Math.max(10,n)); }
+
+  // ── 즐겨찾기 별
+  window.__starMarkup=function(id){
+    return '<span class="fav" data-id="'+id+'" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>';
+  };
+  function refreshStars(){
+    var f=favs();
+    document.querySelectorAll('.fav').forEach(function(el){
+      var on=f.indexOf(el.dataset.id)>=0;
+      el.classList.toggle('on',on); el.textContent=on?'★':'☆';
+    });
+  }
+  window.__refreshStars=refreshStars;
+  document.addEventListener('click',function(e){
+    var s=e.target.closest && e.target.closest('.fav'); if(!s)return;
+    e.preventDefault(); e.stopPropagation();
+    var id=s.dataset.id, a=favs(), i=a.indexOf(id);
+    if(i>=0)a.splice(i,1); else a.unshift(id);
+    saveFavs(a); refreshStars();
+    if(window.__onFavChange)window.__onFavChange();
+  });
+
+  // ── 보기/페이지당 컨트롤
+  function applyView(v){
+    document.querySelectorAll('.grid').forEach(function(g){ g.classList.toggle('view-list', v==='list'); });
+  }
+  function buildPager(grid){
+    var page=1;
+    var nav=document.createElement('nav'); nav.className='pager'; grid.after(nav);
+    function render(){
+      var cards=[].slice.call(grid.querySelectorAll('.card'));
+      var per=getPer(), pages=Math.max(1,Math.ceil(cards.length/per));
+      if(page>pages)page=pages;
+      cards.forEach(function(c,i){ c.style.display=(i>=(page-1)*per&&i<page*per)?'':'none'; });
+      nav.innerHTML='';
+      if(pages>1){
+        var mk=function(label,p,cur,dis){
+          if(cur){var sp=document.createElement('span');sp.className='cur';sp.textContent=label;nav.appendChild(sp);return;}
+          if(dis)return;
+          var a=document.createElement('a');a.href='#';a.textContent=label;
+          a.addEventListener('click',function(e){e.preventDefault();page=p;render();window.scrollTo({top:0,behavior:'smooth'});});
+          nav.appendChild(a);
+        };
+        mk('← 이전',page-1,false,page<=1);
+        var nums=[],n; for(n=1;n<=pages;n++){ if(n===1||n===pages||Math.abs(n-page)<=1)nums.push(n); }
+        var prev=0; nums.forEach(function(n){
+          if(n-prev>1){var d=document.createElement('span');d.className='dots';d.textContent='…';nav.appendChild(d);}
+          mk(String(n),n,n===page,false); prev=n;
+        });
+        mk('다음 →',page+1,false,page>=pages);
+      }
+    }
+    window.__repaginate=render; render();
+  }
+  function init(){
+    refreshStars();
+    var pc=document.getElementById('page-content');
+    if(!pc || !pc.querySelector('.grid')) return;
+    var pg=pc.querySelector('.grid[data-paginate]');
+    var bar=document.createElement('div'); bar.className='prefs';
+    var perOpts=''; for(var n=10;n<=15;n++){ perOpts+='<option value="'+n+'"'+(n===getPer()?' selected':'')+'>'+n+'</option>'; }
+    bar.innerHTML=
+      '<div class="seg" id="view-seg">'+
+        '<button type="button" data-view="card">카드</button>'+
+        '<button type="button" data-view="list">목록</button>'+
+      '</div>'+
+      (pg?('<label>페이지당 <select id="perpage">'+perOpts+'</select> 개</label>'):'')+
+      '<span class="grow"></span>'+
+      '<a class="fav-link" href="'+BASE+'/favorites.html">★ 즐겨찾기</a>';
+    pc.insertBefore(bar, pc.firstChild);
+    var seg=bar.querySelector('#view-seg');
+    function paintSeg(v){ seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.dataset.view===v); }); }
+    seg.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b)return;
+      var v=b.dataset.view; lsset(KV.view,v); applyView(v); paintSeg(v); });
+    applyView(getView()); paintSeg(getView());
+    if(pg){
+      buildPager(pg);
+      var sel=bar.querySelector('#perpage');
+      sel.addEventListener('change',function(){ lsset(KV.per, sel.value); if(window.__repaginate)window.__repaginate(); });
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+
+
 </body>
 </html>

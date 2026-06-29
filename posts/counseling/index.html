@@ -91,6 +91,41 @@
   #search-meta { color:var(--muted); font-size:14px; margin:0 0 18px; }
 
   footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; border-top:1px solid var(--line); }
+  .visit { margin-bottom:6px; font-size:12px; color:var(--muted); }
+  .visit b { color:var(--text); font-weight:700; }
+
+  /* 즐겨찾기 별 버튼 (카드 위) */
+  .card { position:relative; }
+  .fav { position:absolute; top:9px; right:9px; z-index:3; width:30px; height:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px; line-height:1;
+    color:#ffd24a; background:rgba(15,17,23,.62); border:1px solid rgba(255,255,255,.14);
+    -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); transition:transform .12s, background .12s; }
+  .fav:hover { transform:scale(1.12); background:rgba(15,17,23,.85); }
+  .fav.on { background:#ffd24a; color:#1a1d27; border-color:#ffd24a; }
+
+  /* 보기 설정 + 페이지당 카드수 컨트롤 바 */
+  .prefs { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin:0 0 22px; }
+  .prefs .seg { display:inline-flex; border:1px solid var(--line); border-radius:9px; overflow:hidden; }
+  .prefs .seg button { background:var(--card); color:var(--muted); border:none; padding:7px 15px;
+    font-size:13px; cursor:pointer; font-family:inherit; }
+  .prefs .seg button.on { background:#3a4050; color:#fff; font-weight:700; }
+  .prefs label { display:inline-flex; align-items:center; gap:7px; color:var(--muted); font-size:13px; }
+  .prefs select { background:var(--card); border:1px solid var(--line); color:var(--text);
+    border-radius:8px; padding:6px 10px; font-size:13px; font-family:inherit; outline:none; }
+  .prefs .grow { margin-left:auto; }
+  .prefs .fav-link { color:var(--muted); text-decoration:none; font-size:13px; }
+  .prefs .fav-link:hover { color:#ffd24a; }
+
+  /* 목록형 보기 */
+  .grid.view-list { display:block; }
+  .grid.view-list .card { flex-direction:row; margin-bottom:12px; align-items:stretch; }
+  .grid.view-list .thumb { width:170px; flex:0 0 170px; height:auto; aspect-ratio:16/10; }
+  .grid.view-list .thumb.ph { aspect-ratio:16/10; }
+  .grid.view-list .card-body { flex:1; }
+  .grid.view-list .card-title { -webkit-line-clamp:3; }
+  @media(max-width:560px){ .grid.view-list .thumb{ width:110px; flex-basis:110px; } }
+
+  #fav-empty { color:var(--muted); font-size:15px; padding:30px 0; }
 </style>
 </head>
 <body>
@@ -106,12 +141,13 @@
       <a href="/blog/posts/counseling/index.html" data-cat="counseling">상담</a>
       <a href="/blog/posts/world/index.html" data-cat="world">세계</a>
       <a href="/blog/posts/religion/index.html" data-cat="religion">종교</a>
+      <a href="/blog/favorites.html">★ 즐겨찾기</a>
     </div>
     <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
   </nav>
   <div class="hero sub">
     <h1><a href="../../index.html">SevenPeaks 블로그</a></h1>
-    <p><span class="cat-head" data-cat="counseling">상담</span> 전체 35편 · 1/3 페이지</p>
+    <p><span class="cat-head" data-cat="counseling">상담</span> 전체 35편</p>
   </div>
   <main>
     <div id="search-wrap" hidden>
@@ -120,8 +156,9 @@
     </div>
     <div id="page-content">
     <a class="back" href="../../index.html">← 홈으로</a>
-    <div class="grid">
+    <div class="grid" data-paginate="1">
       <a class="card" href="./2026-06-29-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-29-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-29-20/images/thumbnail.png" alt="자기 연민, 자신을 다그치는 마음에게 건네는 위로" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="counseling">상담</span>
@@ -130,6 +167,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-28-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-28-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-28-20/images/thumbnail.png" alt="번아웃 증후군 회복" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="counseling">상담</span>
@@ -138,6 +176,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-27-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-27-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-27-20/images/thumbnail.png" alt="[상담] 공황장애 대처법 — 이유 없이 찾아오는 극심한 불안, 알아차리는 법" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="counseling">상담</span>
@@ -146,6 +185,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-26-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-26-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-26-20/images/thumbnail.png" alt="[상담] 성인 애착유형 4가지 — 안정·불안·회피·혼란형, 연애 패턴과 회복법" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="counseling">상담</span>
@@ -154,6 +194,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-25-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-25-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-25-20/images/thumbnail.png" alt="수치심과 죄책감의 차이와 다스리는 법" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="counseling">상담</span>
@@ -162,6 +203,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-24-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-24-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-24-20/images/thumbnail.png" alt="비교하는 마음" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="counseling">상담</span>
@@ -170,6 +212,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-23-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-23-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-23-20/images/thumbnail.png" alt="가면 증후군" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="counseling">상담</span>
@@ -178,6 +221,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-22-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-22-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-22-20/images/thumbnail.png" alt="사회불안과 내향성, 무엇이 다를까" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="counseling">상담</span>
@@ -186,6 +230,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-21-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-21-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-21-20/images/thumbnail.png" alt="회복탄력성 키우는 법 — 무너진 자리에서 다시 일어서는 마음의 힘" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="counseling">상담</span>
@@ -194,6 +239,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-20-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-20-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-20-20/images/thumbnail.png" alt="거절이 어려운 마음 — 착한 사람 콤플렉스와 건강한 경계 세우기" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="counseling">상담</span>
@@ -202,6 +248,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-19-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-19-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-19-20/images/thumbnail.png" alt="[상담] 자존감 회복하는 법 — 흔들리는 자기가치감 다시 세우기" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="counseling">상담</span>
@@ -210,6 +257,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-18-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-18-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-18-20/images/thumbnail.png" alt="[상담] 번아웃 증후군, 소진된 마음을 알아차리고 회복하는 법" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="counseling">상담</span>
@@ -217,13 +265,214 @@
           <span class="card-date">2026-06-18 20시</span>
         </div>
       </a>
+      <a class="card" href="./2026-06-17-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-17-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-17-20/images/thumbnail.png" alt="상실과 애도, 떠나보낸 마음을 돌보는 법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">상실과 애도, 떠나보낸 마음을 돌보는 법</h3>
+          <span class="card-date">2026-06-17 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-16-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-16-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-16-20/images/thumbnail.png" alt="[상담] 혼자가 편한 나, 괜찮을까 — 내향성과 사회적 관계의 심리" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">[상담] 혼자가 편한 나, 괜찮을까 — 내향성과 사회적 관계의 심리</h3>
+          <span class="card-date">2026-06-16 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-15-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-15-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-15-20/images/thumbnail.png" alt="[상담] 불안한 마음 다스리기 — 걱정이 멈추지 않을 때" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">[상담] 불안한 마음 다스리기 — 걱정이 멈추지 않을 때</h3>
+          <span class="card-date">2026-06-15 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-15-03/index.html">
+        <span class="fav" data-id="counseling/2026-06-15-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-15-03/images/thumbnail.png" alt="[심리] 분노 조절, 욱하는 마음 다스리기 — 건강한 감정 표현법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">[심리] 분노 조절, 욱하는 마음 다스리기 — 건강한 감정 표현법</h3>
+          <span class="card-date">2026-06-15 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-14-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-14-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-14-20/images/thumbnail.png" alt="성인 ADHD 증상과 대처법— 산만함 뒤에 가려진 어른의 어려움" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">성인 ADHD 증상과 대처법— 산만함 뒤에 가려진 어른의 어려움</h3>
+          <span class="card-date">2026-06-14 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-14-03/index.html">
+        <span class="fav" data-id="counseling/2026-06-14-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-14-03/images/thumbnail.png" alt="완벽주의에 지친 마음, &#x27;잘해야 한다&#x27;는 압박에서 벗어나기" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">완벽주의에 지친 마음, &#x27;잘해야 한다&#x27;는 압박에서 벗어나기</h3>
+          <span class="card-date">2026-06-14 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-13-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-13-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-13-20/images/thumbnail.png" alt="[상담] 애착 유형 이해하기 — 불안형·회피형, 내 관계 패턴의 뿌리" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">[상담] 애착 유형 이해하기 — 불안형·회피형, 내 관계 패턴의 뿌리</h3>
+          <span class="card-date">2026-06-13 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-13-03/index.html">
+        <span class="fav" data-id="counseling/2026-06-13-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-13-03/images/thumbnail.png" alt="거절이 어려운 마음 — 착한 사람 콤플렉스에서 벗어나 건강하게 NO 하기" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">거절이 어려운 마음 — 착한 사람 콤플렉스에서 벗어나 건강하게 NO 하기</h3>
+          <span class="card-date">2026-06-13 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-12-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-12-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-12-20/images/thumbnail.png" alt="미루는 습관, 게으름이 아니다 — 지연행동의 심리와 극복법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">미루는 습관, 게으름이 아니다 — 지연행동의 심리와 극복법</h3>
+          <span class="card-date">2026-06-12 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-12-03/index.html">
+        <span class="fav" data-id="counseling/2026-06-12-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-12-03/images/thumbnail.png" alt="불면증 자가진단부터 수면 회복까지 — 잠 못 드는 밤, 마음건강 돌보기" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">불면증 자가진단부터 수면 회복까지 — 잠 못 드는 밤, 마음건강 돌보기</h3>
+          <span class="card-date">2026-06-12 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-11-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-11-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-11-20/images/thumbnail.png" alt="비교에 지친 마음 — SNS 시대, 남과 견주지 않고 나로 사는 법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">비교에 지친 마음 — SNS 시대, 남과 견주지 않고 나로 사는 법</h3>
+          <span class="card-date">2026-06-11 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-11-03/index.html">
+        <span class="fav" data-id="counseling/2026-06-11-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-11-03/images/thumbnail.png" alt="번아웃 회복법 — 쉬어도 안 풀리는 직장인 소진 증후군, 어떻게 벗어날까" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">번아웃 회복법 — 쉬어도 안 풀리는 직장인 소진 증후군, 어떻게 벗어날까</h3>
+          <span class="card-date">2026-06-11 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-10-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-10-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-10-20/images/thumbnail.png" alt="분노 조절, 화가 날 때 건강하게 다스리는 법— 억누르지도 터뜨리지도 않고" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">분노 조절, 화가 날 때 건강하게 다스리는 법— 억누르지도 터뜨리지도 않고</h3>
+          <span class="card-date">2026-06-10 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-10-03/index.html">
+        <span class="fav" data-id="counseling/2026-06-10-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-10-03/images/thumbnail.png" alt="사춘기 자녀와의 대화법, 잔소리 대신 마음을 여는 법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">사춘기 자녀와의 대화법, 잔소리 대신 마음을 여는 법</h3>
+          <span class="card-date">2026-06-10 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-09-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-09-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-09-20/images/thumbnail.png" alt="걱정의 고리 끊는 법 — 멈추지 않는 불안에 지친 당신에게" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">걱정의 고리 끊는 법 — 멈추지 않는 불안에 지친 당신에게</h3>
+          <span class="card-date">2026-06-09 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-09-03/index.html">
+        <span class="fav" data-id="counseling/2026-06-09-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-09-03/images/thumbnail.png" alt="[상담] 성인 ADHD, 혹시 나도? — 게으름이 아니라 뇌의 차이" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">[상담] 성인 ADHD, 혹시 나도? — 게으름이 아니라 뇌의 차이</h3>
+          <span class="card-date">2026-06-09 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-08-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-08-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-08-20/images/thumbnail.png" alt="완벽주의에 지친 사람들 — &#x27;충분히 좋은 나&#x27;로 사는 법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">완벽주의에 지친 사람들 — &#x27;충분히 좋은 나&#x27;로 사는 법</h3>
+          <span class="card-date">2026-06-08 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-08-03/index.html">
+        <span class="fav" data-id="counseling/2026-06-08-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-08-03/images/thumbnail.png" alt="거절을 못 해 지치는 사람들 — 건강한 경계 세우기 연습" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">거절을 못 해 지치는 사람들 — 건강한 경계 세우기 연습</h3>
+          <span class="card-date">2026-06-08 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-07-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-07-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-07-20/images/thumbnail.png" alt="부부 갈등 대화법— 비난이 아니라 마음을 전하는 법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">부부 갈등 대화법— 비난이 아니라 마음을 전하는 법</h3>
+          <span class="card-date">2026-06-07 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-07-03/index.html">
+        <span class="fav" data-id="counseling/2026-06-07-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-07-03/images/thumbnail.png" alt="[상담] 청년 외로움과 사회적 고립, 마음건강 회복의 첫걸음" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">[상담] 청년 외로움과 사회적 고립, 마음건강 회복의 첫걸음</h3>
+          <span class="card-date">2026-06-07 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-06-20/index.html">
+        <span class="fav" data-id="counseling/2026-06-06-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-06-20/images/thumbnail.png" alt="[상담] 직장인 번아웃 신호 알아차리고 회복하는 법 — 소진의 세 가지 차원부터 천천히" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">[상담] 직장인 번아웃 신호 알아차리고 회복하는 법 — 소진의 세 가지 차원부터 천천히</h3>
+          <span class="card-date">2026-06-06 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-06-17/index.html">
+        <span class="fav" data-id="counseling/2026-06-06-17" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-06-17/images/thumbnail.png" alt="청소년 스마트폰 과의존, 부모의 대화법 — 상담 현장이 권하는 접근" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">청소년 스마트폰 과의존, 부모의 대화법 — 상담 현장이 권하는 접근</h3>
+          <span class="card-date">2026-06-06 17시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-06-05/index.html">
+        <span class="fav" data-id="counseling/2026-06-06-05" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-06-05/images/thumbnail.png" alt="AI 챗봇 상담과 심리상담, 사람 상담은 무엇이 다른가" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="counseling">상담</span>
+          <h3 class="card-title">AI 챗봇 상담과 심리상담, 사람 상담은 무엇이 다른가</h3>
+          <span class="card-date">2026-06-06 05시</span>
+        </div>
+      </a>
     </div>
-<nav class="pager">
-<span class="cur">1</span>
-<a href="./page2.html">2</a>
-<a href="./page3.html">3</a>
-<a href="./page2.html">다음 →</a>
-</nav>
     </div>
   </main>
 <script id="site-search-js">
@@ -241,7 +490,8 @@
   function card(it){
     var cover = it.thumb ? '<img class="thumb" src="'+BASE+it.thumb+'" alt="" loading="lazy">'
       : '<div class="thumb ph" data-cat="'+it.cslug+'"><span>'+esc(it.cat)+'</span></div>';
-    return '<a class="card" href="'+BASE+it.url+'">'+cover+
+    var star = window.__starMarkup ? window.__starMarkup(it.cslug+'/'+it.slot) : '';
+    return '<a class="card" href="'+BASE+it.url+'">'+star+cover+
       '<div class="card-body"><span class="badge" data-cat="'+it.cslug+'">'+esc(it.cat)+'</span>'+
       '<h3 class="card-title">'+esc(it.title)+'</h3><span class="card-date">'+esc(it.label)+'</span></div></a>';
   }
@@ -254,6 +504,7 @@
       });
       meta.textContent='“'+q+'” 검색결과 '+hits.length+'편';
       results.innerHTML = hits.length ? hits.map(card).join('') : '<p style="color:var(--muted)">결과가 없습니다.</p>';
+      if(window.__refreshStars) window.__refreshStars();
       if(content) content.hidden=true; wrap.hidden=false;
     });
   }
@@ -261,5 +512,101 @@
 })();
 </script>
 <footer>© 2026 SevenPeaks · 자동 생성 블로그</footer>
+<script id="site-prefs-js">
+(function(){
+  var BASE="/blog";
+  var KV={view:'spk-view', per:'spk-perpage', favs:'spk-favs'};
+  function lsget(k,d){ try{var v=localStorage.getItem(k);return v===null?d:v;}catch(e){return d;} }
+  function lsset(k,v){ try{localStorage.setItem(k,v);}catch(e){} }
+  function favs(){ try{return JSON.parse(lsget(KV.favs,'[]'))||[];}catch(e){return [];} }
+  function saveFavs(a){ lsset(KV.favs, JSON.stringify(a)); }
+  function getView(){ return lsget(KV.view,'card')==='list'?'list':'card'; }
+  function getPer(){ var n=parseInt(lsget(KV.per,'12'),10); if(isNaN(n))n=12; return Math.min(15,Math.max(10,n)); }
+
+  // ── 즐겨찾기 별
+  window.__starMarkup=function(id){
+    return '<span class="fav" data-id="'+id+'" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>';
+  };
+  function refreshStars(){
+    var f=favs();
+    document.querySelectorAll('.fav').forEach(function(el){
+      var on=f.indexOf(el.dataset.id)>=0;
+      el.classList.toggle('on',on); el.textContent=on?'★':'☆';
+    });
+  }
+  window.__refreshStars=refreshStars;
+  document.addEventListener('click',function(e){
+    var s=e.target.closest && e.target.closest('.fav'); if(!s)return;
+    e.preventDefault(); e.stopPropagation();
+    var id=s.dataset.id, a=favs(), i=a.indexOf(id);
+    if(i>=0)a.splice(i,1); else a.unshift(id);
+    saveFavs(a); refreshStars();
+    if(window.__onFavChange)window.__onFavChange();
+  });
+
+  // ── 보기/페이지당 컨트롤
+  function applyView(v){
+    document.querySelectorAll('.grid').forEach(function(g){ g.classList.toggle('view-list', v==='list'); });
+  }
+  function buildPager(grid){
+    var page=1;
+    var nav=document.createElement('nav'); nav.className='pager'; grid.after(nav);
+    function render(){
+      var cards=[].slice.call(grid.querySelectorAll('.card'));
+      var per=getPer(), pages=Math.max(1,Math.ceil(cards.length/per));
+      if(page>pages)page=pages;
+      cards.forEach(function(c,i){ c.style.display=(i>=(page-1)*per&&i<page*per)?'':'none'; });
+      nav.innerHTML='';
+      if(pages>1){
+        var mk=function(label,p,cur,dis){
+          if(cur){var sp=document.createElement('span');sp.className='cur';sp.textContent=label;nav.appendChild(sp);return;}
+          if(dis)return;
+          var a=document.createElement('a');a.href='#';a.textContent=label;
+          a.addEventListener('click',function(e){e.preventDefault();page=p;render();window.scrollTo({top:0,behavior:'smooth'});});
+          nav.appendChild(a);
+        };
+        mk('← 이전',page-1,false,page<=1);
+        var nums=[],n; for(n=1;n<=pages;n++){ if(n===1||n===pages||Math.abs(n-page)<=1)nums.push(n); }
+        var prev=0; nums.forEach(function(n){
+          if(n-prev>1){var d=document.createElement('span');d.className='dots';d.textContent='…';nav.appendChild(d);}
+          mk(String(n),n,n===page,false); prev=n;
+        });
+        mk('다음 →',page+1,false,page>=pages);
+      }
+    }
+    window.__repaginate=render; render();
+  }
+  function init(){
+    refreshStars();
+    var pc=document.getElementById('page-content');
+    if(!pc || !pc.querySelector('.grid')) return;
+    var pg=pc.querySelector('.grid[data-paginate]');
+    var bar=document.createElement('div'); bar.className='prefs';
+    var perOpts=''; for(var n=10;n<=15;n++){ perOpts+='<option value="'+n+'"'+(n===getPer()?' selected':'')+'>'+n+'</option>'; }
+    bar.innerHTML=
+      '<div class="seg" id="view-seg">'+
+        '<button type="button" data-view="card">카드</button>'+
+        '<button type="button" data-view="list">목록</button>'+
+      '</div>'+
+      (pg?('<label>페이지당 <select id="perpage">'+perOpts+'</select> 개</label>'):'')+
+      '<span class="grow"></span>'+
+      '<a class="fav-link" href="'+BASE+'/favorites.html">★ 즐겨찾기</a>';
+    pc.insertBefore(bar, pc.firstChild);
+    var seg=bar.querySelector('#view-seg');
+    function paintSeg(v){ seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.dataset.view===v); }); }
+    seg.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b)return;
+      var v=b.dataset.view; lsset(KV.view,v); applyView(v); paintSeg(v); });
+    applyView(getView()); paintSeg(getView());
+    if(pg){
+      buildPager(pg);
+      var sel=bar.querySelector('#perpage');
+      sel.addEventListener('change',function(){ lsset(KV.per, sel.value); if(window.__repaginate)window.__repaginate(); });
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+
+
 </body>
 </html>

@@ -91,6 +91,41 @@
   #search-meta { color:var(--muted); font-size:14px; margin:0 0 18px; }
 
   footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; border-top:1px solid var(--line); }
+  .visit { margin-bottom:6px; font-size:12px; color:var(--muted); }
+  .visit b { color:var(--text); font-weight:700; }
+
+  /* 즐겨찾기 별 버튼 (카드 위) */
+  .card { position:relative; }
+  .fav { position:absolute; top:9px; right:9px; z-index:3; width:30px; height:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px; line-height:1;
+    color:#ffd24a; background:rgba(15,17,23,.62); border:1px solid rgba(255,255,255,.14);
+    -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); transition:transform .12s, background .12s; }
+  .fav:hover { transform:scale(1.12); background:rgba(15,17,23,.85); }
+  .fav.on { background:#ffd24a; color:#1a1d27; border-color:#ffd24a; }
+
+  /* 보기 설정 + 페이지당 카드수 컨트롤 바 */
+  .prefs { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin:0 0 22px; }
+  .prefs .seg { display:inline-flex; border:1px solid var(--line); border-radius:9px; overflow:hidden; }
+  .prefs .seg button { background:var(--card); color:var(--muted); border:none; padding:7px 15px;
+    font-size:13px; cursor:pointer; font-family:inherit; }
+  .prefs .seg button.on { background:#3a4050; color:#fff; font-weight:700; }
+  .prefs label { display:inline-flex; align-items:center; gap:7px; color:var(--muted); font-size:13px; }
+  .prefs select { background:var(--card); border:1px solid var(--line); color:var(--text);
+    border-radius:8px; padding:6px 10px; font-size:13px; font-family:inherit; outline:none; }
+  .prefs .grow { margin-left:auto; }
+  .prefs .fav-link { color:var(--muted); text-decoration:none; font-size:13px; }
+  .prefs .fav-link:hover { color:#ffd24a; }
+
+  /* 목록형 보기 */
+  .grid.view-list { display:block; }
+  .grid.view-list .card { flex-direction:row; margin-bottom:12px; align-items:stretch; }
+  .grid.view-list .thumb { width:170px; flex:0 0 170px; height:auto; aspect-ratio:16/10; }
+  .grid.view-list .thumb.ph { aspect-ratio:16/10; }
+  .grid.view-list .card-body { flex:1; }
+  .grid.view-list .card-title { -webkit-line-clamp:3; }
+  @media(max-width:560px){ .grid.view-list .thumb{ width:110px; flex-basis:110px; } }
+
+  #fav-empty { color:var(--muted); font-size:15px; padding:30px 0; }
 </style>
 </head>
 <body>
@@ -106,12 +141,13 @@
       <a href="/blog/posts/counseling/index.html" data-cat="counseling">상담</a>
       <a href="/blog/posts/world/index.html" data-cat="world">세계</a>
       <a href="/blog/posts/religion/index.html" data-cat="religion">종교</a>
+      <a href="/blog/favorites.html">★ 즐겨찾기</a>
     </div>
     <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
   </nav>
   <div class="hero sub">
     <h1><a href="../../index.html">SevenPeaks 블로그</a></h1>
-    <p><span class="cat-head" data-cat="bio">바이오</span> 전체 33편 · 1/3 페이지</p>
+    <p><span class="cat-head" data-cat="bio">바이오</span> 전체 33편</p>
   </div>
   <main>
     <div id="search-wrap" hidden>
@@ -120,8 +156,9 @@
     </div>
     <div id="page-content">
     <a class="back" href="../../index.html">← 홈으로</a>
-    <div class="grid">
+    <div class="grid" data-paginate="1">
       <a class="card" href="./2026-06-29-03/index.html">
+        <span class="fav" data-id="bio/2026-06-29-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-29-03/images/thumbnail.png" alt="ADC 항체약물접합체 원리와 2026 K바이오 항암 신약 동향" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="bio">바이오</span>
@@ -130,6 +167,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-28-03/index.html">
+        <span class="fav" data-id="bio/2026-06-28-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-28-03/images/thumbnail.png" alt="[바이오] AI 신약개발 2026 — 알파폴드 이후, 임상이 증명할 차례" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="bio">바이오</span>
@@ -138,6 +176,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-27-03/index.html">
+        <span class="fav" data-id="bio/2026-06-27-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-27-03/images/thumbnail.png" alt="표적단백질분해 신약 2026 정리" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="bio">바이오</span>
@@ -146,6 +185,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-26-03/index.html">
+        <span class="fav" data-id="bio/2026-06-26-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-26-03/images/thumbnail.png" alt="크리스퍼 유전자치료제 2026, 어디까지 왔나" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="bio">바이오</span>
@@ -154,6 +194,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-25-03/index.html">
+        <span class="fav" data-id="bio/2026-06-25-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-25-03/images/thumbnail.png" alt="알츠하이머 치료제 2026 정리" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="bio">바이오</span>
@@ -162,6 +203,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-24-03/index.html">
+        <span class="fav" data-id="bio/2026-06-24-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-24-03/images/thumbnail.png" alt="경구용 비만치료제 2026" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="bio">바이오</span>
@@ -170,6 +212,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-23-03/index.html">
+        <span class="fav" data-id="bio/2026-06-23-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-23-03/images/thumbnail.png" alt="이종장기이식 2026 — 돼지 장기로 사람을 살릴 수 있을까" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="bio">바이오</span>
@@ -178,6 +221,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-22-07/index.html">
+        <span class="fav" data-id="bio/2026-06-22-07" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-22-07/images/thumbnail.png" alt="CAR-T 치료제 2026" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="bio">바이오</span>
@@ -186,6 +230,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-21-03/index.html">
+        <span class="fav" data-id="bio/2026-06-21-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-21-03/images/thumbnail.png" alt="노화 과학 2026 — 세놀리틱스·라파마이신, 늙음을 늦출 수 있을까" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="bio">바이오</span>
@@ -194,6 +239,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-20-03/index.html">
+        <span class="fav" data-id="bio/2026-06-20-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-20-03/images/thumbnail.png" alt="[바이오] 생물보안법과 K-CDMO 2026 — 바이오 공급망 재편이 만드는 기회" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="bio">바이오</span>
@@ -202,6 +248,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-19-03/index.html">
+        <span class="fav" data-id="bio/2026-06-19-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-19-03/images/thumbnail.png" alt="[바이오] 생체 내 유전자 편집 2026 — 주사 한 번으로 유전병을 고치는 시대가 올까" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="bio">바이오</span>
@@ -210,6 +257,7 @@
         </div>
       </a>
       <a class="card" href="./2026-06-18-03/index.html">
+        <span class="fav" data-id="bio/2026-06-18-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./2026-06-18-03/images/thumbnail.png" alt="K-바이오 기술수출 2026 상반기 13조 — 한미·릴리 빅딜이 말해주는 것" loading="lazy">
         <div class="card-body">
           <span class="badge" data-cat="bio">바이오</span>
@@ -217,13 +265,196 @@
           <span class="card-date">2026-06-18 03시</span>
         </div>
       </a>
+      <a class="card" href="./2026-06-16-03/index.html">
+        <span class="fav" data-id="bio/2026-06-16-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-16-03/images/thumbnail.png" alt="[바이오] 비만 치료제 2026 — 위고비·마운자로 이후 차세대 비만 신약 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">[바이오] 비만 치료제 2026 — 위고비·마운자로 이후 차세대 비만 신약 어디까지 왔나</h3>
+          <span class="card-date">2026-06-16 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-15-20/index.html">
+        <span class="fav" data-id="bio/2026-06-15-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-15-20/images/thumbnail.png" alt="[바이오] mRNA 암백신 2026 — 개인맞춤 항암 백신은 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">[바이오] mRNA 암백신 2026 — 개인맞춤 항암 백신은 어디까지 왔나</h3>
+          <span class="card-date">2026-06-15 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-15-03/index.html">
+        <span class="fav" data-id="bio/2026-06-15-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-15-03/images/thumbnail.png" alt="[바이오] AI 신약개발 2026 — 인공지능이 신약 발굴을 바꾸는 법" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">[바이오] AI 신약개발 2026 — 인공지능이 신약 발굴을 바꾸는 법</h3>
+          <span class="card-date">2026-06-15 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-14-20/index.html">
+        <span class="fav" data-id="bio/2026-06-14-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-14-20/images/thumbnail.png" alt="마이크로바이옴 2026 정리 — 장내 미생물이 여는 건강과 신약" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">마이크로바이옴 2026 정리 — 장내 미생물이 여는 건강과 신약</h3>
+          <span class="card-date">2026-06-14 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-14-03/index.html">
+        <span class="fav" data-id="bio/2026-06-14-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-14-03/images/thumbnail.png" alt="[바이오] 알츠하이머 치매 신약 2026 — 레카네맙·도나네맙, 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">[바이오] 알츠하이머 치매 신약 2026 — 레카네맙·도나네맙, 어디까지 왔나</h3>
+          <span class="card-date">2026-06-14 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-13-20/index.html">
+        <span class="fav" data-id="bio/2026-06-13-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-13-20/images/thumbnail.png" alt="[바이오] 뇌-컴퓨터 인터페이스(BCI) 2026 — 생각으로 기계를 움직이는 시대, 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">[바이오] 뇌-컴퓨터 인터페이스(BCI) 2026 — 생각으로 기계를 움직이는 시대, 어디까지 왔나</h3>
+          <span class="card-date">2026-06-13 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-13-03/index.html">
+        <span class="fav" data-id="bio/2026-06-13-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-13-03/images/thumbnail.png" alt="오가노이드 2026 — 실험실에서 키운 미니 장기, 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">오가노이드 2026 — 실험실에서 키운 미니 장기, 어디까지 왔나</h3>
+          <span class="card-date">2026-06-13 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-12-20/index.html">
+        <span class="fav" data-id="bio/2026-06-12-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-12-20/images/thumbnail.png" alt="항노화 혁명 2026, 노화를 되돌리는 연구는 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">항노화 혁명 2026, 노화를 되돌리는 연구는 어디까지 왔나</h3>
+          <span class="card-date">2026-06-12 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-12-03/index.html">
+        <span class="fav" data-id="bio/2026-06-12-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-12-03/images/thumbnail.png" alt="액체생검 2026 — 피 한 방울로 암을 조기에 잡는다" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">액체생검 2026 — 피 한 방울로 암을 조기에 잡는다</h3>
+          <span class="card-date">2026-06-12 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-11-20/index.html">
+        <span class="fav" data-id="bio/2026-06-11-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-11-20/images/thumbnail.png" alt="CAR-T 세포치료 2026 — 혈액암 너머 고형암·자가면역으로" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">CAR-T 세포치료 2026 — 혈액암 너머 고형암·자가면역으로</h3>
+          <span class="card-date">2026-06-11 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-11-03/index.html">
+        <span class="fav" data-id="bio/2026-06-11-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-11-03/images/thumbnail.png" alt="비만치료제 전쟁 2026 — 먹는 GLP-1과 차세대 신약, 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">비만치료제 전쟁 2026 — 먹는 GLP-1과 차세대 신약, 어디까지 왔나</h3>
+          <span class="card-date">2026-06-11 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-10-20/index.html">
+        <span class="fav" data-id="bio/2026-06-10-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-10-20/images/thumbnail.png" alt="[바이오] 이종장기이식 2026 — 유전자 편집 돼지 장기로 사람을 살린다" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">[바이오] 이종장기이식 2026 — 유전자 편집 돼지 장기로 사람을 살린다</h3>
+          <span class="card-date">2026-06-10 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-10-03/index.html">
+        <span class="fav" data-id="bio/2026-06-10-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-10-03/images/thumbnail.png" alt="CRISPR 유전자가위 치료제 2026, 맞춤형 치료 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">CRISPR 유전자가위 치료제 2026, 맞춤형 치료 어디까지 왔나</h3>
+          <span class="card-date">2026-06-10 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-09-20/index.html">
+        <span class="fav" data-id="bio/2026-06-09-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-09-20/images/thumbnail.png" alt="AI 신약개발 2026, 알파폴드 이후 정말 빨라졌나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">AI 신약개발 2026, 알파폴드 이후 정말 빨라졌나</h3>
+          <span class="card-date">2026-06-09 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-09-03/index.html">
+        <span class="fav" data-id="bio/2026-06-09-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-09-03/images/thumbnail.png" alt="KRAS 표적항암제와 ASCO 2026— 췌장암 치료의 새 지평" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">KRAS 표적항암제와 ASCO 2026— 췌장암 치료의 새 지평</h3>
+          <span class="card-date">2026-06-09 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-08-20/index.html">
+        <span class="fav" data-id="bio/2026-06-08-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-08-20/images/thumbnail.png" alt="[바이오] 알츠하이머 치료제 2026, 치매 정복은 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">[바이오] 알츠하이머 치료제 2026, 치매 정복은 어디까지 왔나</h3>
+          <span class="card-date">2026-06-08 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-08-03/index.html">
+        <span class="fav" data-id="bio/2026-06-08-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-08-03/images/thumbnail.png" alt="[바이오] 뇌-컴퓨터 인터페이스(BCI), 생각으로 기기를 제어하는 시대 — 2026년 현재 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">[바이오] 뇌-컴퓨터 인터페이스(BCI), 생각으로 기기를 제어하는 시대 — 2026년 현재 어디까지 왔나</h3>
+          <span class="card-date">2026-06-08 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-07-20/index.html">
+        <span class="fav" data-id="bio/2026-06-07-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-07-20/images/thumbnail.png" alt="mRNA 암백신, 개인맞춤 항암치료는 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">mRNA 암백신, 개인맞춤 항암치료는 어디까지 왔나</h3>
+          <span class="card-date">2026-06-07 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-07-03/index.html">
+        <span class="fav" data-id="bio/2026-06-07-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-07-03/images/thumbnail.png" alt="[바이오] 항노화 바이오, 부분 리프로그래밍으로 노화를 되돌린다 — 장수 과학 2026 현주소" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">[바이오] 항노화 바이오, 부분 리프로그래밍으로 노화를 되돌린다 — 장수 과학 2026 현주소</h3>
+          <span class="card-date">2026-06-07 03시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-06-20/index.html">
+        <span class="fav" data-id="bio/2026-06-06-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-06-20/images/thumbnail.png" alt="마이크로바이옴과 비만·면역, 어디까지가 사실일까" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">마이크로바이옴과 비만·면역, 어디까지가 사실일까</h3>
+          <span class="card-date">2026-06-06 20시</span>
+        </div>
+      </a>
+      <a class="card" href="./2026-06-06-00/index.html">
+        <span class="fav" data-id="bio/2026-06-06-00" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./2026-06-06-00/images/thumbnail.png" alt="GLP-1 비만치료제 효과·부작용·국내 출시 현황 총정리 — 위고비·마운자로 열풍, 어디까지 왔나" loading="lazy">
+        <div class="card-body">
+          <span class="badge" data-cat="bio">바이오</span>
+          <h3 class="card-title">GLP-1 비만치료제 효과·부작용·국내 출시 현황 총정리 — 위고비·마운자로 열풍, 어디까지 왔나</h3>
+          <span class="card-date">2026-06-06 00시</span>
+        </div>
+      </a>
     </div>
-<nav class="pager">
-<span class="cur">1</span>
-<a href="./page2.html">2</a>
-<a href="./page3.html">3</a>
-<a href="./page2.html">다음 →</a>
-</nav>
     </div>
   </main>
 <script id="site-search-js">
@@ -241,7 +472,8 @@
   function card(it){
     var cover = it.thumb ? '<img class="thumb" src="'+BASE+it.thumb+'" alt="" loading="lazy">'
       : '<div class="thumb ph" data-cat="'+it.cslug+'"><span>'+esc(it.cat)+'</span></div>';
-    return '<a class="card" href="'+BASE+it.url+'">'+cover+
+    var star = window.__starMarkup ? window.__starMarkup(it.cslug+'/'+it.slot) : '';
+    return '<a class="card" href="'+BASE+it.url+'">'+star+cover+
       '<div class="card-body"><span class="badge" data-cat="'+it.cslug+'">'+esc(it.cat)+'</span>'+
       '<h3 class="card-title">'+esc(it.title)+'</h3><span class="card-date">'+esc(it.label)+'</span></div></a>';
   }
@@ -254,6 +486,7 @@
       });
       meta.textContent='“'+q+'” 검색결과 '+hits.length+'편';
       results.innerHTML = hits.length ? hits.map(card).join('') : '<p style="color:var(--muted)">결과가 없습니다.</p>';
+      if(window.__refreshStars) window.__refreshStars();
       if(content) content.hidden=true; wrap.hidden=false;
     });
   }
@@ -261,5 +494,101 @@
 })();
 </script>
 <footer>© 2026 SevenPeaks · 자동 생성 블로그</footer>
+<script id="site-prefs-js">
+(function(){
+  var BASE="/blog";
+  var KV={view:'spk-view', per:'spk-perpage', favs:'spk-favs'};
+  function lsget(k,d){ try{var v=localStorage.getItem(k);return v===null?d:v;}catch(e){return d;} }
+  function lsset(k,v){ try{localStorage.setItem(k,v);}catch(e){} }
+  function favs(){ try{return JSON.parse(lsget(KV.favs,'[]'))||[];}catch(e){return [];} }
+  function saveFavs(a){ lsset(KV.favs, JSON.stringify(a)); }
+  function getView(){ return lsget(KV.view,'card')==='list'?'list':'card'; }
+  function getPer(){ var n=parseInt(lsget(KV.per,'12'),10); if(isNaN(n))n=12; return Math.min(15,Math.max(10,n)); }
+
+  // ── 즐겨찾기 별
+  window.__starMarkup=function(id){
+    return '<span class="fav" data-id="'+id+'" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>';
+  };
+  function refreshStars(){
+    var f=favs();
+    document.querySelectorAll('.fav').forEach(function(el){
+      var on=f.indexOf(el.dataset.id)>=0;
+      el.classList.toggle('on',on); el.textContent=on?'★':'☆';
+    });
+  }
+  window.__refreshStars=refreshStars;
+  document.addEventListener('click',function(e){
+    var s=e.target.closest && e.target.closest('.fav'); if(!s)return;
+    e.preventDefault(); e.stopPropagation();
+    var id=s.dataset.id, a=favs(), i=a.indexOf(id);
+    if(i>=0)a.splice(i,1); else a.unshift(id);
+    saveFavs(a); refreshStars();
+    if(window.__onFavChange)window.__onFavChange();
+  });
+
+  // ── 보기/페이지당 컨트롤
+  function applyView(v){
+    document.querySelectorAll('.grid').forEach(function(g){ g.classList.toggle('view-list', v==='list'); });
+  }
+  function buildPager(grid){
+    var page=1;
+    var nav=document.createElement('nav'); nav.className='pager'; grid.after(nav);
+    function render(){
+      var cards=[].slice.call(grid.querySelectorAll('.card'));
+      var per=getPer(), pages=Math.max(1,Math.ceil(cards.length/per));
+      if(page>pages)page=pages;
+      cards.forEach(function(c,i){ c.style.display=(i>=(page-1)*per&&i<page*per)?'':'none'; });
+      nav.innerHTML='';
+      if(pages>1){
+        var mk=function(label,p,cur,dis){
+          if(cur){var sp=document.createElement('span');sp.className='cur';sp.textContent=label;nav.appendChild(sp);return;}
+          if(dis)return;
+          var a=document.createElement('a');a.href='#';a.textContent=label;
+          a.addEventListener('click',function(e){e.preventDefault();page=p;render();window.scrollTo({top:0,behavior:'smooth'});});
+          nav.appendChild(a);
+        };
+        mk('← 이전',page-1,false,page<=1);
+        var nums=[],n; for(n=1;n<=pages;n++){ if(n===1||n===pages||Math.abs(n-page)<=1)nums.push(n); }
+        var prev=0; nums.forEach(function(n){
+          if(n-prev>1){var d=document.createElement('span');d.className='dots';d.textContent='…';nav.appendChild(d);}
+          mk(String(n),n,n===page,false); prev=n;
+        });
+        mk('다음 →',page+1,false,page>=pages);
+      }
+    }
+    window.__repaginate=render; render();
+  }
+  function init(){
+    refreshStars();
+    var pc=document.getElementById('page-content');
+    if(!pc || !pc.querySelector('.grid')) return;
+    var pg=pc.querySelector('.grid[data-paginate]');
+    var bar=document.createElement('div'); bar.className='prefs';
+    var perOpts=''; for(var n=10;n<=15;n++){ perOpts+='<option value="'+n+'"'+(n===getPer()?' selected':'')+'>'+n+'</option>'; }
+    bar.innerHTML=
+      '<div class="seg" id="view-seg">'+
+        '<button type="button" data-view="card">카드</button>'+
+        '<button type="button" data-view="list">목록</button>'+
+      '</div>'+
+      (pg?('<label>페이지당 <select id="perpage">'+perOpts+'</select> 개</label>'):'')+
+      '<span class="grow"></span>'+
+      '<a class="fav-link" href="'+BASE+'/favorites.html">★ 즐겨찾기</a>';
+    pc.insertBefore(bar, pc.firstChild);
+    var seg=bar.querySelector('#view-seg');
+    function paintSeg(v){ seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.dataset.view===v); }); }
+    seg.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b)return;
+      var v=b.dataset.view; lsset(KV.view,v); applyView(v); paintSeg(v); });
+    applyView(getView()); paintSeg(getView());
+    if(pg){
+      buildPager(pg);
+      var sel=bar.querySelector('#perpage');
+      sel.addEventListener('change',function(){ lsset(KV.per, sel.value); if(window.__repaginate)window.__repaginate(); });
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+
+
 </body>
 </html>
