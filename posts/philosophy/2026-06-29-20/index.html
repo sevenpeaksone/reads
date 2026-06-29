@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>칸트 정언명령 쉽게 이해하기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#a096ff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;
+ font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+ -webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;
+ min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;
+ border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;
+ border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;
+ border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;
+ display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;
+ padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#a096ff;border-color:#a096ff">철학/인문</div>
+<h1>칸트 정언명령 쉽게 이해하기</h1>
+<p class="subtitle">인간을 수단이 아니라 목적으로</p>
+<figure><img src="./images/thumbnail.png" alt="칸트 정언명령 대표 이미지"><figcaption>칸트 정언명령 대표 이미지</figcaption></figure>
+<p>이번 글에서는 칸트의 정언명령을, 그중에서도 &quot;인간을 수단이 아니라 목적으로 대하라&quot;는 두 번째 정식을 정리해 보겠습니다.</p>
+<p>먼저 결론부터 짧게 말씀드립니다. 정언명령은 칸트가 &quot;도덕의 최고 원리&quot;로 본 무조건적 명령이며, 그 핵심 중 하나는 모든 사람을 그 자체로 목적인 존재로 존중하라는 것입니다. 거짓과 강제로 타인의 판단을 우회하는 순간, 우리는 그를 한낱 수단으로만 다루게 됩니다. 아래에서 가언명령과의 차이, 세 정식, 그리고 비판과 옹호까지 차례로 풀어 보겠습니다.</p>
+<hr>
+<h2>칸트의 의무론, 그리고 가언명령과 정언명령의 차이</h2>
+<p>칸트(Immanuel Kant, 1724–1804)의 윤리학은 의무론의 대표 이론입니다. 의무론은 행위의 결과가 아니라, 그 행위를 이끄는 의무와 동기, 원칙으로 도덕성을 판단합니다.</p>
+<p>예전의 결과주의는 행위의 결과를 보고 옳고 그름을 따졌습니다. 지금 칸트가 보는 곳은 다릅니다. 그는 행위 배후의 의도, 곧 어떤 원칙에 따라 움직였는가를 봅니다. 칸트에게 도덕성이란 결국 실천 이성의 원리이며, 합리적 존재라면 누구나 따라야 하는 것입니다.</p>
+<p>여기서 두 종류의 명령이 갈립니다.</p>
+<ul><li><strong>가언명령(hypothetical imperative)</strong>: 조건부 명령입니다. &quot;어떤 목적을 원한다면, 그 수단을 행하라&quot;의 형태를 띱니다. 예를 들어 &quot;건강해지고 싶다면 운동하라&quot;는 명령은, 건강을 원하지 않는 사람에게는 구속력이 없습니다.</li><li><strong>정언명령(categorical imperative)</strong>: 무조건적 명령입니다. &quot;~을 원한다면&quot;이라는 조건이 붙지 않습니다. 목적이나 결과와 무관하게, 그 행위를 그 자체로 구속력 있는 것으로 선언합니다.</li></ul>
+<p>칸트의 첫 번째 공식 정식은 이렇습니다. &quot;네 의지의 준칙이 동시에 보편적 법칙이 되기를 네가 의욕할 수 있는, 오직 그런 준칙에 따라서만 행위하라.&quot; 여기서 준칙(maxim)이란 행위자가 따르는 주관적 행위 원칙을 말합니다. 정언명령은 이 준칙이 보편화될 수 있는지를 시험합니다.</p>
+<figure><img src="./images/body-1.png" alt="가언명령과 정언명령을 좌우로 비교한 이미지"><figcaption>가언명령과 정언명령을 좌우로 비교한 이미지</figcaption></figure>
+<hr>
+<h2>정언명령의 세 가지 정식</h2>
+<p>정언명령은 처음에 칸트의 1785년 저작 『도덕형이상학 정초』에서 정식화되었습니다. 보통 세 가지 정식이 핵심으로 꼽힙니다. 칸트는 이 셋이 서로 다른 정식이 아니라, 같은 도덕 법칙을 다른 측면에서 표현한 것이라고 보았습니다.</p>
+<p><strong>1. 보편 법칙의 정식</strong></p>
+<p>&quot;네 준칙이 보편 법칙이 되기를 네가 동시에 의욕할 수 있는, 그런 준칙에 따라서만 행위하라.&quot; 행위하기 전에 스스로 묻습니다. &quot;모든 사람이 언제 어디서나 이 준칙대로 행동해도, 나는 그것을 의욕할 수 있는가?&quot;</p>
+<p>이때 두 종류의 모순이 갈립니다. 준칙을 보편 법칙으로 생각하는 것 자체가 자기모순이 되는 경우는 개념의 모순이며, 완전한 의무를 낳습니다. 대표적 예가 거짓 약속입니다. 모두가 갚을 생각 없이 거짓으로 약속한다면, 약속이라는 제도 자체가 무의미해져 약속하는 행위가 애초에 불가능해집니다. 반면 보편화해도 논리적 모순은 없으나 합리적 존재로서 의욕할 수는 없는 경우는 의지의 모순이며, 불완전한 의무를 낳습니다. 재능을 계발하지 않겠다거나, 곤경에 처한 타인을 결코 돕지 않겠다는 준칙이 그렇습니다.</p>
+<p><strong>2. 인간성(목적)의 정식 — 이 글의 핵심</strong></p>
+<p>&quot;너 자신의 인격에서든 다른 모든 사람의 인격에서든, 인간성을 언제나 동시에 목적으로 대하고 결코 한낱 수단으로만 대하지 않도록 행위하라.&quot;</p>
+<p><strong>3. 자율성과 목적의 왕국의 정식</strong></p>
+<p>도덕 법칙은 외부에서 강요된 것이 아니라, 이성적 의지가 스스로에게 부여한 법입니다. 인간은 강제가 아니라 이성에서 도출된 도덕 법칙에 따라 행위할 때 진정으로 자유롭습니다. 칸트는 이 자율성을 가진 존재들의 결합을 &quot;공통의 법칙 아래 있는 서로 다른 이성적 존재들의 체계적 결합&quot;, 곧 목적의 왕국이라 불렀습니다.</p>
+<figure><img src="./images/body-2.png" alt="정언명령 세 가지 정식을 카드로 정리한 이미지"><figcaption>정언명령 세 가지 정식을 카드로 정리한 이미지</figcaption></figure>
+<hr>
+<h2>&quot;인간을 수단이 아니라 목적으로&quot;가 정확히 뜻하는 것</h2>
+<p>이 정식에서 가장 오해받기 쉬운 대목은 &quot;한낱 수단으로만&quot;입니다.</p>
+<p>칸트는 타인을 수단으로 사용하는 것 자체를 금지하지 않았습니다. 우리는 일상적으로 서로를 수단으로 씁니다. 가게 점원에게서 물건을 사는 것도 그렇습니다. 금지되는 것은 타인을 &#x27;한낱 수단으로만&#x27; 대하는 것, 곧 동시에 그를 목적으로 존중하지 않는 태도입니다.</p>
+<p>그렇다면 무엇이 타인을 한낱 수단으로 다루는 것일까요. 칸트의 답은 분명합니다. 기만과 강제입니다. 어떤 행위가 속임수나 강요에 기대어 타인을 자기 목적에 봉사하게 만들 때, 그 사람은 자신에게 주어진 역할에 유의미하게 동의할 수 없습니다. 그의 이성적 행위 능력이 통째로 무시되는 셈입니다. 기만과 강제가 가장 명백한 위반인 까닭은, 둘 다 타인이 자유롭고 정보에 입각한 합리적 결정을 내릴 능력을 근본부터 훼손하기 때문입니다.</p>
+<p>거짓 약속을 떠올려 보시면 좋겠습니다. 돈을 빌리며 갚을 생각 없이 약속하는 사람은, 빌려주는 이의 판단을 가립니다. 빌려주는 사람은 거짓에 가려 상대의 진짜 목적을 알 수 없고, 그 목적에 기여할지 스스로 선택할 기회를 빼앗깁니다.</p>
+<p>여기서 한 가지를 덧붙이고 싶습니다. 이 원리는 타인에게만 적용되지 않습니다. &quot;너 자신의 인격에서든&quot;이라는 구절처럼, 자기 자신에게도 향합니다. 가격을 가진 것은 동등한 것으로 대체될 수 있지만, 모든 가격을 초월한 것은 존엄을 지닙니다. 물건은 가격을, 인격은 존엄을 가집니다. 그래서 인격은 대체 불가능합니다.</p>
+<hr>
+<h2>정언명령을 향한 비판과 옹호</h2>
+<p>칸트의 윤리는 강력한 만큼 오랜 반론을 받아 왔습니다. 좋은 점만 보여 드리는 것은 공정하지 않으니, 한계도 함께 적습니다.</p>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>비판</th><th>옹호·응답</th></tr></thead><tbody><tr><td>엄격주의</td><td>&quot;문 앞의 살인자&quot;에게도 거짓말해선 안 된다는 결론. 칸트는 거짓말 금지를 절대적 의무로 보았다</td><td>거짓말이 보편화되면 개념의 모순을 일으켜 의무에 어긋난다는 것이 칸트의 논변</td></tr><tr><td>갈등하는 의무</td><td>&quot;거짓말 말라&quot;와 &quot;친구의 생명을 존중하라&quot;가 충돌할 때 우선순위 규칙이 없다</td><td>현대 칸트주의자들은 살인자에게 진실을 말할 의무가 없다는 해석, &quot;침묵할 권리&quot; 논변을 제시</td></tr><tr><td>결과 무시</td><td>결과를 도덕 평가에서 배제해, 끔찍한 결과에도 규칙을 지키라는 결론에 이를 수 있다</td><td>행위 배후의 원칙을 보는 것이 칸트 의무론의 본령이라는 입장</td></tr><tr><td>감정·관계 경시</td><td>개인적 관계, 감정, 덕의 역할을 충분히 설명하지 못한다</td><td>(덕 윤리·돌봄 윤리의 비판으로, 칸트 진영의 보완 시도가 이어진다)</td></tr></tbody></table></div>
+<p>특히 살인자 사례의 해석은 학계에서 갈립니다. 칸트 본인의 텍스트인 『거짓말할 권리라 일컬어지는 것에 관하여』(1797)를 어떤 경우에도 거짓말을 금하는 절대주의로 읽는 입장이 있는가 하면, 현대 칸트주의자들처럼 칸트 체계 안에서도 살인자에게 거짓말이나 침묵이 허용될 수 있다고 보는 입장도 있습니다. 두 해석이 공존하므로, 어느 한쪽으로 단정하지는 않겠습니다.</p>
+<figure><img src="./images/body-3.png" alt="정언명령의 비판과 옹호를 비교한 표"><figcaption>정언명령의 비판과 옹호를 비교한 표</figcaption></figure>
+<hr>
+<h2>오늘날의 함의 — AI와 데이터, 그리고 인간 존엄</h2>
+<p>칸트의 통찰은 박물관에 머물지 않습니다. 다만 아래는 칸트 윤리를 현대 문제에 적용한 학술적 논의의 요약이며, 적용의 타당성에는 학자별 이견이 있을 수 있다는 점을 먼저 밝힙니다.</p>
+<p>핵심 적용 원리는 이렇습니다. AI와 디지털 환경에서도 도덕적 행위는 보편화 가능한 준칙에 기반하고 인간 존엄을 존중해야 한다는 것입니다. 칸트적 관점에서 개인은 결코 한낱 수단으로 취급되어서는 안 되며, AI 시스템이 사용자를 이윤을 위한 도구나 한낱 &#x27;데이터 포인트&#x27;로 환원해서는 안 됩니다.</p>
+<ul><li><strong>감시와 프라이버시</strong>: 안면 인식, 예측적 치안, 대규모 데이터 모니터링은 자율성과 개인의 권리를 위협합니다. 의식적 추론을 우회하는 잠재의식적 AI 시스템은 개인을 행동적 목적의 한낱 수단으로 다루는 것이라는 분석이 있습니다.</li><li><strong>동의와 기만</strong>: 칸트의 &quot;기만·강제 금지&quot;는 다크 패턴, 조작적 UX, 비동의 데이터 수집을 비판하는 틀이 됩니다. 진정한 정보 동의 없이 사용자의 판단을 우회하면 자율성을 훼손하는 것입니다.</li><li><strong>인간 중심성</strong>: 칸트 윤리는 인간의 실존과 능력을 규범 창출의 중심에 두며, AI 시대 &quot;인간 존엄 우선&quot; 논의의 철학적 토대로 자주 인용됩니다.</li></ul>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다.</p>
+<p>정언명령의 어려운 용어들을 걷어내면, 그 한가운데에는 단순하고 묵직한 요구가 남습니다.</p>
+<p>&quot;누구도 한낱 수단으로만 대하지 말 것.&quot;</p>
+<p>200년도 더 지난 이 문장이 AI와 데이터의 시대에 다시 호출되는 이유를 묻는다면, 인간을 도구가 아닌 목적으로 보려는 물음이 아직 끝나지 않았기 때문이라고 답하겠습니다.</p>
+<div class="tags"><span>#칸트</span> <span>#정언명령</span> <span>#칸트철학</span> <span>#의무론</span> <span>#철학공부</span> <span>#인간존엄</span> <span>#도덕철학</span> <span>#AI윤리</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+</body></html>
