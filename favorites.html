@@ -126,6 +126,11 @@
   @media(max-width:560px){ .grid.view-list .thumb{ width:110px; flex-basis:110px; } }
 
   #fav-empty { color:var(--muted); font-size:15px; padding:30px 0; }
+  .fav-tools { display:flex; align-items:center; gap:10px; margin:0 0 18px; flex-wrap:wrap; }
+  .fav-tools button { background:var(--card); color:var(--text); border:1px solid var(--line);
+    border-radius:9px; padding:8px 14px; font-size:13px; cursor:pointer; font-family:inherit; }
+  .fav-tools button:hover { border-color:#3a4050; }
+  .fav-tools #fav-msg { color:var(--muted); font-size:13px; }
 </style>
 </head>
 <body>
@@ -156,6 +161,12 @@
     </div>
     <div id="page-content">
     <a class="back" href="./index.html">← 홈으로</a>
+    <div class="fav-tools">
+      <button type="button" id="fav-export">내보내기</button>
+      <button type="button" id="fav-import-btn">가져오기</button>
+      <input type="file" id="fav-import" accept="application/json,.json" hidden>
+      <span id="fav-msg"></span>
+    </div>
     <p id="fav-empty" hidden>아직 즐겨찾기한 글이 없습니다. 카드 오른쪽 위의 ☆ 를 눌러 추가하세요.</p>
     <div class="grid" id="fav-results" data-paginate="1"></div>
     </div>
@@ -218,6 +229,44 @@
     if(window.__repaginate)window.__repaginate();
   }
   window.__onFavChange=paint;
+
+  // ── 가져오기 / 내보내기
+  var msgEl=document.getElementById('fav-msg');
+  function msg(t){ if(msgEl) msgEl.textContent=t; }
+  var expBtn=document.getElementById('fav-export');
+  if(expBtn) expBtn.addEventListener('click',function(){
+    var arr=favs();
+    if(!arr.length){ msg('내보낼 즐겨찾기가 없습니다.'); return; }
+    var blob=new Blob([JSON.stringify(arr,null,0)],{type:'application/json'});
+    var url=URL.createObjectURL(blob), a=document.createElement('a');
+    var d=new Date(), p=function(n){return (n<10?'0':'')+n;};
+    a.href=url; a.download='sevenpeaks-favorites-'+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    msg('내보내기 완료 ('+arr.length+'개)');
+  });
+  var fi=document.getElementById('fav-import'), impBtn=document.getElementById('fav-import-btn');
+  if(impBtn && fi){
+    impBtn.addEventListener('click',function(){ fi.click(); });
+    fi.addEventListener('change',function(){
+      var f=fi.files&&fi.files[0]; if(!f){ return; }
+      var r=new FileReader();
+      r.onload=function(){
+        try{
+          var arr=JSON.parse(r.result);
+          if(!Array.isArray(arr)) throw 0;
+          var cur=favs(), added=0;
+          arr.forEach(function(id){ if(typeof id==='string' && id && cur.indexOf(id)<0){ cur.push(id); added++; } });
+          localStorage.setItem('spk-favs', JSON.stringify(cur));
+          msg('가져오기 완료: '+added+'개 추가 (총 '+cur.length+'개)');
+          paint();
+        }catch(e){ msg('가져오기 실패 — 올바른 즐겨찾기 파일이 아닙니다.'); }
+        fi.value='';
+      };
+      r.readAsText(f);
+    });
+  }
+
   fetch(BASE+'/search.json').then(function(r){return r.json();}).then(function(j){data=j;paint();}).catch(function(){paint();});
 })();
 </script>
