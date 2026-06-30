@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화성 마그마 시스템 발견 — 판구조론 없이도 살아있던 붉은 행성</title>
+<style>
+*{box-sizing:border-box;}
+body{margin:0;padding:0;background:#f5f6f7;font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;color:#2e2e2e;-webkit-font-smoothing:antialiased;}
+.post{max-width:700px;margin:0 auto;padding:48px 24px 80px;background:#fff;}
+.post img{max-width:100%;height:auto;display:block;margin:28px auto;border-radius:6px;}
+.post h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-0.5px;margin:28px 0;color:#1a1a1a;}
+.post h2{font-size:23px;font-weight:700;line-height:1.45;letter-spacing:-0.3px;margin:52px 0 18px;padding-left:12px;border-left:5px solid #26c8d2;color:#1a1a1a;}
+.post p{font-size:17px;line-height:1.85;margin:0 0 20px;letter-spacing:-0.2px;word-break:keep-all;}
+.post ul{margin:0 0 24px;padding-left:22px;}
+.post li{font-size:17px;line-height:1.85;margin-bottom:10px;letter-spacing:-0.2px;word-break:keep-all;}
+.post hr{border:none;border-top:1px solid #e3e3e3;margin:44px 0;}
+.post blockquote{margin:28px 0;padding:18px 22px;background:#ecfafb;border-left:4px solid #26c8d2;border-radius:4px;font-size:18px;font-weight:600;line-height:1.7;color:#115e64;}
+.post blockquote p{margin:0;font-size:18px;}
+.post table{width:100%;border-collapse:collapse;margin:24px 0 28px;font-size:15.5px;}
+.post th,.post td{border:1px solid #e0e0e0;padding:12px 14px;text-align:left;line-height:1.6;word-break:keep-all;}
+.post th{background:#eaf6f7;font-weight:700;color:#1a1a1a;}
+.post tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:36px;line-height:2;}
+.tags span{display:inline-block;color:#26c8d2;font-size:15px;margin-right:8px;font-weight:500;}
+@media (max-width:480px){.post{padding:28px 16px 60px;}.post h1{font-size:25px;}.post h2{font-size:20px;}.post p,.post li{font-size:16px;}}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/blog/index.html">← SevenPeaks 블로그</a><a class="nav-list" href="/blog/posts/science/index.html">과학 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="post">
+<h1>화성 마그마 시스템 발견 — 판구조론 없이도 살아있던 붉은 행성</h1>
+
+<img src="./images/thumbnail.png" alt="화성 마그마 시스템 발견 썸네일">
+
+<p>화성 땅속에서 지구에서나 보이던 거대한 마그마 시스템의 흔적이 발견되었습니다.</p>
+
+<p>2026년 6월, 옥스퍼드대 주도 연구팀이 그 증거를 <em>Nature Astronomy</em>에 실었습니다.</p>
+
+<p>판구조론이 없는 행성에도 복잡한 지각이 만들어질 수 있다는 이야기입니다. 오늘은 이 발견이 무엇이고 왜 중요한지 정리해 보겠습니다.</p>
+
+<hr>
+
+<h2>무엇을 발견했나</h2>
+
+<p>연구팀은 화성 지하 약 24km 깊이의 정체불명 경계면에 주목했습니다.</p>
+
+<p>논문상 정확한 값은 24.5±8.3km입니다. 이 경계의 존재는 예전부터 알려져 있었습니다. 다만 그것이 무엇을 뜻하는지는 아무도 몰랐던 것입니다.</p>
+
+<p>이번 연구의 해석은 이렇습니다. 경계 위층은 현무암 계열의 마픽 암석, 아래층은 철과 마그네슘이 풍부한 초고철질 암석이라는 것입니다.</p>
+
+<p>그 아래에는 약 14km 두께의 '용융-고갈된 누적암' 층이 자리합니다. 마그마가 식으며 무거운 결정이 가라앉아 쌓인 잔류물입니다.</p>
+
+<img src="./images/body-1.png" alt="이번 발견 요점 4가지 카드">
+
+<hr>
+
+<h2>어떻게 알아냈나</h2>
+
+<p>직접 땅을 파본 것은 아닙니다.</p>
+
+<p>NASA의 InSight 착륙선이 남긴 지진 데이터가 출발점이었습니다. InSight는 2018년 화성에 최초의 지진계를 설치했습니다. 운석 충돌과 화성지진이 만든 지진파를 관측한 것입니다.</p>
+
+<p>연구팀은 수백 가지 가능한 암석 조성을 지진 데이터와 대조했습니다.</p>
+
+<p>상평형 모델링과 광물물리, 베이지안 통계를 함께 썼습니다. 쉽게 말하면 "이런 압력과 온도에서 이런 암석이라면 지진파 속도가 얼마일까"를 계산해, 실제 관측값과 맞춰본 셈입니다.</p>
+
+<p>결과는 통계로 표현됩니다. 위층은 85.9% 확률로 마픽, 아래층은 90.8% 확률로 초고철질이었습니다.</p>
+
+<img src="./images/body-2.png" alt="화성 마그마 시스템 추론 3단계 다이어그램">
+
+<hr>
+
+<h2>왜 놀라운가</h2>
+
+<p>이런 관통지각 마그마 작용은 지금껏 지구에만 고유한 것으로 여겨졌습니다.</p>
+
+<p>지구에서는 화산호 아래에서 이 과정이 일어나며 대륙 형성과 이어집니다. 깊은 지각의 용융물이 위로 솟고, 무거운 잔류물은 바닥에 쌓이는 식입니다.</p>
+
+<p>화성에서 그와 닮은 흔적이 나온 것입니다.</p>
+
+<p>화성은 흔히 '정체된 뚜껑' 행성으로 불립니다. 지구처럼 표면이 움직이는 판으로 쪼개져 있지 않습니다. 그래서 많은 과학자들은 화성이 복잡한 지각을 만들 조건을 갖추지 못했다고 보았습니다.</p>
+
+<blockquote><p>예전엔 판구조론이 그 모든 활동의 전제로 여겨졌습니다. 지금은 그 전제가 흔들립니다.</p></blockquote>
+
+<img src="./images/body-3.png" alt="지구와 화성의 지질 활동 비교 표">
+
+<hr>
+
+<h2>그래서 무슨 의미인가</h2>
+
+<p>마그마와 지각의 재순환은 행성이 대기와 바다, 거주가능 환경을 갖추는 방식과 맞닿아 있습니다.</p>
+
+<p>그동안은 이런 조건에 판구조론이 필수라고 보았습니다. 이번 결과는 그 없이도 가능함을 시사합니다.</p>
+
+<p>외계행성을 볼 때 거주가능성의 기준을 넓힐 수 있다는 뜻입니다.</p>
+
+<p>연구진은 자원 가능성도 언급했습니다. 지구에서 이런 장기 마그마 시스템은 대규모 금속 광상을 만드는 것으로 알려져 있습니다. 다만 이는 전망일 뿐, 논문이 매장량을 직접 측정한 것은 아닙니다.</p>
+
+<hr>
+
+<h2>아직 확정된 것은 아닙니다</h2>
+
+<p>이 발견은 단정이 아니라 해석입니다.</p>
+
+<p>논문 스스로 이 경계면의 본질은 "미해결로 남아 있다"고 밝힙니다. 통계적으로 강하게 지지했을 뿐, 확정한 것은 아닙니다.</p>
+
+<p>한계도 분명합니다. 지진계는 화성에 단 한 대뿐이었습니다. 분석은 착륙지 바로 아래의 국지 구조를 제약한 것입니다. "북반구로 수천 km 뻗어 있다"는 표현도 가능성이지 확증은 아닙니다.</p>
+
+<p>이 거대한 시스템은 주로 먼 과거, 초기 화성의 사건으로 해석됩니다. 다만 엘리시움 평원 아래에서 지금도 활동 중인 맨틀의 증거가 함께 보고되고 있어, 화성을 죽은 행성이라 부르기는 어려워졌습니다.</p>
+
+<p>직접 검증의 열쇠는 시료입니다. 그러나 NASA의 화성 시료 회수 계획은 2026년 현재 매우 불확실한 상태에 놓여 있습니다.</p>
+
+<hr>
+
+<p>끝으로 한 마디만 더 드리겠습니다.</p>
+
+<p>화성은 조용히, 그러나 분명히 자신의 역사를 땅속에 새겨두고 있었습니다.</p>
+
+<blockquote><p>"붉은 행성은 죽지 않았다." 판구조론이 없어도 행성은 깊은 곳에서 살아 움직일 수 있다는 사실 — 그 가능성 하나만으로도, 우리가 우주를 보는 눈은 조금 더 넓어진 것이 아닐까 생각합니다.</p></blockquote>
+
+<hr>
+
+<div class="tags"><span>#화성</span><span>#화성마그마시스템</span><span>#판구조론</span><span>#InSight</span><span>#행성과학</span><span>#NatureAstronomy</span><span>#화성내부구조</span><span>#우주과학</span><span>#거주가능성</span><span>#지질학</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
