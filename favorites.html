@@ -178,12 +178,12 @@
 </head>
 <body>
   <nav class="topnav">
-    <a class="tn-brand" href="/blog/index.html"><img class="tn-logo" src="/blog/assets/logo.png" alt="7Peaks"><span>SevenPeaks Reads</span></a>
+    <a class="tn-brand" href="/reads/index.html"><img class="tn-logo" src="/reads/assets/logo.png" alt="7Peaks"><span>SevenPeaks Reads</span></a>
     <div class="tn-cats">
-      <a href="/blog/index.html">홈</a>
-      <a href="/blog/posts/index.html">블로그</a>
-      <a href="/blog/news/index.html">뉴스</a>
-      <a href="/blog/favorites.html">★ 즐겨찾기</a>
+      <a href="/reads/index.html">홈</a>
+      <a href="/reads/posts/index.html">블로그</a>
+      <a href="/reads/news/index.html">뉴스</a>
+      <a href="/reads/favorites.html">★ 즐겨찾기</a>
     </div>
     <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
   </nav>
@@ -216,7 +216,7 @@
       content=document.getElementById('page-content'),
       meta=document.getElementById('search-meta'),
       results=document.getElementById('search-results');
-  var BASE="/blog", data=null;
+  var BASE="/reads", data=null;
   function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
   function load(cb){ if(data){cb();return;}
     fetch(BASE+'/search.json').then(function(r){return r.json();}).then(function(j){data=j;cb();}).catch(function(){data=[];cb();}); }
@@ -245,7 +245,7 @@
 })();
 </script><script id="fav-page-js">
 (function(){
-  var BASE="/blog";
+  var BASE="/reads";
   function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
   function favs(){ try{return JSON.parse(localStorage.getItem('spk-favs')||'[]')||[];}catch(e){return [];} }
   var results=document.getElementById('fav-results'), empty=document.getElementById('fav-empty'), data=null;
@@ -371,7 +371,7 @@
 <footer><div class="visit" id="visit-count"></div>© 2026 SevenPeaks Reads</footer>
 <script id="site-prefs-js">
 (function(){
-  var BASE="/blog";
+  var BASE="/reads";
   var KV={view:'spk-view', per:'spk-perpage', favs:'spk-favs'};
   function lsget(k,d){ try{var v=localStorage.getItem(k);return v===null?d:v;}catch(e){return d;} }
   function lsset(k,v){ try{localStorage.setItem(k,v);}catch(e){} }
