@@ -201,7 +201,7 @@
       <span id="fav-msg"></span>
     </div>
     <p id="fav-empty" hidden>아직 즐겨찾기한 글이 없습니다. 카드 오른쪽 위의 ☆ 를 눌러 추가하세요.</p>
-    <div class="grid" id="fav-results" data-paginate="1"></div>
+    <div id="fav-results"></div>
     </div>
   </main>
 <script id="site-search-js">
@@ -245,21 +245,82 @@
   function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
   function favs(){ try{return JSON.parse(localStorage.getItem('spk-favs')||'[]')||[];}catch(e){return [];} }
   var results=document.getElementById('fav-results'), empty=document.getElementById('fav-empty'), data=null;
+  var NEWS_CATS=[["economy", "경제"], ["politics", "정치/사회"], ["world", "국제/세계"], ["industry", "산업·IT/과학"]], BLOG_CATS=[["it", "IT"], ["science", "과학"], ["economy", "경제"], ["bio", "바이오"], ["philosophy", "철학/인문"], ["counseling", "상담"], ["world", "세계"], ["religion", "종교"]];
   function star(id){ return window.__starMarkup?window.__starMarkup(id):''; }
-  function card(it){
+  function blogCard(it){
     var cover = it.thumb ? '<img class="thumb" src="'+BASE+it.thumb+'" alt="" loading="lazy">'
       : '<div class="thumb ph" data-cat="'+it.cslug+'"><span>'+esc(it.cat)+'</span></div>';
-    return '<a class="card" href="'+BASE+it.url+'">'+star(it.fid||(it.cslug+'/'+it.slot))+cover+
+    return '<a class="card" href="'+BASE+it.url+'">'+star(it.fid)+cover+
       '<div class="card-body"><span class="badge" data-cat="'+it.cslug+'">'+esc(it.cat)+'</span>'+
       '<h3 class="card-title">'+esc(it.title)+'</h3><span class="card-date">'+esc(it.label)+'</span></div></a>';
   }
+  function newsItem(it){
+    var cover = it.thumb ? '<img class="news-thumb" src="'+BASE+it.thumb+'" alt="" loading="lazy">'
+      : '<div class="news-thumb ph" data-cat="'+it.cslug+'">'+esc(it.cat)+'</div>';
+    return '<a class="news-item" href="'+BASE+it.url+'">'+star(it.fid)+cover+
+      '<div class="news-body"><div class="news-meta"><span class="news-cat" data-cat="'+it.cslug+'">'+esc(it.cat)+'</span>'+
+      '<span class="news-time">'+esc(it.label)+'</span></div>'+
+      '<div class="news-title">'+esc(it.title)+'</div></div></a>';
+  }
+  function getPer(){ var n=parseInt(localStorage.getItem('spk-perpage')||'12',10); if(isNaN(n))n=12; return Math.min(15,Math.max(10,n)); }
+  function makePager(host, items, section){
+    var per=getPer(), page=1;
+    var listWrap=document.createElement('div');
+    listWrap.className=(section==='news'?'news-list':'grid');
+    var nav=document.createElement('nav'); nav.className='pager';
+    host.appendChild(listWrap); host.appendChild(nav);
+    function render(){
+      var pages=Math.max(1,Math.ceil(items.length/per));
+      if(page>pages)page=pages;
+      var slice=items.slice((page-1)*per, page*per);
+      listWrap.innerHTML=slice.map(section==='news'?newsItem:blogCard).join('');
+      nav.innerHTML='';
+      if(pages>1){
+        var mk=function(label,p,cur,dis){
+          if(cur){var s=document.createElement('span');s.className='cur';s.textContent=label;nav.appendChild(s);return;}
+          if(dis)return;
+          var a=document.createElement('a');a.href='#';a.textContent=label;
+          a.addEventListener('click',function(e){e.preventDefault();page=p;render();});
+          nav.appendChild(a);
+        };
+        mk('← 이전',page-1,false,page<=1);
+        var nums=[],n; for(n=1;n<=pages;n++){ if(n===1||n===pages||Math.abs(n-page)<=1)nums.push(n); }
+        var prev=0; nums.forEach(function(n){ if(n-prev>1){var d=document.createElement('span');d.className='dots';d.textContent='…';nav.appendChild(d);} mk(String(n),n,n===page,false); prev=n; });
+        mk('다음 →',page+1,false,page>=pages);
+      }
+      if(window.__refreshStars)window.__refreshStars();
+    }
+    render();
+  }
+  function renderGroups(parent, section, cats){
+    var f=favs(), any=false;
+    cats.forEach(function(pair){
+      var cslug=pair[0], cname=pair[1];
+      var items=(data||[]).filter(function(it){ return it.section===section && it.cslug===cslug && f.indexOf(it.fid)>=0; });
+      if(!items.length) return;
+      any=true;
+      var bar=document.createElement('div'); bar.className='cat-bar'; bar.style.margin='18px 0 10px';
+      bar.innerHTML='<h3 class="cat-head" data-cat="'+cslug+'">'+esc(cname)+' <span style="opacity:.75">'+items.length+'</span></h3>';
+      parent.appendChild(bar);
+      var host=document.createElement('div');
+      parent.appendChild(host);
+      makePager(host, items, section);
+    });
+    return any;
+  }
   function paint(){
     var f=favs();
-    var hits=(data||[]).filter(function(it){ return f.indexOf(it.fid||(it.cslug+'/'+it.slot))>=0; });
-    if(!hits.length){ results.innerHTML=''; empty.hidden=false; }
-    else { empty.hidden=true; results.innerHTML=hits.map(card).join(''); }
+    results.innerHTML='';
+    if(!f.length){ empty.hidden=false; if(window.__refreshStars)window.__refreshStars(); return; }
+    empty.hidden=true; var wrote=false;
+    var newsSec=document.createElement('section'); newsSec.style.marginBottom='30px';
+    newsSec.innerHTML='<h2 class="cat-head" data-cat="news" style="font-size:17px;padding:6px 16px">뉴스</h2>';
+    if(renderGroups(newsSec,'news',NEWS_CATS)){ results.appendChild(newsSec); wrote=true; }
+    var blogSec=document.createElement('section');
+    blogSec.innerHTML='<h2 class="cat-head" data-cat="blog" style="font-size:17px;padding:6px 16px">블로그</h2>';
+    if(renderGroups(blogSec,'blog',BLOG_CATS)){ results.appendChild(blogSec); wrote=true; }
+    if(!wrote){ results.innerHTML='<p style="color:var(--muted);padding:20px 0">즐겨찾기한 글을 찾을 수 없습니다.</p>'; }
     if(window.__refreshStars)window.__refreshStars();
-    if(window.__repaginate)window.__repaginate();
   }
   window.__onFavChange=paint;
 
