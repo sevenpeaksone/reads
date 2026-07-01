@@ -140,6 +140,36 @@
     border-radius:9px; padding:8px 14px; font-size:13px; cursor:pointer; font-family:inherit; }
   .fav-tools button:hover { border-color:#3a4050; }
   .fav-tools #fav-msg { color:var(--muted); font-size:13px; }
+
+  /* ── 뉴스 전용: 헤드라인 리스트 (블로그 카드와 다른, 신문 느낌) */
+  .news-list { display:flex; flex-direction:column; border-top:2px solid #e0667a; }
+  .news-item { position:relative; display:flex; gap:16px; align-items:center;
+    padding:15px 8px 15px 4px; border-bottom:1px solid var(--line);
+    text-decoration:none; color:var(--text); transition:background .12s; }
+  .news-item:hover { background:var(--card); }
+  .news-thumb { width:108px; height:72px; flex:0 0 108px; border-radius:8px;
+    object-fit:cover; background:#11141d; }
+  .news-thumb.ph { display:flex; align-items:center; justify-content:center;
+    color:#fff; font-weight:800; font-size:13px; text-align:center; padding:4px; }
+  .news-thumb.ph[data-cat=economy]{background:linear-gradient(135deg,#10301f,var(--economy));}
+  .news-thumb.ph[data-cat=politics]{background:linear-gradient(135deg,#3a1820,var(--politics));}
+  .news-thumb.ph[data-cat=world]{background:linear-gradient(135deg,#2e2410,var(--world));}
+  .news-thumb.ph[data-cat=industry]{background:linear-gradient(135deg,#10302c,var(--industry));}
+  .news-body { flex:1; min-width:0; display:flex; flex-direction:column; gap:7px; }
+  .news-meta { display:flex; align-items:center; gap:10px; font-size:12px; }
+  .news-cat { color:#fff; padding:2px 9px; border-radius:4px; font-weight:700; font-size:11px;
+    letter-spacing:.2px; background:#3a4050; }
+  .news-cat[data-cat=economy]{background:var(--economy);}
+  .news-cat[data-cat=politics]{background:var(--politics);}
+  .news-cat[data-cat=world]{background:var(--world);}
+  .news-cat[data-cat=industry]{background:var(--industry);}
+  .news-time { color:var(--muted); }
+  .news-time::before { content:"● "; color:#e0667a; font-size:9px; vertical-align:middle; }
+  .news-title { font-size:16.5px; font-weight:700; line-height:1.42; letter-spacing:-.2px;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .news-item:hover .news-title { color:#fff; }
+  .news-item .fav { top:12px; right:6px; }
+  @media(max-width:560px){ .news-thumb{ width:82px; flex-basis:82px; height:58px; } .news-title{ font-size:15px; } }
 </style>
 </head>
 <body>
@@ -154,7 +184,7 @@
     <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
   </nav>
   <div class="hero sub">
-    <h1><a href="../index.html">뉴스 해설</a></h1>
+    <h1><a href="../index.html">뉴스</a></h1>
     <p><span class="cat-head" data-cat="industry">산업·IT/과학</span> 전체 1편</p>
   </div>
   <main>
@@ -163,15 +193,14 @@
       <div id="search-results" class="grid"></div>
     </div>
     <div id="page-content">
-    <a class="back" href="../index.html">← 뉴스 홈</a>
-    <div class="grid" data-paginate="1">
-      <a class="card" href="./2026-06-30-23/index.html">
+    <a class="back" href="../index.html">← 뉴스 메인</a>
+    <div class="news-list" data-paginate="1">
+      <a class="news-item" href="./2026-06-30-23/index.html">
         <span class="fav" data-id="news-industry/2026-06-30-23" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./2026-06-30-23/images/thumbnail.png" alt="HBM4 양산 시작, 삼성·SK하이닉스 메모리 대전 총정리" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="industry">산업·IT/과학</span>
-          <h3 class="card-title">HBM4 양산 시작, 삼성·SK하이닉스 메모리 대전 총정리</h3>
-          <span class="card-date">2026-06-30 23시</span>
+        <img class="news-thumb" src="./2026-06-30-23/images/thumbnail.png" alt="" loading="lazy">
+        <div class="news-body">
+          <div class="news-meta"><span class="news-cat" data-cat="industry">산업·IT/과학</span><span class="news-time">2026-06-30 23시</span></div>
+          <div class="news-title">HBM4 양산 시작, 삼성·SK하이닉스 메모리 대전 총정리</div>
         </div>
       </a>
     </div>
@@ -254,7 +283,7 @@
     var page=1;
     var nav=document.createElement('nav'); nav.className='pager'; grid.after(nav);
     function render(){
-      var cards=[].slice.call(grid.querySelectorAll('.card'));
+      var cards=[].slice.call(grid.querySelectorAll('.card, .news-item'));
       var per=getPer(), pages=Math.max(1,Math.ceil(cards.length/per));
       if(page>pages)page=pages;
       cards.forEach(function(c,i){ c.style.display=(i>=(page-1)*per&&i<page*per)?'':'none'; });
@@ -281,24 +310,28 @@
   function init(){
     refreshStars();
     var pc=document.getElementById('page-content');
-    if(!pc || !pc.querySelector('.grid')) return;
-    var pg=pc.querySelector('.grid[data-paginate]');
+    if(!pc) return;
+    var hasGrid=pc.querySelector('.grid');
+    var pg=pc.querySelector('.grid[data-paginate], .news-list[data-paginate]');
+    if(!hasGrid && !pg) return;   // 보기설정·페이지당 컨트롤이 필요 없는 페이지
     var bar=document.createElement('div'); bar.className='prefs';
     var perOpts=''; for(var n=10;n<=15;n++){ perOpts+='<option value="'+n+'"'+(n===getPer()?' selected':'')+'>'+n+'</option>'; }
     bar.innerHTML=
-      '<div class="seg" id="view-seg">'+
+      (hasGrid?('<div class="seg" id="view-seg">'+
         '<button type="button" data-view="card">카드</button>'+
         '<button type="button" data-view="list">목록</button>'+
-      '</div>'+
+      '</div>'):'')+
       (pg?('<label>페이지당 <select id="perpage">'+perOpts+'</select> 개</label>'):'')+
       '<span class="grow"></span>'+
       '<a class="fav-link" href="'+BASE+'/favorites.html">★ 즐겨찾기</a>';
     pc.insertBefore(bar, pc.firstChild);
     var seg=bar.querySelector('#view-seg');
-    function paintSeg(v){ seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.dataset.view===v); }); }
-    seg.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b)return;
-      var v=b.dataset.view; lsset(KV.view,v); applyView(v); paintSeg(v); });
-    applyView(getView()); paintSeg(getView());
+    if(seg){
+      var paintSeg=function(v){ seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.dataset.view===v); }); };
+      seg.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b)return;
+        var v=b.dataset.view; lsset(KV.view,v); applyView(v); paintSeg(v); });
+      applyView(getView()); paintSeg(getView());
+    }
     if(pg){
       buildPager(pg);
       var sel=bar.querySelector('#perpage');
