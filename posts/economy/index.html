@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>경제 - SevenPeaks 블로그</title>
+<title>경제 - SevenPeaks Reads</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
 <style>
   :root { --bg:#0f1117; --card:#1a1d27; --line:#2a2e3a; --text:#e8eaf0; --muted:#9aa0ad;
@@ -25,7 +25,9 @@
   .cat-section { margin-bottom:46px; }
   .cat-bar { display:flex; align-items:center; justify-content:space-between; margin:0 0 18px; }
   .cat-head { font-size:15px; font-weight:700; display:inline-block; padding:5px 14px;
-    border-radius:20px; color:#fff; }
+    border-radius:20px; color:#fff; background:#3a4050; }
+  .cat-head[data-cat=news]{background:#e0667a;}
+  .cat-head[data-cat=blog]{background:#4f8cff;}
   .cat-head[data-cat=it]{background:var(--it);}
   .cat-head[data-cat=philosophy]{background:var(--philosophy);}
   .cat-head[data-cat=economy]{background:var(--economy);}
@@ -142,24 +144,17 @@
 </head>
 <body>
   <nav class="topnav">
-    <a class="tn-brand" href="/blog/index.html">SevenPeaks</a>
+    <a class="tn-brand" href="/blog/index.html">SevenPeaks Reads</a>
     <div class="tn-cats">
       <a href="/blog/index.html">홈</a>
-      <a href="/blog/posts/it/index.html" data-cat="it">IT</a>
-      <a href="/blog/posts/science/index.html" data-cat="science">과학</a>
-      <a href="/blog/posts/economy/index.html" data-cat="economy">경제</a>
-      <a href="/blog/posts/bio/index.html" data-cat="bio">바이오</a>
-      <a href="/blog/posts/philosophy/index.html" data-cat="philosophy">철학/인문</a>
-      <a href="/blog/posts/counseling/index.html" data-cat="counseling">상담</a>
-      <a href="/blog/posts/world/index.html" data-cat="world">세계</a>
-      <a href="/blog/posts/religion/index.html" data-cat="religion">종교</a>
+      <a href="/blog/posts/index.html">블로그</a>
       <a href="/blog/news/index.html">뉴스</a>
       <a href="/blog/favorites.html">★ 즐겨찾기</a>
     </div>
     <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
   </nav>
   <div class="hero sub">
-    <h1><a href="../../index.html">SevenPeaks 블로그</a></h1>
+    <h1><a href="../index.html">블로그</a></h1>
     <p><span class="cat-head" data-cat="economy">경제</span> 전체 35편</p>
   </div>
   <main>
@@ -168,7 +163,7 @@
       <div id="search-results" class="grid"></div>
     </div>
     <div id="page-content">
-    <a class="back" href="../../index.html">← 홈으로</a>
+    <a class="back" href="../index.html">← 블로그 메인</a>
     <div class="grid" data-paginate="1">
       <a class="card" href="./2026-07-01-03/index.html">
         <span class="fav" data-id="economy/2026-07-01-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
@@ -524,7 +519,7 @@
   input.addEventListener('input',function(){run(input.value);});
 })();
 </script>
-<footer><div class="visit" id="visit-count"></div>© 2026 SevenPeaks 블로그</footer>
+<footer><div class="visit" id="visit-count"></div>© 2026 SevenPeaks Reads</footer>
 <script id="site-prefs-js">
 (function(){
   var BASE="/blog";

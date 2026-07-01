@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SevenPeaks 블로그</title>
+<title>SevenPeaks Reads</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
 <style>
   :root { --bg:#0f1117; --card:#1a1d27; --line:#2a2e3a; --text:#e8eaf0; --muted:#9aa0ad;
@@ -25,7 +25,9 @@
   .cat-section { margin-bottom:46px; }
   .cat-bar { display:flex; align-items:center; justify-content:space-between; margin:0 0 18px; }
   .cat-head { font-size:15px; font-weight:700; display:inline-block; padding:5px 14px;
-    border-radius:20px; color:#fff; }
+    border-radius:20px; color:#fff; background:#3a4050; }
+  .cat-head[data-cat=news]{background:#e0667a;}
+  .cat-head[data-cat=blog]{background:#4f8cff;}
   .cat-head[data-cat=it]{background:var(--it);}
   .cat-head[data-cat=philosophy]{background:var(--philosophy);}
   .cat-head[data-cat=economy]{background:var(--economy);}
@@ -142,25 +144,18 @@
 </head>
 <body>
   <nav class="topnav">
-    <a class="tn-brand" href="/blog/index.html">SevenPeaks</a>
+    <a class="tn-brand" href="/blog/index.html">SevenPeaks Reads</a>
     <div class="tn-cats">
       <a href="/blog/index.html">홈</a>
-      <a href="/blog/posts/it/index.html" data-cat="it">IT</a>
-      <a href="/blog/posts/science/index.html" data-cat="science">과학</a>
-      <a href="/blog/posts/economy/index.html" data-cat="economy">경제</a>
-      <a href="/blog/posts/bio/index.html" data-cat="bio">바이오</a>
-      <a href="/blog/posts/philosophy/index.html" data-cat="philosophy">철학/인문</a>
-      <a href="/blog/posts/counseling/index.html" data-cat="counseling">상담</a>
-      <a href="/blog/posts/world/index.html" data-cat="world">세계</a>
-      <a href="/blog/posts/religion/index.html" data-cat="religion">종교</a>
+      <a href="/blog/posts/index.html">블로그</a>
       <a href="/blog/news/index.html">뉴스</a>
       <a href="/blog/favorites.html">★ 즐겨찾기</a>
     </div>
     <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
   </nav>
   <div class="hero">
-    <h1>SevenPeaks 블로그</h1>
-    <p>IT · 과학 · 경제 · 바이오 · 철학/인문 · 상담 · 세계 · 종교 — 매일 새로운 글을 전합니다</p>
+    <h1>SevenPeaks Reads</h1>
+    <p>뉴스와 이야기, 매일 새롭게 — 오늘의 이슈부터 깊이 있는 글까지</p>
   </div>
   <main>
     <div id="search-wrap" hidden>
@@ -170,220 +165,52 @@
     <div id="page-content">
     <section class="cat-section">
       <div class="cat-bar">
-        <h2 class="cat-head" data-cat="it">IT</h2>
-        <a class="more-link" href="./posts/it/">전체 35편 보기 →</a>
+        <h2 class="cat-head" data-cat="news">뉴스</h2>
+        <a class="more-link" href="./news/index.html">뉴스 더보기 →</a>
       </div>
       <div class="grid home">
-      <a class="card" href="./posts/it/2026-07-01-03/index.html">
-        <span class="fav" data-id="it/2026-07-01-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/it/2026-07-01-03/images/thumbnail.png" alt="CXL 메모리란? HBM 다음 AI 인프라 메모리 풀링·확장 기술 정리" loading="lazy">
+      <a class="card" href="./news/economy/2026-06-30-23/index.html">
+        <span class="fav" data-id="news-economy/2026-06-30-23" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./news/economy/2026-06-30-23/images/thumbnail.png" alt="원달러 환율 1,550원 돌파, 수출은 사상 최대인데 왜 원화는 약할까" loading="lazy">
         <div class="card-body">
-          <span class="badge" data-cat="it">IT</span>
-          <h3 class="card-title">CXL 메모리란? HBM 다음 AI 인프라 메모리 풀링·확장 기술 정리</h3>
-          <span class="card-date">2026-07-01 03시</span>
+          <span class="badge" data-cat="economy">경제</span>
+          <h3 class="card-title">원달러 환율 1,550원 돌파, 수출은 사상 최대인데 왜 원화는 약할까</h3>
+          <span class="card-date">2026-06-30 23시</span>
         </div>
       </a>
-      <a class="card" href="./posts/it/2026-06-30-03/index.html">
-        <span class="fav" data-id="it/2026-06-30-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/it/2026-06-30-03/images/thumbnail.png" alt="유리기판 반도체 패키징 2026 — AI 칩 다음 병목을 푸는 차세대 기판" loading="lazy">
+      <a class="card" href="./news/politics/2026-06-30-23/index.html">
+        <span class="fav" data-id="news-politics/2026-06-30-23" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./news/politics/2026-06-30-23/images/thumbnail.png" alt="[뉴스 해설] 6·3 지방선거 투표용지 부족 사태, 무슨 일이 있었나" loading="lazy">
         <div class="card-body">
-          <span class="badge" data-cat="it">IT</span>
-          <h3 class="card-title">유리기판 반도체 패키징 2026 — AI 칩 다음 병목을 푸는 차세대 기판</h3>
-          <span class="card-date">2026-06-30 03시</span>
+          <span class="badge" data-cat="politics">정치/사회</span>
+          <h3 class="card-title">[뉴스 해설] 6·3 지방선거 투표용지 부족 사태, 무슨 일이 있었나</h3>
+          <span class="card-date">2026-06-30 23시</span>
         </div>
       </a>
-      <a class="card" href="./posts/it/2026-06-29-03/index.html">
-        <span class="fav" data-id="it/2026-06-29-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/it/2026-06-29-03/images/thumbnail.png" alt="HBF 고대역폭 플래시, HBM 다음 AI 추론 메모리의 주인공" loading="lazy">
+      <a class="card" href="./news/world/2026-06-30-23/index.html">
+        <span class="fav" data-id="news-world/2026-06-30-23" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./news/world/2026-06-30-23/images/thumbnail.png" alt="이란·미국 휴전과 호르무즈 해협, 지금 무슨 일이 벌어지나" loading="lazy">
         <div class="card-body">
-          <span class="badge" data-cat="it">IT</span>
-          <h3 class="card-title">HBF 고대역폭 플래시, HBM 다음 AI 추론 메모리의 주인공</h3>
-          <span class="card-date">2026-06-29 03시</span>
+          <span class="badge" data-cat="world">국제/세계</span>
+          <h3 class="card-title">이란·미국 휴전과 호르무즈 해협, 지금 무슨 일이 벌어지나</h3>
+          <span class="card-date">2026-06-30 23시</span>
         </div>
       </a>
-      <a class="card" href="./posts/it/2026-06-28-03/index.html">
-        <span class="fav" data-id="it/2026-06-28-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/it/2026-06-28-03/images/thumbnail.png" alt="[IT] AI 추론칩 ASIC 2026 — 엔비디아 GPU 독점에 맞선 맞춤형 칩 전쟁" loading="lazy">
+      <a class="card" href="./news/industry/2026-06-30-23/index.html">
+        <span class="fav" data-id="news-industry/2026-06-30-23" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./news/industry/2026-06-30-23/images/thumbnail.png" alt="HBM4 양산 시작, 삼성·SK하이닉스 메모리 대전 총정리" loading="lazy">
         <div class="card-body">
-          <span class="badge" data-cat="it">IT</span>
-          <h3 class="card-title">[IT] AI 추론칩 ASIC 2026 — 엔비디아 GPU 독점에 맞선 맞춤형 칩 전쟁</h3>
-          <span class="card-date">2026-06-28 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/it/2026-06-27-03/index.html">
-        <span class="fav" data-id="it/2026-06-27-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/it/2026-06-27-03/images/thumbnail.png" alt="AI 팩토리 2026, GPU·HBM 너머의 인프라 경쟁" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="it">IT</span>
-          <h3 class="card-title">AI 팩토리 2026, GPU·HBM 너머의 인프라 경쟁</h3>
-          <span class="card-date">2026-06-27 03시</span>
+          <span class="badge" data-cat="industry">산업·IT/과학</span>
+          <h3 class="card-title">HBM4 양산 시작, 삼성·SK하이닉스 메모리 대전 총정리</h3>
+          <span class="card-date">2026-06-30 23시</span>
         </div>
       </a>
       </div>
     </section>
     <section class="cat-section">
       <div class="cat-bar">
-        <h2 class="cat-head" data-cat="science">과학</h2>
-        <a class="more-link" href="./posts/science/">전체 15편 보기 →</a>
-      </div>
-      <div class="grid home">
-      <a class="card" href="./posts/science/2026-07-01-03/index.html">
-        <span class="fav" data-id="science/2026-07-01-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/science/2026-07-01-03/images/thumbnail.png" alt="화성 마그마 시스템 발견 — 판구조론 없이도 살아있던 붉은 행성" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="science">과학</span>
-          <h3 class="card-title">화성 마그마 시스템 발견 — 판구조론 없이도 살아있던 붉은 행성</h3>
-          <span class="card-date">2026-07-01 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/science/2026-06-30-03/index.html">
-        <span class="fav" data-id="science/2026-06-30-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/science/2026-06-30-03/images/thumbnail.png" alt="[과학] 지구 맨틀 시추 도전 2026 — 모호면과 멍샹호 이야기" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="science">과학</span>
-          <h3 class="card-title">[과학] 지구 맨틀 시추 도전 2026 — 모호면과 멍샹호 이야기</h3>
-          <span class="card-date">2026-06-30 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/science/2026-06-29-03/index.html">
-        <span class="fav" data-id="science/2026-06-29-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/science/2026-06-29-03/images/thumbnail.png" alt="베라 루빈 천문대 32억 화소가 여는 우주 광역탐사 시대" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="science">과학</span>
-          <h3 class="card-title">베라 루빈 천문대 32억 화소가 여는 우주 광역탐사 시대</h3>
-          <span class="card-date">2026-06-29 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/science/2026-06-28-03/index.html">
-        <span class="fav" data-id="science/2026-06-28-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/science/2026-06-28-03/images/thumbnail.png" alt="[과학] 암흑에너지 변화 논쟁 2026 — DESI가 흔든 우주 표준모형" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="science">과학</span>
-          <h3 class="card-title">[과학] 암흑에너지 변화 논쟁 2026 — DESI가 흔든 우주 표준모형</h3>
-          <span class="card-date">2026-06-28 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/science/2026-06-27-03/index.html">
-        <span class="fav" data-id="science/2026-06-27-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/science/2026-06-27-03/images/thumbnail.png" alt="베피콜롬보 수성 탐사 2026" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="science">과학</span>
-          <h3 class="card-title">베피콜롬보 수성 탐사 2026</h3>
-          <span class="card-date">2026-06-27 03시</span>
-        </div>
-      </a>
-      </div>
-    </section>
-    <section class="cat-section">
-      <div class="cat-bar">
-        <h2 class="cat-head" data-cat="economy">경제</h2>
-        <a class="more-link" href="./posts/economy/">전체 35편 보기 →</a>
-      </div>
-      <div class="grid home">
-      <a class="card" href="./posts/economy/2026-07-01-03/index.html">
-        <span class="fav" data-id="economy/2026-07-01-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/economy/2026-07-01-03/images/thumbnail.png" alt="반도체 수출 슈퍼사이클과 2026년 하반기 한국 경제 전망" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="economy">경제</span>
-          <h3 class="card-title">반도체 수출 슈퍼사이클과 2026년 하반기 한국 경제 전망</h3>
-          <span class="card-date">2026-07-01 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/economy/2026-06-30-03/index.html">
-        <span class="fav" data-id="economy/2026-06-30-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/economy/2026-06-30-03/images/thumbnail.png" alt="[경제] 부동산 대출 규제 2026 하반기 — 사업자대출 점검과 7월 세제 개편 전망" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="economy">경제</span>
-          <h3 class="card-title">[경제] 부동산 대출 규제 2026 하반기 — 사업자대출 점검과 7월 세제 개편 전망</h3>
-          <span class="card-date">2026-06-30 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/economy/2026-06-29-03/index.html">
-        <span class="fav" data-id="economy/2026-06-29-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/economy/2026-06-29-03/images/thumbnail.png" alt="원달러 환율 1500원, 고환율 17개월이 가계에 남긴 것 (2026)" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="economy">경제</span>
-          <h3 class="card-title">원달러 환율 1500원, 고환율 17개월이 가계에 남긴 것 (2026)</h3>
-          <span class="card-date">2026-06-29 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/economy/2026-06-28-03/index.html">
-        <span class="fav" data-id="economy/2026-06-28-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/economy/2026-06-28-03/images/thumbnail.png" alt="기준금리 전망 2026 하반기 — 인하 기대와 인상론 사이" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="economy">경제</span>
-          <h3 class="card-title">기준금리 전망 2026 하반기 — 인하 기대와 인상론 사이</h3>
-          <span class="card-date">2026-06-28 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/economy/2026-06-27-03/index.html">
-        <span class="fav" data-id="economy/2026-06-27-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/economy/2026-06-27-03/images/thumbnail.png" alt="원·유로 환율 1,800원 돌파" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="economy">경제</span>
-          <h3 class="card-title">원·유로 환율 1,800원 돌파</h3>
-          <span class="card-date">2026-06-27 03시</span>
-        </div>
-      </a>
-      </div>
-    </section>
-    <section class="cat-section">
-      <div class="cat-bar">
-        <h2 class="cat-head" data-cat="bio">바이오</h2>
-        <a class="more-link" href="./posts/bio/">전체 35편 보기 →</a>
-      </div>
-      <div class="grid home">
-      <a class="card" href="./posts/bio/2026-07-01-03/index.html">
-        <span class="fav" data-id="bio/2026-07-01-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/bio/2026-07-01-03/images/thumbnail.png" alt="[바이오] HLB 간암 신약 리보세라닙, FDA 3차 도전과 7월 23일 PDUFA" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="bio">바이오</span>
-          <h3 class="card-title">[바이오] HLB 간암 신약 리보세라닙, FDA 3차 도전과 7월 23일 PDUFA</h3>
-          <span class="card-date">2026-07-01 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/bio/2026-06-30-03/index.html">
-        <span class="fav" data-id="bio/2026-06-30-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/bio/2026-06-30-03/images/thumbnail.png" alt="[바이오] GLP-1 비만치료제 2026 — 먹는 비만약과 K바이오의 도전" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="bio">바이오</span>
-          <h3 class="card-title">[바이오] GLP-1 비만치료제 2026 — 먹는 비만약과 K바이오의 도전</h3>
-          <span class="card-date">2026-06-30 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/bio/2026-06-29-03/index.html">
-        <span class="fav" data-id="bio/2026-06-29-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/bio/2026-06-29-03/images/thumbnail.png" alt="ADC 항체약물접합체 원리와 2026 K바이오 항암 신약 동향" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="bio">바이오</span>
-          <h3 class="card-title">ADC 항체약물접합체 원리와 2026 K바이오 항암 신약 동향</h3>
-          <span class="card-date">2026-06-29 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/bio/2026-06-28-03/index.html">
-        <span class="fav" data-id="bio/2026-06-28-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/bio/2026-06-28-03/images/thumbnail.png" alt="[바이오] AI 신약개발 2026 — 알파폴드 이후, 임상이 증명할 차례" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="bio">바이오</span>
-          <h3 class="card-title">[바이오] AI 신약개발 2026 — 알파폴드 이후, 임상이 증명할 차례</h3>
-          <span class="card-date">2026-06-28 03시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/bio/2026-06-27-03/index.html">
-        <span class="fav" data-id="bio/2026-06-27-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/bio/2026-06-27-03/images/thumbnail.png" alt="표적단백질분해 신약 2026 정리" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="bio">바이오</span>
-          <h3 class="card-title">표적단백질분해 신약 2026 정리</h3>
-          <span class="card-date">2026-06-27 03시</span>
-        </div>
-      </a>
-      </div>
-    </section>
-    <section class="cat-section">
-      <div class="cat-bar">
-        <h2 class="cat-head" data-cat="philosophy">철학/인문</h2>
-        <a class="more-link" href="./posts/philosophy/">전체 36편 보기 →</a>
+        <h2 class="cat-head" data-cat="blog">블로그</h2>
+        <a class="more-link" href="./posts/index.html">블로그 더보기 →</a>
       </div>
       <div class="grid home">
       <a class="card" href="./posts/philosophy/2026-07-01-20/index.html">
@@ -395,50 +222,6 @@
           <span class="card-date">2026-07-01 20시</span>
         </div>
       </a>
-      <a class="card" href="./posts/philosophy/2026-06-30-20/index.html">
-        <span class="fav" data-id="philosophy/2026-06-30-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/philosophy/2026-06-30-20/images/thumbnail.png" alt="키르케고르 불안의 개념 — 불안은 자유의 현기증입니다" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="philosophy">철학/인문</span>
-          <h3 class="card-title">키르케고르 불안의 개념 — 불안은 자유의 현기증입니다</h3>
-          <span class="card-date">2026-06-30 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/philosophy/2026-06-29-20/index.html">
-        <span class="fav" data-id="philosophy/2026-06-29-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/philosophy/2026-06-29-20/images/thumbnail.png" alt="칸트 정언명령 쉽게 이해하기" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="philosophy">철학/인문</span>
-          <h3 class="card-title">칸트 정언명령 쉽게 이해하기</h3>
-          <span class="card-date">2026-06-29 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/philosophy/2026-06-28-20/index.html">
-        <span class="fav" data-id="philosophy/2026-06-28-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/philosophy/2026-06-28-20/images/thumbnail.png" alt="악의 평범성 뜻" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="philosophy">철학/인문</span>
-          <h3 class="card-title">악의 평범성 뜻</h3>
-          <span class="card-date">2026-06-28 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/philosophy/2026-06-27-20/index.html">
-        <span class="fav" data-id="philosophy/2026-06-27-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/philosophy/2026-06-27-20/images/thumbnail.png" alt="[철학/인문] 장자 소요유, 쓸모없음의 쓸모와 나비의 꿈으로 보는 자유" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="philosophy">철학/인문</span>
-          <h3 class="card-title">[철학/인문] 장자 소요유, 쓸모없음의 쓸모와 나비의 꿈으로 보는 자유</h3>
-          <span class="card-date">2026-06-27 20시</span>
-        </div>
-      </a>
-      </div>
-    </section>
-    <section class="cat-section">
-      <div class="cat-bar">
-        <h2 class="cat-head" data-cat="counseling">상담</h2>
-        <a class="more-link" href="./posts/counseling/">전체 37편 보기 →</a>
-      </div>
-      <div class="grid home">
       <a class="card" href="./posts/counseling/2026-07-01-20/index.html">
         <span class="fav" data-id="counseling/2026-07-01-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./posts/counseling/2026-07-01-20/images/thumbnail.png" alt="사춘기 자녀와의 대화법" loading="lazy">
@@ -448,50 +231,6 @@
           <span class="card-date">2026-07-01 20시</span>
         </div>
       </a>
-      <a class="card" href="./posts/counseling/2026-06-30-20/index.html">
-        <span class="fav" data-id="counseling/2026-06-30-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/counseling/2026-06-30-20/images/thumbnail.png" alt="건강한 경계 세우기, 나를 지키는 거절의 기술과 죄책감 다루기" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="counseling">상담</span>
-          <h3 class="card-title">건강한 경계 세우기, 나를 지키는 거절의 기술과 죄책감 다루기</h3>
-          <span class="card-date">2026-06-30 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/counseling/2026-06-29-20/index.html">
-        <span class="fav" data-id="counseling/2026-06-29-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/counseling/2026-06-29-20/images/thumbnail.png" alt="자기 연민, 자신을 다그치는 마음에게 건네는 위로" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="counseling">상담</span>
-          <h3 class="card-title">자기 연민, 자신을 다그치는 마음에게 건네는 위로</h3>
-          <span class="card-date">2026-06-29 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/counseling/2026-06-28-20/index.html">
-        <span class="fav" data-id="counseling/2026-06-28-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/counseling/2026-06-28-20/images/thumbnail.png" alt="번아웃 증후군 회복" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="counseling">상담</span>
-          <h3 class="card-title">번아웃 증후군 회복</h3>
-          <span class="card-date">2026-06-28 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/counseling/2026-06-27-20/index.html">
-        <span class="fav" data-id="counseling/2026-06-27-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/counseling/2026-06-27-20/images/thumbnail.png" alt="[상담] 공황장애 대처법 — 이유 없이 찾아오는 극심한 불안, 알아차리는 법" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="counseling">상담</span>
-          <h3 class="card-title">[상담] 공황장애 대처법 — 이유 없이 찾아오는 극심한 불안, 알아차리는 법</h3>
-          <span class="card-date">2026-06-27 20시</span>
-        </div>
-      </a>
-      </div>
-    </section>
-    <section class="cat-section">
-      <div class="cat-bar">
-        <h2 class="cat-head" data-cat="world">세계</h2>
-        <a class="more-link" href="./posts/world/">전체 16편 보기 →</a>
-      </div>
-      <div class="grid home">
       <a class="card" href="./posts/world/2026-07-01-20/index.html">
         <span class="fav" data-id="world/2026-07-01-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./posts/world/2026-07-01-20/images/thumbnail.png" alt="페루" loading="lazy">
@@ -501,50 +240,6 @@
           <span class="card-date">2026-07-01 20시</span>
         </div>
       </a>
-      <a class="card" href="./posts/world/2026-06-30-20/index.html">
-        <span class="fav" data-id="world/2026-06-30-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/world/2026-06-30-20/images/thumbnail.png" alt="조지아, 8000년 와인의 고향이자 캅카스의 교차로" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="world">세계</span>
-          <h3 class="card-title">조지아, 8000년 와인의 고향이자 캅카스의 교차로</h3>
-          <span class="card-date">2026-06-30 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/world/2026-06-29-20/index.html">
-        <span class="fav" data-id="world/2026-06-29-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/world/2026-06-29-20/images/thumbnail.png" alt="멕시코 망자의 날과 옥수수 문명" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="world">세계</span>
-          <h3 class="card-title">멕시코 망자의 날과 옥수수 문명</h3>
-          <span class="card-date">2026-06-29 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/world/2026-06-28-20/index.html">
-        <span class="fav" data-id="world/2026-06-28-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/world/2026-06-28-20/images/thumbnail.png" alt="베트남 도이머이, 최빈국에서 제조 허브로" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="world">세계</span>
-          <h3 class="card-title">베트남 도이머이, 최빈국에서 제조 허브로</h3>
-          <span class="card-date">2026-06-28 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/world/2026-06-27-20/index.html">
-        <span class="fav" data-id="world/2026-06-27-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/world/2026-06-27-20/images/thumbnail.png" alt="[세계] 우즈베키스탄, 실크로드의 심장 사마르칸트가 품은 교차로의 역사" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="world">세계</span>
-          <h3 class="card-title">[세계] 우즈베키스탄, 실크로드의 심장 사마르칸트가 품은 교차로의 역사</h3>
-          <span class="card-date">2026-06-27 20시</span>
-        </div>
-      </a>
-      </div>
-    </section>
-    <section class="cat-section">
-      <div class="cat-bar">
-        <h2 class="cat-head" data-cat="religion">종교</h2>
-        <a class="more-link" href="./posts/religion/">전체 16편 보기 →</a>
-      </div>
-      <div class="grid home">
       <a class="card" href="./posts/religion/2026-07-01-20/index.html">
         <span class="fav" data-id="religion/2026-07-01-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
         <img class="thumb" src="./posts/religion/2026-07-01-20/images/thumbnail.png" alt="세계 종교 경전 이야기" loading="lazy">
@@ -554,40 +249,13 @@
           <span class="card-date">2026-07-01 20시</span>
         </div>
       </a>
-      <a class="card" href="./posts/religion/2026-06-30-20/index.html">
-        <span class="fav" data-id="religion/2026-06-30-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/religion/2026-06-30-20/images/thumbnail.png" alt="세계 종교의 축제 2026 — 디왈리·라마단·부활절·베삭이 담은 빛과 절제" loading="lazy">
+      <a class="card" href="./posts/it/2026-07-01-03/index.html">
+        <span class="fav" data-id="it/2026-07-01-03" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
+        <img class="thumb" src="./posts/it/2026-07-01-03/images/thumbnail.png" alt="CXL 메모리란? HBM 다음 AI 인프라 메모리 풀링·확장 기술 정리" loading="lazy">
         <div class="card-body">
-          <span class="badge" data-cat="religion">종교</span>
-          <h3 class="card-title">세계 종교의 축제 2026 — 디왈리·라마단·부활절·베삭이 담은 빛과 절제</h3>
-          <span class="card-date">2026-06-30 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/religion/2026-06-29-20/index.html">
-        <span class="fav" data-id="religion/2026-06-29-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/religion/2026-06-29-20/images/thumbnail.png" alt="세계 종교 예배 공간 건축" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="religion">종교</span>
-          <h3 class="card-title">세계 종교 예배 공간 건축</h3>
-          <span class="card-date">2026-06-29 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/religion/2026-06-28-20/index.html">
-        <span class="fav" data-id="religion/2026-06-28-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/religion/2026-06-28-20/images/thumbnail.png" alt="세계 종교의 내세관 비교" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="religion">종교</span>
-          <h3 class="card-title">세계 종교의 내세관 비교</h3>
-          <span class="card-date">2026-06-28 20시</span>
-        </div>
-      </a>
-      <a class="card" href="./posts/religion/2026-06-27-20/index.html">
-        <span class="fav" data-id="religion/2026-06-27-20" role="button" aria-label="즐겨찾기" title="즐겨찾기">☆</span>
-        <img class="thumb" src="./posts/religion/2026-06-27-20/images/thumbnail.png" alt="[종교] 종교 상징 읽기 — 십자가·초승달·법륜·다윗의 별에 담긴 의미" loading="lazy">
-        <div class="card-body">
-          <span class="badge" data-cat="religion">종교</span>
-          <h3 class="card-title">[종교] 종교 상징 읽기 — 십자가·초승달·법륜·다윗의 별에 담긴 의미</h3>
-          <span class="card-date">2026-06-27 20시</span>
+          <span class="badge" data-cat="it">IT</span>
+          <h3 class="card-title">CXL 메모리란? HBM 다음 AI 인프라 메모리 풀링·확장 기술 정리</h3>
+          <span class="card-date">2026-07-01 03시</span>
         </div>
       </a>
       </div>
@@ -630,7 +298,7 @@
   input.addEventListener('input',function(){run(input.value);});
 })();
 </script>
-<footer><div class="visit" id="visit-count"></div>© 2026 SevenPeaks 블로그</footer>
+<footer><div class="visit" id="visit-count"></div>© 2026 SevenPeaks Reads</footer>
 <script id="site-prefs-js">
 (function(){
   var BASE="/blog";
