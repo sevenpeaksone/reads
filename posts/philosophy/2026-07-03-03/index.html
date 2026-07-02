@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>니체의 아모르파티와 영원회귀</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#b07cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#b07cff;border-color:#b07cff">철학/인문</div>
+<h1>니체의 아모르파티와 영원회귀</h1>
+<p class="subtitle">운명을 사랑하라</p>
+<figure><img src="./images/thumbnail.png" alt="어두운 밤하늘 아래 산길을 오르는 실루엣, 별빛이 원을 그리며 회전하는 듯한 정적이고 사색적인 분위기"><figcaption>어두운 밤하늘 아래 산길을 오르는 실루엣, 별빛이 원을 그리며 회전하는 듯한 정적이고 사색적인 분위기</figcaption></figure>
+<p>누구나 지우고 싶은 시간을 하나쯤 품고 산다. 니체는 그 시간마저 사랑하라고 말한다. 체념이 아니라 긍정으로서의 사랑이다. 이 글은 그의 두 개념, 아모르파티와 영원회귀를 정확히 짚어 본다.</p>
+<h2>아모르파티란 무엇인가</h2>
+<p>아모르파티(amor fati)는 라틴어로 운명에 대한 사랑을 뜻한다. 삶에서 일어나는 모든 일을 필연으로 받아들이는 태도다. 고통과 상실도 예외가 아니다. 니체는 『즐거운 학문』 276절에서 이렇게 적었다.</p>
+<blockquote><p>나는 사물에서 필연적인 것을 아름답게 보는 법을 배우고자 한다. 아모르 파티, 이것이 이제부터 나의 사랑이 되게 하라.</p></blockquote>
+<p>핵심은 좋은 것만 고르지 않는다는 데 있다. 좋음과 나쁨은 떼어 낼 수 없이 얽혀 있다. 그러므로 삶을 사랑한다는 것은 그 어두운 부분까지 함께 끌어안는 일이다.</p>
+<hr>
+<h2>영원회귀라는 가장 무거운 물음</h2>
+<p>니체는 하나의 사고실험을 던진다. 『즐거운 학문』 341절, 어느 밤 악령이 찾아와 말한다. 네가 살아온 이 삶을 조금도 다르지 않게, 무수히 반복해 다시 살아야 한다고. 이것이 영원회귀다.</p>
+<p>이 물음 앞에서 사람은 갈린다. 저주로 여겨 이를 갈 것인가, 아니면 그 반복을 갈망할 것인가. 니체는 후자를 요구한다. 다시 살아도 좋다고 말할 수 있는 삶, 그 삶을 지금 살라는 것이다. 영원회귀는 우주의 사실을 증명하려는 이론이 아니라, 매 순간의 무게를 되묻는 저울에 가깝다.</p>
+<figure><img src="./images/body-1.png" alt="오래된 저울 위에 삶의 한 장면들이 반복되어 겹쳐지는 초현실적 이미지, 무게와 반복의 상징"><figcaption>오래된 저울 위에 삶의 한 장면들이 반복되어 겹쳐지는 초현실적 이미지, 무게와 반복의 상징</figcaption></figure>
+<h2>위버멘쉬와 세 번의 변화</h2>
+<p>『차라투스트라는 이렇게 말했다』에서 니체는 자기극복의 인간, 위버멘쉬를 그린다. 그 길은 세 번의 변화로 요약된다.</p>
+<blockquote><p>낙타는 짐을 지고, 사자는 맞서 싸우며, 아이는 새로 시작한다.</p></blockquote>
+<p>낙타는 전통의 무게를 짊어지고, 사자는 그 가치에 맞서며, 아이는 순수한 긍정으로 자기 삶을 새로 창조한다. 운명을 사랑한다는 것은 체념이 아니라 이 아이의 자리에 서는 일이다.</p>
+<figure><img src="./images/body-2.png" alt="낙타, 사자, 아이가 왼쪽에서 오른쪽으로 이어지는 변화의 흐름을 담은 미니멀한 일러스트"><figcaption>낙타, 사자, 아이가 왼쪽에서 오른쪽으로 이어지는 변화의 흐름을 담은 미니멀한 일러스트</figcaption></figure>
+<h2>오늘 우리에게 남는 것</h2>
+<p>예전엔 견디는 것이 강함이라 여겼다. 지금은 견디는 것을 넘어 긍정하는 것이 더 어려운 강함임을 안다. 스토아가 평정을 위해 받아들였다면, 니체는 그 필연을 사랑하라고 밀어붙인다.</p>
+<p>물론 이 사상에는 긴장이 있다. 운명을 사랑하라는 수용과, 자기를 창조하라는 능동은 쉽게 화해하지 않는다. 그러나 그 긴장이야말로 이 철학을 살아 있게 한다. 받아들이되 주저앉지 않는 태도, 그 사이 어딘가에 삶의 몫이 있다.</p>
+<figure><img src="./images/body-3.png" alt="갈라진 두 길 앞에 선 사람, 한쪽은 수용 한쪽은 창조를 상징하는 대비 구도"><figcaption>갈라진 두 길 앞에 선 사람, 한쪽은 수용 한쪽은 창조를 상징하는 대비 구도</figcaption></figure>
+<p>운명을 바꿀 수 없다면, 남은 자유는 그것을 어떻게 대할 것인가에 있다.</p>
+<p>— 다시 살아도 좋다고 말할 수 있는 하루를, 오늘 살아 볼 일이다.</p>
+<div class="tags"><span>#니체</span> <span>#아모르파티</span> <span>#영원회귀</span> <span>#운명애</span> <span>#위버멘쉬</span> <span>#차라투스트라</span> <span>#철학</span> <span>#실존주의</span> <span>#즐거운학문</span> <span>#2026</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
