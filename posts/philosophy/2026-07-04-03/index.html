@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>칸트의 정언명령</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#b07cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#b07cff;border-color:#b07cff">철학/인문</div>
+<h1>칸트의 정언명령</h1>
+<p class="subtitle">너의 행동이 보편 법칙이 되게 하라</p>
+<figure><img src="./images/thumbnail.png" alt="어두운 남색 배경 중앙에 흰 원과 그 안의 물음표, 아래에 &quot;정언명령&quot;이라는 글자가 놓인 정갈한 철학 카드"><figcaption>어두운 남색 배경 중앙에 흰 원과 그 안의 물음표, 아래에 &quot;정언명령&quot;이라는 글자가 놓인 정갈한 철학 카드</figcaption></figure>
+<p>이번 글에서는 칸트의 정언명령을 정리해 보겠습니다.</p>
+<p>&quot;내 행동이 모든 사람의 법칙이 되어도 괜찮은가.&quot; 짧지만 무거운 물음입니다.</p>
+<p>칸트가 남긴 이 한 줄은 지금도 윤리 교과서의 첫머리에 놓입니다.</p>
+<p>이 문장이 왜 근대 윤리학의 중심이 되었는지, 어렵지 않게 함께 살펴보겠습니다.</p>
+<hr>
+<h2>조건이 없는 명령</h2>
+<p>먼저 명령의 두 종류를 나눠 봅니다.</p>
+<p>가언명령은 조건이 붙습니다. &quot;합격하고 싶다면 공부하라.&quot; 목적이 사라지면 명령도 사라집니다.</p>
+<p>정언명령은 다릅니다. 조건 없이 그냥 &quot;~하라&quot;고 말합니다. 결과나 이득에 대한 언급이 모두 지워져 있습니다.</p>
+<p>우리가 무엇을 바라서가 아니라, 이성적 존재이기 때문에 따라야 하는 명령입니다.</p>
+<p>예전에는 도덕을 이득의 문제로 다루기도 했습니다. 지금 칸트가 세우려는 것은 이득과 무관한 법칙입니다.</p>
+<p>칸트는 도덕법칙이 이 정언적 형태여야 한다고 보았습니다. 욕구에 기대는 규칙은 사람마다 흔들리고, 그래서 보편적일 수 없기 때문입니다.</p>
+<figure><img src="./images/body-1.png" alt="가언명령 대 정언명령을 좌우로 대비한 카드"><figcaption>가언명령 대 정언명령을 좌우로 대비한 카드</figcaption></figure>
+<hr>
+<h2>하나의 법칙, 세 개의 얼굴</h2>
+<p>칸트는 정언명령을 세 정식으로 풀어 설명합니다.</p>
+<p>첫째, 보편화 정식입니다. &quot;네 준칙이 보편 법칙이 되게 하라.&quot; 내 행동원칙이 모두에게 적용돼도 모순이 없어야 합니다.</p>
+<p>거짓말을 예로 들어 봅니다. 모두가 편할 때마다 거짓말을 한다면 아무도 말을 믿지 않습니다. 그러면 거짓말이라는 행위 자체가 성립하지 못합니다. 준칙이 스스로 무너지는 셈입니다. 그래서 거짓말은 보편화될 수 없습니다.</p>
+<p>거짓 약속도 마찬가지입니다. 모두가 지킬 뜻 없이 약속한다면 약속이라는 제도 자체가 사라집니다.</p>
+<p>둘째, 인간성 정식입니다. 사람을 결코 한낱 수단으로만 대하지 말라는 것입니다. 인간은 그 자체로 목적입니다. 사기와 착취가 왜 그른지를 이 정식이 설명합니다. 근대 인권과 존엄 개념의 뿌리이기도 합니다.</p>
+<p>셋째, 목적의 왕국 정식입니다. 도덕법칙은 밖에서 강요된 것이 아닙니다. 이성적 존재가 스스로 세운 법입니다. 내가 지키는 규칙의 입법자가 바로 나라는 뜻입니다.</p>
+<p>세 정식은 서로 다른 각도에서 같은 법칙을 비춥니다.</p>
+<figure><img src="./images/body-2.png" alt="보편화·인간성·목적의 왕국 세 정식을 카드 세 장으로 나란히 배치"><figcaption>보편화·인간성·목적의 왕국 세 정식을 카드 세 장으로 나란히 배치</figcaption></figure>
+<hr>
+<h2>결과가 아니라 의무를 본다</h2>
+<p>칸트의 윤리는 흔히 의무론이라 불립니다.</p>
+<p>공리주의는 결과를 봅니다. 최대 다수의 최대 행복이 기준입니다. &quot;어떤 행동이 가장 좋은 결과를 낳는가&quot;를 묻습니다.</p>
+<p>의무론은 행동 자체를 봅니다. &quot;나의 의무는 무엇인가&quot;를 묻습니다. 결과가 좋든 나쁘든 옳은 것은 옳습니다.</p>
+<p>도둑질을 두고도 답이 갈립니다. 공리주의는 사회 전체의 불안을 키우니 나쁘다고 봅니다. 칸트는 재산권을 침해하니 그 자체로 나쁘다고 봅니다.</p>
+<p>그래서 두 입장은 자주 갈립니다.</p>
+<p>다만 한계도 분명합니다. 살인자가 피해자의 위치를 물어도 거짓말을 금한다는 결론은 많은 사람의 직관과 부딪칩니다. 규칙이 결과를 외면할 때 경직된다는 비판입니다.</p>
+<p>칸트를 옹호하는 쪽에서는, 거짓말은 오히려 피해자의 자율성을 지키기 위한 것이라고 답하기도 합니다. 위험에 빠뜨린 사람은 거짓말한 이가 아니라 살인자라는 것입니다.</p>
+<p>준칙을 어떻게 적으냐에 따라 결론이 흔들린다는 지적도 있습니다. 그만큼 정언명령은 완결된 답이라기보다 계속 되묻게 하는 물음에 가깝습니다.</p>
+<figure><img src="./images/body-3.png" alt="의무론 대 결과주의를 좌우로 대비"><figcaption>의무론 대 결과주의를 좌우로 대비</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>정언명령은 내 행동을 나만의 예외로 두지 말라는 요구입니다. 결과가 아니라 이유를 묻고, 사람을 도구가 아니라 목적으로 보라는 태도입니다.</p>
+<p>새치기, 표절, 세금 탈루처럼 &quot;나만 예외로&quot;라는 마음은 보편화하는 순간 무너집니다. 그 점을 확인해 주는 것만으로도 정언명령은 오늘날 쓸모가 있습니다.</p>
+<p>&quot;너의 행동이 보편 법칙이 되게 하라.&quot;</p>
+<p>내 선택이 모두의 규칙이 되어도 부끄럽지 않은가. 오늘 하루, 그 물음 하나를 품어 보시면 좋겠습니다.</p>
+<div class="tags"><span>#칸트</span> <span>#정언명령</span> <span>#윤리학</span> <span>#철학</span> <span>#의무론</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>오픈AI 자체 AI칩에 삼성·SK하이닉스 메모리</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#3fb6a8;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#3fb6a8;border-color:#3fb6a8">산업 뉴스 해설</div>
+<h1>오픈AI 자체 AI칩에 삼성·SK하이닉스 메모리</h1>
+<p class="subtitle">&#x27;탈엔비디아&#x27; 속 메모리 수혜</p>
+<figure><img src="./images/thumbnail.png" alt="오픈AI 로고가 새겨진 사각형 AI칩 둘레에 HBM 메모리 모듈이 둘러싼 도식, 배경에 삼성·SK하이닉스…"><figcaption>오픈AI 로고가 새겨진 사각형 AI칩 둘레에 HBM 메모리 모듈이 둘러싼 도식, 배경에 삼성·SK하이닉스…</figcaption></figure>
+<p>오픈AI가 처음으로 자체 AI칩을 내놓았습니다. 그런데 이 칩의 심장부에 삼성전자와 SK하이닉스의 메모리가 들어갑니다. 오늘은 이 소식이 왜 한국 반도체 업계에 중요한지 차분히 짚어보겠습니다.</p>
+<hr>
+<h2>무슨 일이 있었나 — 오픈AI의 첫 칩 &#x27;할라페뇨&#x27;</h2>
+<p>오픈AI는 2026년 6월 24일(현지시간) 첫 자체 개발 AI칩 <strong>&#x27;할라페뇨(Jalapeño)&#x27;</strong>를 공개했습니다.</p>
+<p>AI 모델의 학습이 아니라 <strong>추론에 특화된 맞춤형 칩(ASIC)</strong>입니다. 이미 학습을 마친 대형 언어모델을 실제로 돌릴 때 쓰는 칩입니다. 반도체 설계기업 <strong>브로드컴과 지난해부터 공동 개발</strong>했고, 대만 TSMC가 3nm급 공정으로 만듭니다. 설계에서 완성까지 약 9개월밖에 걸리지 않은, 이례적으로 빠른 개발이었습니다.</p>
+<p>여기서 눈여겨볼 대목이 있습니다. 호크 탄 브로드컴 최고경영자(CEO)는 이 칩에 <strong>삼성전자와 SK하이닉스가 메모리를 공급한다</strong>고 밝혔습니다. 성능에 대해서는 &quot;엔비디아 블랙웰, 구글 TPU와 대등하다&quot;고 했습니다. 전력당 성능이 특히 우수하다는 초기 평가도 나왔습니다. 칩은 올해 말 데이터센터에 본격 배치될 예정입니다.</p>
+<figure><img src="./images/body-1.png" alt="설계는 오픈AI·브로드컴, 제조는 TSMC, 메모리는 삼성·SK하이닉스로 이어지는 공급망 3단계"><figcaption>설계는 오픈AI·브로드컴, 제조는 TSMC, 메모리는 삼성·SK하이닉스로 이어지는 공급망 3단계</figcaption></figure>
+<hr>
+<h2>왜 중요한가 — &#x27;탈엔비디아&#x27;인데 왜 한국이 웃나</h2>
+<p>빅테크의 <strong>&#x27;탈엔비디아&#x27; 움직임</strong>이 빨라지고 있습니다. 구글·아마존·메타에 이어 오픈AI까지 자체 칩 대열에 섰습니다.</p>
+<p>언뜻 보면 반도체 업계 전반의 악재처럼 들립니다. 하지만 결이 다릅니다. 엔비디아 GPU를 쓰든 커스텀 칩을 쓰든, <strong>고대역폭 메모리(HBM)는 반드시 필요하기 때문입니다.</strong> HBM은 방대한 데이터를 빠르게 주고받는 AI 칩의 필수 부품이고, 이 시장은 삼성과 SK하이닉스, 미국 마이크론 세 곳이 사실상 나눠 갖고 있습니다.</p>
+<p>예전엔 HBM 수요가 엔비디아 GPU에 집중됐습니다. 지금은 오픈AI·구글·아마존의 자체 칩으로 <strong>공급처가 넓어졌습니다.</strong> 삼성과 SK하이닉스 입장에서는 고객이 늘어난 셈입니다.</p>
+<p>수치도 이를 뒷받침합니다. 골드만삭스는 2026년 GPU向 HBM 수요가 약 23% 늘 때, <strong>ASIC向 수요는 약 82% 급증</strong>한다고 봤습니다. 시장조사기관 트렌드포스는 올해 커스텀 칩 출하 성장률(약 44.6%)이 상용 GPU(약 16.1%)를 처음으로 앞선다고 전망했습니다.</p>
+<p>다만 균형 있게 볼 필요가 있습니다. 엔비디아는 여전히 AI 가속기 시장의 약 70~80%를 쥐고 있습니다. 그래서 &#x27;탈엔비디아&#x27;라기보다 &#x27;공급 다변화&#x27;로 읽는 편이 정확합니다. 한국 기업으로서는 어느 쪽이 이기든 메모리를 판다는 점이 핵심입니다.</p>
+<figure><img src="./images/body-2.png" alt="GPU向 HBM 수요 +23%와 ASIC向 HBM 수요 +82%를 나란히 비교하는 대조 막대"><figcaption>GPU向 HBM 수요 +23%와 ASIC向 HBM 수요 +82%를 나란히 비교하는 대조 막대</figcaption></figure>
+<hr>
+<h2>앞으로 전망 — 슈퍼사이클과 남은 변수</h2>
+<p>AI 수요 폭증으로 메모리 부족은 당분간 이어질 전망입니다. 여러 분석은 이 <strong>공급 격차가 2028년까지</strong> 지속될 것으로 봅니다.</p>
+<p>삼성과 SK하이닉스는 증설로 응수하고 있습니다. 삼성은 2026년 생산능력을 약 50% 늘리고, SK하이닉스는 인프라 투자를 4배 이상 확대한다고 밝혔습니다.</p>
+<p>차세대 제품 경쟁도 뜨겁습니다. SK하이닉스는 HBM 출하량 기준 시장 1위(약 62%)를 지키고 있지만, 삼성이 최근 12단 HBM4E 샘플을 업계 처음으로 내놓으며 추격에 나섰습니다. 다음 세대인 HBM4가 본격화되면 두 회사의 경쟁은 한층 치열해질 전망입니다.</p>
+<p>물론 낙관만 할 일은 아닙니다. 실적 전망치(삼성 약 80조 원, SK하이닉스 약 50조 원 관측)는 아직 확정이 아닙니다. 메모리 가격은 본래 오르내림이 큰 품목이고, 미·중 수출 규제나 2028년 신규 팹 가동에 따른 공급 완화도 흐름을 바꿀 수 있는 변수입니다.</p>
+<figure><img src="./images/body-3.png" alt="수요 급증 → 공급 부족(2028년까지) → 증설 경쟁으로 이어지는 흐름 3단계"><figcaption>수요 급증 → 공급 부족(2028년까지) → 증설 경쟁으로 이어지는 흐름 3단계</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다. 오픈AI의 자체 칩은 엔비디아엔 도전이지만, 그 안의 메모리를 대는 한국 기업에는 새로운 문이 열린 사건입니다.</p>
+<p><strong>&quot;칩의 주인이 바뀌어도, 기억은 여전히 한국이 만든다.&quot;</strong></p>
+<p>다음 빅테크가 또 다른 자체 칩을 공개하는 날, 그 안에 어떤 이름이 새겨져 있을지 함께 지켜보시면 어떨까요.</p>
+<div class="tags"><span>#오픈AI</span> <span>#삼성전자</span> <span>#SK하이닉스</span> <span>#HBM</span> <span>#반도체</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

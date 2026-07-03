@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>취업자 절반이 AI로 일한다</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#e0667a;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#e0667a;border-color:#e0667a">정치·사회 뉴스 해설</div>
+<h1>취업자 절반이 AI로 일한다</h1>
+<p class="subtitle">일터의 변화와 노동의 미래</p>
+<figure><img src="./images/thumbnail.png" alt="사무실 책상 앞에서 노트북으로 일하는 직장인 실루엣 위로 절반이 채워진 원형 게이지가 겹쳐진 개념 이미지"><figcaption>사무실 책상 앞에서 노트북으로 일하는 직장인 실루엣 위로 절반이 채워진 원형 게이지가 겹쳐진 개념 이미지</figcaption></figure>
+<p>이번 글에서는 국내 취업자 절반 이상이 이미 생성형 AI를 업무에 쓴다는 조사 결과를 정리해 보겠습니다. 무슨 조사이고, 왜 눈여겨봐야 하며, 일터의 미래는 어디로 향하는지 차분히 짚어보겠습니다. 장밋빛 전망과 우려를 함께 살펴보려 합니다.</p>
+<hr>
+<h2>무슨 일인가 — &#x27;과반&#x27;을 넘긴 활용률</h2>
+<p>한국은행이 내놓은 조사 결과가 눈길을 끕니다. 국내 취업자 가운데 업무에 생성형 AI를 활용하는 비율이 약 51.8%로 집계됐습니다. 전체 사용 경험까지 넓히면 63.5%에 이릅니다.</p>
+<p>과반이라는 숫자도 그렇지만, 확산 속도가 더 인상적입니다. 미국의 업무 활용률(26.5%)과 견주면 약 두 배 수준입니다. 인터넷이 자리 잡던 초기와 비교하면 여덟 배 이상 빠른 속도라는 분석도 나왔습니다.</p>
+<p>이번 수치는 2025년 5~6월 전국 만 15~64세 취업자 5,512명을 조사한 한국은행 이슈노트에 담겼습니다. 중앙은행이 가계조사를 바탕으로 낸 자료라는 점에서 신뢰도가 높습니다. 다만 나라별 조사 시점과 문항이 달라, 국가 간 단순 비교에는 신중할 필요가 있습니다.</p>
+<figure><img src="./images/body-1.png" alt="한국과 미국의 업무용 생성형 AI 활용률을 비교한 표"><figcaption>한국과 미국의 업무용 생성형 AI 활용률을 비교한 표</figcaption></figure>
+<hr>
+<h2>왜 중요한가 — 빨라진 일, 그러나 엇갈린 성과</h2>
+<p>가장 먼저 눈에 띄는 변화는 시간입니다. AI를 쓰는 근로자는 평균 업무시간이 3.8% 줄었습니다. 주 40시간 기준으로 매주 1.5시간가량을 아낀 셈입니다.</p>
+<p>그런데 여기서 흥미로운 지점이 있습니다. 아낀 시간이 곧 성과로 이어지지는 않았습니다. 업무시간 절감과 처리량 증가 사이의 상관관계는 사실상 0에 가까웠습니다. 개인은 일을 빨리 끝냈지만, 조직 전체의 생산성으로는 아직 뚜렷이 연결되지 않은 것입니다.</p>
+<p>일자리를 향한 시선도 엇갈립니다. 한국노동연구원은 노동시장 전반의 충격은 아직 제한적이되, 청년층·정보통신업·사무직에서 변화가 먼저 나타난다고 봤습니다. 데이터 처리나 단순 응대 같은 반복 업무는 대체 압력을 받는 반면, AI를 설계하고 다루는 직무는 사람이 모자랍니다. 실제로 한 조사에서 직장인 절반가량은 &quot;회사가 AI를 들인 뒤 채용이 줄었다&quot;고 느꼈습니다.</p>
+<p><strong>빨라진 일과 흔들리는 일자리가 같은 자리에 놓여 있습니다.</strong></p>
+<figure><img src="./images/body-2.png" alt="기회&#x27;와 &#x27;우려&#x27;를 양측으로 대비시킨 그래픽"><figcaption>기회&#x27;와 &#x27;우려&#x27;를 양측으로 대비시킨 그래픽</figcaption></figure>
+<hr>
+<h2>앞으로 전망 — 관건은 &#x27;다시 배우는 힘&#x27;</h2>
+<p>정부도 움직이고 있습니다. 고용노동부는 향후 5년간 100만 명 이상에게 AI 직업능력개발을 지원하겠다고 밝혔습니다. 청년 구직자를 위한 훈련 과정을 늘리고, 중소기업 재직자를 위한 AI 훈련확산센터도 새로 지정합니다.</p>
+<p>교육 현장의 변화도 이어집니다. 교육부는 재직자를 위한 인공지능·디지털 집중과정 운영 대학을 30곳에서 38곳으로 넓혔습니다. 전문대학은 지역 AI 교육의 거점으로 키우기로 했습니다.</p>
+<p>방향은 분명해 보입니다. 예전엔 하나의 일자리를 오래 지키는 것이 안정이었습니다. 지금은 바뀌는 직무에 맞춰 계속 다시 배우는 능력, 곧 &#x27;고용 가능성&#x27;을 지키는 쪽으로 무게추가 옮겨가고 있습니다. 물론 이런 재교육이 모든 이에게 고르게 닿을지는 아직 지켜봐야 할 과제입니다.</p>
+<figure><img src="./images/body-3.png" alt="AI 확산에 대응하는 재교육 단계를 순서로 보여주는 그래픽"><figcaption>AI 확산에 대응하는 재교육 단계를 순서로 보여주는 그래픽</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다. 취업자 절반이 AI로 일하는 시대는 이미 도착했고, 남은 질문은 그 변화를 누가 어떻게 감당하느냐입니다.</p>
+<p>&quot;기술의 속도보다 중요한 것은, 사람이 다시 배울 시간입니다.&quot;</p>
+<p>AI가 일을 대신하는 세상에서 우리에게 필요한 것이 무엇이냐고 물으신다면, 저는 망설임 없이 &#x27;다시 배우는 힘&#x27;이라고 답하겠습니다.</p>
+<p>참고 출처: 한국은행, MBC, 아시아투데이, 한국노동연구원, 파이낸셜뉴스, 고용노동부, 교육부</p>
+<div class="tags"><span>#생성형AI</span> <span>#일자리</span> <span>#노동</span> <span>#직무전환</span> <span>#사회뉴스</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

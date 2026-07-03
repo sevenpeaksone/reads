@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>잠의 과학</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#ff7c7c;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#ff7c7c;border-color:#ff7c7c">바이오</div>
+<h1>잠의 과학</h1>
+<p class="subtitle">오늘 밤을 바꾸는 수면 단계와 수면위생</p>
+<figure><img src="./images/thumbnail.png" alt="밤하늘 아래 침대와 완만한 곡선의 수면 주기 그래프, 차분한 남색 톤"><figcaption>밤하늘 아래 침대와 완만한 곡선의 수면 주기 그래프, 차분한 남색 톤</figcaption></figure>
+<p>이번 글에서는 잠이 어떤 단계를 거쳐 진행되는지, 그리고 더 나은 잠을 위한 습관을 정리해 보겠습니다. 매일 반복하는 일이지만 그 안에서 무슨 일이 벌어지는지는 의외로 덜 알려져 있습니다. 잠의 구조를 알고 나면 밤을 조금 다르게 대하게 됩니다. 오늘은 그 과정을 하나씩 살펴보려 합니다.</p>
+<hr>
+<h2>잠은 네 단계를 거칩니다</h2>
+<p>수면은 크게 비렘수면 세 단계와 렘수면으로 나뉩니다.</p>
+<p><strong>N1</strong>은 막 잠든 얕은 단계입니다. 보통 1분에서 7분 사이로 짧습니다.</p>
+<p><strong>N2</strong>는 몸이 더 깊이 이완되는 구간입니다. 체온이 내려가고 호흡이 느려지며, 전체 수면의 약 45%를 차지합니다.</p>
+<p><strong>N3</strong>은 가장 깊은 잠입니다. 몸의 회복과 성장이 이때 이루어집니다.</p>
+<p><strong>렘수면</strong>은 대부분의 꿈이 일어나는 단계로, 기억을 정리하는 데 관여합니다.</p>
+<p>이 네 단계가 한 묶음이 되어 약 90분짜리 주기를 이룹니다. 하룻밤에 이 주기를 네다섯 번 반복하는 셈입니다. 잠든 뒤 대략 90분이 지나야 첫 렘수면에 들어갑니다. 그래서 잠이 얕게 느껴지는 새벽은 게으름이 아니라, 렘수면이 몰려 있는 자연스러운 구간인 경우가 많습니다.</p>
+<p>깊은 잠은 초저녁에, 꿈이 많은 렘수면은 새벽으로 갈수록 늘어납니다. 그러니 잠자리에 드는 시각이 뒤로 밀리면, 몸이 가장 회복되는 깊은 잠부터 깎여 나가기 쉽습니다. 자는 시간의 길이만큼이나 언제 눕느냐도 중요한 이유입니다.</p>
+<figure><img src="./images/body-1.png" alt="수면 단계 표"><figcaption>수면 단계 표</figcaption></figure>
+<hr>
+<h2>몸속 시계가 잠을 부릅니다</h2>
+<p>우리 몸에는 24시간을 주기로 도는 생체시계가 있습니다. 이것을 서카디안 리듬이라 부릅니다.</p>
+<p>이 리듬을 조율하는 가장 강한 신호는 빛입니다. 눈이 빛을 감지하면 뇌의 시교차상핵에 그 정보가 전해집니다. 이곳이 일종의 중앙 시계 노릇을 하며 몸 곳곳에 낮과 밤을 알립니다. 해가 지면 멜라토닌이라는 호르몬이 분비되기 시작해 졸음을 부르고, 일몰 후 약 일곱 시간 무렵 정점에 이릅니다.</p>
+<p>문제는 밤의 빛입니다. 특히 화면에서 나오는 블루라이트는 멜라토닌 분비를 억제합니다. 예전엔 잠자리에서 책장을 넘겼다면, 지금은 많은 분이 화면을 들여다봅니다. 그 작은 빛이 몸속 시계를 뒤로 미룹니다.</p>
+<p>반대로 아침의 밝은 빛은 흐트러진 리듬을 제자리로 돌려놓는 데 도움이 됩니다. 잠에서 깬 뒤 커튼을 열고 잠깐 바깥 빛을 쬐는 일이, 실은 그날 밤의 잠을 준비하는 첫걸음인 셈입니다.</p>
+<figure><img src="./images/body-2.png" alt="빛과 멜라토닌의 관계를 낮/밤 대비로 보여주는 그림"><figcaption>빛과 멜라토닌의 관계를 낮/밤 대비로 보여주는 그림</figcaption></figure>
+<hr>
+<h2>잠을 지키는 여섯 가지 습관</h2>
+<p>성인은 하루 7시간 이상 자기를 권합니다. 그런데 미국 성인의 30.5%는 그에 못 미친다고 합니다. 적지 않은 사람이 만성적인 수면 부족 속에 살아가는 셈입니다.</p>
+<p>잠이 부족하면 그 여파는 하루의 피곤함에서 끝나지 않습니다. 정상적으로 잘 때는 혈압이 내려가며 심장이 쉬는데, 잠이 모자라면 그 회복이 방해받습니다. 실제로 짧은 수면은 심장병과 뇌졸중 위험을 높이는 것으로 보고됩니다. 여기에 당뇨 위험 증가, 면역력 저하, 기억력 손상까지 겹칩니다. 잠은 미뤄둔 만큼 조용히 청구서가 쌓이는 일입니다.</p>
+<p>거창한 처방이 필요한 것은 아닙니다. 매일 같은 시각에 자고 일어나기, 취침 다섯 시간 전부터 카페인 피하기, 잠들기 한 시간 전 화면 끄기. 이 몇 가지만으로도 잠의 질은 달라집니다. 낮에 밝은 빛을 쬐고 가볍게 걷는 것도 밤잠을 돕습니다. 10분 남짓 걷는 것으로도 도움이 된다고 하니, 부담을 크게 가질 일은 아닙니다.</p>
+<p>주말에 몰아서 자는 것으로 부족한 잠을 완전히 되돌리기는 어렵습니다. 그보다는 자고 일어나는 시각을 주중과 크게 벌리지 않는 편이 리듬을 지키는 데 낫습니다. 잠들기 전 한 시간을 조명을 낮추고 조용히 보내는 것도 몸에 곧 밤이 온다는 신호가 됩니다.</p>
+<p>다만 습관이 하루아침에 몸에 배지는 않습니다. 며칠 시도하고 효과가 없다며 접기 쉽습니다. 저는 한 가지씩 천천히 붙여가시길 권합니다.</p>
+<figure><img src="./images/body-3.png" alt="수면위생 수칙 카드"><figcaption>수면위생 수칙 카드</figcaption></figure>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다. 잠은 하루의 끝이 아니라, 다음 하루를 준비하는 시간입니다. 완벽한 수면을 하루 만에 만들기는 어렵습니다. 다만 작은 습관 하나가 쌓이면 몸은 정직하게 답합니다.</p>
+<p>&quot;잘 자는 것도 하나의 기술입니다.&quot;</p>
+<p>오늘 밤, 화면을 조금 일찍 내려놓아 보시면 어떨까요.</p>
+<div class="tags"><span>#수면</span> <span>#수면위생</span> <span>#건강</span> <span>#잠</span> <span>#생체리듬</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
