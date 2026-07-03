@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>장 속 우주, 마이크로바이옴</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#ff7c7c;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#ff7c7c;border-color:#ff7c7c">바이오</div>
+<h1>장 속 우주, 마이크로바이옴</h1>
+<p class="subtitle">장과 뇌를 잇는 미생물의 건강 이야기</p>
+<figure><img src="./images/thumbnail.png" alt="사람의 장 실루엣 안에 무수한 미생물이 별처럼 빛나고, 장에서 뇌로 이어지는 가느다란 신호선이 그려진 일…"><figcaption>사람의 장 실루엣 안에 무수한 미생물이 별처럼 빛나고, 장에서 뇌로 이어지는 가느다란 신호선이 그려진 일…</figcaption></figure>
+<p>우리 장 속에는 수십조 마리의 미생물이 살고 있습니다. 이 미생물 생태계를 <strong>마이크로바이옴</strong>이라 부릅니다. 최근 연구는 이들이 소화뿐 아니라 면역과 기분에까지 관여한다고 말합니다.</p>
+<h2>마이크로바이옴이란 무엇인가</h2>
+<p>마이크로바이옴은 장에 사는 세균과 그 유전자 전체를 뜻합니다. 사람마다 구성이 다르고, 지문처럼 고유합니다. 예전엔 장내 세균을 단순히 &#x27;소화를 돕는 존재&#x27; 정도로 여겼습니다. 지금은 대사, 면역 조절, 뇌 기능까지 폭넓게 관여하는 하나의 <strong>기관</strong>에 가깝게 봅니다.</p>
+<p>핵심은 <strong>다양성</strong>입니다. 여러 종류의 유익균이 균형 있게 살수록 장 환경이 안정적이라고 알려져 있습니다. 다만 &#x27;이상적인 구성&#x27;이 하나로 정해진 것은 아닙니다. 사람마다 다르기에, 아직 연구가 진행 중인 영역이 많습니다.</p>
+<figure><img src="./images/body-1.png" alt="다양한 색깔의 미생물이 균형 있게 어우러진 원형 생태계 다이어그램"><figcaption>다양한 색깔의 미생물이 균형 있게 어우러진 원형 생태계 다이어그램</figcaption></figure>
+<hr>
+<h2>장-뇌 축, 장이 뇌에 말을 건다</h2>
+<p>장과 뇌는 서로 신호를 주고받습니다. 이 양방향 통로를 <strong>장-뇌 축(Gut-Brain Axis)</strong>이라 부릅니다. 신경, 호르몬, 면역이라는 세 갈래 길로 연결됩니다.</p>
+<p>장내 미생물은 세로토닌 같은 신경전달물질의 재료에 관여하고, 스트레스 호르몬 리듬에도 영향을 준다고 보고됩니다. 2025년 한 연구에서는 장의 면역세포가 뇌로 이동해 행동에 영향을 줄 가능성까지 제시됐습니다. 흥미로운 결과이지만, 대부분 초기 단계이거나 동물 실험 기반입니다.</p>
+<p>특정 균주가 불안·우울 증상을 <strong>완화</strong>했다는 임상 결과도 있습니다. 이런 균을 &#x27;사이코바이오틱스&#x27;라 부릅니다. 다만 연구마다 방법과 균주가 제각각이라, 아직 일반화하기엔 근거가 충분치 않습니다.</p>
+<figure><img src="./images/body-2.png" alt="장과 뇌가 신경·호르몬·면역 세 개의 선으로 연결된 대비 구조도"><figcaption>장과 뇌가 신경·호르몬·면역 세 개의 선으로 연결된 대비 구조도</figcaption></figure>
+<hr>
+<h2>프로바이오틱스·프리바이오틱스·포스트바이오틱스</h2>
+<p>이름이 비슷해 헷갈리기 쉽습니다. 셋의 역할은 분명히 다릅니다. <strong>프로바이오틱스</strong>는 몸에 이로운 살아 있는 균 자체입니다. <strong>프리바이오틱스</strong>는 그 유익균의 먹이가 되는 성분으로, 이눌린이나 프락토올리고당 같은 <strong>식이섬유</strong>가 대표적입니다.</p>
+<p><strong>포스트바이오틱스</strong>는 미생물이 만들어 내는 유익한 산물입니다. 대표 주자가 식이섬유 발효로 생기는 <strong>단쇄지방산</strong>, 특히 부티르산입니다. 장 점막을 튼튼히 하고 염증을 줄이는 데 기여한다고 알려져 있습니다.</p>
+<p>결국 가장 실천하기 쉬운 출발점은 식탁입니다. 채소, 통곡물, 콩 같은 식이섬유를 꾸준히 먹으면 유익균이 자랄 토양이 됩니다. 값비싼 보충제보다 다양한 식단이 먼저입니다.</p>
+<figure><img src="./images/body-3.png" alt="프로바이오틱스·프리바이오틱스·포스트바이오틱스 세 가지를 카드로 나눈 비교 그래픽"><figcaption>프로바이오틱스·프리바이오틱스·포스트바이오틱스 세 가지를 카드로 나눈 비교 그래픽</figcaption></figure>
+<hr>
+<p>장은 조용히, 그러나 끊임없이 우리 몸 전체와 대화하고 있습니다. 아직 밝혀지지 않은 것이 많지만, 다양한 식이섬유가 담긴 식탁은 지금 당장 시작할 수 있는 가장 확실한 한 걸음입니다.</p>
+<p>※ 이 글은 일반적인 건강 정보이며, 의학적 진단이나 치료를 대신하지 않습니다. 증상이 있다면 전문가와 상담하시기 바랍니다.</p>
+<div class="tags"><span>#마이크로바이옴</span> <span>#장건강</span> <span>#장뇌축</span> <span>#프로바이오틱스</span> <span>#식이섬유</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>완벽주의에서 벗어나기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#f0a532;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#f0a532;border-color:#f0a532">상담</div>
+<h1>완벽주의에서 벗어나기</h1>
+<p class="subtitle">&#x27;충분히 좋은 나&#x27;를 받아들이는 연습</p>
+<figure><img src="./images/thumbnail.png" alt="완벽하지 않아도 괜찮다는 따뜻한 메시지의 표지 이미지"><figcaption>완벽하지 않아도 괜찮다는 따뜻한 메시지의 표지 이미지</figcaption></figure>
+<p>더 잘하고 싶은 마음은 잘못이 아닙니다. 다만 그 마음이 나를 몰아세우기 시작하면 이야기가 달라집니다. 오늘은 완벽주의를 조금 내려놓고 &#x27;충분히 좋은 나&#x27;를 받아들이는 연습을 함께 살펴보겠습니다.</p>
+<h2>완벽주의에도 두 얼굴이 있습니다</h2>
+<p>완벽주의라고 다 같은 완벽주의는 아닙니다. 심리학에서는 크게 두 가지로 나눕니다. 하나는 <strong>적응적 완벽주의</strong>입니다. 높은 기준을 세우되, 결과가 기대에 못 미쳐도 자신을 크게 깎아내리지 않습니다. 기준은 동기가 되고, 성취는 만족으로 돌아옵니다.</p>
+<p>다른 하나는 <strong>부적응적 완벽주의</strong>입니다. 기준은 높은데, 그 기준을 못 채운 자신을 용서하지 못합니다. &quot;이 정도로는 부족해&quot;라는 목소리가 늘 따라다닙니다. 문제는 기준의 높이가 아니라, 못 미쳤을 때 자신을 대하는 태도에 있습니다.</p>
+<p>같은 노력을 해도 마음의 결과는 전혀 다릅니다. 한쪽은 뿌듯함으로, 다른 한쪽은 자책으로 남습니다.</p>
+<figure><img src="./images/body-1.png" alt="적응적 완벽주의와 부적응적 완벽주의를 좌우로 대비한 이미지"><figcaption>적응적 완벽주의와 부적응적 완벽주의를 좌우로 대비한 이미지</figcaption></figure>
+<hr>
+<h2>완벽주의는 어떻게 나를 지치게 하는가</h2>
+<p>부적응적 완벽주의는 조용히, 그러나 집요하게 우리를 괴롭힙니다. 첫째, <strong>자기비판</strong>입니다. 작은 실수 하나에도 &quot;역시 난 안 돼&quot;라며 전체를 부정합니다. 둘째, 뜻밖에도 <strong>미루기</strong>입니다. 완벽하게 해내야 한다는 부담이 크면, 아예 시작을 못 하게 됩니다. 실패가 두려워 회피하는 것입니다.</p>
+<p>셋째, <strong>번아웃</strong>입니다. 100점이 아니면 의미가 없다고 여기면, 쉬는 순간조차 죄책감이 됩니다. 몸과 마음의 연료는 결국 바닥납니다.</p>
+<p>예전엔 높은 기준이 나를 끌어올린다고 믿었습니다. 지금은 압니다. 나를 끌어올리는 건 기준이 아니라, 넘어져도 다시 서는 회복력이라는 것을요.</p>
+<figure><img src="./images/body-2.png" alt="자기비판·미루기·번아웃 세 가지 신호를 카드로 정리한 이미지"><figcaption>자기비판·미루기·번아웃 세 가지 신호를 카드로 정리한 이미지</figcaption></figure>
+<hr>
+<h2>인지행동적으로, 그리고 자기연민으로</h2>
+<p>방법이 없는 건 아닙니다. 우선 <strong>인지행동적 접근</strong>이 있습니다. &quot;완벽하지 않으면 실패&quot;라는 흑백논리를 알아차리고, &quot;충분히 잘했다&quot;는 회색지대를 인정하는 연습입니다. 기준을 &#x27;완벽&#x27;이 아니라 &#x27;충분히 좋음&#x27;으로 다시 세워봅니다.</p>
+<p>여기에 <strong>자기연민</strong>을 더합니다. 실수한 나에게, 소중한 친구를 대하듯 말을 건네는 것입니다. &quot;그럴 수 있어, 누구나 그래.&quot; 자기비판이 채찍이라면, 자기연민은 다시 걸을 힘을 주는 손입니다.</p>
+<p>물론 하루아침에 바뀌지는 않습니다. 오래된 습관은 천천히 무뎌집니다. 그래도 방향만 잡으면 됩니다.</p>
+<figure><img src="./images/body-3.png" alt="완벽주의를 완화하는 실천 단계를 순서대로 보여주는 이미지"><figcaption>완벽주의를 완화하는 실천 단계를 순서대로 보여주는 이미지</figcaption></figure>
+<hr>
+<p>완벽하지 않아도, 당신은 이미 충분히 좋은 사람입니다. 완벽을 향한 질주를 잠시 멈추고, 오늘의 나에게 조금 더 다정해지는 것부터 시작해보세요. 다만 자기비판과 무기력이 오래 지속되어 일상이 힘들다면, 혼자 견디지 마시고 전문 상담가·정신건강 전문가의 도움을 받으시길 권합니다.</p>
+<div class="tags"><span>#완벽주의</span> <span>#자기연민</span> <span>#자기비판</span> <span>#번아웃</span> <span>#심리상담</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

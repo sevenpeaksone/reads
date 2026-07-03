@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 모델이 &#x27;수출 통제&#x27; 대상이 됐다</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#3fb6a8;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#3fb6a8;border-color:#3fb6a8">산업 뉴스 해설</div>
+<h1>AI 모델이 &#x27;수출 통제&#x27; 대상이 됐다</h1>
+<p class="subtitle">프런티어 모델, 국가 안보 자산으로</p>
+<figure><img src="./images/thumbnail.png" alt="자물쇠가 채워진 AI 신경망 칩과 성조기가 겹쳐진 상징 이미지"><figcaption>자물쇠가 채워진 AI 신경망 칩과 성조기가 겹쳐진 상징 이미지</figcaption></figure>
+<p>첨단 인공지능(AI) 모델이 반도체 장비나 무기처럼 &#x27;수출 통제&#x27;의 대상이 되는 시대가 열렸습니다. 미국 상무부는 지난 6월 30일 앤트로픽의 최신 모델 &#x27;클로드 페이블 5&#x27;와 &#x27;미토스 5&#x27;에 걸었던 수출 통제를 해제했고, 서비스는 7월 1일 복원됐습니다. 불과 2주 반 만의 반전입니다. 프런티어 AI가 이제 국가가 관리하는 전략 기술로 다뤄지기 시작했다는 신호입니다.</p>
+<h2>무슨 일이 있었나 — 2주 만의 &#x27;통제 후 해제&#x27;</h2>
+<p>발단은 안전성 문제였습니다. 아마존 연구진이 페이블 5에서 안전장치를 우회하는 이른바 &#x27;탈옥(jailbreak)&#x27; 프롬프트를 발견했습니다. 이에 상무부는 6월 12일, 미국 시민이 아닌 모든 사용자에 대해 두 모델의 접근을 차단하라는 명령을 내렸습니다. 앤트로픽의 비(非)시민 직원까지 포함된 강도 높은 조치였습니다. 이후 상무부는 약 2주간 앤트로픽과 함께 모델을 검토했고, 6월 30일 통제를 풀었습니다. 하워드 러트닉 상무장관이 직접 해제 서한에 서명했습니다. 앤트로픽은 &quot;상무부가 페이블 5와 미토스 5의 수출 통제를 해제했다&quot;며 &quot;클로드닷컴, 클로드 플랫폼, 클로드 코드 등에서 접근을 순차 복원한다&quot;고 밝혔습니다. 대신 회사는 자체 보안 취약점 탐색, 향후 출시 시 정부와의 조율, 악용 사례 보고에 합의했습니다.</p>
+<figure><img src="./images/body-1.png" alt="6월 12일 통제 → 6월 30일 해제 → 7월 1일 복원으로 이어지는 3단계 타임라인"><figcaption>6월 12일 통제 → 6월 30일 해제 → 7월 1일 복원으로 이어지는 3단계 타임라인</figcaption></figure>
+<hr>
+<h2>왜 중요한가 — 프런티어 모델이 &#x27;규제 기술&#x27;이 됐다</h2>
+<p>이번 사건은 단발성 해프닝이 아닙니다. 뿌리에는 트럼프 행정부가 6월 2일 서명한 행정명령 &#x27;첨단 AI 혁신·안보 촉진&#x27;이 있습니다. 이 명령은 개발사가 신모델 공개 전 최대 30일간 정부에 우선 접근권을 자발적으로 제공하는 절차를 담았습니다. 같은 흐름이 오픈AI에서도 나타났습니다. 오픈AI는 6월 말 신모델 &#x27;GPT-5.6 솔·테라·루나&#x27;를 공개하면서, 국가 안보를 이유로 든 행정부 요청에 따라 플래그십 &#x27;솔&#x27;을 정부 승인 파트너 약 20곳에만 우선 제공했습니다. 국가사이버국장실과 과학기술정책실의 우려가 배경으로 지목됐습니다. 2주 사이 두 건의 프런티어 모델 출시가 모두 정부 조치의 영향을 받은 셈입니다. 국제프라이버시전문가협회(IAPP)는 이를 두고 &quot;정부 명령이 두 프런티어 AI 모델의 상업적 서비스를 중단시킨 사건&quot;이라고 평가했습니다. AI 모델의 성능이 사이버 공격 등 실제 위협으로 연결될 수 있다는 인식이, 규제 지형을 바꾼 것입니다.</p>
+<figure><img src="./images/body-2.png" alt="앤트로픽 사례와 오픈AI 사례를 나란히 비교하는 대조 구도"><figcaption>앤트로픽 사례와 오픈AI 사례를 나란히 비교하는 대조 구도</figcaption></figure>
+<hr>
+<h2>앞으로 어떻게 되나 — &#x27;신뢰할 수 있는 파트너&#x27; 체제</h2>
+<p>행정부는 프런티어 모델을 국가 안보 자산으로 관리하되, 성장의 발목은 잡지 않으려는 절충을 택했습니다. 러트닉 장관은 G7 정상회의에서 &#x27;신뢰할 수 있는 파트너&#x27;에게 최신 모델의 우선 접근권을 주는 구상을 제시했습니다. 다만 행정명령은 의무적 정부 허가나 사전 심사 제도를 만드는 것은 아니라고 명시했습니다. 강제 라이선스가 아닌 &#x27;자발적 조율&#x27;이 핵심 설계입니다. 샘 올트먼 오픈AI 최고경영자(CEO)는 GPT-5.6의 제한적 공개를 &quot;단기 조치&quot;로 규정하고, 향후 몇 주 내 전면 공개를 기대한다고 밝혔습니다. 관건은 &#x27;사이버 행정명령&#x27; 프레임워크가 얼마나 명확한 규칙을 세우느냐입니다. 규칙이 예측 가능하면 기업은 이를 출시 일정에 반영할 수 있지만, 재량적 판단이 반복되면 미국 밖 사용자와 글로벌 서비스의 불확실성은 커질 수밖에 없습니다.</p>
+<figure><img src="./images/body-3.png" alt="조기 접근·조율·보고로 이어지는 신뢰 파트너 체제 3단계"><figcaption>조기 접근·조율·보고로 이어지는 신뢰 파트너 체제 3단계</figcaption></figure>
+<hr>
+<p>AI의 경쟁력이 이제는 기술력만이 아니라, 정부와의 조율 능력에도 달리게 됐습니다. 모델을 만드는 힘과 그것을 &#x27;언제, 누구에게&#x27; 열지 결정하는 힘이 분리되기 시작한 것입니다. 다음 프런티어 모델이 공개되는 날, 우리가 함께 확인해야 할 것은 벤치마크 점수만이 아닐지도 모릅니다.</p>
+<p>참고 출처: CNBC, Al Jazeera, Forbes, Fox Business, TechSpot, CBC, The White House, IAPP</p>
+<div class="tags"><span>#프런티어AI</span> <span>#AI규제</span> <span>#수출통제</span> <span>#앤트로픽</span> <span>#오픈AI</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

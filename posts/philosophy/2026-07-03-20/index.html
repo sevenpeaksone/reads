@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>스토아 철학</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#b07cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#b07cff;border-color:#b07cff">철학/인문</div>
+<h1>스토아 철학</h1>
+<p class="subtitle">통제할 수 있는 것과 없는 것, 평정심의 지혜</p>
+<figure><img src="./images/thumbnail.png" alt="폭풍우 속에서도 흔들리지 않는 고요한 등대, 절제된 청회색 톤의 상징적 이미지"><figcaption>폭풍우 속에서도 흔들리지 않는 고요한 등대, 절제된 청회색 톤의 상징적 이미지</figcaption></figure>
+<p>우리는 하루에도 수십 번 흔들립니다. 날씨, 타인의 말, 예상치 못한 사고. 대부분 내 힘으로 어쩔 수 없는 것들입니다. 그런데도 우리는 그것들에 마음을 다 내어줍니다. 스토아 철학은 바로 이 지점을 파고듭니다.</p>
+<h2>통제의 이분법 — 무엇이 내 몫인가</h2>
+<p>스토아 철학의 핵심은 단순합니다. 세상을 <strong>내가 통제할 수 있는 것</strong>과 <strong>없는 것</strong>으로 나누는 일입니다. 노예 출신 철학자 에픽테토스는 이렇게 정리했습니다. 나의 판단, 욕구, 태도는 내 몫입니다. 반면 몸, 재산, 평판, 타인의 행동은 내 몫이 아닙니다.</p>
+<p>문제는 우리가 이 둘을 자주 뒤섞는다는 데 있습니다. 남의 인정을 내가 통제할 수 있다고 착각하면, 인정받지 못하는 순간 무너집니다. 반대로 통제 불가능한 것을 내려놓으면 마음은 한결 가벼워집니다. 에픽테토스는 &quot;우리를 괴롭히는 것은 사건이 아니라 그 사건에 대한 우리의 판단&quot;이라고 말했습니다.</p>
+<p>이분법은 체념이 아닙니다. 오히려 내 힘을 낭비하지 않고 정확히 쓰기 위한 지도입니다. 바꿀 수 없는 것에 쏟던 에너지를, 바꿀 수 있는 나의 태도로 되돌리는 일입니다.</p>
+<figure><img src="./images/body-1.png" alt="통제 가능/불가능 이분법 대비표"><figcaption>통제 가능/불가능 이분법 대비표</figcaption></figure>
+<hr>
+<h2>세 명의 스승 — 노예, 황제, 그리고 정치가</h2>
+<p>스토아 철학이 흥미로운 이유는 그 실천자들의 신분이 극과 극이었다는 데 있습니다. 에픽테토스는 노예였습니다. 마르쿠스 아우렐리우스는 로마 황제였습니다. 세네카는 부유한 정치가이자 극작가였습니다.</p>
+<p>가장 낮은 자리와 가장 높은 자리, 그 사이 어디쯤에서도 같은 결론에 도달했다는 점이 이 철학의 힘을 보여줍니다. 황제 마르쿠스 아우렐리우스는 전쟁터의 막사에서 자기 자신에게 편지를 썼습니다. 훗날 『명상록』으로 불리는 글입니다. 권력의 정점에 있으면서도 그는 매일 자신의 유한함과 통제의 한계를 되새겼습니다.</p>
+<p>세네카는 시간과 죽음에 대해 깊이 사유했습니다. 스토아 철학자들이 추구한 상태는 <strong>아파테이아</strong>, 즉 감정에 휘둘리지 않는 평정심입니다. 다만 오해는 금물입니다. 감정을 없애자는 게 아니라, 파괴적인 격정에 지배당하지 않겠다는 뜻입니다.</p>
+<figure><img src="./images/body-2.png" alt="세 스토아 철학자 카드"><figcaption>세 스토아 철학자 카드</figcaption></figure>
+<hr>
+<h2>아모르파티와의 차이, 그리고 현대 심리학</h2>
+<p>스토아의 태도는 종종 니체의 <strong>아모르파티</strong>와 비교됩니다. 아모르파티가 &quot;운명을 열렬히 사랑하라&quot;는 능동적 긍정이라면, 스토아는 &quot;운명을 담담히 받아들이고 내 태도를 다스리라&quot;에 가깝습니다. 예전엔 이 둘을 같은 말로 뭉뚱그렸다면, 지금은 온도 차가 분명하다고 봅니다. 하나는 뜨겁고, 하나는 서늘합니다.</p>
+<p>놀라운 점은 이 오래된 지혜가 현대 심리학과 맞닿는다는 것입니다. 인지행동치료(CBT)의 뿌리에는 에픽테토스의 통찰이 있습니다. 사건 자체가 아니라 사건에 대한 <strong>해석</strong>이 감정을 만든다는 원리입니다. 통제할 수 없는 것을 붙잡지 않는 연습은 오늘날 불안 관리의 기본기이기도 합니다.</p>
+<p>물론 한계도 인정해야 합니다. 모든 감정을 이성으로 다스리기는 어렵고, 지나친 초연함은 자칫 무관심으로 흐를 수 있습니다. 스토아는 만능 해법이 아니라, 흔들리는 마음에 놓는 하나의 닻입니다.</p>
+<figure><img src="./images/body-3.png" alt="평정심 실천 3단계"><figcaption>평정심 실천 3단계</figcaption></figure>
+<hr>
+<p>바꿀 수 없는 것 앞에서 우리는 종종 무력합니다. 하지만 그 앞에서 어떤 태도를 취할지는 언제나 내 몫으로 남습니다. 통제할 수 없는 것은 놓고, 통제할 수 있는 나를 다스리는 것. 그것이 평정심의 시작입니다. 오늘 나를 흔든 것 중, 정말 내 몫이었던 건 얼마나 될까요.</p>
+<div class="tags"><span>#스토아철학</span> <span>#평정심</span> <span>#에픽테토스</span> <span>#마르쿠스아우렐리우스</span> <span>#통제의이분법</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

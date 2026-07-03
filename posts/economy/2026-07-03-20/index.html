@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>복리와 시간의 힘</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2bb673;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#2bb673;border-color:#2bb673">경제</div>
+<h1>복리와 시간의 힘</h1>
+<p class="subtitle">72의 법칙과 장기 분산투자의 기초</p>
+<figure><img src="./images/thumbnail.png" alt="작은 눈덩이가 언덕을 굴러 내려오며 점점 커지는 모습"><figcaption>작은 눈덩이가 언덕을 굴러 내려오며 점점 커지는 모습</figcaption></figure>
+<p>돈이 돈을 버는 구조를 우리는 복리라고 부릅니다. 말은 익숙하지만, 그 힘을 몸으로 느끼는 사람은 많지 않습니다. 이 글은 투자 권유가 아니라 개념 정리를 위한 것입니다. 숫자 몇 개로 복리의 원리를 차근히 풀어보겠습니다.</p>
+<h2>복리는 왜 눈덩이처럼 불어나는가</h2>
+<p>단리는 원금에만 이자가 붙습니다. 복리는 이자에 다시 이자가 붙습니다. 이 작은 차이가 시간이 길어질수록 벌어집니다.</p>
+<p>예를 들어 연 7% 수익을 가정해 봅시다. 첫해에 붙은 이자는 다음 해 원금의 일부가 됩니다. 그 위에 또 이자가 쌓입니다. 처음 몇 년은 지루할 만큼 느립니다. 그러나 후반부로 갈수록 곡선이 가팔라집니다.</p>
+<p><strong>핵심은 곱하기가 반복된다는 점</strong>입니다. 더하기가 아니라 곱하기이기 때문에, 시간이 지날수록 증가폭 자체가 커집니다. 예전엔 이자를 &#x27;조금 더 받는 것&#x27; 정도로 여겼다면, 지금은 시간을 태워 원금을 배로 키우는 엔진으로 보는 편이 맞습니다.</p>
+<p>다만 복리는 마법이 아닙니다. 충분한 시간과 꾸준함이 없으면 그 곡선의 가파른 구간에 도달하지 못합니다.</p>
+<figure><img src="./images/body-1.png" alt="단리 직선과 복리 곡선을 나란히 비교"><figcaption>단리 직선과 복리 곡선을 나란히 비교</figcaption></figure>
+<hr>
+<h2>72의 법칙 — 암산으로 두 배 걸리는 시간 계산하기</h2>
+<p>복리의 속도를 가늠하는 간단한 도구가 있습니다. <strong>72의 법칙</strong>입니다.</p>
+<p>방법은 단순합니다. 72를 연 수익률(%)로 나누면, 원금이 두 배가 되는 데 걸리는 대략의 연수가 나옵니다. 수익률 6%라면 72 ÷ 6 = 12년. 수익률 8%라면 72 ÷ 8 = 9년입니다.</p>
+<p>72라는 숫자를 쓰는 이유는 2, 3, 4, 6, 8, 9로 잘 나뉘어 암산이 편하기 때문입니다. 정확한 값은 로그를 써야 나오지만, 연 4~12% 구간에서는 이 어림셈이 꽤 잘 맞습니다. 수익률이 너무 낮거나 높으면 오차가 커진다는 한계는 있습니다.</p>
+<p>이 법칙의 진짜 쓸모는 <strong>시간 감각</strong>에 있습니다. 몇 퍼센트냐보다, 두 배까지 몇 년이냐를 그려보게 해 주기 때문입니다.</p>
+<figure><img src="./images/body-2.png" alt="수익률별 원금이 두 배 되는 시간을 보여주는 표"><figcaption>수익률별 원금이 두 배 되는 시간을 보여주는 표</figcaption></figure>
+<hr>
+<h2>시간을 내 편으로 — 적립식과 분산투자</h2>
+<p>복리의 연료가 시간이라면, 개인이 통제할 수 있는 부분은 &#x27;얼마나 오래, 얼마나 꾸준히&#x27;입니다.</p>
+<p><strong>적립식 투자</strong>는 매달 일정액을 넣는 방식입니다. 쌀 때 더 많이, 비쌀 때 덜 사게 되어 매입 단가가 평균에 수렴하는 효과가 있습니다. 타이밍을 맞히려는 스트레스도 줄어듭니다.</p>
+<p><strong>분산투자</strong>는 달걀을 한 바구니에 담지 않는 원칙입니다. 여러 자산과 지역에 나눠 담으면, 하나가 흔들려도 전체 충격이 완화됩니다. 이 원리를 저렴하게 구현하는 대표 수단이 인덱스펀드와 ETF입니다. 시장 전체를 통째로 담아 개별 종목 리스크를 낮춥니다.</p>
+<p>물론 분산이 손실을 없애 주지는 않습니다. 시장 전체가 내려가면 함께 내려갑니다. 변동성은 늘 존재하며, 단기적으로는 원금이 줄어드는 구간도 있습니다. 복리 곡선이 우상향하려면 그 출렁임을 견디는 긴 호흡이 필요합니다.</p>
+<figure><img src="./images/body-3.png" alt="장기 분산투자를 위한 세 가지 원칙을 카드 형태로"><figcaption>장기 분산투자를 위한 세 가지 원칙을 카드 형태로</figcaption></figure>
+<hr>
+<p>시간은 아무것도 하지 않아도 흐르지만, 복리는 시간을 태워야만 작동합니다. 오늘 심은 작은 씨앗이 곡선의 가파른 구간에 닿는 그날까지, 결국 필요한 건 조급함이 아니라 인내였는지도 모릅니다.</p>
+<div class="tags"><span>#복리</span> <span>#72의법칙</span> <span>#장기투자</span> <span>#분산투자</span> <span>#ETF</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
