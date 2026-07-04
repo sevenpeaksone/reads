@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>스피노자의 에티카</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#b07cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#b07cff;border-color:#b07cff">철학/인문</div>
+<h1>스피노자의 에티카</h1>
+<p class="subtitle">감정의 기하학과 자유</p>
+<figure><img src="./images/thumbnail.png" alt="어두운 배경 위에 기하학 도형과 흐르는 선이 교차하고, 그 위에 큰 기호 E가 놓인 지적이고 절제된 표지"><figcaption>어두운 배경 위에 기하학 도형과 흐르는 선이 교차하고, 그 위에 큰 기호 E가 놓인 지적이고 절제된 표지</figcaption></figure>
+<p>감정은 다스릴 수 없는 것일까요. 스피노자는 다르게 답했습니다. 그는 감정을 삼각형의 성질처럼 차분히 논증할 수 있다고 보았습니다. 그의 주저 『에티카』가 걸어간 길을 따라가 보겠습니다.</p>
+<h2>기하학으로 쓴 윤리학</h2>
+<p>스피노자는 1632년 암스테르담에서 태어났습니다. 포르투갈계 유대인 가문 출신입니다. 스물세 살에 유대 공동체로부터 파문당했고, 렌즈를 갈며 홀로 사유했습니다.</p>
+<p>그가 남긴 『에티카』의 원제는 &quot;기하학적 순서로 증명된 윤리학&quot;입니다. 유클리드의 『원론』처럼 정의와 공리에서 출발합니다. 거기서 정리를 하나씩 연역합니다. 사랑과 미움, 자유와 예속까지 논증의 사슬로 다룹니다. 감정을 감상이 아니라 구조로 바라본 시도입니다.</p>
+<figure><img src="./images/body-1.png" alt="신, 코나투스, 감정, 지복 네 개념을 번호가 붙은 네 장의 카드로 나란히 배치한 개념 지도"><figcaption>신, 코나투스, 감정, 지복 네 개념을 번호가 붙은 네 장의 카드로 나란히 배치한 개념 지도</figcaption></figure>
+<hr>
+<h2>신이 곧 자연이다</h2>
+<p>『에티카』의 첫 부는 신을 다룹니다. 다만 스피노자의 신은 인격적 창조주가 아닙니다.</p>
+<p>그의 신은 자기 자신을 원인으로 삼는 무한한 유일 실체입니다. 존재하는 실체는 오직 하나뿐입니다. 그는 이를 &quot;신 즉 자연(Deus sive Natura)&quot;이라 불렀습니다. 인간과 사물은 이 하나의 실체가 드러난 양태입니다. 만물은 신의 본성에서 필연적으로 따라 나옵니다. 이 대담한 범신론은 이후 오랜 논쟁을 불러왔습니다.</p>
+<hr>
+<h2>감정에도 논리가 있다</h2>
+<p>스피노자에게 모든 것에는 자기 존재를 이어가려는 힘이 있습니다. 그는 이를 코나투스라 불렀습니다. 감정은 이 힘의 증감으로 설명됩니다.</p>
+<p>원초적인 감정은 셋입니다. 욕망, 기쁨, 슬픔입니다. 기쁨은 더 큰 완전성으로 옮겨 가는 것입니다. 코나투스가 커지는 방향입니다. 슬픔은 그 반대입니다. 욕망은 존속하려는 노력이 의식된 것입니다. 수많은 정서가 이 셋에서 갈라져 나옵니다.</p>
+<figure><img src="./images/body-2.png" alt="왼쪽 수동적 감정(정념)과 오른쪽 능동적 감정을 vs로 대비시킨 좌우 대칭 도해"><figcaption>왼쪽 수동적 감정(정념)과 오른쪽 능동적 감정을 vs로 대비시킨 좌우 대칭 도해</figcaption></figure>
+<p>여기서 중요한 구분이 나옵니다. 외부 원인에 휘둘려 겪는 감정은 수동, 곧 정념입니다. 자기 본성에서 비롯된 감정은 능동입니다. 정신이 능동적일수록 우리는 덜 휘둘립니다.</p>
+<hr>
+<h2>예속에서 자유로</h2>
+<p>『에티카』의 후반부는 예속을 진단합니다. 예속이란 부적합한 관념에서 비롯된 정념에 지배되는 상태입니다. 외부의 힘과 감정의 동요에 끌려다니는 삶입니다.</p>
+<figure><img src="./images/body-3.png" alt="감정을 이해해 자유에 이르는 세 단계를 위에서 아래로 이어지는 계단으로 표현한 흐름도"><figcaption>감정을 이해해 자유에 이르는 세 단계를 위에서 아래로 이어지는 계단으로 표현한 흐름도</figcaption></figure>
+<p>벗어나는 길은 억압이 아닙니다. 이해입니다. 감정을 명석하게 인식하는 순간, 그것은 더 이상 수동이기를 그칩니다. 스피노자가 제시한 최고선은 신 또는 자연에 대한 지적인 사랑입니다. 사물을 영원의 상 아래에서 바라보는 앎입니다. 그 앎 속에서 지복이 찾아옵니다. 그에게 지복은 덕의 보상이 아니라 덕 그 자체였습니다.</p>
+<hr>
+<p>감정은 극복의 대상이 아니라 이해의 대상이었습니다. 스피노자는 그 이해를 자유의 다른 이름으로 삼았습니다.</p>
+<p>— 자유는 감정을 없애는 데 있지 않고, 감정을 아는 데 있습니다.</p>
+<p>오늘의 흔들리는 마음도, 어쩌면 조용히 들여다보는 일부터 시작될지 모릅니다.</p>
+<div class="tags"><span>#스피노자</span> <span>#에티카</span> <span>#철학</span> <span>#감정</span> <span>#자유</span> <span>#범신론</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
