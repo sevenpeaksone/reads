@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>양자컴퓨팅 기초 2026</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>양자컴퓨팅 기초 2026</h1>
+<p class="subtitle">큐비트와 양자우위, 그리고 흔한 오해들</p>
+<figure><img src="./images/thumbnail.png" alt="큐비트와 양자우위를 상징하는 양자컴퓨팅 개념도"><figcaption>큐비트와 양자우위를 상징하는 양자컴퓨팅 개념도</figcaption></figure>
+<p>양자컴퓨팅은 뉴스에 자주 오르지만 정작 원리는 안개 속에 있습니다. 이번 글에서는 큐비트부터 양자우위, 오류정정까지 기초 개념을 정리해 보겠습니다. 과장된 기대와 실제 진척을 함께 짚어 균형을 맞추려 합니다.</p>
+<hr>
+<h2>큐비트, 중첩, 그리고 얽힘</h2>
+<p>보통 컴퓨터는 0과 1만 다룹니다. 양자컴퓨터의 기본 단위인 <strong>큐비트</strong>는 다릅니다. 측정 전까지 0과 1의 가능성을 함께 품습니다. 이 상태를 <strong>중첩</strong>이라 부릅니다.</p>
+<p>여기서 흔한 오해가 생깁니다. &quot;그러니 모든 답을 동시에 계산한다&quot;는 말입니다. 실제는 그렇지 않습니다. 측정하는 순간 큐비트는 하나의 값으로 무너집니다. 관건은 원하는 답이 나올 확률을 키우도록 상태를 설계하는 일입니다.</p>
+<p><strong>얽힘</strong>은 두 번째 열쇠입니다. 얽힌 큐비트는 서로 떨어져 있어도 상태가 묶여 움직입니다. 이 연결이 특정 문제에서 계산의 지름길을 열어 줍니다.</p>
+<figure><img src="./images/body-1.png" alt="큐비트 중첩과 얽힘의 핵심 개념 카드"><figcaption>큐비트 중첩과 얽힘의 핵심 개념 카드</figcaption></figure>
+<hr>
+<h2>양자우위란 무엇인가</h2>
+<p><strong>양자우위</strong>는 양자컴퓨터가 고전 컴퓨터로는 사실상 불가능한 계산을 해내는 순간을 뜻합니다. 다만 그 계산이 꼭 쓸모 있어야 한다는 조건은 없었습니다. 초기 시연은 실용성보다 속도 자체를 증명하는 데 가까웠습니다.</p>
+<p>2024년 12월, 구글은 105큐비트 칩 윌로우(Willow)를 공개했습니다. 특정 무작위 회로 계산을 5분 만에 끝냈고, 같은 일을 슈퍼컴퓨터가 하면 천문학적 시간이 걸린다고 밝혔습니다.</p>
+<p>그러나 이런 시연은 실제 산업 문제와는 거리가 있습니다. IBM은 2026년 안에 검증 가능한 실용적 양자우위를 목표로 잡았습니다. 예전엔 &quot;몇 개의 큐비트인가&quot;를 겨뤘습니다. 지금은 &quot;얼마나 정확한 큐비트인가&quot;로 무게가 옮겨졌습니다.</p>
+<figure><img src="./images/body-2.png" alt="양자우위 시연에서 실용 우위로의 단계"><figcaption>양자우위 시연에서 실용 우위로의 단계</figcaption></figure>
+<hr>
+<h2>오류정정과 NISQ의 현실</h2>
+<p>큐비트는 예민합니다. 미세한 잡음에도 상태가 쉽게 흐트러집니다. 그래서 여러 물리 큐비트를 묶어 하나의 안정된 <strong>논리 큐비트</strong>를 만드는 <strong>오류정정</strong>이 핵심 과제입니다.</p>
+<p>2024년 윌로우는 의미 있는 진전을 보였습니다. 큐비트를 늘릴수록 오류가 오히려 줄어드는 &#x27;문턱 아래&#x27; 상태를 처음으로 증명했습니다. 오류정정이 원리대로 작동한다는 신호였습니다.</p>
+<p>지금 우리가 선 자리는 <strong>NISQ</strong> 시대입니다. 잡음이 많고 규모가 중간인 기계라는 뜻입니다. 완전한 오류정정 컴퓨터는 아직 도래하지 않았습니다. IBM은 대규모 내결함성 기계 &#x27;스탈링(Starling)&#x27;을 2029년 목표로 제시하고 있습니다.</p>
+<figure><img src="./images/body-3.png" alt="물리 큐비트와 논리 큐비트의 대비"><figcaption>물리 큐비트와 논리 큐비트의 대비</figcaption></figure>
+<hr>
+<h2>흔한 오해를 걷어내면</h2>
+<p>양자컴퓨터를 둘러싼 과장은 적지 않습니다. 세 가지만 짚겠습니다.</p>
+<p>첫째, 모든 계산을 빠르게 하지는 않습니다. 강점은 소인수분해나 특정 시뮬레이션 같은 좁은 영역에 있습니다. 둘째, 오늘 당장 모든 암호를 깨지 못합니다. 그럴 규모의 기계는 아직 없습니다. 셋째, 얽힘으로 빛보다 빠른 통신을 하지도 못합니다. 결과 해석에는 여전히 고전 통신이 필요하기 때문입니다.</p>
+<p>기술은 실제로 나아가고 있습니다. 다만 상용화는 여전히 좁고 먼 길입니다.</p>
+<hr>
+<p>정리하면 이렇습니다. 양자컴퓨팅은 기존 컴퓨터를 대체하는 기술이 아니라, 특정 문제를 다르게 푸는 새로운 방식입니다.</p>
+<p>— 큐비트를 얼마나 많이 쌓느냐보다, 얼마나 오래 정확히 붙잡느냐가 관건입니다.</p>
+<p>기대와 현실 사이의 거리를 아는 것, 어쩌면 그것이 이 기술을 제대로 읽는 첫걸음일지도 모릅니다.</p>
+<div class="tags"><span>#양자컴퓨팅</span> <span>#큐비트</span> <span>#양자우위</span> <span>#오류정정</span> <span>#NISQ</span> <span>#양자컴퓨터기초</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>부부 대화의 기술</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#f0a532;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#f0a532;border-color:#f0a532">상담</div>
+<h1>부부 대화의 기술</h1>
+<p class="subtitle">비난 대신 마음을 전하는 법</p>
+<figure><img src="./images/thumbnail.png" alt="마주 앉은 두 사람 사이를 잇는 따뜻한 대화의 개념도"><figcaption>마주 앉은 두 사람 사이를 잇는 따뜻한 대화의 개념도</figcaption></figure>
+<p>부부 사이의 갈등은 대개 문제 그 자체보다 말하는 방식에서 커집니다. 같은 이야기라도 어떻게 시작하고 어떻게 듣느냐에 따라 결과가 달라집니다. 이번 글에서는 심리학자 존 가트맨의 연구를 바탕으로, 비난을 줄이고 마음을 전하는 대화의 기술을 정리해 보겠습니다.</p>
+<hr>
+<h2>관계를 갉아먹는 네 가지 태도</h2>
+<p>가트맨은 오랜 관찰을 통해 관계를 무너뜨리는 네 가지 대화 습관을 지목했습니다. 흔히 &#x27;네 가지 독&#x27;이라 불립니다.</p>
+<p>첫째는 비난입니다. &quot;당신은 왜 늘 그래?&quot;처럼 행동이 아니라 사람 자체를 공격하는 말입니다. 둘째는 경멸입니다. 비웃음이나 조롱처럼 상대를 깎아내리는 태도로, 가트맨은 이것을 가장 위험한 신호로 보았습니다. 셋째는 방어입니다. 잘못을 인정하는 대신 핑계를 대거나 되받아치는 반응입니다. 넷째는 담쌓기입니다. 아예 입을 닫고 마음의 문을 걸어 잠그는 것을 말합니다.</p>
+<p>이 네 가지는 서로 꼬리를 뭅니다. 비난이 경멸을 부르고, 경멸이 방어를 낳고, 방어가 결국 담쌓기로 이어집니다.</p>
+<figure><img src="./images/body-1.png" alt="관계를 무너뜨리는 네 가지 대화 습관 카드"><figcaption>관계를 무너뜨리는 네 가지 대화 습관 카드</figcaption></figure>
+<hr>
+<h2>부드럽게 시작하기</h2>
+<p>가트맨의 연구에서 인상적인 대목이 있습니다. 대화의 첫 3분이 15분 뒤의 결말을 상당 부분 예고한다는 것입니다.</p>
+<p>거칠게 시작한 대화는 거칠게 끝나기 쉽습니다. 그래서 &#x27;부드러운 시작&#x27;이 중요합니다. 상대를 몰아세우는 말 대신, 지금 내가 느끼는 감정과 바라는 바를 담담히 꺼내는 방식입니다.</p>
+<p>여기서 힘을 발휘하는 것이 나-전달법입니다. &quot;당신은&quot;으로 시작하면 화살이 상대를 향하지만, &quot;나는&quot;으로 시작하면 내 마음을 전하게 됩니다. &quot;당신은 왜 연락도 없어?&quot;를 &quot;나는 연락이 없으면 걱정이 돼요&quot;로 바꾸는 식입니다. 같은 불만이라도 상대의 방어를 덜 자극합니다.</p>
+<figure><img src="./images/body-2.png" alt="비난하는 말과 나-전달법의 대비"><figcaption>비난하는 말과 나-전달법의 대비</figcaption></figure>
+<hr>
+<h2>듣는 기술과 회복의 시도</h2>
+<p>말하기만큼 중요한 것이 듣기입니다. 적극적 경청은 상대의 말을 끊지 않고, 판단을 잠시 미루고, 들은 내용을 되짚어 확인하는 태도입니다. &quot;그러니까 서운했다는 거지요?&quot;라고 되물어 주는 것만으로도 상대는 이해받았다고 느낍니다.</p>
+<p>여기서 조언이나 해결책을 서둘러 내밀 필요는 없습니다. 문제를 고치는 것보다 마음을 알아주는 일이 앞설 때가 많습니다.</p>
+<p>다툼 중에도 관계를 지키는 장치가 있습니다. 가트맨이 말한 &#x27;회복의 시도&#x27;입니다. &quot;미안해요, 말이 심했어요&quot;라거나 &quot;잠깐 숨 좀 돌리고 다시 이야기해요&quot; 같은 작은 신호입니다. 중요한 것은 그 신호를 상대가 받아 주는 일입니다. 회복의 시도를 주고받는 부부일수록 갈등에서 더 잘 빠져나옵니다.</p>
+<figure><img src="./images/body-3.png" alt="부드러운 시작에서 경청, 회복으로 이어지는 3단계"><figcaption>부드러운 시작에서 경청, 회복으로 이어지는 3단계</figcaption></figure>
+<hr>
+<h2>기술이 전부는 아닙니다</h2>
+<p>이런 방법이 만능은 아닙니다. 나-전달법도 진심이 없으면 공허한 화법에 그칩니다. 감정이 격해진 순간에는 배운 대로 말하기가 쉽지 않습니다.</p>
+<p>그래도 방향은 분명합니다. 상대를 이기려는 대화에서 서로를 이해하려는 대화로 옮겨 가는 것입니다. 처음엔 어색해도 반복하면 조금씩 몸에 뱁니다.</p>
+<p>다만 갈등이 자꾸 반복되거나 점점 깊어진다면, 두 사람만의 힘으로 버티기보다 부부상담 같은 전문가의 도움을 받아 보시길 권합니다. 도움을 청하는 것은 관계를 포기하는 일이 아니라 지키려는 노력입니다.</p>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다. 대화의 기술은 상대를 바꾸는 도구가 아니라, 내 마음을 정직하게 건네는 통로입니다.</p>
+<p>&quot;비난은 벽을 세우고, 마음을 전하는 말은 문을 엽니다.&quot;</p>
+<p>오늘 저녁, 한 문장만 &quot;나는&quot;으로 바꿔 말해 보신다면 어떨까요.</p>
+<div class="tags"><span>#부부대화법</span> <span>#부부상담</span> <span>#가트맨</span> <span>#나전달법</span> <span>#부부관계</span> <span>#적극적경청</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

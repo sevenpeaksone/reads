@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>베네수엘라 대지진</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#c2883f;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/world/index.html">국제/세계 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#c2883f;border-color:#c2883f">국제 뉴스 해설</div>
+<h1>베네수엘라 대지진</h1>
+<p class="subtitle">39초 사이 두 번 흔들린 나라</p>
+<figure><img src="./images/thumbnail.png" alt="무너진 도시와 구조 현장을 상징하는 지진 재난 개념도"><figcaption>무너진 도시와 구조 현장을 상징하는 지진 재난 개념도</figcaption></figure>
+<p>이번 글에서는 6월 24일 베네수엘라 북서부를 강타한 대지진을 정리해 보겠습니다. 규모 7.2와 7.5의 지진이 채 1분도 안 되는 사이에 연달아 일어났습니다. 무슨 일이 벌어졌고, 왜 피해가 이토록 컸으며, 앞으로 무엇이 남았는지 차분히 짚어보겠습니다.</p>
+<hr>
+<h2>무슨 일이 있었나</h2>
+<p>미국 지질조사국(USGS)에 따르면 6월 24일 규모 7.2 지진이 발생한 뒤 약 39초 만에 규모 7.5의 더 큰 지진이 이어졌습니다. 진앙은 수도 카라카스 서쪽, 야라쿠이주 일대였습니다.</p>
+<p>피해는 북서부 해안 지역에 집중됐습니다. 카라카스와 항구도시 라과이라가 특히 큰 타격을 입었습니다. 나사(NASA)의 위성 분석은 약 5만 8천여 채의 건물이 손상된 것으로 추정했습니다. 병원과 학교, 상수도 시설도 다수 무너졌습니다.</p>
+<p>인명 피해 집계는 구조가 이어지며 계속 늘었습니다. 초기 수백 명이던 사망자는 7월 초 2천 명을 넘어섰고, 실종자는 여전히 수만 명으로 보고됐습니다. 베네수엘라 정부는 국가 애도 기간을 선포했습니다.</p>
+<figure><img src="./images/body-1.png" alt="39초 간격 두 차례 지진의 전개 단계"><figcaption>39초 간격 두 차례 지진의 전개 단계</figcaption></figure>
+<hr>
+<h2>왜 피해가 이토록 컸나</h2>
+<p>같은 규모라도 피해는 나라마다 다릅니다. 이번 참사가 유독 컸던 데에는 몇 가지 이유가 겹칩니다.</p>
+<p>첫째, 두 지진이 연달아 왔습니다. 첫 흔들림에 금이 간 건물이 39초 뒤 더 강한 진동에 무너졌습니다. 둘째, 인구가 밀집한 도시 지역이 직격을 받았습니다. 셋째, 오래된 건물과 취약한 내진 설계가 피해를 키웠습니다.</p>
+<p>여기에 베네수엘라가 오랜 경제난을 겪어 왔다는 점도 무겁게 작용합니다. 유엔개발계획(UNDP)은 직접 피해액을 약 67억 달러, 국내총생산의 6%가량으로 추산했습니다. 이미 취약했던 나라에 재난이 겹친 셈입니다.</p>
+<figure><img src="./images/body-2.png" alt="피해 규모를 보여주는 핵심 수치 카드"><figcaption>피해 규모를 보여주는 핵심 수치 카드</figcaption></figure>
+<hr>
+<h2>국제사회는 어떻게 움직였나</h2>
+<p>재난 앞에서 국제사회의 손길이 이어졌습니다. 브라질, 콜롬비아, 멕시코, 캐나다, 쿠바, 미국 등 아메리카 여러 나라가 구조대와 구호 물자를 보냈습니다.</p>
+<p>유엔도 나섰습니다. 긴급구호조정관은 중앙긴급대응기금(CERF)에서 1천 5백만 달러를 배정했습니다. 국제적십자연맹은 250만 달러를 조기 지원했습니다. 유니세프는 어린이 구호에만 5천 2백만 달러가 필요하다고 밝혔습니다.</p>
+<p>다만 현장의 목소리는 다릅니다. 구호 기관들은 필요가 &quot;치솟고 있다&quot;고 전했습니다. 물과 쉼터, 의료가 여전히 부족합니다. 정치적으로 고립돼 온 베네수엘라의 사정도 지원 조율을 복잡하게 만드는 요인입니다.</p>
+<figure><img src="./images/body-3.png" alt="초기 대응과 남은 과제의 대비"><figcaption>초기 대응과 남은 과제의 대비</figcaption></figure>
+<hr>
+<h2>앞으로의 전망</h2>
+<p>당장은 실종자 수색과 생존자 구호가 급합니다. 그러나 진짜 시험은 그다음입니다. 무너진 도시를 다시 세우는 일은 몇 년이 걸리는 긴 과정입니다.</p>
+<p>재건에는 막대한 재원이 듭니다. 이미 경제가 어려운 나라가 홀로 감당하기는 벅찹니다. 국제사회의 지원이 응급 국면을 넘어 얼마나 이어질지가 관건입니다. 정치적 셈법을 넘어 인도적 협력이 지속될 수 있느냐가 회복의 속도를 가를 것입니다.</p>
+<hr>
+<p>한 나라가 39초 사이에 두 번 흔들렸습니다. 무너지는 것은 순식간이지만, 다시 세우는 데는 오랜 시간이 필요합니다.</p>
+<p>— 재난은 지나가도, 회복은 이제부터입니다.</p>
+<p>숫자 뒤에 놓인 삶들이, 오래 기억되기를 바랍니다.</p>
+<div class="tags"><span>#베네수엘라</span> <span>#지진</span> <span>#자연재해</span> <span>#국제구호</span> <span>#유엔</span> <span>#재난복구</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
