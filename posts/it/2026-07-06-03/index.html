@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>쿠버네티스 입문</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>쿠버네티스 입문</h1>
+<p class="subtitle">컨테이너 오케스트레이션의 기본 개념</p>
+<figure><img src="./images/thumbnail.png" alt="여러 노드 위에 파드들이 얹힌 쿠버네티스 클러스터를 단순한 도식으로 표현한 썸네일"><figcaption>여러 노드 위에 파드들이 얹힌 쿠버네티스 클러스터를 단순한 도식으로 표현한 썸네일</figcaption></figure>
+<p>이번 글에서는 쿠버네티스의 기본 개념을 정리해 보겠습니다. 컨테이너는 익숙한데 쿠버네티스는 어렵게 느껴지는 분들을 위해 준비했습니다. 결론부터 말씀드리면, 쿠버네티스는 &quot;흩어진 컨테이너를 대신 관리해 주는 시스템&quot;입니다.</p>
+<hr>
+<h2>먼저, 컨테이너를 짧게 복습합니다</h2>
+<p>컨테이너는 애플리케이션과 실행 환경을 한 덩어리로 묶어 격리해 실행하는 단위입니다. &quot;제 컴퓨터에선 됩니다&quot;라는 오랜 골칫거리를 줄여주죠. 도커는 그 컨테이너를 만들고 띄우는 대표 도구입니다.</p>
+<p>컨테이너가 몇 개일 때는 도커만으로 충분합니다. 문제는 그다음입니다.</p>
+<p>예전엔 서버 한 대에 컨테이너 몇 개면 끝이었습니다. 지금은 수십, 수백 개의 컨테이너가 여러 서버에 흩어져 돌아갑니다. 이걸 손으로 관리하기란 사실상 불가능에 가깝습니다.</p>
+<figure><img src="./images/body-1.png" alt="컨테이너가 늘어날 때 생기는 네 가지 관리 문제(스케줄링, 복구, 스케일링, 서비스 연결)를 카드 형태로…"><figcaption>컨테이너가 늘어날 때 생기는 네 가지 관리 문제(스케줄링, 복구, 스케일링, 서비스 연결)를 카드 형태로…</figcaption></figure>
+<hr>
+<h2>쿠버네티스가 실제로 푸는 문제</h2>
+<p>컨테이너 오케스트레이션이란 컨테이너의 배포와 관리를 자동화하는 체계를 말합니다. 쿠버네티스는 구글의 내부 시스템 경험에서 출발해 지금은 사실상 표준이 된 오케스트레이션 도구입니다.</p>
+<p>핵심 설계 사상은 하나로 요약됩니다 — 선언형입니다. &quot;이렇게 실행해라&quot;가 아니라 &quot;이런 상태였으면 한다&quot;를 명세하면, 쿠버네티스가 현재 상태를 계속 그 목표에 맞춥니다.</p>
+<p>관리자는 목표를 적을 뿐, 그 상태를 유지하는 일은 시스템이 맡는 셈입니다.</p>
+<hr>
+<h2>핵심 구성요소 다섯 가지</h2>
+<p>용어가 많아 보이지만, 계층으로 보면 단순합니다.</p>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>역할</th></tr></thead><tbody><tr><td>파드(Pod)</td><td>컨테이너를 담는 가장 작은 배포 단위</td></tr><tr><td>노드(Node)</td><td>파드가 실제로 도는 서버 한 대</td></tr><tr><td>클러스터(Cluster)</td><td>여러 노드를 묶은 전체 환경</td></tr><tr><td>디플로이먼트(Deployment)</td><td>파드를 몇 개 유지할지 선언·관리</td></tr><tr><td>서비스(Service)</td><td>바뀌는 파드 앞의 고정된 접점</td></tr></tbody></table></div>
+<p>파드는 컨테이너를 담는 그릇이고, 노드는 그 파드가 올라가는 서버입니다. 노드가 여럿 모이면 클러스터가 됩니다. 디플로이먼트는 &quot;이 앱을 파드 3개로 유지해라&quot; 같은 목표를 담고, 서비스는 파드의 IP가 계속 바뀌어도 요청이 길을 잃지 않게 안정적인 주소를 제공합니다.</p>
+<figure><img src="./images/body-2.png" alt="파드 → 노드 → 클러스터 → 디플로이먼트/서비스로 이어지는 계층 관계를 단계 형태로 보여주는 이미지"><figcaption>파드 → 노드 → 클러스터 → 디플로이먼트/서비스로 이어지는 계층 관계를 단계 형태로 보여주는 이미지</figcaption></figure>
+<hr>
+<h2>스스로 고치고, 스스로 늘어난다</h2>
+<p>쿠버네티스의 진짜 매력은 여기에 있습니다.</p>
+<p>첫째, 자가치유입니다. 파드가 죽으면 자동으로 다시 만듭니다. 노드가 통째로 멈추면 다른 노드로 옮겨 되살립니다. 상태 점검으로 살아있는지, 트래픽 받을 준비가 됐는지를 계속 확인합니다.</p>
+<p>둘째, 오토스케일링입니다. HPA는 CPU 사용률 같은 지표를 보고 파드 개수를 자동으로 조절합니다. 기본적으로 약 15초마다 지표를 확인하고, 목표 대비 ±10% 안이면 그대로 두고 벗어나면 개수를 늘리거나 줄입니다. 새벽엔 줄이고 트래픽이 몰리면 늘리는 일이 사람 손 없이 돌아갑니다.</p>
+<hr>
+<h2>언제 필요하고, 언제 과한가</h2>
+<p>여기서 균형을 잡아야 합니다. 쿠버네티스는 강력하지만, 늘 정답은 아닙니다.</p>
+<p>서비스가 한둘이고 서버 한 대로 충분하다면, 그리고 전담 인력이 없다면 도커 컴포즈가 더 어울립니다. 배포 중 잠깐의 멈춤을 감내할 수 있다면 더욱 그렇습니다.</p>
+<p>반대로 서비스가 수십 개로 늘고, 여러 서버에서 무중단·자동 확장·자가치유가 실제로 필요해지는 순간이 옵니다. 그때가 쿠버네티스의 자리입니다.</p>
+<p>솔직히 학습 곡선은 가파릅니다. 운영 복잡도와 비용도 만만치 않습니다. &quot;쓸 수 있다&quot;와 &quot;지금 필요하다&quot;는 분명히 다른 이야기입니다.</p>
+<figure><img src="./images/body-3.png" alt="왼쪽 &#x27;도커 컴포즈가 어울리는 경우&#x27;와 오른쪽 &#x27;쿠버네티스가 필요한 경우&#x27;를 대비시킨 이미지"><figcaption>왼쪽 &#x27;도커 컴포즈가 어울리는 경우&#x27;와 오른쪽 &#x27;쿠버네티스가 필요한 경우&#x27;를 대비시킨 이미지</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다. 쿠버네티스는 흩어진 컨테이너를 대신 관리하며, 원하는 상태를 스스로 유지하는 시스템입니다. 파드·노드·클러스터·디플로이먼트·서비스라는 계층과, 자가치유·오토스케일링이라는 두 축만 잡으면 큰 그림은 완성됩니다.</p>
+<p>&quot;도구의 힘보다 중요한 것은, 그 힘이 지금 필요한지를 묻는 일입니다.&quot;</p>
+<p>쿠버네티스를 당장 써야 하냐고 물으신다면, 저는 먼저 규모부터 헤아려 보시길 권합니다.</p>
+<div class="tags"><span>#쿠버네티스</span> <span>#Kubernetes</span> <span>#컨테이너오케스트레이션</span> <span>#도커</span> <span>#DevOps</span> <span>#k8s입문</span> <span>#클라우드네이티브</span> <span>#개발자입문</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

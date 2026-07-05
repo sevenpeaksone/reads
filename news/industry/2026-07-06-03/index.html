@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>메모리 이어 CPU도 품귀</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#3fb6a8;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#3fb6a8;border-color:#3fb6a8">산업 뉴스 해설</div>
+<h1>메모리 이어 CPU도 품귀</h1>
+<p class="subtitle">AI 서버가 부른 반도체 공급난</p>
+<figure><img src="./images/thumbnail.png" alt="AI 서버 랙 옆에 재고가 바닥난 CPU 트레이를 표현한 개념도"><figcaption>AI 서버 랙 옆에 재고가 바닥난 CPU 트레이를 표현한 개념도</figcaption></figure>
+<p>이번 글에서는 메모리에 이어 서버용 CPU까지 번진 반도체 공급난을 정리해 보겠습니다. 무엇이 부족한지, 왜 이것이 산업 전체의 문제인지, 앞으로 어떻게 흘러갈지 차분히 짚어보겠습니다.</p>
+<hr>
+<h2>무슨 일이 있었나</h2>
+<p>한동안 뉴스의 주인공은 메모리였습니다. HBM과 D램이 없어서 못 판다는 이야기가 이어졌습니다.</p>
+<p>그런데 최근 품귀 대상이 CPU로 넓어졌습니다. AI 서버 주문이 몰리면서 서버용 CPU 납기가 길어지고 있습니다.</p>
+<p>국내외 보도를 종합하면, 인텔은 일부 제온 CPU 공급에 최대 6개월이 걸릴 수 있다고 고객에 알렸습니다. AMD도 일부 서버 CPU 납기가 8~10주로 늘었다고 전해집니다. 해외에서는 리드타임이 16주를 넘겼다는 이야기도 나옵니다. (더퍼블릭, 글로벌이코노믹, PBXScience)</p>
+<p>수요의 성격도 달라졌습니다. 예전에는 AI가 주로 &#x27;학습&#x27;에 쓰였습니다. 지금은 스스로 일을 수행하는 에이전트형 AI로 무게가 옮겨가고 있습니다. 이런 작업은 GPU만이 아니라 일반 연산을 맡는 CPU를 더 많이 요구합니다.</p>
+<p>예전엔 인텔과 AMD가 서로의 몫을 두고 다퉜습니다. 지금은 두 회사가 나란히 물량을 못 대는 &#x27;이중 호황&#x27;이라는 표현까지 나옵니다.</p>
+<figure><img src="./images/body-1.png" alt="메모리에서 CPU로 번진 품귀의 세 가지 신호"><figcaption>메모리에서 CPU로 번진 품귀의 세 가지 신호</figcaption></figure>
+<hr>
+<h2>왜 중요한가</h2>
+<p>AI 서버는 GPU만으로 돌아가지 않습니다. GPU가 계산을 맡는다면, CPU는 그 계산을 지휘하고 데이터를 나릅니다.</p>
+<p>그래서 GPU를 늘리면 CPU도 함께 늘어야 합니다. 과거 GPU 여덟 개당 CPU 한 개면 충분하던 구성이, 최근에는 CPU 두 개 이상으로 바뀌고 있습니다. (이코노미트리뷴)</p>
+<p>공급 쪽은 오히려 빠듯합니다. 인텔은 자체 공정의 수율 문제를, AMD는 위탁생산사가 GPU를 먼저 만드느라 CPU 여력이 줄어드는 문제를 안고 있습니다.</p>
+<p>병목은 한 곳에 머물지 않습니다. GPU에서 메모리로, 다시 CPU로 옮겨붙었습니다. 시장조사기관 TrendForce에 따르면 D램 계약가격은 올해 들어 분기마다 두 자릿수 넘게 뛰었습니다. CPU 가격도 15%가량 오를 조짐이라는 관측이 있습니다. (TrendForce, Astute Group)</p>
+<p>값이 오르면 서버를 넘어 PC나 게임기 같은 소비자 제품 가격까지 밀려 올라갑니다. 데이터센터의 부족이 결국 우리 책상 위의 기기 가격표로 돌아오는 셈입니다.</p>
+<figure><img src="./images/body-2.png" alt="AI 서버 한 대에 GPU와 CPU가 함께 들어가는 구조"><figcaption>AI 서버 한 대에 GPU와 CPU가 함께 들어가는 구조</figcaption></figure>
+<hr>
+<h2>앞으로의 전망</h2>
+<p>가장 확실한 대응은 증설입니다. 반도체를 더 만들면 됩니다.</p>
+<p>문제는 속도입니다. 공장 한 곳을 짓는 데 수년이 걸립니다. 수요가 뛰는 속도를 공급이 따라잡기 어렵습니다. 인텔 경영진조차 완화 시점을 2028년께로 내다봤습니다. (CNBC)</p>
+<p>부족은 위로만 번지지 않고 아래로도 내려갑니다. 칩의 바탕이 되는 12인치 실리콘 웨이퍼까지 몸값이 오르고 있습니다. 세계 3위 웨이퍼 업체 SK실트론의 전략적 가치가 부각되며, 그룹 차원의 매각 논의가 막판에 다시 신중해졌다는 보도도 있습니다. (머니투데이, 서울경제)</p>
+<p>물론 반대 리스크도 있습니다. 지금의 투자 열기가 과했다고 판명되면, 언젠가 재고와 가격이 반대로 꺾일 수 있습니다. 반도체는 늘 호황과 불황을 오가는 산업이기 때문입니다.</p>
+<p>그래서 지금 필요한 것은 흥분이 아니라 관찰입니다. 어디가 진짜 병목이고, 그것이 언제 풀릴지를 차분히 지켜보는 편이 낫습니다.</p>
+<figure><img src="./images/body-3.png" alt="공급난 완화 시점 전망과 남은 리스크 정리"><figcaption>공급난 완화 시점 전망과 남은 리스크 정리</figcaption></figure>
+<p>이 글은 특정 기업이나 종목에 대한 투자 권유가 아닙니다. 판단과 책임은 본인에게 있습니다.</p>
+<hr>
+<p>정리하면 이렇습니다. AI라는 수요가 GPU, 메모리, CPU, 그리고 웨이퍼까지 차례로 훑고 지나가고 있습니다.</p>
+<p>— 진짜 병목은 특정 부품이 아니라, 그 모든 것을 한꺼번에 원하는 속도입니다.</p>
+<p>부족이 어디서 멈출지 아직 아무도 모른다면, 우리는 지금 그 답을 지켜보는 중일지도 모릅니다.</p>
+<div class="tags"><span>#반도체공급난</span> <span>#CPU품귀</span> <span>#AI서버</span> <span>#인텔AMD</span> <span>#메모리반도체</span> <span>#실리콘웨이퍼</span> <span>#HBM</span> <span>#반도체산업</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

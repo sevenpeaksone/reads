@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>청소년 스마트폰 과의존</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#f0a532;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#f0a532;border-color:#f0a532">상담</div>
+<h1>청소년 스마트폰 과의존</h1>
+<p class="subtitle">부모가 함께 만드는 건강한 사용 습관</p>
+<figure><img src="./images/thumbnail.png" alt="부모와 청소년 자녀가 마주 앉아 대화하는 따뜻한 장면, 스마트폰 아이콘"><figcaption>부모와 청소년 자녀가 마주 앉아 대화하는 따뜻한 장면, 스마트폰 아이콘</figcaption></figure>
+<p>이번 글에서는 청소년 스마트폰 과의존을 부모의 자리에서 어떻게 바라보고 도울지 정리해 보겠습니다. 겁을 주려는 글이 아닙니다. 신호를 알아차리고, 아이와 함께 습관을 다시 세우는 방법을 상담의 관점에서 담담히 나눕니다.</p>
+<hr>
+<h2>지금 우리 아이는 어디쯤일까</h2>
+<p>숫자부터 보겠습니다. 2024년 조사에서 청소년의 스마트폰 과의존 위험군 비율은 42.6%로 나타났습니다. 전 연령대가 대체로 안정되는 가운데 청소년만 오히려 늘었습니다.</p>
+<p>일상에 지장을 받는 청소년은 약 22만 명으로 집계됐습니다.</p>
+<p>수치는 참고일 뿐입니다. 중요한 건 우리 아이의 오늘입니다.</p>
+<figure><img src="./images/body-1.png" alt="과의존을 알리는 네 가지 신호를 담은 카드형 그래픽"><figcaption>과의존을 알리는 네 가지 신호를 담은 카드형 그래픽</figcaption></figure>
+<hr>
+<h2>과의존의 신호를 읽는 법</h2>
+<p>과의존은 &#x27;오래 쓰는 것&#x27;과 다릅니다. 핵심은 조절이 되느냐입니다.</p>
+<p>줄이려 해도 자꾸 실패합니다. 손에서 놓으면 불안하고 짜증이 납니다. 성적과 수면, 친구 관계에까지 금이 가기 시작합니다.</p>
+<p>여기에 우울이나 무기력이 겹친다면, 스마트폰은 원인이 아니라 마음의 신호일 수 있습니다.</p>
+<hr>
+<h2>몸과 마음에 남는 자국</h2>
+<p>과의존은 여러 곳에 흔적을 남깁니다.</p>
+<p>밤늦은 사용은 수면을 얕게 만듭니다. 집중력이 흐트러지니 학업도 흔들립니다. 금단과 내성, 충동성 같은 정서 문제가 따라오기도 합니다.</p>
+<p>청소년기의 뇌는 자기조절 기능이 아직 자라는 중입니다. 즉각적인 자극에 더 쉽게 끌리는 것도 그래서입니다. 의지가 약해서가 아닙니다.</p>
+<figure><img src="./images/body-2.png" alt="비난하는 대화와 함께 정하는 대화를 나란히 대비한 그래픽"><figcaption>비난하는 대화와 함께 정하는 대화를 나란히 대비한 그래픽</figcaption></figure>
+<hr>
+<h2>부모가 지킬 네 가지 원칙</h2>
+<p>예전엔 몰수와 잔소리가 답인 줄 알았습니다. 지금은 아이와 &#x27;함께&#x27;가 답에 더 가깝다고 봅니다.</p>
+<p>첫째, 규칙을 함께 정합니다. 통보가 아니라 합의입니다.</p>
+<p>둘째, 비난보다 대화입니다. &quot;왜 또 하니&quot;보다 &quot;무엇이 힘든지&quot; 묻습니다.</p>
+<p>셋째, 대안을 만듭니다. 운동이든 취미든, 화면 밖의 즐거움을 함께 찾습니다.</p>
+<p>넷째, 부모가 본보기가 됩니다. 식탁에서 부모의 손에도 스마트폰이 없어야 합니다.</p>
+<figure><img src="./images/body-3.png" alt="부모의 대응 4단계를 순서대로 보여주는 단계형 그래픽"><figcaption>부모의 대응 4단계를 순서대로 보여주는 단계형 그래픽</figcaption></figure>
+<hr>
+<h2>전문 상담이 필요한 순간</h2>
+<p>가정의 노력만으로 벅찰 때가 있습니다. 조절이 전혀 되지 않고 수면·학업 같은 일상 기능이 무너진다면, 그때는 도움을 청할 때입니다.</p>
+<p><strong>청소년상담1388</strong>은 국번 없이 1388, 문자와 카카오톡으로도 24시간 무료로 이어집니다. 한국청소년상담복지개발원과 지역 청소년상담복지센터에서 개인·집단상담과 부모교육을 받을 수 있습니다.</p>
+<p>도움을 구하는 일은 실패가 아니라 회복의 시작입니다.</p>
+<hr>
+<p>정리하면 이렇습니다. 스마트폰을 빼앗는 싸움이 아니라, 아이와 나란히 습관을 다시 세우는 과정입니다.</p>
+<p>&quot;통제가 아니라 함께하는 것.&quot;</p>
+<p>아이를 바꾸려 애쓰기 전에, 오늘 저녁 식탁에서 먼저 스마트폰을 내려놓아 보시면 어떨까요.</p>
+<div class="tags"><span>#청소년스마트폰과의존</span> <span>#스마트폰중독</span> <span>#청소년상담</span> <span>#가족상담</span> <span>#부모교육</span> <span>#청소년상담1388</span> <span>#디지털습관</span> <span>#사춘기자녀</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
