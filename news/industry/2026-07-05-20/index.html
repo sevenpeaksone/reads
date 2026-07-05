@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IBM, 세계 첫 1나노 이하 칩 공개</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#3fb6a8;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#3fb6a8;border-color:#3fb6a8">산업 뉴스 해설</div>
+<h1>IBM, 세계 첫 1나노 이하 칩 공개</h1>
+<p class="subtitle">트랜지스터를 눕히지 않고 쌓다</p>
+<figure><img src="./images/thumbnail.png" alt="트랜지스터를 수직으로 쌓아 올린 나노스택 구조 개념도"><figcaption>트랜지스터를 수직으로 쌓아 올린 나노스택 구조 개념도</figcaption></figure>
+<p>이번 글에서는 IBM이 6월 25일 공개한 &#x27;0.7나노미터&#x27; 칩 기술을 정리해 보겠습니다. 세계 첫 1나노 이하라는 수식보다 중요한 것은 &#x27;수직으로 쌓는다&#x27;는 발상의 전환입니다. 무슨 일인지, 왜 중요한지, 앞으로 어떻게 될지 차분히 짚어보겠습니다.</p>
+<hr>
+<h2>무슨 일이 있었나</h2>
+<p>IBM이 VLSI 2026 학회에서 세계 최초의 &#x27;서브 1나노미터&#x27; 반도체 기술을 발표했습니다. 미국 뉴욕 올버니 연구소에서 만든 연구 시제품입니다.</p>
+<p>핵심 숫자는 이렇습니다. 손톱만 한 실리콘 조각에 트랜지스터를 약 1,000억 개 담았습니다. 2021년 공개한 2나노 칩보다 밀도가 약 두 배입니다.</p>
+<p>성능도 함께 올렸습니다. 2나노 노드와 견주어 성능은 최대 50% 높거나, 같은 성능이라면 에너지 효율이 70% 좋아집니다.</p>
+<p>다만 아직 실험실 단계입니다. 상용 양산까지는 시간이 더 필요합니다.</p>
+<figure><img src="./images/body-1.png" alt="0.7나노 칩의 핵심 수치 3가지"><figcaption>0.7나노 칩의 핵심 수치 3가지</figcaption></figure>
+<hr>
+<h2>&#x27;눕히기&#x27;가 아니라 &#x27;쌓기&#x27;였습니다</h2>
+<p>그동안 반도체는 트랜지스터를 더 작게 그려 넣는 방식으로 발전했습니다. 평면 위에서 선을 가늘게 눕히는 경쟁이었습니다.</p>
+<p>문제는 이 방식이 물리적 한계에 다다랐다는 점입니다. 선을 무한정 가늘게 만들 수는 없습니다.</p>
+<p>IBM의 답은 방향을 바꾸는 것이었습니다. 옆으로 줄이는 대신 위로 쌓았습니다. 이 구조에 &#x27;나노스택&#x27;이라는 이름을 붙였습니다.</p>
+<p>원리는 이렇습니다. 아주 얇은 절연막을 사이에 두고 트랜지스터 층을 두 겹으로 접합해 세로로 포갭니다. 같은 바닥 면적에 더 많은 소자를 넣는 셈입니다.</p>
+<p>예전엔 넓이를 두고 다퉜습니다. 지금은 높이를 활용합니다.</p>
+<figure><img src="./images/body-2.png" alt="평면 미세화 vs 수직 적층의 대비"><figcaption>평면 미세화 vs 수직 적층의 대비</figcaption></figure>
+<hr>
+<h2>&#x27;0.7나노&#x27;라는 이름의 진실</h2>
+<p>여기서 오해를 하나 풀어야 합니다. 0.7나노는 어떤 부품의 실제 크기가 아닙니다.</p>
+<p>IBM도 인정합니다. 7옹스트롬이라는 이름은 배선의 폭이나 자로 잴 수 있는 단일 치수가 아니라, 밀도와 성능의 &#x27;세대&#x27;를 가리키는 표시입니다.</p>
+<p>사실 이는 업계 공통의 관행입니다. TSMC나 삼성의 3나노, 2나노도 실제 물리 치수와는 다릅니다. 그래서 이번 발표를 두고 노드 이름을 어떻게 붙일지 논쟁이 다시 불붙었습니다.</p>
+<p>이름에 현혹되지 않는 편이 좋습니다. 본질은 숫자가 아니라 &#x27;수직으로 쌓았다&#x27;는 구조에 있습니다.</p>
+<figure><img src="./images/body-3.png" alt="주요 파운드리 노드 로드맵 비교표"><figcaption>주요 파운드리 노드 로드맵 비교표</figcaption></figure>
+<hr>
+<h2>왜 지금 중요한가, 그리고 남은 물음</h2>
+<p>배경에는 AI가 있습니다. 거대 언어모델 학습에는 막대한 연산과 전력이 듭니다.</p>
+<p>IBM은 이 기술로 만든 AI 가속기가 약 7,000 TOPS의 성능을 낼 수 있다고 봅니다. 오늘날 약 1,500 TOPS의 네 배가 넘는 수치입니다. 지금 석 달 걸리는 대형 모델 학습을 2주로 줄일 수 있다는 전망도 내놨습니다.</p>
+<p>다만 신중히 볼 대목이 있습니다. 이 수치들은 아직 전망이자 추정입니다. 양산으로 가려면 수율과 비용이라는 현실의 벽을 넘어야 합니다.</p>
+<p>TSMC와 인텔은 2028년께 1.4나노 양산을 준비 중입니다. IBM의 성과는 그보다 앞선 세대를 겨냥한 연구입니다. 방향은 제시했으되, 도착은 아직입니다.</p>
+<p>이 글은 특정 기업이나 종목에 대한 투자 권유가 아닙니다. 판단과 책임은 본인에게 있습니다.</p>
+<hr>
+<p>정리하면 이렇습니다. IBM은 반도체를 더 작게 만드는 대신, 더 높이 쌓는 길을 택했습니다. 무어의 법칙이 멈춰선 자리에서 새 방향을 연 셈입니다.</p>
+<p>— 한계에 부딪힌 기술은 사라지지 않고, 방향을 바꿉니다.</p>
+<p>옆으로 갈 길이 막혔다면, 위로 오르면 됩니다.</p>
+<div class="tags"><span>#IBM반도체</span> <span>#나노스택</span> <span>#1나노칩</span> <span>#반도체미세공정</span> <span>#무어의법칙</span> <span>#AI반도체</span> <span>#VLSI2026</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

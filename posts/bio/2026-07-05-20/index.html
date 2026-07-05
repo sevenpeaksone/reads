@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>항생제 내성과 슈퍼박테리아</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#ff7c7c;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#ff7c7c;border-color:#ff7c7c">바이오</div>
+<h1>항생제 내성과 슈퍼박테리아</h1>
+<p class="subtitle">약이 듣지 않는 세균은 왜 늘어나나</p>
+<figure><img src="./images/thumbnail.png" alt="항생제 앞에서 살아남는 세균, 내성의 개념도"><figcaption>항생제 앞에서 살아남는 세균, 내성의 개념도</figcaption></figure>
+<p>이번 글에서는 항생제 내성과 슈퍼박테리아를 정리해 보겠습니다. 왜 어떤 세균에는 약이 듣지 않는지, 그런 세균이 왜 늘어나는지를 차분히 짚어보려 합니다. 최신 통계와 대응까지 함께 살펴보겠습니다.</p>
+<hr>
+<h2>항생제 내성이란 무엇인가</h2>
+<p>항생제 내성은 세균이 항생제에 노출되어도 살아남는 능력입니다. 여러 항생제에 동시에 버티는 세균을 흔히 슈퍼박테리아라고 부릅니다.</p>
+<p>세계보건기구는 2019년 항생제 내성을 인류의 10대 공중보건 위협 중 하나로 꼽았습니다. 감염 자체보다, 그 감염에 쓸 약이 사라진다는 점이 무서운 것입니다.</p>
+<hr>
+<h2>내성은 어떻게 생겨나는가</h2>
+<p>세균이 내성을 얻는 길은 크게 두 가지입니다.</p>
+<p>하나는 스스로 유전자를 바꾸는 돌연변이입니다. 다만 돌연변이만으로 여러 약에 버티려면 오랜 시간이 걸립니다.</p>
+<p>다른 하나는 수평적 유전자 이동입니다. 이미 내성을 가진 세균이 그 유전자를 옆의 다른 세균에게 건네주는 방식입니다. 종이 달라도 건너뜁니다. 이 경로는 몇 시간 만에 집단 전체로 내성을 퍼뜨립니다. 슈퍼박테리아가 빠르게 느는 진짜 이유가 여기 있습니다.</p>
+<figure><img src="./images/body-1.png" alt="세균이 내성을 얻는 단계"><figcaption>세균이 내성을 얻는 단계</figcaption></figure>
+<hr>
+<h2>오해와 사실 — 무엇이 내성을 키우나</h2>
+<p>흔한 오해가 하나 있습니다. &quot;항생제를 자주 먹으면 내 몸이 약에 익숙해진다&quot;는 생각입니다.</p>
+<p>사실은 다릅니다. 익숙해지는 것은 사람의 몸이 아니라 세균입니다. 약을 어설프게 쓸수록, 살아남은 세균만 골라 키우는 셈이 됩니다.</p>
+<p>문제는 병원 밖에도 있습니다. 세계보건기구에 따르면 일부 국가에서는 전체 항생제 소비의 약 80%가 축산 부문에서 일어납니다. 상당수는 건강한 가축의 성장촉진과 질병예방을 위한 것입니다. 그렇게 생긴 내성균은 식품과 환경을 거쳐 사람에게 옮겨옵니다.</p>
+<figure><img src="./images/body-2.png" alt="항생제 내성에 대한 오해와 사실"><figcaption>항생제 내성에 대한 오해와 사실</figcaption></figure>
+<hr>
+<h2>지금 얼마나 심각한가</h2>
+<p>수치는 분명합니다. 국제 공동연구(GRAM)는 1990년부터 2021년까지 매년 100만 명 이상이 내성 감염으로 사망했다고 집계했습니다. 누적 3,600만 명이 넘습니다.</p>
+<p>앞으로는 더 나쁩니다. 2025년부터 2050년까지 3,900만 명이 내성균으로 사망할 것으로 예측됐습니다. 1분에 3명꼴입니다.</p>
+<p>메티실린 내성 황색포도상구균(MRSA)이 사망 증가를 이끌었고, 강력한 항생제인 카바페넴에 버티는 균의 사망도 꾸준히 늘었습니다.</p>
+<hr>
+<h2>우리는 무엇을 할 수 있나</h2>
+<p>대응은 두 갈래입니다. 새 약을 만드는 일과, 있는 약을 아껴 쓰는 일입니다.</p>
+<p>신약 개발은 더딥니다. 2023년 말 기준 임상 단계 항생제는 소수에 그치고, 그마저 상당수는 기존 약과 크게 다르지 않습니다. 개발 수익성이 낮아 연구자들이 이 분야를 떠나온 탓이 큽니다.</p>
+<p>그래서 지금 당장 효과가 큰 쪽은 절제입니다. 처방받은 항생제는 정해진 기간을 지켜 끝까지 복용하고, 감기 같은 바이러스 질환에는 항생제를 요구하지 않는 것. 이런 적정 사용을 항생제 스튜어드십이라 부릅니다.</p>
+<p>물론 아껴 쓴다고 내성이 사라지지는 않습니다. 새 약이 나와도 세균은 다시 길을 찾습니다. 결국 끝나지 않는 군비경쟁에 가깝습니다.</p>
+<figure><img src="./images/body-3.png" alt="개인이 지킬 수 있는 항생제 사용 수칙"><figcaption>개인이 지킬 수 있는 항생제 사용 수칙</figcaption></figure>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다. 항생제는 무한한 자원이 아닙니다.</p>
+<p>— &quot;약이 듣지 않는 세균&quot;은 먼 미래의 이야기가 아니라, 우리가 약을 쓰는 방식이 만들어 온 현재입니다.</p>
+<p>다음에 항생제를 손에 쥐신다면, 이 한 가지만 떠올려 주시길 권합니다. 지금 아껴 쓴 하루가, 내일의 약을 남긴다는 것을요.</p>
+<div class="tags"><span>#항생제내성</span> <span>#슈퍼박테리아</span> <span>#AMR</span> <span>#수평적유전자이동</span> <span>#항생제스튜어드십</span> <span>#MRSA</span> <span>#WHO경고</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
