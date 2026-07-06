@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>국산 위성, 우주로</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#3fb6a8;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#3fb6a8;border-color:#3fb6a8">산업 뉴스 해설</div>
+<h1>국산 위성, 우주로</h1>
+<p class="subtitle">&#x27;한국판 스타링크&#x27;의 첫발</p>
+<figure><img src="./images/thumbnail.png" alt="팰컨9 로켓에 실려 궤도로 향하는 국산 관측위성을 상징하는 썸네일"><figcaption>팰컨9 로켓에 실려 궤도로 향하는 국산 관측위성을 상징하는 썸네일</figcaption></figure>
+<h2>무슨 일이 있었나</h2>
+<p><strong>7월 7일 오후 4시 10분, 국산 핵심 기술로 만든 차세대중형위성 4호(CAS500-4)가 미국 반덴버그 우주군기지에서 스페이스X 팰컨9에 실려 발사됐습니다.</strong></p>
+<p>이 위성에는 전국을 3일 주기로 관측하는 광역관측카메라가 실렸습니다. 아주경제 등 보도에 따르면 컬러 5.0m급 해상도에 관측폭은 120km 이상입니다. 발사 약 2시간 22분 뒤 발사체에서 분리돼, 노르웨이 스발바르 지상국과 최초 교신하는 일정으로 진행됐습니다.</p>
+<blockquote><p>&quot;농업·산림 관리부터 재난 대응, 기후변화 분석까지 활용된다&quot; — 머니투데이</p></blockquote>
+<figure><img src="./images/body-1.png" alt="차세대중형위성 4호 주요 사양 표"><figcaption>차세대중형위성 4호 주요 사양 표</figcaption></figure>
+<h2>왜 중요한가</h2>
+<p><strong>단발성 발사에 그치지 않고, 정부가 며칠 앞서 공개한 대형 우주 전략과 맞물려 있다는 점이 핵심입니다.</strong></p>
+<p>전자신문과 문화일보 보도를 종합하면, 우주항공청은 7월 3일 2035년까지 수백 기의 저궤도 위성으로 이른바 &#x27;한국판 스타링크&#x27;인 독자 위성통신망을 구축하겠다는 계획을 내놨습니다. 저궤도 통신망을 국가안보와 통신주권을 지키는 핵심 인프라로 규정한 것입니다.</p>
+<figure><img src="./images/body-2.png" alt="한국 우주 개발 주요 로드맵 일정"><figcaption>한국 우주 개발 주요 로드맵 일정</figcaption></figure>
+<p><strong>달 탐사 시점도 앞당겨졌습니다.</strong> 당초 2032년 차세대발사체로 달 착륙선을 보내려던 계획에 앞서, 2030년 누리호로 민간 소형 달 착륙선을 먼저 발사하는 방안을 추진합니다. 2029년 달 궤도 통신위성 발사도 함께 검토됩니다.</p>
+<h2>어떻게 쓰이나</h2>
+<p><strong>차세대중형위성 4호는 발사 뒤 고도 약 888km 궤도에서 약 4개월간 초기 운영을 거칩니다.</strong></p>
+<p>본격적인 임무 시작은 2027년 상반기로 예정돼 있습니다. 3일마다 한반도를 훑는 데이터는 산불 감시, 농작물·산림 변화 모니터링, 재난·재해 대응, 기후 분석 등 공공 영역에서 폭넓게 활용될 전망입니다.</p>
+<figure><img src="./images/body-3.png" alt="위성 데이터가 농업·산림·재난·기후 네 갈래로 활용되는 구조"><figcaption>위성 데이터가 농업·산림·재난·기후 네 갈래로 활용되는 구조</figcaption></figure>
+<h2>전망</h2>
+<p><strong>위성을 &#x27;한 번 쏘는 일&#x27;에서 &#x27;지속적으로 운영하는 인프라&#x27;로 넘어가는 전환점이라는 평가가 나옵니다.</strong></p>
+<p>다만 아직 갈 길은 남아 있습니다. 머니투데이는 한국형 저궤도 위성망에 14조원대 투자가 거론된다고 전했습니다. 발사체 확보, 지상국 확충, 민간 참여 유도가 뒤따라야 실현 가능한 규모입니다. 이번 발사가 스페이스X 로켓을 이용했다는 점도, 발사 자립이라는 숙제를 함께 보여줍니다.</p>
+<p>경남 창원·사천·진주와 전남 순천·고흥을 잇는 우주항공 산업 거점 육성 계획이 얼마나 속도를 낼지가, 향후 몇 년의 관전 포인트가 될 것입니다.</p>
+<div class="tags"><span>#차세대중형위성</span> <span>#우주항공청</span> <span>#저궤도위성망</span> <span>#한국판스타링크</span> <span>#달탐사</span> <span>#누리호</span> <span>#위성통신</span> <span>#우주산업</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

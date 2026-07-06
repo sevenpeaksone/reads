@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>환율은 어떻게 정해지나</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2bb673;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#2bb673;border-color:#2bb673">경제</div>
+<h1>환율은 어떻게 정해지나</h1>
+<p class="subtitle">원/달러 기초</p>
+<figure><img src="./images/thumbnail.png" alt="원화와 달러 지폐가 저울 양쪽에 놓여 균형을 이루는 썸네일, 배경에 상승 그래프"><figcaption>원화와 달러 지폐가 저울 양쪽에 놓여 균형을 이루는 썸네일, 배경에 상승 그래프</figcaption></figure>
+<p>뉴스에서 &quot;원/달러 환율 1,530원 돌파&quot; 같은 표현을 매일 접합니다. 2026년 7월 현재 원/달러 환율은 1,530원 안팎에서 움직이고 있는데요. 그런데 이 숫자가 대체 무엇을 뜻하고, 누가 어떻게 정하는지는 의외로 모호하게 느껴집니다. 이 글에서는 환율이 결정되는 기본 원리와 그 변동이 우리 생활에 미치는 영향을 차분히 살펴보겠습니다.</p>
+<h2>환율은 결국 &#x27;돈의 가격&#x27;입니다</h2>
+<p><strong>환율이란 두 나라 화폐를 교환하는 비율입니다. 원/달러 환율이 1,530원이라면, 1달러를 사는 데 1,530원이 필요하다는 뜻입니다.</strong></p>
+<p><strong>즉 달러도 하나의 상품처럼 가격이 있고, 그 가격을 원화로 표시한 것이 바로 환율입니다. 달러를 원하는 사람이 많아지면 값이 오르고, 적어지면 내려갑니다.</strong></p>
+<figure><img src="./images/body-1.png" alt="달러 수요와 공급이 만나는 지점에서 환율이 정해지는 수요·공급 개념도"><figcaption>달러 수요와 공급이 만나는 지점에서 환율이 정해지는 수요·공급 개념도</figcaption></figure>
+<h2>환율을 움직이는 다섯 가지 요인</h2>
+<p><strong>첫째는 수요와 공급입니다. 수입 대금, 해외 투자, 해외여행 등으로 달러가 필요해지면 달러 값(환율)이 오릅니다.</strong></p>
+<p><strong>둘째는 금리 차이입니다. 미국 금리가 한국보다 높으면 더 높은 이자를 좇아 자금이 달러로 이동해 원화가 약해지는 경향이 있습니다.</strong></p>
+<p><strong>셋째는 무역수지입니다. 수출이 수입보다 많아 달러가 국내로 들어오면 원화 가치가 오르는 힘이 생깁니다.</strong></p>
+<p><strong>넷째는 물가입니다. 국내 물가가 상대적으로 많이 오르면 원화의 구매력이 떨어져 장기적으로 환율에 부담이 됩니다.</strong></p>
+<p><strong>다섯째는 안전자산 선호입니다. 전쟁이나 금융 불안 같은 위기가 오면 대표적 안전자산인 달러로 돈이 몰려 환율이 급등하곤 합니다.</strong></p>
+<figure><img src="./images/body-2.png" alt="다섯 가지 환율 결정 요인을 카드 형태로 정리한 그림"><figcaption>다섯 가지 환율 결정 요인을 카드 형태로 정리한 그림</figcaption></figure>
+<h2>환율이 오르면 우리 생활은 어떻게 달라질까</h2>
+<p><strong>환율 상승(원화 약세)은 수출 기업에는 유리합니다. 같은 물건을 팔아도 원화로 환산한 매출이 늘기 때문입니다.</strong></p>
+<p><strong>반대로 수입품과 원자재 가격은 비싸져 국내 물가를 밀어 올릴 수 있고, 해외여행이나 유학 비용도 늘어납니다.</strong></p>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>환율 상승(원화 약세)</th><th>환율 하락(원화 강세)</th></tr></thead><tbody><tr><td>수출</td><td>유리</td><td>불리</td></tr><tr><td>수입·물가</td><td>부담 증가</td><td>부담 완화</td></tr><tr><td>해외여행</td><td>비용 증가</td><td>비용 감소</td></tr></tbody></table></div>
+<figure><img src="./images/body-3.png" alt="환율 상승과 하락이 수출·물가·여행에 미치는 영향을 대비한 그림"><figcaption>환율 상승과 하락이 수출·물가·여행에 미치는 영향을 대비한 그림</figcaption></figure>
+<h2>최근 환율은 왜 높은 수준일까</h2>
+<p><strong>한국금융연구원에 따르면 원/달러 환율의 평균 기준선 자체가 최근 1,400원대로 올라선 것으로 분석됩니다. 해외투자 확대에 따른 달러 수요 증가와 글로벌 달러 강세가 맞물린 결과입니다.</strong></p>
+<blockquote><p>환율은 여러 요인이 동시에 작용해 결정되므로, 하나의 원인만으로 방향을 단정하기는 어렵습니다.</p></blockquote>
+<p>환율은 경제의 체온계와 같습니다. 매일의 등락에 일희일비하기보다, 어떤 힘들이 배경에서 작동하는지 이해하는 편이 훨씬 도움이 됩니다. 오늘 살펴본 기본 원리만 알아도 경제 뉴스가 한결 또렷하게 보일 것입니다.</p>
+<p>이 글은 정보 제공용이며 특정 투자를 권유하지 않습니다.</p>
+<div class="tags"><span>#환율</span> <span>#원달러환율</span> <span>#환율기초</span> <span>#경제상식</span> <span>#달러</span> <span>#무역수지</span> <span>#금리</span> <span>#안전자산</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
