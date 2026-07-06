@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>자기효능감</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#f0a532;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#f0a532;border-color:#f0a532">상담</div>
+<h1>자기효능감</h1>
+<p class="subtitle">&#x27;나는 할 수 있다&#x27;는 믿음을 키우는 법</p>
+<figure><img src="./images/thumbnail.png" alt="나는 할 수 있다&#x27;는 믿음을 담은 따뜻하고 단정한 표지 이미지"><figcaption>나는 할 수 있다&#x27;는 믿음을 담은 따뜻하고 단정한 표지 이미지</figcaption></figure>
+<p>같은 일 앞에서도 누구는 &quot;해볼 만하다&quot; 하고, 누구는 &quot;난 안 될 거야&quot; 합니다. 이 차이를 만드는 마음의 힘이 바로 자기효능감입니다. 오늘은 자기효능감이 무엇인지, 왜 중요한지, 그리고 어떻게 키우는지 함께 살펴보겠습니다.</p>
+<h2>자기효능감이란 무엇인가</h2>
+<p>자기효능감은 심리학자 <strong>반두라</strong>가 제시한 개념으로, &quot;특정 과제를 내가 해낼 수 있다&quot;는 스스로에 대한 믿음입니다. 능력 자체가 아니라, 그 능력을 발휘할 수 있다는 기대에 가깝습니다.</p>
+<p><strong>자존감</strong>과는 결이 다릅니다. 자존감이 &#x27;나는 소중한 사람이다&#x27;라는 전반적 자기 가치라면, 자기효능감은 &#x27;이 일을 해낼 수 있다&#x27;는 과제 중심의 자신감입니다.</p>
+<p>그래서 자기효능감은 상황마다 다르게 나타납니다. 발표는 자신 있어도 수영은 두려울 수 있는 것처럼요.</p>
+<figure><img src="./images/body-1.png" alt="자존감과 자기효능감의 차이를 좌우로 대비한 이미지"><figcaption>자존감과 자기효능감의 차이를 좌우로 대비한 이미지</figcaption></figure>
+<hr>
+<h2>왜 자기효능감이 중요할까</h2>
+<p>자기효능감이 높으면 어려운 일도 <strong>도전할 과제</strong>로 받아들입니다. 쉽게 포기하지 않고, 실패해도 다시 일어서는 <strong>회복탄력</strong>의 바탕이 됩니다.</p>
+<p>반대로 자기효능감이 낮으면 상황을 실제보다 더 위협적으로 느낍니다. 그러다 보니 <strong>회피</strong>하거나 <strong>미루기</strong>로 이어지기 쉽습니다. &quot;어차피 안 될 텐데&quot;라는 생각이 시작 자체를 막습니다.</p>
+<p>중요한 건, 자기효능감이 타고나는 성격이 아니라는 점입니다. 경험을 통해 얼마든지 키울 수 있는 마음의 근육에 가깝습니다.</p>
+<figure><img src="./images/body-2.png" alt="자기효능감을 키우는 네 가지 원천을 카드로 정리한 이미지"><figcaption>자기효능감을 키우는 네 가지 원천을 카드로 정리한 이미지</figcaption></figure>
+<hr>
+<h2>일상에서 키우는 법</h2>
+<p>반두라가 말한 네 원천은 일상 속 실천으로 이어집니다. 첫째, <strong>작게 쪼개 성공을 쌓기</strong>입니다. 큰 목표를 잘게 나눠 하나씩 해내면, 숙달 경험이 차곡차곡 쌓입니다.</p>
+<p>둘째, <strong>과정을 칭찬하기</strong>입니다. 결과보다 &quot;오늘 시작한 것 자체&quot;를 인정해줍니다. 셋째, <strong>비교 대신 자기 기준</strong>입니다. 남과 견주기보다 어제의 나와 비교합니다.</p>
+<p>넷째, <strong>부정적 자기대화 다루기</strong>입니다. &quot;난 못 해&quot;라는 말을 &quot;지금은 어렵지만 연습하면 나아진다&quot;로 바꿔봅니다. 정서와 몸 상태를 다독이는 것도 큰 힘이 됩니다.</p>
+<figure><img src="./images/body-3.png" alt="작게 쪼개 성공을 쌓아가는 실천 단계를 순서대로 보여주는 이미지"><figcaption>작게 쪼개 성공을 쌓아가는 실천 단계를 순서대로 보여주는 이미지</figcaption></figure>
+<hr>
+<p>&#x27;나는 할 수 있다&#x27;는 믿음은 한 번에 생기지 않습니다. 작은 성공을 쌓고, 애쓴 과정을 칭찬하며, 나를 향한 말투를 조금씩 바꿔갈 때 천천히 자라납니다. 오늘 아주 작은 한 걸음부터 시작해보세요. 다만 무기력과 자기 불신이 오래 이어져 일상이 힘들다면, 혼자 힘들어하지 마시고 전문 상담의 도움을 받는 것도 좋은 선택입니다.</p>
+<div class="tags"><span>#자기효능감</span> <span>#반두라</span> <span>#자존감</span> <span>#자기대화</span> <span>#심리상담</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

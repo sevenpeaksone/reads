@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>잠들지 않는 원·달러 시장</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2bb673;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/economy/index.html">경제 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#2bb673;border-color:#2bb673">경제 뉴스 해설</div>
+<h1>잠들지 않는 원·달러 시장</h1>
+<p class="subtitle">평일 24시간 거래 체제 개막</p>
+<figure><img src="./images/thumbnail.png" alt="새벽 도시 스카이라인 위로 켜진 환율 전광판을 담은 미니멀 썸네일"><figcaption>새벽 도시 스카이라인 위로 켜진 환율 전광판을 담은 미니멀 썸네일</figcaption></figure>
+<h2>무슨 일이 있었나</h2>
+<p>2026년 7월 6일 월요일, 원·달러 외환시장이 <strong>평일 24시간 거래 체제</strong>로 바뀌었습니다.</p>
+<p>과거에는 오전 9시부터 다음날 새벽 2시까지만 거래할 수 있었습니다.</p>
+<p>이제는 뉴욕 서머타임 기준 <strong>월요일 오전 6시부터 토요일 오전 6시까지</strong> 쉬지 않고 열립니다.</p>
+<p>주말과 1월 1일만 빼면, 국내 공휴일에도 거래가 가능합니다.</p>
+<p>런던·뉴욕 시간대까지 품으면서, 자정을 넘겨도 환전 창구가 닫히지 않는 셈입니다.</p>
+<figure><img src="./images/body-1.png" alt="과거 9시~새벽2시 거래와 24시간 거래를 좌우로 대비한 카드"><figcaption>과거 9시~새벽2시 거래와 24시간 거래를 좌우로 대비한 카드</figcaption></figure>
+<h2>왜 중요한가</h2>
+<p>핵심 목적은 <strong>원화 국제화</strong>입니다.</p>
+<p>정부는 이번 개편을 원화를 국제 통화로 끌어올리는 출발점으로 봅니다.</p>
+<p>해외 투자자가 자기 시간대에 실시간 환율로 원화를 사고팔 수 있어 접근성이 좋아집니다.</p>
+<p>또 하나는 <strong>MSCI 선진국지수 편입</strong> 요건입니다.</p>
+<p>그동안 짧은 거래 시간이 걸림돌이었는데, 이를 풀려는 시도입니다.</p>
+<p>로이터·WSJ 등 외신도 이 조치를 지수 편입 포석으로 해석했습니다.</p>
+<blockquote><p>다만 은행은 야간 운영 부담을 집니다. 하나·우리·신한·KB 등이 트레이더를 늘려 3교대 체제를 준비했습니다.</p></blockquote>
+<figure><img src="./images/body-2.png" alt="접근성 제고, MSCI 편입, 유동성 확대를 아이콘 카드 3개로 정리"><figcaption>접근성 제고, MSCI 편입, 유동성 확대를 아이콘 카드 3개로 정리</figcaption></figure>
+<h2>앞으로의 전망</h2>
+<p>가장 큰 관심사는 <strong>변동성</strong>입니다.</p>
+<p>거래 시간이 길어지면 환율이 더 출렁일 수 있다는 우려가 나옵니다.</p>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>연장 전</th><th>연장 후</th></tr></thead><tbody><tr><td>갭 변동성</td><td>0.306%</td><td>0.145%</td></tr></tbody></table></div>
+<p>실제로 2024년 1차 연장 이후, 시장이 닫힌 사이 쌓인 충격이 개장 때 한꺼번에 터지는 <strong>갭 변동성</strong>은 오히려 절반 가까이 줄었습니다.</p>
+<p>전문가들은 단계적 확대와 함께 역외 원화 거래(NDF) 수요를 국내로 흡수하는 효과를 기대합니다.</p>
+<figure><img src="./images/body-3.png" alt="거래시간 연장 전후 갭 변동성 감소를 비교한 표"><figcaption>거래시간 연장 전후 갭 변동성 감소를 비교한 표</figcaption></figure>
+<p>이 글은 정보 제공이며 투자 권유가 아닙니다.</p>
+<div class="tags"><span>#외환시장</span> <span>#원달러환율</span> <span>#원화국제화</span> <span>#MSCI</span> <span>#24시간거래</span> <span>#경제뉴스</span> <span>#환율</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
