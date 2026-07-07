@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>회복탄력성</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#f0a532;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#f0a532;border-color:#f0a532">상담</div>
+<h1>회복탄력성</h1>
+<p class="subtitle">역경을 이겨내는 마음의 힘</p>
+<figure><img src="./images/thumbnail.png" alt="거센 바람에 휘었다가 다시 제자리로 돌아오는 나무를 상징하는 썸네일, 회복탄력성 개념을 표현"><figcaption>거센 바람에 휘었다가 다시 제자리로 돌아오는 나무를 상징하는 썸네일, 회복탄력성 개념을 표현</figcaption></figure>
+<p>살다 보면 누구에게나 힘든 시기가 찾아옵니다. 그런데 같은 어려움을 겪어도 어떤 사람은 오래 주저앉고, 어떤 사람은 비교적 빨리 제자리로 돌아옵니다. 이 차이를 설명하는 개념이 회복탄력성입니다. 오늘은 회복탄력성이 무엇인지, 어떤 요소로 이뤄지는지, 그리고 일상에서 어떻게 키워갈 수 있는지를 정리해 보겠습니다.</p>
+<h2>회복탄력성이란 무엇인가</h2>
+<p>회복탄력성은 역경이나 스트레스를 겪은 뒤 원래의 상태로 돌아오는 마음의 힘을 뜻합니다. 영어로는 resilience, 원래 물체가 눌렸다가 튀어 오르는 성질을 가리키는 말입니다. 마음에도 이런 탄성이 있습니다. 중요한 점은 이것이 타고나는 고정된 기질이 아니라는 사실입니다. 회복탄력성은 근육처럼 훈련으로 키울 수 있는 능력에 가깝습니다.</p>
+<figure><img src="./images/body-1.png" alt="어려움 앞에서 무너지는 사람과 다시 일어서는 사람을 나란히 대비"><figcaption>어려움 앞에서 무너지는 사람과 다시 일어서는 사람을 나란히 대비</figcaption></figure>
+<p>같은 실패를 두고도 반응은 갈립니다. 한쪽은 &quot;나는 역시 안 되는 사람&quot;이라고 자신을 몰아세웁니다. 다른 한쪽은 &quot;이번엔 아쉬웠지만 다음엔 다르게 해보자&quot;고 마음을 다잡습니다. 회복탄력성은 후자의 태도에 가깝습니다. 감정을 억누르는 것이 아니라, 흔들리되 다시 중심을 찾아오는 힘입니다.</p>
+<h2>무엇으로 이뤄지는가</h2>
+<p>회복탄력성은 하나의 능력이 아니라 여러 요소가 어우러진 결과입니다. 크게 세 가지를 꼽을 수 있습니다.</p>
+<figure><img src="./images/body-2.png" alt="회복탄력성을 이루는 세 가지 요소를 카드 형태로 정리"><figcaption>회복탄력성을 이루는 세 가지 요소를 카드 형태로 정리</figcaption></figure>
+<p>첫째는 자기조절력입니다. 힘든 감정이 밀려올 때 그 감정에 완전히 휩쓸리지 않고 스스로를 다독일 수 있는 힘입니다. 둘째는 대인관계 능력입니다. 어려울 때 도움을 청하고 곁을 내어줄 사람이 있다는 것은 그 자체로 큰 완충 장치가 됩니다. 셋째는 긍정성입니다. 상황을 무조건 밝게만 보라는 뜻이 아니라, 어려움 속에서도 의미와 배울 점을 찾아내는 태도를 말합니다.</p>
+<h2>회복탄력성을 키우는 방법</h2>
+<p>그렇다면 어떻게 키울 수 있을까요. 거창한 결심보다 작은 습관이 힘을 발휘합니다.</p>
+<figure><img src="./images/body-3.png" alt="회복탄력성을 키우는 세 단계 연습을 순서대로 보여주는 단계별 도식"><figcaption>회복탄력성을 키우는 세 단계 연습을 순서대로 보여주는 단계별 도식</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>낮을 때의 반응</th><th>키워가는 연습</th></tr></thead><tbody><tr><td>감정</td><td>밀려오는 감정에 휩쓸림</td><td>감정에 이름을 붙여 바라보기</td></tr><tr><td>관계</td><td>혼자 견디려 함</td><td>신뢰하는 사람에게 털어놓기</td></tr><tr><td>해석</td><td>실패를 자기 탓으로 확대</td><td>상황과 나를 분리해 바라보기</td></tr><tr><td>회복</td><td>완벽히 돌아오려 조급함</td><td>작은 회복부터 인정하기</td></tr></tbody></table></div>
+<p>가장 먼저 권하고 싶은 것은 감정을 있는 그대로 알아차리는 연습입니다. &quot;지금 나는 불안하구나&quot; 하고 이름을 붙이는 것만으로도 감정과 나 사이에 작은 거리가 생깁니다. 그리고 힘들 때 혼자 견디지 않기를 권합니다. 예전에는 참는 것이 강한 것이라 여겼습니다. 지금은 도움을 청할 줄 아는 것이 더 단단한 힘이라고 봅니다.</p>
+<blockquote><p>회복탄력성은 넘어지지 않는 힘이 아니라, 넘어진 뒤 다시 일어서는 힘입니다.</p></blockquote>
+<h2>일상에서 적용하기</h2>
+<p>일상에서는 작은 루틴이 큰 차이를 만듭니다. 하루를 마치며 잘된 일 한 가지를 떠올려 적어보는 습관, 충분한 잠과 규칙적인 몸의 움직임, 그리고 완벽 대신 오늘 할 수 있는 만큼만 해내는 마음가짐입니다. 이런 것들이 쌓여 마음의 탄성을 조금씩 두껍게 만듭니다. 다만 한 가지는 분명히 해두고 싶습니다. 스스로의 노력만으로 감당하기 어려운 무게라면, 전문 상담사나 정신건강 전문가의 도움을 받는 것이 현명한 선택입니다.</p>
+<h2>정리하며</h2>
+<p>정리하면 이렇습니다. 회복탄력성은 타고나는 것이 아니라 길러지는 힘이고, 감정을 다루는 능력과 곁의 사람, 그리고 상황을 해석하는 태도가 함께 만들어냅니다. 오늘부터 감정에 이름을 붙이고, 힘들 때 손을 내미는 작은 연습을 시작해 보시길 권합니다. 완벽하게 무너지지 않는 사람은 없습니다. 다만 다시 일어서는 사람이 있을 뿐입니다.</p>
+<div class="tags"><span>#회복탄력성</span> <span>#리질리언스</span> <span>#마음건강</span> <span>#심리상담</span> <span>#자기조절</span> <span>#스트레스관리</span> <span>#감정다루기</span> <span>#멘탈케어</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

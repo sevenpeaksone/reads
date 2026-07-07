@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HBM4가 바꾸는 메모리 슈퍼사이클</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#3fb6a8;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#3fb6a8;border-color:#3fb6a8">산업 뉴스 해설</div>
+<h1>HBM4가 바꾸는 메모리 슈퍼사이클</h1>
+<p class="subtitle">D램에 로직이 올라탔다</p>
+<figure><img src="./images/thumbnail.png" alt="겹겹이 쌓인 HBM 메모리 스택과 그 아래 로직 다이를 강조한 산업 뉴스 해설 썸네일"><figcaption>겹겹이 쌓인 HBM 메모리 스택과 그 아래 로직 다이를 강조한 산업 뉴스 해설 썸네일</figcaption></figure>
+<p>AI 인프라 투자가 불붙으면서 메모리 반도체가 다시 슈퍼사이클에 올라탔습니다. 그 중심에 차세대 고대역폭메모리 <strong>HBM4</strong>가 있습니다. 이번 세대는 단순한 성능 향상을 넘어, 메모리 구조 자체가 처음으로 바뀌는 전환점이라는 점에서 의미가 다릅니다.</p>
+<hr>
+<h2>무슨 일이 있었나</h2>
+<p>2026년 7월 현재, HBM 시장은 기존 HBM3E에서 <strong>HBM4</strong> 중심으로 재편되는 국면에 들어섰습니다.</p>
+<p>삼성전자는 지난 2월 업계 최초로 HBM4 양산 출하를 시작했고, 출하 약 130일 만에 매출 10억 달러를 넘겼습니다. 마이크론도 최근 분기 실적에서 HBM4 매출 10억 달러 달성을 발표했습니다. SK하이닉스는 앞서 12단 샘플을 공급하며 기술 경쟁의 문을 열었습니다.</p>
+<p>세 회사 모두 같은 목표를 봅니다. 엔비디아의 차세대 AI 가속기 &#x27;루빈(Rubin)&#x27;에 들어갈 HBM4 물량입니다.</p>
+<hr>
+<h2>왜 중요한가 — 구조가 바뀐다</h2>
+<p>HBM4가 특별한 이유는 성능 수치가 아니라 <strong>만드는 방식</strong>에 있습니다.</p>
+<p>지금까지 HBM은 데이터를 저장하는 코어 다이와, 맨 아래에서 신호를 정리하는 베이스 다이를 <strong>모두 D램 공정</strong>으로 만들었습니다. HBM4부터는 이 베이스 다이를 파운드리의 <strong>로직 공정</strong>으로 바꿉니다. 메모리 위에 사실상 &#x27;작은 연산 칩&#x27;을 붙이는 셈입니다.</p>
+<p>이 변화가 가져오는 이점은 분명합니다. 전력 소모가 줄고, 성능이 오르며, 고객이 원하는 기능을 베이스 다이에 맞춤형으로 넣을 수 있습니다. 메모리와 로직의 경계가 흐려지는 첫 세대인 셈입니다.</p>
+<blockquote><p>&quot;HBM4는 메모리와 로직을 하나로 묶는 첫 표준이다.&quot; — JEDEC(HBM4 표준 JESD270-4)</p></blockquote>
+<figure><img src="./images/body-1.png" alt="HBM3E와 HBM4의 베이스 다이 공정 차이를 좌우로 대비시킨 이미지"><figcaption>HBM3E와 HBM4의 베이스 다이 공정 차이를 좌우로 대비시킨 이미지</figcaption></figure>
+<hr>
+<h2>삼성·SK·마이크론, 갈라진 전략</h2>
+<p>같은 HBM4라도 세 회사가 베이스 다이를 만드는 방식은 다릅니다.</p>
+<p>삼성전자는 자사 파운드리의 <strong>4나노</strong> 로직 공정으로 베이스 다이를 직접 만들고, 패키징까지 한 지붕 아래에서 처리합니다. 실리콘부터 패키징까지 전 과정을 자체 소화하는 유일한 &#x27;턴키&#x27; 공급사라는 점이 강점입니다.</p>
+<p>SK하이닉스와 마이크론은 다른 길을 택했습니다. SK하이닉스는 베이스 다이에 <strong>TSMC의 로직 공정</strong>을 활용하고, 마이크론은 자체 CMOS 기술을 씁니다. 최선단 공정보다 비용을 낮추는 선택입니다.</p>
+<p>시장 위치도 다릅니다. 2026년 1분기 매출 기준 HBM 점유율은 SK하이닉스가 58%로 선두이고, 삼성전자와 마이크론이 각각 21%로 뒤를 잇습니다.</p>
+<figure><img src="./images/body-2.png" alt="삼성·SK하이닉스·마이크론 세 회사의 HBM4 베이스 다이 전략을 정리한 카드형 이미지"><figcaption>삼성·SK하이닉스·마이크론 세 회사의 HBM4 베이스 다이 전략을 정리한 카드형 이미지</figcaption></figure>
+<hr>
+<h2>앞으로의 전망</h2>
+<p>관건은 &#x27;루빈&#x27; 물량을 누가 얼마나 가져가느냐입니다.</p>
+<p>한 증권사(UBS)는 SK하이닉스가 루빈용 HBM4에서 약 70% 점유율을 지킬 것으로 봤습니다. 삼성전자는 세계 최초 양산이라는 기록으로 추격의 발판을 마련했고, 마이크론은 연말까지 점유율을 20%대로 끌어올리겠다고 밝혔습니다.</p>
+<p>물론 변수는 남아 있습니다. 로직 공정 전환은 원가와 수율 관리가 이전보다 까다롭습니다. 슈퍼사이클이라는 표현이 무색하지 않으려면, 수요만큼 안정적인 양산이 뒷받침돼야 합니다.</p>
+<figure><img src="./images/body-3.png" alt="HBM4 세대 이후의 공급 경쟁 흐름을 단계별로 보여주는 이미지"><figcaption>HBM4 세대 이후의 공급 경쟁 흐름을 단계별로 보여주는 이미지</figcaption></figure>
+<p>### HBM4 핵심 스펙·경쟁 구도</p>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>내용</th></tr></thead><tbody><tr><td>인터페이스 폭(스택당)</td><td>2048비트 (JEDEC JESD270-4)</td></tr><tr><td>핀당 전송속도</td><td>최대 8Gbps 내외(표준 기준)</td></tr><tr><td>베이스 다이</td><td>D램 공정 → 로직(파운드리) 공정으로 전환</td></tr><tr><td>삼성 방식</td><td>1c D램 + 자사 4나노 로직, 턴키</td></tr><tr><td>SK·마이크론 방식</td><td>TSMC 로직 / 자체 CMOS 활용</td></tr><tr><td>Q1 2026 HBM 점유율</td><td>SK 58% · 삼성 21% · 마이크론 21%</td></tr></tbody></table></div>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>HBM4의 진짜 변화는 대역폭 숫자가 아니라, <strong>메모리가 로직을 품기 시작했다</strong>는 구조의 전환입니다. 이 첫 단추를 누가 더 안정적으로 꿰느냐에 따라, 다음 슈퍼사이클의 주도권이 갈릴 것입니다.</p>
+<p>메모리는 더 이상 &#x27;저장만 하는 부품&#x27;이 아닙니다. 이제 연산의 문턱까지 걸쳐 있습니다.</p>
+<p>이 글은 정보 제공을 목적으로 하며 투자 권유가 아닙니다.</p>
+<div class="tags"><span>#HBM4</span> <span>#메모리반도체</span> <span>#슈퍼사이클</span> <span>#삼성전자</span> <span>#SK하이닉스</span> <span>#마이크론</span> <span>#엔비디아루빈</span> <span>#반도체</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

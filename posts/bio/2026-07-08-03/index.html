@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>혈당과 인슐린</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#ff7c7c;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#ff7c7c;border-color:#ff7c7c">바이오</div>
+<h1>혈당과 인슐린</h1>
+<p class="subtitle">당뇨병의 기초 이해</p>
+<figure><img src="./images/thumbnail.png" alt="혈액 속 포도당 알갱이와 인슐린 열쇠가 세포 문을 여는 모습을 담은 썸네일"><figcaption>혈액 속 포도당 알갱이와 인슐린 열쇠가 세포 문을 여는 모습을 담은 썸네일</figcaption></figure>
+<p>이번 글에서는 혈당과 인슐린이 우리 몸에서 어떤 일을 하는지, 그리고 당뇨병이 왜 생기는지를 기초부터 정리해 보겠습니다. 어려운 의학 용어보다 큰 그림을 이해하는 데 초점을 맞추겠습니다.</p>
+<hr>
+<h2>혈당은 몸을 움직이는 연료입니다</h2>
+<p>혈당은 혈액 속에 녹아 있는 <strong>포도당</strong>을 말합니다. 우리가 먹은 밥이나 빵 같은 탄수화물은 소화를 거쳐 포도당으로 바뀝니다. 이 포도당이 혈액을 타고 온몸을 돌며 세포에 에너지를 공급합니다.</p>
+<p>혈당은 너무 높아도, 너무 낮아도 곤란합니다. 우리 몸은 식사 뒤 오른 혈당을 일정한 범위로 되돌리려 애씁니다. 이 균형을 잡는 일이 건강 유지의 바탕이 됩니다.</p>
+<hr>
+<h2>인슐린이라는 열쇠</h2>
+<figure><img src="./images/body-1.png" alt="인슐린이 세포의 문을 열어 포도당이 안으로 들어가는 원리를 보여주는 도식"><figcaption>인슐린이 세포의 문을 열어 포도당이 안으로 들어가는 원리를 보여주는 도식</figcaption></figure>
+<p>혈당을 조절하는 핵심 일꾼이 <strong>인슐린</strong>입니다. 인슐린은 췌장에서 만들어지는 호르몬입니다. 식사 후 혈당이 오르면 췌장이 인슐린을 내보냅니다.</p>
+<p>인슐린은 세포의 문을 여는 열쇠에 비유할 수 있습니다. 이 열쇠가 있어야 포도당이 세포 안으로 들어가 에너지로 쓰입니다. 덕분에 혈액 속 포도당은 줄어들고, 혈당은 다시 안정된 범위로 내려옵니다. 인슐린이 부족하거나 제 역할을 못 하면, 포도당이 세포로 들어가지 못한 채 혈액에 쌓입니다. 이것이 당뇨병의 뿌리입니다.</p>
+<hr>
+<h2>제1형과 제2형은 무엇이 다른가</h2>
+<figure><img src="./images/body-2.png" alt="제1형과 제2형 당뇨병의 원인 차이를 좌우로 대비한 비교 이미지"><figcaption>제1형과 제2형 당뇨병의 원인 차이를 좌우로 대비한 비교 이미지</figcaption></figure>
+<p>당뇨병은 크게 두 가지로 나뉩니다. <strong>제1형</strong>은 인슐린을 만드는 췌장 세포가 손상되어 인슐린 자체가 거의 나오지 않는 경우입니다. 주로 어린 나이에 나타나며, 인슐린을 몸에 보충해 주어야 합니다.</p>
+<p><strong>제2형</strong>은 인슐린이 나오기는 하지만 몸이 인슐린에 둔해지는 경우입니다. 이를 <strong>인슐린 저항성</strong>이라 부릅니다. 열쇠는 있는데 자물쇠가 뻑뻑해진 상태에 가깝습니다. 성인에게 흔하며, 생활습관과 관련이 깊습니다.</p>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>제1형</th><th>제2형</th></tr></thead><tbody><tr><td>원인</td><td>인슐린 분비 부족</td><td>인슐린 저항성</td></tr><tr><td>발병 시기</td><td>대체로 젊은 나이</td><td>주로 성인기</td></tr><tr><td>관리 방향</td><td>인슐린 보충 필요</td><td>생활습관 관리 중심</td></tr></tbody></table></div>
+<hr>
+<h2>생활습관으로 지키는 균형</h2>
+<p>특히 제2형은 일상의 습관이 큰 영향을 줍니다. 규칙적인 식사, 정제 당분을 줄인 식단, 꾸준한 신체 활동은 혈당 균형을 돕는 기본입니다.</p>
+<figure><img src="./images/body-3.png" alt="식사 운동 체중관리 등 혈당 관리 생활습관 3가지를 카드로 정리한 이미지"><figcaption>식사 운동 체중관리 등 혈당 관리 생활습관 3가지를 카드로 정리한 이미지</figcaption></figure>
+<p>예전에는 당뇨를 단지 &#x27;단것을 많이 먹어 생기는 병&#x27;으로만 여겼습니다. 지금은 유전, 활동량, 체중, 스트레스까지 여러 요인이 얽힌 문제로 이해합니다. 그래서 관리도 한 가지 방법이 아니라 생활 전반을 고르게 다듬는 방향으로 갑니다.</p>
+<blockquote><p>혈당 관리는 하루의 극적인 노력이 아니라, 꾸준한 습관의 누적으로 이루어집니다.</p></blockquote>
+<p>다만 이 글은 일반적인 건강 정보를 정리한 것입니다. 실제 진단과 치료, 약물 복용은 반드시 전문의와 상담하시길 권합니다.</p>
+<hr>
+<h2>정리하며</h2>
+<p>혈당은 몸을 움직이는 연료이고, 인슐린은 그 연료를 세포로 들여보내는 열쇠입니다. 이 열쇠가 부족하거나 무뎌지면 혈당이 쌓이고, 그 양상에 따라 제1형과 제2형으로 나뉩니다. 완벽한 예방법이 있다고 단정하기는 어렵습니다만, 균형 잡힌 생활습관이 든든한 바탕이 된다는 점은 분명합니다. 내 몸의 신호에 귀 기울이는 일에서 건강 관리는 시작됩니다.</p>
+<div class="tags"><span>#혈당</span> <span>#인슐린</span> <span>#당뇨병</span> <span>#제1형당뇨</span> <span>#제2형당뇨</span> <span>#인슐린저항성</span> <span>#생활습관관리</span> <span>#건강정보</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

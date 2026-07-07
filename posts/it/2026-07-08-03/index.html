@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>메시지 큐와 비동기 처리</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>메시지 큐와 비동기 처리</h1>
+<p class="subtitle">카프카는 왜 쓰나</p>
+<figure><img src="./images/thumbnail.png" alt="여러 요청이 큐에 줄지어 담기고 뒤에서 순차적으로 처리되는 모습을 담은 썸네일, 메시지 큐 개념을 상징"><figcaption>여러 요청이 큐에 줄지어 담기고 뒤에서 순차적으로 처리되는 모습을 담은 썸네일, 메시지 큐 개념을 상징</figcaption></figure>
+<p>서비스가 작을 때는 요청을 받으면 그 자리에서 곧바로 처리해도 무리가 없습니다. 그러나 트래픽이 몰리고 처리할 일이 무거워지면, 이 단순한 방식이 곧 병목이 됩니다. 이럴 때 등장하는 것이 메시지 큐와 비동기 처리입니다. 큐가 무엇이고 왜 필요한지, RabbitMQ와 Kafka는 어떻게 다른지 하나씩 정리해 보겠습니다.</p>
+<hr>
+<h2>동기 처리의 한계</h2>
+<p>동기 처리는 요청을 받은 서버가 모든 일을 끝낼 때까지 응답을 붙잡아 두는 방식입니다. 사용자가 주문을 넣으면 결제, 재고 차감, 알림 발송을 전부 마친 뒤에야 &quot;완료&quot; 화면을 보여줍니다. 알림 서버 하나가 느려지면 그 지연이 사용자 화면까지 그대로 전달됩니다. 처리할 일이 하나라도 무거워지면 전체가 함께 느려지는 셈입니다.</p>
+<figure><img src="./images/body-1.png" alt="동기 처리와 비동기 처리를 나란히 비교하는 도식, 요청 흐름의 차이를 대비"><figcaption>동기 처리와 비동기 처리를 나란히 비교하는 도식, 요청 흐름의 차이를 대비</figcaption></figure>
+<hr>
+<h2>큐가 하는 일</h2>
+<p>비동기 처리는 이 흐름을 끊어냅니다. 서버는 &quot;할 일이 있다&quot;는 메시지만 큐에 던져두고 곧바로 사용자에게 응답합니다. 실제 작업은 뒤에서 별도의 소비자가 큐를 꺼내 처리합니다.</p>
+<p>큐는 생산자와 소비자 사이에 놓인 완충 장치입니다. 요청이 순간적으로 폭주해도 큐가 받아 쌓아두면, 소비자는 감당할 수 있는 속도로 하나씩 꺼내 처리합니다. 예전에는 트래픽이 몰리면 서버가 함께 무너졌습니다. 지금은 큐가 충격을 흡수해 뒤쪽 시스템을 지켜줍니다.</p>
+<blockquote><p>큐는 요청을 버리지 않고 잠시 맡아둡니다. 덕분에 앞단과 뒷단이 서로의 속도에 얽매이지 않습니다.</p></blockquote>
+<hr>
+<h2>RabbitMQ와 Kafka</h2>
+<p>메시지 큐 도구는 여럿이지만, 결이 다른 두 갈래를 대표하는 것이 RabbitMQ와 Kafka입니다.</p>
+<figure><img src="./images/body-2.png" alt="RabbitMQ와 Kafka의 특성을 항목별로 비교한 표 형태 이미지"><figcaption>RabbitMQ와 Kafka의 특성을 항목별로 비교한 표 형태 이미지</figcaption></figure>
+<p>RabbitMQ는 전통적인 메시지 브로커입니다. 메시지를 소비자에게 전달하고 나면 큐에서 지워지며, 누구에게 어떻게 보낼지 세밀하게 제어하기에 좋습니다. Kafka는 메시지를 로그처럼 차곡차곡 쌓아두는 구조입니다. 읽어가도 메시지가 사라지지 않아 여러 소비자가 같은 데이터를 각자 읽을 수 있고, 초당 수만 건 이상의 대용량 흐름을 견디도록 설계되었습니다.</p>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>RabbitMQ</th><th>Kafka</th></tr></thead><tbody><tr><td>성격</td><td>메시지 브로커</td><td>분산 로그</td></tr><tr><td>처리 후</td><td>전달되면 삭제</td><td>일정 기간 보관</td></tr><tr><td>강점</td><td>세밀한 라우팅</td><td>대용량·재처리</td></tr><tr><td>적합한 곳</td><td>작업 분배·알림</td><td>로그·이벤트 스트림</td></tr></tbody></table></div>
+<p>둘 중 무엇이 낫다고 단정하기는 어렵습니다. 정교한 작업 분배가 필요하면 RabbitMQ가, 대량의 이벤트를 흘려보내고 여러 곳에서 다시 읽어야 하면 Kafka가 어울립니다.</p>
+<hr>
+<h2>어디에 쓰나</h2>
+<figure><img src="./images/body-3.png" alt="메시지 큐의 대표 활용 사례 세 가지를 카드 형태로 정리한 이미지"><figcaption>메시지 큐의 대표 활용 사례 세 가지를 카드 형태로 정리한 이미지</figcaption></figure>
+<p>큐는 당장 끝내지 않아도 되는 일을 뒤로 미룰 때 빛을 발합니다. 이메일이나 푸시 알림 발송, 이미지·영상 변환, 대량 데이터 집계 같은 작업이 대표적입니다. 사용자는 요청이 접수됐다는 응답을 즉시 받고, 실제 처리는 뒤에서 조용히 진행됩니다.</p>
+<p>시스템을 여러 서비스로 나누는 구조에서도 큐는 중요한 역할을 합니다. 서비스들이 서로 직접 호출하는 대신 이벤트를 큐로 주고받으면, 한쪽이 잠시 멈춰도 다른 쪽이 함께 멈추지 않습니다. 다만 큐를 끼우면 흐름을 한눈에 따라가기 어렵고, 처리 순서나 중복 문제를 따로 신경 써야 합니다. 편의만 있는 것은 아닙니다.</p>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>메시지 큐는 요청과 처리를 떼어놓아, 몰리는 트래픽을 흡수하고 각 부분이 제 속도로 일하게 해줍니다. RabbitMQ는 정교한 전달에, Kafka는 대용량 흐름과 재처리에 강합니다. 물론 구조가 복잡해지고 추적이 어려워지는 대가도 따릅니다.</p>
+<p>&quot;큐는 급한 일을 미루는 도구가 아니라, 급하지 않은 일을 제자리에 두는 도구입니다.&quot;</p>
+<p>당장 응답할 것과 나중에 처리할 것을 나눌 수 있다면, 큐를 한번 얹어 보시길 권합니다.</p>
+<div class="tags"><span>#메시지큐</span> <span>#카프카</span> <span>#Kafka</span> <span>#RabbitMQ</span> <span>#비동기처리</span> <span>#백엔드개발</span> <span>#MSA</span> <span>#이벤트스트림</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
