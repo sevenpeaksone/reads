@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>허위조작정보 근절법 시행</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#e0667a;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#e0667a;border-color:#e0667a">정치·사회 뉴스 해설</div>
+<h1>허위조작정보 근절법 시행</h1>
+<p class="subtitle">&#x27;가짜뉴스 근절&#x27;과 &#x27;검열&#x27; 사이</p>
+<figure><img src="./images/thumbnail.png" alt="저울 위에 놓인 스마트폰과 &#x27;!&#x27; 기호, 법과 표현의 자유 사이 긴장을 상징하는 정치 뉴스 썸네일"><figcaption>저울 위에 놓인 스마트폰과 &#x27;!&#x27; 기호, 법과 표현의 자유 사이 긴장을 상징하는 정치 뉴스 썸네일</figcaption></figure>
+<h2>무슨 일</h2>
+<p>2026년 7월 7일, 개정 <strong>정보통신망법</strong>이 시행됐습니다. 흔히 &#x27;<strong>허위조작정보 근절법</strong>&#x27;으로 불리는 이 법은 2025년 12월 24일 국회 본회의를 통과해 2026년 1월 공포됐습니다. 국회 과학기술정보방송통신위원회 논의를 거쳐 더불어민주당 주도로 처리됐습니다.</p>
+<p>핵심은 새로운 형사처벌 신설이 아니라 <strong>징벌적 손해배상</strong> 제도 도입입니다. 고의로 허위·조작정보를 유포해 타인에게 피해를 준 경우, 피해액의 최대 5배까지 배상 책임을 물을 수 있습니다. 법은 &#x27;허위정보&#x27;(내용의 전부 또는 일부가 사실과 다른 정보)와 &#x27;조작정보&#x27;(사실로 오인하게끔 변형한 정보, AI 딥페이크·사진합성·음성변조 포함)의 개념을 구체화했습니다.</p>
+<figure><img src="./images/body-1.png" alt="허위조작정보 근절법이란"><figcaption>허위조작정보 근절법이란</figcaption></figure>
+<p>5배 배상 대상은 모든 이용자가 아닙니다. 정보 유통을 업으로 하면서 일정 규모 이상인 사업자·개인이 주된 적용 대상이며, 시행령 초안 기준으로는 구독자 10만 명 이상 또는 월평균 조회수 10만 회 이상인 경우가 거론됩니다. 세부 기준은 아직 시행령에서 확정되는 중입니다. 법은 또한 네이버·카카오 등 플랫폼 사업자에게 게시물 삭제·노출 제한과 관련한 책임을 확대하는 내용도 담고 있습니다.</p>
+<h2>왜 논쟁적인가</h2>
+<p>찬성 측은 AI 딥페이크와 조직적 여론조작으로 인한 피해가 커지는 상황에서, 기존 형사처벌 중심 대응만으로는 신속한 피해 구제가 어렵다는 점을 근거로 듭니다. 영향력이 큰 유튜버·인플루언서 등에게 더 무거운 책임을 지우는 것이 필요하다는 논리입니다. 법안은 국회 표결에서 찬성 170표, 반대 3표, 기권 4표로 통과됐습니다.</p>
+<p>반대 측은 &#x27;허위·조작정보&#x27;의 판단 기준이 모호하다는 점을 문제 삼습니다. 방송기자연합회, 전국언론노동조합, 한국기자협회 등 언론 현업 5단체는 징벌적 손해배상이 권력자의 소송 남발로 이어져 언론·표현의 자유를 위축시킬 수 있다고 우려했습니다. 플랫폼 사업자가 배상 책임을 피하려 게시물을 선제적으로 삭제하는 &#x27;과잉 검열&#x27;이 벌어질 수 있다는 지적도 나옵니다. 미국 국무부 측도 이 법을 표현의 자유 침해 및 온라인 무역 장벽 소지가 있다고 공개적으로 우려를 표명한 바 있습니다.</p>
+<figure><img src="./images/body-2.png" alt="찬성 vs 반대"><figcaption>찬성 vs 반대</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>주요 논거</th></tr></thead><tbody><tr><td>찬성 측</td><td>딥페이크·조직적 허위정보 피해 구제 강화, 영향력 큰 유포자 책임 확대</td></tr><tr><td>반대 측</td><td>판단 기준 모호, 소송 남발·언론 위축 우려, 플랫폼 과잉 삭제 가능성</td></tr></tbody></table></div>
+<blockquote><p>&quot;표현의 자유는 훼손될 것이고, 징벌적 손배가 도입된 이상 권력자들의 소송 남발로 인한 언론 자유 위축은 막을 수 없다.&quot; — 언론현업 5단체 (PD저널 보도 인용)</p></blockquote>
+<p>법은 이런 우려를 의식해 객관적 사실에 기반한 의견·비판, 풍자·패러디, 학술적 논쟁 등은 원칙적으로 허위·조작정보에 해당하지 않는다는 예외 조항도 두고 있습니다. 다만 이 경계가 실제 적용에서 얼마나 명확하게 지켜질지는 아직 지켜봐야 할 부분입니다.</p>
+<h2>앞으로</h2>
+<p>시행 첫날부터 온라인에서는 &quot;내 댓글도 처벌 대상이냐&quot;는 식의 혼란과 질문이 이어졌습니다. 다만 개인 이용자 대다수는 징벌적 손해배상의 직접 대상이 아니라, 정보 유통을 업으로 하는 일정 규모 이상 사업자·인플루언서가 주된 적용 대상이라는 점은 확인할 필요가 있습니다.</p>
+<figure><img src="./images/body-3.png" alt="남은 쟁점 3가지"><figcaption>남은 쟁점 3가지</figcaption></figure>
+<p>앞으로 쟁점은 크게 세 가지로 모입니다. 첫째, 구독자·조회수 기준 등 적용 대상을 구체화할 <strong>시행령</strong>이 어떻게 확정되는지입니다. 둘째, 플랫폼 사업자들이 실제로 게시물 삭제·노출 제한을 어느 수준까지 강화할지입니다. 셋째, 법원이 &#x27;허위·조작정보&#x27;와 &#x27;의견·비판·풍자&#x27;의 경계를 실제 판결에서 어떻게 그을지입니다. 시행 이후 축적되는 사례가 이 법이 피해 구제 장치로 자리 잡을지, 표현의 자유 위축 우려가 현실화할지를 가늠하는 기준이 될 전망입니다.</p>
+<div class="tags"><span>#허위조작정보근절법</span> <span>#정보통신망법</span> <span>#가짜뉴스</span> <span>#표현의자유</span> <span>#검열논란</span> <span>#징벌적손해배상</span> <span>#딥페이크</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

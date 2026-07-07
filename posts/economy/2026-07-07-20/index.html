@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GDP와 경제성장률</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2bb673;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#2bb673;border-color:#2bb673">경제</div>
+<h1>GDP와 경제성장률</h1>
+<p class="subtitle">나라 경제를 읽는 첫 지표</p>
+<figure><img src="./images/thumbnail.png" alt="국가 경제 규모를 상징하는 그래프와 화폐 기호가 어우러진 썸네일"><figcaption>국가 경제 규모를 상징하는 그래프와 화폐 기호가 어우러진 썸네일</figcaption></figure>
+<h2>GDP란 무엇일까요</h2>
+<p><strong>GDP</strong>(국내총생산)는 일정 기간 한 나라 안에서 새로 만들어진 재화와 서비스의 시장가치를 모두 더한 값입니다. 한 나라의 경제를 커다란 그릇으로 본다면, 그 그릇 안에서 한 해 동안 만들어진 물건과 서비스의 가치를 전부 합친 숫자라고 생각하면 쉽습니다.</p>
+<p>여기서 중요한 조건이 두 가지 있습니다. 하나는 <strong>최종 재화</strong>만 센다는 점입니다. 빵을 만들 때 쓰인 밀가루값은 따로 세지 않고, 완성된 빵의 가격만 셉니다. 중간 단계를 다 더하면 같은 가치를 여러 번 세는 셈이 되기 때문입니다. 다른 하나는 <strong>한 나라 안에서</strong> 생산된 것만 포함한다는 점입니다. 국적과 상관없이 그 나라 영토 안에서 이루어진 생산 활동이 기준이 됩니다.</p>
+<figure><img src="./images/body-1.png" alt="GDP를 이루는 4가지 지출"><figcaption>GDP를 이루는 4가지 지출</figcaption></figure>
+<h2>GDP는 어떻게 계산될까요</h2>
+<p>GDP를 바라보는 방법 중 가장 널리 쓰이는 것이 지출 측면 접근입니다. 한 나라에서 만들어진 것은 결국 누군가에 의해 소비되거나 쓰이기 때문에, 돈이 쓰인 곳을 다 더해도 같은 값이 나옵니다.</p>
+<p>지출은 크게 네 갈래로 나뉩니다. 가계가 물건과 서비스를 사는 <strong>소비</strong>, 기업이 공장이나 설비에 돈을 쓰는 <strong>투자</strong>, 정부가 도로나 행정 서비스에 쓰는 <strong>정부지출</strong>, 그리고 해외에 판 것에서 해외에서 사온 것을 뺀 <strong>순수출</strong>입니다. 이 네 가지를 더하면 그 나라의 GDP가 됩니다. 마치 가계부에서 어디에 얼마를 썼는지 항목별로 더해 총지출을 구하는 것과 비슷합니다.</p>
+<figure><img src="./images/body-2.png" alt="명목 GDP vs 실질 GDP"><figcaption>명목 GDP vs 실질 GDP</figcaption></figure>
+<h2>명목 GDP와 실질 GDP는 다릅니다</h2>
+<p>같은 양의 빵을 만들었는데 빵값이 올랐다면 GDP 숫자도 커집니다. 이렇게 물가 변동을 그대로 반영한 값이 <strong>명목 GDP</strong>입니다. 겉으로 보이는 금액 그대로를 계산한 것이라 이해하면 됩니다.</p>
+<p>문제는 명목 GDP만 보면 실제로 더 많이 생산한 것인지, 아니면 단순히 물가가 올라서 숫자가 커진 것인지 구분하기 어렵다는 점입니다. 그래서 물가 변동을 제거하고 순수하게 생산량의 변화만 보여주는 값을 따로 계산하는데, 이것이 <strong>실질 GDP</strong>입니다. 실질 GDP는 기준이 되는 시점의 가격으로 다시 계산해, 물가라는 안경을 벗고 생산량 자체의 크기를 보는 셈입니다.</p>
+<p><strong>경제성장률</strong>은 바로 이 실질 GDP가 전년보다 얼마나 늘었는지를 백분율로 나타낸 것입니다. 물가 상승 효과를 뺀 순수한 생산 증가만 보여주기 때문에, 한 나라 경제가 실제로 얼마나 커지고 있는지를 판단하는 핵심 지표로 쓰입니다.</p>
+<figure><img src="./images/body-3.png" alt="GDP의 한계 3가지"><figcaption>GDP의 한계 3가지</figcaption></figure>
+<h2>GDP로 다 알 수는 없습니다</h2>
+<p>나라 간 생활 수준을 비교할 때는 GDP를 인구수로 나눈 <strong>1인당 GDP</strong>를 많이 씁니다. 나라 전체 GDP가 크더라도 인구가 훨씬 많다면 개인이 누리는 몫은 작을 수 있기 때문입니다. 케이크 하나가 아무리 커도 나눠 먹는 사람이 많으면 한 사람 몫은 작아지는 것과 같은 이치입니다.</p>
+<p>다만 GDP는 만능 지표가 아닙니다. 집안일이나 돌봄처럼 시장에서 거래되지 않는 노동은 포함되지 않고, 환경 오염이나 자원 고갈 같은 비용도 반영하지 않습니다. 또한 GDP가 커져도 그 몫이 소수에게 쏠려 있다면 대다수의 삶은 크게 나아지지 않을 수 있습니다. 즉 GDP는 경제 활동의 규모를 보여줄 뿐, 삶의 질이나 행복까지 담아내는 지표는 아닙니다. 나라 경제를 읽는 첫걸음으로는 유용하지만, 그 나라 국민이 실제로 얼마나 잘 살고 있는지는 다른 지표들과 함께 살펴봐야 합니다.</p>
+<div class="tags"><span>#GDP</span> <span>#경제성장률</span> <span>#경제기초</span> <span>#실질GDP</span> <span>#명목GDP</span> <span>#1인당GDP</span> <span>#경제지표</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

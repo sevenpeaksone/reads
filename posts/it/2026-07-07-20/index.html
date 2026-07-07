@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>데이터베이스 인덱스</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>데이터베이스 인덱스</h1>
+<p class="subtitle">검색은 어떻게 빨라지나</p>
+<figure><img src="./images/thumbnail.png" alt="책과 데이터베이스 테이블이 겹쳐진 느낌의 썸네일, 색인 개념을 상징"><figcaption>책과 데이터베이스 테이블이 겹쳐진 느낌의 썸네일, 색인 개념을 상징</figcaption></figure>
+<p>서비스 초기에는 데이터가 적어서 어떤 쿼리를 짜도 빠르게 응답이 돌아옵니다. 하지만 회원이 늘고 주문 기록이 쌓이면 어느 순간부터 같은 쿼리가 눈에 띄게 느려집니다. 이때 개발자들이 가장 먼저 확인하는 것이 <strong>인덱스</strong>입니다. 인덱스가 정확히 무엇이고 왜 검색을 빠르게 만드는지, 그리고 왜 아무 컬럼에나 걸면 안 되는지 차근차근 짚어보겠습니다.</p>
+<h2>인덱스가 없다면 벌어지는 일</h2>
+<p>테이블에 인덱스가 없으면 데이터베이스는 원하는 행을 찾기 위해 테이블 전체를 처음부터 끝까지 읽습니다. 이를 <strong>전체 테이블 스캔</strong>(Full Scan)이라고 부릅니다. 백만 건짜리 테이블에서 특정 회원 한 명을 찾는다고 해도, 데이터베이스는 백만 건을 모두 확인한 뒤에야 결과를 돌려줍니다. 데이터가 적을 때는 큰 문제가 되지 않지만, 데이터가 늘어날수록 조회 시간은 테이블 크기에 비례해 길어집니다.</p>
+<figure><img src="./images/body-1.png" alt="인덱스 없이 전체 테이블을 처음부터 끝까지 훑는 모습과 인덱스로 바로 위치를 찾는 모습을 대비"><figcaption>인덱스 없이 전체 테이블을 처음부터 끝까지 훑는 모습과 인덱스로 바로 위치를 찾는 모습을 대비</figcaption></figure>
+<h2>책의 색인과 같은 원리</h2>
+<p>인덱스는 책 뒤편에 있는 <strong>색인</strong>과 비슷합니다. 특정 단어가 몇 페이지에 나오는지 찾을 때, 책을 처음부터 넘기지 않고 색인에서 단어를 찾아 페이지 번호로 바로 이동합니다. 데이터베이스 인덱스도 마찬가지입니다. 특정 컬럼의 값과 그 값이 저장된 행의 위치를 미리 정리해 둔 별도의 자료구조입니다. 조회 시 이 구조를 먼저 확인하면 원하는 행의 위치를 빠르게 찾아갈 수 있습니다.</p>
+<p>이 자료구조는 대부분 <strong>B-Tree</strong>라는 형태로 만들어집니다. B-Tree는 값을 정렬된 상태로 유지하면서 트리 형태로 가지를 뻗어나가는 구조입니다. 탐색 과정은 대략 다음과 같이 진행됩니다.</p>
+<figure><img src="./images/body-2.png" alt="B-Tree 구조로 값을 좁혀나가며 탐색하는 3단계 과정을 도식으로 표현"><figcaption>B-Tree 구조로 값을 좁혀나가며 탐색하는 3단계 과정을 도식으로 표현</figcaption></figure>
+<p>루트 노드에서 시작해 찾는 값보다 크고 작은지를 비교하며 다음 가지로 내려가고, 이 과정을 반복하다 보면 몇 단계 만에 원하는 행에 도달합니다. 데이터가 백만 건이어도 트리의 깊이는 몇 단계에 불과하기 때문에, 비교 횟수가 전체 스캔과는 비교할 수 없을 만큼 줄어듭니다.</p>
+<h2>공짜는 아닙니다: 쓰기와 저장공간 비용</h2>
+<p>인덱스는 조회를 빠르게 만들지만 대가가 따릅니다. 데이터를 <strong>INSERT</strong>하거나 <strong>UPDATE</strong>할 때마다 원본 테이블뿐 아니라 인덱스 구조도 함께 갱신해야 합니다. 인덱스가 많을수록 쓰기 작업 하나에 갱신해야 할 자료구조가 늘어나므로 쓰기 성능은 떨어집니다. 또한 인덱스 자체도 별도의 저장공간을 차지합니다. 테이블 크기가 크고 인덱스가 여러 개라면, 인덱스가 원본 테이블만큼의 공간을 추가로 쓰는 경우도 드물지 않습니다.</p>
+<blockquote><p>인덱스는 조회 속도와 쓰기 비용을 맞바꾸는 설계 결정입니다. 무조건 많이 걸수록 좋은 것이 아닙니다.</p></blockquote>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>인덱스 없음</th><th>인덱스 있음</th></tr></thead><tbody><tr><td>조회 방식</td><td>전체 테이블 스캔</td><td>B-Tree 탐색</td></tr><tr><td>조회 속도</td><td>데이터 양에 비례해 느려짐</td><td>대체로 일정하게 빠름</td></tr><tr><td>쓰기 비용</td><td>낮음</td><td>인덱스 갱신만큼 증가</td></tr><tr><td>저장공간</td><td>테이블 크기만</td><td>인덱스 구조 추가</td></tr></tbody></table></div>
+<h2>어디에, 얼마나 걸어야 할까</h2>
+<figure><img src="./images/body-3.png" alt="인덱스 설계 요령 3가지를 카드 형태로 정리"><figcaption>인덱스 설계 요령 3가지를 카드 형태로 정리</figcaption></figure>
+<p>인덱스는 아무 컬럼에나 걸어서 될 일이 아닙니다. <strong>WHERE</strong> 절의 조건으로 자주 쓰이는 컬럼, <strong>JOIN</strong>에서 연결 고리로 쓰이는 컬럼, <strong>ORDER BY</strong>로 정렬 기준이 되는 컬럼이 우선 후보입니다. 이런 컬럼에 인덱스가 없으면 쿼리마다 전체 스캔이 반복되기 때문입니다.</p>
+<p>효과를 극대화하려면 <strong>카디널리티</strong>가 높은 컬럼을 고르는 것이 중요합니다. 카디널리티란 컬럼에 존재하는 값의 다양성을 뜻합니다. 회원 이메일이나 주민등록번호처럼 값이 거의 겹치지 않는 컬럼은 인덱스를 타면 후보가 급격히 줄어들어 효과가 큽니다. 반대로 성별처럼 값의 종류가 두세 가지뿐인 컬럼은 인덱스를 걸어도 걸러지는 행이 적어 효과가 미미합니다.</p>
+<p>그리고 인덱스는 개수가 많다고 좋은 것이 아닙니다. 자주 조회되지 않는 컬럼에까지 인덱스를 걸면 쓰기 성능만 갉아먹고 저장공간만 낭비하는 결과로 이어집니다. 실제 쿼리 패턴을 보고 필요한 곳에만 선별적으로 설계하는 것이 원칙입니다.</p>
+<h2>정리하며</h2>
+<p>인덱스는 전체 테이블 스캔을 피해 B-Tree 구조로 원하는 데이터를 빠르게 찾아가는 도구입니다. 조회는 빨라지지만 쓰기 성능과 저장공간이라는 비용을 함께 지불한다는 점을 기억해야 합니다. WHERE, JOIN, ORDER BY에 자주 등장하고 카디널리티가 높은 컬럼을 우선 후보로 삼고, 실제 쿼리 패턴을 살펴 필요한 곳에만 신중하게 설계하는 것이 좋습니다. 인덱스는 많이 걸수록 좋은 장치가 아니라, 적절한 곳에 걸어야 제 역할을 하는 도구입니다.</p>
+<div class="tags"><span>#데이터베이스인덱스</span> <span>#DB인덱스</span> <span>#BTree</span> <span>#전체테이블스캔</span> <span>#SQL기초</span> <span>#백엔드개발</span> <span>#데이터베이스설계</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

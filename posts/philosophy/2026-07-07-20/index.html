@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>소크라테스의 산파술</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#b07cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#b07cff;border-color:#b07cff">철학/인문</div>
+<h1>소크라테스의 산파술</h1>
+<p class="subtitle">무지의 지, 물음으로 깨우다</p>
+<figure><img src="./images/thumbnail.png" alt="고대 아테네 광장에서 한 노인이 젊은이에게 질문을 던지는 모습, 물음표가 떠오르는 상징적 구도의 철학 삽화"><figcaption>고대 아테네 광장에서 한 노인이 젊은이에게 질문을 던지는 모습, 물음표가 떠오르는 상징적 구도의 철학 삽화</figcaption></figure>
+<p>누군가와 대화를 나누다가, 문득 내가 알고 있다고 믿었던 것이 사실은 제대로 설명할 수 없는 것이었음을 깨달은 적이 있습니까. 당연하게 여기던 생각이 몇 번의 질문 앞에서 무너지는 경험은 당혹스럽지만, 동시에 묘하게 후련합니다. 이천 년도 더 전, 아테네의 한 철학자는 바로 이 당혹감을 교육의 방법으로 삼았습니다. 그의 이름은 소크라테스입니다.</p>
+<h2>델포이의 신탁과 무지의 지</h2>
+<p>소크라테스의 친구 카이레폰은 델포이 신전에 찾아가 세상에 소크라테스보다 지혜로운 자가 있는지 물었습니다. 신탁은 없다고 답했습니다. 소크라테스는 이 말을 듣고 당혹스러워했습니다. 스스로 아는 것이 없다고 여겼기 때문입니다.</p>
+<p>그는 신탁의 뜻을 확인하기 위해 지혜롭다고 소문난 정치인, 시인, 장인들을 찾아다니며 대화를 나눴습니다. 그리고 한 가지를 발견했습니다. 그들은 저마다 자기 분야에 대해 잘 안다고 확신했지만, 정작 질문을 몇 개만 던져도 그 앎의 밑바닥이 드러났습니다. 반면 소크라테스 자신은 적어도 자신이 모른다는 사실만은 알고 있었습니다.</p>
+<p>여기서 <strong>무지의 지</strong>라는 개념이 나옵니다. 자신이 무엇을 모르는지 아는 것이야말로 진짜 앎의 출발점이라는 뜻입니다. 모른다는 사실을 인정하지 않는 사람은 더 배울 수 없습니다. 델포이 신전에 새겨져 있었다는 &#x27;<strong>너 자신을 알라</strong>&#x27;는 문구는, 소크라테스에게 자기 한계를 직시하라는 명령으로 다가왔습니다.</p>
+<figure><img src="./images/body-1.png" alt="소크라테스가 아테네 시민들과 둘러앉아 대화하는 장면, 인물들 사이에 물음표와 생각하는 표정이 강조된 그림"><figcaption>소크라테스가 아테네 시민들과 둘러앉아 대화하는 장면, 인물들 사이에 물음표와 생각하는 표정이 강조된 그림</figcaption></figure>
+<h2>엘렌코스, 질문으로 모순을 드러내다</h2>
+<p>소크라테스의 대화법은 상대를 가르치는 것이 아니라 상대에게 묻는 것으로 시작합니다. &quot;정의란 무엇인가&quot;, &quot;용기란 무엇인가&quot;라고 물은 뒤, 상대가 내놓은 답을 하나씩 따라가며 다시 묻습니다. 그 답이 다른 상황에도 똑같이 적용되는지, 앞서 한 말과 모순되지는 않는지를 확인합니다.</p>
+<p>이 과정을 <strong>엘렌코스</strong>, 즉 논박이라고 부릅니다. 소크라테스는 자신의 주장을 내세우지 않습니다. 대신 상대의 대답 안에 이미 들어 있는 전제들을 끌어내어, 그것들이 서로 부딪히는 지점을 보여줄 뿐입니다. 상대는 결국 자기 말이 스스로 무너지는 것을 직접 목격합니다.</p>
+<p>중요한 것은 이 모순이 패배가 아니라는 점입니다. 자신의 생각이 허술했음을 확인하는 순간은 오히려 더 나은 이해로 가는 문턱입니다. 플라톤의 초기 대화편들이 뚜렷한 결론 없이 끝나는 경우가 많은 이유도 여기에 있습니다. 소크라테스의 목적은 정답을 던져주는 것이 아니라, 상대가 스스로 다시 생각하게 만드는 데 있었습니다.</p>
+<h2>산파술, 스스로 낳게 돕는 대화</h2>
+<p>소크라테스는 자신의 방법을 산파술, 그리스어로 <strong>마이에우틱스</strong>라고 불렀습니다. 그의 어머니가 산파였다는 사실과도 무관하지 않은 비유입니다. 산파는 아이를 대신 낳아주지 않습니다. 산모가 스스로 낳도록 곁에서 돕고 이끌 뿐입니다.</p>
+<p>소크라테스는 자신이 지식을 가진 사람이 아니라, 다른 사람 안에 이미 있는 앎을 꺼내도록 돕는 사람이라고 말했습니다. 질문을 통해 상대가 막연히 품고 있던 생각을 구체적인 언어로 끌어올리고, 그 생각의 허점을 스스로 발견하게 하고, 다시 더 다듬어진 생각에 이르도록 이끕니다. 지식은 주입되는 것이 아니라 대화 속에서 산출되는 것이라는 믿음이 이 비유의 바탕에 있습니다.</p>
+<figure><img src="./images/body-2.png" alt="산파가 아이의 탄생을 돕듯 대화를 통해 생각이 태어나는 과정을 은유적으로 표현한 삽화, 대화 말풍선과 씨…"><figcaption>산파가 아이의 탄생을 돕듯 대화를 통해 생각이 태어나는 과정을 은유적으로 표현한 삽화, 대화 말풍선과 씨…</figcaption></figure>
+<h2>질문이 가르치는 오늘의 교육</h2>
+<p>소크라테스의 문답법은 지금도 교육과 코칭의 근본 원리로 남아 있습니다. 답을 미리 정해두고 전달하는 수업은 지식을 빠르게 전할 수 있지만, 배우는 사람 스스로 사고하는 힘은 키우지 못합니다. 반면 좋은 질문 하나는 듣는 사람이 자기 생각의 구조를 직접 들여다보게 만듭니다.</p>
+<figure><img src="./images/body-3.png" alt="지식을 일방적으로 주입하는 방식과 질문으로 스스로 깨닫게 돕는 방식을 좌우로 대비한 그림"><figcaption>지식을 일방적으로 주입하는 방식과 질문으로 스스로 깨닫게 돕는 방식을 좌우로 대비한 그림</figcaption></figure>
+<p>비판적 사고 역시 이 전통에서 자랐습니다. 어떤 주장을 마주했을 때 그 근거는 무엇인지, 예외는 없는지 스스로에게 묻는 습관은 엘렌코스의 축소판입니다. 코칭 대화에서 상담자가 답을 주지 않고 질문으로 내담자의 생각을 정리하도록 돕는 방식도 산파술의 후예라 할 수 있습니다.</p>
+<blockquote><p>나는 아무것도 가르치지 않는다. 다만 생각하게 만들 뿐이다.</p></blockquote>
+<p>소크라테스가 남긴 것은 특정한 정답이 아니라, 스스로 묻고 스스로 답을 찾아가는 태도였습니다. 오늘 우리가 누군가와 나누는 대화에서도, 답을 서둘러 건네기보다 좋은 질문 하나를 먼저 건네 볼 일입니다. 자신이 무엇을 모르는지 아는 것에서, 모든 이해는 다시 시작됩니다.</p>
+<div class="tags"><span>#소크라테스</span> <span>#산파술</span> <span>#무지의지</span> <span>#엘렌코스</span> <span>#철학기초</span> <span>#비판적사고</span> <span>#문답법</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

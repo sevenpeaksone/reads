@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>혈압 바로 알기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#ff7c7c;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#ff7c7c;border-color:#ff7c7c">바이오</div>
+<h1>혈압 바로 알기</h1>
+<p class="subtitle">고혈압, 침묵의 위험을 다스리는 법</p>
+<figure><img src="./images/thumbnail.png" alt="혈압계로 팔뚝 혈압을 측정하는 장면을 담은 차분한 톤의 썸네일 이미지"><figcaption>혈압계로 팔뚝 혈압을 측정하는 장면을 담은 차분한 톤의 썸네일 이미지</figcaption></figure>
+<p>건강검진 결과지에서 혈압 수치를 보고도, 그 의미를 정확히 아는 분은 많지 않습니다. <strong>혈압</strong>은 심장이 뿜어낸 혈액이 혈관 벽에 가하는 압력을 말합니다. 이 수치는 우리 몸의 순환계가 얼마나 건강하게 작동하는지 보여주는 가장 기본적인 지표입니다. 오늘은 혈압의 기본 개념과 고혈압이 왜 위험한지, 그리고 일상에서 어떻게 관리할 수 있는지 차분히 짚어보겠습니다.</p>
+<h2>혈압이란 무엇인가</h2>
+<p>혈압은 두 가지 숫자로 표현됩니다. 하나는 <strong>수축기 혈압</strong>으로, 심장이 수축하며 혈액을 밀어낼 때 혈관에 가해지는 최고 압력입니다. 다른 하나는 <strong>이완기 혈압</strong>으로, 심장이 이완하며 혈액을 채울 때의 최저 압력입니다. 혈압 단위는 <strong>mmHg</strong>(수은주밀리미터)를 사용하며, &quot;120/80&quot;처럼 수축기 수치를 앞에, 이완기 수치를 뒤에 표기합니다.</p>
+<figure><img src="./images/body-1.png" alt="수축기/이완기 기준"><figcaption>수축기/이완기 기준</figcaption></figure>
+<p>혈압은 하루 중에도 활동량, 스트레스, 카페인 섭취 등에 따라 계속 변동합니다. 그래서 한 번의 측정만으로 고혈압 여부를 단정하기는 어렵습니다. 여러 차례, 안정된 상태에서 측정한 값을 기준으로 판단하는 것이 일반적입니다.</p>
+<h2>혈압 수치, 어떻게 분류할까</h2>
+<p>혈압 분류 기준은 대한고혈압학회, 미국심장협회(AHA) 등 기관마다 세부적으로 차이가 있습니다. 다만 널리 알려진 대략적인 기준은 다음과 같습니다.</p>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>수축기(mmHg)</th><th>이완기(mmHg)</th></tr></thead><tbody><tr><td>정상</td><td>120 미만</td><td>80 미만</td></tr><tr><td>주의(고혈압 전단계)</td><td>120~139</td><td>80~89</td></tr><tr><td>고혈압</td><td>140 이상</td><td>90 이상</td></tr></tbody></table></div>
+<blockquote><p>기관에 따라 고혈압 전단계나 1기·2기 고혈압을 구분하는 세부 수치는 다를 수 있습니다. 정확한 판정은 반드시 의료진의 진료를 통해 받으시기 바랍니다.</p></blockquote>
+<h2>&#x27;침묵의 살인자&#x27;라 불리는 이유</h2>
+<p>고혈압은 흔히 <strong>침묵의 살인자</strong>로 불립니다. 대부분의 경우 특별한 증상 없이 서서히 진행되기 때문입니다. 혈압이 상당히 높아져도 두통이나 어지럼증조차 느끼지 못하는 경우가 많습니다. 문제는 증상이 없다고 해서 몸속에서 아무 일도 일어나지 않는 것은 아니라는 점입니다.</p>
+<figure><img src="./images/body-2.png" alt="고혈압이 위험한 이유"><figcaption>고혈압이 위험한 이유</figcaption></figure>
+<p>높은 혈압이 오랜 기간 지속되면 혈관 벽이 서서히 손상되고 굳어집니다. 이 상태가 방치되면 <strong>심근경색</strong>, <strong>뇌졸중</strong>, <strong>신장질환</strong> 등 심각한 합병증으로 이어질 수 있습니다. 증상이 나타났을 때는 이미 혈관 손상이 상당히 진행된 경우가 많아, 평소 정기적인 혈압 확인이 무엇보다 중요합니다.</p>
+<h2>생활습관으로 다스리는 혈압 관리</h2>
+<p>혈압 관리의 시작은 거창한 처방이 아니라 일상의 작은 습관입니다. 대표적으로 다음과 같은 방법이 권장됩니다.</p>
+<ul><li><strong>저염식</strong>: 나트륨 섭취를 줄이면 혈압 상승을 억제하는 데 도움이 됩니다.</li><li><strong>체중 관리</strong>: 적정 체중을 유지하면 심혈관계 부담이 줄어듭니다.</li><li><strong>규칙적인 운동</strong>: 유산소 운동을 꾸준히 하면 혈관 건강에 긍정적인 영향을 줍니다.</li><li><strong>금연과 절주</strong>: 흡연과 과음은 혈관 건강을 해치는 대표적인 요인입니다.</li><li><strong>스트레스 관리</strong>: 만성적인 스트레스는 혈압을 지속적으로 높이는 원인이 될 수 있습니다.</li></ul>
+<figure><img src="./images/body-3.png" alt="혈압을 다스리는 습관"><figcaption>혈압을 다스리는 습관</figcaption></figure>
+<p>이와 함께 <strong>가정혈압 측정</strong>을 습관화하는 것이 좋습니다. 병원에서 측정하는 혈압은 긴장으로 인해 실제보다 높게 나올 수 있는데, 이를 &#x27;백의 고혈압&#x27;이라 부릅니다. 매일 같은 시간, 같은 자세로 집에서 혈압을 측정하고 기록하면 자신의 평소 혈압 패턴을 더 정확히 파악할 수 있습니다.</p>
+<h2>마치며</h2>
+<p>혈압은 특별한 증상 없이도 우리 몸에 조용히 영향을 미칩니다. 그렇기에 평소 관심을 가지고 관리하는 습관이 무엇보다 중요합니다. 다만 이 글에서 다룬 내용은 일반적인 건강 정보이며, 정확한 진단과 치료는 의료진과 상담하시기 바랍니다.</p>
+<div class="tags"><span>#혈압</span> <span>#고혈압</span> <span>#혈압관리</span> <span>#가정혈압측정</span> <span>#심혈관건강</span> <span>#건강한생활습관</span> <span>#침묵의살인자</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

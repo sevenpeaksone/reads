@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>앤트로픽, 삼성에 AI 칩 맡기나</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#3fb6a8;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#3fb6a8;border-color:#3fb6a8">산업 뉴스 해설</div>
+<h1>앤트로픽, 삼성에 AI 칩 맡기나</h1>
+<p class="subtitle">자체 칩 시대의 신호</p>
+<figure><img src="./images/thumbnail.png" alt="삼성 파운드리 반도체 웨이퍼와 AI 칩 이미지를 배경으로 한 산업 뉴스 해설 썸네일"><figcaption>삼성 파운드리 반도체 웨이퍼와 AI 칩 이미지를 배경으로 한 산업 뉴스 해설 썸네일</figcaption></figure>
+<p><strong>앤트로픽</strong>이 자체 AI 칩 개발을 추진하며 삼성전자를 잠재 생산 파트너로 검토하고 있다는 외신 보도가 나왔습니다. 아직 계약이 확정된 단계는 아니지만, 빅테크·AI 기업들이 엔비디아 GPU 의존에서 벗어나려는 흐름 속에서 나온 소식이라 주목됩니다.</p>
+<h2>무슨 일</h2>
+<p>2026년 7월 초, 더 인포메이션 등 외신은 <strong>앤트로픽</strong>이 삼성전자와 자체 AI 칩 생산을 놓고 협의 중이라고 보도했습니다. 보도에 따르면 논의는 삼성 <strong>파운드리</strong>의 2나노 공정과 첨단 패키징 기술 활용에 초점이 맞춰져 있습니다. 첨단 패키징은 연산 칩과 메모리를 가깝게 배치해 데이터 전송 속도를 높이고 병목을 줄이는 기술입니다.</p>
+<p>다만 외신들은 이번 논의가 초기 단계라는 점을 분명히 하고 있습니다. 칩이 어떤 용도에 최적화될지, 성능 수준을 어느 정도로 할지, 서버 랙에 어떻게 탑재할지 등 세부 설계는 아직 정해지지 않았다고 전해집니다. 앤트로픽은 삼성 외에도 복수의 칩 설계 회사와 함께 논의를 진행 중인 것으로 알려졌습니다.</p>
+<figure><img src="./images/body-1.png" alt="무엇을 논의하나"><figcaption>무엇을 논의하나</figcaption></figure>
+<h2>왜 중요한가</h2>
+<p>이번 소식이 의미 있는 이유는 두 가지입니다.</p>
+<p>첫째, <strong>앤트로픽</strong>의 행보가 빅테크의 &#x27;AI 칩 내재화&#x27; 흐름에 합류하는 신호이기 때문입니다. 구글은 2015년부터 자체 칩 TPU를 운영해왔고, 아마존은 학습용 <strong>트레이니엄</strong>과 추론용 인퍼런시아를 나눠 쓰고 있습니다. 앤트로픽 역시 지난달 오픈AI의 자체 칩 프로젝트를 이끌었던 인물을 영입하며 반도체 역량을 강화해온 것으로 전해집니다. 범용 GPU 대신 자사 모델 연산에 맞춘 전용 칩을 쓰면 비용 효율과 성능 최적화 측면에서 이점을 기대할 수 있습니다.</p>
+<p>둘째, 삼성 <strong>파운드리</strong>에는 상징적인 수주 사례가 될 수 있습니다. 삼성은 지난 5월 앤트로픽의 대규모 투자 유치에 SK하이닉스, 마이크론과 함께 전략적 파트너로 참여한 바 있습니다. 이번 논의가 실제 생산으로 이어진다면, 파운드리 시장에서 TSMC에 도전할 만한 대형 고객을 확보하는 계기가 될 수 있습니다.</p>
+<figure><img src="./images/body-2.png" alt="GPU 의존에서 자체 칩으로"><figcaption>GPU 의존에서 자체 칩으로</figcaption></figure>
+<h2>앞으로</h2>
+<p>관건은 이 논의가 실제 계약과 양산으로 이어지느냐입니다. 현재까지는 &#x27;검토·협의&#x27; 단계이며, 세부 설계와 시험 생산 이전 단계로 알려져 있습니다. 앤트로픽은 마이크로소프트의 자체 칩 공급 논의도 별도로 진행해온 것으로 전해져, 최종적으로 어떤 파트너와 손잡을지는 지켜봐야 합니다.</p>
+<p>업계에서는 <strong>엔비디아</strong> 의존도 완화가 하루아침에 이뤄지지는 않을 것으로 보고 있습니다. 다만 오픈AI, 구글, 아마존에 이어 앤트로픽까지 자체 칩 대열에 합류할 조짐을 보이면서, 엔비디아의 절대적 지배력에 대한 전제가 조금씩 흔들리고 있다는 평가가 나옵니다.</p>
+<figure><img src="./images/body-3.png" alt="빅테크 자체 칩 전망"><figcaption>빅테크 자체 칩 전망</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>범용 GPU 의존</th><th>자체 맞춤 칩</th></tr></thead><tbody><tr><td>공급처</td><td>엔비디아 등 외부</td><td>자사 설계 + 파운드리 위탁</td></tr><tr><td>최적화</td><td>범용 연산</td><td>자사 모델 전용 최적화</td></tr><tr><td>비용 구조</td><td>높은 구매·의존 비용</td><td>초기 투자 크지만 장기 효율 기대</td></tr><tr><td>현재 상태(앤트로픽)</td><td>여전히 주력</td><td>삼성 등과 초기 협의 단계</td></tr></tbody></table></div>
+<div class="tags"><span>#앤트로픽</span> <span>#삼성전자</span> <span>#삼성파운드리</span> <span>#AI칩</span> <span>#엔비디아</span> <span>#2나노</span> <span>#반도체</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
