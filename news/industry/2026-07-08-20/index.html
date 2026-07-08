@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>딥시크의 다음 승부수</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#3fb6a8;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#3fb6a8;border-color:#3fb6a8">산업 뉴스 해설</div>
+<h1>딥시크의 다음 승부수</h1>
+<p class="subtitle">엔비디아 없는 추론 칩</p>
+<figure><img src="./images/thumbnail.png" alt="엔비디아 로고를 벗어나 자체 추론 칩으로 향하는 딥시크를 상징하는 이미지"><figcaption>엔비디아 로고를 벗어나 자체 추론 칩으로 향하는 딥시크를 상징하는 이미지</figcaption></figure>
+<h2>무슨 일인가</h2>
+<p>2026년 7월 7일(현지시간) 로이터통신은 복수의 소식통을 인용해 중국 AI 스타트업 딥시크(DeepSeek)가 자체 AI 칩 개발에 나섰다고 보도했습니다. 국내 매체인 한국경제, 뉴스핌, 이데일리, 디지털데일리 등도 이를 인용해 일제히 전했습니다. 개발은 이미 약 1년 전부터 조용히 진행되어 온 것으로 알려졌으며, 딥시크는 반도체 설계·파운드리·메모리 기업들과 협의를 이어가는 한편 칩 설계 엔지니어 채용도 확대하고 있는 것으로 전해졌습니다.</p>
+<figure><img src="./images/body-1.png" alt="딥시크가 자체 AI 칩 개발에 나선 배경을 정리한 카드형 이미지"><figcaption>딥시크가 자체 AI 칩 개발에 나선 배경을 정리한 카드형 이미지</figcaption></figure>
+<blockquote><p>&quot;이번 칩은 모델을 학습시키는 용도가 아니라, 이용자 질의에 응답을 생성하는 추론 작업에 특화된 반도체다&quot; — 로이터통신</p></blockquote>
+<h2>학습용이 아닌 &#x27;추론 특화&#x27; 칩</h2>
+<p>핵심은 이 칩이 대규모 모델을 처음부터 훈련시키는 학습(training)용이 아니라는 점입니다. 이미 학습된 모델이 실제 서비스에서 사용자 질문에 답을 내놓는 추론(inference) 단계에만 특화 설계됐습니다. 추론은 AI 서비스 운영 비용의 상당 부분을 차지하는 영역으로, 전용 칩을 쓰면 범용 GPU보다 전력 효율과 처리 단가를 낮출 수 있다는 것이 업계의 판단입니다.</p>
+<figure><img src="./images/body-2.png" alt="학습(training)용 칩과 추론(inference)용 칩의 차이를 대비한 이미지"><figcaption>학습(training)용 칩과 추론(inference)용 칩의 차이를 대비한 이미지</figcaption></figure>
+<h2>왜 지금 엔비디아·화웨이 의존을 줄이려 하나</h2>
+<p>미국의 대중 반도체 수출 통제로 중국 기업은 엔비디아의 최신 고성능 칩에 접근할 수 없고, 최첨단 해외 파운드리 이용도 제한됩니다. 여기에 추론 칩의 핵심 부품인 고대역폭메모리(HBM) 조달까지 별도 규제로 어려움을 겪고 있어, 자체 칩 개발은 딥시크로서는 선택이 아닌 생존 전략에 가깝습니다. 중국 정부 역시 자국 기술기업의 반도체 자립을 지속적으로 독려하고 있는 상황입니다.</p>
+<h2>재원은 어디서 왔나</h2>
+<p>딥시크는 지난달 시리즈A 투자로 약 510억 위안(약 75억 달러) 규모를 조달했으며, 투자 후 기업가치는 약 4000억 위안에 달하는 것으로 전해졌습니다. 창업자 량원펑이 직접 약 200억 위안을 출자했고 텐센트, CATL 생태계, 징둥닷컴 등이 참여했습니다. 이번 자금은 인력 확충과 데이터센터 구축 등 &#x27;자산 투자형&#x27; 전략 전환에 쓰이고 있으며, 내몽골 지역에서 데이터센터 인력도 채용 중입니다.</p>
+<figure><img src="./images/body-3.png" alt="딥시크 자체 칩 개발 핵심 사실을 정리한 표"><figcaption>딥시크 자체 칩 개발 핵심 사실을 정리한 표</figcaption></figure>
+<h2>전망 — 쉽지 않은 길, 그러나 흐름은 뚜렷</h2>
+<p>칩 설계의 기술적 난도와 첨단 파운드리·HBM 접근 제한을 감안하면 딥시크의 자체 칩이 단기간에 상용화되기는 어려울 것이라는 관측이 우세합니다. 다만 AI 업계 전반에서 추론 전용 칩 확보 경쟁이 뚜렷해지고 있다는 점은 분명합니다. OpenAI는 브로드컴과 함께 첫 추론 칩 &#x27;할라피뇨(Jalapeno)&#x27;를 공개했고 앤트로픽도 자체 칩 개발을 검토 중인 것으로 알려져, 이번 소식은 개별 기업 이슈를 넘어 AI 인프라 경쟁이 하드웨어 내재화로 확장되는 흐름을 보여주는 사례로 해석됩니다.</p>
+<div class="tags"><span>#딥시크</span> <span>#DeepSeek</span> <span>#AI칩</span> <span>#추론칩</span> <span>#엔비디아</span> <span>#반도체수출규제</span> <span>#중국AI</span> <span>#HBM</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

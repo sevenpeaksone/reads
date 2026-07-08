@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>카뮈의 부조리</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#b07cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#b07cff;border-color:#b07cff">철학/인문</div>
+<h1>카뮈의 부조리</h1>
+<p class="subtitle">시지프 신화, 그래도 살아야 하는 이유</p>
+<figure><img src="./images/thumbnail.png" alt="산꼭대기로 바위를 밀어 올리는 시지프의 뒷모습, 노을빛 산과 고요한 구도"><figcaption>산꼭대기로 바위를 밀어 올리는 시지프의 뒷모습, 노을빛 산과 고요한 구도</figcaption></figure>
+<h2>부조리란 무엇인가</h2>
+<p>알베르 카뮈는 「시지프 신화」 서두에서 진정으로 중요한 철학적 문제는 단 하나, 자살이라고 말합니다. 삶이 살아갈 가치가 있는지를 판단하는 일이야말로 철학의 근본 질문이라는 것입니다. 카뮈가 말하는 부조리는 세상 자체의 성질이 아니라, 의미와 질서를 갈구하는 인간의 요구와 침묵하는 세계 사이의 어긋남에서 생겨납니다. 세계는 답을 주지 않는데 인간은 끝없이 이유를 묻습니다. 그 간극이 바로 부조리입니다.</p>
+<figure><img src="./images/body-1.png" alt="질문하는 사람과 대답 없는 텅 빈 우주 사이의 간극을 표현한 대비 이미지"><figcaption>질문하는 사람과 대답 없는 텅 빈 우주 사이의 간극을 표현한 대비 이미지</figcaption></figure>
+<h2>철학적 자살, 그리고 반항이라는 선택</h2>
+<p>부조리 앞에서 인간이 택할 수 있는 길은 여러 갈래로 갈립니다. 하나는 육체적 자살, 다른 하나는 종교나 초월적 희망에 기대어 부조리 자체를 지워버리는 &#x27;철학적 자살&#x27;입니다. 카뮈는 두 선택 모두 부조리를 정면으로 마주하지 않고 회피하는 것이라 비판합니다. 그가 제안하는 세 번째 길은 <strong>반항</strong>입니다. 반항은 부조리를 없애려 하지 않고, 그것을 똑바로 응시한 채 그 긴장 속에서 계속 살아가는 태도입니다.</p>
+<blockquote><p>부조리를 없애는 것이 아니라, 부조리와 함께 사는 것.</p></blockquote>
+<figure><img src="./images/body-2.png" alt="자살·철학적 회피·반항 세 갈래 길을 나란히 비교한 도식"><figcaption>자살·철학적 회피·반항 세 갈래 길을 나란히 비교한 도식</figcaption></figure>
+<h2>시지프, 행복한 인간</h2>
+<p>시지프는 신들을 기만한 죄로 바위를 산꼭대기로 밀어 올리는 형벌을 받습니다. 정상에 닿는 순간 바위는 다시 굴러떨어지고, 그는 처음부터 다시 밀어 올려야 합니다. 끝없이 반복되는 무의미한 노동, 그것이 인간 조건의 축소판이라고 카뮈는 봅니다. 그런데 카뮈는 여기서 절망 대신 희망적인 결론에 이릅니다. 바위가 굴러떨어진 뒤 다시 산을 내려가는 그 짧은 순간, 시지프는 자신의 운명을 온전히 의식하는 존재가 됩니다. 자신의 처지를 있는 그대로 인정하면서도 그것에 짓눌리지 않는 순간, 시지프는 바위보다 더 강한 존재가 됩니다.</p>
+<div class="tablewrap"><table><thead><tr><th>선택지</th><th>태도</th><th>카뮈의 평가</th></tr></thead><tbody><tr><td>육체적 자살</td><td>문제 자체를 끝냄</td><td>회피</td></tr><tr><td>철학적 자살(초월에 귀의)</td><td>부조리를 지움</td><td>회피</td></tr><tr><td>반항</td><td>부조리를 직시하며 지속</td><td>유일한 길</td></tr></tbody></table></div>
+<h2>&quot;시지프가 행복하다고 상상해야 한다&quot;</h2>
+<p>이 책의 마지막 문장은 널리 알려져 있습니다. 시지프가 행복하다고 상상해야 한다는 것입니다. 이는 낙관이 아니라 태도의 선언에 가깝습니다. 의미가 주어지지 않는다고 해서 삶이 살 가치가 없어지는 것은 아니며, 오히려 의미를 기다리지 않고도 순간순간을 온전히 살아내는 데서 자유와 열정이 생겨납니다. 반항하는 인간은 더 이상 미래의 구원을 바라지 않기에, 지금 이 순간의 노동과 감각에 집중할 수 있습니다.</p>
+<figure><img src="./images/body-3.png" alt="산꼭대기에서 바위를 내려다보며 옅게 미소 짓는 시지프, 밝은 빛이 감도는 장면"><figcaption>산꼭대기에서 바위를 내려다보며 옅게 미소 짓는 시지프, 밝은 빛이 감도는 장면</figcaption></figure>
+<h2>그래도 살아가야 하는 이유</h2>
+<p>카뮈의 결론은 삶에 미리 정해진 의미가 없다는 사실을 인정하는 데서 출발합니다. 그러나 의미의 부재가 곧 허무의 정당화는 아닙니다. 반항, 자유, 열정이라는 세 가지 태도로 부조리를 껴안을 때, 인간은 주어진 삶을 스스로의 것으로 다시 세울 수 있습니다. 답을 얻지 못해도 계속 묻고, 정상이 무너져도 다시 오르는 것. 그 반복 속에 카뮈가 발견한 것은 절망이 아니라 살아 있다는 사실 자체의 무게였습니다.</p>
+<div class="tags"><span>#카뮈</span> <span>#시지프신화</span> <span>#부조리철학</span> <span>#실존주의</span> <span>#프랑스철학</span> <span>#인문학</span> <span>#철학에세이</span> <span>#반항인</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

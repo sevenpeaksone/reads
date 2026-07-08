@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>백신의 원리</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#ff7c7c;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#ff7c7c;border-color:#ff7c7c">바이오</div>
+<h1>백신의 원리</h1>
+<p class="subtitle">우리 몸은 어떻게 면역을 기억하나</p>
+<figure><img src="./images/thumbnail.png" alt="면역과 백신을 상징하는 이미지"><figcaption>면역과 백신을 상징하는 이미지</figcaption></figure>
+<p>오늘은 백신이 우리 몸속에서 어떤 원리로 작동하는지 이야기해 보려 합니다. 면역 체계의 기본 구조부터 백신의 종류까지 차근히 정리해 보겠습니다.</p>
+<hr>
+<h2>선천 면역과 후천 면역</h2>
+<p>우리 몸의 방어 체계는 크게 두 층으로 이루어져 있습니다.</p>
+<p>선천 면역은 태어날 때부터 갖춘 1차 방어선입니다. 피부, 점막, 백혈구 일부가 침입자를 가리지 않고 즉시 대응합니다.</p>
+<p>후천 면역은 다릅니다. 특정 병원체를 인식하고 기억하는 정교한 시스템입니다. 시간은 걸리지만 훨씬 정확합니다.</p>
+<p>백신이 작동하는 무대는 바로 이 후천 면역입니다.</p>
+<figure><img src="./images/body-1.png" alt="선천 면역과 후천 면역을 대비하는 이미지"><figcaption>선천 면역과 후천 면역을 대비하는 이미지</figcaption></figure>
+<hr>
+<h2>항원과 항체, 그리고 B세포·T세포</h2>
+<p>병원체 표면의 특징적인 조각을 항원이라 부릅니다. 몸은 이 항원을 이물질로 인식합니다.</p>
+<p>B세포는 항원에 맞춰 항체를 만들어냅니다. 항체는 병원체에 달라붙어 무력화하는 단백질입니다.</p>
+<p>T세포는 역할이 조금 다릅니다. 이미 감염된 세포를 찾아 제거하거나, B세포의 항체 생산을 돕습니다.</p>
+<figure><img src="./images/body-2.png" alt="B세포와 T세포의 역할 차이를 보여주는 이미지"><figcaption>B세포와 T세포의 역할 차이를 보여주는 이미지</figcaption></figure>
+<p>두 세포가 협력해야 면역 반응이 완성됩니다.</p>
+<hr>
+<h2>기억세포 — 몸이 &#x27;기억&#x27;하는 방법</h2>
+<p><strong>면역의 핵심은 기억입니다.</strong></p>
+<p>한 번 마주친 항원의 정보는 일부 B세포·T세포에 남습니다. 이를 기억세포라 부릅니다.</p>
+<p>같은 병원체가 다시 들어오면, 기억세포는 처음보다 훨씬 빠르고 강하게 반응합니다.</p>
+<p>백신은 실제 질병을 앓지 않고도 이 기억을 미리 만들어 두는 방법이라 할 수 있습니다.</p>
+<blockquote><p>백신은 몸에 미리 &#x27;연습 상대&#x27;를 소개해 주는 셈입니다.</p></blockquote>
+<hr>
+<h2>백신의 종류</h2>
+<p>백신은 항원을 몸에 전달하는 방식에 따라 나뉩니다. 아래 표로 정리해 보았습니다.</p>
+<div class="tablewrap"><table><thead><tr><th>종류</th><th>원리</th></tr></thead><tbody><tr><td>약독화 백신</td><td>병원성을 낮춘 살아있는 병원체 사용</td></tr><tr><td>불활화 백신</td><td>죽인 병원체나 조각을 사용</td></tr><tr><td>mRNA 백신</td><td>항원 설계도만 세포에 전달</td></tr><tr><td>단백질 백신</td><td>항원 단백질 자체를 정제해 전달</td></tr></tbody></table></div>
+<figure><img src="./images/body-3.png" alt="백신 종류별 원리를 비교하는 이미지"><figcaption>백신 종류별 원리를 비교하는 이미지</figcaption></figure>
+<p>방식은 다르지만, 목표는 하나입니다. 안전하게 기억세포를 만드는 것입니다.</p>
+<hr>
+<h2>집단면역이라는 개념</h2>
+<p>집단면역은 개인을 넘어선 이야기입니다.</p>
+<p>한 집단에서 충분한 비율이 면역을 갖추면, 병원체가 퍼질 통로 자체가 줄어듭니다.</p>
+<p>그 결과 면역을 갖추지 못한 사람도 간접적으로 보호받습니다. 다만 필요한 비율은 병원체마다 다르고, 시간이 지나면 면역이 약해질 수도 있습니다. 단순하게만 볼 개념은 아닙니다.</p>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>백신의 원리는 결국 몸이 스스로 기억하도록 돕는 일입니다.</p>
+<p>&quot;기억하는 몸이, 다음 위협을 이깁니다.&quot;</p>
+<p>면역이라는 정교한 시스템을 이해하고 나면, 백신이 왜 그렇게 설계되었는지도 조금은 더 선명해지실 것입니다.</p>
+<div class="tags"><span>#백신원리</span> <span>#면역학</span> <span>#선천면역</span> <span>#후천면역</span> <span>#B세포</span> <span>#T세포</span> <span>#기억세포</span> <span>#집단면역</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTTPS와 TLS</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>HTTPS와 TLS</h1>
+<p class="subtitle">브라우저 자물쇠는 어떻게 안전을 지키나</p>
+<figure><img src="./images/thumbnail.png" alt="브라우저 주소창의 자물쇠 아이콘을 크게 강조한 어둡고 신뢰감 있는 보안 컨셉 썸네일"><figcaption>브라우저 주소창의 자물쇠 아이콘을 크게 강조한 어둡고 신뢰감 있는 보안 컨셉 썸네일</figcaption></figure>
+<p>오늘은 HTTPS와 TLS에 대해 이야기해 보려 합니다. 주소창의 작은 자물쇠 하나에 어떤 원리가 숨어 있는지, 차근차근 정리해 보겠습니다.</p>
+<hr>
+<h2>HTTP의 한계</h2>
+<p>HTTP는 데이터를 그대로 주고받는 방식입니다.</p>
+<p>아이디, 비밀번호, 카드 정보까지 평문으로 오갑니다.</p>
+<p>같은 와이파이를 쓰는 사람이라면 누구나 그 내용을 들여다볼 수 있습니다. 심지어 중간에서 내용을 바꿔치기하는 일도 가능합니다.</p>
+<p><strong>HTTPS는 이 HTTP에 TLS라는 보안 계층을 덧씌운 것입니다.</strong> 통신 내용을 암호화해 다른 사람이 훔쳐보거나 조작하지 못하게 막습니다.</p>
+<hr>
+<h2>대칭키와 비대칭키, 두 가지 자물쇠</h2>
+<p>암호화에는 크게 두 방식이 있습니다.</p>
+<p>대칭키는 하나의 열쇠로 잠그고 엽니다. 속도는 빠르지만, 그 열쇠를 상대에게 안전하게 전달하는 일이 문제입니다.</p>
+<p>비대칭키는 공개키와 개인키, 한 쌍을 씁니다. 공개키로 잠근 것은 개인키로만 열립니다. 열쇠를 나눠 가질 필요가 없어 안전하지만, 속도는 느립니다.</p>
+<figure><img src="./images/body-1.png" alt="대칭키와 비대칭키 암호화 방식을 좌우로 비교하는 그림"><figcaption>대칭키와 비대칭키 암호화 방식을 좌우로 비교하는 그림</figcaption></figure>
+<p>TLS는 이 둘을 함께 씁니다. 처음 연결할 때는 비대칭키로 안전하게 약속을 하고, 이후 실제 데이터는 빠른 대칭키로 주고받습니다.</p>
+<hr>
+<h2>인증서와 CA, 신뢰의 근거</h2>
+<p>암호화만으로는 부족합니다. 지금 접속한 서버가 진짜 그 사이트가 맞는지도 확인해야 합니다.</p>
+<p>이 역할을 하는 것이 디지털 인증서입니다. 인증서에는 서버의 공개키와 소유자 정보가 담겨 있습니다.</p>
+<p>이 인증서를 발급하고 서명하는 곳이 <strong>CA(인증기관)</strong>입니다. 브라우저는 미리 신뢰하는 CA 목록을 가지고 있고, 그 CA가 서명한 인증서만 믿습니다.</p>
+<figure><img src="./images/body-2.png" alt="인증서에 담긴 핵심 요소 세 가지를 정리한 카드 이미지"><figcaption>인증서에 담긴 핵심 요소 세 가지를 정리한 카드 이미지</figcaption></figure>
+<blockquote><p>인증서는 &quot;이 열쇠의 주인이 맞다&quot;는 것을 제3자가 보증해 주는 문서인 셈입니다.</p></blockquote>
+<hr>
+<h2>TLS 핸드셰이크, 연결이 시작되는 순간</h2>
+<p>브라우저와 서버가 처음 만나면 짧은 대화를 나눕니다. 이를 핸드셰이크라 부릅니다.</p>
+<figure><img src="./images/body-3.png" alt="TLS 핸드셰이크가 진행되는 순서를 단계별로 보여주는 다이어그램"><figcaption>TLS 핸드셰이크가 진행되는 순서를 단계별로 보여주는 다이어그램</figcaption></figure>
+<p>먼저 브라우저가 접속을 요청하며 지원 가능한 암호 방식을 알립니다. 서버는 인증서와 함께 자신의 공개키를 보냅니다. 브라우저는 인증서를 CA 목록으로 검증한 뒤, 앞으로 쓸 대칭키를 만들어 안전하게 주고받습니다.</p>
+<p>이 과정이 끝나면 이후 통신은 모두 암호화된 상태로 이루어집니다. 최신 표준인 TLS 1.3은 이 절차를 한 차례 왕복으로 줄여, 이전보다 훨씬 빠르게 연결됩니다.</p>
+<hr>
+<h2>HTTP와 HTTPS, 무엇이 다른가</h2>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>HTTP</th><th>HTTPS</th></tr></thead><tbody><tr><td>데이터</td><td>평문 전송</td><td>암호화 전송</td></tr><tr><td>신원 확인</td><td>없음</td><td>인증서로 확인</td></tr><tr><td>기본 포트</td><td>80</td><td>443</td></tr><tr><td>주소창 표시</td><td>경고 표시 가능</td><td>자물쇠 아이콘</td></tr></tbody></table></div>
+<p>표에서 보듯, 차이는 단순한 표시 문제가 아닙니다. 암호화 여부와 신원 확인 여부라는 근본적인 차이가 있습니다.</p>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>주소창의 자물쇠는 대칭키와 비대칭키가 역할을 나누고, CA가 신원을 보증하며, 핸드셰이크가 그 모든 약속을 짧은 순간에 매듭짓는 결과물입니다.</p>
+<p>작은 자물쇠 하나가 묻는다면, 그 안에는 이만큼의 절차가 조용히 자리 잡고 있다고 답하겠습니다.</p>
+<div class="tags"><span>#HTTPS</span> <span>#TLS</span> <span>#웹보안</span> <span>#암호화</span> <span>#인증서</span> <span>#CA</span> <span>#네트워크기초</span> <span>#보안기초</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
