@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>추락 직전 망원경 구조</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#3fb6a8;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#3fb6a8;border-color:#3fb6a8">산업 뉴스 해설</div>
+<h1>추락 직전 망원경 구조</h1>
+<p class="subtitle">궤도 위 첫 상업 정비</p>
+<figure><img src="./images/thumbnail.png" alt="썸네일"><figcaption>썸네일</figcaption></figure>
+<p>2004년부터 우주를 관측해 온 나사의 스위프트 망원경이 대기권 추락 위기에 놓였다. 2026년 7월 3일, 이를 끌어올릴 구조선이 발사됐다. 설계 당시 정비를 염두에 두지 않은 정부 위성에 상업 우주선이 도킹하는 첫 시도다.</p>
+<hr>
+<h2>무슨 일이 벌어졌나</h2>
+<p>나사의 닐 게렐스 스위프트 관측위성은 감마선 폭발을 감시해 온 노장이다. 그러나 태양 활동이 예상보다 강해지며 대기가 팽창했고, 궤도가 빠르게 깎여 연내 통제 불능 재진입이 우려됐다.</p>
+<p>7월 3일, 스타트업 카탈리스트 스페이스가 만든 정비선 &#x27;링크(LINK)&#x27;가 발사됐다. 항공기에서 공중 발사되는 페가수스 XL 로켓이 425kg급 링크를 저궤도에 올렸다. 링크는 앞으로 몇 주에 걸쳐 스위프트에 접근·도킹한 뒤 궤도를 밀어 올린다.</p>
+<figure><img src="./images/body-1.png" alt="미션개요"><figcaption>미션개요</figcaption></figure>
+<hr>
+<h2>왜 중요한가</h2>
+<p>핵심은 &#x27;설계되지 않은 정비&#x27;다. 스위프트에는 도킹용 접속부가 없다. 성공하면 상업 우주선이 정부 소유 위성에 도킹하는 첫 사례가 된다.</p>
+<p>나사는 2025년 9월 카탈리스트에 약 3000만 달러 규모 계약(SBIR 3단계)을 맡겼다. 스타피시 스페이스, 애스트로스케일 진영을 제친 결과다. 적은 비용으로 노후 위성의 수명을 되살릴 수 있다면, &#x27;쓰고 버리는&#x27; 위성 산업의 셈법 자체가 바뀐다.</p>
+<figure><img src="./images/body-2.png" alt="비교"><figcaption>비교</figcaption></figure>
+<hr>
+<h2>앞으로의 전망</h2>
+<p>링크는 이온 추력기로 스위프트를 약 590km(370마일) 고도까지 밀어 올릴 계획이다. 전 과정은 10~12주가 걸리며, 성공 시 관측 수명이 약 10년 연장된다.</p>
+<div class="tablewrap"><table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td>발사일</td><td>2026년 7월 3일</td></tr><tr><td>정비선</td><td>링크(425kg)</td></tr><tr><td>계약액</td><td>약 3000만 달러</td></tr><tr><td>목표 고도</td><td>약 590km</td></tr><tr><td>예상 기간</td><td>10~12주</td></tr></tbody></table></div>
+<p>접근·도킹·추력이라는 세 관문이 남았다. 도킹 자체가 정밀 제어의 난제라, 안심하기엔 이르다.</p>
+<figure><img src="./images/body-3.png" alt="단계"><figcaption>단계</figcaption></figure>
+<hr>
+<p>우주 쓰레기가 늘고 발사 비용이 낮아진 시대에, &#x27;수리하는 우주&#x27;는 더는 공상이 아니다. 스위프트 구조가 성공하면 궤도 위 정비는 하나의 산업으로 올라선다.</p>
+<p>핵심 한 줄: 버리던 위성을 고치는 시대가 궤도 위에서 시작됐다.</p>
+<p>낡은 망원경 하나의 운명이, 우주 산업의 다음 문법을 가늠하는 시험대가 됐다.</p>
+<div class="tags"><span>#우주산업</span> <span>#위성정비</span> <span>#나사</span> <span>#스위프트망원경</span> <span>#카탈리스트</span> <span>#궤도서비스</span> <span>#우주스타트업</span></div>
+<p>참고 출처: NASA, CBS News, CNN, SpaceNews</p>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

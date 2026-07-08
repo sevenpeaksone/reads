@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>호르무즈 다시 불붙다</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#c2883f;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/world/index.html">국제/세계 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#c2883f;border-color:#c2883f">국제 뉴스 해설</div>
+<h1>호르무즈 다시 불붙다</h1>
+<p class="subtitle">넉 달 휴전 흔든 유조선 피격</p>
+<figure><img src="./images/thumbnail.png" alt="썸네일"><figcaption>썸네일</figcaption></figure>
+<p>2026년 4월 미국과 이란은 넉 달 가까이 이어진 전쟁을 멈추는 휴전에 합의했다. 그러나 7월 7일 호르무즈 해협에서 상선 3척이 잇따라 피격되며 봉합됐던 갈등이 다시 터졌다. 전 세계 원유의 약 20%가 지나는 길목이 흔들리자 국제사회는 촉각을 곤두세우고 있다.</p>
+<h2>무슨 일이 있었나</h2>
+<p>7월 7일 오만 앞바다 호르무즈 해협 인근에서 사우디 유조선과 카타르 LNG 운반선을 포함한 상선 3척이 발사체에 맞았다. 여러 외신은 인명 피해는 없었으나 일부 선박에 큰 손상이 발생했다고 전했다. 이란 국영방송은 익명 소식통을 인용해 &quot;경로 경고를 무시한 선박&quot;이라는 취지로 보도했으나, 이란 당국은 공식적으로 공격을 인정하지 않았다.</p>
+<p>미국 중부사령부(CENTCOM)는 곧바로 &quot;민간인이 탑승한 상선을 공격한 대가를 치르게 하겠다&quot;며 이란 내 80여 개 표적에 정밀 타격을 개시했다고 밝혔다. 이란 측은 바레인·쿠웨이트의 미군 시설 다수를 겨냥했다고 맞받았다.</p>
+<figure><img src="./images/body-1.png" alt="경과"><figcaption>경과</figcaption></figure>
+<hr>
+<h2>왜 중요한가</h2>
+<p>호르무즈 해협은 전 세계 해상 원유 물동량의 약 5분의 1이 통과하는 지점이다. 피격 소식에 국제 유가는 즉각 반응했다. 브렌트유는 3% 오른 배럴당 74.16달러로 마감했고, 시간외 거래에서는 76달러 선까지 뛰었다. 미국은 이란산 원유 판매를 허용했던 면허를 즉시 취소하며 압박에 나섰다.</p>
+<figure><img src="./images/body-2.png" alt="호르무즈 피격 핵심 수치 요약 표"><figcaption>호르무즈 피격 핵심 수치 요약 표</figcaption></figure>
+<p>문제는 이 사건이 6월 서명된 양해각서(MOU)의 이행 초기에 발생했다는 점이다. 양측은 항행의 자유, 핵·미사일, 제재 완화를 60일간 논의하기로 했으나, 이번 충돌로 신뢰가 흔들렸다.</p>
+<figure><img src="./images/body-3.png" alt="쟁점"><figcaption>쟁점</figcaption></figure>
+<hr>
+<h2>전망은</h2>
+<p>안토니우 구테흐스 유엔 사무총장은 24시간 새 오간 공방을 &quot;우려스럽다&quot;고 평가하며 4월 이후 진전된 외교 성과가 무너질 위험을 경고했다. 다만 양측 모두 전면전 복귀를 원하지 않는 기류도 감지된다. 실무급 기술 협의는 이어지고 있으나 고위급 회담은 잡히지 않은 상태다.</p>
+<p>해협 물동량은 휴전 이후 조금씩 회복됐으나 전쟁 이전 수준에는 크게 못 미친다. 현지 국영 석유사는 완전한 정상화 시점을 빨라도 2027년으로 내다본다. 이번 사건이 단발성 충돌에 그칠지, 재봉합이 어려운 균열로 번질지가 향후 몇 주의 관건이다.</p>
+<p>한 척의 유조선이 멈추면 세계 경제의 혈관 하나가 조여든다. 넉 달의 휴전이 얼마나 얇은 종이 위에 서 있었는지가 드러났다. 다음 항로는 대화가 될까, 다시 발사체가 될까.</p>
+<div class="tags"><span>#호르무즈해협</span> <span>#미국이란</span> <span>#국제유가</span> <span>#중동정세</span> <span>#에너지안보</span> <span>#휴전위기</span> <span>#국제뉴스</span></div>
+<p>참고 출처: NPR, Bloomberg, Al Jazeera, UN News</p>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
