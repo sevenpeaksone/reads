@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>채권 기초</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2bb673;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#2bb673;border-color:#2bb673">경제</div>
+<h1>채권 기초</h1>
+<p class="subtitle">나라와 기업에 돈을 빌려주는 법</p>
+<figure><img src="./images/thumbnail.png" alt="차용증과 이자 흐름을 상징하는 채권 개념의 미니멀 썸네일"><figcaption>차용증과 이자 흐름을 상징하는 채권 개념의 미니멀 썸네일</figcaption></figure>
+<p>투자를 이야기할 때 주식만큼 자주 등장하는 것이 채권입니다.</p>
+<p>이름은 익숙하지만 구조는 낯설게 느껴지기 쉽습니다.</p>
+<p>이번 글에서는 채권의 기본 개념을 차근차근 함께 살펴보겠습니다.</p>
+<h2>채권이란 무엇일까요</h2>
+<p>채권은 한마디로 차용증입니다.</p>
+<p>발행자가 투자자에게 돈을 빌리고, 정해진 이자를 약속하는 증서입니다.</p>
+<p>만기가 되면 빌린 원금을 돌려주기로 합니다.</p>
+<p>즉 채권을 산다는 것은 발행자에게 돈을 빌려주는 행위입니다.</p>
+<p>그 대가로 투자자는 이자를 받습니다.</p>
+<figure><img src="./images/body-1.png" alt="액면가·표면금리·만기·이표를 정리한 채권 핵심 용어 카드"><figcaption>액면가·표면금리·만기·이표를 정리한 채권 핵심 용어 카드</figcaption></figure>
+<p>용어를 짧게 정리하겠습니다.</p>
+<p>액면가는 만기에 돌려받는 기준 금액입니다.</p>
+<p>표면금리는 액면가에 대해 약속된 이자율입니다.</p>
+<p>이표는 그에 따라 지급되는 이자를 뜻합니다.</p>
+<p>만기는 원금을 돌려받는 시점입니다.</p>
+<hr>
+<h2>채권에는 어떤 종류가 있을까요</h2>
+<p>채권은 누가 발행하느냐에 따라 나뉩니다.</p>
+<p>발행 주체가 다르면 성격도 달라집니다.</p>
+<figure><img src="./images/body-2.png" alt="발행 주체별 채권 종류를 정리한 표"><figcaption>발행 주체별 채권 종류를 정리한 표</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>종류</th><th>발행 주체</th></tr></thead><tbody><tr><td>국채</td><td>국가(정부)</td></tr><tr><td>지방채</td><td>지방자치단체</td></tr><tr><td>회사채</td><td>기업</td></tr></tbody></table></div>
+<p>일반적으로 발행 주체의 상환 능력이 안정적일수록 위험은 낮게 여겨집니다.</p>
+<p>다만 개별 채권의 조건은 저마다 다릅니다.</p>
+<hr>
+<h2>금리가 오르면 채권값은 왜 내릴까요</h2>
+<p>채권 가격과 시장금리는 반대로 움직입니다.</p>
+<p>이 관계가 채권 이해의 핵심입니다.</p>
+<figure><img src="./images/body-3.png" alt="금리 상승과 채권 가격 하락의 반비례 관계를 대비한 이미지"><figcaption>금리 상승과 채권 가격 하락의 반비례 관계를 대비한 이미지</figcaption></figure>
+<p>이미 발행된 채권은 이자가 고정되어 있습니다.</p>
+<p>그런데 시장금리가 오르면, 새로 나온 채권이 더 높은 이자를 줍니다.</p>
+<p>그러면 이자가 낮은 기존 채권의 매력은 상대적으로 떨어집니다.</p>
+<p>그 결과 기존 채권의 가격은 내려갑니다.</p>
+<p>반대로 금리가 내리면 기존 채권의 가치는 올라갑니다.</p>
+<hr>
+<h2>주식과 채권은 무엇이 다를까요</h2>
+<p>둘은 성격이 뿌리부터 다릅니다.</p>
+<figure><img src="./images/body-4.png" alt="주식과 채권의 소유와 대여 성격을 대비한 이미지"><figcaption>주식과 채권의 소유와 대여 성격을 대비한 이미지</figcaption></figure>
+<p>주식은 회사의 지분을 갖는 소유입니다.</p>
+<p>채권은 돈을 빌려주는 대여입니다.</p>
+<p>주식은 성과에 따라 수익이 크게 오르내립니다.</p>
+<p>채권은 정해진 이자를 기대하는 대신 변동은 대체로 완만한 편입니다.</p>
+<blockquote><p>소유냐 대여냐, 이 차이가 위험과 수익의 성향을 가릅니다.</p></blockquote>
+<hr>
+<h2>투자 전 짚어둘 점</h2>
+<p>채권도 위험이 없지 않습니다.</p>
+<p>발행자가 약속을 지키지 못할 신용위험이 있습니다.</p>
+<p>시장금리 변동에 따른 금리위험도 존재합니다.</p>
+<p>본인의 목적과 감당 가능한 위험을 먼저 살피는 자세가 필요합니다.</p>
+<blockquote><p>이 글은 투자 권유가 아니며 참고용입니다.</p></blockquote>
+<div class="tags"><span>#채권</span> <span>#채권투자</span> <span>#국채</span> <span>#회사채</span> <span>#금리</span> <span>#투자기초</span> <span>#경제상식</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

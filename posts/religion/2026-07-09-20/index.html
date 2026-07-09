@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>세계 종교의 경전</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#d6b678;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/religion/index.html">종교 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#d6b678;border-color:#d6b678">종교</div>
+<h1>세계 종교의 경전</h1>
+<p class="subtitle">인류가 남긴 거룩한 텍스트들</p>
+<figure><img src="./images/thumbnail.png" alt="여러 전통의 경전이 나란히 놓인 서가를 담담하게 표현한 썸네일"><figcaption>여러 전통의 경전이 나란히 놓인 서가를 담담하게 표현한 썸네일</figcaption></figure>
+<p>경전은 오랜 세월 공동체가 지켜 온 텍스트입니다.</p>
+<p>그 안에는 이야기와 규범, 의례가 함께 담겨 있습니다.</p>
+<p>이번 글에서는 세계 주요 전통의 대표 경전을 균형 있게 살펴봅니다.</p>
+<hr>
+<h2>경전이란 무엇인가</h2>
+<p>경전은 공동체가 권위를 부여한 텍스트를 뜻합니다.</p>
+<p>신에 대한 이야기, 지켜야 할 규범, 반복되는 의례가 함께 실립니다.</p>
+<p>세대에서 세대로 전승되며 삶의 기준이 되어 왔습니다.</p>
+<p>경전의 지위는 전통마다 다릅니다.</p>
+<p>어떤 공동체는 계시로, 어떤 공동체는 지혜의 축적으로 받아들입니다.</p>
+<p>어느 쪽이 옳은지를 여기서 판단하지는 않습니다.</p>
+<hr>
+<h2>주요 전통의 대표 경전</h2>
+<p>전통마다 경전의 형태와 강조점이 다릅니다.</p>
+<p>아래 표는 대표적인 예를 간략히 정리한 것입니다.</p>
+<figure><img src="./images/body-1.png" alt="주요 종교와 대표 경전을 종교·경전·특징으로 정리한 표"><figcaption>주요 종교와 대표 경전을 종교·경전·특징으로 정리한 표</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>전통</th><th>대표 경전</th><th>특징</th></tr></thead><tbody><tr><td>유대교</td><td>타나크(토라 포함)</td><td>율법과 역사, 예언</td></tr><tr><td>기독교</td><td>성경(구약·신약)</td><td>복음과 서신</td></tr><tr><td>이슬람</td><td>꾸란(하디스 참고)</td><td>계시의 낭송</td></tr><tr><td>힌두교</td><td>베다·우파니샤드·기타</td><td>찬가와 사색</td></tr><tr><td>불교</td><td>삼장(팔리 경전 등)</td><td>가르침과 계율</td></tr><tr><td>유교</td><td>사서오경</td><td>윤리와 정치</td></tr></tbody></table></div>
+<hr>
+<h2>경전이 공동체에서 하는 일</h2>
+<p>전통은 달라도 경전의 기능에는 공통점이 있습니다.</p>
+<p>크게 네 가지로 나누어 볼 수 있습니다.</p>
+<figure><img src="./images/body-2.png" alt="경전의 공통 기능을 이야기·규범·의례·정체성 네 갈래 카드로 정리"><figcaption>경전의 공통 기능을 이야기·규범·의례·정체성 네 갈래 카드로 정리</figcaption></figure>
+<blockquote><p>경전은 무엇을 믿는지를 넘어 어떻게 살지를 함께 안내합니다.</p></blockquote>
+<hr>
+<h2>구전에서 정경으로</h2>
+<p>많은 경전은 처음에 입에서 입으로 전해졌습니다.</p>
+<p>이후 문자로 기록되고, 오랜 논의를 거쳐 정경으로 확정됩니다.</p>
+<p>정경화는 어떤 문헌을 포함할지 정하는 과정입니다.</p>
+<figure><img src="./images/body-3.png" alt="구전에서 문자화, 정경화로 이어지는 3단계 흐름도"><figcaption>구전에서 문자화, 정경화로 이어지는 3단계 흐름도</figcaption></figure>
+<hr>
+<h2>번역과 해석의 역사</h2>
+<p>경전은 번역을 거치며 새로운 언어권으로 퍼졌습니다.</p>
+<p>번역은 종종 그 지역의 문자와 문학에 큰 영향을 남겼습니다.</p>
+<p>동시에 원문과 번역 사이의 간극이라는 과제도 남깁니다.</p>
+<p>읽는 태도 또한 하나가 아닙니다.</p>
+<p>같은 구절을 문자 그대로 읽는 입장과 상징으로 읽는 입장이 함께 존재합니다.</p>
+<figure><img src="./images/body-4.png" alt="문자적 독해와 상징적 독해를 중립적으로 대비한 그림"><figcaption>문자적 독해와 상징적 독해를 중립적으로 대비한 그림</figcaption></figure>
+<p>두 입장은 오랜 세월 나란히 이어져 왔습니다.</p>
+<p>어느 쪽이 유일한 정답이라고 말하기는 어렵습니다.</p>
+<p>경전을 함께 읽는다는 것은 이런 결을 헤아리는 일이기도 합니다.</p>
+<div class="tags"><span>#종교</span> <span>#경전</span> <span>#비교종교</span> <span>#종교학</span> <span>#성경</span> <span>#꾸란</span> <span>#베다</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

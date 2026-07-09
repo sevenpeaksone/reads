@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>간, 침묵의 화학공장</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#ff7c7c;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#ff7c7c;border-color:#ff7c7c">바이오</div>
+<h1>간, 침묵의 화학공장</h1>
+<p class="subtitle">해독과 대사의 중심</p>
+<figure><img src="./images/thumbnail.png" alt="우상복부에 자리한 붉은 간을 부드러운 조명으로 담담하게 표현한 썸네일"><figcaption>우상복부에 자리한 붉은 간을 부드러운 조명으로 담담하게 표현한 썸네일</figcaption></figure>
+<p>우리 몸에는 조용히 일하는 장기가 있습니다.</p>
+<p>바로 간입니다.</p>
+<p>겉으로 티를 내지 않으면서, 하루도 쉬지 않고 화학 반응을 처리합니다.</p>
+<hr>
+<h2>몸속에서 가장 큰 화학공장</h2>
+<p>간은 오른쪽 위 배, 갈비뼈 안쪽에 자리합니다.</p>
+<p>성인 기준으로 체내에서 가장 큰 장기 중 하나입니다.</p>
+<p>무게는 대략 1.2~1.5kg에 이릅니다.</p>
+<p>크기만 큰 것이 아닙니다.</p>
+<p>간은 수백 가지 화학 반응이 동시에 일어나는 공장에 가깝습니다.</p>
+<p>심장이 펌프라면, 간은 정제소에 비유할 수 있습니다.</p>
+<hr>
+<h2>간이 맡은 네 가지 일</h2>
+<p>간의 역할은 하나로 요약하기 어렵습니다.</p>
+<p>크게 네 가지로 나누어 보겠습니다.</p>
+<figure><img src="./images/body-1.png" alt="해독·대사·담즙·합성 네 기능을 아이콘 카드 네 장으로 정리한 그림"><figcaption>해독·대사·담즙·합성 네 기능을 아이콘 카드 네 장으로 정리한 그림</figcaption></figure>
+<p>첫째, 해독입니다.</p>
+<p>알코올이나 약물, 노폐물을 분해해 몸 밖으로 내보낼 형태로 바꿉니다.</p>
+<p>둘째, 영양소 대사와 저장입니다.</p>
+<p>남는 포도당을 글리코겐으로 저장했다가 필요할 때 다시 내놓습니다.</p>
+<p>셋째, 담즙 생성입니다.</p>
+<p>담즙은 지방 소화를 돕는 액체입니다.</p>
+<p>넷째, 단백질과 응고 인자 합성입니다.</p>
+<p>피가 굳는 데 필요한 성분도 간에서 만들어집니다.</p>
+<hr>
+<h2>왜 &#x27;침묵의 장기&#x27;라 부를까</h2>
+<p>간은 이상이 생겨도 초기에 신호를 잘 보내지 않습니다.</p>
+<p>통증을 느끼는 신경이 적기 때문입니다.</p>
+<p>문제가 상당히 진행된 뒤에야 증상이 드러나는 경우가 많습니다.</p>
+<p>그래서 &#x27;침묵의 장기&#x27;라 불립니다.</p>
+<p>이 점이 간 건강에서 정기 확인을 강조하는 이유이기도 합니다.</p>
+<hr>
+<h2>간을 위협하는 요인</h2>
+<p>간에 부담을 주는 대표적 요인은 정리해 볼 수 있습니다.</p>
+<figure><img src="./images/body-2.png" alt="과음·지방간·바이러스성 간염 세 위협 요인을 표로 정리한 그림"><figcaption>과음·지방간·바이러스성 간염 세 위협 요인을 표로 정리한 그림</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>요인</th><th>어떤 부담인가</th></tr></thead><tbody><tr><td>과음</td><td>알코올 분해가 간에 집중됨</td></tr><tr><td>비만·지방간</td><td>간세포에 지방이 쌓임</td></tr><tr><td>바이러스성 간염</td><td>간 세포에 염증이 생김</td></tr></tbody></table></div>
+<p>세 요인 모두 초기에는 자각하기 어렵습니다.</p>
+<hr>
+<h2>간을 지키는 생활습관</h2>
+<p>거창한 방법이 필요한 것은 아닙니다.</p>
+<p>일상에서 실천할 수 있는 습관부터 살펴봅니다.</p>
+<figure><img src="./images/body-3.png" alt="절주·균형식과 체중관리·백신과 정기검진으로 이어지는 3단계 흐름 그림"><figcaption>절주·균형식과 체중관리·백신과 정기검진으로 이어지는 3단계 흐름 그림</figcaption></figure>
+<blockquote><p>술은 줄이고, 몸무게는 관리하고, 검진은 챙깁니다.</p></blockquote>
+<p>먼저 절주입니다.</p>
+<p>술을 줄이는 것만으로도 간의 부담이 가벼워집니다.</p>
+<p>다음은 균형 잡힌 식사와 체중 관리입니다.</p>
+<p>지나친 지방 축적을 막는 데 도움이 됩니다.</p>
+<p>끝으로 백신과 정기 검진입니다.</p>
+<p>간염 백신과 주기적 확인은 조기 발견의 기반이 됩니다.</p>
+<hr>
+<h2>지방간, 방치하면</h2>
+<p>지방간은 흔하지만 가볍게만 볼 대상은 아닙니다.</p>
+<p>정상 간과 지방이 쌓인 간은 이렇게 다릅니다.</p>
+<figure><img src="./images/body-4.png" alt="매끄러운 정상 간과 지방이 낀 간을 좌우로 비교한 대조 그림"><figcaption>매끄러운 정상 간과 지방이 낀 간을 좌우로 비교한 대조 그림</figcaption></figure>
+<p>정상 간은 매끄럽고 균일한 상태를 유지합니다.</p>
+<p>지방이 낀 간은 세포 사이에 지방이 쌓여 기능에 부담이 커집니다.</p>
+<p>다만 개인의 상태는 저마다 다릅니다.</p>
+<p>간 건강이 염려된다면 자가 판단보다 의료진과 상담하시길 권합니다.</p>
+<div class="tags"><span>#간건강</span> <span>#해독</span> <span>#지방간</span> <span>#간염</span> <span>#대사</span> <span>#건강상식</span> <span>#생활습관</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

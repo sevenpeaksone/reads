@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>컨테이너와 도커</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>컨테이너와 도커</h1>
+<p class="subtitle">앱을 통째로 담는 상자</p>
+<figure><img src="./images/thumbnail.png" alt="파란 화물 컨테이너 상자 안에 애플리케이션 아이콘과 설정 도구들이 함께 담겨 배에 실린 미니멀 썸네일"><figcaption>파란 화물 컨테이너 상자 안에 애플리케이션 아이콘과 설정 도구들이 함께 담겨 배에 실린 미니멀 썸네일</figcaption></figure>
+<h2>내 컴퓨터에선 되는데</h2>
+<p>개발자들이 오래 앓아 온 말이 있습니다.</p>
+<p>&quot;내 컴퓨터에선 잘 되는데요.&quot;</p>
+<p>같은 코드가 개발 PC에서는 돌아가는데, 서버에서는 멈추는 일이 흔합니다.</p>
+<p>원인은 대개 환경 차이입니다.</p>
+<p>운영체제 버전, 설치된 라이브러리, 설정값이 조금만 어긋나도 결과가 달라집니다.</p>
+<p>컨테이너는 이 문제를 정면으로 겨냥합니다.</p>
+<p>애플리케이션과 그 실행에 필요한 것들을 하나의 상자에 함께 담아, 어디서든 똑같이 실행하자는 발상입니다.</p>
+<hr>
+<h2>가상머신과 컨테이너</h2>
+<p>비슷한 목적의 기술로 가상머신(VM)이 먼저 있었습니다.</p>
+<p>VM은 하드웨어 위에 운영체제를 통째로 하나 더 얹습니다.</p>
+<p>그만큼 격리는 강하지만 무겁고, 켜는 데도 시간이 걸립니다.</p>
+<p>컨테이너는 접근이 다릅니다.</p>
+<p>운영체제의 핵심인 커널을 호스트와 공유하고, 앱과 그 주변 환경만 격리합니다.</p>
+<p>무거운 OS를 통째로 얹지 않으니 가볍고, 실행이 빠릅니다.</p>
+<figure><img src="./images/body-1.png" alt="무거운 운영체제를 통째로 얹는 가상머신과 커널을 공유하는 가벼운 컨테이너를 좌우로 대비한 카드"><figcaption>무거운 운영체제를 통째로 얹는 가상머신과 커널을 공유하는 가벼운 컨테이너를 좌우로 대비한 카드</figcaption></figure>
+<hr>
+<h2>도커의 세 요소</h2>
+<p>컨테이너를 다루는 대표 도구가 도커입니다.</p>
+<p>핵심은 세 가지로 정리됩니다.</p>
+<p>이미지는 무엇을 어떻게 실행할지 적어 둔 설계도입니다.</p>
+<p>컨테이너는 그 이미지를 실제로 띄운 실행 인스턴스입니다.</p>
+<p>레지스트리는 이미지를 올리고 내려받는 저장소로, 도커 허브가 대표적입니다.</p>
+<blockquote><p>설계도(이미지) 하나로 똑같은 실행 결과(컨테이너)를 몇 개든 찍어 냅니다.</p></blockquote>
+<figure><img src="./images/body-2.png" alt="이미지 설계도, 컨테이너 실행, 레지스트리 저장소 세 요소를 나란히 소개하는 카드"><figcaption>이미지 설계도, 컨테이너 실행, 레지스트리 저장소 세 요소를 나란히 소개하는 카드</figcaption></figure>
+<hr>
+<h2>만들고 배포하기까지</h2>
+<p>실제 흐름은 단순한 편입니다.</p>
+<p>먼저 Dockerfile에 환경과 실행 방법을 적습니다.</p>
+<p>이 파일을 build하면 이미지가 만들어집니다.</p>
+<p>만든 이미지를 run하면 컨테이너가 실행됩니다.</p>
+<p>이미지를 레지스트리에 올리면, 다른 서버에서 내려받아 그대로 배포할 수 있습니다.</p>
+<figure><img src="./images/body-3.png" alt="Dockerfile 작성, build, run, 배포로 이어지는 도커 활용 흐름을 단계로 표현"><figcaption>Dockerfile 작성, build, run, 배포로 이어지는 도커 활용 흐름을 단계로 표현</figcaption></figure>
+<hr>
+<h2>얻는 것과 유의할 점</h2>
+<p>정리하면 장점과 유의점이 함께 있습니다.</p>
+<p>이식성과 일관성은 분명한 강점입니다.</p>
+<p>한 번 만든 상자는 노트북에서든 클라우드에서든 같은 모습으로 돕니다.</p>
+<p>반면 처음에는 개념과 명령어에 익숙해질 시간이 필요합니다.</p>
+<p>데이터베이스처럼 상태를 오래 보관해야 하는 경우는 별도 설계가 필요합니다.</p>
+<figure><img src="./images/body-4.png" alt="도커의 장점과 유의점을 나란히 정리한 표"><figcaption>도커의 장점과 유의점을 나란히 정리한 표</figcaption></figure>
+<p>도구의 성격을 알고 쓰면, 환경 차이로 인한 소모를 크게 줄일 수 있습니다.</p>
+<div class="tags"><span>#컨테이너</span> <span>#도커</span> <span>#Docker</span> <span>#가상머신</span> <span>#DevOps</span> <span>#배포</span> <span>#인프라</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
