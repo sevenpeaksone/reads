@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공자의 인과 예</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#b07cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#b07cff;border-color:#b07cff">철학/인문</div>
+<h1>공자의 인과 예</h1>
+<p class="subtitle">논어, 사람다움의 길</p>
+<figure><img src="./images/thumbnail.png" alt="썸네일"><figcaption>썸네일</figcaption></figure>
+<p>이번 글에서는 공자의 두 기둥, 인(仁, 어짊)과 예(禮, 예의)를 정리해 보겠습니다.</p>
+<p>특정 신앙을 옹호하려는 것이 아니라, 사상사와 인문 교양의 눈으로 읽습니다.</p>
+<p>낯선 한자어는 뜻을 함께 풀어 적겠습니다.</p>
+<hr>
+<h2>공자와 논어가 놓인 자리</h2>
+<p>공자(孔子)는 기원전 6세기, 춘추시대(春秋時代)를 살았습니다.</p>
+<p>제후들이 힘으로 다투고 옛 질서가 무너지던 혼란기였습니다.</p>
+<p>그는 무력이 아니라 사람의 마음과 도리로 세상을 바로잡으려 했습니다.</p>
+<p>그 가르침을 제자들이 뒤에 엮은 책이 『논어(論語)』입니다.</p>
+<p>논어는 체계적인 이론서가 아닙니다.</p>
+<p>짧은 문답과 일화가 이어지는, 대화의 기록에 가깝습니다.</p>
+<p>그래서 논어를 읽는 일은 정답을 외우는 일이 아닙니다.</p>
+<p>스승과 제자가 주고받은 물음의 결을 따라가는 일에 가깝습니다.</p>
+<p>공자는 신을 논하기보다 사람의 도리를 물었습니다.</p>
+<p>그 시선이 뒷날 동아시아 사유의 바탕을 이루었습니다.</p>
+<figure><img src="./images/body-1.png" alt="본문1"><figcaption>본문1</figcaption></figure>
+<hr>
+<h2>인(仁) — 어짊, 그리고 사람다움</h2>
+<p>인(仁)은 논어 전체를 관통하는 핵심어입니다.</p>
+<p>흔히 &#x27;어짊&#x27;으로 옮기지만, 뜻은 그보다 넓습니다.</p>
+<p>글자 그대로 풀면 사람(人)과 둘(二), 곧 사람과 사람 사이의 마음입니다.</p>
+<p>타인을 향한 따뜻한 관심, 사람이 사람다워지는 바탕을 가리킵니다.</p>
+<p>공자는 인을 한 문장으로 못박지 않았습니다.</p>
+<p>묻는 제자와 상황에 따라 답을 달리했습니다.</p>
+<p>다만 방향은 한결같습니다.</p>
+<p>자기 안에 갇히지 않고 남을 헤아리는 마음, 그것이 인의 출발입니다.</p>
+<p>번지가 인을 묻자 공자는 &quot;사람을 사랑하는 것&quot;이라 답했습니다.</p>
+<p>거창한 이론이 아니라, 곁에 있는 사람을 아끼는 데서 시작한다는 뜻입니다.</p>
+<p>인은 지식이 아니라 실천으로 드러납니다.</p>
+<p>말이 앞서고 행함이 없는 사람을 공자는 미덥지 않게 보았습니다.</p>
+<hr>
+<h2>극기복례(克己復禮) — 자기를 이겨 예로 돌아감</h2>
+<p>제자 안연이 인을 묻자 공자는 답합니다.</p>
+<p>&quot;극기복례(克己復禮)&quot;, 자기를 이겨 예로 돌아가는 것이라고요.</p>
+<p>자기(己)를 이긴다는 말은 사욕과 충동을 다스린다는 뜻입니다.</p>
+<p>그렇게 다스린 마음이 다시 예로 돌아갈 때 인이 이루어집니다.</p>
+<p>인은 멀리 있지 않습니다.</p>
+<p>&quot;하루라도 자기를 이겨 예로 돌아가면 천하가 인으로 돌아간다&quot;고 공자는 보았습니다.</p>
+<figure><img src="./images/body-2.png" alt="본문2"><figcaption>본문2</figcaption></figure>
+<hr>
+<h2>예(禮) — 형식이 아니라 관계의 질서</h2>
+<p>예(禮)를 딱딱한 격식으로만 여기기 쉽습니다.</p>
+<p>그러나 공자에게 예는 겉치레가 아니었습니다.</p>
+<p>예는 사람과 사람 사이의 질서이자 존중의 표현입니다.</p>
+<p>상대의 자리를 인정하고, 그에 맞게 대하는 태도입니다.</p>
+<p>속이 비면 예는 헛됩니다.</p>
+<p>안의 인이 밖으로 드러난 모습이 예이고, 예가 인을 지탱합니다.</p>
+<p>예전에는 예를 지키라는 말을 구속으로만 들었습니다.</p>
+<p>지금은 그것이 관계를 지키는 배려일 수 있음을 헤아려 봅니다.</p>
+<hr>
+<h2>충서와 황금률 — 내가 싫은 것을 남에게</h2>
+<p>공자의 가르침을 관통하는 한 축은 충서(忠恕)입니다.</p>
+<p>충(忠)은 자기에게 정성을 다함, 서(恕)는 남의 마음을 헤아려 미루어 봄입니다.</p>
+<p>여기서 유명한 한마디가 나옵니다.</p>
+<p>&quot;기소불욕 물시어인(己所不欲 勿施於人)&quot;, 내가 원치 않는 것을 남에게 하지 말라는 것입니다.</p>
+<p>동서양의 이른바 황금률과 맞닿는 원칙입니다.</p>
+<p>거창한 규범이 아니라, 나를 잣대로 남을 헤아리는 자리에서 시작합니다.</p>
+<p>한 제자가 평생 지킬 한마디를 청하자 공자는 서(恕)를 꼽았습니다.</p>
+<p>남을 나처럼 미루어 보는 마음 하나면 충분하다고 본 것입니다.</p>
+<figure><img src="./images/body-3.png" alt="본문3"><figcaption>본문3</figcaption></figure>
+<hr>
+<h2>정명, 군자, 그리고 배움</h2>
+<p>정명(正名)은 이름을 바로 세운다는 뜻입니다.</p>
+<p>임금은 임금답고 신하는 신하다워야 한다는, 이름과 실질을 맞추려는 요구입니다.</p>
+<p>공자는 사람을 군자(君子)와 소인(小人)으로 견주기도 했습니다.</p>
+<p>군자는 의(義)를 먼저 보고, 소인은 이익(利)을 먼저 봅니다.</p>
+<p>다만 군자는 타고나는 신분이 아닙니다.</p>
+<p>배움(學)과 수양으로 다가서는 자리입니다.</p>
+<p>&quot;배우고 때때로 익히면 또한 기쁘지 아니한가.&quot;</p>
+<p>논어의 첫 문장은 그렇게 배움을 삶의 기쁨으로 놓습니다.</p>
+<figure><img src="./images/body-4.png" alt="본문4"><figcaption>본문4</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>인은 사람을 향한 마음이고, 예는 그 마음이 관계 속에 드러난 질서입니다.</p>
+<p>공자가 남긴 물음은 오늘도 유효합니다 — &quot;나는 사람다운가.&quot;</p>
+<p>그 물음을 스스로에게 건네는 순간, 논어는 다시 열립니다.</p>
+<div class="tags"><span>#공자</span> <span>#논어</span> <span>#인</span> <span>#유교</span> <span>#동양철학</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

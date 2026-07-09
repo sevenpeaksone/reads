@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>애착 유형 이해하기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#f0a532;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#f0a532;border-color:#f0a532">상담</div>
+<h1>애착 유형 이해하기</h1>
+<p class="subtitle">관계의 뿌리를 이해하는 법</p>
+<figure><img src="./images/thumbnail.png" alt="thumbnail"><figcaption>thumbnail</figcaption></figure>
+<p>오늘은 애착 유형에 대해 이야기해 보려 합니다.</p>
+<p>누군가와 가까워질 때 우리는 저마다 다른 방식으로 반응합니다.</p>
+<p>어떤 사람은 쉽게 마음을 열고, 어떤 사람은 자꾸 확인하려 하며, 또 어떤 사람은 거리를 둡니다.</p>
+<p>그 차이가 어디서 비롯되는지, 애착이라는 개념을 통해 더듬어 보는 글입니다.</p>
+<hr>
+<h2>애착 이론은 어디서 시작되었나</h2>
+<p>애착 이론은 영국의 정신과 의사 존 보울비에게서 출발했습니다.</p>
+<p>그는 아이가 양육자와 맺는 정서적 유대가 생존을 위한 본능이라고 보았습니다.</p>
+<p>아이는 위험을 느낄 때 양육자에게 다가가 안전을 확인합니다.</p>
+<p>이 흐름을 실험으로 다듬은 사람이 메리 에인스워스입니다.</p>
+<p>그는 &#x27;낯선 상황 실험&#x27;을 설계했습니다.</p>
+<p>아이와 양육자를 낯선 방에 두고, 양육자가 잠시 떠났다 돌아오게 합니다.</p>
+<p>그때 아이가 보이는 반응을 통해 애착의 결을 관찰한 것입니다.</p>
+<p>양육자가 떠날 때 얼마나 불안해하는지, 돌아왔을 때 어떻게 위로받는지가 관찰의 핵심이었습니다.</p>
+<p>어떤 아이는 금세 안정을 되찾고, 어떤 아이는 쉽게 진정하지 못했습니다.</p>
+<p>이 작은 차이가 훗날 애착 이론의 큰 뼈대가 됩니다.</p>
+<figure><img src="./images/body-1.png" alt="body1"><figcaption>body1</figcaption></figure>
+<hr>
+<h2>네 가지 애착 유형</h2>
+<p>관찰과 후속 연구를 통해 애착은 대체로 네 갈래로 나뉩니다.</p>
+<p>어디까지나 일반화된 경향이며, 사람을 가르는 낙인이 아닙니다.</p>
+<p>안정형은 관계에서 비교적 편안함을 느낍니다.</p>
+<p>가까워지는 것도, 혼자 있는 것도 크게 위협으로 여기지 않습니다.</p>
+<p>불안형은 관계가 흔들릴까 자주 염려합니다.</p>
+<p>상대의 반응에 민감하고, 확인받고 싶은 마음이 큽니다.</p>
+<p>회피형은 거리를 두는 편이 편하다고 느낍니다.</p>
+<p>깊이 기대는 상황을 부담스러워하기도 합니다.</p>
+<p>혼란형은 가까워지고 싶은 마음과 물러서려는 마음이 함께 있습니다.</p>
+<p>다가가면서도 동시에 두려움을 느끼는 셈입니다.</p>
+<p>여기서 중요한 점이 있습니다.</p>
+<p>사람은 하나의 유형에 딱 들어맞기보다, 여러 결을 조금씩 지니고 있습니다.</p>
+<p>관계에 따라, 시기에 따라 다르게 나타나기도 합니다.</p>
+<p>그러니 이 분류는 자신을 이해하는 실마리이지, 스스로를 규정하는 상자가 아닙니다.</p>
+<figure><img src="./images/body-2.png" alt="body2"><figcaption>body2</figcaption></figure>
+<hr>
+<h2>어린 시절이 남기는 것</h2>
+<p>애착의 결은 흔히 어린 시절 양육 경험과 연결됩니다.</p>
+<p>양육자가 아이의 신호에 일관되게 반응해 주면, 아이는 세상을 안전한 곳으로 배웁니다.</p>
+<p>반대로 반응이 들쭉날쭉하면, 아이는 관계를 예측하기 어려운 것으로 받아들입니다.</p>
+<p>이렇게 몸에 밴 방식은 성인기의 관계에도 영향을 줍니다.</p>
+<p>예전에 익힌 대응이, 지금의 연인이나 친구 관계에서 다시 나타나는 것입니다.</p>
+<p>많은 사람이 &quot;왜 나는 늘 같은 지점에서 힘들까&quot; 하고 느끼는 이유이기도 합니다.</p>
+<p>가령 사소한 연락 지연에도 크게 흔들리는 사람이 있습니다.</p>
+<p>반대로 상대가 가까이 다가오면 이유 없이 답답해지는 사람도 있습니다.</p>
+<p>그 반응은 지금 이 관계만의 문제가 아니라, 오래전에 배운 습관이 되살아난 것일 수 있습니다.</p>
+<p>이 점을 알아차리는 것만으로도 자신을 조금 덜 탓하게 됩니다.</p>
+<figure><img src="./images/body-3.png" alt="body3"><figcaption>body3</figcaption></figure>
+<hr>
+<h2>애착은 바뀔 수 있습니다</h2>
+<p>여기서 한 가지를 분명히 하고 싶습니다.</p>
+<p>애착 유형은 평생 고정된 낙인이 아닙니다.</p>
+<p>새로운 관계에서 안정적인 경험을 쌓으면, 애착의 결도 서서히 달라집니다.</p>
+<p>이렇게 후천적으로 얻는 안정을 &#x27;획득된 안정 애착&#x27;이라 부릅니다.</p>
+<p>안정적인 파트너, 신뢰할 수 있는 친구, 그리고 상담이 그 계기가 되기도 합니다.</p>
+<p>예전에는 불안이 관계의 기본값이던 사람이, 지금은 조금 더 편안해지는 일도 있습니다.</p>
+<p>변화는 대개 극적이지 않고, 작은 경험이 쌓이며 천천히 찾아옵니다.</p>
+<p>그 과정이 더디게 느껴질 수는 있습니다만, 방향이 바뀌었다는 것 자체가 의미 있는 진전입니다.</p>
+<p>먼저 필요한 것은 자기 이해입니다.</p>
+<p>자신의 반응 방식을 알아차리면, 관계에서 조금 더 여유를 가질 수 있습니다.</p>
+<p>다만 혼자 감당하기 어려운 어려움이 크다면, 전문 상담의 도움을 받아 보시길 권합니다.</p>
+<figure><img src="./images/body-4.png" alt="body4"><figcaption>body4</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>애착은 우리가 관계를 맺는 오래된 습관이지만, 다시 배울 수 있는 것이기도 합니다.</p>
+<p>&quot;뿌리를 이해하는 일은, 나무를 다시 심는 일과 다르지 않습니다.&quot;</p>
+<p>당신의 관계가 어디서 비롯되었는지 묻는다면, 그 답을 찾는 여정은 이미 시작된 셈입니다.</p>
+<div class="tags"><span>#애착유형</span> <span>#안정애착</span> <span>#관계심리</span> <span>#심리상담</span> <span>#자기이해</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>폐와 호흡</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#ff7c7c;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#ff7c7c;border-color:#ff7c7c">바이오</div>
+<h1>폐와 호흡</h1>
+<p class="subtitle">숨은 어떻게 우리 몸을 살리나</p>
+<figure><img src="./images/thumbnail.png" alt="thumbnail"><figcaption>thumbnail</figcaption></figure>
+<p>이번 글에서는 우리가 매 순간 반복하는 호흡의 원리를 정리해 보겠습니다.</p>
+<p>숨을 쉰다는 단순한 행위 안에는, 세포 하나하나를 살리는 정교한 과정이 숨어 있습니다.</p>
+<p>공기가 들어와 산소로 바뀌어 온몸으로 퍼지는 여정을 차근히 따라가 봅니다.</p>
+<hr>
+<h2>호흡은 무엇을 위해 하는가</h2>
+<p>호흡의 목적은 두 가지로 요약됩니다.</p>
+<p>하나는 산소를 몸 안으로 들이는 일입니다.</p>
+<p>다른 하나는 이산화탄소를 밖으로 내보내는 일입니다.</p>
+<p>우리 몸의 세포는 산소를 써서 에너지를 만듭니다.</p>
+<p>그 과정에서 이산화탄소라는 찌꺼기가 남습니다.</p>
+<p>들숨으로 산소를 얻고 날숨으로 찌꺼기를 버리는 것.</p>
+<p>호흡은 이 교환을 쉬지 않고 반복하는 일인 셈입니다.</p>
+<hr>
+<h2>공기가 지나는 길</h2>
+<p>들이마신 공기는 정해진 길을 따라 이동합니다.</p>
+<figure><img src="./images/body-1.png" alt="body1"><figcaption>body1</figcaption></figure>
+<p>코로 들어온 공기는 기관을 지납니다.</p>
+<p>기관은 다시 좌우 기관지로 갈라집니다.</p>
+<p>기관지는 나뭇가지처럼 점점 가늘어져 세기관지가 됩니다.</p>
+<p>그 끝에는 아주 작은 공기주머니, 폐포가 매달려 있습니다.</p>
+<p>폐포의 수는 수억 개에 이릅니다.</p>
+<p>이 작은 주머니들이 모여, 실제 가스교환이 일어나는 넓은 표면을 만듭니다.</p>
+<p>그 표면을 다 펼치면 넓은 방 하나를 덮을 정도라고 합니다.</p>
+<p>좁은 가슴 안에 이토록 큰 면적이 접혀 들어가 있는 셈입니다.</p>
+<hr>
+<h2>폐포에서 벌어지는 교환</h2>
+<p>폐포 하나하나는 가느다란 모세혈관에 둘러싸여 있습니다.</p>
+<p>산소와 이산화탄소는 이 얇은 벽을 사이에 두고 자리를 바꿉니다.</p>
+<p>원리는 확산입니다.</p>
+<p>농도가 높은 쪽에서 낮은 쪽으로 저절로 옮겨 가는 성질입니다.</p>
+<p>폐포 안쪽은 산소가 많고 이산화탄소가 적습니다.</p>
+<p>혈액 쪽은 그 반대입니다.</p>
+<p>그래서 산소는 혈액으로 들어가고, 이산화탄소는 폐포로 빠져나갑니다.</p>
+<hr>
+<h2>산소를 실어 나르는 일꾼</h2>
+<figure><img src="./images/body-2.png" alt="body2"><figcaption>body2</figcaption></figure>
+<p>혈액으로 넘어온 산소는 그냥 떠다니지 않습니다.</p>
+<p>적혈구 속 헤모글로빈이라는 단백질이 산소를 붙잡습니다.</p>
+<p>헤모글로빈은 산소를 실어 온몸의 세포까지 배달합니다.</p>
+<p>그리고 돌아오는 길엔 이산화탄소의 운반을 돕습니다.</p>
+<p>피가 붉은 것도 이 헤모글로빈 덕분입니다.</p>
+<p>산소가 없으면 세포는 오래 버티지 못합니다.</p>
+<p>이 배달이 끊기지 않는 것이 곧 생존의 조건입니다.</p>
+<hr>
+<h2>숨은 어떻게 들이쉬고 내쉬는가</h2>
+<p>정작 폐 자체에는 스스로 부푸는 힘이 없습니다.</p>
+<p>숨은 주변 근육이 만들어 냅니다.</p>
+<p>들숨에서는 횡격막이 아래로 내려가고 늑간근이 갈비뼈를 들어 올립니다.</p>
+<p>그러면 흉강이 넓어지고 안쪽 압력이 낮아집니다.</p>
+<p>낮은 압력을 채우려 바깥 공기가 밀려 들어옵니다.</p>
+<p>날숨은 그 반대입니다.</p>
+<p>근육이 풀리면 흉강이 좁아지고 압력이 높아집니다.</p>
+<p>높아진 압력에 밀려 공기가 밖으로 나갑니다.</p>
+<p>숨은 힘이 아니라 압력 차이로 드나드는 셈입니다.</p>
+<hr>
+<h2>두 개의 순환</h2>
+<figure><img src="./images/body-3.png" alt="body3"><figcaption>body3</figcaption></figure>
+<p>혈액은 두 갈래 길을 돕니다.</p>
+<p>폐순환은 심장과 폐 사이를 오갑니다.</p>
+<p>찌꺼기를 실은 피가 폐로 가 산소를 채우고 돌아옵니다.</p>
+<p>체순환은 심장에서 온몸으로 뻗습니다.</p>
+<p>산소를 실은 피가 세포까지 닿았다가 되돌아옵니다.</p>
+<p>두 순환은 심장을 가운데 두고 맞물려 돌아갑니다.</p>
+<p>한쪽에서 산소를 채우면, 다른 쪽에서 그 산소를 실어 나릅니다.</p>
+<p>폐에서 채운 산소가 온몸으로 퍼지는 구조입니다.</p>
+<hr>
+<h2>몸은 호흡을 스스로 조절한다</h2>
+<p>우리는 숨 쉬는 일을 의식하지 않습니다.</p>
+<p>뇌간의 연수가 호흡의 리듬을 자동으로 맡고 있기 때문입니다.</p>
+<p>흥미롭게도 연수가 살피는 것은 산소보다 이산화탄소입니다.</p>
+<p>피 속 이산화탄소가 늘면 몸은 이를 감지합니다.</p>
+<p>그러면 호흡이 빨라져 찌꺼기를 서둘러 내보냅니다.</p>
+<p>계단을 오르면 숨이 가빠지는 이유가 여기 있습니다.</p>
+<p>몸이 알아서 균형을 맞추는 것입니다.</p>
+<hr>
+<h2>폐를 지키는 평범한 습관</h2>
+<figure><img src="./images/body-4.png" alt="body4"><figcaption>body4</figcaption></figure>
+<p>폐 건강에는 특별한 비법이 따로 없습니다.</p>
+<p>가장 확실한 것은 금연입니다.</p>
+<p>담배 연기는 폐포와 기관지를 직접 상하게 합니다.</p>
+<p>실내 공기를 자주 환기하는 일도 도움이 됩니다.</p>
+<p>걷기나 가벼운 달리기 같은 유산소 운동은 호흡 근육을 단련합니다.</p>
+<p>다만 이 글은 진단이나 처방이 아닙니다.</p>
+<p>기침이 오래가거나 숨이 자꾸 차다면, 반드시 전문의와 상담하시길 권합니다.</p>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>숨은 단순한 반복이 아니라, 몸을 살리는 정교한 순환의 시작입니다.</p>
+<p>우리가 무심히 내쉬는 한 번의 숨 — 그 안에 생명을 잇는 일이 담겨 있습니다.</p>
+<div class="tags"><span>#폐</span> <span>#호흡</span> <span>#폐포</span> <span>#가스교환</span> <span>#건강</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

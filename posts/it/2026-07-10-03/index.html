@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>캐싱과 CDN</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>캐싱과 CDN</h1>
+<p class="subtitle">웹 페이지는 어떻게 빨라지나</p>
+<figure><img src="./images/thumbnail.png" alt="사용자와 원본 서버 사이에 여러 캐시 계층이 놓인 모습을 단순한 도식으로 표현한 썸네일"><figcaption>사용자와 원본 서버 사이에 여러 캐시 계층이 놓인 모습을 단순한 도식으로 표현한 썸네일</figcaption></figure>
+<p>이번 글에서는 웹 페이지가 빨라지는 원리를 캐싱과 CDN을 중심으로 정리해 보겠습니다. 매일 쓰는 웹인데 그 속도의 비밀은 의외로 덜 알려져 있습니다. 결론부터 말씀드리면, 핵심은 하나입니다 — 자주 쓰는 데이터를 사용자 가까이에 미리 두는 것입니다.</p>
+<hr>
+<h2>캐시란 무엇인가</h2>
+<p>캐시는 자주 쓰는 데이터를 가까운 곳에 저장해 두었다가 다시 꺼내 쓰는 임시 저장 공간입니다. 원본을 매번 멀리서 가져오는 대신, 곁에 둔 복사본을 재사용합니다.</p>
+<p>책상 위에 자주 보는 책을 꺼내 두는 것과 비슷합니다. 도서관까지 다시 가지 않아도 손만 뻗으면 되니까요.</p>
+<p>웹에서도 원리는 같습니다. 한 번 받은 이미지나 파일을 저장해 두면, 다음 방문 때는 다시 내려받지 않아도 됩니다. 그만큼 페이지가 빠르게 뜹니다.</p>
+<figure><img src="./images/body-1.png" alt="캐시가 없을 때와 있을 때의 데이터 요청 흐름을 좌우로 대비한 이미지"><figcaption>캐시가 없을 때와 있을 때의 데이터 요청 흐름을 좌우로 대비한 이미지</figcaption></figure>
+<hr>
+<h2>캐시는 여러 층으로 쌓인다</h2>
+<p>캐시는 한 곳에만 있지 않습니다. 요청이 지나는 길목마다 층층이 자리합니다.</p>
+<p>가장 가까운 곳은 브라우저 캐시입니다. 내 컴퓨터 안에 저장되어, 방문했던 페이지의 자원을 그대로 재사용합니다. 그다음이 서버 캐시입니다. 자주 요청되는 결과를 서버 쪽에서 미리 만들어 두고 빠르게 돌려줍니다. 마지막이 CDN의 엣지 캐시입니다. 사용자와 원본 서버 사이에서 콘텐츠를 대신 품고 있습니다.</p>
+<p>층이 가까울수록 응답이 빠릅니다. 브라우저 캐시에서 해결되면 네트워크를 아예 타지 않으니까요.</p>
+<figure><img src="./images/body-2.png" alt="브라우저 캐시, 서버 캐시, CDN 엣지 캐시 세 계층을 위치와 역할로 정리한 표 형태 이미지"><figcaption>브라우저 캐시, 서버 캐시, CDN 엣지 캐시 세 계층을 위치와 역할로 정리한 표 형태 이미지</figcaption></figure>
+<hr>
+<h2>히트와 미스, 그리고 유효기간</h2>
+<p>찾는 데이터가 캐시에 있으면 캐시 히트, 없으면 캐시 미스라고 부릅니다. 히트가 많을수록 페이지는 빨라집니다.</p>
+<p>문제는 복사본이 낡을 수 있다는 점입니다. 원본이 바뀌었는데 옛 복사본을 계속 내주면 곤란합니다. 그래서 유효기간을 둡니다.</p>
+<p>서버는 응답에 Cache-Control 헤더를 실어 &quot;이 자원은 얼마 동안 재사용해도 된다&quot;는 TTL을 알려줍니다. 기간이 지나면 만료됩니다. 이때 ETag가 쓰입니다. 자원마다 붙는 일종의 지문으로, 브라우저가 &quot;내 복사본이 아직 유효한가&quot;를 물으면 서버는 바뀐 게 없을 경우 내용 대신 짧은 확인만 돌려줍니다. 불필요한 전송을 줄이는 방식입니다.</p>
+<figure><img src="./images/body-3.png" alt="브라우저가 캐시된 자원을 재검증하는 과정을 요청·확인·응답 단계로 보여주는 이미지"><figcaption>브라우저가 캐시된 자원을 재검증하는 과정을 요청·확인·응답 단계로 보여주는 이미지</figcaption></figure>
+<hr>
+<h2>CDN은 왜 빠른가</h2>
+<p>CDN은 콘텐츠 전송 네트워크의 줄임말입니다. 세계 곳곳에 엣지 서버를 두고, 원본 콘텐츠의 복사본을 미리 배치합니다.</p>
+<p>핵심은 거리입니다. 데이터도 물리적으로 이동하는 만큼, 서버가 멀면 지연이 생깁니다. 지구 반대편 서버까지 오가는 시간은 결코 짧지 않습니다.</p>
+<p>CDN은 사용자와 지리적으로 가까운 엣지 서버에서 콘텐츠를 내줍니다. 서울 사용자는 서울 근처 엣지에서, 파리 사용자는 파리 근처 엣지에서 받습니다. 오가는 거리가 줄어드니 지연도 줄어듭니다.</p>
+<p>처음 요청한 콘텐츠가 엣지에 없으면, 엣지가 원본에서 한 번 받아 와 저장해 둡니다. 그다음부터는 같은 지역의 다른 사용자도 그 엣지에서 곧바로 받습니다. 한 번의 수고가 여러 사람의 속도로 돌아오는 구조입니다.</p>
+<p>예전엔 모든 요청이 원본 한 곳으로 몰렸습니다. 지금은 가까운 엣지가 대부분을 나눠 받습니다. 원본의 부담이 가벼워지니, 갑자기 접속이 몰려도 잘 버팁니다.</p>
+<hr>
+<h2>어려운 문제, 캐시 무효화</h2>
+<p>캐시가 늘 좋기만 한 것은 아닙니다. 가장 까다로운 대목은 무효화입니다.</p>
+<p>콘텐츠가 바뀌면 여기저기 흩어진 낡은 복사본을 걷어내야 합니다. 그런데 어떤 것이 아직 쓸 만하고 어떤 것이 낡았는지 정확히 가려내기가 쉽지 않습니다. 너무 오래 두면 옛 내용이 보이고, 너무 자주 지우면 캐시의 이점이 사라집니다.</p>
+<p>여기서 정적 콘텐츠와 동적 콘텐츠의 차이가 드러납니다. 이미지나 CSS, 자바스크립트 파일처럼 한 번 만들면 잘 바뀌지 않는 정적 콘텐츠는 오래 캐싱해도 안전합니다. 반면 로그인 후 화면이나 실시간 가격처럼 사용자와 시점에 따라 달라지는 동적 콘텐츠는 함부로 캐싱하기 어렵습니다. 잘못 캐싱하면 다른 사람의 정보가 보이는 사고로 이어지기도 합니다.</p>
+<p>그래서 실무에서는 둘을 나눠 다룹니다. 정적 자원은 CDN 엣지에 길게 맡기고, 동적 응답은 아주 짧게 캐싱하거나 아예 캐싱하지 않습니다. 파일 이름에 버전을 붙여 내용이 바뀌면 주소 자체를 바꾸는 방법도 흔히 씁니다. 낡은 복사본을 애써 지우는 대신, 새 주소로 갈아타게 하는 우회입니다.</p>
+<figure><img src="./images/body-4.png" alt="정적 콘텐츠와 동적 콘텐츠를 캐싱 관점에서 구분해 카드로 나열한 이미지"><figcaption>정적 콘텐츠와 동적 콘텐츠를 캐싱 관점에서 구분해 카드로 나열한 이미지</figcaption></figure>
+<p>&quot;컴퓨터 과학에서 어려운 두 가지는 캐시 무효화와 이름 짓기&quot;라는 우스개가 괜히 나온 말은 아닌 셈입니다. 편리함과 정확함 사이에서 균형을 잡는 일이 그만큼 까다롭다는 뜻이겠지요.</p>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다. 캐싱과 CDN은 화려한 기술처럼 보이지 않습니다. 하지만 우리가 누리는 웹 속도의 상당 부분이 여기서 나옵니다.</p>
+<p>빠른 웹의 비결은 결국 하나로 모입니다 — &quot;가까이 두고, 다시 쓴다.&quot;</p>
+<p>오늘 무심히 넘긴 그 빠른 페이지 뒤에, 이런 조용한 설계가 있었다고 생각하면 웹이 조금 달리 보이실지도 모르겠습니다.</p>
+<div class="tags"><span>#캐싱</span> <span>#CDN</span> <span>#웹성능</span> <span>#브라우저캐시</span> <span>#엣지서버</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
