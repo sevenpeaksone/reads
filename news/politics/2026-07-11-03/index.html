@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>고속도로 휴게소 &#x27;대수술&#x27;</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#e0667a;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#e0667a;border-color:#e0667a">정치·사회 뉴스 해설</div>
+<h1>고속도로 휴게소 &#x27;대수술&#x27;</h1>
+<p class="subtitle">33% 수수료 걷어내 음식값 낮춘다</p>
+<figure><img src="./images/thumbnail.png" alt="정치·사회 뉴스 해설, 고속도로 휴게소와 커피잔·가격표를 배경으로 &#x27;수수료 인하&#x27;를 상징하는 도로 표지판"><figcaption>정치·사회 뉴스 해설, 고속도로 휴게소와 커피잔·가격표를 배경으로 &#x27;수수료 인하&#x27;를 상징하는 도로 표지판</figcaption></figure>
+<p>고속도로 휴게소 하면 흔히 &#x27;비싸고 맛없다&#x27;는 인상이 따라붙습니다. 명절이나 휴가철 장거리 운전 중에 들른 휴게소에서 커피 한 잔, 국수 한 그릇 값을 보고 놀란 경험은 많은 분이 공유하고 계실 겁니다. 정부가 바로 이 오래된 불만을 정면으로 겨냥한 개편안을 내놨습니다.</p>
+<p>국토교통부는 2026년 7월 9일 홍지선 제2차관 브리핑을 통해 고속도로 휴게소 운영 구조를 손보는 개편방안을 발표했습니다. 핵심은 음식값을 밀어 올려 온 <strong>다단계 임대 구조를 없애고, 입점업체가 내는 수수료를 대폭 낮추겠다</strong>는 것입니다. 다만 실제로 얼마나 싸질지, 어떤 기준으로 업체를 뽑을지는 아직 확정되지 않아 실효성을 둘러싼 논의도 함께 시작됐습니다. 이번 글에서는 무엇이 바뀌는지, 왜 이런 구조가 생겼는지, 그리고 남은 쟁점은 무엇인지 차분히 짚어 보겠습니다.</p>
+<hr>
+<h2>무슨 일이 벌어졌나</h2>
+<p>국토부가 발표한 개편안의 뼈대는 &#x27;중간 단계 제거&#x27;입니다. 지금까지 휴게소는 한국도로공사가 중간운영업체와 운영권 임대계약을 맺고, 그 중간운영업체가 다시 입점업체와 상가 계약을 맺는 구조였습니다. 정부는 이 구조를 <strong>공공관리회사가 입점업체와 직접 계약하는 방식</strong>으로 바꾸겠다고 밝혔습니다.</p>
+<p>이 과정에서 입점업체가 부담하던 수수료는 매출액 대비 <strong>평균 33%, 최대 51%</strong>에 달했는데, 개편 후에는 임대료가 <strong>8~9% 수준</strong>으로 낮아질 것으로 국토부는 전망했습니다. 정부는 줄어든 비용이 음식값 인하와 서비스 개선으로 이어지도록 하겠다는 구상입니다. 홍 차관은 &quot;입점업체가 내는 임대료는 그동안 음식값에 반영돼 국민에게 돌아갔다&quot;고 설명했습니다.</p>
+<figure><img src="./images/body-1.png" alt="개편 전후 운영구조 비교 그래픽 — 왼쪽은 도로공사·중간운영업체·입점업체로 이어지는 3단계와 수수료 33…"><figcaption>개편 전후 운영구조 비교 그래픽 — 왼쪽은 도로공사·중간운영업체·입점업체로 이어지는 3단계와 수수료 33…</figcaption></figure>
+<h2>왜 이렇게 비쌌나</h2>
+<p>휴게소 음식이 비쌌던 근본 원인은 &#x27;누가 더 높은 임대료를 써내느냐&#x27;로 업체를 뽑아 온 방식에 있습니다. 높은 수수료를 감당한 업체가 자리를 얻으니, 그 부담은 결국 소비자 가격에 얹혔습니다. 중간에서 새는 비용이 클수록 손님이 내는 값도 올라가는 구조였던 셈입니다.</p>
+<p>정부는 앞으로 선정 기준을 <strong>가격이 아니라 음식 맛·가격·서비스 수준 중심</strong>으로 바꾸겠다고 밝혔습니다. 외부심사위원회 평가를 거쳐 업체를 뽑고, 매년 평가로 서비스를 관리한다는 방침입니다. 눈에 띄는 변화도 예고됐습니다. 그동안 높은 임대료 탓에 들어오기 어려웠던 저가 커피 매장을 유치해 <strong>현재 평균 4,800원 수준인 아메리카노를 2,000원 이하</strong>로 낮추고, 편의점 24시간 운영, 도시락·김밥·컵라면 등 간편식 판매도 확대하겠다는 내용입니다.</p>
+<figure><img src="./images/body-2.png" alt="체감 변화 요약 표 — 커피값 4800원에서 2000원대, 수수료 33%에서 8~9%, 편의점 제한 운영…"><figcaption>체감 변화 요약 표 — 커피값 4800원에서 2000원대, 수수료 33%에서 8~9%, 편의점 제한 운영…</figcaption></figure>
+<h2>전관 관리의 사각지대도 손본다</h2>
+<p>이번 개편에는 이른바 &#x27;전관예우&#x27; 고리를 끊는 내용도 담겼습니다. 국토부는 도로공사 현직자와 퇴직 3년 이내 인사, 그 배우자와 직계가족을 <strong>휴게소 입점 입찰에서 배제</strong>하기로 했습니다. 도로공사 퇴직자 단체인 도성회와 자회사도 앞으로 휴게소 사업에 참여할 수 없습니다.</p>
+<p>현재 자회사 등을 통해 운영 중인 휴게소 6곳은 매각 절차를 거쳐 조기 철수하도록 할 계획입니다. 홍 차관은 &quot;휴게소는 그동안 전관 관리의 사각지대였다&quot;며 관련 경력 직원의 재취업까지 강하게 모니터링하겠다고 밝혔습니다. 오랫동안 지적돼 온 &#x27;이권 구조&#x27;를 제도적으로 차단하겠다는 취지입니다.</p>
+<h2>언제, 어떻게 바뀌나</h2>
+<p>전국 200여 개 휴게소가 한꺼번에 바뀌는 것은 아닙니다. 기존 계약이 끝나야 새 체계로 전환할 수 있기 때문입니다. 우선 적용 대상은 신설되는 합천호(상·하행)와 월출산, 계약이 종료되는 여주·군위·장유·대천(상·하행) 등 <strong>8곳</strong>입니다. 도로공사가 7월 중 입찰 공고를 내고 <strong>12월부터 새 운영방식</strong>을 적용합니다.</p>
+<p>운영 주체가 될 <strong>공공관리회사는 2027년 초 설립</strong>을 목표로 하되, 그 전까지는 도로공사가 임시로 직접계약을 맡습니다. 국토부는 현재 최장 10년인 계약이 순차적으로 끝나면서 2030년까지 전체 휴게소의 80~90%가 새 기준으로 전환될 것으로 내다봤습니다.</p>
+<figure><img src="./images/body-3.png" alt="추진 일정 단계 그래픽 — 7월 입찰 공고, 12월 임시 운영 시작, 2027년 초 공공관리회사 설립으로…"><figcaption>추진 일정 단계 그래픽 — 7월 입찰 공고, 12월 임시 운영 시작, 2027년 초 공공관리회사 설립으로…</figcaption></figure>
+<h2>남은 쟁점과 여러 입장</h2>
+<p>기대가 큰 만큼 신중론도 있습니다. 우선 <strong>가격이 실제로 얼마나 내려갈지는 아직 정해지지 않았습니다.</strong> 국토부는 줄어든 비용을 음식의 질을 높이거나 양을 늘리거나 가격을 낮추는 데 쓰겠다는 방향만 제시했습니다. 즉 수수료가 내렸다고 값이 자동으로 일률 인하되는 구조는 아니어서, 서비스 개선에 무게가 실릴 경우 소비자가 느끼는 가격 인하 효과는 제한적일 수 있다는 지적이 나옵니다. 맛·서비스 평가 기준도 이달 말에야 확정될 예정입니다.</p>
+<p>다른 한편에서는 <strong>도로공사의 재무 부담</strong>을 걱정하는 시각도 있습니다. 휴게소 임대·수수료 수익이 공사 수익성에서 적지 않은 비중을 차지하기 때문입니다. 이에 대해 국토부는 지난해 기준 휴게소 임대수익이 2,000억~3,000억 원, 순수익은 700억~800억 원 규모여서 &quot;임대료 인하만으로 공사 재무 전반이 크게 흔들리지는 않을 것&quot;이라며, 공공기관인 만큼 수익을 극대화하기보다 국민에게 환원하는 것이 맞다고 설명했습니다. 협약 구조상 정부 방침을 강제하기 어려운 <strong>민자도로 휴게소가 개편의 사각지대로 남는다</strong>는 점도 과제로 꼽힙니다.</p>
+<figure><img src="./images/body-4.png" alt="남은 쟁점 카드 3종 — 가격 인하폭 미정, 도로공사 수익 감소 우려, 민자휴게소 제외라는 세 가지 논점…"><figcaption>남은 쟁점 카드 3종 — 가격 인하폭 미정, 도로공사 수익 감소 우려, 민자휴게소 제외라는 세 가지 논점…</figcaption></figure>
+<p>정리하면, 이번 개편은 오랜 불만이었던 휴게소 가격과 서비스 구조를 제도적으로 손본다는 점에서 방향성 자체에는 공감이 넓습니다. 다만 실제 체감으로 이어지려면 가격 인하 목표와 평가 기준이라는 &#x27;빈칸&#x27;을 어떻게 채우느냐가 관건입니다. 12월 첫 적용 휴게소에서 소비자가 어떤 변화를 느끼는지가 이번 정책의 성패를 가늠하는 첫 시험대가 될 전망입니다.</p>
+<p>참고: 뉴스핌, 아시아투데이, 서울경제, ZDNet Korea, 대한민국 정책브리핑</p>
+<div class="tags"><span>#고속도로휴게소</span> <span>#휴게소음식값</span> <span>#국토교통부</span> <span>#공공관리제</span> <span>#휴게소수수료</span> <span>#뉴스해설</span> <span>#생활정책</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

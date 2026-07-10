@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>데이터베이스 인덱스</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>데이터베이스 인덱스</h1>
+<p class="subtitle">수백만 건에서 원하는 데이터를 순식간에 찾는 법</p>
+<figure><img src="./images/thumbnail.png" alt="데이터베이스 인덱스 개념을 상징하는 도해"><figcaption>데이터베이스 인덱스 개념을 상징하는 도해</figcaption></figure>
+<p>이번 글에서는 데이터베이스 인덱스를 정리해 보겠습니다. 결론부터 말씀드리면, 인덱스는 책 맨 뒤의 찾아보기와 같아서 수백만 건의 데이터에서도 원하는 행을 순식간에 찾아내는 지름길입니다.</p>
+<p>인덱스가 없으면 데이터베이스는 테이블을 처음부터 끝까지 훑어야 합니다. 데이터가 적을 때는 문제가 없지만, 행이 수백만 건으로 늘어나면 이 방식은 급격히 느려집니다. 인덱스는 이 탐색 비용을 근본적으로 줄여 줍니다.</p>
+<p>다만 인덱스가 만능은 아닙니다. 조회는 빨라지지만 쓰기가 느려지고 저장공간도 더 씁니다. 그래서 무엇을, 언제 걸어야 하는지 판단이 중요합니다. 기초 개념부터 하나씩 짚어 보겠습니다.</p>
+<hr>
+<h2>인덱스란 무엇인가</h2>
+<p><strong>인덱스(index)</strong>는 데이터를 빠르게 찾기 위해 별도로 만들어 두는 정렬된 자료구조입니다. 책 뒤편의 찾아보기를 떠올리면 이해가 쉽습니다. 우리는 책 전체를 넘겨보지 않고, 찾아보기에서 단어를 짚어 해당 페이지로 곧장 넘어갑니다.</p>
+<p>데이터베이스도 마찬가지입니다. 특정 컬럼에 인덱스를 만들어 두면, 그 컬럼의 값들이 미리 정렬되어 저장됩니다. 값이 정렬돼 있으면 원하는 값을 훨씬 적은 비교로 찾아낼 수 있습니다.</p>
+<p>핵심은 하나입니다. 인덱스는 데이터 본체와 별개로 존재하는 <strong>탐색용 지도</strong>라는 점입니다. 지도가 있으면 목적지까지 헤매지 않습니다.</p>
+<figure><img src="./images/body-1.png" alt="책 찾아보기와 데이터베이스 인덱스를 나란히 비교하는 도해"><figcaption>책 찾아보기와 데이터베이스 인덱스를 나란히 비교하는 도해</figcaption></figure>
+<hr>
+<h2>풀스캔과 인덱스 스캔의 차이</h2>
+<p>인덱스가 없을 때 데이터베이스가 쓰는 방식이 <strong>풀스캔(Full Scan)</strong>입니다. 테이블의 모든 행을 처음부터 끝까지 하나씩 확인합니다. 행이 100만 건이면 최악의 경우 100만 번을 비교해야 합니다.</p>
+<p>반면 <strong>인덱스 스캔(Index Scan)</strong>은 정렬된 인덱스를 이용해 필요한 위치로 바로 접근합니다. 100만 건이라도 스무 번 남짓의 비교로 원하는 값에 도달할 수 있습니다. 비교 횟수의 차이가 곧 속도의 차이입니다.</p>
+<p>예전에는 데이터가 적어 풀스캔으로도 충분했습니다. 지금은 데이터가 방대해져 인덱스 없이는 감당하기 어렵습니다. 규모가 커질수록 이 격차는 더 벌어집니다.</p>
+<figure><img src="./images/body-2.png" alt="풀스캔과 인덱스 스캔의 탐색 방식을 대비한 도해"><figcaption>풀스캔과 인덱스 스캔의 탐색 방식을 대비한 도해</figcaption></figure>
+<hr>
+<h2>B-tree — 인덱스의 표준 자료구조</h2>
+<p>대부분의 데이터베이스는 인덱스를 <strong>B-tree(비트리)</strong> 구조로 만듭니다. B-tree는 값을 계층적으로 정렬해 두는 나무 모양의 자료구조입니다. 맨 위 뿌리에서 시작해 가지를 타고 내려가며 원하는 값을 좁혀 갑니다.</p>
+<p>탐색은 대략 세 단계로 이뤄집니다. 먼저 뿌리 노드에서 값의 범위를 비교하고, 다음 중간 노드로 내려가 범위를 더 좁히며, 마지막 잎 노드에서 실제 값을 찾습니다. 각 단계에서 후보가 크게 줄어듭니다.</p>
+<p>이 구조 덕분에 데이터가 늘어도 탐색 단계는 완만하게만 증가합니다. 100만 건이든 1000만 건이든 몇 단계면 도달한다는 뜻입니다. B-tree가 인덱스의 표준으로 자리 잡은 이유입니다.</p>
+<figure><img src="./images/body-3.png" alt="B-tree에서 뿌리부터 잎까지 값을 찾아 내려가는 3단계 도해"><figcaption>B-tree에서 뿌리부터 잎까지 값을 찾아 내려가는 3단계 도해</figcaption></figure>
+<hr>
+<h2>클러스터형 인덱스와 보조 인덱스</h2>
+<p>인덱스는 크게 두 종류로 나뉩니다. <strong>클러스터형 인덱스(Clustered Index)</strong>는 데이터 자체를 인덱스 순서대로 정렬해 저장합니다. 테이블당 하나만 둘 수 있으며, 보통 기본 키(Primary Key)가 이 역할을 맡습니다.</p>
+<p><strong>보조 인덱스(Secondary Index)</strong>는 데이터 본체와 별도로 만들어지는 인덱스입니다. 정렬된 값과 함께, 실제 데이터가 있는 위치를 가리키는 표지를 담고 있습니다. 한 테이블에 여러 개를 둘 수 있습니다.</p>
+<p>둘의 차이를 비유하면 이렇습니다. 클러스터형은 책의 내용 자체가 순서대로 편집된 것이고, 보조 인덱스는 뒤에 붙은 별도의 찾아보기입니다. 상황에 맞게 함께 쓰면 조회 성능을 넓게 끌어올릴 수 있습니다.</p>
+<hr>
+<h2>복합 인덱스와 컬럼 순서</h2>
+<p>여러 컬럼을 묶어 하나로 만든 인덱스를 <strong>복합 인덱스(Composite Index)</strong>라고 합니다. 예를 들어 지역과 나이를 함께 조건으로 자주 조회한다면, 두 컬럼을 묶어 인덱스를 걸 수 있습니다.</p>
+<p>복합 인덱스에서는 <strong>컬럼의 순서</strong>가 대단히 중요합니다. 앞쪽 컬럼부터 차례로 정렬되기 때문입니다. 앞 컬럼을 조건에 쓰지 않으면 인덱스의 이점을 제대로 살리기 어렵습니다. 자주 쓰고 선택 범위를 크게 좁히는 컬럼을 앞에 두시길 권합니다.</p>
+<p>순서만 잘 잡아도 하나의 인덱스로 여러 조회를 감당할 수 있습니다. 반대로 순서가 어긋나면 인덱스가 있어도 쓰이지 않는 일이 생깁니다.</p>
+<figure><img src="./images/body-4.png" alt="복합 인덱스 컬럼 순서에 따른 조회 효과를 정리한 도해"><figcaption>복합 인덱스 컬럼 순서에 따른 조회 효과를 정리한 도해</figcaption></figure>
+<hr>
+<h2>인덱스의 비용과 언제 걸어야 하나</h2>
+<p>인덱스는 공짜가 아닙니다. 우선 <strong>쓰기 성능</strong>이 떨어집니다. 데이터를 넣거나 고치거나 지울 때마다 인덱스도 함께 갱신해야 하기 때문입니다. 인덱스가 많을수록 쓰기 부담은 커집니다.</p>
+<p><strong>저장공간</strong>도 추가로 듭니다. 인덱스는 별도의 자료구조라서 그만큼의 디스크를 차지합니다. 쓰지 않는 인덱스를 방치하면 공간과 성능을 함께 잃는 셈입니다.</p>
+<p>그래서 판단 기준은 이렇습니다. 조회 조건에 자주 쓰이고, 값의 종류가 다양해 범위를 크게 좁혀 주는 컬럼에 인덱스를 거는 것이 유리합니다. 반대로 값의 종류가 적거나 조회에 거의 쓰이지 않는 컬럼, 쓰기가 매우 잦은 테이블에서는 신중해야 합니다.</p>
+<hr>
+<p>정리하면 이렇습니다. 인덱스는 조회 속도를 극적으로 끌어올리지만, 쓰기와 저장공간이라는 대가를 치릅니다. &quot;필요한 곳에만, 정확히 건다&quot; — 이 원칙 하나면 대부분의 판단이 정리됩니다.</p>
+<p>인덱스를 어디에 걸어야 할지 막막하셨다면, 가장 자주 조회하는 조건부터 살펴보시길 권합니다. 그 한 걸음이 수백만 건 속에서 원하는 데이터를 순식간에 꺼내는 지름길이 되어 줄 것입니다.</p>
+<div class="tags"><span>#데이터베이스</span> <span>#인덱스</span> <span>#DB인덱스</span> <span>#Btree</span> <span>#쿼리최적화</span> <span>#백엔드</span> <span>#SQL</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>환율은 어떻게 결정되나</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2bb673;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#2bb673;border-color:#2bb673">경제</div>
+<h1>환율은 어떻게 결정되나</h1>
+<p class="subtitle">원·달러 환율을 움직이는 힘</p>
+<figure><img src="./images/thumbnail.png" alt="환율 결정 요인을 상징하는 도해"><figcaption>환율 결정 요인을 상징하는 도해</figcaption></figure>
+<p>뉴스에서 &quot;원·달러 환율이 올랐다&quot; 혹은 &quot;내렸다&quot;는 말을 매일 접하지만, 정작 환율이 어떤 힘으로 움직이는지는 막연하게 느껴집니다. 결론부터 말씀드리면, 환율은 결국 <strong>외환시장에서 통화의 수요와 공급</strong>이 만나 정해지는 가격입니다. 달러를 사려는 힘이 강하면 달러가 비싸지고, 팔려는 힘이 강하면 달러가 싸집니다.</p>
+<p>그 수요와 공급의 뒤에는 몇 가지 굵직한 원리가 자리 잡고 있습니다. 두 나라의 <strong>금리 차이</strong>, <strong>무역으로 오가는 돈</strong>, <strong>물가 수준</strong>, 그리고 불안할 때 안전한 곳을 찾는 <strong>투자자 심리</strong>가 대표적입니다. 이 글에서는 특정 시점의 숫자를 외우는 대신, 시간이 지나도 변하지 않는 &#x27;작동 원리&#x27;를 정리해 보겠습니다.</p>
+<p>이 원리들을 이해하면, 환율 뉴스가 나올 때 &quot;왜 그런 방향으로 움직였을까&quot;를 스스로 해석할 수 있게 됩니다. 미래의 환율을 정확히 맞히는 것은 누구에게도 불가능하지만, 방향을 만드는 힘의 종류를 아는 것은 충분히 가능합니다.</p>
+<hr>
+<h2>환율이란 무엇인가 — 두 통화의 교환 비율</h2>
+<p><strong>환율</strong>은 한 나라 통화와 다른 나라 통화가 교환되는 비율입니다. 우리가 흔히 말하는 원·달러 환율은 &quot;1달러를 사려면 원화가 얼마나 필요한가&quot;를 뜻합니다. 예를 들어 환율이 1,300원이라면 1달러의 값이 1,300원이라는 의미입니다.</p>
+<p>한국은 <strong>자국통화 표시법</strong>을 씁니다. 즉 외국 통화 1단위의 값을 자국 통화로 나타냅니다. 그래서 환율 숫자가 커지면 달러가 비싸진 것이고, 이는 곧 <strong>원화 가치가 떨어졌다(원화 약세)</strong>는 뜻입니다. 반대로 숫자가 작아지면 원화 가치가 오른 것(원화 강세)입니다. 숫자의 방향과 원화 가치의 방향이 서로 반대라는 점이 처음에는 헷갈리기 쉽습니다.</p>
+<figure><img src="./images/body-1.png" alt="환율 상승과 하락이 각각 무엇을 의미하는지 대비"><figcaption>환율 상승과 하락이 각각 무엇을 의미하는지 대비</figcaption></figure>
+<h2>외환시장의 수요와 공급 — 가격을 정하는 저울</h2>
+<p>환율은 결국 <strong>외환시장</strong>이라는 거대한 장터에서 형성되는 가격입니다. 다른 상품과 마찬가지로, 사려는 양(수요)과 팔려는 양(공급)이 만나는 지점에서 값이 정해집니다.</p>
+<p>달러 <strong>수요</strong>가 늘어나는 경우를 생각해 보겠습니다. 수입 기업이 물건 값을 달러로 치러야 하거나, 국내 투자자가 해외 자산에 투자하려 하거나, 해외여행이 늘어나면 달러를 사려는 힘이 커집니다. 반대로 달러 <strong>공급</strong>은 수출 기업이 벌어들인 달러를 원화로 바꿀 때, 외국인이 국내 주식·채권을 사려고 달러를 들여올 때 늘어납니다. 수요가 공급보다 크면 환율이 오르고, 공급이 수요보다 크면 환율이 내립니다.</p>
+<p>이 단순한 저울 위에, 지금부터 설명할 금리·무역·물가·심리라는 무게추가 얹힌다고 이해하시면 됩니다.</p>
+<h2>금리 차이와 자본 이동 — 돈은 수익을 따라 흐른다</h2>
+<p>국경을 넘나드는 투자 자금은 조금이라도 더 높은 수익을 찾아 움직입니다. 그래서 두 나라의 <strong>금리 차이</strong>는 환율에 큰 영향을 줍니다.</p>
+<p>일반적으로 한 나라의 금리가 상대적으로 높아지면, 그 나라 통화로 표시된 예금과 채권의 매력이 커집니다. 해외 자금이 들어오려면 그 나라 통화를 사야 하므로 통화 수요가 늘고, 그 통화는 강세가 되는 경향이 있습니다. 예컨대 미국 금리가 한국보다 크게 높아지면, 달러 표시 자산으로 자금이 이동하며 달러 수요가 커지고 원화는 약세 압력을 받는 식입니다. 이처럼 금리 차이를 좇아 움직이는 돈의 흐름을 <strong>자본 이동</strong>이라고 부릅니다.</p>
+<p>다만 금리만으로 모든 것이 정해지지는 않습니다. 금리가 높아도 그 나라 경제나 정치가 불안하면 자금은 오히려 빠져나갈 수 있습니다. 금리는 강력한 힘이지만 유일한 힘은 아닙니다.</p>
+<figure><img src="./images/body-2.png" alt="환율을 움직이는 힘이 작동하는 단계별 흐름"><figcaption>환율을 움직이는 힘이 작동하는 단계별 흐름</figcaption></figure>
+<h2>무역수지와 경상수지 — 실물 거래가 만드는 달러의 흐름</h2>
+<p>투자 자금과 별개로, 물건과 서비스를 사고파는 <strong>실물 거래</strong>도 환율을 움직입니다. 한 나라가 일정 기간 외국과 주고받은 거래를 종합한 것이 <strong>경상수지</strong>이고, 그중 상품 거래만 따로 본 것이 <strong>무역수지</strong>입니다.</p>
+<p>수출이 수입보다 많으면(<strong>경상수지 흑자</strong>) 나라 안으로 들어오는 달러가 나가는 달러보다 많아집니다. 기업들이 이 달러를 원화로 바꾸는 과정에서 달러 공급이 늘어, 원화가 강세를 보이는 경향이 있습니다. 반대로 수입이 더 많으면(<strong>적자</strong>) 달러가 밖으로 더 많이 나가면서 원화가 약세를 보이기 쉽습니다.</p>
+<p>물론 현실에서는 실물 거래와 투자 자금이 동시에 작용하기 때문에, 흑자라고 해서 환율이 반드시 내리는 것은 아닙니다. 여러 힘의 방향이 겹쳐 최종 결과가 나온다는 점을 기억할 필요가 있습니다.</p>
+<h2>물가와 구매력평가 — 장기적으로 통화 가치를 재는 잣대</h2>
+<p>짧은 기간에는 금리와 심리가 환율을 흔들지만, 긴 안목에서는 <strong>물가</strong>가 통화 가치를 좌우합니다. 이를 설명하는 대표적 개념이 <strong>구매력평가(PPP)</strong>입니다.</p>
+<p>구매력평가는 &quot;같은 물건은 어느 나라에서든 결국 비슷한 값에 팔려야 한다&quot;는 생각에서 출발합니다. 한 나라의 물가가 다른 나라보다 계속 빠르게 오르면, 그 나라 돈으로 살 수 있는 물건의 양이 줄어드는 셈이므로 통화 가치는 장기적으로 떨어지는 경향이 있습니다. 즉 <strong>인플레이션이 높은 나라의 통화는 시간이 지날수록 약세</strong>로 기우는 힘을 받습니다.</p>
+<p>구매력평가는 단기 환율을 정확히 맞히는 도구는 아닙니다. 하지만 몇 년, 몇십 년의 큰 흐름에서 통화 가치가 어느 방향으로 정렬되는지를 이해하는 데 유용한 나침반이 됩니다.</p>
+<figure><img src="./images/body-3.png" alt="환율 결정 요인을 항목별로 정리한 표"><figcaption>환율 결정 요인을 항목별로 정리한 표</figcaption></figure>
+<h2>위험회피 심리와 안전자산 달러 — 불안이 만드는 쏠림</h2>
+<p>마지막 힘은 숫자가 아니라 <strong>심리</strong>입니다. 세계 경제나 금융시장이 불안해지면 투자자들은 위험을 피하려는 성향, 즉 <strong>위험회피</strong> 심리가 강해집니다.</p>
+<p>이럴 때 투자자들은 상대적으로 안전하다고 여겨지는 자산으로 몰립니다. 달러는 세계에서 가장 널리 쓰이는 기축통화이자 대표적인 <strong>안전자산</strong>으로 여겨집니다. 그래서 위기 국면에서는 특별한 이유가 없어도 달러 수요가 급격히 커지며 달러가 강세를 보이는 일이 잦습니다. 원화처럼 상대적으로 변동에 민감한 통화는 이런 국면에서 약세 압력을 받기 쉽습니다.</p>
+<p>심리는 예측이 가장 어려운 요인입니다. 같은 뉴스에도 시장이 다르게 반응할 수 있기 때문에, 심리가 움직인 방향은 사후에야 분명해지는 경우가 많습니다.</p>
+<figure><img src="./images/body-4.png" alt="환율을 움직이는 세 가지 힘(금리·무역·안전자산)을 한눈에 정리한 핵심 카드"><figcaption>환율을 움직이는 세 가지 힘(금리·무역·안전자산)을 한눈에 정리한 핵심 카드</figcaption></figure>
+<h2>환율 변동이 우리 생활에 미치는 영향</h2>
+<p>환율이 오르면(원화 약세) <strong>수출</strong>에는 유리한 면이 있습니다. 같은 1달러를 벌어도 원화로 바꾸면 더 많은 금액이 되기 때문입니다. 반대로 <strong>수입</strong> 물가는 오릅니다. 원유, 원자재, 해외 제품을 달러로 사와야 하므로 국내 물가를 밀어 올리는 요인이 됩니다.</p>
+<p>환율이 내리면(원화 강세) 반대 현상이 나타납니다. 수입품과 해외여행 비용이 싸지고 물가 부담은 줄지만, 수출 기업이 원화로 손에 쥐는 금액은 줄어들 수 있습니다. 이처럼 환율은 어느 방향이든 누군가에게는 유리하고 누군가에게는 불리한, 양면을 지닌 가격입니다. 그래서 &quot;환율이 무조건 오르면 좋다 또는 나쁘다&quot;고 단정하기는 어렵습니다.</p>
+<p>지금까지 살펴본 수요·공급, 금리, 무역, 물가, 심리는 서로 얽히며 동시에 작동합니다. 그렇기에 미래 환율을 정확히 맞히는 일은 사실상 불가능에 가깝습니다. 다만 어떤 힘이 어떤 방향으로 작용하는지 원리를 알아 두면, 환율 뉴스를 볼 때 막연한 불안 대신 차분한 해석의 눈을 가질 수 있습니다. 오늘 정리한 원리들이 그 출발점이 되기를 바랍니다.</p>
+<div class="tags"><span>#환율</span> <span>#원달러환율</span> <span>#외환시장</span> <span>#금리차</span> <span>#경상수지</span> <span>#구매력평가</span> <span>#경제상식</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

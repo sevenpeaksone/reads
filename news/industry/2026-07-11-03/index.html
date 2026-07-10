@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>한국 첫 &#x27;농림위성&#x27;, 궤도에 오르다</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#3fb6a8;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#3fb6a8;border-color:#3fb6a8">산업 뉴스 해설</div>
+<h1>한국 첫 &#x27;농림위성&#x27;, 궤도에 오르다</h1>
+<p class="subtitle">차세대중형위성 4호 발사 성공이 남긴 것</p>
+<p>2026년 7월 7일 오후, 미국 캘리포니아 반덴버그 우주군기지에서 스페이스X의 팰컨9 발사체가 하늘로 솟았습니다. 이 발사체에 실린 것은 한국이 독자 개발한 지구관측 위성 &#x27;차세대중형위성 4호&#x27;였습니다. 위성은 발사 약 2시간 30분 뒤 발사체에서 정상 분리됐고, 노르웨이 스발바르 지상국과 첫 교신을 마친 뒤 목표 고도인 약 888km 궤도에 안착했습니다.</p>
+<p>주목할 점은 이 위성이 국내 최초의 &#x27;농림위성&#x27;, 즉 농업과 산림 관측을 전담하는 위성이라는 사실입니다. 반도체와 인공지능이 산업 뉴스의 대부분을 차지하는 시대에, 조용히 궤도에 오른 이 500kg급 위성 한 대는 한국 우주산업이 어디까지 왔는지를 보여주는 상징이 되었습니다. 오늘은 이 발사가 왜 단순한 &#x27;위성 하나&#x27;가 아닌지 해설해 드리겠습니다.</p>
+<figure><img src="./images/thumbnail.png" alt="산업 뉴스 해설, 지구 궤도를 도는 관측위성과 아래로 펼쳐진 농경지·산림을 스캔하는 광학 빔"><figcaption>산업 뉴스 해설, 지구 궤도를 도는 관측위성과 아래로 펼쳐진 농경지·산림을 스캔하는 광학 빔</figcaption></figure>
+<hr>
+<h2>7월 7일, 무슨 일이 있었나</h2>
+<p>이번 발사의 주인공은 무게 <strong>514kg</strong>의 차세대중형위성 4호입니다. 위성은 한국시간 7월 7일 오후 4시 12분 반덴버그 기지에서 팰컨9에 실려 발사됐습니다. 발사 자체는 상업 발사체를 이용했지만, 위성 본체와 탑재체 개발은 한국이 주도했다는 점이 핵심입니다.</p>
+<p>발사 후 위성은 발사체에서 분리돼 극궤도에 진입했고, 해외 지상국과 국내 지상국을 차례로 거치며 교신에 성공했습니다. <strong>위성이 지상과 정상적으로 신호를 주고받았다는 것은 전력·통신·자세제어 등 핵심 시스템이 모두 정상 작동한다는 뜻</strong>으로, 발사 성공을 확정 짓는 가장 중요한 단계입니다.</p>
+<figure><img src="./images/body-1.png" alt="발사부터 첫 교신까지의 단계별 흐름 — 발사, 궤도 진입, 위성 분리, 해외 지상국 교신, 국내 교신 성공"><figcaption>발사부터 첫 교신까지의 단계별 흐름 — 발사, 궤도 진입, 위성 분리, 해외 지상국 교신, 국내 교신 성공</figcaption></figure>
+<h2>&#x27;농림위성&#x27;이라는 이름의 의미</h2>
+<p>차세대중형위성 4호는 지상의 <strong>5m 크기 물체를 컬러로 구분</strong>할 수 있는 광학탑재체를 갖췄습니다. 관측 폭은 약 120km에 이르러, 한 번에 넓은 지역을 훑을 수 있습니다. 이 조합 덕분에 위성은 <strong>한반도 전역을 약 3일 주기로 촬영</strong>할 수 있습니다.</p>
+<p>이 사양은 &#x27;농업과 산림을 계속 지켜본다&#x27;는 목적에 최적화돼 있습니다. 도시 건물을 세밀히 들여다보는 정찰위성과 달리, 농림위성은 넓은 면적을 자주 촬영해 작물이 자라는 상태나 산림의 변화를 시계열로 추적하는 데 강점이 있습니다. 초고해상도보다 &#x27;넓게, 자주&#x27;가 이 위성의 설계 철학인 셈입니다.</p>
+<p>농업과 산림은 계절과 기상에 따라 하루가 다르게 변합니다. <strong>며칠 단위로 같은 지역을 반복 촬영할 수 있어야 작황 변화나 산불 피해를 제때 포착</strong>할 수 있기 때문에, 3일 주기라는 재방문 성능이 이 위성의 가치를 결정합니다.</p>
+<figure><img src="./images/body-2.png" alt="차세대중형위성 4호 주요 제원을 정리한 표 — 무게, 궤도 고도, 해상도, 관측 폭, 재방문 주기"><figcaption>차세대중형위성 4호 주요 제원을 정리한 표 — 무게, 궤도 고도, 해상도, 관측 폭, 재방문 주기</figcaption></figure>
+<h2>&#x27;뉴스페이스&#x27;로의 전환을 보여주는 위성</h2>
+<p>차세대중형위성 사업의 진짜 의미는 &#x27;누가 만들었는가&#x27;에 있습니다. 이 프로그램은 한국항공우주연구원이 1호기에서 핵심 기술을 개발한 뒤, 이를 민간 기업에 이전해 <strong>2호기부터는 민간 기업이 주도해 위성을 개발</strong>하도록 설계됐습니다. 정부가 모든 것을 직접 만들던 &#x27;올드스페이스&#x27;에서, 민간이 설계·제작을 맡는 &#x27;뉴스페이스&#x27;로 넘어가는 흐름입니다.</p>
+<p>핵심은 <strong>500kg급 표준 플랫폼</strong>입니다. 위성의 뼈대에 해당하는 본체를 표준화하면, 탑재체만 바꿔 다양한 임무의 위성을 반복 제작할 수 있습니다. 자동차로 치면 같은 플랫폼 위에 여러 차종을 올리는 방식으로, <strong>개발 비용과 기간을 크게 줄이고 위성을 사실상 &#x27;양산&#x27;할 수 있는 기반</strong>이 됩니다.</p>
+<p>이런 구조는 우주산업의 경제성을 근본적으로 바꿉니다. 한 대를 수년에 걸쳐 만드는 방식으로는 시장이 열리지 않지만, 검증된 플랫폼을 반복 생산하면 국내 수요를 넘어 수출까지 노릴 수 있습니다.</p>
+<figure><img src="./images/body-3.png" alt="올드스페이스와 뉴스페이스를 비교한 그래픽 — 정부 주도 개별 제작 대 민간 주도 표준 플랫폼 양산"><figcaption>올드스페이스와 뉴스페이스를 비교한 그래픽 — 정부 주도 개별 제작 대 민간 주도 표준 플랫폼 양산</figcaption></figure>
+<h2>데이터가 만들어 낼 산업적 가치</h2>
+<p>위성은 발사가 끝이 아니라 시작입니다. 차세대중형위성 4호는 약 4개월간의 초기 운영·점검을 거친 뒤, 2027년부터 본격적인 관측 임무에 들어갑니다. 이때부터 쏟아질 영상 데이터는 여러 산업과 공공 분야에서 활용됩니다.</p>
+<p>대표적으로 <strong>작황 분석과 수확량 예측</strong>이 있습니다. 넓은 농경지의 생육 상태를 위성으로 파악하면 식량 수급을 미리 관리할 수 있습니다. 산림 분야에서는 <strong>산불 감시와 산림 자원 변화 관측</strong>, 나아가 <strong>온실가스 흡수량 산정</strong>의 기초 자료로도 쓰일 수 있습니다. 홍수나 산사태 같은 재난 상황에서 넓은 지역을 신속히 촬영하는 것도 이 위성의 몫입니다.</p>
+<figure><img src="./images/body-4.png" alt="위성 데이터 활용 분야를 아이콘 카드로 정리 — 작황 분석, 산불 감시, 온실가스 산정, 재난 대응"><figcaption>위성 데이터 활용 분야를 아이콘 카드로 정리 — 작황 분석, 산불 감시, 온실가스 산정, 재난 대응</figcaption></figure>
+<h2>앞으로 무엇을 볼 것인가</h2>
+<p>이번 발사가 던지는 질문은 &#x27;한 대의 성공&#x27; 그 이상입니다. 관건은 표준 플랫폼을 얼마나 빠르고 값싸게 반복 제작하고, 그렇게 쌓인 데이터를 실제 산업 현장에서 돈이 되는 서비스로 연결할 수 있느냐입니다. 위성을 쏘아 올리는 능력과 위성 데이터를 파는 능력은 별개의 과제입니다.</p>
+<p>민간 기업들은 위성 양산을 넘어 항공기와 위성을 묶은 &#x27;패키지형 수출&#x27;까지 겨냥하고 있습니다. 발사체·본체·탑재체·데이터 서비스로 이어지는 우주 밸류체인에서 한국이 어느 고리를 쥐게 될지가, 앞으로 몇 년간 지켜볼 대목입니다.</p>
+<p>정리하면, 차세대중형위성 4호는 &#x27;농업과 산림을 지켜보는 눈&#x27;인 동시에, 한국 우주산업이 정부 주도에서 민간 주도로, 개별 제작에서 표준 양산으로 넘어가는 전환점을 상징하는 위성입니다. 조용한 발사였지만, 그 함의는 결코 작지 않습니다.</p>
+<p>참고: 헤럴드경제, 경향신문, 이투데이, 부산일보, YTN, 뉴스핌, 아주경제, 파이낸셜뉴스</p>
+<div class="tags"><span>#차세대중형위성4호</span> <span>#농림위성</span> <span>#뉴스페이스</span> <span>#우주산업</span> <span>#위성발사</span> <span>#KAI</span> <span>#스페이스X팰컨9</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
