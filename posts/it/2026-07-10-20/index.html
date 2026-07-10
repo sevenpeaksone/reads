@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>웹소켓과 실시간 통신</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>웹소켓과 실시간 통신</h1>
+<p class="subtitle">채팅과 알림은 어떻게 즉시 도착하나</p>
+<figure><img src="./images/thumbnail.png" alt="썸네일"><figcaption>썸네일</figcaption></figure>
+<p>채팅 앱에서 상대의 답장이 곧바로 뜨는 순간, 그 뒤에는 웹소켓이라는 기술이 있습니다. 오늘은 채팅과 알림이 어떻게 즉시 도착하는지, 그 원리를 웹소켓을 중심으로 정리해 보겠습니다. 폴링과의 차이, 핸드셰이크, 프레임, SSE와의 비교, 그리고 한계와 확장까지 차근차근 짚어 보겠습니다.</p>
+<p>먼저 결론부터 말씀드리면 이렇습니다. 웹소켓은 서버와 브라우저 사이에 한 번 연결을 열어두고, 양쪽이 원할 때 데이터를 주고받는 통로입니다. 그래서 서버가 먼저 말을 걸 수 있고, 알림이 지체 없이 도착합니다.</p>
+<hr>
+<h2>예전 방식은 왜 답답했을까</h2>
+<p>전통적인 HTTP는 &quot;요청하고 응답받는&quot; 구조로 만들어졌습니다. 클라이언트가 묻고, 서버가 답합니다. 즉, 먼저 말을 걸 수 있는 쪽은 언제나 클라이언트였습니다. 서버가 스스로 새 소식을 밀어 보낼 방법이 없었습니다.</p>
+<p>그래서 나온 것이 폴링입니다. 클라이언트가 일정 간격으로 &quot;새 소식 있나요?&quot;를 반복해 묻는 방식입니다. 이메일함을 몇 분마다 새로고침하는 모습과 같습니다. 문제는 바뀐 것이 없어도 계속 물어본다는 점입니다. &quot;새 것 없음&quot;이라는 빈 응답이 낭비되고, 매 요청마다 HTTP 헤더 전체가 따라붙어 트래픽이 불어납니다.</p>
+<p>이를 조금 개선한 것이 롱 폴링입니다. 서버가 즉시 답하지 않고, 줄 것이 생길 때까지 연결을 열어둔 채 기다렸다가 응답합니다. 업데이트가 폴링 간격을 기다리지 않고 거의 즉시 도착한다는 장점이 있습니다. 다만 매 요청마다 여전히 수백 바이트의 HTTP 헤더가 붙습니다.</p>
+<p>예전엔 클라이언트가 쉬지 않고 물어봐야 했습니다. 지금은 서버가 알아서 말을 겁니다. 이 전환의 중심에 웹소켓이 있습니다.</p>
+<figure><img src="./images/body-1.png" alt="HTTP 폴링과 웹소켓의 통신 방식을 좌우로 비교한 대조 도해"><figcaption>HTTP 폴링과 웹소켓의 통신 방식을 좌우로 비교한 대조 도해</figcaption></figure>
+<hr>
+<h2>웹소켓이라는 열린 통로</h2>
+<p>웹소켓은 하나의 TCP 연결 위에서 양방향 통신을 가능하게 하는 기술입니다. 표준은 RFC 6455로 정의되어 있습니다. 여기서 양방향이란, 서버와 클라이언트가 각자 원할 때 데이터를 보낼 수 있다는 뜻입니다.</p>
+<p>핵심은 연결이 한 번 맺으면 계속 살아 있다는 데 있습니다. 필요한 동안 통로가 열려 있고, 이후에는 오버헤드가 매우 작습니다.</p>
+<p>주소 표기도 익숙합니다. `ws://`는 80번 포트, `wss://`는 443번 포트를 씁니다. 웹 트래픽을 허용하는 방화벽을 대체로 통과할 수 있는 이유입니다. 이 가운데 `wss`는 HTTPS와 같은 TLS 암호화를 써서, 중간에서 데이터를 가로채는 공격으로부터 통신을 보호합니다.</p>
+<hr>
+<h2>즉시 도착의 출발점, 핸드셰이크</h2>
+<p>웹소켓 연결은 처음부터 특별한 것이 아닙니다. 평범한 HTTP 연결을 양방향 채널로 &quot;업그레이드&quot;하며 시작합니다.</p>
+<p>절차는 세 걸음입니다. 클라이언트가 `Upgrade: websocket` 헤더와 무작위로 만든 `Sec-WebSocket-Key`를 담아 요청을 보냅니다. 서버는 <strong>HTTP 101 Switching Protocols</strong>로 응답하며, 그 키에서 파생한 `Sec-WebSocket-Accept` 값을 함께 돌려줍니다. 이때 서버는 클라이언트의 키에 정해진 고정 문자열(GUID)을 이어 붙이고, 그 결과를 SHA-1으로 해싱한 뒤 base64로 인코딩해 보냅니다.</p>
+<p>이 악수가 성공하면 연결은 지속적인 양방향 채널로 바뀝니다. 이제 양쪽 모두 독립적으로, 언제든 데이터를 보낼 수 있습니다. 클라이언트만 교환을 시작할 수 있던 HTTP와 근본적으로 달라지는 지점입니다.</p>
+<figure><img src="./images/body-2.png" alt="웹소켓 핸드셰이크 3단계를 순서대로 보여주는 단계 도해"><figcaption>웹소켓 핸드셰이크 3단계를 순서대로 보여주는 단계 도해</figcaption></figure>
+<hr>
+<h2>프레임 — 가벼워서 빠릅니다</h2>
+<p>핸드셰이크 이후에는 더 이상 HTTP로 대화하지 않습니다. 양측은 가벼운 &quot;프레임&quot; 단위로 데이터를 주고받습니다. 프레임에는 텍스트, 바이너리, 그리고 제어용 프레임이 있습니다.</p>
+<p>가벼움의 정도가 인상적입니다. 웹소켓은 프레임당 약 2바이트만 씁니다. 뒤에서 살펴볼 SSE가 메시지당 약 5바이트, 롱 폴링이 매번 수백 바이트의 헤더를 쓰는 것과 비교됩니다. 같은 데이터를 훨씬 적은 비용으로 나른다는 뜻입니다.</p>
+<p>연결이 살아 있는지 확인하는 장치도 있습니다. Ping과 Pong이라는 제어 프레임입니다. 한쪽이 Ping을 보내면 상대는 같은 내용을 담아 되도록 빨리 Pong으로 답합니다. 이 제어 프레임은 페이로드가 최대 125바이트로 작고, 대개 브라우저나 서버 라이브러리가 알아서 처리합니다.</p>
+<blockquote><p>요청할 때마다 무거운 헤더를 짊어지던 시절을 지나, 이제는 2바이트짜리 가벼운 프레임이 오갑니다.</p></blockquote>
+<hr>
+<h2>SSE와는 무엇이 다를까</h2>
+<p>실시간이라고 해서 늘 웹소켓만 답은 아닙니다. 서버에서 클라이언트로 데이터를 흘려보내기만 하면 될 때는 SSE(Server-Sent Events)가 더 단순한 선택일 수 있습니다.</p>
+<figure><img src="./images/body-3.png" alt="웹소켓과 SSE의 방향, 데이터 형식, 재연결 등을 정리한 비교 표"><figcaption>웹소켓과 SSE의 방향, 데이터 형식, 재연결 등을 정리한 비교 표</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>항목</th><th>웹소켓</th><th>SSE</th></tr></thead><tbody><tr><td>방향</td><td>양방향</td><td>단방향(서버→클라이언트)</td></tr><tr><td>데이터</td><td>텍스트+바이너리</td><td>텍스트만</td></tr><tr><td>자동 재연결</td><td>없음</td><td>있음</td></tr></tbody></table></div>
+<p>SSE는 라이브 피드, 알림, 실시간 대시보드처럼 서버가 일방적으로 보내는 상황에 잘 맞습니다. 자동으로 재연결되고, 대부분의 프록시와 방화벽을 특별한 설정 없이 통과합니다. 반대로 클라이언트도 서버로 무언가를 보내야 하는 대화형 상황, 예를 들어 채팅이나 협업 도구라면 웹소켓이 제격입니다.</p>
+<hr>
+<h2>어디에 쓰이나</h2>
+<p>우리가 매일 만나는 서비스 곳곳에 웹소켓이 들어 있습니다.</p>
+<p>채팅과 메시징이 대표적입니다. 새 메시지, 입력 표시, 전송 확인, 접속 상태가 즉시 갱신됩니다. 알림과 피드도 그렇습니다. 서버가 경고나 상태 변화를 연결된 클라이언트에 곧바로 밀어 보냅니다.</p>
+<p>실시간 대시보드에서는 주가, 시세, 스포츠 점수, 분석 지표가 화면에 지체 없이 반영됩니다. 순간의 판단이 중요한 트레이딩 플랫폼이 특히 이 방식을 씁니다. 여러 사람이 함께 문서를 편집하는 협업 도구도 마찬가지입니다. 동시에 편집해도 모두의 화면이 지연 없이 맞춰집니다.</p>
+<figure><img src="./images/body-4.png" alt="웹소켓의 대표 사용 사례 네 가지를 아이콘 카드로 정리한 이미지"><figcaption>웹소켓의 대표 사용 사례 네 가지를 아이콘 카드로 정리한 이미지</figcaption></figure>
+<hr>
+<h2>완벽하지는 않습니다 — 한계와 확장</h2>
+<p>웹소켓이 모든 것을 해결해 주지는 않습니다. 솔직히 짚어야 할 부분이 있습니다.</p>
+<p>우선 웹소켓은 상태를 유지하는 연결이라, 자동 재연결이 내장되어 있지 않습니다. 연결이 끊겼을 때의 복구는 개발자가 직접 처리해야 합니다. 롱 폴링이 HTTP 오류로 눈에 띄게 실패하는 것과 달리, 웹소켓의 실패는 조용히 일어나서 따로 감지 장치가 필요합니다.</p>
+<p>규모가 커지면 또 다른 숙제가 생깁니다. 서버가 여러 대일 때, 서버 1에 붙은 사용자가 보낸 메시지를 서버 2에 붙은 같은 방의 사용자에게 전하기가 까다롭습니다. 각 서버는 자기에게 연결된 사용자만 알기 때문입니다.</p>
+<p>해법은 있습니다. 같은 사용자를 같은 서버에 고정하는 스티키 세션이 중간 규모의 출발점이 됩니다. 더 나아가면 Redis 같은 메시지 브로커를 중간에 두고, 한 서버가 받은 메시지를 다른 서버로 퍼뜨리는 방식을 씁니다. 참고로 Redis 기반 방식은 몇 대의 서버로 약 10만 동시 연결까지의 대부분 상황을 감당한다고 합니다.</p>
+<hr>
+<p>정리하면 이렇습니다. 웹소켓은 한 번 연 통로를 계속 열어두어, 서버가 먼저 말을 걸 수 있게 만든 기술입니다. 폴링의 낭비를 걷어내고, 가벼운 프레임으로 데이터를 나릅니다.</p>
+<p>— &quot;채팅과 알림이 즉시 도착하는 비결은, 통로를 닫지 않는 데 있습니다.&quot;</p>
+<p>다음에 메시지가 곧바로 뜨는 순간이 온다면, 그 뒤에서 조용히 열려 있는 연결 하나를 떠올려 보시면 좋겠습니다.</p>
+<div class="tags"><span>#웹소켓</span> <span>#WebSocket</span> <span>#실시간통신</span> <span>#실시간채팅</span> <span>#서버푸시</span> <span>#SSE</span> <span>#네트워크프로토콜</span> <span>#웹개발</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
