@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>그린란드를 둘러싼 줄다리기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#c2883f;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/world/index.html">국제/세계 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#c2883f;border-color:#c2883f">국제 뉴스 해설</div>
+<h1>그린란드를 둘러싼 줄다리기</h1>
+<p class="subtitle">트럼프의 재점화와 덴마크·그린란드의 거부</p>
+<figure><img src="./images/thumbnail.png" alt="국제 뉴스 해설, 북극·그린란드 지도를 상징하는 그래픽"><figcaption>국제 뉴스 해설, 북극·그린란드 지도를 상징하는 그래픽</figcaption></figure>
+<p>이번 글에서는 다시 불붙은 그린란드 논란을 정리해 보겠습니다.</p>
+<p>2026년 7월 8일 터키 앙카라에서 열린 NATO 정상회의가 무대였습니다. 도널드 트럼프 미국 대통령은 이 자리에서 그린란드를 미국이 통제해야 한다는 주장을 되풀이했습니다.</p>
+<p>덴마크와 그린란드는 곧바로 선을 그었습니다. &quot;그린란드는 매물이 아니&quot;라는 답이었습니다. 무슨 일이 있었고, 왜 세계가 이 얼음섬을 주목하는지 차분히 살펴보겠습니다.</p>
+<hr>
+<h2>앙카라에서 다시 불붙은 논란</h2>
+<p>발단은 올해 1월이었습니다. 트럼프 대통령은 &quot;안보를 위해 그린란드가 절대적으로 필요하다&quot;고 말했습니다. 이후 논란은 관세와 군사 긴장으로 번졌습니다.</p>
+<p>이번 NATO 정상회의에서 그는 수위를 다시 높였습니다. 폭스뉴스 등에 따르면 트럼프 대통령은 &quot;세계 안보를 위해 그린란드는 덴마크가 아니라 미국이 통제해야 한다&quot;고 밝혔습니다.</p>
+<p>논란이 커진 이유는 장소에 있습니다. AP통신은 NATO가 회원국 영토를 함께 지키는 동맹이라는 점을 짚었습니다. 그 동맹의 정상회의에서, 한 회원국이 다른 회원국의 영토를 요구한 셈입니다.</p>
+<figure><img src="./images/body-1.png" alt="사태 전개 단계 — 1월 첫 발언부터 7월 NATO 정상회의까지"><figcaption>사태 전개 단계 — 1월 첫 발언부터 7월 NATO 정상회의까지</figcaption></figure>
+<hr>
+<h2>그린란드가 왜 탐나는가</h2>
+<p>그린란드는 세계에서 가장 큰 섬입니다. 대부분이 얼음으로 덮여 있지만, 그 아래에 담긴 가치가 큽니다.</p>
+<p>첫째는 자원입니다. CSIS와 CNBC 등은 그린란드가 희토류 매장량 세계 상위권이라고 전합니다. 희토류는 반도체와 첨단 무기에 쓰입니다. 지금은 중국이 세계 생산의 약 80%를 쥐고 있습니다. 미국이 그 의존을 낮추려는 배경입니다.</p>
+<p>둘째는 항로입니다. 기후변화로 북극 얼음이 녹으면서 새 항로가 열리고 있습니다. 그린란드는 그 길목에 있습니다.</p>
+<p>셋째는 안보입니다. 그린란드에는 미군 피투피크 우주기지가 있습니다. 미사일 조기경보를 맡는 시설입니다. <strong>자원·항로·안보가 한 섬에 겹쳐 있는 셈입니다.</strong></p>
+<figure><img src="./images/body-2.png" alt="그린란드의 세 가지 전략 가치 — 자원·항로·안보 카드"><figcaption>그린란드의 세 가지 전략 가치 — 자원·항로·안보 카드</figcaption></figure>
+<hr>
+<h2>&quot;매물이 아니다&quot; — 덴마크와 그린란드의 입장</h2>
+<p>메테 프레데릭센 덴마크 총리의 답은 단호했습니다. 그는 그린란드가 &quot;매물이 아니&quot;며, &quot;결코 일어나지 않을 일&quot;이라고 못 박았습니다.</p>
+<p>동시에 방어 의지도 밝혔습니다. 유로뉴스에 따르면 프레데릭센 총리는 &quot;우리 영토를 포함해 NATO의 모든 곳을 지킬 준비가 돼 있다&quot;고 말했습니다.</p>
+<p>그린란드 쪽 목소리도 분명합니다. 무테 에게데 그린란드 측 인사는 &quot;그린란드의 미래는 그린란드 국민이 결정해야 한다&quot;는 입장을 거듭 밝혀왔습니다.</p>
+<p>법적으로 그린란드는 덴마크 왕국의 자치령입니다. 2009년 자치정부법에 따라 자원과 내정을 스스로 다룹니다. 외교와 국방은 덴마크가 맡습니다. 독립으로 가는 절차도 법에 담겨 있습니다.</p>
+<figure><img src="./images/body-3.png" alt="미국 입장과 덴마크·그린란드 입장 대비"><figcaption>미국 입장과 덴마크·그린란드 입장 대비</figcaption></figure>
+<hr>
+<h2>NATO와 북극, 왜 중요한가</h2>
+<p>이 사안이 무거운 이유는 파장이 넓기 때문입니다. 미국과 유럽의 신뢰, 그리고 북극 질서가 함께 걸려 있습니다.</p>
+<p>동맹의 결속이 첫 번째입니다. 회원국끼리 영토를 요구하는 모습은 NATO의 기본 원칙과 부딪칩니다. 아이슬란드 총리는 &quot;그린란드는 그린란드 국민의 것&quot;이라며 덴마크 편에 섰습니다.</p>
+<p>북극 전략이 두 번째입니다. 러시아와 중국도 북극에 눈독을 들이고 있습니다. 미국은 이 지역에서 밀리지 않으려 합니다. 다만 방식이 동맹의 반발을 부르는 점이 딜레마입니다.</p>
+<p>한국에도 남의 일만은 아닙니다. 북극항로가 열리면 물류 지형이 바뀝니다. 그래서 여러 나라가 이 줄다리기를 지켜보고 있습니다.</p>
+<figure><img src="./images/body-4.png" alt="주요 이해관계자별 입장 정리 표"><figcaption>주요 이해관계자별 입장 정리 표</figcaption></figure>
+<hr>
+<h2>앞으로의 전망</h2>
+<p>당장 결론이 나기는 어려워 보입니다. 그린란드·덴마크·미국 3자 대화가 오갔지만, 자결권을 둘러싼 근본 이견이 남아 있다고 전해집니다.</p>
+<p>시나리오는 대체로 셋으로 좁혀집니다. 현상 유지, 미국의 안보·경제 협력 확대, 그리고 그린란드의 장기적 독립 논의입니다. 매입이나 병합은 현실성이 낮다는 평가가 많습니다.</p>
+<p>관건은 그린란드 주민의 뜻입니다. 여론조사에서 다수는 미국 편입에 부정적이었습니다. 결정권은 결국 그 섬에 사는 사람들에게 있습니다.</p>
+<hr>
+<p>정리하면 이렇습니다. 자원과 항로와 안보가 얽힌 자리에서, 강대국의 욕구와 작은 자치령의 자기결정권이 맞서고 있습니다.</p>
+<p>한쪽의 손을 들기보다, 사실을 있는 그대로 지켜보는 편이 옳겠습니다. 어느 쪽이 옳으냐고 물으신다면, 답은 그린란드 국민의 선택에 달렸다고 말씀드리겠습니다.</p>
+<p>참고: AP통신, 로이터, 폭스뉴스, 유로뉴스, CSIS, CNBC, 한국일보</p>
+<div class="tags"><span>#국제뉴스해설</span> <span>#그린란드</span> <span>#트럼프</span> <span>#덴마크</span> <span>#NATO</span> <span>#북극</span> <span>#희토류</span> <span>#국제정세</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

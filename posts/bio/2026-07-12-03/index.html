@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>뇌와 신경계</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#ff7c7c;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#ff7c7c;border-color:#ff7c7c">바이오</div>
+<h1>뇌와 신경계</h1>
+<p class="subtitle">생각과 감각을 만드는 사령탑</p>
+<figure><img src="./images/thumbnail.png" alt="뇌와 신경계를 상징하는 도해"><figcaption>뇌와 신경계를 상징하는 도해</figcaption></figure>
+<p>이번 글에서는 우리 몸을 지휘하는 신경계를 정리해 보겠습니다. 생각, 감각, 움직임은 모두 이 시스템에서 시작됩니다.</p>
+<p>전문 지식이 없어도 읽을 수 있도록 큰 그림부터 차근차근 풀어보려 합니다. 뇌가 어떻게 신호를 주고받는지, 그리고 이 정교한 기관을 어떻게 아껴야 하는지까지 함께 살펴보겠습니다.</p>
+<hr>
+<h2>신경계는 어떻게 나뉘는가</h2>
+<p>신경계는 크게 두 갈래로 나뉩니다. <strong>중추신경계</strong>와 <strong>말초신경계</strong>입니다.</p>
+<p>중추신경계는 뇌와 척수로 이루어집니다. 정보를 모으고, 판단하고, 명령을 내리는 본부입니다.</p>
+<p>말초신경계는 그 본부와 온몸을 잇는 통신망입니다. 다시 몸의 움직임을 맡는 체성신경과, 내장과 혈관을 조절하는 자율신경으로 나뉩니다.</p>
+<p>한쪽이 사령탑이라면, 다른 한쪽은 전국에 뻗은 회선인 셈입니다.</p>
+<figure><img src="./images/body-1.png" alt="중추신경계 vs 말초신경계 대비"><figcaption>중추신경계 vs 말초신경계 대비</figcaption></figure>
+<hr>
+<h2>신호는 어떻게 전달되는가</h2>
+<p>신경계의 기본 단위는 뉴런입니다. 뉴런 하나하나가 전기 신호를 실어 나릅니다.</p>
+<p>신호가 뉴런을 따라 흐를 때 막 안팎의 전위가 순간적으로 뒤집힙니다. 이것을 활동전위라고 부릅니다. 신호는 이 파도가 이어지듯 뻗어 나갑니다.</p>
+<p>문제는 뉴런과 뉴런 사이입니다. 둘은 붙어 있지 않고 시냅스라는 작은 틈으로 떨어져 있습니다.</p>
+<p>이 틈을 건널 때는 전기가 아니라 화학물질이 나섭니다. 신경전달물질이 방출되어 다음 뉴런에 신호를 넘겨줍니다. 전기와 화학이 번갈아 손을 잡는 셈입니다.</p>
+<figure><img src="./images/body-2.png" alt="신경 신호 전달 단계"><figcaption>신경 신호 전달 단계</figcaption></figure>
+<hr>
+<h2>뇌의 주요 부위</h2>
+<p>뇌는 크게 세 부분으로 볼 수 있습니다. 대뇌, 소뇌, 뇌간입니다.</p>
+<p>대뇌는 가장 크고, 생각과 언어와 감각을 맡습니다. 소뇌는 움직임을 정밀하게 다듬고 균형을 잡습니다. 뇌간은 호흡과 심장 박동처럼 생명과 직결된 기능을 조용히 지킵니다.</p>
+<p>대뇌의 겉은 여러 엽으로 나뉩니다. 전두엽은 판단과 계획, 두정엽은 감각 통합, 측두엽은 청각과 기억, 후두엽은 시각을 담당합니다.</p>
+<p>한 부위가 모든 일을 하지는 않습니다. 여러 영역이 협력해 하나의 경험을 만들어 냅니다.</p>
+<figure><img src="./images/body-3.png" alt="뇌 주요 부위 카드"><figcaption>뇌 주요 부위 카드</figcaption></figure>
+<hr>
+<h2>자율신경 — 교감과 부교감</h2>
+<p>자율신경은 우리가 의식하지 않아도 몸을 조율합니다. 심장, 소화, 호흡이 모두 그 영향 아래 있습니다.</p>
+<p>이 계통은 교감신경과 부교감신경으로 나뉩니다. 둘은 서로 반대 방향으로 몸을 밀고 당깁니다.</p>
+<p>교감신경은 긴장하거나 위급할 때 몸을 깨웁니다. 심장이 빨라지고 근육에 힘이 몰립니다. 부교감신경은 반대로 몸을 가라앉힙니다. 소화를 돕고 휴식을 준비합니다.</p>
+<p>예전에는 이 균형을 당연하게 여겼습니다. 지금은 그 균형이 건강의 바탕임을 압니다.</p>
+<figure><img src="./images/body-4.png" alt="교감 vs 부교감 표"><figcaption>교감 vs 부교감 표</figcaption></figure>
+<hr>
+<h2>뇌는 변한다 — 신경 가소성</h2>
+<p>뇌는 한번 굳으면 끝나는 기관이 아닙니다. 쓰는 대로 회로를 다시 짭니다. 이 성질을 신경 가소성이라고 합니다.</p>
+<p>새로운 것을 배우면 뉴런 사이의 연결이 강해집니다. 반대로 오래 쓰지 않는 회로는 서서히 옅어집니다.</p>
+<p>덕분에 우리는 나이가 들어도 배우고 회복할 수 있습니다. 다만 변화는 하루아침에 오지 않습니다. 꾸준한 반복이 있어야 회로가 자리를 잡습니다.</p>
+<hr>
+<h2>신경계를 아끼는 법</h2>
+<p>거창한 방법이 필요하지는 않습니다. 기본을 지키는 것이 가장 확실합니다.</p>
+<p>첫째, 잠을 충분히 자야 합니다. 수면 중에 뇌는 낮에 쌓인 노폐물을 정리하고 기억을 다집니다. 둘째, 규칙적으로 몸을 움직이시길 권합니다. 운동은 뇌로 가는 혈류를 늘립니다.</p>
+<p>셋째, 새로운 자극을 꾸준히 주면 좋겠습니다. 낯선 책, 낯선 길, 낯선 대화가 모두 회로를 자극합니다. 넷째, 과도한 스트레스는 덜어내야 합니다. 긴장이 길어지면 교감신경이 지나치게 오래 깨어 있습니다.</p>
+<p>완벽한 습관을 한 번에 갖출 필요는 없습니다. 작은 것부터 지켜가면 충분합니다.</p>
+<hr>
+<p>정리하면 이렇습니다. 신경계는 전기와 화학으로 짜인 정교한 통신망이며, 우리가 쓰는 대로 스스로를 고쳐 씁니다.</p>
+<p>&quot;뇌는 완성된 기관이 아니라, 평생 다시 쓰이는 기관입니다.&quot;</p>
+<p>오늘 잘 자고, 잘 걷고, 새로운 것을 한 가지 배워 보시길 권합니다. 그 작은 선택들이 모여 내일의 뇌를 만듭니다.</p>
+<div class="tags"><span>#뇌</span> <span>#신경계</span> <span>#뉴런</span> <span>#자율신경</span> <span>#신경가소성</span> <span>#바이오교양</span> <span>#건강관리</span> <span>#과학상식</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

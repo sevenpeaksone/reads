@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>트랜잭션과 ACID</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>트랜잭션과 ACID</h1>
+<p class="subtitle">데이터베이스는 어떻게 정합성을 지키나</p>
+<figure><img src="./images/thumbnail.png" alt="트랜잭션과 ACID 개념을 상징하는 도해"><figcaption>트랜잭션과 ACID 개념을 상징하는 도해</figcaption></figure>
+<p>이번 글에서는 데이터베이스의 트랜잭션과 ACID를 정리해 보겠습니다.</p>
+<p>계좌에서 돈이 빠졌는데 상대에게는 들어오지 않는다면, 우리는 그 시스템을 믿지 못합니다. 데이터베이스는 이런 어긋남을 막기 위해 오래도록 다듬어 온 원칙을 가지고 있습니다.</p>
+<p>용어는 낯설지 몰라도 개념은 어렵지 않습니다. 하나씩 짚어 보겠습니다.</p>
+<hr>
+<h2>트랜잭션이란 무엇인가</h2>
+<p>트랜잭션은 <strong>하나로 묶인 작업의 단위</strong>입니다. 여러 동작이 있어도, 논리적으로는 한 덩어리로 다룹니다.</p>
+<p>은행 이체를 떠올려 보시면 됩니다. 내 계좌에서 5만 원을 빼고, 상대 계좌에 5만 원을 더합니다. 겉으로는 두 동작이지만, 실제로는 하나의 일입니다.</p>
+<p>둘 중 하나만 성공하면 곤란합니다. 돈이 사라지거나, 없던 돈이 생깁니다. 그래서 이 둘은 함께 성공하거나 함께 실패해야 합니다.</p>
+<p>트랜잭션은 바로 이 &quot;함께&quot;를 보장하는 약속인 셈입니다.</p>
+<figure><img src="./images/body-1.png" alt="은행 이체를 두 단계(출금·입금)로 나눈 단순 도해, 두 동작이 하나로 묶인 모습"><figcaption>은행 이체를 두 단계(출금·입금)로 나눈 단순 도해, 두 동작이 하나로 묶인 모습</figcaption></figure>
+<hr>
+<h2>ACID — 네 개의 기둥</h2>
+<p>트랜잭션이 지켜야 할 성질을 네 글자로 모은 것이 <strong>ACID</strong>입니다.</p>
+<p>원자성(Atomicity)은 전부 되거나 전부 안 되거나입니다. 절반만 반영되는 상태를 허용하지 않습니다.</p>
+<p>일관성(Consistency)은 규칙을 어기지 않는 상태로만 넘어간다는 뜻입니다. 잔액이 음수가 되면 안 된다는 제약이 있다면, 트랜잭션 전후로 그 규칙이 지켜집니다.</p>
+<p>고립성(Isolation)은 동시에 실행되는 작업들이 서로를 방해하지 않도록 하는 성질입니다. 여러 사람이 같은 데이터를 만져도, 각자는 홀로 작업하는 듯 느낍니다.</p>
+<p>지속성(Durability)은 한 번 성공한 결과는 사라지지 않는다는 약속입니다. 정전이 나도, 저장이 끝난 데이터는 남습니다.</p>
+<p>이 넷이 함께 있어야 우리는 데이터를 믿을 수 있습니다.</p>
+<figure><img src="./images/body-2.png" alt="ACID 네 요소(원자성·일관성·고립성·지속성)를 네 장의 카드로 나란히 보여주는 도해"><figcaption>ACID 네 요소(원자성·일관성·고립성·지속성)를 네 장의 카드로 나란히 보여주는 도해</figcaption></figure>
+<hr>
+<h2>커밋과 롤백</h2>
+<p>트랜잭션의 끝에는 두 갈래 길이 있습니다.</p>
+<p><strong>커밋(Commit)</strong>은 &quot;여기까지 확정합니다&quot;라는 선언입니다. 커밋된 변경은 정식으로 기록되고, 다른 작업에서도 보이게 됩니다.</p>
+<p><strong>롤백(Rollback)</strong>은 그 반대입니다. 중간에 문제가 생기면, 시작 전 상태로 되돌립니다. 아무 일도 없던 것처럼 처리합니다.</p>
+<p>이체 도중 입금 단계에서 오류가 났다고 해 봅시다. 이미 빠져나간 출금은 롤백으로 취소됩니다. 어중간한 결과가 남지 않습니다.</p>
+<p>원자성은 대개 이 커밋과 롤백으로 실현됩니다. 개념이 곧 동작으로 이어지는 지점입니다.</p>
+<figure><img src="./images/body-3.png" alt="트랜잭션 시작 → 작업 수행 → 성공 시 커밋 / 실패 시 롤백으로 갈라지는 흐름도"><figcaption>트랜잭션 시작 → 작업 수행 → 성공 시 커밋 / 실패 시 롤백으로 갈라지는 흐름도</figcaption></figure>
+<hr>
+<h2>고립성은 왜 까다로운가</h2>
+<p>혼자 쓰는 데이터베이스라면 고립성은 고민거리가 아닙니다. 문제는 여럿이 동시에 같은 데이터를 다룰 때 생깁니다.</p>
+<p>이때 세 가지 이상현상이 알려져 있습니다.</p>
+<p><strong>더티 리드(dirty read)</strong>는 아직 커밋되지 않은 값을 읽어 버리는 경우입니다. 그 값이 곧 롤백되면, 나는 없던 정보를 본 셈이 됩니다.</p>
+<p><strong>반복 불가능 읽기(non-repeatable read)</strong>는 같은 행을 두 번 읽었는데 값이 달라지는 상황입니다. 사이에 누군가 그 행을 바꾼 것입니다.</p>
+<p><strong>팬텀 리드(phantom read)</strong>는 조건에 맞는 행의 개수가 두 조회 사이에 달라지는 현상입니다. 없던 행이 유령처럼 나타납니다.</p>
+<p>막으려면 잠금과 검사가 늘어납니다. 그만큼 성능은 대가를 치릅니다.</p>
+<hr>
+<h2>격리 수준과 트레이드오프</h2>
+<p>그래서 데이터베이스는 고립성을 몇 단계로 나눠 고를 수 있게 했습니다.</p>
+<p>가장 느슨한 것이 Read Uncommitted입니다. 커밋 전 값까지 읽어, 더티 리드가 일어날 수 있습니다. Read Committed는 커밋된 값만 읽어 더티 리드를 막습니다. Repeatable Read는 한 번 읽은 값이 트랜잭션 내내 유지됩니다. 가장 엄격한 Serializable은 마치 하나씩 차례로 실행한 것과 같은 결과를 보장합니다.</p>
+<p>수준이 높아질수록 이상현상은 줄어듭니다. 대신 동시에 처리할 수 있는 양이 줄고, 대기와 충돌이 늘어납니다.</p>
+<p>정답은 하나로 정해져 있지 않습니다. 정확성이 절대적인 금융 거래라면 엄격한 쪽을, 약간의 오차를 감내할 수 있는 조회라면 느슨한 쪽을 택합니다.</p>
+<p>&quot;안전과 속도는 대개 반대 방향을 봅니다.&quot; 그 사이에서 균형점을 찾는 일이 실무의 몫입니다.</p>
+<figure><img src="./images/body-4.png" alt="격리 수준 4단계와 각 단계에서 허용되는 이상현상을 정리한 표 형태 도해"><figcaption>격리 수준 4단계와 각 단계에서 허용되는 이상현상을 정리한 표 형태 도해</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다. 트랜잭션은 여러 동작을 하나로 묶고, ACID는 그 묶음이 지켜야 할 약속입니다. 커밋과 롤백이 원자성을 실현하고, 격리 수준은 안전과 성능 사이의 선택지를 줍니다.</p>
+<p>데이터베이스가 조용히 지켜 주는 이 원칙들 덕분에, 우리는 이체 버튼을 누르고 나서 결과를 다시 확인하지 않아도 됩니다. 그 믿음의 밑바탕이 무엇인지 알고 나면, 익숙한 화면 뒤의 설계가 조금 달리 보이실 것입니다.</p>
+<div class="tags"><span>#데이터베이스</span> <span>#트랜잭션</span> <span>#ACID</span> <span>#격리수준</span> <span>#커밋롤백</span> <span>#IT교양</span> <span>#백엔드</span> <span>#데이터정합성</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

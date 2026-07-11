@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>감정 조절</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#f0a532;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#f0a532;border-color:#f0a532">상담</div>
+<h1>감정 조절</h1>
+<p class="subtitle">감정에 휩쓸리지 않고 다루는 법</p>
+<figure><img src="./images/thumbnail.png" alt="감정 조절을 상징하는 잔잔한 도해"><figcaption>감정 조절을 상징하는 잔잔한 도해</figcaption></figure>
+<p>이번 글에서는 감정 조절을 정리해 보겠습니다. 감정을 눌러 없애는 기술이 아니라, 감정과 함께 지내는 태도에 관한 이야기입니다.</p>
+<p>우리는 하루에도 여러 번 감정에 흔들립니다. 문제는 감정 그 자체가 아니라, 감정에 끌려다니는 순간입니다. 그 순간을 조금 다르게 다루는 법을 살펴보려 합니다.</p>
+<hr>
+<h2>감정 조절은 억누르는 일이 아닙니다</h2>
+<p>많은 분이 감정 조절을 &#x27;참는 것&#x27;으로 오해합니다. 화가 나도 티 내지 않고, 슬퍼도 삼키는 일이라고 여깁니다. 그러나 눌러둔 감정은 사라지지 않습니다. 어딘가에 고여 있다가 엉뚱한 곳에서 터집니다.</p>
+<p>감정 조절은 억압이 아닙니다. <strong>감정을 인식하고, 받아들이고, 반응을 선택하는 과정</strong>입니다.</p>
+<p>예전엔 감정을 적으로 여겼습니다. 지금은 신호로 봅니다. 감정은 지금 내게 무엇이 중요한지 알려주는 안내판인 셈입니다. 그 신호를 없앨 필요는 없습니다. 다만 신호에 곧바로 휩쓸리지 않으면 됩니다.</p>
+<figure><img src="./images/body-1.png" alt="억압과 조절의 차이를 보여주는 대비 도해"><figcaption>억압과 조절의 차이를 보여주는 대비 도해</figcaption></figure>
+<hr>
+<h2>감정에 이름을 붙이면 크기가 줄어듭니다</h2>
+<p>감정이 밀려올 때, 우리는 종종 그것이 무엇인지도 모른 채 휘둘립니다. 그저 &#x27;기분이 나쁘다&#x27;고만 느낍니다.</p>
+<p>여기서 한 걸음이 정서 명명입니다. 지금 느끼는 감정에 정확한 이름을 붙이는 일입니다. &quot;나는 화가 났다&quot;가 아니라 &quot;나는 무시당한 것 같아 서운하다&quot;처럼 구체적으로요.</p>
+<p>이름을 붙이면 감정과 나 사이에 작은 틈이 생깁니다. 감정에 빠져 있던 상태에서 감정을 바라보는 상태로 옮겨 갑니다. 그 틈이 바로 선택의 공간입니다.</p>
+<p>처음에는 어색합니다. 내 감정을 언어로 옮기는 일이 낯설기 때문입니다. 그래도 반복하다 보면, 막연하던 덩어리가 또렷한 모양을 갖추기 시작합니다.</p>
+<hr>
+<h2>몸이 먼저 말을 겁니다</h2>
+<p>감정은 생각보다 몸에서 먼저 드러납니다. 어깨가 굳고, 숨이 얕아지고, 속이 조여옵니다. 머리로 &quot;화가 났다&quot;고 알기 전에, 몸은 이미 신호를 보내고 있습니다.</p>
+<p>그래서 신체 반응을 알아차리는 연습이 중요합니다. 지금 내 몸 어디가 긴장했는지 가만히 살펴보시길 권합니다. 목인지, 가슴인지, 배인지요.</p>
+<p>몸의 신호를 일찍 알아차리면, 감정이 폭발하기 전에 손을 쓸 수 있습니다. 감정을 다스리는 일은 머릿속만의 일이 아닙니다. 몸을 함께 살피는 일이기도 합니다.</p>
+<figure><img src="./images/body-2.png" alt="감정을 다루는 네 단계 흐름 도해"><figcaption>감정을 다루는 네 단계 흐름 도해</figcaption></figure>
+<hr>
+<h2>잠깐 멈추고, 숨을 고릅니다</h2>
+<p>감정이 가장 뜨거운 순간에 내린 결정은 대개 후회로 남습니다. 그래서 필요한 것이 &#x27;잠깐 멈춤&#x27;입니다.</p>
+<p>화가 치밀 때, 곧바로 말하거나 행동하지 않습니다. 잠시 멈추고 천천히 숨을 들이쉽니다. 길게 내쉽니다. 몇 번만 반복해도 몸의 흥분이 조금 가라앉습니다.</p>
+<p>이 짧은 멈춤이 하는 일은 단순합니다. 자극과 반응 사이에 공간을 만드는 것입니다. 그 공간에서 우리는 비로소 &#x27;어떻게 반응할지&#x27; 고를 수 있습니다.</p>
+<p>거창한 기법이 아닙니다. 한 호흡의 여유가 많은 것을 바꿉니다.</p>
+<figure><img src="./images/body-3.png" alt="오늘부터 실천할 감정 조절 방법 네 가지를 정리한 카드"><figcaption>오늘부터 실천할 감정 조절 방법 네 가지를 정리한 카드</figcaption></figure>
+<hr>
+<h2>같은 일도 다르게 볼 수 있습니다</h2>
+<p>감정은 상황 자체보다, 상황을 해석하는 방식에서 나옵니다. 같은 일도 어떻게 받아들이느냐에 따라 감정의 색이 달라집니다.</p>
+<p>인지적 재평가, 즉 리프레이밍은 그 해석을 다시 살펴보는 일입니다. 상대가 답장을 안 했을 때 &quot;나를 무시한다&quot;고 볼 수도 있고, &quot;바쁜 모양이다&quot;라고 볼 수도 있습니다. 어느 쪽이 사실인지는 아직 모릅니다.</p>
+<p>리프레이밍은 억지로 긍정하는 일이 아닙니다. 하나의 해석에 갇히지 않고, <strong>다른 가능성도 열어두는 일</strong>입니다.</p>
+<p>물론 늘 성공하지는 않습니다. 감정이 너무 셀 때는 관점을 바꾸기가 어렵습니다. 그럴 땐 앞서 말한 멈춤과 호흡이 먼저입니다. 몸이 가라앉은 뒤에야 생각의 방향도 바뀝니다.</p>
+<figure><img src="./images/body-4.png" alt="상황별 대응 방식을 정리한 표"><figcaption>상황별 대응 방식을 정리한 표</figcaption></figure>
+<hr>
+<h2>건강하게 표현하고, 경계를 지킵니다</h2>
+<p>감정을 다룬다는 것이 곧 감정을 숨긴다는 뜻은 아닙니다. 필요한 감정은 표현해야 합니다. 다만 방식이 중요합니다.</p>
+<p>&quot;너 때문에 화가 났다&quot;보다 &quot;그 말을 들었을 때 나는 속상했다&quot;라고 말해 보시면 좋겠습니다. 상대를 탓하는 대신 내 상태를 전하는 방식입니다. 같은 감정이라도 훨씬 부드럽게 전해집니다.</p>
+<p>경계를 세우는 일도 감정 조절의 일부입니다. 무리한 요구에 &quot;그건 어렵다&quot;고 말하는 것은 이기심이 아닙니다. 나를 지키는 정당한 표현입니다.</p>
+<p>회피는 잠깐 편할 뿐입니다. 불편한 감정을 피하고 미루면, 당장은 조용해집니다. 그러나 다루지 못한 감정은 반드시 다시 찾아옵니다. 피하지 않고 마주할 때, 감정은 비로소 지나갑니다.</p>
+<hr>
+<p>정리하면 이렇습니다. 감정 조절은 감정을 없애는 기술이 아니라, 감정과 나 사이에 공간을 두는 태도입니다. 알아차리고, 받아들이고, 반응을 고르는 일입니다.</p>
+<p>한 가지만 덧붙이겠습니다. 감정 조절의 어려움이 일상과 관계를 크게 해치고 있다면, 혼자 애쓰지 마시고 전문 상담사나 정신건강 전문가의 도움을 받으시길 권합니다. 도움을 청하는 일은 약함이 아니라 나를 돌보는 용기입니다.</p>
+<p>감정에 휩쓸리지 않는 사람이 되기는 어렵습니다. 그러나 휩쓸린 뒤 다시 중심으로 돌아오는 연습은 누구나 할 수 있습니다.</p>
+<div class="tags"><span>#감정조절</span> <span>#정서명명</span> <span>#감정다루기</span> <span>#심리상담</span> <span>#자기이해</span> <span>#마음챙김</span> <span>#스트레스관리</span> <span>#정신건강</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
