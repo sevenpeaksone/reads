@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[정치/사회] 네이버페이·카카오페이·토스, 주민등록증 진위확인 도입…무엇이 달라지나</title>
+<style>
+  :root { --text:#222; --muted:#666; --line:#e2e2e2; --accent:#5b8def; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:40px 16px 80px; background:#f6f7f8;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    color:var(--text); -webkit-font-smoothing:antialiased; }
+  .post { max-width:700px; margin:0 auto; background:#fff; padding:48px 40px 56px;
+    border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+  h1 { font-size:28px; line-height:1.4; font-weight:800; margin:0 0 28px;
+    letter-spacing:-0.02em; color:#111; word-break:keep-all; }
+  h2 { font-size:21px; line-height:1.5; font-weight:700; margin:48px 0 18px;
+    padding-left:12px; border-left:4px solid var(--accent); color:#1a1a1a;
+    letter-spacing:-0.01em; word-break:keep-all; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+  ul { margin:0 0 22px; padding-left:22px; }
+  li { font-size:16.5px; line-height:1.85; margin-bottom:6px; word-break:keep-all; }
+  img { display:block; max-width:100%; height:auto; margin:28px auto; border-radius:6px; }
+  hr { border:none; border-top:1px solid var(--line); margin:40px 0; }
+  blockquote { margin:24px 0; padding:14px 20px; background:#f4f5fb;
+    border-left:4px solid var(--accent); border-radius:4px; color:#333; }
+  strong { font-weight:700; }
+  .tags { margin-top:8px; font-size:15px; line-height:2; color:var(--accent); word-break:keep-all; }
+  .tags span { margin-right:6px; white-space:nowrap; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="post">
+
+  <h1>[정치/사회] 네이버페이·카카오페이·토스, 주민등록증 진위확인 도입…무엇이 달라지나</h1>
+
+  <img src="./images/thumbnail.png" alt="간편결제 앱 화면과 주민등록증 진위확인 시스템을 상징하는 그래픽">
+
+  <p>간편결제나 간편송금을 쓸 때, 이제는 정부가 신분증 진위를 직접 대조해 줍니다. 행정안전부가 네이버페이·카카오페이·토스와 손잡고 주민등록증 진위확인 서비스를 확대하기로 했습니다. 위·변조 신분증을 이용한 명의도용과 보이스피싱을 막기 위한 조치로 알려졌습니다.</p>
+
+  <ul><li>행안부·금융감독원·금융결제원과 네이버페이·카카오페이·토스가 업무협약을 체결했습니다.</li><li>사진 정보까지 대조해 신분증의 위·변조 여부를 확인하는 방식입니다.</li><li>올해는 3개사 시범 운영, 내년부터 다른 전자금융업체로 확대될 전망입니다.</li></ul>
+
+  <hr>
+
+  <h2>무슨 일인가 — 간편결제도 신분증 진위 확인</h2>
+
+  <p>행정안전부는 지난 9일 서울 서초구 토스 사옥에서 네이버페이, 카카오페이, 비바리퍼블리카(토스), 금융감독원, 금융결제원과 「전자금융업자의 주민등록증 진위 확인 확대를 위한 업무협약」을 체결했습니다. 여러 매체가 같은 날짜, 같은 협약 내용을 일제히 보도했습니다.</p>
+
+  <p>그동안 전자금융업자들은 고객 확인 과정에서 한계가 뚜렷했습니다. 성명과 주민등록번호, 발급일자의 유효성 정도만 제한적으로 확인할 수 있었을 뿐, 사진을 포함한 실물 위·변조 여부는 실시간으로 가려내기 어려웠습니다. 신분증 사본만 있으면 본인확인 절차를 통과하기 쉬웠다는 뜻이기도 합니다.</p>
+
+  <p>이번 협약으로 상황이 달라집니다. 고객이 앱으로 제출한 주민등록증 정보를 행정안전부의 발급 정보와 대조해, 사진까지 포함한 진위 여부를 가려낼 수 있게 됐습니다. 역할도 나뉩니다. 행안부는 시스템 제공과 정책 지원을, 금융감독원은 보안 점검과 감독을, 금융결제원은 중계기관으로서 시스템 연계를 각각 맡습니다.</p>
+
+  <img src="./images/body-1.png" alt="진위확인 절차 4단계를 보여주는 그래픽 - 제출, 대조, 검증, 결과 통보">
+
+  <hr>
+
+  <h2>왜 중요한가 — 기대효과와 우려</h2>
+
+  <p>간편결제·간편송금 이용이 늘면서 위·변조 신분증을 악용한 명의도용, 보이스피싱, 범죄수익 은닉 시도도 함께 고도화되고 있다는 지적이 배경으로 꼽힙니다. 실물 대조가 빠지면 신분증 사본 위조만으로 계좌를 개설하거나 돈을 옮기는 일이 가능했던 셈입니다. 이번 조치는 그 틈을 메우려는 시도로 볼 수 있습니다.</p>
+
+  <p>기대되는 효과는 분명합니다. 사진까지 실시간으로 맞춰 보는 만큼, 위조 신분증을 이용한 범죄를 걸러내는 문턱이 한층 높아질 것으로 보입니다. 비대면 거래가 늘어난 시대에 신원확인의 신뢰도를 끌어올리는 조치라는 평가가 나옵니다.</p>
+
+  <p>다만 균형 있게 볼 지점도 있습니다. 신분증 사진 같은 민감한 개인정보가 정부 시스템과 민간 전자금융업자 사이를 오가는 구조인 만큼, 정보가 어떤 범위에서 처리되고 언제 파기되는지에 대한 투명한 설명이 뒤따라야 한다는 목소리가 나올 수 있습니다. 최근 주민등록증 모바일 확인서비스가 AI 위조 사례 증가로 존폐를 검토받고 있다는 별개의 보도도 있었던 만큼, 디지털 신원확인 전반의 보안을 어떻게 촘촘히 설계할지는 계속 지켜볼 대목입니다.</p>
+
+  <img src="./images/body-2.png" alt="기대효과와 우려를 나란히 놓은 대조 그래픽 - 명의도용 방지 vs 개인정보 처리 투명성">
+
+  <hr>
+
+  <h2>전망 — 시범 운영에서 확대까지</h2>
+
+  <p>서비스는 일단 시범 단계로 시작합니다. 올해는 금융결제원의 금융 연계망을 활용해 네이버페이, 카카오페이, 토스 3사만 대상으로 운영됩니다. 행정안전부는 금융감독원과 함께 운영 성과와 안정성을 검증한 뒤, 내년부터 기준 자격을 갖춘 전자금융업체로 대상을 넓힐 방침이라고 알려졌습니다.</p>
+
+  <p>바꿔 말하면, 지금 단계에서 단정할 수 있는 것은 많지 않습니다. 확대 속도와 범위는 시범 운영 결과에 달려 있습니다. 앞으로 지켜볼 지점은 세 가지 정도로 정리할 수 있습니다. 하나는 시범 운영에서 실제로 위·변조 적발 효과가 얼마나 나타나는지입니다. 다른 하나는 개인정보 처리 절차가 얼마나 투명하게 공개되는지입니다. 마지막은 내년 확대 대상이 어떤 기준으로, 어느 범위까지 넓어지는지입니다.</p>
+
+  <img src="./images/body-3.png" alt="앞으로 지켜볼 세 가지 관전 포인트를 담은 카드형 그래픽">
+
+  <hr>
+
+  <p>정리하면, 이번 조치는 간편결제·송금의 신원확인 공백을 메우려는 행정 조치입니다. 위조 신분증을 이용한 범죄를 줄이려는 목적은 분명하지만, 그 과정에서 다뤄지는 정보가 민감한 만큼 안전장치도 함께 논의돼야 할 것입니다. 시범 운영이라는 첫 단추가 어떻게 검증되느냐에 따라, 내년 이후의 모습도 달라질 것으로 보입니다.</p>
+
+  <p>"편리함과 안전 사이, 이번에는 신분증 한 장이 시험대에 올랐습니다." 시범 운영의 결과가 그 답을 조금씩 보여줄 것입니다.</p>
+
+  <p class="tags"><span>#주민등록증진위확인</span><span>#간편결제</span><span>#디지털신원확인</span><span>#행정안전부</span><span>#보이스피싱예방</span><span>#네이버페이카카오페이토스</span></p>
+
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

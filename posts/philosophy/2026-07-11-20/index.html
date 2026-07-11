@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[철학/인문] 베이컨의 우상론 — 인간이 진리를 놓치는 네 가지 착각</title>
+<style>
+  :root { --text:#222; --muted:#666; --line:#e2e2e2; --accent:#a096ff; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:40px 16px 80px; background:#f6f7f8;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    color:var(--text); -webkit-font-smoothing:antialiased; }
+  .post { max-width:700px; margin:0 auto; background:#fff; padding:48px 40px 56px;
+    border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+  h1 { font-size:28px; line-height:1.4; font-weight:800; margin:0 0 28px;
+    letter-spacing:-0.02em; color:#111; word-break:keep-all; }
+  h2 { font-size:21px; line-height:1.5; font-weight:700; margin:48px 0 18px;
+    padding-left:12px; border-left:4px solid var(--accent); color:#1a1a1a;
+    letter-spacing:-0.01em; word-break:keep-all; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+  ul { margin:0 0 22px; padding-left:22px; }
+  li { font-size:16.5px; line-height:1.85; margin-bottom:6px; word-break:keep-all; }
+  img { display:block; max-width:100%; height:auto; margin:28px auto; border-radius:6px; }
+  hr { border:none; border-top:1px solid var(--line); margin:40px 0; }
+  blockquote { margin:24px 0; padding:14px 20px; background:#f4f5fb;
+    border-left:4px solid var(--accent); border-radius:4px; color:#333; }
+  strong { font-weight:700; }
+  .tags { margin-top:8px; font-size:15px; line-height:2; color:var(--accent); word-break:keep-all; }
+  .tags span { margin-right:6px; white-space:nowrap; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="post">
+
+  <h1>[철학/인문] 베이컨의 우상론 — 인간이 진리를 놓치는 네 가지 착각</h1>
+
+  <img src="./images/thumbnail.png" alt="어두운 블루-퍼플 그라데이션 배경에 &#x27;베이컨의 우상론&#x27; 제목과 로마숫자 IV 심볼이 담긴 정사각형 썸네일">
+
+  <p>오늘은 프랜시스 베이컨의 우상론에 대해 이야기해 보려 합니다. 베이컨은 인간이 진리에 다가가지 못하는 이유를 네 가지 착각, 즉 우상에서 찾았습니다. 이 개념은 17세기에 나왔지만 확증편향이나 SNS 시대의 정보 편식을 설명할 때도 여전히 쓸모가 있습니다.</p>
+
+  <ul><li>베이컨은 1620년 저서 『노붐 오르가눔』에서 네 가지 우상을 제시했습니다.</li><li>종족의 우상, 동굴의 우상, 시장의 우상, 극장의 우상으로 나뉩니다.</li><li>각각 인간 본성, 개인 경험, 언어, 권위에서 비롯되는 착각입니다.</li></ul>
+
+  <hr>
+
+  <h2>종족의 우상과 동굴의 우상 — 나라서, 인간이라서 생기는 착각</h2>
+
+  <p>종족의 우상은 인간이라는 종 전체가 공유하는 착각입니다.<br>
+사람은 실제보다 더 많은 질서와 규칙을 세상에서 찾아내려는 경향이 있습니다.<br>
+없는 패턴을 있다고 믿고, 예외는 슬쩍 넘기는 식입니다.<br>
+확증편향이라는 이름으로 지금도 자주 언급되는 현상입니다.</p>
+
+  <p>동굴의 우상은 개인마다 다르게 갇혀 있는 착각입니다.<br>
+베이컨은 이를 각자의 동굴 안에 갇혀 세상을 본다고 표현했습니다.<br>
+자라온 환경, 배운 지식, 직업이 저마다 다른 렌즈를 만듭니다.<br>
+같은 사건을 보고도 사람마다 다르게 해석하는 이유입니다.</p>
+
+  <p>예전에는 이 두 우상이 개인의 사고방식 문제로 그쳤습니다.<br>
+지금은 알고리즘이 그 착각을 증폭시키는 구조로 바뀌었습니다.<br>
+이미 믿는 것과 비슷한 정보만 반복해서 만나기 때문입니다.</p>
+
+  <p>예를 들어 어떤 뉴스를 검색하면, 그다음부터 비슷한 논조의 기사가 계속 추천됩니다.<br>
+반대되는 시각은 점점 화면 밖으로 밀려납니다.<br>
+결국 내가 옳다고 믿는 근거만 쌓이고, 그 믿음은 더 단단해집니다.<br>
+정작 세상은 그렇게 단순하지 않은데도 말입니다.</p>
+
+  <img src="./images/body-1.png" alt="베이컨의 네 가지 우상(종족·동굴·시장·극장)을 한눈에 정리한 카드 4장 이미지">
+
+  <hr>
+
+  <h2>시장의 우상 — 언어가 만드는 함정, SNS 시대의 착각</h2>
+
+  <p>시장의 우상은 언어에서 비롯되는 착각입니다.<br>
+베이컨은 사람들이 시장에서 물건을 사고팔듯 말을 주고받는다고 보았습니다.<br>
+문제는 말이 언제나 정확한 뜻을 그대로 전달하지는 않는다는 점입니다.<br>
+같은 단어를 두고도 사람마다 다른 그림을 떠올립니다.</p>
+
+  <p>SNS 시대에는 이 우상이 더 빠르게, 더 넓게 퍼집니다.<br>
+짧은 문장과 자극적인 표현이 정확한 설명보다 더 잘 퍼지기 때문입니다.<br>
+맥락이 잘린 채 옮겨진 말 한마디가 원래 뜻과 다르게 소비되기도 합니다.<br>
+필터버블이나 에코체임버라는 말도 결국 이 시장의 우상과 닿아 있는 셈입니다.</p>
+
+  <p>댓글창을 보면 같은 단어를 두고도 서로 다른 뜻으로 쓰다가 다투는 경우가 흔합니다.<br>
+정작 서로 하려는 말은 크게 다르지 않은데도 그렇습니다.<br>
+말을 쓸 때는 그 말이 실제로 무엇을 가리키는지 한 번 더 확인해 볼 필요가 있습니다.</p>
+
+  <img src="./images/body-2.png" alt="SNS·뉴스 정보 습득 방식의 예전과 지금을 좌우로 비교한 대비 이미지">
+
+  <hr>
+
+  <h2>극장의 우상 — 권위와 유행하는 이론에 기대는 착각</h2>
+
+  <p>극장의 우상은 권위나 유행하는 이론을 무비판적으로 따르는 착각입니다.<br>
+베이컨은 기존 철학 체계도 결국 무대 위 각본과 다르지 않다고 보았습니다.<br>
+그럴듯하게 짜인 이야기일수록 관객은 쉽게 몰입합니다.<br>
+전문가의 말, 유명한 이론, 오래된 통념이 모두 이 우상의 재료가 됩니다.</p>
+
+  <p>지금도 다르지 않습니다.<br>
+그럴듯한 논리 구조나 유명인의 발언이 사실 검증보다 앞서는 경우가 많습니다만, 정작 근거를 물으면 답이 궁색한 경우도 적지 않습니다.<br>
+"권위 있는 사람이 그렇게 말했다"는 것 자체는 근거가 되지 않습니다.<br>
+베이컨이 강조한 처방은 단순합니다.<br>
+직접 관찰하고, 반복해서 검증하고, 틀렸으면 고치는 태도입니다.<br>
+화려한 각본보다 더디더라도 확인된 사실 하나가 낫다는 뜻입니다.</p>
+
+  <p>이 세 번째 우상까지 알고 나면 남는 질문은 하나입니다.<br>
+그렇다면 이 착각들에서 우리는 어떻게 벗어날 수 있을까요.</p>
+
+  <img src="./images/body-3.png" alt="우상에서 벗어나는 3단계(의심하기·관찰하기·검증하기)를 보여주는 스텝 이미지">
+
+  <hr>
+
+  <p>정리하면 이렇습니다.<br>
+베이컨의 우상론은 특정 진영을 겨누는 이야기가 아닙니다.<br>
+인간이라면 누구나 걸리는 네 가지 착각의 구조를 보여줄 뿐입니다.<br>
+물론 이 네 가지를 안다고 해서 착각에서 완전히 자유로워지지는 않습니다.<br>
+다만 스스로를 의심하는 습관 하나는 분명히 남습니다.</p>
+
+  <p>"진리를 가로막는 것은 대개 바깥이 아니라 내 안의 우상이다" — 이 한 문장이 베이컨 우상론의 핵심입니다.</p>
+
+  <p>오늘 내가 확신하는 것 중 몇 개가 사실은 우상일지, 한 번쯤 되짚어 보시면 좋겠습니다.</p>
+
+  <p class="tags"><span>#베이컨</span><span>#우상론</span><span>#프랜시스베이컨</span><span>#확증편향</span><span>#노붐오르가눔</span><span>#철학공부</span><span>#인문학</span><span>#비판적사고</span><span>#에코체임버</span></p>
+
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

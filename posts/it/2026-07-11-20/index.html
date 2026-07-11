@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[IT] 로드 밸런서란 무엇인가 — 트래픽을 여러 서버로 나누는 기술</title>
+<style>
+  :root { --text:#222; --muted:#666; --line:#e2e2e2; --accent:#4f8cff; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:40px 16px 80px; background:#f6f7f8;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    color:var(--text); -webkit-font-smoothing:antialiased; }
+  .post { max-width:700px; margin:0 auto; background:#fff; padding:48px 40px 56px;
+    border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+  h1 { font-size:28px; line-height:1.4; font-weight:800; margin:0 0 28px;
+    letter-spacing:-0.02em; color:#111; word-break:keep-all; }
+  h2 { font-size:21px; line-height:1.5; font-weight:700; margin:48px 0 18px;
+    padding-left:12px; border-left:4px solid var(--accent); color:#1a1a1a;
+    letter-spacing:-0.01em; word-break:keep-all; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+  ul { margin:0 0 22px; padding-left:22px; }
+  li { font-size:16.5px; line-height:1.85; margin-bottom:6px; word-break:keep-all; }
+  img { display:block; max-width:100%; height:auto; margin:28px auto; border-radius:6px; }
+  hr { border:none; border-top:1px solid var(--line); margin:40px 0; }
+  blockquote { margin:24px 0; padding:14px 20px; background:#f4f5fb;
+    border-left:4px solid var(--accent); border-radius:4px; color:#333; }
+  strong { font-weight:700; }
+  .tags { margin-top:8px; font-size:15px; line-height:2; color:var(--accent); word-break:keep-all; }
+  .tags span { margin-right:6px; white-space:nowrap; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="post">
+
+  <h1>[IT] 로드 밸런서란 무엇인가 — 트래픽을 여러 서버로 나누는 기술</h1>
+
+  <img src="./images/thumbnail.png" alt="로드 밸런서 개념을 나타내는 어두운 블루 계열 썸네일, 중앙에 분산 화살표 아이콘">
+
+  <p>오늘은 로드 밸런서에 대해 이야기해 보려 합니다.<br>
+서버 한 대로 감당하기 어려운 트래픽을 여러 대에 나누어 처리하는 기술입니다.<br>
+개념과 동작 방식, 장점과 한계를 차례로 정리해 보겠습니다.</p>
+
+  <ul><li>로드 밸런서는 들어오는 트래픽을 여러 서버에 고르게 분산하는 장치(또는 소프트웨어)입니다.</li><li>서버 한 대가 멈춰도 서비스가 끊기지 않도록 돕는 가용성 확보 수단입니다.</li><li>분산 방식에는 라운드로빈, 최소 연결 등 몇 가지 대표적인 알고리즘이 있습니다.</li></ul>
+
+  <hr>
+
+  <h2>로드 밸런서란 무엇인가</h2>
+
+  <p>로드 밸런서는 이름 그대로 부하(로드)를 나누어주는(밸런싱) 장치입니다.<br>
+사용자의 요청, 즉 트래픽이 한 서버에 몰리지 않도록 여러 서버로 고르게 배분합니다.</p>
+
+  <p>음식점에 비유하면 이해가 쉽습니다.<br>
+계산대가 하나뿐이면 손님이 몰릴 때 줄이 길어집니다.<br>
+계산대를 여러 개 두고 안내원이 손님을 나누어 보내면 대기 시간이 줄어드는데요.<br>
+그 안내원 역할을 하는 장치가 로드 밸런서입니다.</p>
+
+  <p>예전엔 트래픽이 늘면 서버 한 대의 사양을 높이는 방식이 흔했습니다.<br>
+지금은 저렴한 서버 여러 대를 두고 트래픽을 나누는 방식이 일반적입니다.<br>
+이 구조에서 없어서는 안 될 부품인 셈입니다.</p>
+
+  <p>쇼핑몰의 대규모 할인 행사를 떠올려 보시면 좋겠습니다.<br>
+평소보다 훨씬 많은 방문자가 짧은 시간에 몰립니다.<br>
+서버 한 대였다면 접속 자체가 어려웠을 상황을, 여러 서버가 나누어 받으면 한결 여유 있게 넘길 수 있습니다.<br>
+웹사이트뿐 아니라 모바일 앱 서버, 사내 시스템에서도 같은 원리로 쓰입니다.</p>
+
+  <img src="./images/body-1.png" alt="본문이미지1 - 로드 밸런서가 하는 세 가지 역할을 정리한 카드형 이미지">
+
+  <hr>
+
+  <h2>트래픽을 나누는 방식</h2>
+
+  <p>로드 밸런서가 요청을 나누는 방법은 몇 가지 알고리즘으로 정리됩니다.</p>
+
+  <p>가장 단순한 방식은 라운드로빈입니다.<br>
+요청이 들어오는 순서대로 서버에 차례로 배정합니다.<br>
+서버 성능이 비슷할 때 무난하게 쓰입니다.</p>
+
+  <p>최소 연결 방식은 현재 처리 중인 연결이 가장 적은 서버로 보냅니다.<br>
+서버마다 부하가 다를 때 더 균형 있게 분산됩니다.</p>
+
+  <p>IP 해시 방식은 같은 사용자의 요청을 항상 같은 서버로 보냅니다.<br>
+로그인 상태를 유지해야 하는 서비스에서 유용합니다.</p>
+
+  <p>이 장치는 분산 작업만 하는 것이 아닙니다.<br>
+주기적으로 서버 상태를 확인하는 헬스체크도 함께 수행합니다.<br>
+응답이 없는 서버는 목록에서 자동으로 제외합니다.<br>
+덕분에 서버 한 대에 문제가 생겨도 사용자는 대체로 눈치채지 못합니다.</p>
+
+  <p>조금 더 세분화하면, 전송 구간만 보고 나누는 방식과 요청 내용까지 들여다보고 나누는 방식으로도 구분됩니다.<br>
+전자는 속도가 빠르고, 후자는 정교하게 분산할 수 있다는 차이가 있습니다.<br>
+어떤 방식을 쓸지는 서비스의 규모와 성격에 따라 달라집니다.<br>
+직접 서버를 두지 않고, 클라우드 업체가 제공하는 관리형 로드 밸런서를 빌려 쓰는 경우도 많습니다.</p>
+
+  <img src="./images/body-2.png" alt="본문이미지2 - 요청이 처리되는 흐름을 보여주는 4단계 스텝 이미지">
+
+  <hr>
+
+  <h2>장점과 한계</h2>
+
+  <p>먼저 장점입니다.<br>
+서버 한 대가 멈춰도 서비스는 계속 유지됩니다.<br>
+트래픽이 늘어나면 서버를 추가하는 것만으로 대응할 수 있습니다.<br>
+점검이 필요한 서버를 잠시 빼두고 나머지로 운영하는 것도 가능합니다.</p>
+
+  <p>다만 한계도 있습니다.<br>
+로드 밸런서 자체가 고장 나면 전체 서비스가 멈출 수 있습니다.<br>
+그래서 이 장치 역시 이중화해 두는 경우가 많습니다.<br>
+알고리즘과 설정을 잘못 잡으면 특정 서버에만 트래픽이 쏠릴 수도 있습니다.<br>
+도입과 운영에 별도의 지식과 비용이 든다는 점도 감안해야 합니다.</p>
+
+  <p>처음부터 완벽하게 설정하기는 쉽지 않습니다.<br>
+서비스 규모가 작을 때는 서버 한두 대로도 충분할 수 있습니다.<br>
+트래픽이 늘어나는 시점에 맞춰 하나씩 도입해도 늦지 않다고 생각합니다.<br>
+중요한 것은 지금 당장의 규모가 아니라, 앞으로 트래픽이 늘어날 가능성을 미리 염두에 두는 자세입니다.</p>
+
+  <img src="./images/body-3.png" alt="본문이미지3 - 로드 밸런서 있을 때와 없을 때를 비교한 표 이미지">
+
+  <hr>
+
+  <p>정리하면 이렇습니다.<br>
+이 기술은 트래픽을 여러 서버에 나누어 서비스를 안정적으로 유지합니다.<br>
+완벽한 만능 해법은 아니지만, 규모가 커지는 서비스에는 사실상 필수에 가깝다고 생각합니다.</p>
+
+  <p>"트래픽을 나누는 순간, 서버 한 대의 운명에 서비스 전체를 걸지 않아도 됩니다."</p>
+
+  <p>다음에 어떤 웹사이트에 접속할 때, 그 뒤에서 몇 대의 서버가 트래픽을 나누어 받고 있을지 한번 상상해 보시면 좋겠습니다.</p>
+
+  <p class="tags"><span>#로드밸런서</span><span>#서버</span><span>#부하분산</span><span>#트래픽</span><span>#가용성</span><span>#헬스체크</span><span>#IT개념</span><span>#네트워크</span></p>
+
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[바이오] 뼈와 골격 구조와 기능 — 몸 지탱하고 피 만드는 조직</title>
+<style>
+  :root { --text:#222; --muted:#666; --line:#e2e2e2; --accent:#ff7676; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:40px 16px 80px; background:#f6f7f8;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    color:var(--text); -webkit-font-smoothing:antialiased; }
+  .post { max-width:700px; margin:0 auto; background:#fff; padding:48px 40px 56px;
+    border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+  h1 { font-size:28px; line-height:1.4; font-weight:800; margin:0 0 28px;
+    letter-spacing:-0.02em; color:#111; word-break:keep-all; }
+  h2 { font-size:21px; line-height:1.5; font-weight:700; margin:48px 0 18px;
+    padding-left:12px; border-left:4px solid var(--accent); color:#1a1a1a;
+    letter-spacing:-0.01em; word-break:keep-all; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+  ul { margin:0 0 22px; padding-left:22px; }
+  li { font-size:16.5px; line-height:1.85; margin-bottom:6px; word-break:keep-all; }
+  img { display:block; max-width:100%; height:auto; margin:28px auto; border-radius:6px; }
+  hr { border:none; border-top:1px solid var(--line); margin:40px 0; }
+  blockquote { margin:24px 0; padding:14px 20px; background:#f4f5fb;
+    border-left:4px solid var(--accent); border-radius:4px; color:#333; }
+  strong { font-weight:700; }
+  .tags { margin-top:8px; font-size:15px; line-height:2; color:var(--accent); word-break:keep-all; }
+  .tags span { margin-right:6px; white-space:nowrap; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="post">
+
+  <h1>[바이오] 뼈와 골격 구조와 기능 — 몸 지탱하고 피 만드는 조직</h1>
+
+  <img src="./images/thumbnail.png" alt="뼈와 골격, 몸을 지탱하고 피를 만드는 조직이라는 주제를 담은 바이오 테마 표지">
+
+  <p>오늘은 뼈와 골격에 대해 이야기해 보려 합니다.<br>
+뼈는 단단한 지지대이면서 동시에 혈액을 만드는 살아있는 조직입니다.<br>
+딱딱하고 고정된 조직이라는 인상과 달리, 뼈는 평생에 걸쳐 계속 바뀌는 조직입니다.<br>
+구조와 기능, 관리법까지 차례로 정리해 보겠습니다.</p>
+
+  <ul><li>뼈는 치밀골·해면골·골수로 구성되며 서로 다른 역할을 맡습니다.</li><li>지지·보호·운동·조혈·칼슘저장이라는 다섯 가지 기능을 동시에 수행합니다.</li><li>조골세포와 파골세포가 뼈를 계속 새로 만들며, 균형이 무너지면 골다공증으로 이어질 수 있습니다.</li></ul>
+
+  <hr>
+
+  <h2>뼈의 구조 — 치밀골, 해면골, 골수</h2>
+
+  <p>사람의 몸에는 성인 기준으로 약 206개의 뼈가 있다고 알려져 있습니다.<br>
+뼈는 겉보기와 달리 균일한 덩어리가 아닙니다.<br>
+바깥쪽은 치밀골, 흔히 피질골이라 불리는 단단하고 촘촘한 조직으로 덮여 있습니다.<br>
+안쪽은 해면골이라는 그물망 구조로 채워져, 무게는 가볍지만 충격을 잘 흡수합니다.<br>
+뼈 속 빈 공간에는 골수가 자리 잡고 있습니다.<br>
+붉은골수는 적혈구, 백혈구, 혈소판을 만드는 조혈 작용을 담당합니다.<br>
+노란골수는 지방세포로 채워져 에너지를 저장하는 역할을 합니다.<br>
+나이가 들면서 붉은골수 중 일부가 점차 노란골수로 바뀌는 경향이 있다고 알려져 있습니다.<br>
+뼈마다 치밀골과 해면골의 비율은 조금씩 다릅니다.<br>
+팔다리의 긴뼈는 치밀골이 많고, 척추뼈나 골반처럼 넓적한 뼈는 해면골 비중이 큰 편입니다.<br>
+뼈 바깥은 골막이라는 얇은 막이 감싸고 있어 혈관과 신경이 드나드는 통로가 되어 줍니다.</p>
+
+  <img src="./images/body-1.png" alt="치밀골과 해면골, 골수의 위치·특징을 정리한 비교 표">
+
+  <hr>
+
+  <h2>뼈가 하는 다섯 가지 일</h2>
+
+  <p>뼈는 단순히 몸을 받치는 기둥이 아닙니다.<br>
+첫째, 몸 전체를 세우고 자세를 유지하는 지지 기능을 합니다.<br>
+둘째, 두개골이나 갈비뼈처럼 뇌와 심장, 폐 같은 중요한 장기를 보호합니다.<br>
+셋째, 근육과 연결되어 관절을 지렛대 삼아 움직임을 만들어 냅니다.<br>
+넷째, 골수에서 혈액세포를 만드는 조혈 작용을 맡습니다.<br>
+다섯째, 몸속 칼슘과 인의 대부분을 저장했다가 필요할 때 혈액으로 내보냅니다.<br>
+몸속 칼슘의 대부분이 뼈에 저장되어 있다는 점은 잘 알려진 사실입니다.<br>
+혈액 속 칼슘 농도가 낮아지면 뼈에서 칼슘을 꺼내 쓰고, 여유가 있으면 다시 뼈에 채워 넣는 식으로 균형을 맞춥니다.<br>
+이 조절 덕분에 근육 수축이나 신경 전달처럼 칼슘이 필요한 다른 기능도 안정적으로 유지될 수 있습니다.<br>
+다섯 가지 역할이 한 조직 안에서 동시에 이뤄진다는 점이 뼈의 특별한 부분이라고 생각합니다.</p>
+
+  <img src="./images/body-2.png" alt="뼈의 다섯 가지 기능 - 지지·보호·운동·조혈·칼슘저장 핵심 카드">
+
+  <hr>
+
+  <h2>골밀도 관리와 골다공증 예방</h2>
+
+  <p>뼈는 완성된 뒤에도 멈추지 않습니다.<br>
+조골세포는 새 뼈를 만들고, 파골세포는 오래된 뼈를 흡수합니다.<br>
+두 세포가 균형을 이루며 뼈는 평생 리모델링을 거듭하는 셈입니다.<br>
+예전엔 골다공증이 나이 든 여성만의 문제로 여겨졌습니다.<br>
+지금은 남성과 비교적 젊은 층에서도 관리가 필요한 문제로 다뤄집니다.<br>
+골밀도는 보통 20~30대에 정점을 찍은 뒤 서서히 낮아지는 경향이 있습니다.<br>
+여성은 폐경 이후 호르몬 변화로 골밀도가 더 빠르게 줄어들 수 있다고 알려져 있습니다.<br>
+파골세포의 활동이 조골세포보다 앞서면 뼈가 약해지는 골다공증으로 이어질 수 있습니다.<br>
+골다공증은 뚜렷한 증상 없이 진행되다가, 작은 충격에도 골절로 이어지는 경우가 있어 주의가 필요합니다.<br>
+예방을 위해서는 걷기나 가벼운 근력 운동 같은 체중부하 운동이 도움이 된다고 알려져 있습니다.<br>
+칼슘이 풍부한 음식을 챙기고, 비타민D는 햇볕과 음식을 통해 함께 확보하시면 좋겠습니다.<br>
+비타민D는 칼슘 흡수를 돕는 역할을 하는 것으로 알려져 있습니다.<br>
+금연과 절주도 뼈 건강에 도움이 되는 습관으로 꼽힙니다.<br>
+다만 개인의 골밀도 상태나 위험 요인은 저마다 다릅니다.<br>
+뼈 건강이 걱정되신다면 골밀도 검사와 함께 전문의와 상담해 보시길 권합니다.</p>
+
+  <img src="./images/body-3.png" alt="골다공증 예방 3단계 - 체중부하 운동, 칼슘 섭취, 비타민D 확보">
+
+  <hr>
+
+  <p>정리하면 이렇습니다.<br>
+뼈는 가만히 있는 조직이 아니라, 조골세포와 파골세포가 끊임없이 주고받는 살아있는 균형입니다.<br>
+지지대이자 혈액 공장이며 칼슘 저장고이기도 한 셈입니다.<br>
+겉으로 드러나지 않는다고 소홀히 하면, 정작 필요한 순간 티가 나는 것이 뼈이기도 합니다.</p>
+
+  <p>"뼈는 조용히 일하지만, 결코 쉬지 않는 조직입니다."</p>
+
+  <p>오늘 걷는 걸음 하나가 먼 훗날의 골밀도를 조금은 바꿔 놓을지도 모릅니다.</p>
+
+  <p class="tags"><span>#뼈</span><span>#골격</span><span>#골밀도</span><span>#골다공증</span><span>#칼슘</span><span>#비타민D</span><span>#조골세포</span><span>#파골세포</span><span>#뼈건강</span><span>#건강상식</span></p>
+
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

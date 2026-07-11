@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[경제] 기회비용과 매몰비용 — 선택의 진짜 값을 재는 법</title>
+<style>
+  :root { --text:#222; --muted:#666; --line:#e2e2e2; --accent:#2bbe78; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:40px 16px 80px; background:#f6f7f8;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    color:var(--text); -webkit-font-smoothing:antialiased; }
+  .post { max-width:700px; margin:0 auto; background:#fff; padding:48px 40px 56px;
+    border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+  h1 { font-size:28px; line-height:1.4; font-weight:800; margin:0 0 28px;
+    letter-spacing:-0.02em; color:#111; word-break:keep-all; }
+  h2 { font-size:21px; line-height:1.5; font-weight:700; margin:48px 0 18px;
+    padding-left:12px; border-left:4px solid var(--accent); color:#1a1a1a;
+    letter-spacing:-0.01em; word-break:keep-all; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+  ul { margin:0 0 22px; padding-left:22px; }
+  li { font-size:16.5px; line-height:1.85; margin-bottom:6px; word-break:keep-all; }
+  img { display:block; max-width:100%; height:auto; margin:28px auto; border-radius:6px; }
+  hr { border:none; border-top:1px solid var(--line); margin:40px 0; }
+  blockquote { margin:24px 0; padding:14px 20px; background:#f4f5fb;
+    border-left:4px solid var(--accent); border-radius:4px; color:#333; }
+  strong { font-weight:700; }
+  .tags { margin-top:8px; font-size:15px; line-height:2; color:var(--accent); word-break:keep-all; }
+  .tags span { margin-right:6px; white-space:nowrap; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="post">
+
+  <h1>[경제] 기회비용과 매몰비용 — 선택의 진짜 값을 재는 법</h1>
+
+  <img src="./images/thumbnail.png" alt="기회비용과 매몰비용 개념 비교">
+
+  <p>오늘은 기회비용과 매몰비용, 이 두 경제 개념을 정리해 보려 합니다. 둘 다 어디선가 들어본 말인데요. 막상 내 선택 앞에서는 두 개념이 자주 뒤섞입니다.</p>
+
+  <ul><li>기회비용은 하나를 고르며 포기한 다른 대안의 가치입니다.</li><li>매몰비용은 이미 써버려서 되찾을 수 없는 비용입니다.</li><li>합리적인 선택은 매몰비용을 잊고, 앞으로의 기회비용만 비교하는 데서 시작합니다.</li></ul>
+
+  <p>아래에서 두 개념을 일상 예시로 풀어보고, 실제 결정에 어떻게 연결하면 좋을지 함께 살펴보겠습니다.</p>
+
+  <hr>
+
+  <h2>기회비용, 포기한 대안의 가치</h2>
+
+  <p>기회비용은 어떤 선택을 할 때 함께 포기하게 되는, 다른 대안 중 가장 아까운 것의 가치입니다.</p>
+
+  <p>주말 오후를 예로 들어보겠습니다. 친구와 약속을 잡으면 그 시간에 할 수 있었던 밀린 공부나 낮잠은 자연스럽게 사라집니다. 이때 놓친 공부나 휴식의 가치가 바로 이 약속의 기회비용입니다.</p>
+
+  <p>돈으로 셈해도 마찬가지입니다. 내 돈 1,000만원으로 작은 가게를 차렸다고 해보겠습니다. 가게에서 번 돈만 이익이라고 생각하기 쉽습니다. 하지만 그 1,000만원을 은행에 두었다면 받았을 이자도 함께 계산해야 진짜 이익이 보입니다. 그 이자가 바로 이 창업의 기회비용입니다.</p>
+
+  <p>기회비용에는 눈에 보이는 지출뿐 아니라 시간과 노력도 들어갑니다. 다음 세 가지가 대표적입니다.</p>
+
+  <ul><li>시간의 기회비용: 야근을 택하면 가족과의 저녁 시간을 포기하게 됩니다.</li><li>돈의 기회비용: 한 상품에 돈을 쓰면 다른 상품을 살 기회가 사라집니다.</li><li>선택의 기회비용: 한 회사에 입사하면 다른 회사에 다녔을 경험은 얻을 수 없습니다.</li></ul>
+
+  <img src="./images/body-1.png" alt="기회비용을 이해하는 3가지 포인트 카드">
+
+  <p>이렇게 보면 기회비용은 우리가 이미 늘 계산하고 있던 셈법입니다. 다만 의식하지 못했을 뿐입니다. 눈에 보이는 값만 비교하면 손해를 보고 있다는 사실조차 모를 수 있습니다. 반대로 포기한 대안까지 함께 따져보면, 선택의 진짜 무게가 드러납니다.</p>
+
+  <hr>
+
+  <h2>매몰비용, 이미 써버려 돌아오지 않는 비용</h2>
+
+  <p>매몰비용은 이미 지출해서, 어떤 선택을 하든 되돌려 받을 수 없는 비용입니다.</p>
+
+  <p>뷔페 식당이 좋은 예입니다. 이미 낸 식대는 배가 부르든 아니든 돌려받지 못합니다. 그런데도 본전 생각에 억지로 몇 접시를 더 먹는 경우가 있습니다. 이미 낸 돈은 앞으로 무엇을 먹을지와는 아무 상관이 없는데도 그렇습니다.</p>
+
+  <p>영화표도 마찬가지입니다. 표를 사고 들어갔는데 영화가 재미없다면, 남은 시간을 어떻게 쓸지는 새로운 선택입니다. 이미 낸 표값은 계속 앉아 있어도 나가도 돌아오지 않습니다.</p>
+
+  <p>예전엔 저도 "이미 낸 돈이 아까우니 끝까지 가야 한다"는 생각이 당연하다고 여겼습니다. 지금은 그 생각이 오히려 시간과 감정을 더 낭비하게 만든다는 쪽에 가깝다고 생각합니다.</p>
+
+  <p>기회비용과 매몰비용을 나란히 놓아보면 차이가 또렷해집니다.</p>
+
+  <p>| 구분 | 기회비용 | 매몰비용 |<br>
+|---|---|---|<br>
+| 시점 | 앞으로의 선택 | 이미 지나간 선택 |<br>
+| 회수 여부 | 선택에 따라 달라짐 | 회수 불가능 |<br>
+| 의사결정에서 | 반드시 고려해야 함 | 고려하지 않는 것이 합리적 |</p>
+
+  <img src="./images/body-2.png" alt="기회비용과 매몰비용을 좌우로 비교한 대조 이미지">
+
+  <p>두 개념은 방향이 반대입니다. 기회비용은 앞을 보고, 매몰비용은 뒤에 남아 있습니다. 그런데 사람의 마음은 자주 뒤를 향합니다. 이미 쓴 돈, 이미 들인 시간에 마음이 붙잡히기 쉽습니다.</p>
+
+  <hr>
+
+  <h2>매몰비용 오류를 피하는 합리적 의사결정</h2>
+
+  <p>이미 쓴 비용 때문에 손해가 뻔한 선택을 계속 밀어붙이는 것을 매몰비용 오류라고 부릅니다. 흔히 "본전 생각"이라는 말로도 표현됩니다.</p>
+
+  <p>재미없는 학원을 계속 다니는 경우, 성과가 안 나는 프로젝트에 인력을 계속 투입하는 경우가 대표적입니다. "여기까지 왔는데 그만두면 아깝다"는 마음이 판단을 흐립니다. 손실을 인정하기 싫은 마음, 지금까지의 선택을 스스로 정당화하고 싶은 마음이 함께 작동하기 때문입니다.</p>
+
+  <p>합리적으로 판단하려면 다음 순서로 생각해 보시면 좋겠습니다.</p>
+
+  <p>1. 이미 쓴 비용은 계산에서 뺀다 — 되돌릴 수 없는 돈과 시간은 지금의 선택과 무관합니다.<br>
+2. 지금부터 들어갈 비용과 얻을 이득만 비교한다 — 앞으로 남은 선택지만 저울에 올립니다.<br>
+3. "처음부터 다시 고른다면 같은 선택을 할까"를 스스로에게 묻는다 — 답이 "아니오"라면 그만두는 쪽이 합리적인 셈입니다.</p>
+
+  <p>이 방식은 낭비를 줄이고 다음 선택에 집중하게 해준다는 점에서 분명 쓸모가 있습니다. 다만 한계도 있습니다. 사람 사이의 관계나 오래 쌓은 신뢰처럼, 숫자 하나로 손익을 따지기 어려운 영역도 있습니다. 모든 관계나 노력을 매몰비용으로만 취급하면 오히려 소중한 것을 놓칠 수 있습니다. 그래서 이 원칙은 돈과 시간이 걸린 판단에 참고하는 도구로 받아들이시면 좋겠습니다.</p>
+
+  <img src="./images/body-3.png" alt="합리적 의사결정 3단계 순서 이미지">
+
+  <hr>
+
+  <p>여기까지 기회비용과 매몰비용을 살펴봤습니다. 기회비용은 앞으로 포기할 대안의 가치이고, 매몰비용은 이미 지나가버려 되돌릴 수 없는 비용입니다. 선택의 순간에는 지나간 비용을 내려놓고, 앞으로의 득실만 다시 재보시면 좋겠습니다.</p>
+
+  <p>이미 쓴 것은 잊고, 앞으로 얻을 것만 보는 것 — 그것이 선택의 진짜 값을 재는 법입니다.</p>
+
+  <p>작은 결정 하나에도 이 두 잣대를 슬쩍 대어보시면, 다음 선택이 조금은 더 가벼워질 것입니다.</p>
+
+  <p>이 글은 경제 개념을 쉽게 설명하기 위한 것이며, 특정 투자나 상품을 권유하지 않습니다.</p>
+
+  <p class="tags"><span>#기회비용</span><span>#매몰비용</span><span>#매몰비용오류</span><span>#합리적의사결정</span><span>#경제개념</span><span>#경제상식</span><span>#의사결정</span></p>
+
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
