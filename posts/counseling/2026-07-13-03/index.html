@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>외로움 다루기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#f0a532;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#f0a532;border-color:#f0a532">상담</div>
+<h1>외로움 다루기</h1>
+<p class="subtitle">혼자인 마음과 잘 지내는 법</p>
+<figure><img src="./images/thumbnail.png" alt="창가에 홀로 앉아 따뜻한 빛을 바라보는 사람의 실루엣, 외로움과 고독의 정서를 담은 감성적 이미지"><figcaption>창가에 홀로 앉아 따뜻한 빛을 바라보는 사람의 실루엣, 외로움과 고독의 정서를 담은 감성적 이미지</figcaption></figure>
+<p>오늘은 외로움이라는 감정을 어떻게 다뤄야 할지 이야기해 보려 합니다. 누구나 살면서 한 번쯤은 혼자라는 느낌에 붙들립니다. 이 감정을 이해하고 돌보는 방법을 심리상담의 관점에서 정리해 보겠습니다.</p>
+<hr>
+<h2>고독과 외로움은 다릅니다</h2>
+<p>두 단어는 자주 섞여 쓰이지만, 심리학에서는 이 둘을 구분합니다.</p>
+<p>고독은 스스로 선택한 혼자만의 시간입니다. 방해받지 않고 생각을 정리하거나 쉬고 싶을 때, 사람은 고독을 찾습니다. 이때의 혼자는 회복의 자원이 됩니다.</p>
+<p>외로움은 다릅니다. 원치 않는 단절감입니다. 곁에 사람이 있어도, 진짜로 연결되어 있다는 느낌이 없을 때 찾아옵니다. 예전엔 혼자 있는 것 자체가 문제라고 여겨졌습니다. 지금은 연결의 질이 부족한 상태로 이해합니다.</p>
+<p>그래서 외로움을 다루는 첫걸음은 구분하는 일입니다. 지금 느끼는 것이 편안한 고독인지, 괴로운 외로움인지 스스로에게 물어볼 필요가 있습니다.</p>
+<figure><img src="./images/body-1.png" alt="고독과 외로움의 차이를 보여주는 대비 이미지, 창가에서 사색하는 모습과 군중 속에서도 소외감을 느끼는 모습"><figcaption>고독과 외로움의 차이를 보여주는 대비 이미지, 창가에서 사색하는 모습과 군중 속에서도 소외감을 느끼는 모습</figcaption></figure>
+<hr>
+<h2>만성 외로움이 남기는 흔적</h2>
+<p>짧은 외로움은 누구에게나 지나가는 감정입니다. 문제는 그것이 오래 이어질 때입니다.</p>
+<p>만성적인 외로움은 마음에 무게를 더합니다. 불안이 늘고, 자존감이 낮아지며, 작은 일에도 쉽게 지칩니다. 스스로를 고립시키는 생각이 반복되기도 합니다.</p>
+<p>몸에도 흔적을 남깁니다. 잠들기가 어려워지고, 낮 동안의 활력이 줄어듭니다. 스트레스 반응이 오래 이어지면 신체 전반의 회복력에도 영향을 줍니다.</p>
+<p>무엇보다 외로움은 눈에 잘 띄지 않습니다. 겉으로는 아무 문제 없어 보이는 사람도, 안으로는 오래 지친 상태일 수 있습니다.</p>
+<figure><img src="./images/body-2.png" alt="만성 외로움이 몸과 마음에 미치는 영향을 보여주는 인포그래픽, 수면 저하와 자존감 하락, 스트레스를 표현"><figcaption>만성 외로움이 몸과 마음에 미치는 영향을 보여주는 인포그래픽, 수면 저하와 자존감 하락, 스트레스를 표현</figcaption></figure>
+<hr>
+<h2>외로움을 키우는 생각의 습관</h2>
+<p>외로움은 상황만의 문제가 아닙니다. 그 상황을 해석하는 생각의 습관도 함께 작동합니다.</p>
+<p>&quot;아무도 나를 이해하지 못한다.&quot; &quot;나는 결국 혼자 남겨질 것이다.&quot; 이런 생각은 자동으로 떠오릅니다. 심리상담에서는 이를 연결 단절감이라 부릅니다. 관계를 맺어도 안전하지 않다고 미리 단정 짓는 인지적 왜곡입니다.</p>
+<p>이 생각은 실제 행동에도 영향을 줍니다. 거절당할까 두려워 먼저 다가가지 않게 됩니다. 그렇게 물러서면 관계는 더 멀어지고, 그 거리는 다시 생각을 굳히는 근거가 됩니다.</p>
+<p>이 고리를 끊는 방법은 생각을 사실로 받아들이지 않는 데서 시작합니다. 떠오른 생각은 감정일 뿐, 확정된 진실이 아닙니다.</p>
+<figure><img src="./images/body-3.png" alt="부정적 생각의 고리를 시각화한 이미지, 연결 단절감을 나타내는 사고 패턴 다이어그램"><figcaption>부정적 생각의 고리를 시각화한 이미지, 연결 단절감을 나타내는 사고 패턴 다이어그램</figcaption></figure>
+<hr>
+<h2>다시 연결되는 연습</h2>
+<p>외로움을 다루는 일은 거창할 필요가 없습니다. 작은 것부터 시작하시면 됩니다.</p>
+<p>먼저 작은 연결을 회복해 보시길 권합니다. 안부를 묻는 짧은 연락, 이웃과의 인사 한마디도 충분합니다. 관계는 큰 사건이 아니라 반복된 작은 접촉으로 다져집니다.</p>
+<p>동시에 자신에게 너그러워지는 연습이 필요합니다. 자기연민은 스스로를 탓하지 않고 다독이는 태도입니다. &quot;혼자인 게 내 잘못이다&quot;라는 생각 대신, 지금의 어려움을 있는 그대로 받아들이는 쪽이 회복에 도움이 됩니다.</p>
+<blockquote><p>외로움은 없애야 할 문제가 아니라, 돌봐야 할 신호입니다.</p></blockquote>
+<p>관계의 양보다 질도 중요합니다. 넓은 인맥보다 마음을 나눌 수 있는 소수의 관계가 더 큰 힘이 됩니다. 최근에는 지역사회 모임이나 취미 활동을 연결해 주는 사회적 처방도 활용됩니다. 의료적 처방 대신 사람과 활동을 처방하는 방식입니다.</p>
+<p>다만 이런 노력에도 외로움이나 우울감이 오래도록 가시지 않고 일상을 해친다면, 혼자 견디지 마시고 전문 상담(상담사·정신건강의학과)을 받아보시길 권합니다. 전문가의 도움은 약함의 증거가 아니라, 회복을 앞당기는 선택입니다.</p>
+<figure><img src="./images/body-4.png" alt="연결을 회복하는 단계별 과정을 보여주는 이미지, 작은 인사에서 시작해 의미 있는 관계로 이어지는 여정"><figcaption>연결을 회복하는 단계별 과정을 보여주는 이미지, 작은 인사에서 시작해 의미 있는 관계로 이어지는 여정</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다. 외로움은 없애야 할 감정이 아니라, 돌봐야 할 신호입니다.</p>
+<p>혼자인 마음과 잘 지내는 법을 물으신다면, 그 마음을 밀어내지 말고 가만히 들여다보시라고 답하겠습니다.</p>
+<div class="tags"><span>#외로움</span> <span>#고독</span> <span>#심리상담</span> <span>#자기연민</span> <span>#사회적처방</span> <span>#정신건강</span> <span>#마음챙김</span> <span>#관계</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

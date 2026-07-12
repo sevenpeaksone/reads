@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>게임이론과 죄수의 딜레마</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2bb673;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#2bb673;border-color:#2bb673">경제</div>
+<h1>게임이론과 죄수의 딜레마</h1>
+<p class="subtitle">합리적 선택이 최악을 부르는 이유</p>
+<figure><img src="./images/thumbnail.png" alt="죄수의 딜레마와 게임이론을 상징하는 미니멀 그래픽"><figcaption>죄수의 딜레마와 게임이론을 상징하는 미니멀 그래픽</figcaption></figure>
+<p>오늘은 게임이론의 대표 사례인 죄수의 딜레마를 정리해 보려 합니다. 각자 최선을 다해 선택했는데도 결과는 최악에 가까운 경우가 있습니다. 우월전략, 내시균형, 파레토 비효율, 반복게임이라는 네 가지 개념으로 그 이유를 짚어보겠습니다.</p>
+<hr>
+<h2>죄수의 딜레마, 무엇이 문제인가</h2>
+<p>죄수의 딜레마는 1950년대 랜드연구소에서 처음 정식화된 모형입니다. 이후 앨버트 터커가 지금의 이름을 붙이며 널리 알려졌습니다. 단순한 이야기지만, 경제학과 정치학에서 지금도 자주 인용됩니다. 협상, 경쟁, 규제처럼 복잡해 보이는 문제도 이 단순한 틀로 정리하면 뜻밖에 선명해집니다.</p>
+<p>두 용의자가 각각 다른 방에서 조사를 받습니다. 서로 대화할 수 없습니다.</p>
+<p>선택지는 두 가지입니다. 침묵하거나 자백하거나.</p>
+<p>둘 다 침묵하면 증거 부족으로 가벼운 처벌만 받습니다. 한 명만 자백하면 자백한 쪽은 즉시 풀려나고, 침묵한 쪽은 무거운 처벌을 받습니다. 둘 다 자백하면 둘 다 중간 수준의 처벌을 받습니다.</p>
+<p>문제는 여기서 시작합니다. 상대가 무엇을 선택하든, 자백이 개인에게는 항상 더 유리합니다. 침묵을 지켜 얻을 수 있는 최선의 결과보다, 자백해서 얻는 최악의 결과가 오히려 낫기 때문입니다.</p>
+<p>결국 두 사람 모두 자백을 택합니다. 그리고 둘 다 침묵했을 때보다 나쁜 결과를 받습니다. 이것이 죄수의 딜레마입니다. 각자에게는 합리적인 선택이, 둘을 합쳐 보면 가장 어리석은 선택이 되는 구조입니다.</p>
+<figure><img src="./images/body-1.png" alt="죄수의 딜레마 보수표 — 침묵과 자백에 따른 두 용의자의 처벌 비교표"><figcaption>죄수의 딜레마 보수표 — 침묵과 자백에 따른 두 용의자의 처벌 비교표</figcaption></figure>
+<hr>
+<h2>우월전략과 내시균형</h2>
+<p>여기서 자백은 &#x27;우월전략&#x27;입니다. 상대의 선택과 무관하게, 언제나 더 나은 결과를 주는 선택이기 때문입니다.</p>
+<p>우월전략은 계산이 단순합니다. 상대가 침묵해도 자백이 유리하고, 상대가 자백해도 자백이 유리합니다. 고민할 이유가 없습니다. 상대의 심리를 읽거나 눈치를 볼 필요조차 없다는 점에서, 우월전략은 가장 안전한 선택으로 여겨집니다.</p>
+<p>두 사람 모두 우월전략을 따르면 &#x27;둘 다 자백&#x27;이라는 결과에 도달합니다. 이 상태를 내시균형이라 부릅니다. 존 내시가 정리한 이 개념은, 어느 한쪽도 혼자서는 선택을 바꿀 이유가 없는 상태를 뜻합니다.</p>
+<p>상대의 선택이 고정되어 있다고 가정해 봅시다. 그 상태에서 나 혼자 침묵으로 바꾸면 손해입니다. 그래서 이 균형은 흔들리지 않습니다.</p>
+<p>문제는 안정적인 균형이 반드시 좋은 결과는 아니라는 점입니다. 내시균형은 &#x27;아무도 바꿀 유인이 없는 상태&#x27;일 뿐, &#x27;가장 나은 상태&#x27;라는 보장은 없습니다.</p>
+<p>비슷한 구조는 시장에서도 나타납니다. 과점 시장의 두 기업이 가격을 두고 경쟁한다고 생각해 봅시다. 둘 다 높은 가격을 유지하면 함께 이익을 봅니다. 하지만 한 기업이 몰래 가격을 낮추면 시장을 독차지할 수 있습니다. 상대도 같은 계산을 하고 있다는 사실을 알기에, 먼저 움직이지 않으면 손해를 본다는 불안이 커집니다. 결국 두 기업 모두 가격을 낮추고, 둘 다 이익이 줄어드는 균형에 도달합니다. 죄수의 딜레마와 같은 구조입니다.</p>
+<figure><img src="./images/body-2.png" alt="내시균형에 도달하는 과정 — 우월전략 선택부터 균형 도달까지 단계별 흐름"><figcaption>내시균형에 도달하는 과정 — 우월전략 선택부터 균형 도달까지 단계별 흐름</figcaption></figure>
+<hr>
+<h2>파레토 비효율 — 합리성의 역설</h2>
+<p>둘 다 침묵했다면 어땠을까요. 둘 다 지금보다 나은 처벌을 받았을 것입니다.</p>
+<p>즉 &#x27;둘 다 자백&#x27;이라는 결과는 파레토 비효율적입니다. 파레토 효율이란, 누군가를 더 나아지게 하려면 반드시 다른 누군가가 나빠져야 하는 상태를 말합니다. 반대로 파레토 비효율은 최소 한 사람을 더 나아지게 하면서 다른 사람을 나쁘게 만들지 않는 대안이 존재하는 상태입니다. 죄수의 딜레마에서는 &#x27;둘 다 침묵&#x27;이 바로 그 대안입니다.</p>
+<p>여기에 이 게임의 핵심이 있습니다. 개인 차원의 합리적 선택이, 집단 차원에서는 비합리적 결과로 이어집니다.</p>
+<blockquote><p>&quot;합리적인 개인들의 합이 반드시 합리적인 결과를 만들지는 않습니다.&quot;</p></blockquote>
+<p>이 구조는 감옥 밖에서도 반복됩니다. 기업의 가격 경쟁, 국가 간 군비 확장, 공유자원의 남용 모두 같은 뼈대를 가집니다. 각자는 자신에게 최선인 선택을 했을 뿐인데, 전체는 손해를 봅니다.</p>
+<p>학자들은 이를 사회적 딜레마라고 부릅니다. 개인의 이익과 집단의 이익이 충돌하는 상황을 통칭하는 표현입니다. 죄수의 딜레마는 그중에서도 가장 단순하고 명료한 형태입니다. 참가자가 둘뿐이고, 선택지도 두 가지뿐이기 때문입니다. 참가자가 많아지고 선택지가 늘어나도 근본 구조는 크게 다르지 않습니다. 목초지를 함께 쓰는 마을 사람들이 저마다 가축을 더 늘리려다 결국 풀밭을 망가뜨리는 이야기도, 뿌리를 따라가면 같은 논리에 닿습니다.</p>
+<figure><img src="./images/body-3.png" alt="협력과 배신 비교 — 두 선택이 만드는 서로 다른 결과"><figcaption>협력과 배신 비교 — 두 선택이 만드는 서로 다른 결과</figcaption></figure>
+<hr>
+<h2>반복게임과 팃포탯 — 협력은 가능한가</h2>
+<p>지금까지 살펴본 죄수의 딜레마는 단 한 번의 선택을 다룹니다. 그런데 현실의 관계는 대개 반복됩니다.</p>
+<p>같은 상대와 여러 번 마주친다면 계산이 달라집니다. 오늘 배신하면 내일 보복당할 수 있습니다. 미래의 그림자가 현재의 선택에 영향을 미치는 셈입니다.</p>
+<p>이 반복게임에서 강력한 전략으로 꼽히는 것이 팃포탯입니다. 첫 판은 협력으로 시작합니다. 이후에는 상대가 직전에 한 선택을 그대로 따라 합니다. 상대가 협력하면 협력으로, 배신하면 배신으로 갚습니다.</p>
+<p>정치학자 로버트 액설로드가 진행한 컴퓨터 토너먼트에서, 팃포탯은 훨씬 복잡한 전략들을 제치고 좋은 성적을 거두었습니다. 규칙이 단순하고 예측 가능하기 때문입니다. 협력을 먼저 제안하되 배신은 그냥 넘기지 않는다는 신호가, 상대의 다음 선택을 바꿉니다.</p>
+<p>냉전 시기 미국과 소련의 군비 경쟁도 자주 인용되는 사례입니다. 서로 군축이 이익이라는 것을 알면서도, 상대가 먼저 무장을 풀지 않을까 걱정해 군비를 늘렸습니다. 기업 간 가격 경쟁도 비슷합니다. 담합이 서로에게 이익이라는 것을 알아도, 각자는 몰래 가격을 낮추려는 유혹을 받습니다. 어업권을 둘러싼 국가 간 협상이나, 원유 생산량을 조절하는 산유국들의 줄다리기도 같은 구조를 반복합니다.</p>
+<p>물론 팃포탯이 만능은 아닙니다. 신호 전달에 오류가 생기면 보복이 꼬리를 물기도 합니다. 사소한 오해 하나가 협력 관계 전체를 무너뜨리는 경우도 있습니다. 이런 한계를 보완하기 위해, 한두 번의 배신은 눈감아 주는 관대한 팃포탯 같은 변형 전략도 연구되었습니다.</p>
+<p>그렇다고 해도, 반복이라는 조건 하나가 협력의 가능성을 크게 넓혀준다는 사실은 분명합니다. 국제 무역 협정이나 기후 협약처럼 여러 나라가 오랫동안 관계를 이어가야 하는 영역에서, 이 원리는 협상 테이블의 밑바탕이 됩니다.</p>
+<figure><img src="./images/body-4.png" alt="죄수의 딜레마가 나타나는 현실 사례 — 가격 경쟁, 군비 경쟁, 자원 남획"><figcaption>죄수의 딜레마가 나타나는 현실 사례 — 가격 경쟁, 군비 경쟁, 자원 남획</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다. 죄수의 딜레마는 개인의 합리성과 집단의 합리성이 어긋날 수 있음을 보여줍니다. 내시균형은 안정적이지만, 그 균형이 최선이라는 보장은 없습니다. 우월전략을 따랐을 뿐인데도, 모두가 함께 손해를 보는 결과에 이를 수 있다는 사실이 이 모형의 진짜 무게입니다.</p>
+<p>다만 관계가 반복되고 신뢰가 쌓이면, 협력은 충분히 가능한 선택지가 됩니다. 완벽한 해법은 아닙니다. 반복이 곧 협력을 보장하지도 않습니다. 그래도 한 번의 배신보다, 여러 번의 신뢰가 결국 더 나은 결과를 만든다는 점만은 분명해 보입니다.</p>
+<p>게임이론은 인간을 냉정한 계산기로 그립니다만, 그 계산 안에도 협력이라는 선택지가 존재합니다. 결국 관건은 관계를 얼마나 길게, 얼마나 진지하게 이어갈 것인가에 달려 있습니다. 단 한 번의 만남이라면 배신이 합리적일지 모릅니다. 그러나 우리 대부분의 관계는 한 번으로 끝나지 않습니다.</p>
+<p>내일도 마주칠 상대라면, 오늘의 선택을 한 번 더 고민해볼 일입니다.</p>
+<div class="tags"><span>#게임이론</span> <span>#죄수의딜레마</span> <span>#내시균형</span> <span>#우월전략</span> <span>#파레토효율</span> <span>#팃포탯</span> <span>#경제학</span> <span>#의사결정</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

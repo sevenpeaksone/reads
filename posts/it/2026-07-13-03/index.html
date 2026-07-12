@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>프로세스와 스레드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>프로세스와 스레드</h1>
+<p class="subtitle">컴퓨터는 어떻게 여러 일을 동시에 하나</p>
+<figure><img src="./images/thumbnail.png" alt="어두운 블루-퍼플 배경에 여러 갈래로 갈라졌다가 다시 모이는 실 형태의 라인으로 동시 실행을 표현한 미니…"><figcaption>어두운 블루-퍼플 배경에 여러 갈래로 갈라졌다가 다시 모이는 실 형태의 라인으로 동시 실행을 표현한 미니…</figcaption></figure>
+<p>컴퓨터 한 대로 음악을 들으면서 문서를 쓰고, 동시에 메신저 알림까지 받는 일은 이제 당연하게 느껴집니다.</p>
+<p>CPU 코어 수는 한정되어 있는데, 컴퓨터는 어떻게 이 많은 일을 한꺼번에 처리하는 것처럼 보이게 만드는 것일까요.</p>
+<p>그 답의 중심에 프로세스와 스레드라는 두 개념이 있습니다.</p>
+<p>이번 글에서는 이 둘이 무엇이 다르고, 운영체제가 이들을 어떻게 번갈아 실행하는지 살펴보겠습니다.</p>
+<hr>
+<h2>프로세스와 스레드, 무엇이 다른가</h2>
+<p>프로그램은 디스크에 저장된 파일일 뿐입니다.</p>
+<p>이 파일을 실행하면 운영체제가 메모리에 올려 프로세스를 만듭니다.</p>
+<p>프로세스는 실행 중인 프로그램 하나를 가리킵니다.</p>
+<p>코드, 데이터, 힙, 스택까지 독립된 메모리 공간을 통째로 가집니다.</p>
+<p>운영체제는 이 공간을 다른 프로세스와 철저히 분리합니다.</p>
+<p>한 프로세스가 오류를 일으켜도 다른 프로세스는 대체로 영향을 받지 않습니다.</p>
+<p>스레드는 이야기가 조금 다릅니다.</p>
+<p>스레드는 프로세스 안에서 실제로 명령을 하나씩 실행해 나가는 흐름입니다.</p>
+<p>하나의 프로세스는 여러 개의 스레드를 둘 수 있습니다.</p>
+<p>이를 멀티스레드라 부릅니다.</p>
+<p>같은 프로세스에 속한 스레드끼리는 코드와 데이터, 힙을 함께 씁니다.</p>
+<p>다만 스택만은 스레드마다 따로 가집니다.</p>
+<p>프로세스를 독립된 건물이라 하면, 스레드는 그 건물 안에서 함께 일하는 직원들에 가깝습니다.</p>
+<p>건물은 서로 벽으로 막혀 있지만, 같은 건물 안 직원들은 같은 사무실과 자료를 공유합니다.</p>
+<p>운영체제는 각 프로세스마다 정보를 담은 표를 하나씩 관리합니다.</p>
+<p>이 표를 흔히 프로세스 제어 블록이라 부릅니다.</p>
+<p>프로세스 번호, 상태, 메모리 위치 같은 정보가 여기 담깁니다.</p>
+<p>스레드를 새로 여는 비용은 프로세스를 새로 여는 비용보다 훨씬 적습니다.</p>
+<p>메모리 공간을 새로 마련할 필요가 없기 때문입니다.</p>
+<p>그래서 짧고 가벼운 작업을 여러 개 처리할 때는 스레드가 자주 선택됩니다.</p>
+<figure><img src="./images/body-1.png" alt="왼쪽은 독립된 메모리 공간을 가진 프로세스, 오른쪽은 프로세스 내부에서 메모리를 공유하는 여러 스레드를…"><figcaption>왼쪽은 독립된 메모리 공간을 가진 프로세스, 오른쪽은 프로세스 내부에서 메모리를 공유하는 여러 스레드를…</figcaption></figure>
+<hr>
+<h2>문맥 교환과 스케줄링 — 번갈아 실행하는 원리</h2>
+<p>실행해야 할 작업은 많은데, CPU 코어 수는 적습니다.</p>
+<p>그래서 운영체제는 아주 짧은 시간 단위로 작업을 번갈아 실행합니다.</p>
+<p>이 시간 단위를 흔히 타임 슬라이스라 부릅니다.</p>
+<p>사람의 눈에는 여러 작업이 동시에 도는 것처럼 보입니다.</p>
+<p>실제로는 한 코어가 이 작업 저 작업을 빠르게 오가는 경우가 많습니다.</p>
+<p>물론 코어가 여러 개인 멀티코어 CPU라면 일부는 진짜로 동시에 실행됩니다.</p>
+<p>이 과정에서 핵심 역할을 하는 것이 스케줄러입니다.</p>
+<p>스케줄러는 다음에 어떤 작업을 실행할지 결정하는 운영체제의 일부입니다.</p>
+<p>작업을 바꿀 때는 문맥 교환이라는 절차를 거칩니다.</p>
+<p>먼저 실행 중이던 작업의 상태를 저장합니다.</p>
+<p>레지스터 값과 실행 위치 같은 정보입니다.</p>
+<p>이어서 스케줄러가 다음에 실행할 작업을 고릅니다.</p>
+<p>그 작업의 저장된 상태를 다시 불러옵니다.</p>
+<p>마지막으로 그 지점부터 실행을 재개합니다.</p>
+<p>스케줄링 방식에는 여러 갈래가 있습니다.</p>
+<p>일정 시간이 지나면 강제로 작업을 바꾸는 방식을 선점형이라 합니다.</p>
+<p>지금의 데스크톱과 서버 운영체제는 대개 이 방식을 씁니다.</p>
+<p>한 작업이 스스로 순서를 넘겨줄 때까지 기다리는 방식도 있는데, 비선점형이라 부릅니다.</p>
+<p>선점형은 반응성이 좋지만 문맥 교환이 잦아질 수 있습니다.</p>
+<p>문맥 교환은 공짜가 아닙니다.</p>
+<p>상태를 저장하고 불러오는 데도 시간이 듭니다.</p>
+<p>작업 전환이 지나치게 잦으면 오히려 전체 속도가 떨어질 수 있습니다.</p>
+<figure><img src="./images/body-2.png" alt="상태 저장, 다음 작업 선택, 상태 복원, 실행 재개로 이어지는 문맥 교환 4단계를 순서대로 표현한 이미지"><figcaption>상태 저장, 다음 작업 선택, 상태 복원, 실행 재개로 이어지는 문맥 교환 4단계를 순서대로 표현한 이미지</figcaption></figure>
+<hr>
+<h2>동시성이 낳는 문제들</h2>
+<p>스레드는 가볍고 편리하지만 공짜로 얻는 것은 아닙니다.</p>
+<p>같은 프로세스의 스레드들은 메모리를 함께 쓰기 때문입니다.</p>
+<p>여러 스레드가 같은 데이터를 동시에 건드리면 문제가 생깁니다.</p>
+<p>대표적인 것이 경쟁 상태입니다.</p>
+<p>두 스레드가 같은 값을 동시에 고치려 하면, 실행 순서에 따라 결과가 달라집니다.</p>
+<p>어제는 맞던 계산이 오늘은 틀리는 일도 이 때문에 생깁니다.</p>
+<p>교착상태도 자주 언급되는 문제입니다.</p>
+<p>한 스레드는 상대가 가진 자원을 기다리고, 상대도 이쪽이 가진 자원을 기다립니다.</p>
+<p>서로 양보하지 않으면 두 스레드 모두 영원히 멈춰 있게 됩니다.</p>
+<blockquote><p>여러 스레드가 자유롭게 뛰놀수록, 자원을 지키는 규칙은 더 촘촘해야 합니다.</p></blockquote>
+<p>이런 문제를 막기 위해 락이나 뮤텍스 같은 동기화 도구를 씁니다.</p>
+<p>한 번에 하나의 스레드만 특정 자원에 접근하도록 제한하는 장치입니다.</p>
+<p>다만 동기화 도구를 지나치게 많이 걸면 병렬로 일할 수 있는 여지가 줄어듭니다.</p>
+<p>코드의 복잡도도 함께 늘어납니다.</p>
+<p>락을 잘못된 순서로 걸면 오히려 교착상태를 만들기도 합니다.</p>
+<p>한 스레드만 계속 자원을 못 얻는 기아 상태도 종종 언급되는 문제입니다.</p>
+<p>결국 안전과 성능 사이에서 적절한 지점을 찾는 일이 됩니다.</p>
+<figure><img src="./images/body-3.png" alt="경쟁 상태, 교착상태, 락과 뮤텍스라는 세 가지 동시성 문제와 해법을 정리한 카드"><figcaption>경쟁 상태, 교착상태, 락과 뮤텍스라는 세 가지 동시성 문제와 해법을 정리한 카드</figcaption></figure>
+<hr>
+<h2>언제 프로세스, 언제 스레드를 쓰나</h2>
+<p>두 개념 모두 나름의 쓸모가 있습니다.</p>
+<p>선택 기준은 대개 격리와 효율 사이의 저울질입니다.</p>
+<p>웹 브라우저는 탭마다 별도 프로세스를 씁니다.</p>
+<p>한 탭이 멈추거나 죽어도 다른 탭은 대체로 무사합니다.</p>
+<p>반대로 요청을 대량으로 처리하는 서버는 스레드를 즐겨 씁니다.</p>
+<p>프로세스를 매번 새로 만드는 것보다 자원을 아낄 수 있기 때문입니다.</p>
+<p>문서 편집기의 자동 저장 기능도 스레드로 처리하는 경우가 많습니다.</p>
+<p>사용자가 입력하는 동안 뒤에서 조용히 저장 작업을 함께 진행합니다.</p>
+<p>반면 결제나 인증처럼 안전이 특히 중요한 모듈은 별도 프로세스로 격리하기도 합니다.</p>
+<p>문제가 생겨도 다른 부분까지 함께 무너지지 않게 하려는 선택입니다.</p>
+<p>스레드를 매번 새로 만들고 없애는 비용이 부담스러울 때는 스레드 풀이라는 방법도 씁니다.</p>
+<p>미리 만들어 둔 스레드 여러 개를 필요할 때마다 꺼내 쓰는 방식입니다.</p>
+<div class="tablewrap"><table><thead><tr><th>상황</th><th>흔히 쓰는 방식</th></tr></thead><tbody><tr><td>웹 브라우저 탭</td><td>탭마다 프로세스, 강한 격리</td></tr><tr><td>대량 요청 서버</td><td>스레드로 병렬 처리, 자원 절약</td></tr><tr><td>편집기 자동 저장</td><td>백그라운드 스레드</td></tr><tr><td>결제·인증 모듈</td><td>별도 프로세스로 격리</td></tr></tbody></table></div>
+<p>정답은 하나로 정해져 있지 않습니다.</p>
+<p>무엇을 지키고 무엇을 아낄지에 따라 선택이 달라질 뿐입니다.</p>
+<p>실제 소프트웨어 대부분은 이 두 방식을 상황에 맞게 섞어서 씁니다.</p>
+<figure><img src="./images/body-4.png" alt="웹 브라우저, 대량 요청 서버, 편집기, 결제 모듈 등 상황별로 프로세스와 스레드 중 무엇을 쓰는지 정리…"><figcaption>웹 브라우저, 대량 요청 서버, 편집기, 결제 모듈 등 상황별로 프로세스와 스레드 중 무엇을 쓰는지 정리…</figcaption></figure>
+<p>정리하면 이렇습니다.</p>
+<p>프로세스는 격리된 안전한 상자이고, 스레드는 그 안에서 가볍게 움직이는 일꾼입니다.</p>
+<p>무엇을 고를지는 결국 &quot;안전&quot;과 &quot;효율&quot; 사이의 저울질입니다.</p>
+<p>화면 위 창들이 매끄럽게 넘나드는 그 순간에도, 컴퓨터 내부에서는 아주 짧은 시간을 촘촘히 쪼개 쓰는 계산이 쉼 없이 이어지고 있습니다.</p>
+<div class="tags"><span>#프로세스</span> <span>#스레드</span> <span>#멀티스레딩</span> <span>#운영체제</span> <span>#동시성</span> <span>#컨텍스트스위칭</span> <span>#스케줄링</span> <span>#IT상식</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
