@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>비폭력 대화</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#f0a532;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#f0a532;border-color:#f0a532">상담</div>
+<h1>비폭력 대화</h1>
+<p class="subtitle">비난 없이 마음을 전하는 네 단계</p>
+<figure><img src="./images/thumbnail.png" alt="비폭력 대화의 네 단계를 상징하는 도해"><figcaption>비폭력 대화의 네 단계를 상징하는 도해</figcaption></figure>
+<p>이번 글에서는 마셜 로젠버그의 비폭력 대화(NVC)를 정리해 보겠습니다.</p>
+<p>같은 말을 해도 어떤 표현은 상대의 마음을 닫게 하고, 어떤 표현은 마음을 열게 합니다. 그 차이는 대개 &quot;비난&quot;이 섞였느냐에 달려 있습니다.</p>
+<p>비폭력 대화는 서로를 탓하지 않으면서도 내 마음을 분명히 전하는 방법입니다. 어렵지 않으니 하나씩 짚어 보겠습니다.</p>
+<hr>
+<h2>비폭력 대화란 무엇인가</h2>
+<p>비폭력 대화는 <strong>연결을 위한 말하기</strong>입니다. 상대를 이기거나 굴복시키는 대화가 아니라, 서로의 마음을 이해하려는 대화입니다.</p>
+<p>핵심은 네 단계입니다. <strong>관찰, 느낌, 욕구, 부탁</strong>의 순서로 마음을 전합니다.</p>
+<p>이 네 걸음을 따라가면, 화가 난 순간에도 비난 대신 내 마음을 담아 말할 수 있습니다. 상대도 방어할 필요가 없으니 귀를 열게 됩니다.</p>
+<figure><img src="./images/body-1.png" alt="관찰·느낌·욕구·부탁 네 단계를 순서대로 보여주는 흐름 도해"><figcaption>관찰·느낌·욕구·부탁 네 단계를 순서대로 보여주는 흐름 도해</figcaption></figure>
+<hr>
+<h2>평가와 관찰을 나누기</h2>
+<p>첫 단추는 <strong>관찰</strong>입니다. 여기서 가장 흔한 실수가 관찰에 평가를 섞는 것입니다.</p>
+<p>&quot;너는 항상 늦어&quot;는 관찰이 아니라 평가입니다. &quot;항상&quot;이라는 단정이 상대를 몰아세웁니다. 관찰은 카메라가 찍듯 사실만 담습니다. &quot;이번 주에 약속 시간보다 두 번 늦게 왔어&quot;가 관찰입니다.</p>
+<p>평가로 시작하면 상대는 곧바로 반박할 거리를 찾습니다. 사실만 짚으면, 대화는 다툼이 아니라 확인에서 출발합니다.</p>
+<blockquote><p>관찰은 판단을 잠시 내려놓고, 일어난 일 그 자체를 보는 일입니다.</p></blockquote>
+<figure><img src="./images/body-2.png" alt="평가형 문장과 관찰형 문장을 좌우로 비교한 대조 도해"><figcaption>평가형 문장과 관찰형 문장을 좌우로 비교한 대조 도해</figcaption></figure>
+<hr>
+<h2>나 전달법 — 느낌과 욕구를 말하기</h2>
+<p>관찰 다음은 <strong>느낌</strong>과 <strong>욕구</strong>입니다. 이때 필요한 것이 &quot;나 전달법&quot;입니다.</p>
+<p>&quot;너 때문에 화가 나&quot;는 너를 주어로 삼아 상대를 탓합니다. &quot;나 전달법&quot;은 나를 주어로 삼습니다. &quot;나는 걱정이 됐어. 우리 약속이 지켜지길 바라거든.&quot; 여기엔 느낌(걱정)과 그 밑의 욕구(신뢰)가 함께 담깁니다.</p>
+<p>느낌은 옳고 그름이 없습니다. 그래서 반박당하지 않습니다. 그리고 모든 느낌 아래에는 채워지길 바라는 욕구가 있습니다. 그 욕구를 알아차려 말로 옮기면, 상대는 나를 공격 대상이 아니라 이해할 사람으로 봅니다.</p>
+<figure><img src="./images/body-3.png" alt="비난형 문장 vs 나 전달법 문장을 카드로 비교한 도해"><figcaption>비난형 문장 vs 나 전달법 문장을 카드로 비교한 도해</figcaption></figure>
+<hr>
+<h2>부탁 — 강요가 아닌 요청으로</h2>
+<p>마지막은 <strong>부탁</strong>입니다. 부탁은 구체적이고, 지금 할 수 있는 행동이어야 합니다.</p>
+<p>&quot;앞으로 잘해&quot;는 막연합니다. &quot;다음엔 늦을 것 같으면 미리 연락해 줄 수 있을까?&quot;가 부탁입니다. 무엇을 어떻게 해 주면 좋을지 분명하니 상대도 응하기 쉽습니다.</p>
+<p>부탁과 강요는 종이 한 장 차이입니다. 상대가 거절했을 때 내가 화를 낸다면, 그것은 부탁이 아니라 강요였던 셈입니다. 거절을 받아들일 여지를 남겨 둘 때 비로소 부탁이 됩니다.</p>
+<figure><img src="./images/body-4.png" alt="구체성·실행 가능·거절 수용 등 좋은 부탁의 조건을 카드로 정리한 도해"><figcaption>구체성·실행 가능·거절 수용 등 좋은 부탁의 조건을 카드로 정리한 도해</figcaption></figure>
+<p>일상에서는 네 단계를 다 갖추지 않아도 좋습니다. &quot;지금 좀 지쳐서(느낌), 조용히 쉬고 싶어(욕구)&quot;처럼 두어 단계만 담아도 대화의 온도가 달라집니다.</p>
+<hr>
+<p>정리하면 이렇습니다. 비폭력 대화는 관찰로 사실을 짚고, 느낌과 욕구를 나 전달법으로 표현하며, 구체적인 부탁으로 마무리합니다. 비난을 걷어 내면 상대도 마음을 엽니다.</p>
+<p>작은 문장 하나부터 바꿔 보시길 권합니다. 만약 관계의 어려움이 크다면 전문 상담가의 도움을 받아 보시길 권합니다. 오늘 나눈 네 단계가, 가까운 사람에게 마음을 전하는 첫 걸음이 되면 좋겠습니다.</p>
+<div class="tags"><span>#비폭력대화</span> <span>#NVC</span> <span>#마셜로젠버그</span> <span>#나전달법</span> <span>#소통</span> <span>#관계</span> <span>#상담</span> <span>#감정표현</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

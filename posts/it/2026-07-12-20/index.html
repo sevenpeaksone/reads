@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>캐시</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>캐시</h1>
+<p class="subtitle">왜 컴퓨터는 같은 일을 두 번 하지 않을까</p>
+<figure><img src="./images/thumbnail.png" alt="캐시 개념을 상징하는 도해"><figcaption>캐시 개념을 상징하는 도해</figcaption></figure>
+<p>이번 글에서는 컴퓨터를 빠르게 만드는 숨은 일꾼, 캐시(Cache)를 정리해 보겠습니다.</p>
+<p>같은 페이지를 두 번째 열 때 훨씬 빨리 뜬 경험, 다들 있으실 겁니다. 컴퓨터가 요령을 부리는 것처럼 보이지만, 사실은 아주 단순한 원리 하나가 뒤에서 일하고 있습니다.</p>
+<p>자주 쓰는 것을 가까이 두는 습관. 캐시는 바로 그 습관을 기계로 옮긴 것입니다.</p>
+<hr>
+<h2>캐시란 무엇인가</h2>
+<p>캐시는 <strong>자주 쓰는 데이터를 가까운 곳에 미리 저장해 두는 공간</strong>입니다. 멀리서 매번 가져오지 않고, 손 닿는 자리에 사본을 둡니다.</p>
+<p>책상을 떠올려 보시면 됩니다. 매일 보는 책을 서랍 깊이 넣어 두면 매번 꺼내기가 번거롭습니다. 그래서 자주 보는 책은 책상 위에 올려 둡니다.</p>
+<p>캐시도 똑같습니다. 원본은 느리고 먼 곳(디스크, 원격 서버)에 있어도, 자주 쓰는 값은 빠르고 가까운 곳에 복사해 둡니다.</p>
+<p>덕분에 컴퓨터는 같은 일을 두 번 반복하지 않습니다. 한 번 구한 답을 기억해 두고 다시 씁니다.</p>
+<figure><img src="./images/body-1.png" alt="느린 원본 저장소와 가까운 캐시를 대비해, 자주 쓰는 데이터를 가까이 두는 모습"><figcaption>느린 원본 저장소와 가까운 캐시를 대비해, 자주 쓰는 데이터를 가까이 두는 모습</figcaption></figure>
+<hr>
+<h2>캐시 히트와 캐시 미스</h2>
+<p>찾는 값이 캐시에 있으면 <strong>캐시 히트(hit)</strong>입니다. 곧바로 꺼내 쓰니 아주 빠릅니다.</p>
+<p>없으면 <strong>캐시 미스(miss)</strong>입니다. 이때는 어쩔 수 없이 느린 원본까지 다녀와야 합니다. 대신 가져온 김에 캐시에 넣어 두어, 다음번엔 히트가 되도록 합니다.</p>
+<p>그래서 캐시의 성능은 <strong>히트율</strong>로 가늠합니다. 열 번 중 아홉 번을 캐시에서 해결하면, 그만큼 전체가 빨라집니다.</p>
+<p>관건은 무엇을 남기고 무엇을 버릴지입니다. 공간은 한정돼 있으니, 오래 안 쓴 값부터 밀어내는 식으로 자리를 관리합니다.</p>
+<figure><img src="./images/body-2.png" alt="요청이 캐시에 있으면 히트, 없으면 원본까지 가는 미스로 갈라지는 흐름도"><figcaption>요청이 캐시에 있으면 히트, 없으면 원본까지 가는 미스로 갈라지는 흐름도</figcaption></figure>
+<hr>
+<h2>캐시 무효화 — 가장 어려운 문제</h2>
+<p>캐시에는 함정이 하나 있습니다. 원본이 바뀌었는데 사본이 옛날 값 그대로라면, 우리는 <strong>틀린 값</strong>을 빠르게 받게 됩니다.</p>
+<p>그래서 캐시는 사본을 언제 버릴지 정해야 합니다. 흔한 방법은 두 가지입니다.</p>
+<p><strong>만료(expiration)</strong>는 &quot;이 값은 5분만 유효&quot; 하는 식으로 시간을 정해 두는 방식입니다. 시간이 지나면 자동으로 버리고 새로 가져옵니다.</p>
+<p><strong>갱신(invalidation)</strong>은 원본이 바뀌는 순간 해당 사본을 곧바로 무효로 만드는 방식입니다. 정확하지만 관리가 까다롭습니다.</p>
+<blockquote><p>&quot;컴퓨터 과학에서 어려운 것은 두 가지, 캐시 무효화와 이름 짓기다.&quot;</p></blockquote>
+<p>농담처럼 도는 말이지만, 빠름과 정확함 사이의 줄타기가 그만큼 어렵다는 뜻입니다.</p>
+<figure><img src="./images/body-3.png" alt="시간 기반 만료와 원본 변경 시 갱신, 두 무효화 방식을 나란히 비교"><figcaption>시간 기반 만료와 원본 변경 시 갱신, 두 무효화 방식을 나란히 비교</figcaption></figure>
+<hr>
+<h2>우리 곁의 캐시들</h2>
+<p>캐시는 특별한 기술이 아니라, 컴퓨터 곳곳에 겹겹이 숨어 있습니다.</p>
+<p><strong>CPU 캐시</strong>는 자주 쓰는 계산 데이터를 프로세서 바로 옆에 둡니다. <strong>메모리 캐시</strong>는 데이터베이스 조회 결과 같은 값을 메모리에 담아 반복 질의를 줄입니다.</p>
+<p><strong>브라우저 캐시</strong>는 한 번 받은 이미지와 스크립트를 저장해, 다시 방문할 때 내려받지 않게 합니다. <strong>CDN</strong>은 전 세계에 흩어진 서버에 콘텐츠 사본을 두어, 사용자와 가장 가까운 곳에서 전달합니다.</p>
+<p>층은 다르지만 원리는 하나입니다. 자주 쓰는 것을 가까이 두어, 같은 일을 두 번 하지 않는 것입니다.</p>
+<figure><img src="./images/body-4.png" alt="CPU·메모리·브라우저·CDN 네 가지 캐시 활용 예를 카드로 정리"><figcaption>CPU·메모리·브라우저·CDN 네 가지 캐시 활용 예를 카드로 정리</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다. 캐시는 자주 쓰는 데이터를 가까이 저장해 속도를 얻는 기술입니다. 찾으면 히트, 없으면 미스이고, 히트율이 성능을 좌우합니다. 다만 원본이 바뀌면 만료나 갱신으로 사본을 비워 줘야 정확함을 잃지 않습니다.</p>
+<p>빠른 화면 뒤에는 이렇게 조용히 답을 기억해 두는 장치들이 있습니다. 다음에 두 번째 클릭이 유난히 빠르게 느껴진다면, 어딘가의 캐시가 일을 대신 해 준 덕분이라고 생각하셔도 좋겠습니다.</p>
+<div class="tags"><span>#캐시</span> <span>#Cache</span> <span>#캐시히트</span> <span>#캐시무효화</span> <span>#CDN</span> <span>#브라우저캐시</span> <span>#IT교양</span> <span>#성능최적화</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

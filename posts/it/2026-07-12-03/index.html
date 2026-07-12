@@ -31,7 +31,8 @@ tr:nth-child(even) td{background:#fafbfc;}
 .tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
 .tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
 strong{font-weight:700;}
-</style><style id="site-chrome-css">
+</style>
+<style id="site-chrome-css">
   #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
   #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
     padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
@@ -71,7 +72,9 @@ strong{font-weight:700;}
 </head>
 <body>
 <div id="read-progress"></div>
-<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+
+<div class="wrap">
 <div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
 <h1>트랜잭션과 ACID</h1>
 <p class="subtitle">데이터베이스는 어떻게 정합성을 지키나</p>
@@ -123,7 +126,10 @@ strong{font-weight:700;}
 <p>정리하면 이렇습니다. 트랜잭션은 여러 동작을 하나로 묶고, ACID는 그 묶음이 지켜야 할 약속입니다. 커밋과 롤백이 원자성을 실현하고, 격리 수준은 안전과 성능 사이의 선택지를 줍니다.</p>
 <p>데이터베이스가 조용히 지켜 주는 이 원칙들 덕분에, 우리는 이체 버튼을 누르고 나서 결과를 다시 확인하지 않아도 됩니다. 그 믿음의 밑바탕이 무엇인지 알고 나면, 익숙한 화면 뒤의 설계가 조금 달리 보이실 것입니다.</p>
 <div class="tags"><span>#데이터베이스</span> <span>#트랜잭션</span> <span>#ACID</span> <span>#격리수준</span> <span>#커밋롤백</span> <span>#IT교양</span> <span>#백엔드</span> <span>#데이터정합성</span></div>
-</div><button id="to-top" aria-label="맨 위로">↑</button>
+</div>
+
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
   var root=document.documentElement, KEY='spk-theme';

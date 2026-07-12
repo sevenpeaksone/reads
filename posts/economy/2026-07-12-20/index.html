@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>비교우위</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2bb673;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#2bb673;border-color:#2bb673">경제</div>
+<h1>비교우위</h1>
+<p class="subtitle">왜 모든 나라가 무역으로 이득을 보는가</p>
+<figure><img src="./images/thumbnail.png" alt="비교우위와 무역의 이득을 상징하는 도해"><figcaption>비교우위와 무역의 이득을 상징하는 도해</figcaption></figure>
+<p>이번 글에서는 리카도의 비교우위를 정리해 보겠습니다.</p>
+<p>한 나라가 모든 것을 더 잘 만든다면, 그 나라는 굳이 무역할 이유가 없어 보입니다. 그런데 현실의 무역은 그런 나라끼리도 활발히 이루어집니다. 200년 전 리카도가 내놓은 답이 바로 비교우위입니다.</p>
+<p>핵심은 &quot;무엇을 더 잘하느냐&quot;가 아니라 &quot;무엇을 포기하고 만드느냐&quot;에 있습니다. 하나씩 짚어 보겠습니다.</p>
+<hr>
+<h2>절대우위와 비교우위는 다르다</h2>
+<p><strong>절대우위</strong>는 같은 자원으로 더 많이 만드는 능력입니다. 한 나라가 옷도 술도 더 싸게 만든다면, 두 재화 모두에서 절대우위를 가집니다.</p>
+<p>여기서 흔한 오해가 생깁니다. 모든 것을 더 잘 만드는 나라는 무역할 필요가 없다는 생각입니다.</p>
+<p>리카도는 아니라고 답합니다. 중요한 것은 <strong>비교우위</strong>, 즉 상대적으로 더 잘하는 분야입니다. 아무리 뒤처진 나라라도, 그나마 덜 뒤처진 분야는 반드시 있습니다.</p>
+<figure><img src="./images/body-1.png" alt="절대우위와 비교우위의 차이를 좌우로 대비한 도해"><figcaption>절대우위와 비교우위의 차이를 좌우로 대비한 도해</figcaption></figure>
+<hr>
+<h2>기회비용이라는 열쇠</h2>
+<p>비교우위를 재는 자는 <strong>기회비용</strong>입니다. 어떤 것을 만들기 위해 포기해야 하는 다른 것의 양입니다.</p>
+<p>옷 한 벌을 만드느라 술 두 병을 포기해야 한다면, 그 옷의 기회비용은 술 두 병입니다.</p>
+<p>두 나라가 같은 재화를 만들 때, 기회비용이 더 낮은 쪽이 그 재화에 비교우위를 가집니다. 절대적인 생산량이 아니라, 포기하는 양의 크기가 기준입니다.</p>
+<p>바로 이 관점 덕분에, 모든 것에 뒤처진 나라도 반드시 어딘가에 비교우위를 가지게 됩니다.</p>
+<figure><img src="./images/body-2.png" alt="두 나라·두 재화의 생산성을 비교한 표 형태 도해"><figcaption>두 나라·두 재화의 생산성을 비교한 표 형태 도해</figcaption></figure>
+<hr>
+<h2>특화와 교환의 이득</h2>
+<div class="tablewrap"><table><thead><tr><th></th><th>옷(1인)</th><th>술(1인)</th></tr></thead><tbody><tr><td>A국</td><td>6벌</td><td>3병</td></tr><tr><td>B국</td><td>1벌</td><td>2병</td></tr></tbody></table></div>
+<p>A국은 두 재화 모두 더 많이 만듭니다. 그러나 A국이 옷을 포기하면 술이 적게 늘고, B국은 옷을 포기해도 잃는 술이 적습니다.</p>
+<p>기회비용으로 보면 A국은 옷에, B국은 술에 비교우위가 있습니다. 각자 잘하는 쪽에 <strong>특화</strong>하고 서로 <strong>교환</strong>하면, 두 나라의 총생산이 늘어납니다.</p>
+<p>놀랍게도 뒤처진 B국조차 이득을 봅니다. 무역은 승자와 패자를 가르는 싸움이 아니라, 함께 파이를 키우는 협업에 가깝습니다.</p>
+<figure><img src="./images/body-3.png" alt="특화 후 교환으로 양국 총생산이 늘어나는 흐름도"><figcaption>특화 후 교환으로 양국 총생산이 늘어나는 흐름도</figcaption></figure>
+<hr>
+<h2>현실의 한계</h2>
+<p>물론 교과서의 결론이 현실에서 그대로 실현되지는 않습니다.</p>
+<p><strong>운송비와 관세</strong>는 교환의 이득을 갉아먹습니다. 이득보다 비용이 크면 무역은 일어나지 않습니다.</p>
+<p><strong>산업 조정 비용</strong>도 있습니다. 특화 과정에서 사양 산업의 노동자는 일자리를 잃습니다. 나라 전체는 이득을 봐도, 그 손실이 특정 집단에 몰릴 수 있습니다.</p>
+<figure><img src="./images/body-4.png" alt="운송비·관세·산업 조정 비용 등 비교우위의 현실적 한계를 카드로 정리한 도해"><figcaption>운송비·관세·산업 조정 비용 등 비교우위의 현실적 한계를 카드로 정리한 도해</figcaption></figure>
+<p>그래서 비교우위는 &quot;무역은 항상 옳다&quot;는 구호가 아니라, 왜 교환에서 이득이 생기는지를 설명하는 틀로 읽어야 합니다.</p>
+<p>정리하면, 절대우위가 아니라 기회비용이 무역의 방향을 정합니다. 각자 비교우위에 특화해 교환하면 모두가 이득을 봅니다. 다만 그 이득을 실제로 누리려면 비용과 분배의 문제를 함께 풀어야 합니다.</p>
+<div class="tags"><span>#경제</span> <span>#비교우위</span> <span>#리카도</span> <span>#무역</span> <span>#기회비용</span> <span>#국제경제</span> <span>#경제교양</span> <span>#자유무역</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

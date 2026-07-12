@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI가 삼킨 메모리</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#3fb6a8;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#3fb6a8;border-color:#3fb6a8">산업 뉴스 해설</div>
+<h1>AI가 삼킨 메모리</h1>
+<p class="subtitle">D램·낸드 슈퍼사이클과 품귀의 청구서</p>
+<figure><img src="./images/thumbnail.png" alt="산업 뉴스 해설, AI 서버로 빨려드는 메모리 반도체를 상징하는 그래픽"><figcaption>산업 뉴스 해설, AI 서버로 빨려드는 메모리 반도체를 상징하는 그래픽</figcaption></figure>
+<p>메모리 반도체 값이 무섭게 오르고 있습니다. 시장조사기관 트렌드포스는 최근 올해 3분기 범용 D램 가격이 직전 분기보다 13~18% 더 오를 것으로 내다봤습니다. 이미 크게 뛴 값이 또 뛴다는 이야기입니다. 무슨 일이 있었고, 왜 중요하며, 무엇을 지켜봐야 하는지 정리해 보겠습니다.</p>
+<p>원인은 하나로 모입니다. 인공지능입니다.</p>
+<hr>
+<h2>무슨 일이 있었나</h2>
+<p>가격 상승 폭이 이례적입니다. 올해 2분기 범용 D램 가격은 1분기보다 58~63%, 낸드플래시는 55~60% 급등했습니다. 분기 한 번 만의 변화입니다.</p>
+<p>모바일·서버용 12GB LPDDR5X는 상승률이 89%에 달했습니다. 평균 판매가가 개당 77.1달러에서 145.9달러로 거의 두 배가 됐습니다. D램 현물 가격은 한때 21달러로 사상 최고치를 새로 썼습니다.</p>
+<figure><img src="./images/body-1.png" alt="표 — 2026년 분기별 D램·낸드 가격 상승률과 3분기 전망"><figcaption>표 — 2026년 분기별 D램·낸드 가격 상승률과 3분기 전망</figcaption></figure>
+<hr>
+<h2>왜 중요한가</h2>
+<p>메모리는 반도체 산업의 기초 체력입니다. 이 값이 흔들리면 전자산업 전체가 흔들립니다.</p>
+<p>지금의 상승은 단순한 경기 반등이 아닙니다. AI 데이터센터 투자와 차세대 GPU 양산이 만든 구조적 품귀입니다. 뱅크오브아메리카는 올해 HBM 시장 규모를 546억 달러로, 1년 전보다 58% 큰 규모로 추산했습니다.</p>
+<figure><img src="./images/body-2.png" alt="카드 — 메모리 슈퍼사이클을 만든 세 가지 힘"><figcaption>카드 — 메모리 슈퍼사이클을 만든 세 가지 힘</figcaption></figure>
+<hr>
+<h2>한정된 웨이퍼, AI로 쏠리다</h2>
+<p>핵심은 생산능력 배분입니다.</p>
+<p>D램을 찍어 낼 수 있는 웨이퍼 물량은 정해져 있습니다. 제조사들이 그 한정된 물량을 값비싼 HBM과 AI 서버용 메모리에 우선 배정하면서, 정작 스마트폰과 PC에 들어가는 범용 메모리 물량이 쪼그라들었습니다. AI가 먹고 남은 자리를 소비자 제품이 다투는 구조입니다.</p>
+<p>SK하이닉스는 1분기 글로벌 HBM 시장에서 점유율 58.1%로 1위를 지켰습니다. 고부가 제품에 무게를 실을 이유가 분명한 셈입니다.</p>
+<figure><img src="./images/body-3.png" alt="대비 — AI 서버용 메모리 vs 소비자용 범용 메모리"><figcaption>대비 — AI 서버용 메모리 vs 소비자용 범용 메모리</figcaption></figure>
+<hr>
+<h2>품귀의 청구서는 소비자에게</h2>
+<p>기업의 호황은 소비자에게 청구서로 돌아옵니다.</p>
+<p>메모리 값 상승은 스마트폰, PC, TV 같은 전자제품 가격 인상으로 이어질 가능성이 큽니다. 완제품 업체들이 오른 부품값을 판매가에 반영하기 때문입니다. 이미 일부 제품군에서 가격 조정 움직임이 감지됩니다.</p>
+<figure><img src="./images/body-4.png" alt="단계 — 메모리 값 상승이 소비자 가격으로 이어지는 경로"><figcaption>단계 — 메모리 값 상승이 소비자 가격으로 이어지는 경로</figcaption></figure>
+<hr>
+<h2>앞으로의 전망</h2>
+<p>당분간 상승 기조는 이어질 전망입니다. 다만 속도는 조금 달라집니다. 3분기 낸드 상승률은 10~15%로, 소비자 수요 둔화와 기저효과 때문에 완화될 것으로 분석됩니다.</p>
+<p>관건은 두 가지입니다. 첫째, AI 투자 열기가 언제까지 이 수요를 떠받치느냐입니다. 둘째, 제조사의 증설이 품귀를 얼마나 빨리 풀어 주느냐입니다. 공급이 따라붙기 전까지는 값의 방향이 쉽게 꺾이지 않을 것입니다.</p>
+<p>정리하면, AI가 만든 메모리 호황은 반도체 기업엔 반가운 계절입니다. 그러나 그 온기가 소비자 지갑을 얼마나 데울지는 아직 열린 물음입니다.</p>
+<p>참고: 트렌드포스, 서울경제, 한경매거진, 뱅크오브아메리카, SK하이닉스 뉴스룸</p>
+<div class="tags"><span>#산업뉴스해설</span> <span>#반도체</span> <span>#메모리슈퍼사이클</span> <span>#D램</span> <span>#낸드플래시</span> <span>#HBM</span> <span>#AI반도체</span> <span>#SK하이닉스</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
