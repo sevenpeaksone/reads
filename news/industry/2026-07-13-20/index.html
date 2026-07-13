@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>누리호 5차 발사 초읽기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#3fb6a8;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#3fb6a8;border-color:#3fb6a8">산업 뉴스 해설</div>
+<h1>누리호 5차 발사 초읽기</h1>
+<p class="subtitle">위성 15기 싣고 민간 우주경제의 문을 연다</p>
+<figure><img src="./images/thumbnail.png" alt="발사대에 선 누리호와 카운트다운 숫자, 하단에 &#x27;2026 3분기&#x27; 표기"><figcaption>발사대에 선 누리호와 카운트다운 숫자, 하단에 &#x27;2026 3분기&#x27; 표기</figcaption></figure>
+<p>한국형 발사체 누리호(KSLV-II)의 다섯 번째 비행이 다가오고 있습니다. 우주항공청(KASA)은 올해 3분기, 이르면 9월 발사를 목표로 준비 중입니다. 이번 임무는 단순한 재도전이 아닙니다. 국내 우주산업이 민간 주도 체제로 넘어가는 첫 본격 사이클의 신호탄입니다.</p>
+<hr>
+<h2>무슨 일이 예정됐나 — 위성 15기의 동반 비행</h2>
+<p>이번 5차 발사의 핵심은 &#x27;한 번에 여럿&#x27;입니다. KAIST 인공위성연구소가 개발한 초소형군집위성 5기(2~6호)와 국내 산업체·대학·지자체가 만든 부탑재위성 10기 등, 총 15기가 함께 태양동기궤도로 향할 예정입니다. 초소형군집위성은 여러 기를 무리 지어 운용해 같은 지역을 더 자주 촬영하는 방식으로 알려졌습니다. 관측 주기를 줄이는 차세대 운용 개념이 실전에 오르는 셈입니다.</p>
+<figure><img src="./images/body-1.png" alt="탑재 위성 구성표 — 초소형군집위성과 부탑재위성 수량 비교 그래픽"><figcaption>탑재 위성 구성표 — 초소형군집위성과 부탑재위성 수량 비교 그래픽</figcaption></figure>
+<hr>
+<h2>왜 중요한가 — 기술자립에서 &#x27;우주경제&#x27;로</h2>
+<p>발사가 주목받는 진짜 이유는 그 다음에 있습니다. 누리호의 체계종합은 한화에어로스페이스로 이관됐고, 정부는 반복발사를 위한 통합계약을 추진하고 있습니다. 발사를 국가가 도맡던 시대에서, 기업이 발사 서비스를 책임지는 구조로 옮겨가는 과정입니다.</p>
+<blockquote><p>&quot;성공적인 4차 발사에 이어, 이제 민간이 우주개발의 주역으로 서는 단계입니다.&quot;</p></blockquote>
+<p>예산도 이를 뒷받침합니다. KASA의 2026년 예산은 1조 1,201억 원으로 전년 대비 16.1% 늘었고, 이 가운데 연구개발(R&amp;D)에 9,495억 원이 배정됐습니다. 민간 산업 생태계 조성에도 별도 재원이 편성됐습니다. 다만 아직 발사 단가·주기는 검증 단계여서, 진정한 &#x27;경제성&#x27;은 반복 발사의 성패에 달려 있습니다.</p>
+<figure><img src="./images/body-2.png" alt="정부 주도에서 민간 주도로 넘어가는 우주개발 구조 대비도"><figcaption>정부 주도에서 민간 주도로 넘어가는 우주개발 구조 대비도</figcaption></figure>
+<hr>
+<h2>준비는 어디까지 왔나 — 총조립에서 발사까지</h2>
+<p>6월 말 기준 1·2·3단의 단별 조립이 끝나고, 이들을 하나로 합치는 총조립 단계에 들어간 것으로 전해졌습니다. 남은 절차는 명확합니다. 총조립을 마치고, 8월 초 발사관리위원회에서 정확한 발사일을 확정한 뒤, 9월 발사를 추진한다는 계획입니다. 물론 기상과 기술 점검에 따라 일정은 조정될 수 있습니다.</p>
+<figure><img src="./images/body-3.png" alt="단 조립 → 총조립 → 발사관리위원회 → 발사 단계 흐름도"><figcaption>단 조립 → 총조립 → 발사관리위원회 → 발사 단계 흐름도</figcaption></figure>
+<hr>
+<h2>세계는 지금 — 달과 화성으로 향하는 2026</h2>
+<p>한국만 움직이는 것은 아닙니다. 2026년은 세계적으로 우주탐사의 분수령입니다. 중국은 8월 창어 7호를 쏘아 달 남극의 물 얼음을 탐사할 예정이고, 미국 NASA는 여름 큐브샛 6기로 구성된 SunRISE로 태양 전파 폭발을 관측합니다. 일본 JAXA는 화성 위성 포보스에서 사상 첫 표면 시료 채취를 노리는 MMX 발사를 준비 중입니다. 누리호 5차는 이 거대한 흐름 속에서, 한국이 2029년 달 통신궤도선을 향해 내딛는 디딤돌입니다.</p>
+<figure><img src="./images/body-4.png" alt="2026년 주요 우주 임무 지도 — 한국·중국·미국·일본의 목적지 비교"><figcaption>2026년 주요 우주 임무 지도 — 한국·중국·미국·일본의 목적지 비교</figcaption></figure>
+<hr>
+<p>정리하면, 누리호 5차 발사는 &#x27;위성을 올리는 일&#x27;을 넘어 우주개발의 주체가 바뀌는 전환점입니다. 성과는 분명하지만, 반복 발사의 경제성과 안정성이라는 과제도 함께 남아 있습니다. 카운트다운은 이미 시작됐습니다. 9월, 고흥의 하늘을 다시 올려다볼 이유가 여기 있습니다.</p>
+<div class="tags"><span>#누리호</span> <span>#KSLVII</span> <span>#우주항공청</span> <span>#KASA</span> <span>#초소형군집위성</span> <span>#민간우주경제</span> <span>#한화에어로스페이스</span> <span>#우주개발</span></div>
+<p>참고 소스</p>
+<ul><li>https://www.kasa.go.kr/prog/bbsArticle/BBSMSTR_000000000010/view.do?bbsId=BBSMSTR_000000000010&amp;nttId=B000000000716Fa8rJ3</li><li>https://www.e-focus.co.kr/news/articleView.html?idxno=3002300</li><li>https://www.newspim.com/news/view/20260625000877</li><li>https://www.kasa.go.kr/bbs/BBSMSTR_000000000010/view.do?nttId=B000000002496Fm3uW7</li><li>https://www.kasa.go.kr/bbs/BBSMSTR_000000000010/view.do?nttId=B000000002629Kq1oI1</li><li>https://www.mt.co.kr/tech/2026/01/01/2026010114192716263</li><li>https://en.wikipedia.org/wiki/2026_in_spaceflight</li><li>https://www.sedaily.com/NewsView/2K767AYIVJ</li></ul>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

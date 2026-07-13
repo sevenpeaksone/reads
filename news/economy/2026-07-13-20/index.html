@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>코스피 7000선 붕괴</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2bb673;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/economy/index.html">경제 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#2bb673;border-color:#2bb673">경제 뉴스 해설</div>
+<h1>코스피 7000선 붕괴</h1>
+<p class="subtitle">반도체가 흔들리자 지수도 무너졌습니다</p>
+<figure><img src="./images/thumbnail.png" alt="붉게 꺾인 코스피 지수 그래프 위로 &#x27;7000선 붕괴&#x27;가 새겨진 대표 그래픽"><figcaption>붉게 꺾인 코스피 지수 그래프 위로 &#x27;7000선 붕괴&#x27;가 새겨진 대표 그래픽</figcaption></figure>
+<p>7월 13일, 코스피가 두 달 만에 7000선 아래로 내려앉았습니다. 반도체 대형주가 한꺼번에 무너지면서 지수는 장중 급락했고, 매도 사이드카에 이어 서킷브레이커까지 발동됐습니다. 무슨 일이 있었는지, 왜 중요한지, 앞으로는 어떻게 볼지 차분히 짚어 보겠습니다.</p>
+<h2>무슨 일이 벌어졌나</h2>
+<p>이날 코스피는 전 거래일보다 약 8.95% 내린 6,806대로 마감했습니다. 지난 5월 처음 7000선을 밟은 지 약 두 달 만의 후퇴입니다. 낙폭을 키운 것은 시가총액 최상위 반도체주였습니다. SK하이닉스는 12%가량 급락해 &#x27;200만닉스&#x27;가 깨지며 190만 원대로 내려왔고, 삼성전자도 7%대 떨어져 26만 원대에서 거래됐습니다.</p>
+<p>장중 코스피200 선물이 급락하자 한국거래소는 오전 10시 34분 매도 사이드카를 발동했습니다. 발동 당시 선물지수는 약 5.23% 하락한 상태였습니다. 이어 지수가 8% 안팎까지 밀리며 서킷브레이커가 걸려 거래가 일시 중단되기도 했습니다.</p>
+<figure><img src="./images/body-1.png" alt="표 — 7월 13일 시장 주요 지표(코스피 종가, SK하이닉스·삼성전자 낙폭, 사이드카)"><figcaption>표 — 7월 13일 시장 주요 지표(코스피 종가, SK하이닉스·삼성전자 낙폭, 사이드카)</figcaption></figure>
+<hr>
+<h2>왜 급락했나</h2>
+<p>방아쇠는 실적 경계감이었습니다. 일부 증권사가 SK하이닉스의 2분기 영업이익이 시장 컨센서스를 밑돌 수 있다고 지적했고, 2026~2027년 이익 추정치도 하향했습니다. 그간 지수를 끌어올린 주도주였던 만큼, 눈높이 조정이 곧바로 대규모 차익실현으로 번졌습니다.</p>
+<p>여기에 대외 변수가 겹쳤습니다. 주말 사이 호르무즈 해협을 둘러싼 미국과 이란의 갈등이 다시 불거지며 국제 유가가 급등했고, 위험자산 회피 심리를 자극했습니다. 프로그램 매물이 쏟아지자 사이드카가, 낙폭이 커지자 서킷브레이커가 순서대로 발동됐습니다.</p>
+<figure><img src="./images/body-2.png" alt="단계도 — 실적 경고에서 서킷브레이커까지 이어진 급락 연쇄"><figcaption>단계도 — 실적 경고에서 서킷브레이커까지 이어진 급락 연쇄</figcaption></figure>
+<blockquote><p>&quot;지수는 무너졌지만, 실적이라는 토대까지 무너진 것은 아닙니다.&quot;</p></blockquote>
+<hr>
+<h2>수출은 역대 최고인데</h2>
+<p>역설적이게도 실물 지표는 정반대였습니다. 7월 1~10일 수출은 약 298억 달러로 같은 기간 기준 역대 최대를 기록했습니다. 1년 전보다 53.9% 늘었고, 무역수지도 약 64억 달러 흑자였습니다.</p>
+<p>특히 반도체 수출이 112억 달러로 전년 동기 대비 193% 급증해 전체 수출의 약 38%를 차지했습니다. AI 인프라 투자 붐에 메모리 고정가격이 뛴 결과입니다. 실적은 뜨거운데 주가는 얼어붙은 셈이니, 이번 하락이 &#x27;펀더멘털 훼손&#x27;이라기보다 &#x27;과열 부담의 되돌림&#x27;이라는 해석에 무게가 실립니다.</p>
+<figure><img src="./images/body-3.png" alt="대비 — 역대 최고 수출과 급락한 증시의 극명한 온도차"><figcaption>대비 — 역대 최고 수출과 급락한 증시의 극명한 온도차</figcaption></figure>
+<hr>
+<h2>앞으로 어떻게 볼까</h2>
+<p>증권가의 시선은 엇갈립니다. 다수는 이번 조정을 추세 전환보다 &#x27;속도 조절&#x27;로 봅니다. HBM 실수요가 올해 95% 늘 것으로 전망되는 등 메모리 호황의 골격은 유지되고 있다는 근거입니다. 다만 변수는 남아 있습니다. 실제 2분기 실적이 우려를 확인시킬지, 유가·환율 같은 대외 여건이 어디로 흐를지가 관건입니다.</p>
+<p>결국 관전 포인트는 &#x27;이익&#x27;입니다. 실적 발표가 눈높이를 되돌려 준다면 반등 여지가 있지만, 기대가 꺾인다면 조정은 길어질 수 있습니다.</p>
+<figure><img src="./images/body-4.png" alt="카드 — 향후 관전 포인트 3가지(속도조절론·실적 변수·대외 변수)"><figcaption>카드 — 향후 관전 포인트 3가지(속도조절론·실적 변수·대외 변수)</figcaption></figure>
+<p>이 글은 정보 제공을 위한 해설이며, 특정 종목의 매수·매도 등 투자 권유가 아닙니다.</p>
+<hr>
+<p>정리하면, 실물은 역대급 호황을 이어가는데 증시는 하루 만에 두 달치 상승분을 되돌렸습니다. 숫자의 크기보다 방향의 어긋남이 더 눈에 띄는 하루였습니다. 지수의 급락이 성장의 종료를 뜻하는지, 잠깐의 숨 고르기인지는 다가올 실적이 답해 줄 것입니다.</p>
+<div class="tags"><span>#코스피</span> <span>#7000선붕괴</span> <span>#반도체</span> <span>#SK하이닉스</span> <span>#삼성전자</span> <span>#서킷브레이커</span> <span>#반도체수출</span> <span>#증시</span></div>
+<p>참고 소스</p>
+<ul><li>https://www.newspim.com/news/view/20260713000980</li><li>https://www.etoday.co.kr/news/view/2603073</li><li>https://www.khan.co.kr/article/202607131340001</li><li>https://www.fnnews.com/news/202607131101556874</li><li>https://www.etoday.co.kr/news/view/2602953</li><li>https://biz.heraldcorp.com/article/10806582</li><li>https://www.fnnews.com/news/202607050156526936</li></ul>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

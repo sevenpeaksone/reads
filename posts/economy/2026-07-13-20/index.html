@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>외부효과</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2bb673;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#2bb673;border-color:#2bb673">경제</div>
+<h1>외부효과</h1>
+<p class="subtitle">시장이 놓치는 비용과 편익</p>
+<figure><img src="./images/thumbnail.png" alt="공장 굴뚝 연기가 이웃 마을로 흘러가는 단순 그래픽, 가격표에 잡히지 않는 &#x27;숨은 비용&#x27;을 화살표로 표현"><figcaption>공장 굴뚝 연기가 이웃 마을로 흘러가는 단순 그래픽, 가격표에 잡히지 않는 &#x27;숨은 비용&#x27;을 화살표로 표현</figcaption></figure>
+<p>우리는 물건값에 모든 비용이 담겨 있다고 생각합니다. 그러나 시장이 미처 계산하지 못하는 비용과 편익이 있습니다. 경제학은 이를 외부효과라 부릅니다. 오늘은 이 개념을 차근차근 풀어보겠습니다.</p>
+<hr>
+<h2>외부효과란 무엇인가</h2>
+<p>외부효과는 한 경제주체의 행위가 제3자에게 영향을 주지만, 그에 대한 보상이 오가지 않는 현상을 말합니다. 가격이라는 신호를 거치지 않고 이익이나 손해가 전달된다는 점이 핵심입니다.</p>
+<p>방향에 따라 둘로 나뉩니다. 남에게 손해를 끼치는 외부불경제와, 남에게 이득을 주는 외부경제입니다. 공장 매연이나 소음은 전자에 속하고, 이웃의 예방접종이 나의 감염 위험을 낮추는 것은 후자에 속합니다.</p>
+<figure><img src="./images/body-1.png" alt="외부불경제와 외부경제를 좌우로 나눈 대비 그래픽, 왼쪽은 매연, 오른쪽은 백신"><figcaption>외부불경제와 외부경제를 좌우로 나눈 대비 그래픽, 왼쪽은 매연, 오른쪽은 백신</figcaption></figure>
+<hr>
+<h2>사적비용과 사회적비용의 틈</h2>
+<p>기업이 물건을 만들며 실제로 지불하는 돈이 사적비용입니다. 여기에 오염 피해처럼 사회가 대신 떠안는 몫을 더한 것이 사회적비용입니다.</p>
+<p>문제는 이 둘 사이의 틈에서 생깁니다. 기업은 사적비용만 보고 결정하는데요. 그래서 오염을 일으키는 상품은 사회가 원하는 양보다 많이 생산되고, 백신처럼 이로운 것은 오히려 적게 소비됩니다.</p>
+<blockquote><p>&quot;가격표에 적히지 않은 비용은 사라지는 것이 아니라 누군가에게 떠넘겨질 뿐입니다.&quot;</p></blockquote>
+<figure><img src="./images/body-2.png" alt="사적비용과 사회적비용의 격차를 계단식 막대로 보여주는 그래픽"><figcaption>사적비용과 사회적비용의 격차를 계단식 막대로 보여주는 그래픽</figcaption></figure>
+<hr>
+<h2>왜 시장이 실패하는가</h2>
+<p>시장은 보통 자원을 효율적으로 배분합니다. 그러나 외부효과가 끼면 이 조율이 어긋납니다. 각자는 자신의 이익과 비용만 따지므로, 사회 전체의 손익과 어긋난 선택을 하게 됩니다.</p>
+<p>그 결과 자원이 적정 수준으로 쓰이지 못합니다. 경제학은 이런 상태를 시장실패라 부릅니다. 시장이 무능해서가 아니라, 신호에 담기지 않은 정보가 있기 때문입니다.</p>
+<figure><img src="./images/body-3.png" alt="외부효과가 시장실패로 이어지는 경로를 단계별로 보여주는 도해"><figcaption>외부효과가 시장실패로 이어지는 경로를 단계별로 보여주는 도해</figcaption></figure>
+<hr>
+<h2>어떻게 바로잡는가</h2>
+<p>해법의 공통 목표는 외부효과를 가격 안으로 끌어들이는 &#x27;내부화&#x27;입니다. 대표적으로 네 가지가 있습니다.</p>
+<p>피구세는 오염량만큼 세금을 매겨 사적비용을 사회적비용에 맞춥니다. 반대로 이로운 활동에는 보조금을 줍니다. 코즈 정리는 재산권이 분명하고 협상비용이 낮다면 당사자끼리 스스로 해결할 수 있다고 봅니다. 배출권 거래제는 오염 배출 권리를 시장에서 사고팔게 합니다.</p>
+<p>다만 완벽한 해법은 없습니다. 피해액을 정확히 매기기 어렵고, 협상비용이 크면 코즈식 해결은 힘듭니다. 각 방식의 장단점을 견주어 상황에 맞게 골라야 합니다.</p>
+<figure><img src="./images/body-4.png" alt="피구세·보조금·코즈정리·배출권거래 네 가지 해법을 아이콘 카드로 정리한 그래픽"><figcaption>피구세·보조금·코즈정리·배출권거래 네 가지 해법을 아이콘 카드로 정리한 그래픽</figcaption></figure>
+<hr>
+<p>외부효과는 시장이 놓치는 비용과 편익에 관한 이야기입니다. 매연도, 백신도 결국 가격이 담지 못한 신호였습니다. 값을 매기기 어려운 것들을 어떻게 셈에 넣을지 고민하는 순간, 우리는 시장을 조금 더 넓게 보게 됩니다.</p>
+<div class="tags"><span>#외부효과</span> <span>#외부불경제</span> <span>#외부경제</span> <span>#시장실패</span> <span>#피구세</span> <span>#코즈정리</span> <span>#배출권거래제</span> <span>#교양경제</span></div>
+<p>참고 소스</p>
+<ul><li>https://www.moef.go.kr/sisa/dictionary/detail?idx=1906</li><li>https://eiec.kdi.re.kr/material/clickView.do?click_yymm=201512&amp;cidx=1461</li><li>https://eiec.kdi.re.kr/material/clickView.do?click_yymm=201512&amp;cidx=1463</li><li>https://ko.wikipedia.org/wiki/%EC%99%B8%EB%B6%80%EC%84%B1</li><li>https://ko.wikipedia.org/wiki/%ED%94%BC%EA%B5%AC%EC%84%B8</li><li>https://www.britannica.com/money/environmental-economics/The-Coase-theorem</li><li>https://ets.krx.co.kr/contents/ETS/07/07010000/ETS07010000.jsp</li><li>https://eiec.kdi.re.kr/publish/naraView.do?fcode=00002000040000100009&amp;cidx=12993</li></ul>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

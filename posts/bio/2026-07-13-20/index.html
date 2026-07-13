@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>근육</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#ff7c7c;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#ff7c7c;border-color:#ff7c7c">바이오</div>
+<h1>근육</h1>
+<p class="subtitle">몸을 움직이는 수축의 원리</p>
+<figure><img src="./images/thumbnail.png" alt="근섬유 다발 위로 액틴·미오신 필라멘트가 겹쳐 미끄러지는 단면 그래픽, 굵은 제목"><figcaption>근섬유 다발 위로 액틴·미오신 필라멘트가 겹쳐 미끄러지는 단면 그래픽, 굵은 제목</figcaption></figure>
+<p>우리는 걷고, 숨 쉬고, 심장을 뛰게 하는 모든 순간에 근육을 씁니다. 그런데 근육이 실제로 &#x27;어떻게&#x27; 힘을 내는지는 의외로 덜 알려져 있습니다. 오늘은 근육의 종류부터 수축의 원리까지, 몸속 움직임의 구조를 쉽게 풀어보겠습니다.</p>
+<hr>
+<h2>근육은 세 종류입니다</h2>
+<p>인체 근육은 크게 골격근, 심장근, 평활근 세 가지로 나뉩니다. 골격근은 뼈에 붙어 몸을 움직이고 자세를 잡는 근육으로, 우리 뜻대로 움직일 수 있는 &#x27;수의근&#x27;입니다. 심장근은 오직 심장에만 있으며, 쉬지 않고 스스로 뛰어 혈액을 내보냅니다. 평활근은 위장, 혈관, 방광 같은 내부 장기의 벽을 이룹니다. 삼킨 음식을 밀어 내리는 소화관의 연동운동이 바로 평활근의 일입니다. 심장근과 평활근은 의지와 상관없이 움직이는 &#x27;불수의근&#x27;인데요. 덕분에 우리가 잠든 사이에도 몸속 장기는 멈추지 않습니다.</p>
+<figure><img src="./images/body-1.png" alt="세 근육의 특징을 비교한 3열 표 — 골격근·심장근·평활근의 위치와 조절 방식"><figcaption>세 근육의 특징을 비교한 3열 표 — 골격근·심장근·평활근의 위치와 조절 방식</figcaption></figure>
+<hr>
+<h2>수축의 핵심, 슬라이딩 필라멘트</h2>
+<p>근육이 힘을 내는 원리는 &#x27;슬라이딩 필라멘트(활주설)&#x27;로 설명됩니다. 1954년 두 연구팀이 각각 독립적으로 제안한 이론입니다. 근섬유 안에는 가는 필라멘트인 액틴과 굵은 필라멘트인 미오신이 나란히 겹쳐 있습니다. 수축할 때 미오신의 머리가 액틴을 붙잡아 당기면서, 두 필라멘트가 서로 미끄러져 겹치는 부분이 늘어납니다. 필라멘트 자체는 짧아지지 않지만, 근육 전체는 짧아지며 힘을 냅니다.</p>
+<blockquote><p>&quot;필라멘트는 줄어들지 않습니다. 서로 미끄러져 겹칠 뿐입니다.&quot;</p></blockquote>
+<figure><img src="./images/body-2.png" alt="액틴·미오신이 미끄러지는 과정을 4단계로 나눈 도해"><figcaption>액틴·미오신이 미끄러지는 과정을 4단계로 나눈 도해</figcaption></figure>
+<hr>
+<h2>신호에서 움직임까지</h2>
+<p>수축은 신경 신호에서 시작됩니다. 신호가 근육 세포에 닿으면 세포 안에 저장돼 있던 칼슘이 방출됩니다. 이 칼슘이 액틴의 결합 자리를 덮고 있던 단백질을 밀어내 자리를 엽니다. 그러면 미오신 머리가 그 자리에 붙어 다리를 걸고, ATP 에너지를 써서 액틴을 당깁니다. 이 &#x27;파워 스트로크&#x27;가 반복되며 근육이 짧아집니다. 신호가 멈추면 칼슘이 다시 회수되고, 결합 자리가 닫히며 근육은 이완합니다. 근육이 움직이려면 에너지원인 ATP가 계속 필요한 셈입니다.</p>
+<figure><img src="./images/body-3.png" alt="신경 신호 → 칼슘 방출 → 미오신 결합 3단계 카드"><figcaption>신경 신호 → 칼슘 방출 → 미오신 결합 3단계 카드</figcaption></figure>
+<hr>
+<h2>근섬유와 근육 관리</h2>
+<p>골격근은 근섬유의 성질에 따라 지근(1형)과 속근(2형)으로 나뉩니다. 지근은 산소를 이용한 유산소 대사로 오래 버텨, 마라톤 같은 지구력에 강합니다. 속근은 빠르고 강하게 수축하지만 쉽게 지쳐, 단거리·역도 같은 순간 힘에 유리합니다. 사람은 대체로 두 종류를 비슷한 비율로 갖고 있습니다. 근육은 움직임뿐 아니라 대사에도 중요합니다. 골격근은 식후 혈당을 가장 많이 소비하는 조직이며, 기초대사량의 약 20%를 차지합니다. 근육량이 늘면 인슐린 감수성이 좋아진다는 보고도 있습니다. 근육을 지키는 방법은 크게 두 가지로 모입니다. 저항운동으로 자극을 주고, 충분한 단백질로 재료를 채우는 것입니다. 다만 단백질을 무작정 많이 먹는다고 근육이 더 느는 것은 아니며, 적정량으로 충분하다는 연구도 있습니다.</p>
+<figure><img src="./images/body-4.png" alt="지근과 속근의 특성을 좌우로 대비한 그래픽 — 지구력 대 순간 힘"><figcaption>지근과 속근의 특성을 좌우로 대비한 그래픽 — 지구력 대 순간 힘</figcaption></figure>
+<hr>
+<p>근육은 세 종류로 나뉘지만, 힘을 내는 원리는 액틴과 미오신이 서로 미끄러진다는 하나의 원리로 모입니다. 작은 필라멘트의 움직임이 모여 걸음이 되고 심장 박동이 됩니다. 이 글은 일반적인 정보로, 의학적 조언이 아닙니다. 오늘 계단을 오를 때, 그 안에서 미끄러지는 수많은 필라멘트를 한 번 떠올려 보시면 어떨까요.</p>
+<div class="tags"><span>#근육</span> <span>#근수축</span> <span>#슬라이딩필라멘트</span> <span>#액틴미오신</span> <span>#골격근</span> <span>#근섬유</span> <span>#건강상식</span> <span>#운동</span></div>
+<p>참고 소스</p>
+<ul><li>https://en.wikipedia.org/wiki/Sliding_filament_theory</li><li>https://byjus.com/biology/sliding-filament-theory/</li><li>https://www.ncbi.nlm.nih.gov/books/NBK532258/</li><li>https://training.seer.cancer.gov/anatomy/muscular/types.html</li><li>https://www.nasm.org/resource-center/blog/understanding-fast-twitch-vs-slow-twitch-muscle-fibers</li><li>https://med.libretexts.org/Bookshelves/Anatomy_and_Physiology/Anatomy_and_Physiology_(Boundless)/9:_Muscular_System/9.1:_Introduction_to_the_Nervous_System/9.1B:_Slow-Twitch_and_Fast-Twitch_Muscle_Fibers</li><li>https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5852756/</li><li>https://www.levels.com/blog/why-building-muscle-matters-for-metabolic-health</li></ul>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
