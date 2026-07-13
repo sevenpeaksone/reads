@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>면역계의 원리 — 몸은 어떻게 병원체를 알아보고 기억할까</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1a2e; --navy:#16213e; --purple:#6c5ce7; --teal:#00b894;
+    --grey:#6b7280; --line:#e5e7f0; --soft:#f3f4fb;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Noto Sans KR','Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    background:#eef0f6; color:#26262e; line-height:1.85; -webkit-font-smoothing:antialiased;
+    padding:40px 16px;
+  }
+  .wrap{
+    max-width:700px; margin:0 auto; background:#fff; border-radius:16px;
+    padding:56px 46px 64px; box-shadow:0 6px 30px rgba(20,20,50,.08);
+  }
+  .badge{
+    display:inline-block; background:var(--purple); color:#fff; font-weight:700;
+    font-size:14px; letter-spacing:1px; padding:7px 18px; border-radius:30px;
+  }
+  .date{ color:var(--grey); font-size:14px; margin-left:12px; }
+  h1{
+    font-size:30px; font-weight:700; line-height:1.4; color:var(--ink);
+    margin:22px 0 10px; letter-spacing:-.3px;
+  }
+  h2{
+    font-size:22px; font-weight:700; color:var(--ink); line-height:1.5;
+    margin:44px 0 18px; padding-left:2px;
+  }
+  p{ font-size:16.5px; margin:16px 0; color:#2c2c34; }
+  strong{ color:var(--ink); font-weight:700; }
+  ul{ margin:16px 0 16px 4px; padding-left:22px; }
+  li{ font-size:16.5px; margin:10px 0; color:#2c2c34; }
+  img{ max-width:100%; height:auto; display:block; margin:26px auto; border-radius:12px; }
+  hr{ border:0; border-top:1px solid var(--line); margin:38px 0; }
+  .lead{
+    background:var(--soft); border-left:4px solid var(--purple);
+    border-radius:10px; padding:18px 22px; margin:22px 0;
+  }
+  .lead p{ margin:8px 0; }
+  .tags{
+    margin-top:14px; display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .tags span{
+    background:var(--soft); color:#4b4f6b; font-size:14px; font-weight:500;
+    padding:6px 13px; border-radius:20px;
+  }
+  .note{ color:var(--grey); font-size:15px; }
+  .quote{
+    font-size:19px; font-weight:700; color:var(--ink); text-align:center;
+    background:linear-gradient(150deg,#f6f5ff,#eefaf6); border-radius:12px;
+    padding:26px 24px; margin:26px 0;
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+
+  <div>
+    <span class="badge">바이오</span><span class="date">2026-07-13</span>
+  </div>
+
+  <h1>면역계의 원리 — 몸은 어떻게 병원체를 알아보고 기억할까</h1>
+
+  <img src="./images/thumbnail.png" alt="면역계 — 몸은 어떻게 병원체를 알아보고 기억하나 (선천면역·적응면역·백신 원리)">
+
+  <p>이번 글에서는 우리 몸의 면역계가 병원체를 어떻게 알아보고, 어떻게 기억하는지를 정리해 보겠습니다. 선천면역과 적응면역이 어떻게 나뉘는지, 항원제시와 면역기억은 무엇인지, 그리고 백신이 왜 효과를 내는지까지 차례로 살펴봅니다.</p>
+
+  <div class="lead">
+    <p>먼저 결론부터 짧게 말씀드립니다.</p>
+    <p>면역은 <strong>빠르지만 뭉툭한 방어(선천면역)</strong>와 <strong>느리지만 정교하고 기억을 남기는 방어(적응면역)</strong>의 이중 구조입니다. 백신은 이 중 두 번째, 곧 "기억"을 병에 걸리지 않고 미리 만들어 두는 기술입니다.</p>
+  </div>
+
+  <hr>
+
+  <h2>■ 몸에는 세 겹의 방어선이 있습니다</h2>
+  <p>면역을 이해하는 가장 쉬운 방법은 방어선을 층으로 나눠 보는 것입니다.</p>
+  <p>1선은 물리·화학 장벽입니다. 피부와 점막, 그리고 침·눈물·위산 같은 분비물이 병원체의 진입 자체를 막습니다. 눈물과 침 속 라이소자임은 세균의 벽을 허물고, 위산의 강한 산성은 삼킨 미생물을 태웁니다.</p>
+  <p>2선은 선천면역 세포와 염증입니다. 장벽이 뚫리면 대식세포·호중구·NK세포가 즉시 반응합니다. 빠르지만 상대를 하나하나 구별하지는 못합니다.</p>
+  <p>3선은 적응면역입니다. B세포와 T세포가 특정 병원체에 딱 맞춰 대응하고, 그 경험을 기억으로 남깁니다.</p>
+  <p>예전에는 면역을 그저 "세면 좋은 힘"으로 여기곤 했습니다. 지금은 층층이 역할이 다른 정교한 시스템으로 봅니다.</p>
+
+  <img src="./images/body-1.png" alt="몸의 3중 방어선 — 물리·화학 장벽, 선천면역 세포·염증, 적응면역의 단계별 다이어그램">
+
+  <hr>
+
+  <h2>■ 선천면역 — 빠르지만 얼굴을 가리지 않는 방어</h2>
+  <p>선천면역의 특징은 속도입니다. 수분에서 수시간 안에 작동합니다.</p>
+  <p>비결은 인식 방식에 있습니다. 선천면역 세포는 적을 한 명씩 외우지 않습니다. 대신 "미생물이라면 공통으로 지닌 표식"을 알아봅니다. 이 표식을 PAMP라 부르고, 이를 읽는 수용체를 패턴인식수용체(PRR)라 합니다. 대표 격이 톨유사수용체(TLR)입니다. 어떤 TLR은 바이러스의 RNA를, 어떤 TLR은 세균의 특정 DNA나 내독소를 감지합니다.</p>
+  <p>현장의 일꾼들은 이렇게 나뉩니다.</p>
+  <ul>
+    <li><strong>대식세포</strong>: 조직을 순찰하며 병원체를 통째로 삼켜(식균작용) 처리합니다. 삼킨 조각을 나중에 T세포에게 보여주는 역할도 겸합니다.</li>
+    <li><strong>호중구</strong>: 감염 현장에 가장 먼저, 가장 많이 몰려오는 1차 대응자입니다. 수명이 짧고 소모가 빠릅니다.</li>
+    <li><strong>NK세포</strong>: 바이러스에 감염된 세포를 찾아내 스스로 죽도록(세포자멸) 유도합니다.</li>
+  </ul>
+  <p>염증은 이 과정의 신호탄입니다. 병원체를 감지한 세포가 히스타민 같은 물질을 뿜으면 혈관이 넓어지고 새어, 면역세포가 현장으로 쏟아져 들어옵니다. 발갛게 붓고 열이 나고 아픈 것은 방어가 작동 중이라는 표시인 셈입니다.</p>
+  <p>여기에 보체라는 단백질 무리가 가세합니다. 보체는 병원체 표면에 "먹어라" 표식을 붙이고(옵소닌화), 막에 구멍을 뚫어 직접 터뜨리기도 합니다.</p>
+  <p>다만 선천면역에는 한계가 분명합니다. 빠른 대신 정밀하지 않고, 무엇보다 <strong>기억을 남기지 못합니다.</strong> 같은 적이 다시 와도 처음처럼 대응합니다.</p>
+
+  <img src="./images/body-2.png" alt="선천면역과 적응면역을 속도·인식 방식·특이성·기억·주요 세포로 비교한 표">
+
+  <hr>
+
+  <h2>■ 적응면역 — 느리지만 정교하고, 기억을 남깁니다</h2>
+  <p>적응면역의 핵심은 "맞춤"입니다. 원리는 클론선택설로 설명합니다. 몸은 미리 헤아릴 수 없이 다양한 수용체를 가진 림프구를 준비해 둡니다. 어떤 항원이 들어오면, 그에 꼭 맞는 수용체를 가진 림프구만 골라 대량으로 불려냅니다.</p>
+  <p>크게 두 갈래입니다.</p>
+  <p>첫째는 B세포입니다. 활성화되면 형질세포로 변해 <strong>항체</strong>를 쏟아냅니다. 항체는 Y자 모양 단백질로, 끝의 두 팔로 병원체를 붙잡습니다. 병원체가 세포에 달라붙지 못하게 막고(중화), 식세포가 잘 삼키도록 표식을 붙이며(옵소닌화), 보체를 불러냅니다.</p>
+  <p>둘째는 T세포입니다. 두 종류로 나뉩니다.</p>
+  <ul>
+    <li><strong>CD4 도움 T세포</strong>: 면역 전체의 지휘자입니다. 사이토카인을 내어 B세포와 다른 T세포를 북돋웁니다.</li>
+    <li><strong>CD8 세포독성 T세포</strong>: 바이러스에 감염된 세포를 직접 찾아 죽입니다.</li>
+  </ul>
+
+  <hr>
+
+  <h2>■ 항원제시 — 세포가 T세포에게 보여주는 '신분증'</h2>
+  <p>여기서 한 가지 의문이 생깁니다. T세포는 세포 안에 숨은 바이러스를 어떻게 알아챌까요.</p>
+  <p>답은 MHC라는 장치에 있습니다. MHC는 세포 표면의 게시판입니다. 세포는 자기 안에서 만들어진 단백질 조각을 이 게시판에 올려 T세포에게 보여줍니다. 정상이면 정상 조각을, 감염됐다면 바이러스 조각을 내겁니다.</p>
+  <p>게시판은 두 종류입니다.</p>
+  <ul>
+    <li><strong>MHC I</strong>: 거의 모든 세포가 가집니다. 세포 안에서 만들어진 조각을 올려 <strong>CD8 T세포</strong>에게 보입니다. "내 안에 이런 게 있다"는 신고입니다. 바이러스 조각이 걸리면 CD8이 그 세포를 제거합니다.</li>
+    <li><strong>MHC II</strong>: 수지상세포·대식세포 같은 전문 세포가 가집니다. 밖에서 삼킨 외래 조각을 올려 <strong>CD4 T세포</strong>에게 보입니다.</li>
+  </ul>
+  <p>짝은 규칙적으로 맞습니다. CD8은 MHC I을, CD4는 MHC II를 읽습니다. 그리고 수지상세포는 이 둘을 잇는 다리입니다. 조직에서 병원체를 붙잡아 림프절로 달려가 T세포를 깨우는, 선천면역과 적응면역의 연결자입니다.</p>
+
+  <img src="./images/body-3.png" alt="항원제시 다이어그램 — MHC I이 CD8 T세포에게, MHC II가 CD4 T세포에게 항원 조각을 보여주는 두 경로">
+
+  <hr>
+
+  <h2>■ 면역기억 — 한 번 싸운 적은 다음엔 빨리 알아봅니다</h2>
+  <p>적응면역이 특별한 진짜 이유는 여기 있습니다. 바로 기억입니다.</p>
+  <p>처음 병원체를 만나면 몸은 준비에 시간을 씁니다. 맞는 림프구를 고르고 불리는 데 시간이 걸려, 항체가 충분히 나오기까지 약 2주가 필요합니다. 이것이 1차 면역반응입니다.</p>
+  <p>이때 몸은 당장 싸우는 세포만 만들지 않습니다. 싸움이 끝나도 사라지지 않는 <strong>기억세포</strong>를 함께 남깁니다.</p>
+  <p>그래서 같은 적이 다시 오면 이야기가 달라집니다. 기억 B세포가 곧바로 형질세포로 변해, 2~4일 만에 훨씬 많은 항체를 쏟아냅니다. 항체의 품질도 올라갑니다. 친화도 성숙이라는 과정을 거쳐, 병원체에 더 정확하고 강하게 달라붙습니다. 이것이 2차 면역반응입니다.</p>
+  <p>한 번 홍역을 앓은 사람이 다시 걸리지 않는 이유가 여기 있습니다.</p>
+
+  <img src="./images/body-4.png" alt="1차 면역반응과 2차 면역반응 비교 곡선 — 재노출 시 항체가 더 빠르고 높게 치솟는 그래프">
+
+  <hr>
+
+  <h2>■ 백신 — 병에 걸리지 않고 기억만 미리 만드는 법</h2>
+  <p>백신의 원리는 이 기억 하나로 설명됩니다.</p>
+  <p>핵심은 이렇습니다. <strong>진짜 병에 걸리지 않고, 기억세포와 항체 준비만 미리 끝내 두는 것.</strong> 병원체 또는 그 일부를 안전한 형태로 보여주면, 몸은 실제 감염 없이 1차 반응을 거쳐 기억을 남깁니다. 나중에 진짜 병원체가 오면 곧장 2차 반응이 작동합니다.</p>
+  <p>만드는 방식은 여러 가지입니다.</p>
+  <ul>
+    <li><strong>약독화 생백신</strong>: 병원성을 약하게 만든 살아있는 병원체를 씁니다. 반응이 강하고 오래갑니다. 다만 면역이 약한 분에게는 주의가 필요합니다.</li>
+    <li><strong>불활화 백신</strong>: 죽여서 증식하지 못하는 병원체를 씁니다. 안전하지만 반응이 상대적으로 약해, 추가접종이 필요한 경우가 있습니다.</li>
+    <li><strong>아단위 백신</strong>: 병원체 전체가 아니라 핵심 단백질만 골라 씁니다. 반응을 키우려 면역증강제를 함께 넣기도 합니다.</li>
+    <li><strong>mRNA 백신</strong>: 병원체 단백질의 설계도(mRNA)를 전달합니다. 우리 세포가 그 단백질을 잠시 만들어 면역계에 보여줍니다. 살아있는 바이러스가 없어 발병 위험이 없고, 제조가 빠릅니다.</li>
+  </ul>
+
+  <img src="./images/body-5.png" alt="백신 4가지 유형 카드 — 약독화 생백신·불활화·아단위·mRNA 백신의 원리와 특징 정리">
+
+  <p>한 가지 덧붙이면, 면역은 몸이 기억을 유지하는 동안만 이어집니다. 홍역처럼 사실상 평생 가는 것도 있고, 시간이 지나며 약해지는 것도 있습니다. 후자를 위해 부스터로 기억을 다시 끌어올립니다.</p>
+  <p>또 충분히 많은 사람이 면역을 가지면, 병원체가 퍼질 길목이 막혀 면역이 없는 사람까지 간접 보호됩니다. 이를 집단면역이라 합니다.</p>
+
+  <img src="./images/body-6.png" alt="핵심 정리 강조 박스 — 면역의 힘은 세기가 아니라 알아보고 기억하는 능력에 있다는 메시지와 집단면역 설명">
+
+  <hr>
+
+  <p>정리하면 이렇습니다.</p>
+  <p>선천면역은 빠르게 막고, 적응면역은 정교하게 기억합니다. 항원제시는 그 둘을 잇고, 백신은 기억을 안전하게 앞당깁니다.</p>
+  <p>우리 몸은 매 순간 조용히 이 일을 해내고 있습니다. 열이 나고 몸이 무거운 날에도, 사실은 정교한 방어가 제 할 일을 하는 중인 셈입니다.</p>
+
+  <div class="quote">"면역의 힘은 세기가 아니라,<br>알아보고 기억하는 능력에 있습니다."</div>
+
+  <p class="note">이 글은 교양 차원의 설명입니다. 개별 접종이나 건강 판단은 전문가와 상의하시길 권합니다.</p>
+
+  <hr>
+
+  <div class="tags">
+    <span>#면역계</span><span>#선천면역</span><span>#적응면역</span><span>#항체</span><span>#T세포</span>
+    <span>#항원제시</span><span>#면역기억</span><span>#백신원리</span><span>#mRNA백신</span><span>#집단면역</span>
+  </div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

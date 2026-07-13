@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>인플레이션은 왜 생기고 어떻게 측정하나 — CPI와 기대인플레이션까지</title>
+<style>
+  body { margin:0; background:#f5f6f8; color:#1f2430;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:700px; margin:0 auto; background:#fff; padding:48px 40px 64px;
+    box-shadow:0 1px 14px rgba(0,0,0,.05); }
+  .meta { margin-bottom:20px; }
+  .badge { display:inline-block; background:#e94560; color:#fff; font-size:14px; font-weight:700;
+    padding:5px 15px; border-radius:20px; letter-spacing:1px; }
+  .date { color:#98a0b0; font-size:14px; margin-left:12px; }
+  h1 { font-size:31px; line-height:1.4; font-weight:800; letter-spacing:-.4px; margin:6px 0 30px; color:#161b26; }
+  h2 { font-size:22px; font-weight:700; color:#161b26; margin:44px 0 18px; padding-left:14px;
+    border-left:5px solid #e94560; line-height:1.4; }
+  p { font-size:16.5px; line-height:1.85; margin:18px 0; color:#2c3340; word-break:keep-all; }
+  strong { color:#161b26; font-weight:700; }
+  hr { border:0; border-top:1px solid #e9ecf1; margin:34px 0; }
+  .img { text-align:center; margin:26px 0; }
+  .img img { max-width:100%; height:auto; border-radius:12px; box-shadow:0 3px 16px rgba(20,25,45,.10); }
+  .pull { font-size:19px; font-weight:700; color:#161b26; text-align:center; line-height:1.6;
+    background:#f7f8fb; border-radius:14px; padding:24px 26px; margin:30px 0; }
+  .tags { margin-top:40px; padding-top:26px; border-top:1px solid #e9ecf1; }
+  .tags span { display:inline-block; color:#5a86e0; font-size:14.5px; margin:4px 10px 4px 0; }
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+  <div class="wrap">
+    <div class="meta"><span class="badge">경제</span><span class="date">작성일 2026-07-13</span></div>
+    <h1>인플레이션은 왜 생기고 어떻게 측정하나 — CPI와 기대인플레이션까지</h1>
+    <p class="img"><img src="./images/thumbnail.png" alt="인플레이션은 왜 생기고 어떻게 측정하나 - CPI, 수요견인, 비용상승, 기대인플레이션"></p>
+<p>이번 글에서는 인플레이션이 왜 생기고 어떻게 측정하는지를 정리해 보겠습니다.<br>뉴스에 자주 나오는 소비자물가지수(CPI), 수요견인과 비용상승, 기대인플레이션까지 한 번에 짚어봅니다.<br>어려운 수식보다 원리를 먼저 이해하는 데 초점을 맞췄습니다.</p>
+<hr>
+<h2>인플레이션이란 무엇인가</h2>
+<p>인플레이션은 물가가 지속적으로 오르는 현상입니다.<br>사과 한 개, 라면 한 봉지가 오른 게 아니라, 물가 전반이 오르는 것을 말합니다.</p>
+<p>여기서 한 가지 뒤집어 볼 점이 있습니다.<br>물가가 오른다는 말은 곧 돈의 가치가 떨어진다는 뜻입니다.<br>어제 1만 원으로 사던 것을 오늘은 다 못 산다면, 물건이 비싸진 동시에 내 돈이 가벼워진 셈입니다.</p>
+<p>또 하나 짚고 넘어갈 부분이 있습니다.<br>”물가가 높다”와 ”물가가 계속 오른다”는 다릅니다.<br>인플레이션은 수준이 아니라 <strong>속도</strong>에 관한 이야기입니다.<br>그래서 보통 지난해 같은 달과 비교한 상승률(%)로 나타냅니다.</p>
+<p>한국은행은 이 상승률의 목표를 연 2%로 두고 있습니다.<br>너무 뜨겁지도, 너무 차갑지도 않은 온도를 2%로 본다고 이해하시면 됩니다.</p>
+<hr>
+<h2>어떻게 측정하나 — 소비자물가지수(CPI)</h2>
+<p>인플레이션을 숫자로 보여주는 대표 지표가 소비자물가지수, CPI입니다.<br>가계가 살아가며 사는 상품과 서비스의 가격이 얼마나 변했는지를 종합한 값입니다.<br>우리나라에서는 통계청이 매달 조사해 발표합니다.</p>
+<p>만드는 방식은 이렇습니다.</p>
+<p class="img"><img src="./images/body-1.png" alt="소비자물가지수 CPI가 만들어지는 6단계 과정 - 품목 선정, 가중치 부여, 가격 조사, 가중평균, 지수 산출, 상승률 발표"></p>
+<p>먼저 가계가 자주, 많이 사는 대표 품목 약 458개를 정합니다.<br>그리고 품목마다 <strong>가중치</strong>를 다르게 줍니다.<br>매달 나가는 집세나 통신비는 무겁게, 어쩌다 사는 물건은 가볍게 반영합니다.<br>장바구니에서 차지하는 비중만큼 목소리를 주는 것입니다.</p>
+<p>기준은 2020년입니다.<br>그해 물가를 100으로 놓고, 지금이 110이면 그때보다 10% 오른 것이 됩니다.<br>조사원이 매달 전국의 가격을 모아 이 지수를 갱신하고, 지난해 같은 달과 비교해 상승률을 발표합니다.</p>
+<p>다만 전체 CPI만 보면 착시가 생길 때가 있습니다.<br>태풍으로 채솟값이 잠깐 뛰거나 국제유가가 출렁이면 지수가 크게 흔들리기 때문입니다.<br>그래서 농산물과 석유류처럼 변동이 심한 품목을 뺀 <strong>근원물가지수</strong>를 함께 봅니다.<br>일시적 소음을 걷어내고 물가의 밑바탕 흐름을 보려는 것입니다.<br>중앙은행이 금리를 판단할 때 특히 눈여겨보는 숫자입니다.</p>
+<hr>
+<h2>왜 생기나 (1) 수요가 끌어올릴 때 — 수요견인 인플레이션</h2>
+<p>인플레이션의 원인은 크게 두 갈래로 나뉩니다.<br>수요 쪽에서 밀어 올리는 경우와, 비용 쪽에서 밀어 올리는 경우입니다.</p>
+<p>먼저 수요견인 인플레이션입니다.<br>사려는 힘이 물가를 끌어올린다는 뜻에서 '끌 견(牽)'을 씁니다.</p>
+<p>경기가 좋아 소득이 늘고, 금리가 낮아 돈 쓰기 편하고, 정부가 지갑을 크게 열면 사려는 사람이 많아집니다.<br>그런데 물건을 만드는 속도가 그 수요를 못 따라가면 어떻게 될까요.<br>한정된 물건을 두고 사람이 몰리는 경매장처럼, 값이 오릅니다.</p>
+<p>시중에 돈이 많이 풀리는 것도 같은 방향으로 작동합니다.<br>쓸 돈이 많아지면 수요가 살아나고, 공급이 부족하면 가격표가 올라갑니다.<br>그래서 수요견인 인플레이션은 대체로 경기가 뜨거운 호황기에 나타납니다.</p>
+<hr>
+<h2>왜 생기나 (2) 비용이 밀어 올릴 때 — 비용상승 인플레이션</h2>
+<p>두 번째는 비용상승 인플레이션입니다.<br>이번엔 방향이 반대입니다. 만드는 쪽의 비용이 물가를 밀어 올립니다.</p>
+<p>원자재값, 유가, 환율, 물류비, 임금, 임대료가 오르면 기업의 부담이 커집니다.<br>그 부담을 언제까지고 혼자 지기는 어렵습니다.<br>결국 판매가격에 얹게 되고, 그 순간 비용 상승이 물가 상승으로 번집니다.</p>
+<p>교과서적 사례가 1970년대 오일쇼크입니다.<br>국제유가가 폭등하자 전 세계가 동시에 비용상승 인플레이션을 겪었습니다.</p>
+<p>이쪽이 더 까다로운 이유가 있습니다.<br>수요가 아니라 공급이 위축되기 때문에, 물가는 오르는데 경기는 나빠지는 조합이 생길 수 있습니다.<br>물가 상승과 경기 침체가 함께 오는 이 상태를 스태그플레이션이라 부릅니다.<br>가장 다루기 어려운 국면으로 꼽힙니다.</p>
+<p class="img"><img src="./images/body-2.png" alt="수요견인 인플레이션과 비용상승 인플레이션 비교 표 - 발생 위치, 촉발 요인, 대표 국면, 경기 영향"></p>
+<hr>
+<h2>인플레이션이 스스로를 키운다 — 기대인플레이션</h2>
+<p>원인을 이야기할 때 빠뜨리면 안 되는 것이 하나 더 있습니다.<br>바로 사람들의 <strong>예상</strong>, 기대인플레이션입니다.</p>
+<p>기대인플레이션은 가계와 기업이 ”앞으로 물가가 이만큼 오르겠지” 하고 갖는 전망입니다.<br>한국은행은 매달 약 2,500가구에게 앞으로 1년간 물가가 얼마나 오를 것 같은지를 물어 이 값을 파악합니다.</p>
+<p>이 심리가 무서운 이유는 예상이 현실을 만들기 때문입니다.</p>
+<p class="img"><img src="./images/body-3.png" alt="기대인플레이션의 악순환 임금-물가 나선 다이어그램 - 예상 상승, 임금 인상, 가격 선반영, 수요 증가, 실제 물가 상승"></p>
+<p>물가가 더 오를 거라 믿으면 노동자는 임금을 더 올려달라 하고, 기업은 오를 비용을 미리 가격에 얹습니다.<br>소비자는 더 비싸지기 전에 사두려 하니 수요가 몰립니다.<br>그 결과 정말로 물가가 오르고, 오른 물가는 다시 기대를 키웁니다.<br>임금과 물가가 서로 밀어 올리는 이 나선을 끊기가 쉽지 않습니다.</p>
+<p>그래서 중앙은행은 이 기대를 2% 부근에 단단히 붙들어 매는 일을 가장 중요하게 여깁니다.<br>기대가 한번 풀려버리면, 실제 물가를 잡는 데 훨씬 큰 대가를 치러야 하기 때문입니다.</p>
+<hr>
+<h2>”인플레이션은 화폐적 현상” — 화폐수량설</h2>
+<p>조금 더 근본으로 들어가 보겠습니다.<br>길게 보면 인플레이션의 뿌리는 결국 '돈의 양'이라는 관점이 있습니다.</p>
+<p>교환방정식은 MV = PT로 씁니다.<br>M은 통화량, V는 돈이 도는 속도, P는 물가, T는 거래량입니다.<br>돈이 도는 속도와 거래량이 크게 변하지 않는다면, 통화량이 늘어난 만큼 물가가 오른다는 논리입니다.</p>
+<p class="img"><img src="./images/body-4.png" alt="화폐수량설 교환방정식 MV=PT와 프리드먼의 명언 - 통화량, 유통속도, 물가, 거래량"></p>
+<p>이 생각을 밀어붙인 사람이 밀턴 프리드먼입니다.<br>그는 ”인플레이션은 언제 어디서나 화폐적 현상”이라는 말을 남겼습니다.<br>경제가 자라는 속도보다 돈을 빨리 찍으면 물가가 오른다는 것입니다.</p>
+<p>물론 한계도 인정해야 합니다.<br>현실에서는 돈이 도는 속도가 늘 일정하지 않아, 통화량과 물가가 단기적으로 딱 비례하지는 않습니다.<br>그럼에도 오랜 기간을 놓고 보면 통화 요인이 인플레이션의 큰 동력이라는 데에는 무게가 실립니다.</p>
+<hr>
+<h2>헷갈리는 말들 정리 — 디스인플레이션과 디플레이션</h2>
+<p>마지막으로 이름이 비슷해 자주 섞이는 용어를 갈라놓겠습니다.</p>
+<p class="img"><img src="./images/body-5.png" alt="인플레이션 디스인플레이션 디플레이션 스태그플레이션 네 용어 구분 카드"></p>
+<p><strong>디스인플레이션</strong>은 물가 상승률이 낮아지는 것입니다.<br>5%에서 3%로 오름세가 꺾이는 것이지, 물가가 내려가는 것이 아닙니다.<br>여전히 오르되 더 천천히 오르는 상태입니다.</p>
+<p><strong>디플레이션</strong>은 물가가 아예 내려가는 것입니다.<br>값이 싸지니 좋아 보이지만 함정이 있습니다.<br>”더 기다리면 더 싸지겠지” 하며 소비와 투자를 미루게 만들어, 경기를 얼어붙게 할 수 있습니다.</p>
+<p><strong>스태그플레이션</strong>은 앞서 말한, 침체와 인플레이션이 겹친 상태입니다.<br>물가를 잡자니 경기가 더 나빠지고, 경기를 살리자니 물가가 더 오르는 딜레마가 여기서 생깁니다.</p>
+<p>한 가지 덧붙이면, 인플레이션의 비용도 결코 가볍지 않습니다.<br>현금을 쥔 사람의 구매력이 깎이고, 가격표를 바꿔 다는 메뉴비용, 현금을 자주 옮기는 구두창비용이 사회 전체에 쌓입니다.<br>그래서 물가를 잡는 일은 단순한 숫자 관리가 아닙니다.</p>
+<hr>
+<p>정리하면 이렇습니다.<br>인플레이션은 수요가 끌거나 비용이 밀어서 생기고, 사람들의 기대가 그 불씨를 키웁니다.<br>그리고 우리는 그 온도를 CPI라는 온도계로 잽니다.</p>
+<p class="pull">”물가를 읽는다는 것은 결국 돈의 가치를 읽는 일이다.”</p>
+<p>다음에 뉴스에서 소비자물가 상승률을 보게 되신다면, 숫자 뒤에 있는 이 원리들을 함께 떠올려 보시면 좋겠습니다.</p>
+<p class="tags"><span>#인플레이션</span> <span>#소비자물가지수</span> <span>#CPI</span> <span>#기대인플레이션</span> <span>#수요견인인플레이션</span> <span>#비용상승인플레이션</span> <span>#디플레이션</span> <span>#화폐수량설</span> <span>#경제상식</span> <span>#물가</span></p>
+  </div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
