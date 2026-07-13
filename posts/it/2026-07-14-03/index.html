@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>가비지 컬렉션이란 무엇인가</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>가비지 컬렉션이란 무엇인가</h1>
+<p class="subtitle">메모리가 자동으로 정리되는 원리</p>
+<p>이번 글에서는 가비지 컬렉션(Garbage Collection)을 정리해 보겠습니다. 프로그램이 쓰다 버린 메모리를 누가, 어떻게 자동으로 회수하는지 살펴봅니다. 수동 관리부터 최신 저지연 방식까지 차례로 짚겠습니다.</p>
+<figure><img src="./images/thumbnail.png" alt="대표 썸네일 - 메모리 블록이 자동으로 회수되어 정리되는 개념 일러스트, &#x27;Garbage Collecti…"><figcaption>대표 썸네일 - 메모리 블록이 자동으로 회수되어 정리되는 개념 일러스트, &#x27;Garbage Collecti…</figcaption></figure>
+<hr>
+<h2>예전엔 손으로, 지금은 자동으로</h2>
+<p>메모리는 무한하지 않습니다. 프로그램은 필요할 때 메모리를 빌리고, 다 쓰면 돌려줘야 합니다.</p>
+<p>예전엔 이 일을 사람이 직접 했습니다. C 언어의 `malloc`과 `free`가 대표적입니다. 개발자가 손수 빌리고 손수 반납했습니다.</p>
+<p>문제는 실수였습니다. 반납을 잊으면 메모리 누수가 쌓입니다. 두 번 반납하면 프로그램이 깨집니다. 이미 반납한 자리를 다시 쓰면 엉뚱한 값이 나옵니다.</p>
+<p>이런 버그는 눈에 잘 띄지 않습니다. 규모가 커질수록 추적도 어려워집니다.</p>
+<p>가비지 컬렉션은 이 반납을 런타임이 대신합니다. 더 이상 쓰지 않는 객체를 자동으로 찾아 메모리를 회수합니다. 개발자의 실수가 줄고, 안정성이 올라갑니다.</p>
+<p>물론 공짜는 아닙니다. 자동 회수는 더 많은 메모리와 약간의 CPU를 대가로 씁니다. 한 연구에 따르면 수동 관리와 대등한 성능을 내려면 몇 배의 메모리 여유가 필요하기도 합니다.</p>
+<figure><img src="./images/body-1.png" alt="수동 메모리 관리와 자동 가비지 컬렉션을 좌우로 비교하는 대조 그림"><figcaption>수동 메모리 관리와 자동 가비지 컬렉션을 좌우로 비교하는 대조 그림</figcaption></figure>
+<hr>
+<h2>살아있는 것만 남긴다 — 표시하고 청소하기</h2>
+<p>그렇다면 무엇이 쓰레기일까요. 기준은 &#x27;사용 여부&#x27;가 아니라 &#x27;도달 가능성&#x27;입니다.</p>
+<p>프로그램에는 시작점이 있습니다. 전역 변수, 지역 변수, 레지스터 값. 이것을 루트 집합이라 부릅니다.</p>
+<p>루트에서 참조를 따라가며 닿을 수 있는 객체는 살아있는 것입니다. 어디서도 닿지 않는 객체는 쓰레기입니다.</p>
+<p>가장 고전적인 방법이 표시-청소(Mark &amp; Sweep)입니다. 먼저 루트에서 도달하는 모든 객체에 표시를 남깁니다. 그다음 힙 전체를 훑어 표시되지 않은 것을 지웁니다.</p>
+<p>다만 이 방식은 빈자리를 흩뿌립니다. 전체 여유는 넉넉해도 조각이 흩어져 큰 요청을 못 받기도 합니다. 그래서 살아있는 객체를 한쪽으로 밀어 붙이는 압축을 함께 쓰기도 합니다.</p>
+<figure><img src="./images/body-2.png" alt="표시-청소 알고리즘의 단계를 순서대로 보여주는 3단계 흐름도"><figcaption>표시-청소 알고리즘의 단계를 순서대로 보여주는 3단계 흐름도</figcaption></figure>
+<hr>
+<h2>세는 방식의 함정 — 참조 카운팅과 순환 참조</h2>
+<p>또 다른 방법은 참조 카운팅입니다. 객체마다 자신을 가리키는 참조의 수를 셉니다. 그 수가 0이 되는 순간 바로 회수합니다.</p>
+<p>직관적이고 즉각적입니다. 쓰레기가 생기자마자 치웁니다. 별도의 멈춤 없이 조금씩 정리된다는 장점도 있습니다.</p>
+<p>그런데 함정이 하나 있습니다. 순환 참조입니다.</p>
+<p>두 객체가 서로를 가리킨다고 해봅시다. 바깥에서 아무도 쓰지 않아도, 서로가 서로를 가리키니 참조 수가 0이 되지 않습니다. 결국 회수되지 않고 남습니다.</p>
+<p>그래서 참조 카운팅만 쓰는 언어는 드뭅니다. 파이썬은 참조 카운팅을 기본으로 하되, 순환을 잡기 위해 세대별 수집기를 함께 돌립니다. 두 방식의 약점을 서로 메우는 셈입니다.</p>
+<figure><img src="./images/body-3.png" alt="참조 카운팅의 개념과 순환 참조 한계를 카드 형태로 정리한 그림"><figcaption>참조 카운팅의 개념과 순환 참조 한계를 카드 형태로 정리한 그림</figcaption></figure>
+<hr>
+<h2>대부분은 금방 죽는다 — 세대별 GC와 저지연의 시대</h2>
+<p>오랜 관찰에서 나온 경험칙이 있습니다. &quot;대부분의 객체는 금방 죽는다&quot;는 것입니다.</p>
+<p>세대별 GC는 이 가설을 활용합니다. 힙을 젊은 영역과 오래된 영역으로 나눕니다. 새 객체는 젊은 영역에서 태어납니다.</p>
+<p>젊은 영역이 차면 그곳만 빠르게 청소합니다. 대부분이 이미 죽어 있으니 회수가 가볍습니다. 살아남은 소수만 오래된 영역으로 옮깁니다. 힙 전체를 매번 뒤지지 않아 부담이 확 줄어듭니다.</p>
+<p>한 가지 남는 문제는 멈춤입니다. 회수하는 동안 프로그램을 잠시 세우는 것을 stop-the-world라 합니다. 힙이 커질수록 이 멈춤도 길어집니다.</p>
+<p>그래서 최신 수집기가 등장했습니다. G1은 힙을 여러 조각으로 나눠 쓰레기가 많은 곳부터 겨냥합니다. ZGC는 대부분의 작업을 프로그램과 동시에 처리해, 힙 크기와 무관하게 1밀리초 미만의 멈춤을 지향합니다.</p>
+<p>정리하면 이렇습니다. 가비지 컬렉션의 역사는 곧 &quot;멈추지 않고 치우려는&quot; 노력의 역사입니다.</p>
+<p>완벽한 방식은 아직 없습니다. 저지연은 CPU를 더 쓰고, 자동화는 메모리를 더 씁니다. 결국 남는 것은 균형입니다.</p>
+<p>&quot;메모리를 잊어도 되는 자유는, 보이지 않는 청소부가 대신 짊어진 무게 위에 서 있습니다.&quot;</p>
+<figure><img src="./images/body-4.png" alt="세대별 GC와 G1, ZGC의 특징을 비교하는 표"><figcaption>세대별 GC와 G1, ZGC의 특징을 비교하는 표</figcaption></figure>
+<div class="tags"><span>#가비지컬렉션</span> <span>#GarbageCollection</span> <span>#메모리관리</span> <span>#자바GC</span> <span>#ZGC</span> <span>#세대별GC</span> <span>#프로그래밍기초</span> <span>#백엔드</span></div>
+<p>참고 소스</p>
+<ul><li>Tracing garbage collection — Wikipedia: https://en.wikipedia.org/wiki/Tracing_garbage_collection</li><li>What is garbage collection? — InfoWorld: https://www.infoworld.com/article/2337816/what-is-garbage-collection-automated-memory-management-for-your-programs.html</li><li>Mark-and-Sweep — GeeksforGeeks: https://www.geeksforgeeks.org/java/mark-and-sweep-garbage-collection-algorithm/</li><li>Python Memory Management &amp; Circular References — Medium: https://medium.com/nerd-for-tech/python-memory-management-reference-counting-garbage-collection-and-circular-references-d519f17be4af</li><li>Garbage-First (G1) Garbage Collector — Oracle: https://docs.oracle.com/en/java/javase/17/gctuning/garbage-first-g1-garbage-collector1.html</li><li>Understanding ZGC — Medium: https://medium.com/@rupeshgupta0912/understanding-zgc-the-low-latency-garbage-collector-in-java-8664b0124263</li><li>Quantifying GC vs. Explicit Memory Management — UMass: https://people.cs.umass.edu/~emery/pubs/gcvsmalloc.pdf</li></ul>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

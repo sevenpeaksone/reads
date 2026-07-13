@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>비트겐슈타인의 언어게임</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#b07cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#b07cff;border-color:#b07cff">철학/인문</div>
+<h1>비트겐슈타인의 언어게임</h1>
+<p class="subtitle">말의 의미는 어디서 오는가</p>
+<p>이번 글에서는 루트비히 비트겐슈타인의 언어철학을 정리해 보겠습니다. 그는 한 생애 안에서 언어에 대한 생각을 완전히 뒤집은 드문 철학자입니다. &quot;말의 의미는 어디서 오는가.&quot; 이 물음을 따라 전기와 후기를 차례로 살펴보겠습니다.</p>
+<figure><img src="./images/thumbnail.png" alt="비트겐슈타인 언어게임, 부제 &quot;말의 의미는 어디서 오는가&quot;, 물음표 기호"><figcaption>비트겐슈타인 언어게임, 부제 &quot;말의 의미는 어디서 오는가&quot;, 물음표 기호</figcaption></figure>
+<hr>
+<h2>세계를 그리는 그림 — 전기의 언어관</h2>
+<p>젊은 비트겐슈타인은 언어를 &#x27;그림&#x27;으로 보았습니다.</p>
+<p>1921년에 나온 『논리철학논고』의 생각입니다. 세계는 사물의 모음이 아니라 사실들의 총체입니다. 문장은 그 사실을 그리는 논리적 그림입니다. 문장과 사태는 같은 논리적 형식을 공유합니다. 우리가 말을 한다는 것은 사물이 어떠한지를 그림으로 그리는 일인 셈입니다.</p>
+<p>여기서 하나의 엄격한 기준이 나옵니다. 현실 속에서 그림으로 그려질 수 있는 문장만이 의미를 가진다는 것입니다.</p>
+<p>그렇다면 윤리와 미학, 종교와 형이상학은 어떻게 될까요. 이것들은 세계 안의 사실로 환원되지 않습니다. 그래서 유의미한 언어의 경계 밖으로 밀려납니다.</p>
+<p>『논고』는 첫 명제 &quot;세계는 일어나는 모든 것이다&quot;로 열고, 마지막 명제로 닫습니다. &quot;말할 수 없는 것에 관해서는 침묵해야 한다.&quot; 언어의 한계가 곧 세계의 한계라는 선언입니다.</p>
+<figure><img src="./images/body-1.png" alt="논고의 그림 이론 3단계 - 세계는 사실들의 총체, 명제는 세계의 그림, 한계 밖은 침묵"><figcaption>논고의 그림 이론 3단계 - 세계는 사실들의 총체, 명제는 세계의 그림, 한계 밖은 침묵</figcaption></figure>
+<hr>
+<h2>말은 게임이다 — 후기의 전환</h2>
+<p>놀라운 일은 그다음에 벌어집니다.</p>
+<p>비트겐슈타인은 자신의 그림 이론을 스스로 버렸습니다. 그 결과가 사후 1953년에 나온 『철학적 탐구』입니다. 예전엔 언어에 단 하나의 논리 구조가 있다고 보았습니다. 지금은 언어에 무수한 쓰임이 있다고 봅니다.</p>
+<p>그는 언어를 &#x27;언어게임(language-game)&#x27;이라 부릅니다. 말과, 그 말이 짜여 드는 행위를 함께 묶은 개념입니다.</p>
+<p>『탐구』에 나오는 건축가의 예가 잘 보여줍니다. 건축가가 &quot;석판&quot;이라고 외치면 조수가 알맞은 돌을 가져옵니다. 단 몇 개의 낱말과 협응된 몸짓만으로 하나의 완결된 언어게임이 성립합니다. 여기서 의미를 세우는 것은 지칭이 아니라 함께 하는 행위입니다.</p>
+<p>언어게임은 하나가 아닙니다. 보고하기, 부탁하기, 농담하기, 번역하기, 감사하기처럼 그 목록은 끝이 없습니다. 각 게임에 엄격한 규칙표가 있는 것도 아닙니다. 다만 관습이 있을 뿐입니다.</p>
+<figure><img src="./images/body-2.png" alt="전기 vs 후기 비트겐슈타인 대비 - 언어는 그림 vs 언어는 게임"><figcaption>전기 vs 후기 비트겐슈타인 대비 - 언어는 그림 vs 언어는 게임</figcaption></figure>
+<hr>
+<h2>의미는 쓰임에 있다 — 사용과 가족 유사성</h2>
+<p>후기의 핵심 명제는 짧습니다.</p>
+<p>&quot;낱말의 의미는 그 쓰임이다.&quot; 『탐구』 43절의 말입니다. 의미는 낱말 뒤에 숨은 대상이나 머릿속 관념이 아닙니다. 낱말이 실제로 어떻게 쓰이는가에 있습니다.</p>
+<p>그렇다면 하나의 낱말을 묶어 주는 공통 본질은 무엇일까요. 비트겐슈타인은 그런 것이 없다고 답합니다.</p>
+<p>&#x27;게임&#x27;이라는 낱말을 보십시오. 보드게임, 카드게임, 공놀이, 올림픽 경기에 공통된 단 하나의 특징은 없습니다. 규칙, 경쟁, 기술, 오락 같은 성질들이 겹치고 교차할 뿐입니다. 그는 이것을 &#x27;가족 유사성&#x27;이라 불렀습니다. 한 가족의 얼굴이 눈매와 걸음걸이에서 부분적으로만 닮듯이 말입니다.</p>
+<p>우리는 낱말의 본질을 캐낼 것이 아니라, 그 쓰임을 따라 유사성의 그물망을 여행해야 합니다. 하나의 정의로 모든 것을 묶으려는 욕심을 내려놓아야 합니다.</p>
+<figure><img src="./images/body-3.png" alt="의미는 쓰임 카드 3개 - 쓰임이 의미다, 건축가의 석판, 가족 유사성"><figcaption>의미는 쓰임 카드 3개 - 쓰임이 의미다, 건축가의 석판, 가족 유사성</figcaption></figure>
+<hr>
+<h2>홀로는 규칙을 따를 수 없다 — 규칙과 사적 언어</h2>
+<p>여기서 더 깊은 물음이 나옵니다. 규칙을 &#x27;따른다&#x27;는 것은 무엇일까요.</p>
+<p>학생에게 &#x27;2씩 더하기&#x27;로 수열을 잇게 했더니 1000 다음에 1004, 1008을 씁니다. 교정하자 학생은 &quot;저는 똑같이 계속했는데요&quot;라고 답합니다. 무엇이 &#x27;똑같음&#x27;인지, 규칙 자체가 정해 주지는 못합니다.</p>
+<p>『탐구』 201절은 이를 역설로 정리합니다. 모든 행위를 규칙과 일치한다고 해석할 수 있다면, 모든 행위를 어긋난다고도 해석할 수 있습니다. 규칙은 그 적용 너머의 어떤 추상적 실체가 아닙니다. 공동체의 실천 속에서 지켜지고 교정됩니다.</p>
+<p>여기서 &#x27;사적 언어 논변&#x27;이 이어집니다. 오직 나만 아는 감각을 지칭하는 언어를 상상해 봅니다. 그런 언어는 옳고 그름을 가릴 공적 기준이 없습니다. 검증할 길이 없다면, 그것은 규칙을 따르는 언어가 아닙니다.</p>
+<p>상자 속 딱정벌레의 비유가 유명합니다. 각자 제 상자 속만 볼 수 있고 그 안의 것을 &#x27;딱정벌레&#x27;라 부른다면, 상자 속 내용물은 대화에서 아무 역할도 하지 못합니다. 말의 의미는 결국 홀로가 아니라 함께 쓰는 데서 옵니다.</p>
+<figure><img src="./images/body-4.png" alt="사적 언어 논변 표 - 의미 조건은 공적 기준, 사적 감각은 검증 불가, 딱정벌레는 역할 없음"><figcaption>사적 언어 논변 표 - 의미 조건은 공적 기준, 사적 감각은 검증 불가, 딱정벌레는 역할 없음</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>전기의 비트겐슈타인은 언어의 한계를 긋고 그 너머를 침묵으로 남겼습니다. 후기의 그는 그 한계 밖이 실은 또 다른 언어게임이었음을 보여주었습니다. 다만 이 전환이 모든 물음을 닫은 것은 아닙니다. &#x27;삶의 형식&#x27;이 정확히 무엇인지, 규칙 따르기의 역설을 어디까지 받아들여야 하는지는 지금도 논쟁 중입니다.</p>
+<p>그럼에도 하나의 메시지는 선명합니다 — 말의 의미는 세계를 그리는 데서가 아니라, 우리가 함께 살아가며 그 말을 쓰는 데서 옵니다.</p>
+<p>의미가 어디서 오느냐고 다시 물으신다면, 이렇게 답하고 싶습니다. 사전이 아니라 삶에서 온다고.</p>
+<div class="tags"><span>#비트겐슈타인</span> <span>#언어게임</span> <span>#철학적탐구</span> <span>#논리철학논고</span> <span>#언어철학</span> <span>#가족유사성</span> <span>#사용으로서의의미</span> <span>#인문학</span></div>
+<p>참고 소스</p>
+<ul><li>Stanford Encyclopedia of Philosophy, &quot;Ludwig Wittgenstein&quot; - https://plato.stanford.edu/entries/wittgenstein/</li><li>Wikipedia, &quot;Tractatus Logico-Philosophicus&quot; - https://en.wikipedia.org/wiki/Tractatus_Logico-Philosophicus</li><li>Wikipedia, &quot;Philosophical Investigations&quot; - https://en.wikipedia.org/wiki/Philosophical_Investigations</li><li>Wikipedia, &quot;Language game (philosophy)&quot; - https://en.wikipedia.org/wiki/Language_game_(philosophy)</li><li>Wikipedia, &quot;Family resemblance&quot; - https://en.wikipedia.org/wiki/Family_resemblance</li><li>Britannica, &quot;Tractatus Logico-Philosophicus&quot; - https://www.britannica.com/topic/Tractatus-Logico-Philosophicus</li><li>Philosophy Now, &quot;Pictures and Nonsense&quot; - https://philosophynow.org/issues/58/Pictures_and_Nonsense</li></ul>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

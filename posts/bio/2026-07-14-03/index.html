@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>혈액형과 수혈</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#ff7c7c;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#ff7c7c;border-color:#ff7c7c">바이오</div>
+<h1>혈액형과 수혈</h1>
+<p class="subtitle">ABO·Rh, 왜 맞는 피여야 할까</p>
+<p>수혈은 남의 피를 몸에 들이는 일입니다. 아무 피나 되는 것은 아니고, 맞는 피여야 합니다. 오늘은 그 &#x27;맞는다&#x27;는 말의 정체를 ABO와 Rh를 중심으로 정리해 보겠습니다.</p>
+<figure><img src="./images/thumbnail.png" alt="혈액형과 수혈을 상징하는 썸네일"><figcaption>혈액형과 수혈을 상징하는 썸네일</figcaption></figure>
+<hr>
+<h2>적혈구 표면의 이름표, 항원과 항체</h2>
+<p>피를 가르는 기준은 적혈구 표면에 붙은 &#x27;항원&#x27;입니다. 일종의 이름표라고 보시면 됩니다.</p>
+<p>이 항원은 단백질이 아니라 적혈구 표면에 붙은 당(糖) 사슬입니다. 효소가 당을 한 칸씩 이어 붙여 A항원과 B항원을 만듭니다.</p>
+<p>혈장 속에는 자기에게 없는 항원을 공격하는 &#x27;항체&#x27;가 떠다닙니다. 원리는 단순합니다. 자기 항원에 대한 항체는 만들지 않고, 자기에게 없는 항원에 대한 항체만 가집니다.</p>
+<p>그래서 A형은 A항원을 지니고 항B 항체를 가집니다. B형은 그 반대입니다. AB형은 두 항원을 모두 가져 항체가 없고, O형은 항원이 없는 대신 항A·항B 항체를 모두 지닙니다.</p>
+<p>이 항A·항B 항체는 생후 6개월경부터 저절로 생깁니다. 수혈이나 임신 같은 자극이 없어도 몸에 존재하는 자연항체인 셈입니다.</p>
+<figure><img src="./images/body-1.png" alt="ABO 4형의 항원·항체를 정리한 표"><figcaption>ABO 4형의 항원·항체를 정리한 표</figcaption></figure>
+<hr>
+<h2>맞지 않는 피가 들어오면</h2>
+<p>부적합 혈액이 들어오면, 혈장 속 항체가 낯선 적혈구의 항원에 달라붙습니다. 적혈구는 서로 엉기고(응집), 이어 터집니다(용혈).</p>
+<p>가령 A형 환자에게 B형 적혈구가 들어가면, 환자의 항B 항체가 낯선 B항원을 붙들어 그 적혈구를 파괴합니다.</p>
+<p>이것이 용혈성 수혈부작용입니다. 발열과 오한에서 시작해 혈색소뇨, 신부전, 쇼크까지 이어질 수 있습니다. 소량이라도 위험할 수 있는 반응입니다.</p>
+<p>흔히 O형을 &#x27;만능 공혈자&#x27;, AB형을 &#x27;만능 수혈자&#x27;라 부릅니다. O형 적혈구에는 A·B 항원이 없어 공격받을 표적이 없고, AB형 혈장에는 항체가 없어 어떤 적혈구도 공격하지 않기 때문입니다.</p>
+<p>다만 이 표현은 오해를 부르기 쉽습니다. O형이 만능인 것은 항체가 든 혈장을 빼고 적혈구만 줄 때의 이야기입니다. O형 혈장에는 항A·항B 항체가 그대로 있습니다.</p>
+<p>예전엔 이 &#x27;만능&#x27;을 넓게 여겼습니다. 지금은 극히 위급한 상황의 소량 응급 조치로만 봅니다. 원칙은 언제나 같은 혈액형끼리의 동형 수혈입니다.</p>
+<figure><img src="./images/body-2.png" alt="부적합 수혈의 핵심 포인트 카드 3~4개"><figcaption>부적합 수혈의 핵심 포인트 카드 3~4개</figcaption></figure>
+<hr>
+<h2>Rh 혈액형과 신생아 용혈성 질환</h2>
+<p>Rh는 D항원의 유무로 갈립니다. 있으면 양성, 없으면 음성입니다.</p>
+<p>ABO와 다른 점이 하나 있습니다. 항D 항체는 자연항체가 아닙니다. Rh 음성인 사람이 Rh 양성 혈액에 노출된 뒤에야 만들어집니다.</p>
+<p>이 성질이 임신에서 문제가 됩니다. Rh 음성 산모가 Rh 양성 태아를 가지면, 분만 과정에서 태아 적혈구에 노출돼 항D 항체가 생깁니다.</p>
+<p>첫 임신은 대개 무사합니다. 문제는 다음 임신입니다. 이미 생긴 항체가 태아의 적혈구를 공격해 황달과 빈혈, 심하면 태아수종을 일으킵니다.</p>
+<p>예방법은 있습니다. 항D 면역글로불린(로감)을 임신 28주경과 분만 후 72시간 이내에 맞으면, 산모가 항체를 만드는 것을 막아 다음 임신을 지킬 수 있습니다.</p>
+<figure><img src="./images/body-3.png" alt="Rh 양성과 Rh 음성을 나란히 비교한 대비 도식"><figcaption>Rh 양성과 Rh 음성을 나란히 비교한 대비 도식</figcaption></figure>
+<hr>
+<h2>안전한 수혈의 마지막 관문, 교차시험</h2>
+<p>그래서 병원은 피 한 봉지를 그냥 내주지 않습니다. 수혈 전 검사를 거칩니다.</p>
+<p>먼저 ABO·RhD 혈액형을 확인하고, 항체선별검사로 예상 밖의 항체를 찾습니다. 마지막이 교차시험입니다.</p>
+<p>교차시험은 환자의 혈청과 공혈자의 적혈구를 실제로 섞어 봅니다. 공혈자 적혈구와 환자 혈청을 맞춰 보는 주교차시험이 그 핵심입니다. 응집이나 용혈이 보이면, 그 피는 절대 수혈하지 않습니다.</p>
+<p>이 관문들을 통과한 뒤에야 수혈이 시작됩니다. 원칙은 처음부터 끝까지 하나입니다. 같은 혈액형끼리, 동형 수혈입니다.</p>
+<figure><img src="./images/body-4.png" alt="수혈 전 검사 단계를 순서로 보여주는 도식"><figcaption>수혈 전 검사 단계를 순서로 보여주는 도식</figcaption></figure>
+<p>한국인은 A형이 약 34%로 가장 많고, O형 28%, B형 27%, AB형 11% 순입니다. Rh 음성은 0.1% 정도로 드뭅니다. 드문 혈액형일수록 제때 맞는 피를 구하기가 어렵습니다.</p>
+<hr>
+<p>정리하면 이렇습니다. 수혈의 안전은 화려한 기술이 아니라, 항원과 항체를 어긋나지 않게 맞추는 꼼꼼함에서 나옵니다.</p>
+<p>&quot;맞는 피란, 내 몸이 남으로 오해하지 않는 피입니다.&quot;</p>
+<p>이 글은 일반 교양을 위한 정리입니다. 실제 수혈이나 임신 중 Rh 관리가 필요하시다면, 반드시 의료진과 상담하시길 권합니다.</p>
+<div class="tags"><span>#혈액형</span> <span>#수혈</span> <span>#ABO혈액형</span> <span>#Rh혈액형</span> <span>#신생아용혈성질환</span> <span>#교차시험</span> <span>#만능공혈자</span> <span>#헌혈</span></div>
+<p>참고 소스</p>
+<ul><li>대한적십자사 혈액관리본부(혈액형종류): https://bloodinfo.net/knrcbs/cm/cntnts/cntntsView.do?mi=1056&amp;cntntsId=1129</li><li>NCBI Bookshelf, The ABO blood group: https://www.ncbi.nlm.nih.gov/books/NBK2267/</li><li>MSD 매뉴얼(일반인용) 수혈 개요: https://www.msdmanuals.com/ko/home/혈액-질환/수혈/수혈-개요</li><li>서울대학교병원, Rh 신생아 용혈성 질환: https://www.snuh.org/health/nMedInfo/nView.do?category=DIS&amp;medid=AA000573</li><li>서울아산병원, Rh 부적합 임신: https://www.amc.seoul.kr/asan/healthinfo/disease/diseaseDetail.do?contentId=33769</li></ul>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
