@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>부동소수점 0.1 + 0.2가 0.3이 아닌 이유와 컴퓨터의 소수 저장 방식</title>
+<meta name="description" content="0.1 + 0.2가 0.3이 되지 않는 이유를 IEEE 754 배정밀도 구조와 실제 사고 사례로 정리했습니다.">
+<meta property="og:title" content="부동소수점 0.1 + 0.2가 0.3이 아닌 이유와 컴퓨터의 소수 저장 방식">
+<meta property="og:image" content="./images/thumbnail.png">
+<style>
+  body {
+    margin: 0; padding: 40px 20px 80px;
+    background: #f7f8fa; color: #1f2328;
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+  }
+  .wrap { width: 700px; max-width: 100%; margin: 0 auto; background:#fff;
+           padding: 44px 40px 56px; border-radius: 14px;
+           box-shadow: 0 2px 18px rgba(20,30,60,.07); box-sizing: border-box; }
+  .meta { margin-bottom: 22px; }
+  .badge { display:inline-block; background:#4f8cff; color:#fff; font-size:13px;
+            font-weight:700; letter-spacing:.06em; padding:5px 13px; border-radius:999px; }
+  .date { margin-left:10px; color:#8a929e; font-size:14px; }
+  h1 { font-size: 30px; line-height: 1.42; font-weight: 800; letter-spacing:-.02em;
+        margin: 0 0 30px; color:#12161c; }
+  h2 { font-size: 21px; font-weight: 700; line-height:1.5; margin: 46px 0 16px;
+        padding-left: 13px; border-left: 4px solid #4f8cff; color:#12161c; }
+  p { font-size: 16.5px; line-height: 1.85; margin: 0 0 18px; color:#2c333d; }
+  strong { font-weight:700; color:#12161c; }
+  img { max-width: 100%; height: auto; display:block; margin: 26px auto;
+         border-radius: 10px; }
+  hr { border:0; border-top:1px solid #e8ebf0; margin: 40px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 24px 0; font-size: 15px; }
+  th { background:#f0f4fb; color:#12161c; font-weight:700; }
+  th, td { border:1px solid #e2e6ee; padding: 10px 12px; text-align:left;
+            line-height:1.6; word-break: break-all; }
+  tr:nth-child(even) td { background:#fafbfd; }
+  ul { padding-left: 22px; margin: 0 0 18px; }
+  li { font-size: 16.5px; line-height: 1.85; margin-bottom: 8px; color:#2c333d; }
+  code { background:#f2f4f8; padding: 2px 6px; border-radius:5px;
+          font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 14.5px; color:#c7254e;
+          word-break: break-all; }
+  .tags { margin-top: 42px; padding-top: 24px; border-top:1px solid #e8ebf0; }
+  .tag { display:inline-block; background:#eef3fd; color:#3d6fd0; font-size:13.5px;
+          padding:6px 12px; border-radius:999px; margin: 0 7px 9px 0; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta"><span class="badge">IT</span><span class="date">2026-07-14</span></div>
+  <h1>부동소수점 0.1 + 0.2가 0.3이 아닌 이유와 컴퓨터의 소수 저장 방식</h1>
+  <p><img alt="0.1 + 0.2가 0.3이 아닌 이유 — IEEE 754 배정밀도와 컴퓨터가 소수를 저장하는 방식" src="./images/thumbnail.png" /></p>
+<p>이번 글에서는 부동소수점이 왜 0.1 + 0.2를 0.3으로 계산하지 못하는지 정리해 보겠습니다. 결론부터 말씀드리면 이유는 세 가지입니다. 2진법으로는 0.1이 무한소수가 되고, 저장 공간은 64비트로 유한하며, 잘려나간 마지막 한 비트가 비교 연산을 뒤집습니다. 언어의 버그가 아니라 IEEE 754 표준의 구조에서 비롯된 결과입니다.</p>
+<hr />
+<h2>먼저 현상부터 확인합니다</h2>
+<p>거의 모든 언어에서 <code>0.1 + 0.2 == 0.3</code>은 거짓을 반환합니다. 실제 출력값은 0.30000000000000004입니다.</p>
+<p>Python 공식 문서도 같은 예시를 싣고 있습니다. <code>0.1 + 0.1 + 0.1 == 0.3</code>의 결과 역시 False입니다. 미리 반올림해도 소용없습니다. <code>round(0.1, 1)</code>을 세 번 더해 <code>round(0.3, 1)</code>과 비교해도 여전히 False입니다.</p>
+<p>이 지점에서 많은 분이 자기 코드를 의심합니다. 그럴 필요는 없습니다.</p>
+<p>Python 문서는 이것이 파이썬의 버그도, 사용자 코드의 버그도 아니라고 못 박습니다. 하드웨어 부동소수점 연산을 쓰는 Perl, C, C++, Java, Fortran 모두 같은 결과를 냅니다. 일부 언어는 기본 출력 모드에서 차이를 표시하지 않을 뿐입니다.</p>
+<p><code>0.30000000000000004.com</code>이라는 사이트가 있을 정도입니다. 수십 개 언어에서 이 연산을 돌린 결과를 모아둔 곳입니다. 특정 언어의 문제가 아니라 표준의 문제라는 사실을 보여줍니다.</p>
+<p><img alt="Python, JavaScript, Java, C/C++, Go에서 0.1 + 0.2를 실행한 결과가 모두 0.30000000000000004로 동일하게 나오는 비교 표" src="./images/body-1.png" /></p>
+<hr />
+<h2>원인 하나 — 2진법에는 소인수가 2밖에 없습니다</h2>
+<p>컴퓨터는 소수를 2진 분수로 저장합니다. 10진 분수 0.625가 6/10 + 2/100 + 5/1000이듯, 2진 분수 0.101은 1/2 + 0/4 + 1/8입니다. 값은 같고 표기 진법만 다릅니다.</p>
+<p>여기서 규칙 하나가 작동합니다. 어떤 분수가 유한소수가 되려면 분모의 소인수가 그 진법의 소인수여야 합니다.</p>
+<p>10진법의 소인수는 2와 5입니다. 그래서 1/2도, 1/5도, 1/10도 모두 깔끔하게 떨어집니다.</p>
+<p>2진법의 소인수는 2 하나뿐입니다. 1/2, 1/4, 1/8은 문제없습니다. 그러나 분모에 5가 들어가는 1/5과 1/10은 무한 순환소수가 됩니다.</p>
+<p>10진수 0.1을 2진법으로 적으면 이렇게 됩니다.</p>
+<p><code>0.0001100110011001100110011001100110011001100110011...</code></p>
+<p>끝이 없습니다. 10진법에서 1/3을 0.3, 0.33, 0.333으로 아무리 늘려 써도 정확히 1/3이 되지 않는 것과 같은 처지입니다. 2진법 앞에서 0.1이 딱 그렇습니다.</p>
+<p><img alt="10진법은 소인수가 2와 5라 1/10이 유한소수지만, 2진법은 소인수가 2뿐이라 1/10이 무한 순환소수가 되는 과정을 비교한 그림" src="./images/body-2.png" /></p>
+<hr />
+<h2>원인 둘 — 64비트라는 유한한 그릇</h2>
+<p>무한소수를 유한한 공간에 넣으려면 어디선가 잘라야 합니다. 그 공간의 규격이 IEEE 754입니다.</p>
+<p>IEEE 754는 1985년 처음 제정됐고, 2008년 개정을 거쳐 현재 최신판은 2019년판입니다. Python 문서에 따르면 적어도 2000년 이후로는 사실상 모든 기계가 이 표준을 씁니다. 그리고 거의 모든 플랫폼이 실수형을 IEEE 754 배정밀도, 이른바 binary64에 대응시킵니다.</p>
+<p>배정밀도 64비트는 이렇게 나뉩니다.</p>
+<table>
+<thead>
+<tr>
+<th>구획</th>
+<th>비트 수</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>부호</td>
+<td>1비트</td>
+<td>양수면 0, 음수면 1</td>
+</tr>
+<tr>
+<td>지수</td>
+<td>11비트</td>
+<td>소수점의 위치</td>
+</tr>
+<tr>
+<td>가수</td>
+<td>52비트</td>
+<td>실제 유효 자릿수</td>
+</tr>
+</tbody>
+</table>
+<p>지수 11비트는 0부터 2047까지의 부호 없는 정수를 바이어스 형식으로 담습니다. 값 1023이 지수 0을 의미합니다. 실제 지수 범위는 −1022부터 +1023까지입니다. 양 끝의 −1023과 +1024는 0과 무한대, NaN 같은 특수값 표현용으로 예약돼 있습니다.</p>
+<p>가수는 저장되는 것이 52비트지만 실질 정밀도는 53비트입니다. 정규화된 수의 맨 앞에는 반드시 1이 오기 때문에, 그 1은 아예 저장하지 않고 있다고 치는 것입니다. 암묵적 선행 1이라 부릅니다. 1비트를 공짜로 얻는 영리한 설계입니다.</p>
+<p>이 53비트가 10진수로 환산하면 약 15~17자리 유효숫자에 해당합니다. 머신 엡실론은 2의 −52제곱, 약 2.22 × 10의 −16제곱입니다.</p>
+<p><img alt="IEEE 754 배정밀도 64비트 구조도 — 부호 1비트, 지수 11비트, 가수 52비트로 나뉜 각 구획의 역할 설명" src="./images/body-3.png" /></p>
+<hr />
+<h2>0.1은 실제로 어떤 값으로 저장되는가</h2>
+<p>Python 공식 문서는 그 값을 정확히 유도해 보여줍니다.</p>
+<p>0.1을 J를 53비트 정수로 하는 J / 2의 N제곱 꼴로 근사해야 합니다. J가 정확히 53비트가 되는 N은 56 하나뿐입니다. 2의 56제곱을 10으로 나누면 나머지가 6입니다. 10의 절반인 5보다 크므로 올림합니다.</p>
+<p>그렇게 얻은 최선의 값이 7205759403792794 / 2의 56제곱이고, 약분하면 3602879701896397 / 2의 55제곱입니다.</p>
+<p>이 분수를 10진수로 끝까지 펼치면 이렇습니다.</p>
+<p><strong>0.1000000000000000055511151231257827021181583404541015625</strong></p>
+<p>컴퓨터는 1/10을 한 번도 본 적이 없습니다. 컴퓨터가 보는 것은 처음부터 이 값이었습니다.</p>
+<p>올림했기 때문에 저장값은 1/10보다 아주 조금 큽니다. 그리고 0.1과 0.10000000000000001과 위의 긴 숫자, 이 셋은 모두 같은 2진 근사값으로 수렴합니다.</p>
+<p>예전엔 파이썬도 17자리 유효숫자인 0.10000000000000001을 출력했습니다. 지금은, 그러니까 3.1 버전부터는 같은 근사값을 공유하는 표기 중 가장 짧은 0.1을 골라 보여줍니다.</p>
+<p>Python 문서는 이를 두고 "일종의 착시"라고 표현합니다. 화면에 보이는 것은 저장된 2진 근사값의 10진 근사값일 뿐입니다.</p>
+<hr />
+<h2>덧셈이 어긋나는 순간</h2>
+<p>이제 실제로 더해지는 값들을 보시겠습니다.</p>
+<table>
+<thead>
+<tr>
+<th>우리가 쓴 값</th>
+<th>실제 저장된 값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.1</td>
+<td>0.1000000000000000055511151231257827021181583404541015625</td>
+</tr>
+<tr>
+<td>0.2</td>
+<td>0.200000000000000011102230246251565404236316680908203125</td>
+</tr>
+<tr>
+<td>합</td>
+<td>0.3000000000000000444089209850062616169452667236328125</td>
+</tr>
+<tr>
+<td>0.3</td>
+<td>0.299999999999999988897769753748434595763683319091796875</td>
+</tr>
+</tbody>
+</table>
+<p>핵심은 마지막 줄입니다. 0.1과 0.2만 부정확한 게 아닙니다. <strong>0.3도 정확히 저장되지 않습니다.</strong></p>
+<p>두 근사값의 합은 0.3의 근사값보다 큽니다. 그래서 비교가 거짓이 됩니다.</p>
+<p>차이의 크기를 16진 부동소수점 표기로 보면 더 선명합니다. 0.3은 <code>0x1.3333333333333p-2</code>이고, 0.1 + 0.2는 <code>0x1.3333333333334p-2</code>입니다. 마지막 자리가 3과 4, 딱 1비트 차이입니다.</p>
+<p>오차가 커서 틀린 것이 아닙니다. 마지막 한 비트가 달라서 등호가 무너진 것입니다.</p>
+<p>Python 문서는 이 오차가 대부분의 기계에서 연산당 2의 53제곱분의 1을 넘지 않는다고 설명합니다. 웬만한 작업에는 충분한 정밀도입니다. 다만 모든 부동소수점 연산이 새로운 반올림 오차를 낳을 수 있다는 점은 기억해야 합니다.</p>
+<hr />
+<h2>그 한 비트가 사람을 죽인 적이 있습니다</h2>
+<p>1991년 2월 25일, 사우디아라비아 다란의 미군 병영에 이라크의 스커드 미사일이 떨어졌습니다. 28명이 숨지고 약 100명이 다쳤습니다. 요격을 맡은 패트리엇 시스템은 발사되지 않았습니다.</p>
+<p>원인은 지금까지 설명한 바로 그 문제였습니다. 내부 시계가 1/10초 단위로 카운트되는데, 이 값을 24비트 레지스터에 담았습니다. 1/10의 2진 표현은 무한 순환소수입니다. 24비트에서 잘라낸 미세한 오차가 매초 쌓였습니다.</p>
+<p>100시간 가동 후, 시스템 시계는 약 0.34초 어긋나 있었습니다.</p>
+<p>스커드의 속도는 초속 약 1,600미터입니다. 0.34초면 약 500미터를 갑니다. 계산된 추적 범위 이동량은 687미터였습니다. 패트리엇은 편차가 137미터를 넘으면 표적을 범위 밖으로 간주합니다.</p>
+<p>시스템은 정상 작동했습니다. 다만 있지도 않은 곳을 보고 있었습니다.</p>
+<p>돈으로 끝난 사례도 있습니다. 1982년 밴쿠버 증권거래소가 지수를 1000.000으로 출범시켰습니다. 지수 계산 코드의 딱 한 명령어가 반올림 대신 버림이었습니다. 셋째 자리에서 잘린 값이 다음 계산의 입력으로 다시 들어갔고, 갱신은 하루 약 3,000회였습니다.</p>
+<p>22개월 뒤 지수는 약 524를 가리키고 있었습니다. 제대로 계산했다면 1009.811이어야 했습니다. 월평균 25포인트씩, 실재하지 않는 손실이 쌓인 셈입니다. 1983년 11월 마지막 주말에 바로잡자 지수는 하루아침에 1098.892로 뛰어올랐습니다.</p>
+<p>성격이 조금 다른 사고도 짚어두겠습니다. 1996년 6월 4일 아리안 5 로켓은 발사 37초 만에 고도 약 3,700미터에서 폭발했습니다. 64비트 부동소수점 값을 16비트 정수로 변환하다 범위를 넘어선 것이 원인이었습니다. 아리안 4에서 그대로 가져온 코드였는데, 아리안 5의 속도값이 훨씬 컸습니다. 피해액은 약 5억 달러, 보험은 없었습니다. 이쪽은 반올림 오차라기보다 그릇의 크기를 잘못 고른 사고에 가깝습니다.</p>
+<p><img alt="부동소수점 오차가 부른 3대 사고 정리 — 1991년 패트리엇 미사일 28명 사망, 1982년 밴쿠버 증권거래소 지수 붕괴, 1996년 아리안 5 로켓 폭발" src="./images/body-4.png" /></p>
+<hr />
+<h2>그러면 어떻게 다뤄야 합니까</h2>
+<p>첫째, <code>==</code>를 버립니다. Python이라면 <code>math.isclose()</code>가 있습니다. <code>math.isclose(0.1 + 0.1 + 0.1, 0.3)</code>은 True를 반환합니다.</p>
+<p>다만 엡실론을 고정값으로 박아두는 방식은 권하지 않습니다. The Floating-Point Guide는 그 함정을 정확히 지적합니다. "작아 보인다"는 이유로 고른 엡실론은, 비교 대상이 아주 작은 수일 때는 너무 커서 전혀 다른 두 값을 같다고 판정합니다. 반대로 아주 큰 수일 때는 최소 반올림 오차보다도 작아져서 언제나 다르다고 판정합니다. 절대 오차와 상대 오차를 함께 보는 비교가 필요합니다.</p>
+<p>둘째, 돈은 실수형으로 계산하지 않습니다. 금융 소프트웨어 쪽의 오랜 통설입니다. Python에는 회계용으로 <code>decimal</code> 모듈이, 유리수 연산이 필요하면 <code>fractions</code> 모듈이 표준으로 들어 있습니다.</p>
+<p>Java의 BigDecimal을 쓰신다면 규칙이 몇 가지 있습니다.</p>
+<ul>
+<li><code>new BigDecimal(0.1)</code>은 이미 부정확해진 값을 받습니다. 반드시 문자열 생성자 <code>new BigDecimal("0.1")</code>을 씁니다.</li>
+<li>비교는 <code>equals()</code>가 아니라 <code>compareTo()</code>로 합니다.</li>
+<li>반올림은 계산 마지막 단계에서 한 번만 합니다. 중간마다 반올림하면 밴쿠버가 재현됩니다.</li>
+<li>반올림 모드는 항상 명시적으로 지정합니다.</li>
+</ul>
+<p>셋째, 합산에는 전용 도구가 있습니다. 0.1을 열 번 더해 1.0과 비교하면 False입니다. 그런데 <code>sum([0.1] * 10) == 1.0</code>은 True입니다. 파이썬의 <code>sum()</code>이 중간 반올림에 확장 정밀도를 쓰기 때문입니다. <code>math.fsum()</code>은 여기서 더 나아가 잃어버린 자릿수를 전부 추적해 마지막에 딱 한 번만 반올림합니다. 공식 문서의 극단적인 예시에서 단순 누적 덧셈은 정답 자릿수가 하나도 맞지 않았습니다.</p>
+<p><img alt="부동소수점 실무 대응 4가지 정리 표 — == 대신 isclose, 돈은 decimal과 BigDecimal, 합산은 sum과 fsum, 반올림은 마지막에" src="./images/body-5.png" /></p>
+<hr />
+<h2>그렇다고 겁먹을 일은 아닙니다</h2>
+<p>한계를 인정하는 김에 반대쪽도 말씀드려야 공평하겠습니다.</p>
+<p>병적인 경우가 존재하는 것은 사실입니다. 그러나 일상적인 계산에서는 최종 결과의 표시만 원하는 자릿수로 반올림하면 대개 기대한 값을 보게 됩니다. <code>format(math.pi, '.2f')</code>는 얌전히 <code>3.14</code>를 내놓습니다.</p>
+<p>Python 공식 문서의 태도가 그래서 인상적입니다. 한참을 경고한 끝에 이렇게 덧붙입니다. "부동소수점을 지나치게 경계하지 마십시오."</p>
+<p>정확한 값이 궁금하실 때 쓸 도구도 마련돼 있습니다. <code>float.as_integer_ratio()</code>는 정확한 분수를, <code>float.hex()</code>는 저장된 값의 16진 표기를 돌려줍니다. 특히 16진 표기는 값이 정확해서 Java나 C99처럼 같은 형식을 지원하는 언어와 데이터를 주고받을 때 유용합니다.</p>
+<hr />
+<p>정리하면 이렇습니다.</p>
+<p>0.1 + 0.2가 0.3이 아닌 이유는 셋입니다. 2진법에 소인수가 2뿐이라 0.1이 무한소수가 되고, 64비트라는 그릇이 그것을 53비트에서 자르고, 잘린 마지막 한 비트가 등호를 무너뜨립니다. 0.3 역시 정확히 저장되지 못한다는 점이 이 이야기의 반전입니다.</p>
+<p>— 부동소수점은 정확한 값을 담는 그릇이 아니라, 정해진 예산 안에서 가장 가까운 값을 고르는 타협입니다.</p>
+<p>이 사실을 알고 나면 코드를 다르게 쓰게 되냐고 물으신다면, 적어도 돈을 다루는 코드에서는 그렇다고 답하겠습니다.</p>
+  <div class="tags"><span class="tag">#부동소수점</span><span class="tag">#IEEE754</span><span class="tag">#배정밀도</span><span class="tag">#floatingpoint</span><span class="tag">#프로그래밍기초</span><span class="tag">#컴퓨터구조</span><span class="tag">#파이썬</span><span class="tag">#개발자상식</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

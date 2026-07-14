@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>수면과 정서의 관계, 잠이 무너질 때 마음이 흔들리는 이유와 회복법</title>
+<style>
+:root { --acc:#2f8f78; --acc-l:#e8f5f1; --ink:#1f2328; --mute:#5b6670; }
+* { box-sizing:border-box; }
+body { margin:0; padding:48px 20px 96px; background:#fafbfa; color:var(--ink);
+  font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+  -webkit-font-smoothing:antialiased; }
+.wrap { width:100%; max-width:700px; margin:0 auto; }
+.meta { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+.badge { background:var(--acc); color:#fff; font-size:13px; font-weight:700;
+  padding:5px 14px; border-radius:999px; letter-spacing:.04em; }
+.date { color:var(--mute); font-size:14px; }
+h1 { font-size:31px; line-height:1.42; font-weight:800; margin:0 0 34px;
+  letter-spacing:-.02em; word-break:keep-all; }
+h2 { font-size:21px; line-height:1.5; font-weight:700; margin:52px 0 20px;
+  padding-left:14px; border-left:4px solid var(--acc); word-break:keep-all; }
+p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+strong { font-weight:700; background:linear-gradient(transparent 62%, var(--acc-l) 62%); }
+figure { margin:34px 0; }
+img { max-width:100%; height:auto; display:block; border-radius:10px; }
+hr { border:0; border-top:1px solid #e3e7e5; margin:44px 0; }
+ul { padding-left:20px; margin:0 0 20px; }
+li { font-size:14.5px; line-height:1.8; color:var(--mute); margin-bottom:9px;
+  word-break:break-word; }
+a { color:var(--acc); text-decoration:none; word-break:break-all; }
+a:hover { text-decoration:underline; }
+blockquote { margin:24px 0; padding:16px 20px; background:var(--acc-l);
+  border-radius:8px; font-size:14.5px; line-height:1.8; color:#2c4a42; }
+.tags { margin-top:12px; }
+.tags span { display:inline-block; background:#eef1f0; color:var(--mute);
+  font-size:13px; padding:5px 12px; border-radius:999px; margin:0 6px 8px 0; }
+@media (max-width:520px){ body{padding:28px 16px 64px;} h1{font-size:25px;} h2{font-size:19px;} }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+  <div class="meta"><span class="badge">상담</span><span class="date">2026-07-14</span></div>
+  <h1>수면과 정서의 관계, 잠이 무너질 때 마음이 흔들리는 이유와 회복법</h1>
+  <figure><img src="./images/thumbnail.png" alt="잠이 무너질 때 마음도 흔들린다 - 수면과 정서의 관계, 그리고 회복을 돕는 방법"></figure>
+  <p>이번 글에서는 수면과 정서의 관계를 정리해 보겠습니다. 잠이 부족할 때 왜 사소한 일에 마음이 크게 흔들리는지, 그리고 근거가 확인된 회복 방법은 무엇인지 함께 살펴보려 합니다.</p>
+  <p>먼저 결론부터 세 줄로 말씀드립니다. 잠이 부족하면 감정을 처리하는 뇌 회로의 브레이크가 헐거워집니다. 불면과 우울은 서로를 키우는 양방향 관계입니다. 그리고 이 고리를 끊는 데 가장 강하게 권고되는 방법은 약이 아니라 <strong>불면증 인지행동치료(CBT-I)</strong>입니다.</p>
+  <hr>
+  <h2>하룻밤을 못 잤을 뿐인데, 감정이 커집니다</h2>
+  <p>2007년 하버드 의대와 UC 버클리 연구진이 발표한 실험이 있습니다.</p>
+  <p>건강한 성인 26명을 두 집단으로 나눴습니다. 열네 명은 약 35시간 동안 깨어 있었고, 열두 명은 집에서 평소처럼 잤습니다. 다음 날 같은 시각에 두 집단 모두 fMRI 안에서 사진 100장을 봤습니다. 중립적인 사진부터 점점 불쾌한 사진까지 순서를 섞어 보여주는 과제였습니다.</p>
+  <p>결과는 분명했습니다.</p>
+  <p>잠을 자지 못한 집단은 부정적인 사진을 볼 때 <strong>편도체 활성이 60% 더 크게</strong> 나타났습니다. 활성화된 편도체의 범위는 세 배로 넓어졌습니다. 편도체는 위협과 불쾌를 감지하는 부위입니다.</p>
+  <p>흥미로운 건 그다음입니다. 중립적인 사진에서는 두 집단의 차이가 거의 없었습니다. 즉 잠이 부족한 뇌가 모든 것에 들뜬 게 아니라, <strong>부정적인 자극에만 유독 크게 반응</strong>한 것입니다.</p>
+  <figure><img src="./images/body-1.png" alt="정상 수면 집단과 35시간 수면박탈 집단의 편도체 반응 차이 비교. 수면박탈군은 편도체 활성이 60% 더 크고 활성 범위가 3배였다"></figure>
+  <p>연결 상태를 보면 이유가 보입니다.</p>
+  <p>잠을 잔 집단은 편도체와 내측 전전두엽의 연결이 강했습니다. 전전두엽은 편도체를 위에서 눌러 주는 역할을 합니다. 반대로 잠을 못 잔 집단은 그 연결이 약해진 대신, 편도체가 뇌간의 각성 중추와 더 강하게 이어져 있었습니다.</p>
+  <p>브레이크는 헐거워지고 가속페달은 밟혀 있는 상태인 셈입니다.</p>
+  <p>연구진의 표현을 빌리면, 하룻밤의 잠은 이 회로의 온전함을 지킴으로써 다음 날의 감정 반응을 <strong>&#x27;리셋&#x27;</strong> 합니다.</p>
+  <p>다만 연구진 스스로 한계를 적어 두었습니다. 참가자들이 계속 깨어 있으면서 생긴 생체리듬 변화가 결과에 얼마나 영향을 줬는지는 알 수 없다고 말입니다. 저도 이 점은 그대로 전해 드리는 것이 맞다고 생각합니다.</p>
+  <hr>
+  <h2>잠은 기억을 지우지 않고, 감정의 날을 무디게 합니다</h2>
+  <p>같은 연구실이 2011년에 후속 연구를 내놨습니다.</p>
+  <p>참가자 34명에게 정서적인 사진 150장을 보여주고 강도를 평정하게 했습니다. 그리고 12시간 뒤에 똑같이 한 번 더 했습니다. 어떤 사람은 그사이 하룻밤을 잤고, 어떤 사람은 낮 동안 깨어 있었습니다.</p>
+  <p>잠을 잔 쪽에서만 편도체 활동이 줄었습니다. 주관적으로 느끼는 감정의 강도도 함께 낮아졌습니다. 깨어 있던 쪽에서는 그런 감소가 관찰되지 않았습니다.</p>
+  <p>기전으로 지목된 것은 렘(REM) 수면입니다.</p>
+  <p>렘수면 동안에는 각성과 스트레스에 관여하는 아드레날린 계열 신경전달물질이 뚜렷하게 억제됩니다. 그 조용한 상태에서 편도체와 해마 네트워크가 낮에 겪은 일을 다시 꺼내 처리합니다. 스트레스 화학물질이 빠진 방에서 어제 일을 다시 재생하는 셈입니다.</p>
+  <figure><img src="./images/body-2.png" alt="렘수면이 낮의 감정 경험을 처리하는 4단계 과정 다이어그램. 낮의 경험, 렘수면 진입, 재처리, 다음 날"></figure>
+  <p>연구자들은 이것을 <strong>&quot;하룻밤의 치료&quot;</strong>라고 불렀습니다.</p>
+  <p>이 표현에서 중요한 건 잠이 기억을 지우지 않는다는 점입니다. 무슨 일이 있었는지는 그대로 남습니다. 다만 그 일에 붙어 있던 감정의 날카로움이 밤을 지나며 무뎌집니다.</p>
+  <p>그러니 잠이 무너지면 이 처리 공정이 멈춥니다. 어제의 감정이 오늘로, 오늘의 감정이 내일로 그대로 넘어옵니다. 쌓인 감정이 무거워지는 게 아니라, <strong>정리되지 않은 채 그대로 남는 것</strong>입니다.</p>
+  <p>2024년에 나온 연구에서도 하룻밤을 못 잔 상태가 정서적 갈등을 해소하는 능력을 방해한다는 결과가 확인됐습니다. 방향은 같습니다.</p>
+  <hr>
+  <h2>불면과 우울은 한 방향이 아닙니다</h2>
+  <p>여기서 자연스럽게 따라오는 질문이 있습니다. 그렇다면 잠이 부족한 상태가 오래가면 어떻게 되는가.</p>
+  <p>2011년에 나온 종단 역학연구 메타분석이 답의 일부를 줍니다. 불면증이 있는 사람이 나중에 우울증을 겪을 <strong>오즈비는 2.60</strong>이었습니다. 우울하지 않던 사람 중 불면이 있는 사람은, 수면에 문제가 없는 사람보다 우울증 발병 위험이 약 두 배였다는 뜻입니다.</p>
+  <p>이상치를 빼도 수치는 여전히 높았습니다. 2016년의 다른 메타분석에서도 같은 방향의 결과가 나왔습니다. 서로 다른 연구팀이 각각 확인했다는 점이 이 사실의 무게를 더합니다.</p>
+  <figure><img src="./images/body-3.png" alt="불면과 우울의 양방향 관계 정리. 오즈비 2.60, 서로 다른 연구팀의 메타분석 두 건, 양방향 위험요인"></figure>
+  <p>다만 방향은 하나가 아닙니다.</p>
+  <p>불면은 우울의 독립적 위험요인이고, <strong>우울 또한 불면을 부르는 독립적 위험요인</strong>입니다. 둘은 원인과 결과로 깔끔하게 나뉘지 않습니다. 서로를 키우는 고리에 가깝습니다.</p>
+  <p>이 점이 오히려 희망적인 대목이기도 합니다. 고리라면, 어느 한쪽을 건드려도 전체가 움직일 여지가 생기니까요.</p>
+  <p>한 가지는 분명히 해 두겠습니다. &quot;잠 때문에 우울해진다&quot;고 단정할 수 있는 단계는 아닙니다. 2007년 연구진도 인과 해석에 대해서는 스스로 &#x27;사변적&#x27;이라는 단어를 썼습니다. 여기서 말할 수 있는 것은 강한 연관이지, 확정된 인과가 아닙니다.</p>
+  <hr>
+  <h2>한국의 밤은 지금 어떤 상태인가</h2>
+  <p>국내 통계를 보겠습니다.</p>
+  <p>건강보험심사평가원 자료에 따르면 2025년 수면장애로 진료와 처방을 받은 환자는 <strong>134만 9,039명</strong>이었습니다. 2021년에는 108만 1,228명이었습니다. 5년 사이 약 25% 늘었습니다.</p>
+  <p>만성 불면장애는 성인 인구의 약 10%에 영향을 미친다고 미국수면의학회는 밝히고 있습니다. 진료를 받은 사람만 센 숫자가 저 정도라는 뜻입니다.</p>
+  <p>치료의 무게중심에도 변화가 보입니다.</p>
+  <p>예전엔 잠이 안 오면 약이 거의 유일한 선택지처럼 여겨졌습니다. 지금은 비약물 치료가 함께 이야기됩니다. 국내에서도 2023년에 불면증 디지털 치료기기 두 종이 식약처 허가를 받았습니다. 그중 하나는 수면 제한, 자극 조절, 이완 요법 같은 인지행동치료 프로그램을 스마트폰으로 구현한 것입니다.</p>
+  <p>이해국 가톨릭대 정신의학과 교수는 언론 인터뷰에서 이렇게 말했습니다. &quot;졸피뎀은 효과가 빠른 만큼 장기적으로는 환자의 심리적 의존도를 높인다.&quot; 그리고 비약물적 치료를 통한 수면 습관 교육과 모니터링이 중요하다고 덧붙였습니다.</p>
+  <p>오해가 없도록 적어 둡니다. 약이 나쁘다는 이야기가 아닙니다. 약의 복용이나 중단은 처방한 의사와 상의할 일이지, 블로그 글이 정할 문제가 아닙니다.</p>
+  <hr>
+  <h2>수면위생은 치료가 아니라 바탕입니다</h2>
+  <p>미국수면의학회는 2021년에 만성 불면장애의 행동·심리 치료 지침을 발표했습니다. GRADE 방법론으로 평가한 첫 체계적 고찰이었습니다.</p>
+  <p>이 지침에서 <strong>강한 권고는 단 하나</strong>였습니다. 다요소 불면증 인지행동치료, 곧 CBT-I입니다. 임상의가 대부분의 상황에서 따라야 하는 수준의 권고입니다.</p>
+  <p>CBT-I는 인지치료 전략에 수면 조절 교육, 그리고 자극조절과 수면제한 같은 행동 전략을 결합한 것입니다. 보통 4~8회기로 진행됩니다.</p>
+  <figure><img src="./images/body-4.png" alt="미국수면의학회 2021 지침의 권고 수준별 불면증 치료법 비교 표. 다요소 CBT-I만 강한 권고, 수면위생은 단독 사용 반대"></figure>
+  <p>같은 지침에서 눈에 띄는 대목이 하나 더 있습니다.</p>
+  <p><strong>수면위생을 단독 치료로 쓰지 말 것을 제안</strong>한다는 항목입니다. 주저자인 잭 에딩거는 이렇게 설명했습니다. 수면위생은 흔히 권고되고 환자들도 잘 이해하지만, 그것만으로는 효과적인 단독 요법이 되지 못한다고 말입니다.</p>
+  <p>카페인을 줄이고 방을 어둡게 하는 일이 쓸모없다는 뜻이 아닙니다. 그것은 바탕이지 치료가 아니라는 뜻입니다. 바닥을 고르는 일과 집을 짓는 일은 다릅니다.</p>
+  <p>효과 근거는 여러 집단에서 쌓였습니다. 청소년 대상 메타분석에서 불면 증상, 입면 시간, 총 수면시간, 수면효율이 모두 유의하게 개선됐습니다. 고령자 대상 메타분석에서도 같은 지표들이 개선됐습니다. 우울증을 함께 겪는 불면 환자에게서는 불면과 우울 양쪽이 나아졌습니다.</p>
+  <p>약물 지침 쪽도 방향이 같습니다. 만성 불면장애의 약물은 CBT-I에 참여하기 어려운 경우, CBT-I 후에도 증상이 남은 경우, 일시적 보조가 필요한 경우에 주로 고려하도록 되어 있습니다.</p>
+  <hr>
+  <h2>오늘 밤부터 해볼 수 있는 것들</h2>
+  <p>지침의 구성요소를 일상의 언어로 옮겨 보겠습니다.</p>
+  <p><strong>첫째, 침대에 있는 시간을 오히려 줄여 봅니다.</strong><br>수면제한요법의 핵심입니다. 자고 싶은 시간이 아니라 실제로 자는 평균 시간에 맞춰 잠자리에 있는 시간을 일시적으로 좁힙니다. 잠이 한 덩어리로 뭉쳐지기 시작하면 그때 조금씩 넓혀 갑니다. 항상성 수면 압력을 키우고 생체리듬을 안정시키는 원리입니다. 일찍 누워 오래 버티는 방식이 왜 잘 안 되는지가 여기서 설명됩니다.</p>
+  <p><strong>둘째, 15분 규칙을 지켜 봅니다.</strong><br>자극조절의 핵심입니다. 누웠는데 잠이 오지 않고 답답하다면, 15~20분쯤 지나 침대에서 나옵니다. 자극이 적은 일을 하다가 졸릴 때만 다시 눕습니다. 불면이 길어지면 뇌가 침대를 &#x27;자는 곳&#x27;이 아니라 &#x27;뒤척이며 걱정하는 곳&#x27;으로 학습합니다. 그 연결을 다시 세우는 작업입니다.</p>
+  <p><strong>셋째, 7시간을 목표선으로 둡니다.</strong><br>미국수면의학회와 수면연구학회가 전문가 15인의 합의 패널을 꾸려 12개월간 검토한 결과입니다. 성인은 하룻밤 7시간 이상 자기를 권고합니다. 6시간 이하는 건강과 안전을 지키기에 불충분하다고 보았습니다. 상한선은 따로 두지 않았습니다.</p>
+  <figure><img src="./images/body-5.png" alt="오늘 밤부터 해볼 수 있는 네 가지 실천법 카드. 수면 창 좁히기, 15분 규칙, 7시간 목표선, 생각 다루기"></figure>
+  <p><strong>넷째, 잠에 대한 생각을 함께 다룹니다.</strong><br>&quot;오늘도 못 자면 내일이 다 망한다&quot;는 생각이 밤마다 자동으로 켜진다면, 그 생각 자체가 각성을 만듭니다. 인지 재구성이 다루는 부분이 이 지점입니다.</p>
+  <p>혼자 해 보실 만합니다만, 한계는 인정하겠습니다. 수면제한요법은 초반에 오히려 더 졸리고 힘든 구간을 지나야 합니다. 이 과정을 혼자 견디다 중간에 그만두는 경우가 적지 않습니다. CBT-I가 4~8회기의 구조화된 프로그램인 데는 이유가 있습니다.</p>
+  <hr>
+  <h2>어디까지가 잠의 문제이고, 어디부터가 상담의 영역인가</h2>
+  <p>이 글은 여기서 선을 하나 그어야 합니다.</p>
+  <p>미국수면의학회의 기준을 옮겨 봅니다. 만성 불면장애는 수면 교란과 낮의 증상이 <strong>주 3회 이상, 3개월 이상</strong> 지속되는 상태입니다. 낮의 증상에는 피로와 졸림뿐 아니라 <strong>우울, 불안, 과민함, 집중 곤란, 동기 저하</strong>가 포함됩니다.</p>
+  <figure><img src="./images/body-6.png" alt="전문가 상담을 권하는 신호 정리 카드. 3개월 이상 지속, 낮의 기분과 기능 저하, 혼자 버티기 어려울 때"></figure>
+  <p>세 달 이상 잠이 무너져 있다면, 그리고 낮의 기분과 기능이 함께 흔들리고 있다면 — 그것은 습관의 문제로만 보기 어렵습니다.</p>
+  <p><strong>정신건강의학과나 상담 전문가와 상의하시길 권합니다.</strong> 앞서 본 것처럼 불면은 우울 위험을 약 두 배 높이는 독립적 위험요인이고, 두 방향이 서로를 밀어 올립니다. 일찍 개입할수록 고리가 짧습니다.</p>
+  <p>질병관리청 국가건강정보포털도 수면장애 항목에 같은 취지의 문장을 달아 두었습니다. 여기 제공하는 내용은 참고사항일 뿐이니 자세한 내용은 전문가와 상담하라는 문장입니다. 국가 기관의 공식 건강정보조차 그렇게 적습니다.</p>
+  <p>이 글도 같습니다. 저는 진단을 할 수 없고, 약을 권하거나 말릴 수 없습니다. 여기 적은 것은 연구가 확인한 원리와 지침이 권고한 방향까지입니다. 당신의 밤에 맞는 답은 당신을 직접 만난 사람만 낼 수 있습니다.</p>
+  <hr>
+  <p>정리하면 이렇습니다.</p>
+  <p>잠은 휴식만이 아니었습니다. 하룻밤은 어제의 감정을 처리하는 공정이었고, 그 공정이 멈추면 다음 날의 마음이 먼저 흔들립니다. 편도체는 60% 더 크게 반응하고, 그것을 눌러 줄 전전두엽은 연결을 놓칩니다.</p>
+  <p>그러니 잠이 무너진 사람에게 &quot;왜 그렇게 예민하냐&quot;고 묻는 것은 순서가 틀린 질문입니다.</p>
+  <p>—— 마음이 약해서 잠을 못 자는 것이 아니라, 잠이 무너져서 마음이 흔들리는 것일 수 있습니다.</p>
+  <p>오늘 밤에도 천장을 보며 뒤척이고 계신다면, 그 밤을 의지의 문제로 여기지는 않으셨으면 합니다. 무너진 것은 당신이 아니라 회로일 뿐이고, 회로는 다시 세울 수 있습니다.</p>
+  <hr>
+  <h2>참고 자료</h2>
+  <ul><li>Yoo S-S, Gujar N, Hu P, Jolesz FA, Walker MP. &quot;The human emotional brain without sleep — a prefrontal amygdala disconnect.&quot; <em>Current Biology</em> 17(20):R877–R878 (2007) — <a href="https://walkerlab.berkeley.edu/reprints/Yoo-Walker_CurrBiol_2007.pdf">https://walkerlab.berkeley.edu/reprints/Yoo-Walker_CurrBiol_2007.pdf</a></li><li>van der Helm E et al. &quot;REM Sleep Depotentiates Amygdala Activity to Previous Emotional Experiences.&quot; <em>Current Biology</em> (2011) — <a href="https://www.cell.com/current-biology/fulltext/S0960-9822(11">https://www.cell.com/current-biology/fulltext/S0960-9822(11</a>)01248-6</li><li>Walker MP, van der Helm E. &quot;Overnight Therapy? The Role of Sleep in Emotional Brain Processing.&quot; <em>Psychological Bulletin</em> (2009)</li><li>Lam et al. &quot;A sleepless night disrupts the resolution of emotional conflicts.&quot; <em>Journal of Sleep Research</em> (2024)</li><li>Baglioni C et al. &quot;Insomnia as a predictor of depression: A meta-analytic evaluation of longitudinal epidemiological studies.&quot; <em>Journal of Affective Disorders</em> (2011)</li><li>Li L et al. &quot;Insomnia and the risk of depression: a meta-analysis of prospective cohort studies.&quot; <em>BMC Psychiatry</em> (2016)</li><li>Edinger JD et al. &quot;Behavioral and psychological treatments for chronic insomnia disorder in adults: an AASM clinical practice guideline.&quot; <em>JCSM</em> (2021) — <a href="https://doi.org/10.5664/jcsm.8986">https://doi.org/10.5664/jcsm.8986</a></li><li>AASM &amp; Sleep Research Society. &quot;Seven or more hours of sleep per night: A health necessity for adults.&quot;</li><li>서울경제, &quot;수면장애 135만명…약물 부작용 우려에 디지털 치료제 급부상&quot; (2026-04-27). 원자료: 건강보험심사평가원 제출 자료 — <a href="https://www.sedaily.com/article/20037152">https://www.sedaily.com/article/20037152</a></li><li>질병관리청 국가건강정보포털, &quot;수면과 수면장애&quot;</li><li>University of Pennsylvania, &quot;Components of CBT-I&quot; / Sleep Foundation, &quot;Sleep Restriction Therapy&quot;</li></ul>
+  <blockquote>이 글은 일반적인 건강 정보를 정리한 것으로, 진단이나 처방을 대신하지 않습니다.<br>증상이 지속된다면 정신건강의학과 또는 상담 전문가와 상의하시기 바랍니다.</blockquote>
+  <hr>
+  <p class="tags"><span>#수면과정서</span> <span>#불면증</span> <span>#CBT-I</span> <span>#불면증인지행동치료</span> <span>#수면과우울</span> <span>#감정조절</span> <span>#수면위생</span> <span>#심리상담</span> <span>#정신건강</span> <span>#편도체</span></p>
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
