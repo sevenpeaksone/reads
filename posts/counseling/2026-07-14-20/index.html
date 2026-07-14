@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>자기연민</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#f0a532;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#f0a532;border-color:#f0a532">상담</div>
+<h1>자기연민</h1>
+<p class="subtitle">실패한 나에게도 친절할 수 있을까</p>
+<p>이번 글에서는 자기연민(self-compassion)을 정리해 보겠습니다. 실패한 순간 우리는 유독 자신에게 가혹해집니다. 그 익숙한 습관을 조금 다르게 바라보려 합니다.</p>
+<figure><img src="./images/thumbnail.png" alt="흐린 창가에 앉아 자신을 조용히 다독이는 사람의 뒷모습, 따뜻하고 차분한 톤의 상징적 일러스트"><figcaption>흐린 창가에 앉아 자신을 조용히 다독이는 사람의 뒷모습, 따뜻하고 차분한 톤의 상징적 일러스트</figcaption></figure>
+<hr>
+<h2>자기연민이란 무엇인가</h2>
+<p>자기연민은 심리학자 크리스틴 네프가 정립한 개념입니다.</p>
+<p>실패와 부족함을 마주할 때, 자신을 몰아세우는 대신 가까운 친구를 대하듯 다정하게 대하는 태도를 말합니다.</p>
+<p>방법은 의외로 단순합니다. &quot;친한 친구가 같은 실패로 괴로워한다면 뭐라고 말해 줄까.&quot; 그 말투를 자신에게도 건네보는 것입니다.</p>
+<p>네프는 자기연민을 세 요소로 설명합니다. 힘든 감정을 억누르지 않고 알아차리는 마음챙김, 이 실패가 나만의 것이 아님을 아는 보편적 인간성, 그리고 자신을 이해하고 아끼는 자기친절입니다.</p>
+<p>세 가지는 따로 놀지 않습니다. 아파도, 나만의 문제가 아님을 알고, 그래서 자신에게 다정해지는 하나의 흐름입니다.</p>
+<p>여기서 놓치기 쉬운 지점이 있습니다. 자기연민은 고통을 없애는 일이 아니라는 것입니다. 아픔은 그대로 두되, 그 아픔을 겪는 자신을 어떻게 대할지를 바꾸는 일입니다.</p>
+<figure><img src="./images/body-1.png" alt="자기연민의 세 요소를 나란한 카드 세 장으로 표현 — 마음챙김·보편적 인간성·자기친절"><figcaption>자기연민의 세 요소를 나란한 카드 세 장으로 표현 — 마음챙김·보편적 인간성·자기친절</figcaption></figure>
+<hr>
+<h2>자존감과는 무엇이 다를까</h2>
+<p>자기연민은 자존감과 자주 혼동됩니다. 그러나 결이 다릅니다.</p>
+<p>자존감은 &#x27;내가 얼마나 괜찮은 사람인가&#x27;를 평가하는 마음입니다. 대개 타인과의 비교나 성취, 외모에 기댑니다. 잘나갈 때는 높지만, 실패하면 함께 무너지기 쉽습니다.</p>
+<p>자기연민은 평가가 아닙니다. 잘났는지 못났는지를 따지지 않고, 힘들 때 자신에게 곁을 내어주는 태도입니다.</p>
+<p>네프의 대규모 조사에서 자기연민은 자존감보다 더 안정적인 자기가치감과 이어졌고, 성공이나 외모에 덜 흔들렸습니다. 자존감과 비슷한 이점을 주되, 남과 비교하며 자신을 방어하는 부작용은 적었습니다. 실제로 자존감은 사회적 비교나 분노와 함께 가는 경향이 있었지만, 자기연민은 그 반대였습니다.</p>
+<p>예전에는 스스로를 더 높이 평가하려 애썼습니다. 지금은 평가를 잠시 내려놓는 편이 낫다고 생각합니다.</p>
+<figure><img src="./images/body-2.png" alt="자존감과 자기연민을 좌우로 나눈 대비 구성 — 비교·평가 vs 곁을 내어주는 태도"><figcaption>자존감과 자기연민을 좌우로 나눈 대비 구성 — 비교·평가 vs 곁을 내어주는 태도</figcaption></figure>
+<hr>
+<h2>흔한 오해 — 나약함도 자기합리화도 아닙니다</h2>
+<p>자기연민을 &#x27;자기 봐주기&#x27;로 오해하는 분이 많습니다.</p>
+<p>그러나 자기연민은 신세한탄이 아닙니다. 오히려 &quot;내 처지가 제일 딱하다&quot;는 자기동정의 해독제에 가깝습니다.</p>
+<p>나약함도 아닙니다. 연구에 따르면 자기연민이 높은 사람이 역경을 더 잘 이겨냈습니다.</p>
+<p>동기를 떨어뜨리지도 않습니다. 한 실험에서 자기연민을 품은 사람들은 잘못을 만회하려는 의지가 더 컸고, 실패 뒤 어려운 시험 공부에 더 오래 매달렸습니다. 자신을 아끼는 마음은 오히려 약점을 고칠 수 있다는 믿음으로 이어졌습니다.</p>
+<p>자기비판은 익숙할 뿐, 우리를 앞으로 나아가게 하는 최선의 방법은 아닙니다. 실패를 벌하는 대신 발판으로 삼게 하는 쪽이 자기연민입니다.</p>
+<figure><img src="./images/body-3.png" alt="오해와 사실을 맞세운 대비 구성 — &#x27;나약함·자기합리화&#x27;라는 오해 vs &#x27;회복력·동기&#x27;라는 사실"><figcaption>오해와 사실을 맞세운 대비 구성 — &#x27;나약함·자기합리화&#x27;라는 오해 vs &#x27;회복력·동기&#x27;라는 사실</figcaption></figure>
+<hr>
+<h2>오늘 해볼 수 있는 연습</h2>
+<p>거창할 필요는 없습니다. 짧은 실습부터 권합니다.</p>
+<p>첫째, 자기연민 휴식입니다. 힘든 순간 스스로에게 세 문장을 건넵니다. &quot;지금은 힘든 순간이야.&quot; &quot;힘든 건 나만 겪는 일이 아니야.&quot; 그리고 가슴에 손을 얹고 &quot;내가 나에게 조금 더 다정해지기를.&quot;</p>
+<p>둘째, 자기연민 편지입니다. 부족하게 느껴지는 점 하나를 떠올리고, 나를 아끼는 지혜로운 친구가 되어 나에게 편지를 씁니다. 다 쓴 뒤 잠시 두었다가, 정말 그 친구가 보낸 편지처럼 다시 읽어봅니다.</p>
+<p>다만 자기비판과 무력감, 우울과 불안이 오래 이어지거나 심해진다면, 혼자 애쓰기보다 상담센터나 정신건강의학과 등 전문가의 도움을 받으시길 권합니다.</p>
+<figure><img src="./images/body-4.png" alt="자기연민 휴식과 편지 쓰기를 단계로 정리한 구성 — 알아차리기·연결하기·다정하게 말하기·편지 쓰기"><figcaption>자기연민 휴식과 편지 쓰기를 단계로 정리한 구성 — 알아차리기·연결하기·다정하게 말하기·편지 쓰기</figcaption></figure>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다.</p>
+<p>자기연민은 실패를 지우는 기술이 아닙니다. 실패한 나를 버리지 않는 태도입니다.</p>
+<p>실패한 나에게도 친절할 수 있느냐고 물으신다면, 연습으로 조금씩 가능해진다고 답하겠습니다.</p>
+<div class="tags"><span>#자기연민</span> <span>#셀프컴패션</span> <span>#자존감</span> <span>#자기비판</span> <span>#마음챙김</span> <span>#심리상담</span> <span>#회복탄력성</span> <span>#크리스틴네프</span> <span>#자기돌봄</span> <span>#정신건강</span></div>
+<p>참고 소스</p>
+<ul><li>Kristin Neff, &quot;What is Self-Compassion&quot; — https://self-compassion.org/what-is-self-compassion/</li><li>Neff (2011) &quot;Self-Compassion, Self-Esteem, and Well-Being&quot;, Wiley — https://compass.onlinelibrary.wiley.com/doi/10.1111/j.1751-9004.2010.00330.x</li><li>Neff, &quot;The Five Myths of Self-Compassion&quot;, Greater Good — https://greatergood.berkeley.edu/article/item/the_five_myths_of_self_compassion</li><li>Breines &amp; Chen (2012) &quot;Self-compassion increases self-improvement motivation&quot;, PubMed — https://pubmed.ncbi.nlm.nih.gov/22645164/</li><li>&quot;Self-Compassion Break&quot; 실습 — https://self-compassion.org/exercises/exercise-2-self-compassion-break/</li></ul>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공공재와 무임승차</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2bb673;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#2bb673;border-color:#2bb673">경제</div>
+<h1>공공재와 무임승차</h1>
+<p class="subtitle">모두의 것은 왜 아무도 책임지지 않을까</p>
+<figure><img src="./images/thumbnail.png" alt="어두운 골목을 홀로 밝히는 가로등 하나, 그 아래 지나가는 여러 사람의 실루엣"><figcaption>어두운 골목을 홀로 밝히는 가로등 하나, 그 아래 지나가는 여러 사람의 실루엣</figcaption></figure>
+<p>이번 글에서는 공공재와 무임승차 문제를 정리해 보겠습니다.</p>
+<p>모두에게 필요한데 정작 아무도 돈을 내려 하지 않는, 그 이상한 상황을 경제학은 어떻게 설명하는지 살펴보려 합니다.</p>
+<p>가로등 하나에서 시작해 국방과 백신까지 이어지는 이야기입니다.</p>
+<hr>
+<h2>공공재의 두 얼굴 — 나눠도 줄지 않고, 막을 수도 없다</h2>
+<p>공공재에는 두 가지 성질이 있습니다.</p>
+<p>하나는 비경합성입니다. 내가 가로등 불빛을 쬔다고 옆 사람 몫이 줄지 않습니다.</p>
+<p>다른 하나는 비배제성입니다. 값을 치르지 않은 사람도 그 불빛에서 밀어낼 수 없습니다.</p>
+<p>두 성질을 온전히 갖춘 것을 순수 공공재라 부릅니다.</p>
+<p>국방이 대표적입니다. 국경을 지키면 세금을 안 낸 이웃까지 함께 보호받고, 내 안전이 이웃의 안전을 깎아내리지도 않습니다.</p>
+<figure><img src="./images/body-1.png" alt="하나의 방패에서 뻗어나온 보호막이 여러 집을 동시에 덮는 그림"><figcaption>하나의 방패에서 뻗어나온 보호막이 여러 집을 동시에 덮는 그림</figcaption></figure>
+<hr>
+<h2>재화의 네 칸 — 내 것과 모두의 것 사이</h2>
+<p>경제학은 재화를 두 잣대로 가릅니다. 막을 수 있는가(배제성), 나누면 줄어드는가(경합성).</p>
+<p>이 둘을 엇갈리면 네 칸이 나옵니다.</p>
+<figure><img src="./images/body-2.png" alt="2x2 사분면 표"><figcaption>2x2 사분면 표</figcaption></figure>
+<p>음식이나 옷은 값을 치른 사람만, 그것도 한 사람만 쓰는 사적재입니다.</p>
+<p>넷플릭스나 유료도로는 요금으로 막을 수 있지만 여럿이 함께 쓰는 클럽재입니다.</p>
+<p>바다의 물고기는 막을 수 없는데 잡으면 줄어드는 공유자원입니다.</p>
+<p>그리고 막을 수도 없고 줄지도 않는 마지막 칸, 그것이 공공재입니다.</p>
+<p>문제는 늘 오른쪽 두 칸, 막을 수 없는 재화에서 생깁니다.</p>
+<hr>
+<h2>아무도 내지 않으려는 이유</h2>
+<p>배제할 수 없다면, 값을 내지 않고 편승하는 편이 개인에게는 영리한 선택입니다.</p>
+<p>남이 내주면 나는 공짜로 누리면 되니까요. 이것이 무임승차입니다.</p>
+<p>그런데 모두가 똑같이 영리하게 굴면 어떻게 될까요.</p>
+<p>아무도 내지 않고, 필요한 것은 끝내 만들어지지 않습니다. 시장이 실패하는 지점입니다.</p>
+<p>여기서 짚어둘 대비가 하나 있습니다.</p>
+<p>비경합적인 공공재는 아무도 비용을 안 내 과소공급됩니다.</p>
+<p>경합적인 공유자원은 반대로 모두가 먼저 쓰려다 고갈됩니다 — 공유지의 비극입니다.</p>
+<p>뿌리는 같고 증상만 정반대인 셈입니다.</p>
+<figure><img src="./images/body-3.png" alt="저울의 한쪽엔 텅 빈 상자(과소공급), 다른 쪽엔 넘쳐 무너지는 상자(과다사용)"><figcaption>저울의 한쪽엔 텅 빈 상자(과소공급), 다른 쪽엔 넘쳐 무너지는 상자(과다사용)</figcaption></figure>
+<hr>
+<h2>그래도 길은 있습니다</h2>
+<p>가장 익숙한 답은 정부입니다. 세금으로 강제 징수해 공급하면, 무임승차는 강제 승차로 바뀝니다.</p>
+<p>국방과 치안이 그렇게 유지됩니다. 다만 정부도 사람들이 얼마나 원하는지 정확히 알기 어렵다는 한계가 있습니다.</p>
+<p>민간의 길도 있습니다.</p>
+<p>등대는 오래 공공재의 교과서였지만, 경제학자 코즈는 옛 영국 등대가 항구 통행료로 운영됐음을 밝혔습니다.</p>
+<p>막을 방법만 설계하면 공공재도 클럽재처럼 값을 매길 수 있다는 뜻입니다.</p>
+<p>공영방송 후원이나 기부처럼, 무임승차를 부끄럽게 여기는 사회적 규범이 빈자리를 메우기도 합니다.</p>
+<figure><img src="./images/body-4.png" alt="공공재 문제의 해법 세 가지를 정리한 핵심 포인트 카드 — 정부 공급, 코즈적 해법(배제 설계), 사회적…"><figcaption>공공재 문제의 해법 세 가지를 정리한 핵심 포인트 카드 — 정부 공급, 코즈적 해법(배제 설계), 사회적…</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>공공재의 딜레마는 사람이 이기적이어서가 아니라, 막을 수 없는 것에는 값이 매겨지지 않기 때문입니다.</p>
+<p>&quot;모두의 것은, 누군가 책임지도록 설계할 때 비로소 지켜집니다.&quot;</p>
+<p>오늘 밤 켜진 가로등 아래를 지날 때, 그 불빛의 비용을 누가 냈는지 한 번쯤 떠올려 보시면 어떨까요.</p>
+<div class="tags"><span>#공공재</span> <span>#무임승차</span> <span>#무임승차문제</span> <span>#시장실패</span> <span>#공유지의비극</span> <span>#경제상식</span> <span>#비경합성</span> <span>#비배제성</span> <span>#클럽재</span> <span>#코즈정리</span></div>
+<p>참고 소스</p>
+<ul><li>tutor2u — What is the free rider problem</li><li>Oregon State, Intermediate Microeconomics (Public Goods)</li><li>Free-rider problem — Wikipedia</li><li>기획재정부 시사경제용어사전 &#x27;공공재&#x27;</li><li>KDI 경제교육·정보센터 &#x27;무임승차를 부르는 공공재&#x27;</li><li>Pearson Microeconomics Ch.8 (Four Types of Goods)</li></ul>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>코스피 반등·코스닥 급락</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2bb673;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/economy/index.html">경제 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#2bb673;border-color:#2bb673">경제 뉴스 해설</div>
+<h1>코스피 반등·코스닥 급락</h1>
+<p class="subtitle">반도체가 흔든 7·14 증시, 무엇을 봐야 하나</p>
+<figure><img src="./images/thumbnail.png" alt="코스피는 오르고 코스닥은 내린 7월 14일 증시를 상징하는 썸네일"><figcaption>코스피는 오르고 코스닥은 내린 7월 14일 증시를 상징하는 썸네일</figcaption></figure>
+<p>이번 글에서는 2026년 7월 14일 국내 증시를 정리해 보겠습니다. 같은 날, 코스피는 반등했고 코스닥은 급락했습니다. 두 시장이 왜 갈라섰는지, 그 한가운데 놓인 반도체 이야기를 차분히 짚어보겠습니다.</p>
+<hr>
+<h2>숫자로 본 7·14</h2>
+<p>코스피는 6,856.83으로 마감했습니다. 전날보다 49.90포인트, 0.73% 오른 값입니다.</p>
+<p>반면 코스닥은 783.98에 그쳤습니다. 15.38포인트, 1.92% 하락한 수치입니다.</p>
+<p>같은 하늘 아래 두 시장의 방향이 갈렸습니다.</p>
+<p>장중 흐름은 더 거칠었습니다. 코스피는 한때 6,979선까지 올랐다가 6,448선까지 밀렸습니다. 하루 변동 폭이 531포인트에 이르렀습니다. 코스닥은 낮 12시 무렵 &#x27;매도 사이드카&#x27;가 걸렸습니다. 올해로 스무 번째, 금융위기였던 2008년 기록마저 넘어선 역대 최다입니다.</p>
+<p>수급도 한 방향이 아니었습니다. 개인은 4조 원 넘게 팔았습니다. 반대로 기관은 3조 원대, 외국인은 1조 원 안팎을 사들였습니다. 외국인은 사흘 만에 &#x27;사자&#x27;로 돌아섰습니다. 개인이 던진 물량을 기관과 외국인이 받아낸 하루였습니다.</p>
+<figure><img src="./images/body-1.png" alt="코스피·코스닥·원달러 종가와 등락률을 담은 지수 현황 표"><figcaption>코스피·코스닥·원달러 종가와 등락률을 담은 지수 현황 표</figcaption></figure>
+<hr>
+<h2>왜 갈렸나</h2>
+<p>답은 반도체에 있습니다.</p>
+<p>이날 삼성전자는 3% 안팎, SK하이닉스는 3%대 후반 올랐습니다. 전기·전자 업종이 지수를 끌어올렸습니다.</p>
+<p>배경에는 전날의 충격이 있었습니다. 7월 13일 코스피는 8.95% 폭락하며 두 달 만에 7,000선이 무너졌고, 올해 일곱 번째 서킷브레이커까지 발동됐습니다. 미국 메모리 반도체주가 무너진 데다, 중동 리스크와 차익 실현이 겹친 결과였습니다. 14일은 그 낙폭에 대한 반발 매수와 &#x27;과매도&#x27; 인식이 오후 들어 힘을 실은 하루였습니다.</p>
+<p>문제는 나머지입니다. 현대차는 4%대, KB금융과 삼성바이오로직스는 2~3%대 내렸습니다. 코스닥에서는 바이오 대장주 알테오젠이 11%대, 2차전지의 에코프로 형제가 5~6%대 급락했습니다.</p>
+<p>정리하면 이렇습니다. 지수는 올랐지만, 실제로 오른 것은 사실상 반도체 두 종목이었습니다.</p>
+<figure><img src="./images/body-2.png" alt="오른 반도체 대형주와 내린 비반도체·바이오 종목을 좌우로 대비시킨 도식"><figcaption>오른 반도체 대형주와 내린 비반도체·바이오 종목을 좌우로 대비시킨 도식</figcaption></figure>
+<hr>
+<h2>진짜 이야기는 &#x27;쏠림&#x27;</h2>
+<p>이 장면이 왜 중요한지 봅니다.</p>
+<p>삼성전자와 SK하이닉스, 두 종목의 시가총액이 코스피의 절반을 넘습니다. 6월 말 기준 비중은 57%에 달했습니다. 반대로 코스닥이 전체 증시에서 차지하는 비중은 6.8%까지 내려가, 27년 만에 가장 낮아졌습니다.</p>
+<p>반도체가 오르면 지수가 오르고, 반도체가 흔들리면 시장 전체가 출렁입니다. 예전엔 &#x27;조용한 강세장&#x27;이었습니다. 지금은 강세장인데도 하루 수백 포인트가 오르내립니다.</p>
+<p>코스피와 코스닥이 따로 노는 디커플링. 그 뿌리에는 이 쏠림이 있습니다.</p>
+<figure><img src="./images/body-3.png" alt="반도체 집중이 어떻게 지수 변동성과 디커플링으로 이어지는지 단계로 보여주는 도식"><figcaption>반도체 집중이 어떻게 지수 변동성과 디커플링으로 이어지는지 단계로 보여주는 도식</figcaption></figure>
+<hr>
+<h2>무엇을 봐야 하나</h2>
+<p>전문가들의 시선은 두 갈래입니다.</p>
+<p>한쪽은 펀더멘털을 봅니다. 대신증권은 장기공급계약 확대와 메모리 슈퍼사이클이 여전히 유효하다고 진단했습니다. 기관의 저가 매수세가 반등을 이끈 배경입니다.</p>
+<p>다른 한쪽은 구조를 경계합니다. 골드만삭스는 코스피 6,800선을 1차 지지선으로 보면서도, 레버리지 상품의 매도가 급락을 키웠다고 짚었습니다.</p>
+<p>원·달러 환율은 1,493원으로 10원 넘게 내렸습니다. 원화가 다소 진정된 점은 그나마 위안입니다. 다만 환율 이야기는 다른 편에서 따로 다루겠습니다.</p>
+<figure><img src="./images/body-4.png" alt="변동성 장세에서 개인 투자자가 살펴야 할 관전 포인트를 정리한 카드형 도식"><figcaption>변동성 장세에서 개인 투자자가 살펴야 할 관전 포인트를 정리한 카드형 도식</figcaption></figure>
+<hr>
+<p>끝으로 한 가지만 덧붙이겠습니다.</p>
+<p>지수 하나가 올랐다고 시장 전체가 좋아진 것은 아닙니다. 반대로 코스닥이 밀렸다고 모든 것이 무너진 것도 아닙니다. 숫자의 표면보다 그 안의 &#x27;쏠림&#x27;을 읽는 눈이 필요한 때입니다.</p>
+<p>— 오른 것은 지수가 아니라 반도체였습니다.</p>
+<p>시장이 어디로 향할지 묻는다면, 당분간은 반도체의 발밑을 함께 살펴야 한다고 답하겠습니다.</p>
+<p>이 글은 정보 제공을 위한 해설이며, 특정 종목의 매매나 투자를 권유하지 않습니다.</p>
+<hr>
+<div class="tags"><span>#코스피</span> <span>#코스닥</span> <span>#반도체</span> <span>#SK하이닉스</span> <span>#삼성전자</span> <span>#증시전망</span> <span>#디커플링</span> <span>#매도사이드카</span> <span>#주식시황</span> <span>#경제뉴스해설</span></div>
+<p>참고 소스</p>
+<ul><li>이투데이 「코스피 기관 사자에 6856선 반등 vs 코스닥 &#x27;매도 사이드카&#x27; 1.9%↓」 (2026-07-14)</li><li>뉴스토마토 「코스피는 반등, 코스닥은 20번째 사이드카…변동성 장세 지속」 (2026-07-14)</li><li>헤럴드경제 「반도체 쏠림에 변동성 세계 최고…삼전닉스 시총 비중 57%」 (2026-06)</li><li>이투데이 「골드만삭스 &quot;코스피 6800선 1차 지지…레버리지 ETF 매도가 급락 증폭&quot;」 (2026-07-14)</li><li>이투데이 「반도체 투매에 코스피 8% 급락…올해 7번째 서킷브레이커」 (2026-07-13)</li></ul>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

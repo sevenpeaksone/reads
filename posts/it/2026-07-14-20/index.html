@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공개키 암호란 무엇인가</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;margin-bottom:18px;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0 0 8px;font-size:15.5px;}
+blockquote p:last-child{margin:0;}
+blockquote ul{margin:6px 0 0;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="cat" style="color:#4f8cff;border-color:#4f8cff">IT</div>
+<h1>공개키 암호란 무엇인가</h1>
+<p class="subtitle">열쇠를 숨기지 않고 비밀을 지키는 법</p>
+<p>이번 글에서는 공개키 암호, 다른 말로 비대칭 암호의 원리를 정리해 보겠습니다. 자물쇠는 온 세상에 나눠주면서도 비밀은 지켜지는, 언뜻 모순처럼 들리는 이야기입니다. HTTPS 자물쇠 아이콘부터 전자서명까지, 지금 우리가 쓰는 디지털 신뢰의 밑바닥에 이 기술이 깔려 있습니다.</p>
+<figure><img src="./images/thumbnail.png" alt="어두운 배경 위에 공개키(열린 자물쇠)와 개인키(열쇠)가 선으로 이어진 미니멀 썸네일, PUBLIC KE…"><figcaption>어두운 배경 위에 공개키(열린 자물쇠)와 개인키(열쇠)가 선으로 이어진 미니멀 썸네일, PUBLIC KE…</figcaption></figure>
+<hr>
+<h2>자물쇠는 나눠주고, 열쇠는 감춘다</h2>
+<p>예전에는 비밀을 주고받으려면 같은 열쇠 하나를 서로 미리 나눠 가져야 했습니다. 이것을 대칭키 암호라고 부릅니다. 문제는 그 열쇠 자체를 어떻게 안전하게 전달하느냐였습니다. 열쇠를 보내는 길목에서 누군가 가로채면 그것으로 끝이었습니다.</p>
+<p>지금은 다릅니다. 1976년 디피와 헬만이 제시한 발상은 열쇠를 두 개로 나눕니다. 하나는 누구에게나 공개하는 공개키, 하나는 주인만 감추는 개인키입니다. 공개키로 잠근 것은 오직 짝이 되는 개인키로만 열립니다.</p>
+<p>두 키는 수학적으로 이어져 있습니다. 그런데도 공개키만 보고 개인키를 계산해내는 일은 사실상 불가능합니다. 그래서 자물쇠는 길거리에 붙여두어도 안전합니다. 편지를 넣는 투입구는 공개해도, 안의 편지를 꺼내는 열쇠는 주인만 쥐고 있으니까요.</p>
+<figure><img src="./images/body-1.png" alt="대칭키와 비대칭키를 좌우로 대비한 도해, 왼쪽은 같은 열쇠 하나, 오른쪽은 공개키로 잠그고 개인키로 여는…"><figcaption>대칭키와 비대칭키를 좌우로 대비한 도해, 왼쪽은 같은 열쇠 하나, 오른쪽은 공개키로 잠그고 개인키로 여는…</figcaption></figure>
+<hr>
+<h2>곱하기는 쉽고, 되돌리기는 어렵다</h2>
+<p>그렇다면 공개키로 개인키를 못 구한다는 말은 어떻게 성립할까요. RSA는 그 근거를 소수의 성질에서 찾습니다.</p>
+<p>먼저 아주 큰 소수 두 개를 고릅니다. 이 둘을 곱한 값은 공개해도 좋습니다. 하지만 그 곱을 다시 원래의 두 소수로 쪼개는 일, 곧 소인수분해는 수가 커질수록 감당하기 어려워집니다. 고전 컴퓨터로 이 문제를 빠르게 푸는 방법은 아직 알려져 있지 않습니다.</p>
+<p>두 수를 곱하는 것은 순식간입니다. 그러나 그 결과만 보고 원래의 두 수를 알아내는 데는 천문학적인 시간이 듭니다. 이 한 방향으로만 쉬운 성질, 바로 일방향성이 RSA를 떠받칩니다.</p>
+<p>디피-헬만 키 교환도 같은 결을 따릅니다. 두 사람이 공개된 통로로 값을 주고받으면서도, 엿듣는 이는 알 수 없는 공통의 비밀에 도달합니다. 여기서는 소인수분해 대신 &#x27;이산로그&#x27;라는 또 다른 되돌리기 어려운 문제가 자물쇠 역할을 합니다.</p>
+<figure><img src="./images/body-2.png" alt="두 소수를 곱해 공개 숫자를 만들고, 반대로 되돌리려면 막히는 과정을 단계로 보여주는 도해"><figcaption>두 소수를 곱해 공개 숫자를 만들고, 반대로 되돌리려면 막히는 과정을 단계로 보여주는 도해</figcaption></figure>
+<hr>
+<h2>방향을 뒤집으면 서명이 된다</h2>
+<p>키 한 쌍을 정반대로 쓰면 전혀 다른 쓸모가 생깁니다. 이번에는 개인키로 잠그고 공개키로 엽니다. 이것이 디지털 서명입니다.</p>
+<p>서명하는 사람은 문서를 짧은 요약값으로 압축한 뒤, 그 요약값을 자신의 개인키로 처리해 서명을 만듭니다. 받는 사람은 서명자의 공개키로 이를 풀어, 자신이 직접 계산한 요약값과 맞대어 봅니다. 둘이 일치하면 진짜입니다.</p>
+<p>개인키 없이 유효한 서명을 흉내 내는 것은 불가능합니다. 덕분에 서명은 세 가지를 한꺼번에 보장합니다. 그 사람이 서명했다는 인증, 문서가 손대어지지 않았다는 무결성, 그리고 서명한 사실을 부인하지 못하게 하는 부인방지입니다.</p>
+<p>암호화가 &#x27;받는 사람만 읽게&#x27; 하는 장치라면, 서명은 &#x27;보낸 사람이 누구인지 증명&#x27;하는 장치입니다. 같은 열쇠 한 쌍이 방향만 바꾸어 두 일을 해냅니다.</p>
+<figure><img src="./images/body-3.png" alt="개인키로 서명하고 공개키로 검증하는 흐름, 인증·무결성·부인방지 세 가지 보장을 카드로 정리한 도해"><figcaption>개인키로 서명하고 공개키로 검증하는 흐름, 인증·무결성·부인방지 세 가지 보장을 카드로 정리한 도해</figcaption></figure>
+<hr>
+<h2>HTTPS는 두 방식을 함께 씁니다</h2>
+<p>비대칭 암호에는 분명한 약점이 있습니다. 계산이 무겁고 느립니다. 그래서 대용량 데이터를 통째로 암호화하는 데는 어울리지 않습니다.</p>
+<p>현실의 HTTPS는 영리하게 둘을 엮습니다. 접속을 시작할 때만 느린 비대칭 암호를 써서 서버의 신원을 확인하고, 그 자리에서 양측이 공통의 세션 키를 안전하게 합의합니다. 합의가 끝나면 그때부터는 빠른 대칭 암호로 데이터를 주고받습니다. 무거운 열쇠는 문 여는 순간에만, 가벼운 열쇠는 대화 내내 쓰는 셈입니다.</p>
+<p>다만 이 견고함이 영원하지는 않습니다. 1994년 쇼어의 알고리즘은 양자컴퓨터라면 소인수분해와 이산로그를 훨씬 빠르게 풀 수 있음을 보였습니다. RSA의 토대가 흔들릴 수 있다는 뜻입니다. 그래서 미국 NIST는 2024년, 격자 문제 등에 기반한 양자내성암호 표준을 확정해 대비를 시작했습니다. 완성된 기술이라기보다, 위협에 맞춰 바닥을 갈아 끼우는 중입니다.</p>
+<figure><img src="./images/body-4.png" alt="TLS 핸드셰이크에서 비대칭은 시작·키합의, 대칭은 본문·속도를 맡는 역할 분담을 정리한 표"><figcaption>TLS 핸드셰이크에서 비대칭은 시작·키합의, 대칭은 본문·속도를 맡는 역할 분담을 정리한 표</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다. 공개키 암호의 아름다움은 &#x27;숨김&#x27;이 아니라 &#x27;비대칭&#x27;에 있습니다. 자물쇠를 온 세상에 나눠주고도 열쇠 하나만 지키면 비밀이 성립합니다.</p>
+<p>— 열쇠를 감추지 않고도 비밀을 지킬 수 있다는 것, 그 역설이 오늘의 인터넷을 지탱합니다.</p>
+<p>숨길 수 없는 것을 공개하고, 지켜야 할 것만 감추는 지혜. 다음에 주소창의 자물쇠를 보신다면, 그 안에서 조용히 돌아가는 이 원리를 한 번쯤 떠올려 보시면 좋겠습니다.</p>
+<div class="tags"><span>#공개키암호</span> <span>#비대칭암호</span> <span>#RSA</span> <span>#디피헬만</span> <span>#전자서명</span> <span>#HTTPS</span> <span>#TLS</span> <span>#양자내성암호</span></div>
+<p>참고 소스</p>
+<ul><li>Public-key cryptography — Wikipedia: https://en.wikipedia.org/wiki/Public-key_cryptography</li><li>Asymmetric Encryption Guide — Chainlink: https://chain.link/article/asymmetric-encryption-public-key-cryptography</li><li>RSA Algorithm — Splunk: https://www.splunk.com/en_us/blog/learn/rsa-algorithm-cryptography.html</li><li>Introduction to Diffie-Hellman — NetworkLessons: https://networklessons.com/miscellaneous/introduction-to-diffie-hellman-key-exchange</li><li>What is a Digital Signature? — TechTarget: https://www.techtarget.com/searchsecurity/definition/digital-signature</li><li>What Happens in a TLS Handshake? — Cloudflare: https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/</li><li>NIST 2024 Post-Quantum Algorithms — Sectigo: https://www.sectigo.com/blog/who-are-nists-post-quantum-algorithm-winners</li><li>Post-Quantum Cryptography — NIST CSRC: https://csrc.nist.gov/projects/post-quantum-cryptography</li></ul>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
