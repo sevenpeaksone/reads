@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이재명 대통령 지지율 골든크로스, 리얼미터 48.9%가 말해주는 것과 놓치기 쉬운 것</title>
+<style>
+  :root{ --ink:#1b1f27; --sub:#5a6472; --line:#e6e9ef; --accent:#2f6db0; --bg:#f7f8fa; }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    line-height:1.85;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:700px;margin:0 auto;padding:40px 20px 80px;background:#fff;}
+  .meta{display:flex;align-items:center;gap:10px;margin-bottom:22px;font-size:14px;}
+  .badge{background:var(--accent);color:#fff;padding:5px 12px;border-radius:999px;
+    font-weight:700;letter-spacing:.2px;}
+  .date{color:var(--sub);}
+  h1{font-size:29px;line-height:1.4;font-weight:800;margin:6px 0 26px;letter-spacing:-.3px;}
+  h2{font-size:21px;font-weight:800;margin:44px 0 14px;padding-left:12px;
+    border-left:4px solid var(--accent);line-height:1.4;}
+  p{font-size:16.5px;margin:16px 0;color:#25303c;}
+  hr{border:0;border-top:1px solid var(--line);margin:34px 0;}
+  figure{margin:26px 0;}
+  img{max-width:100%;height:auto;border-radius:12px;display:block;
+    border:1px solid var(--line);}
+  figcaption{font-size:13px;color:var(--sub);text-align:center;margin-top:9px;}
+  .lead{font-size:17px;color:#39424e;}
+  .tags{margin-top:40px;padding-top:22px;border-top:1px solid var(--line);
+    display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{font-size:13px;color:var(--accent);background:#eef4fb;
+    padding:5px 11px;border-radius:8px;}
+  .disc{margin-top:30px;font-size:12.5px;color:#8a94a2;line-height:1.7;}
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+  <div class="meta"><span class="badge">정치·사회 뉴스</span><span class="date">2026-07-14</span></div>
+  <h1>이재명 대통령 지지율 골든크로스, 리얼미터 48.9%가 말해주는 것과 놓치기 쉬운 것</h1>
+  <figure><img src="./images/thumbnail.png" alt="이재명 대통령 지지율 골든크로스, 리얼미터 48.9%가 말해주는 것과 놓치기 쉬운 것 대표 이미지"></figure>
+  <p>이번 글에서는 2026년 7월 2주차 리얼미터 조사에서 나타난 이재명 대통령 국정지지율의 &#x27;골든크로스&#x27;를 정리해 보겠습니다. 숫자 하나에 열광하거나 실망하기 전에, 그 숫자가 어떻게 만들어졌고 무엇을 놓치기 쉬운지 함께 짚어보려 합니다. 정치 사안인 만큼 어느 편도 들지 않고, 여야 양측의 사정과 조사 자체의 한계를 나란히 놓겠습니다.</p>
+<figure><img src="./images/body-1.png" alt="이재명 대통령 국정지지율 6~7월 리얼미터 주간 추이 꺾은선 차트"><figcaption>이재명 대통령 국정지지율 6~7월 리얼미터 주간 추이 꺾은선 차트</figcaption></figure>
+<hr>
+<h2>무슨 일이 있었나</h2>
+<p>리얼미터가 에너지경제신문 의뢰로 7월 6일부터 10일까지 조사한 결과, 이재명 대통령의 국정수행 긍정평가는 48.9%로 나타났습니다. 부정평가는 47.7%였습니다.</p>
+<p>긍정은 한 주 전보다 1.9%포인트 올랐고, 부정은 1.5%포인트 내렸습니다.</p>
+<p>지난 6월 3주차에 이 대통령은 취임 후 처음으로 부정평가가 긍정을 앞서는 &#x27;데드크로스&#x27;를 겪었습니다. 그 뒤 약 한 달 만에 다시 긍정이 앞선 셈입니다. 언론은 이를 &#x27;골든크로스&#x27;로 불렀습니다.</p>
+<p>같은 조사에서 정당 지지도는 더불어민주당 44.8%, 국민의힘 38.1%로 집계됐습니다. 두 당의 격차는 6.7%포인트로, 오차범위 밖으로 다시 벌어졌습니다.</p>
+<p>숫자만 보면 여권이 반등하고 야권이 주춤한 그림입니다. 다만 이 그림을 그대로 믿기 전에 확인할 것이 적지 않습니다.</p>
+<hr>
+<h2>조사 방법부터 정확히</h2>
+<p>여론조사 보도를 읽을 때는 숫자보다 먼저 &#x27;어떻게 조사했는가&#x27;를 봐야 합니다.</p>
+<p>이번 대통령 국정평가 조사는 전국 만 18세 이상 2,515명을 대상으로 했습니다. 무선 RDD 표집틀 기반의 ARS, 즉 기계 자동응답 방식입니다. 표본오차는 95% 신뢰수준에 ±2.0%포인트, 응답률은 3.8%였습니다. 정당 지지도는 7월 9~10일 1,002명을 상대로 따로 조사했고, 표본오차는 ±3.1%포인트, 응답률은 3.3%였습니다.</p>
+<p>여기서 첫 번째 함정이 나옵니다.</p>
+<p>긍정 48.9%와 부정 47.7%의 차이는 1.2%포인트입니다. 표본오차 ±2.0%포인트보다 작습니다.</p>
+<p>통계적으로 말하면, 이 정도 차이로는 어느 쪽이 앞선다고 단정하기 어렵습니다. 정확한 표현은 &quot;우열을 가리기 어렵다&quot;에 가깝습니다. &#x27;골든크로스&#x27;라는 말은 사실의 서술이라기보다 수사에 가깝다는 뜻입니다.</p>
+<p>응답률 3.8%도 눈여겨볼 대목입니다. 전화를 받은 100명 가운데 4명 남짓만 끝까지 답했다는 의미입니다. 답하지 않은 나머지가 응답자와 같은 생각이라는 보장은 없습니다.</p>
+<figure><img src="./images/body-2.png" alt="리얼미터 7월 2주차 조사 개요 - 의뢰처·기간·표본·방식·오차·응답률"><figcaption>리얼미터 7월 2주차 조사 개요 - 의뢰처·기간·표본·방식·오차·응답률</figcaption></figure>
+<hr>
+<h2>리얼미터는 왜 올랐다고 봤나</h2>
+<p>리얼미터는 상승 요인으로 외교·안보 성과를 꼽았습니다.</p>
+<p>리얼미터 관계자는 &quot;나토 정상회의 참석과 연쇄 정상회담을 통해 한·나토 방위산업 파트너십을 격상하고 방산 수출 확대의 발판을 마련한 점&quot;을 상승 배경으로 설명했습니다.</p>
+<p>이 대통령은 튀르키예 앙카라에서 열린 나토 방산포럼에서 초청국 정상 가운데 유일하게 기조연설을 했습니다. 그 자리에서 &#x27;한-나토 방위산업 파트너십 2.0&#x27;을 제안했습니다. 무기를 파는 데 그치지 않고 공동으로 개발하고 생산하고 운용하자는 구상입니다. &#x27;한-나토 조달기본협정&#x27; 협상 개시도 공식화했습니다.</p>
+<p>물론 평가가 한 방향은 아닙니다. 한 신문은 사설에서 방산 세일즈 중심의 외교가 안보 협력이라는 더 큰 그림으로 나아가야 한다고 주문했습니다. 성과를 인정하는 시선과 한계를 짚는 시선이 함께 있는 셈입니다.</p>
+<p>한 가지 더 있습니다. 지지율 상승이 곧 외교 성과의 결과라고 단정하기도 조심스럽습니다. 여론조사 기관의 &#x27;분석&#x27;은 인과관계의 증명이 아니라 하나의 해석입니다.</p>
+<figure><img src="./images/body-3.png" alt="한-나토 방위산업 파트너십 2.0 핵심 포인트 카드"><figcaption>한-나토 방위산업 파트너십 2.0 핵심 포인트 카드</figcaption></figure>
+<hr>
+<h2>야당은 왜 빠졌나 — 양측의 사정</h2>
+<p>국민의힘 지지율은 2.2%포인트 내린 38.1%였습니다.</p>
+<p>리얼미터는 야당의 하락에 대해 &quot;당내 계파 갈등을 둘러싼 징계 공방이 격화되고 국회 상임위 전면 보이콧이 장기화되면서 고령층과 부산·울산·경남의 민심 이탈이 커진 것으로 보인다&quot;고 분석했습니다.</p>
+<p>세부 수치에서는 눈에 띄는 변동도 있었습니다. 부울경에서 국민의힘 지지율이 한 주 만에 약 20%포인트 급락했다는 것입니다.</p>
+<p>다만 이 대목은 특히 신중하게 읽어야 합니다.</p>
+<p>지역별·연령별 수치는 전체 표본을 잘게 나눈 &#x27;하위표본&#x27;입니다. 표본 수가 작아 오차가 훨씬 큽니다. 한 주의 급변은 실제 민심의 이동일 수도 있지만, 표본이 흔들린 착시일 수도 있습니다. 한 매체는 이를 지방선거 이후 지자체장들의 활동 탓으로 볼 여지가 있다고 짚으면서도 단정하지는 않았습니다.</p>
+<p>여당도 조용하지만은 않습니다. 앞서 6월 데드크로스의 배경으로 리얼미터가 지목한 것 중 하나가 &#x27;여당 내 당권 갈등&#x27;이었습니다. 지지율이 오른 지금도 그 갈등이 사라졌다고 보긴 이릅니다.</p>
+<p>정리하면 이렇습니다. 여당은 외교 호재로 결집했고, 야당은 내부 문제로 흔들렸습니다. 어느 쪽도 확정된 승패가 아니라, 그 주의 사정이 숫자에 비친 것뿐입니다.</p>
+<hr>
+<h2>한 조사만 보면 안 되는 이유</h2>
+<p>가장 중요한 대목입니다.</p>
+<p>같은 주, 한국갤럽 조사는 전혀 다른 그림을 보여줬습니다.</p>
+<p>한국갤럽의 7월 2주차 조사에서 이 대통령 긍정평가는 53%, 부정평가는 35%였습니다. 리얼미터에서는 1.2%포인트 차의 살얼음판이지만, 갤럽에서는 긍정이 18%포인트 앞섭니다. 갤럽 기준으로는 &#x27;데드크로스&#x27;라는 사건 자체가 없었습니다.</p>
+<p>정당 지지도는 격차가 더 큽니다. 국민의힘은 리얼미터 38.1%, 갤럽 24%로 무려 14%포인트가 벌어집니다.</p>
+<p>같은 시기, 같은 국민을 조사했는데 왜 이렇게 다를까요.</p>
+<figure><img src="./images/body-4.png" alt="리얼미터와 한국갤럽 같은 주 지지율 비교 표"><figcaption>리얼미터와 한국갤럽 같은 주 지지율 비교 표</figcaption></figure>
+<hr>
+<h2>ARS와 전화면접, 무엇이 다른가</h2>
+<p>핵심은 조사 방식입니다.</p>
+<p>리얼미터는 기계가 질문을 읽어주는 ARS 방식입니다. 갤럽은 면접원이 직접 통화하는 전화면접 방식입니다.</p>
+<p>응답률부터 다릅니다. 전화면접은 대체로 10% 안팎, ARS는 2~4%대입니다.</p>
+<p>전문가들의 설명은 양쪽으로 갈립니다.</p>
+<p>한편에서는 ARS가 정치에 관심이 높은 사람만 끝까지 응답해 &#x27;고관여층&#x27;이 과대 대표될 수 있다고 봅니다. 반대편에서는 전화면접의 경우 사람에게 직접 답할 때 자기 성향을 숨기고 인기 있는 쪽을 말하거나 &quot;지지 정당 없다&quot;고 답하는 경향이 있어, 오히려 ARS가 실제 선거 결과에 가깝다고 반박합니다.</p>
+<p>어느 방식이 옳다는 학계의 합의는 없습니다. 분명한 것은 방식에 따라 결과가 크게 달라진다는 사실뿐입니다. 실제로 조사 방식에 따라 국민의힘 지지율이 15%포인트까지 벌어진 사례도 있었습니다.</p>
+<p>그래서 여론조사는 한 기관의 한 숫자가 아니라, 여러 기관의 여러 주차를 겹쳐서 흐름으로 봐야 합니다.</p>
+<figure><img src="./images/body-5.png" alt="ARS와 전화면접 조사방식 차이 비교"><figcaption>ARS와 전화면접 조사방식 차이 비교</figcaption></figure>
+<hr>
+<h2>놓치기 쉬운 신호 하나</h2>
+<p>숫자 안에도 조심할 대목이 숨어 있습니다.</p>
+<p>전체 긍정평가는 1.9%포인트 올랐습니다. 그런데 민심의 풍향계로 꼽히는 중도층을 보면, 긍정은 48.5%에서 48.6%로 0.1%포인트 움직였을 뿐입니다.</p>
+<p>상승분은 상당 부분 특정 연령대에서 나왔습니다. 20대에서 긍정평가가 6.8%포인트, 70세 이상에서 5.6%포인트 올랐습니다.</p>
+<p>이 대비가 뜻하는 바는 이렇습니다. 새로 마음을 연 중도층이 늘었다기보다, 기존 지지 성향이 결집한 쪽에 가깝다는 신호입니다. 중도가 움직이지 않은 반등은 다음 주에 다시 뒤집힐 수 있습니다.</p>
+<p>예전엔 지지율 한 주 등락에 정국이 출렁였습니다. 지금은 그 숫자를 어떻게 만들었는지 먼저 묻는 독자가 늘었습니다. 반가운 변화라고 생각합니다.</p>
+<figure><img src="./images/body-6.png" alt="여론조사를 읽는 다섯 가지 유의점"><figcaption>여론조사를 읽는 다섯 가지 유의점</figcaption></figure>
+<hr>
+<h2>앞으로의 관전 포인트</h2>
+<p>당분간은 흐름을 지켜볼 시점입니다.</p>
+<p>여권으로서는 외교 성과가 일회성 호재에 그치는지, 민생·경제 지표로 이어지는지가 관건입니다. 6월 하락의 배경으로 지목됐던 자산시장 양극화나 당권 갈등이 다시 부각되면 반등은 오래가기 어렵습니다.</p>
+<p>야권으로서는 내부 갈등과 원내 전략을 어떻게 추스르느냐가 숙제입니다. 지지 기반의 이탈이 일시적 흔들림인지, 구조적 이완인지는 몇 주 더 지켜봐야 드러납니다.</p>
+<p>무엇보다 다음 조사들이 중요합니다. 리얼미터의 다음 주차, 그리고 갤럽과 다른 기관의 수치가 같은 방향을 가리키는지가 진짜 신호입니다.</p>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다.</p>
+<p>여론조사는 미래를 맞히는 예언이 아니라, 지난주의 민심을 재보는 온도계입니다. 온도계 하나가 가리키는 눈금에 일희일비할 필요는 없습니다.</p>
+<p>&quot;골든크로스인지 아닌지&quot;보다 중요한 물음은 따로 있습니다. 이 숫자는 누가, 어떻게, 몇 명에게 물어서 나온 것인가.</p>
+<p>그 질문을 먼저 던지는 독자라면, 어떤 조사 결과가 나와도 크게 휘둘리지 않으실 것입니다.</p>
+<div class="tags"><span class="tag">#이재명대통령지지율</span> <span class="tag">#리얼미터</span> <span class="tag">#국정지지율</span> <span class="tag">#골든크로스</span> <span class="tag">#여론조사</span> <span class="tag">#한국갤럽</span> <span class="tag">#정당지지도</span> <span class="tag">#정치뉴스해설</span></div>
+  <p class="disc">※ 본문의 여론조사 수치는 리얼미터(에너지경제신문 의뢰)와 한국갤럽 공표 자료에 근거합니다. 여론조사는 표본오차·응답률·조사방식에 따라 결과가 달라질 수 있으므로, 특정 조사 하나의 수치를 확정된 민심으로 해석하지 않도록 유의하시기 바랍니다. 자세한 조사 개요는 중앙선거여론조사심의위원회 홈페이지에서 확인할 수 있습니다.</p>
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
