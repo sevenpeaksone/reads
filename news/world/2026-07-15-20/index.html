@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USMCA 16년 연장 불발, 북미 무역협정이 매년 재검토받게 된 이유</title>
+<style>
+  :root { --text:#222; --muted:#666; --line:#e2e2e2; --accent:#b7791f; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:40px 16px 80px; background:#f6f7f8;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    color:var(--text); -webkit-font-smoothing:antialiased; }
+  .post { max-width:700px; margin:0 auto; background:#fff; padding:44px 40px 56px;
+    border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+  .meta { display:flex; align-items:center; gap:12px; margin-bottom:22px;
+    padding-bottom:20px; border-bottom:1px solid var(--line); }
+  .badge { display:inline-block; background:var(--accent); color:#fff; font-size:13px;
+    font-weight:700; padding:5px 12px; border-radius:999px; letter-spacing:0.02em;
+    white-space:nowrap; }
+  .date { font-size:14px; color:var(--muted); }
+  h1 { font-size:28px; line-height:1.45; font-weight:800; margin:0 0 28px;
+    letter-spacing:-0.02em; color:#111; word-break:keep-all; }
+  h2 { font-size:21px; line-height:1.5; font-weight:700; margin:48px 0 18px;
+    padding-left:12px; border-left:4px solid var(--accent); color:#1a1a1a;
+    letter-spacing:-0.01em; word-break:keep-all; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+  ul, ol { margin:0 0 22px; padding-left:22px; }
+  li { font-size:16.5px; line-height:1.85; margin-bottom:6px; word-break:keep-all; }
+  img { display:block; max-width:100%; height:auto; margin:28px auto; border-radius:6px; }
+  hr { border:none; border-top:1px solid var(--line); margin:40px 0; }
+  blockquote { margin:24px 0; padding:18px 22px; background:#fdf8f0;
+    border-left:4px solid var(--accent); border-radius:4px; color:#333;
+    font-size:16px; line-height:1.8; word-break:keep-all; }
+  blockquote ol { margin:10px 0 0; padding-left:20px; }
+  blockquote li { font-size:16px; margin-bottom:8px; }
+  table { border-collapse:collapse; width:100%; margin:24px 0; font-size:15.5px; }
+  th { background:var(--accent); color:#fff; font-weight:700; padding:11px 12px;
+    text-align:left; word-break:keep-all; }
+  td { border-bottom:1px solid var(--line); padding:11px 12px; line-height:1.65;
+    word-break:keep-all; vertical-align:top; }
+  tr:nth-child(even) td { background:#faf9f7; }
+  strong { font-weight:700; }
+  .tags { margin-top:10px; font-size:15px; line-height:2; color:var(--accent);
+    word-break:keep-all; }
+  .tags span { margin-right:6px; white-space:nowrap; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/world/index.html">국제/세계 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="post">
+
+  <div class="meta">
+    <span class="badge">국제·세계 뉴스</span>
+    <span class="date">2026-07-15</span>
+  </div>
+
+  <h1>USMCA 16년 연장 불발, 북미 무역협정이 매년 재검토받게 된 이유</h1>
+
+  <img src="./images/thumbnail.png" alt="USMCA 16년 연장 불발 - 북미 무역협정 연례 재검토 체제 진입">
+
+  <p>이번 글에서는 2026년 7월 1일 미국이 USMCA 연장에 동의하지 않으면서 벌어진 일을 정리해 보겠습니다. 협정이 폐기된 것인지, 무엇이 실제로 바뀌었는지, 멕시코에 공장을 둔 한국 기업에는 어떤 변수가 생겼는지를 차례로 짚습니다.</p>
+
+  <blockquote><strong>세 줄 요약</strong><ol><li>2026년 7월 1일 미국·멕시코·캐나다가 화상으로 합동검토를 열었고, 미국이 현행 형태의 16년 연장에 동의하지 않았습니다. 멕시코와 캐나다는 연장을 지지했습니다.</li><li><strong>협정이 끝난 것은 아닙니다.</strong> USMCA는 2036년 7월 1일까지 완전히 유효합니다. 무산된 것은 '그 너머로 더 연장하는 선택'입니다.</li><li>대신 제34.7.4조가 발동해 <strong>2036년까지 매년 재검토</strong>를 반복하게 됐습니다. 3국 정상이 서면으로 확인하면 언제든 16년 연장이 가능합니다.</li></ol></blockquote>
+
+  <hr>
+
+  <h2>7월 1일, 화상회의에서 벌어진 일</h2>
+
+  <p>USMCA에는 발효 6주년에 협정을 점검하도록 한 조항이 있습니다. 제34.7.2조입니다.</p>
+
+  <p>2020년 7월 1일 발효였으니 그 6주년이 2026년 7월 1일이었습니다. 3국 정부 대표로 구성된 자유무역위원회가 이날 화상으로 모였습니다.</p>
+
+  <p>제이미슨 그리어 미국 무역대표부(USTR) 대표의 성명은 짧고 분명했습니다. "미국은 현행 형태의 USMCA 갱신에 동의하지 않았다"는 것입니다.</p>
+
+  <p>같은 자리에서 멕시코와 캐나다는 <strong>16년 연장을 지지한다고 각각 확인</strong>했습니다. 세 나라 중 한 나라만 손을 들지 않은 셈입니다.</p>
+
+  <p>마르셀로 에브라르드 멕시코 경제장관, 도미닉 르블랑 캐나다 대미무역장관이 회의에 함께했습니다. 캐나다는 이미 6월 1일 르블랑 장관 명의의 서한으로 갱신 지지 의사를 전달해 둔 상태였습니다.</p>
+
+  <img src="./images/body-1.png" alt="2026년 7월 1일 USMCA 합동검토에서 미국, 멕시코, 캐나다 3국의 입장 비교 표">
+
+  <hr>
+
+  <h2>'갱신 안 됨'과 '협정 종료'는 다릅니다</h2>
+
+  <p>여기서 오해가 생기기 쉽습니다.</p>
+
+  <p>USTR 성명의 마지막 문장은 "결과적으로 USMCA는 갱신되지 않았다"였습니다. 이 표현만 보면 협정이 사라진 것처럼 읽힙니다.</p>
+
+  <p>로펌 화이트앤케이스(White &amp; Case)는 이 지점을 분명히 정리했습니다. USTR의 표현에도 불구하고 <strong>협정은 실효하지도, 만료하지도 않았다</strong>는 것입니다.</p>
+
+  <p>제34.7.1조에 따라 USMCA의 기한은 발효일로부터 16년, 즉 <strong>2036년 7월 1일</strong>까지입니다. 7월 1일에 일어나지 않은 것은 협정을 그 너머로 연장하는 <strong>선택적 결정</strong>이었을 뿐입니다.</p>
+
+  <p>그래서 지금 이 순간에도 그대로인 것들이 있습니다.</p>
+
+  <ul><li>특혜관세</li><li>원산지 규정</li><li>투자 보호</li><li>분쟁해결 절차</li></ul>
+
+  <p>기업이 오늘 당장 통관 신고 방식을 바꿀 필요도 없습니다. 그리어 대표 성명에도 "협정은 유효하게 유지된다"는 문구가 들어 있습니다.</p>
+
+  <img src="./images/body-2.png" alt="USMCA 제34.7.4조 발동으로 그대로인 것과 달라진 것 대조">
+
+  <hr>
+
+  <h2>제34.7.4조가 켠 두 개의 스위치</h2>
+
+  <p>한 나라라도 연장을 확인하지 않으면 제34.7.4조가 작동합니다. 두 가지가 따라옵니다.</p>
+
+  <p><strong>첫째, 연례 합동검토입니다.</strong> 자유무역위원회는 남은 기간 동안 <strong>매년</strong> 검토 회의를 열어야 합니다. 2036년 7월 1일까지 해마다 반복됩니다.</p>
+
+  <p><strong>둘째, '언제든지' 연장하는 경로입니다.</strong> 3국은 만료 전 어느 시점에서든 <strong>각국 정부수반의 서면 확인</strong>만으로 추가 16년 연장에 합의할 수 있습니다. 정식 재협상 절차를 새로 밟을 필요가 없습니다.</p>
+
+  <p>이 두 번째 조항이 중요합니다. 16년 연장은 사라진 것이 아니라 <strong>미뤄진 것</strong>입니다.</p>
+
+  <hr>
+
+  <h2>왜 중요한가 — 2조 달러라는 무게</h2>
+
+  <p>숫자를 보면 이 협정의 무게가 잡힙니다.</p>
+
+  <table><thead><tr><th>항목</th><th>규모</th></tr></thead><tbody><tr><td>3국 간 교역 (상품+서비스)</td><td>약 <strong>2조 달러</strong></td></tr><tr><td>2020년 발효 이후 증가액</td><td>약 <strong>4,000억 달러</strong></td></tr><tr><td>역내 상품교역</td><td>2020년 1조 700억 달러 → 2024년 <strong>1조 6,300억 달러 이상</strong></td></tr><tr><td>미국 수입 제조업 투입재 중 캐나다·멕시코산</td><td><strong>3분의 1</strong></td></tr><tr><td>북미 교역이 뒷받침하는 미국 일자리</td><td>약 <strong>1,300만 개</strong> (미 상공회의소 추정)</td></tr></tbody></table>
+
+  <p>한 가지 지표가 특히 눈에 띕니다. <strong>미국이 캐나다·멕시코에서 수입하는 물건의 4분의 1에서 3분의 1은 원래 미국에서 만든 것</strong>입니다. 아시아나 유럽에서 수입하는 물건에서는 이 비율이 한 자릿수에 그칩니다.</p>
+
+  <p>에릭 밀러 리도포토맥전략그룹 대표는 이 촘촘한 역내 연계가 결국 USMCA를 살릴 수 있다고 봅니다. 2025년 3월 트럼프 대통령이 USMCA 원산지를 충족한 물품 상당수를 관세에서 면제한 것도 같은 이유였다는 설명입니다.</p>
+
+  <img src="./images/body-3.png" alt="숫자로 본 USMCA 규모 - 2조 달러 교역, 1300만 개 일자리, 투입재 3분의 1">
+
+  <hr>
+
+  <h2>미국이 내놓은 명분</h2>
+
+  <p>미국 측 논거는 몇 갈래로 정리됩니다.</p>
+
+  <p><strong>무역적자</strong>가 첫 번째입니다. CNBC는 트럼프 대통령의 "일차적" 우려가 두 나라와의 무역적자라고 전했습니다. 행정부는 USMCA가 협정을 현대화하는 데는 성공했지만, 무역적자는 오히려 늘었다는 입장입니다. 실제로 미국의 대멕시코 무역적자는 USMCA 발효 이후 두 배가 됐습니다.</p>
+
+  <p><strong>중국산 우회 환적</strong>이 두 번째입니다. 중국산 물품이 멕시코를 거쳐 미국 관세를 피해 간다는 문제 제기입니다. 하워드 러트닉 상무장관, 피터 나바로 통상담당 선임고문 등이 반복해서 지적해 왔습니다.</p>
+
+  <p><strong>미국 자동차 제조업의 성장 부진</strong>이 세 번째입니다.</p>
+
+  <p>브라운스타인(Brownstein) 분석에 따르면 행정부는 "원 협정의 실질적 문제" 때문에 현 상태로 "고무도장"을 찍을 수는 없다는 입장을 밝혔습니다. 여기에 산업 일자리 감소, 아시아에 대한 경제적 의존 심화도 우려로 거론됩니다.</p>
+
+  <hr>
+
+  <h2>멕시코와 캐나다는 무엇을 말하나</h2>
+
+  <p><strong>멕시코</strong>는 연장을 지지하면서도 연례 검토의 부작용을 짚었습니다. 에브라르드 장관은 해마다 되풀이되는 검토가 불안정을 낳아 <strong>멕시코가 중국 의존을 줄여나가는 일을 오히려 어렵게 만들 수 있다</strong>고 경고했습니다. 상시 검토 구조가 "북미 공급망을 강화하고 아시아 의존을 줄이는 데 필요한 바로 그 투자를 질식시킬 위험"이 있다는 것입니다. 다만 그는 3국 사이에 합의를 가로막을 실질적 이견은 없다고도 말했습니다.</p>
+
+  <p>멕시코가 그은 선도 있습니다. 미국 계절 농산물 생산자들이 계절관세할당을 요구하는 데 대해 에브라르드 장관은 그런 변경은 받아들이지 않겠다고 공개적으로 밝혔습니다. 미국이 밀어붙이면 농산물 수입처를 다른 곳에서 찾겠다고 했습니다.</p>
+
+  <p><strong>캐나다</strong>의 우선순위는 다릅니다. 르블랑 장관은 3국이 "논의를 계속하는 것의 중요성에 합의했다"고 밝히면서, 철강·알루미늄·자동차·목재에 붙은 미국의 품목별 관세를 실질 논의에 올리는 것이 캐나다의 과제라고 확인했습니다.</p>
+
+  <p>캐나다와 미국의 협상은 아직 텍스트 단계에 들어가지 않았습니다. 그리어 대표는 캐나다와의 대화가 "더 어려웠다"고 평했고, 릭 스위처 USTR 부대표는 마크 카니 총리를 두고 "정치적 과실"이라는 표현까지 썼습니다.</p>
+
+  <p>캐나다 쪽 시선은 정반대입니다. 밀러 대표는 미-캐나다 관계가 "현대사에서 가장 낮은 지점"에 있다고 진단합니다. 2025년 2~4월 미국이 전 교역상대국에 관세를 매겼을 때 보복관세로 맞선 나라는 캐나다와 중국뿐이었습니다. 스티븐 하퍼 전 총리는 2026년 2월 캐나다가 미국 의존을 줄이기 위해 "필요한 어떤 희생도 감수해야 한다"고 말했습니다.</p>
+
+  <p>케일리 마이먼 혹 조지타운대 겸임교수는 캐나다와 멕시코의 물음을 이렇게 요약합니다. <strong>232조·301조 관세가 시장 접근을 갉아먹는다면, USMCA의 가치는 무엇인가.</strong></p>
+
+  <hr>
+
+  <h2>일몰 조항은 어떻게 태어났나</h2>
+
+  <p>지금의 구조를 이해하려면 8년 전으로 가야 합니다.</p>
+
+  <p>2017년 NAFTA 재협상에 착수하면서 미국은 파트너국에 대한 지속적 레버리지를 원했습니다. 그래서 나온 것이 <strong>5년 일몰 조항</strong> 제안이었습니다. 5년 뒤 대통령이 협정 지속 여부를 결정하는 구조입니다. 당시 USTR 관계자는 협정이 낡아지는 것을 막으려면 그런 압력이 필요하다고 주장했습니다.</p>
+
+  <p>반대가 만만치 않았습니다. 캐나다·멕시코는 물론 <strong>미국 재계 상당수가 반대했습니다.</strong> 투자 결정에 반복적 불확실성을 주입한다는 이유였습니다. 미 의회 청문회에서도 의원들이 민간 투자를 위축시킨다며 의무 검토 조항에 의문을 제기했습니다.</p>
+
+  <p>타협의 결과가 지금의 제34.7조입니다. <strong>갱신 가능한 16년 기한에 6년차 합동검토를 얹은 구조</strong>입니다. 정기적인 점검 시점은 확보하되, 짧은 기한이 낳을 경제적 불확실성은 피하자는 절충이었습니다. 통상협정에서 전례를 찾기 어려운 새로운 개념이기도 했습니다.</p>
+
+  <p>예전엔 "5년마다 협정의 생사를 묻자"는 제안이 있었고, 지금은 "매년 연장을 물어보되 협정은 2036년까지 살려두자"는 구조가 작동합니다. 8년 전 반대론자들이 걱정한 그림과 완전히 다르지는 않은 국면입니다.</p>
+
+  <img src="./images/body-4.png" alt="일몰 조항에서 연례 재검토까지 USMCA 주요 일지 타임라인">
+
+  <hr>
+
+  <h2>협상 테이블 위의 숫자 — 75%에서 82%로</h2>
+
+  <p>미국이 실제로 요구하는 내용은 구체적입니다. 브라운스타인 분석 기준입니다.</p>
+
+  <table><thead><tr><th>항목</th><th>현행</th><th>미국 제안</th></tr></thead><tbody><tr><td>자동차 북미산 부품 비중</td><td>75%</td><td><strong>82%</strong> (그중 50%는 미국산)</td></tr><tr><td>대형 트럭 역내가치비율</td><td>70%</td><td><strong>75%</strong></td></tr><tr><td>고임금 콘텐츠 요건(엔진·변속기·EV 배터리 등)</td><td>40%</td><td>상향 추진 전망</td></tr></tbody></table>
+
+  <p>여기에 고가 부품에 대한 더 엄격한 산정 방식 재도입, 중국산 원료를 걸러내기 위한 철강·알루미늄 조달 감시 강화도 포함됩니다.</p>
+
+  <p>주목할 대목이 하나 더 있습니다. 미국의 자동차 제안에는 <strong>캐나다산 부품을 북미 콘텐츠 총량에 산입하는 규정이 빠져 있습니다.</strong> 북미를 하나의 생산 플랫폼으로 다뤄온 기업에게는 규칙이 갈라질 수 있다는 초기 신호입니다.</p>
+
+  <p>다만 실무적으로는 쉽지 않습니다. 수십 년의 오프쇼어링 끝에 와이어링 하네스 같은 핵심 부품은 미국 안에서 대규모로 조달하기 어렵습니다. 제안된 기준을 단기간에 맞추기가 매우 어렵다는 것이 브라운스타인의 평가입니다.</p>
+
+  <img src="./images/body-5.png" alt="자동차 원산지 규정 현행 기준과 미국 제안 기준 비교 표">
+
+  <hr>
+
+  <h2>한국 기업에 생긴 불확실성</h2>
+
+  <p>멕시코에 공장을 둔 한국 기업에는 어떤 변수가 생겼을까요.</p>
+
+  <p><strong>기아</strong>는 멕시코 누에보레온주 페스케리아 공장에서 미국 수출을 오히려 늘려 왔습니다. 2026년 1분기 멕시코발 미국 수출은 <strong>3만 9,724대</strong>로 전년 동기 대비 <strong>27.5% 증가</strong>했습니다. 같은 기간 한국의 대미 수출 증가율이 2.3%였으니 열 배가 넘는 증가폭입니다.</p>
+
+  <p>문제는 그 성장이 무관세 혜택 위에 서 있다는 점입니다. 부품 비중 75%, 철강·알루미늄 비중 70%를 맞춰 혜택을 받아 왔는데, 논의 중인 기준은 82%와 미국산 별도 50%입니다. 기준이 오르면 멕시코 생산 차량의 원가 부담이 커집니다.</p>
+
+  <p><strong>현대차</strong>는 멕시코에 공장이 없습니다. 다만 260억 달러 규모 미국 투자 계획에 멕시코산 투싼 생산라인을 앨라배마 공장으로 옮기는 방안을 포함했습니다. 현대차·기아는 미국 내 생산 비중을 늘리면서 멕시코 공장 활용을 병행하는 전략을 검토 중인 것으로 전해집니다.</p>
+
+  <p>멕시코에 동반 진출한 <strong>중소·중견 부품 협력사</strong>들까지 연쇄적으로 영향을 받을 수 있다는 것이 업계의 시각입니다.</p>
+
+  <p>참고할 사례가 있습니다. 토요타는 7월 6일 멕시코 티후아나 공장의 타코마 픽업트럭 생산라인을 텍사스로 옮기기로 했습니다. 샌안토니오 공장에 <strong>36억 달러</strong>를 투자해 4년에 걸쳐 이전합니다. 토요타 북미법인은 2026회계연도에 관세 여파로 영업이익이 85억 달러 줄며 적자로 돌아섰습니다. 업계는 관세 외에 미국 내 생산 인센티브, 환율, 물류비도 함께 작용했다고 봅니다. 셰인바움 멕시코 대통령은 이 결정이 협정 재검토와 무관한 "글로벌 재편 과정"이라고 설명했습니다.</p>
+
+  <p>여기서 짚어야 할 구조가 있습니다. 미국은 2025년부터 수입 완성차·부품에 25% 관세를 매기고 있습니다. <strong>협정 원산지 기준을 충족한 차량이라도 미국산이 아닌 부분에는 이 관세가 그대로 붙습니다.</strong> 원산지 규정과 관세가 별개로 작동한다는 뜻입니다.</p>
+
+  <img src="./images/body-6.png" alt="멕시코 생산기지를 둔 한국 기업의 변수 핵심 포인트">
+
+  <hr>
+
+  <h2>앞으로 무엇을 봐야 하나</h2>
+
+  <p>가까운 일정은 <strong>7월 20일 주간 멕시코시티에서 열리는 미-멕시코 3차 양자 협상</strong>입니다. 미결 쟁점 해소가 목표입니다. 캐나다는 참가자로 발표되지 않았습니다.</p>
+
+  <p>전문가들의 시선은 갈립니다.</p>
+
+  <p>디에고 마로킨 비타르 CSIS 펠로우는 이번 일을 "결별이 아니라 연장전"으로 봅니다. 다만 오래 끌수록 피해가 쌓인다고 지적합니다. 그 피해는 급작스러운 하락이 아니라 <strong>'부재'로 나타난다</strong>는 것입니다. 짓지 않은 공장, 만들어지지 않은 일자리, 다들 결말을 기다리는 사이 조용히 다른 곳에 자리 잡는 공급망입니다. 지금 자본을 움직일 수 있는 것은 또 하나의 관세 위협이 아니라 "몇 라운드가 남았는지에 대한 숫자"라고 그는 말합니다.</p>
+
+  <p>마이먼 혹 교수는 이글스의 노래를 빌려 "호텔 캘리포니아"에 비유합니다. 탈퇴 위협은 계속되겠지만 경제적 타격이 워낙 커서 실제 탈퇴 가능성은 낮다고 봅니다. 대신 검토가 끝나지 않는 상태가 이어질 것이라는 전망입니다.</p>
+
+  <p>후안 카를로스 베이커 전 멕시코 통상차관은 다른 각도를 제시합니다. 많은 논평이 이번 결정을 멕시코·캐나다에 대한 타격으로 전제하지만, <strong>비용은 세 나라가 함께 진다</strong>는 것입니다. 미국의 제조업체·투자자·소비자도 예측 가능한 제도적 틀에 의존하고 있기 때문입니다. 그는 불확실성이 투자를 지연시키기 시작하면 미국 기업들이 협상 타결을 지지하는 세력이 될 가능성이 높다고 봅니다.</p>
+
+  <p>윌리엄 앨런 라인시 CSIS 선임고문은 아무도 묻지 않는 질문을 던집니다. <strong>개정된 협정이 나오면 의회 승인을 받아야 하는가.</strong> 원 USMCA는 무역촉진권한(TPA)에 따라 의회 승인을 거쳤지만, TPA는 2021년 만료됐습니다. 절차를 정리해 줄 장치가 없는 상태입니다. 그는 이 문제에 대해 "아직 말하기 이르다"고 덧붙였습니다.</p>
+
+  <p>기업이 대비해야 할 시나리오는 세 갈래로 정리됩니다.</p>
+
+  <ol><li>USMCA 보호가 대체로 유지되는 현상 유지</li><li>더 엄격한 콘텐츠 요건을 담은 재협상 협정</li><li>역내 규칙이 서로 갈라지는 별도 양자 협정</li></ol>
+
+  <hr>
+
+  <p>정리하면 이렇습니다.</p>
+
+  <p>7월 1일에 무너진 것은 협정이 아니라 <strong>협정의 시간표</strong>였습니다. USMCA는 2036년까지 그대로 살아 있고, 관세도 원산지 규정도 어제와 같습니다. 다만 이제 이 협정은 10년 동안 매년 "계속할 것인가"라는 질문을 받게 됐습니다.</p>
+
+  <p>세 나라 정상이 서명 하나로 16년을 되돌릴 수 있다는 사실은 그대로입니다. 문이 닫힌 것이 아니라, 문 앞에 매년 서 있어야 하는 구조가 된 것입니다.</p>
+
+  <p>기업의 시간은 5년, 10년, 15년 단위로 흐릅니다. 협정의 시간은 이제 1년 단위로 끊깁니다. 이 두 시계의 어긋남이 앞으로 몇 해를 규정할 것입니다.</p>
+
+  <p>가장 큰 비용은 관세가 아닐지도 모릅니다. <strong>"결말을 기다리는 시간"</strong> 자체일 수 있습니다.</p>
+
+  <p>다음 장면은 7월 20일 멕시코시티에서 시작됩니다. 그 자리에서 몇 라운드가 남았는지에 대한 답이 나올지, 지켜볼 일입니다.</p>
+
+  <hr>
+
+  <p class="tags"><span>#USMCA</span><span>#북미무역협정</span><span>#미국멕시코캐나다협정</span><span>#USMCA연장</span><span>#합동검토</span><span>#원산지규정</span><span>#국제통상</span><span>#멕시코생산기지</span><span>#자동차관세</span></p>
+
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

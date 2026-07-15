@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>보완수사권 폐지 공방, 10월 공소청 출범 앞두고 무엇이 쟁점인가</title>
+<style>
+:root { --accent:#5b8def; --text:#222; --muted:#6b7280; --line:#e6e8ec; }
+* { box-sizing:border-box; }
+body { margin:0; padding:40px 16px 80px; background:#f6f7f8; color:var(--text);
+  font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+  -webkit-font-smoothing:antialiased; }
+.post { max-width:700px; margin:0 auto; background:#fff; padding:48px 40px 56px;
+  border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+.meta { display:flex; align-items:center; gap:10px; margin-bottom:18px; flex-wrap:wrap; }
+.cat { display:inline-block; font-size:13px; font-weight:700; padding:4px 13px;
+  border:1.5px solid var(--accent); color:var(--accent); border-radius:16px; }
+.date { font-size:13.5px; color:var(--muted); }
+h1 { font-size:28px; line-height:1.45; font-weight:800; margin:0 0 28px;
+  letter-spacing:-0.02em; color:#111; word-break:keep-all; }
+h2 { font-size:21px; line-height:1.5; font-weight:700; margin:48px 0 18px;
+  padding-left:12px; border-left:4px solid var(--accent); color:#1a1a1a;
+  letter-spacing:-0.01em; word-break:keep-all; }
+p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+ul { margin:0 0 22px; padding-left:22px; }
+li { font-size:16.5px; line-height:1.85; margin-bottom:6px; word-break:keep-all; }
+figure { margin:28px 0; text-align:center; }
+img { display:block; max-width:100%; height:auto; margin:0 auto; border-radius:6px; }
+figcaption { font-size:13px; color:#9aa0ad; margin-top:10px; line-height:1.6; word-break:keep-all; }
+hr { border:none; border-top:1px solid var(--line); margin:40px 0; }
+strong { font-weight:700; }
+.tags { margin-top:36px; font-size:15px; line-height:2; color:var(--accent); word-break:keep-all; }
+.tags span { margin-right:6px; white-space:nowrap; }
+.src { margin-top:30px; padding-top:20px; border-top:1px solid var(--line); }
+.srch { font-size:14px; font-weight:700; color:var(--muted); margin:0 0 8px; }
+.src ul { margin:0; padding-left:20px; }
+.src li { font-size:13.5px; line-height:1.75; color:var(--muted); margin-bottom:4px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="post">
+
+  <div class="meta"><span class="cat">정치·사회 뉴스</span><span class="date">2026년 7월 15일</span></div>
+
+  <h1>보완수사권 폐지 공방, 10월 공소청 출범 앞두고 무엇이 쟁점인가</h1>
+
+  <p>이번 글에서는 검찰 보완수사권을 둘러싼 공방을 정리해 보겠습니다.<br>
+10월 검찰청 폐지까지 석 달이 채 남지 않았는데, 정작 핵심 권한의 존폐가 아직 정해지지 않았습니다.<br>
+어느 편이 옳다고 말하기보다, 양쪽 논거를 나란히 놓는 데 무게를 두었습니다.</p>
+
+  <figure><img src="./images/thumbnail.png" alt="국회를 배경으로 &#x27;보완수사권 폐지 공방&#x27;이라는 제목이 담긴 뉴스 해설 썸네일"><figcaption>국회를 배경으로 &#x27;보완수사권 폐지 공방&#x27;이라는 제목이 담긴 뉴스 해설 썸네일</figcaption></figure>
+
+  <hr>
+
+  <h2>무슨 일이 있었나</h2>
+
+  <p>2026년 10월, 검찰청이 사라집니다.</p>
+
+  <p>지난 3월 국회 본회의를 통과한 공소청법과 중대범죄수사청법에 따른 것입니다. 기소와 공소유지만 맡는 공소청이 들어서고, 부패·경제·방위산업·마약·내란외환·사이버범죄 등 6대 중대범죄는 행정안전부 소속 중대범죄수사청이 전담합니다. 수사와 기소를 제도적으로 완전히 분리하겠다는 구상입니다.</p>
+
+  <p>그런데 정작 '보완수사권을 남길 것인가'는 아직 결론이 없습니다.</p>
+
+  <p>이 권한의 범위는 형사소송법 개정으로 따로 정해야 하는데, 그 입법이 공전하고 있습니다. 파이낸셜뉴스는 지난 6월 23일 "검찰 해체 D-100인데 보완수사가 공전한다"고 전했습니다.</p>
+
+  <p>7월 14일 더불어민주당 의원총회는 이 문제를 매듭짓지 못했습니다. 완전 폐지를 당론으로 확정하려 했으나, 당내 신중론에 부딪혀 추가 숙의로 넘어갔습니다.</p>
+
+  <figure><img src="./images/body-1.png" alt="2026년 10월 검찰청 폐지 이후 공소청과 중대범죄수사청으로 나뉘는 조직 개편 구조도"><figcaption>2026년 10월 검찰청 폐지 이후 공소청과 중대범죄수사청으로 나뉘는 조직 개편 구조도</figcaption></figure>
+
+  <hr>
+
+  <h2>보완수사권이란 무엇입니까</h2>
+
+  <p>용어부터 짚고 가겠습니다.</p>
+
+  <p>형사소송법 제197조의2가 근거 조문입니다. 검사가 기소 여부를 정하거나 공소를 유지하는 데 필요할 때, 경찰에 보완수사를 요구할 수 있도록 한 규정입니다.</p>
+
+  <p>실무에서는 둘을 구분합니다.</p>
+
+  <ul><li><strong>보완수사권</strong> — 검사가 송치받은 사건을 <strong>직접</strong> 더 수사하는 권한</li><li><strong>보완수사요구권</strong> — 검사가 경찰에게 <strong>다시 수사하라고 요구</strong>하는 권한</li></ul>
+
+  <p>이번 다툼의 핵심은 앞의 것을 없애고 뒤의 것만 남길지입니다. 얼핏 사소해 보이지만, 검사가 손수 확인할 수 있느냐 아니면 경찰에 맡기고 기다려야 하느냐의 차이입니다.</p>
+
+  <hr>
+
+  <h2>2021년 이후 무엇이 달라졌나</h2>
+
+  <p>지금의 논쟁은 5년 전에서 출발합니다.</p>
+
+  <p>2021년 1월 1일, 검경 수사권 조정이 시행됐습니다. 경찰이 1차 수사권과 수사종결권을 갖게 됐고, 검사의 직접 수사는 6대 중대범죄로 좁혀졌습니다. 경찰이 혐의가 없다고 보면 불송치로 자체 종결할 수 있게 됐습니다.</p>
+
+  <p>예전엔 검사가 수사를 지휘했습니다. 지금은 경찰이 먼저 수사하고 검사가 뒤에서 점검합니다.</p>
+
+  <p>그 사이 몇 가지 수치가 움직였습니다.</p>
+
+  <p>대검찰청이 올해 3~4월 전국 12개 검찰청의 송치 사건을 조사한 결과, 5만 5,174건 가운데 2만 5,152건에서 보완수사가 이뤄졌습니다. 비율로 45.59%입니다. 넘어온 사건의 절반 가까이에 검사의 손이 한 번 더 닿았다는 뜻입니다.</p>
+
+  <p>형사사건 평균 처리 기간도 늘었습니다. 2020년 142일에서 2021년 168일, 2022년 185일, 2023년 214일을 거쳐 2024년 312일이 됐습니다. 네 해 만에 두 배를 넘겼습니다.</p>
+
+  <p>파이낸셜뉴스는 지난 7월 13일 불기소율과 영장 기각률도 올랐다고 단독 보도했습니다. 불기소 처분 비율은 2016~2020년 평균 4.1%에서 2021년 8.0%로, 지난해 9.6%까지 올랐다는 내용입니다.</p>
+
+  <p>다만 여기서 한 가지는 분명히 해두겠습니다. 이 변화가 수사권 조정 때문인지에 대해서는 해석이 갈립니다. 숫자는 사실이지만, 원인은 아직 다툼의 영역입니다.</p>
+
+  <figure><img src="./images/body-2.png" alt="2020년부터 2024년까지 형사사건 평균 처리 기간이 142일에서 312일로 늘어난 추이를 보여주는 비교 표"><figcaption>2020년부터 2024년까지 형사사건 평균 처리 기간이 142일에서 312일로 늘어난 추이를 보여주는 비교 표</figcaption></figure>
+
+  <hr>
+
+  <h2>논쟁에 불을 붙인 '장윤기 사건'</h2>
+
+  <p>한 사건이 논쟁을 재점화했습니다.</p>
+
+  <p>경찰은 장윤기를 살인 등 혐의로 송치했습니다. 검찰이 보완수사 과정에서 성범죄 정황을 추가로 확인해 강간 등 살인 혐의를 적용했습니다. 이 과정에서 현직 경찰 간부인 그의 부친이 증거를 인멸한 정황이 드러났고, 담당 수사팀장도 증거인멸 혐의로 긴급체포됐습니다.</p>
+
+  <p>존치를 주장하는 쪽은 이 사건을 근거로 듭니다. 보완수사권이 없었다면 실체가 묻혔으리라는 것입니다.</p>
+
+  <p>반론도 있습니다. 보완수사요구권만으로도 같은 결과에 이를 수 있었다는 주장입니다. SBS는 취재파일에서 이 논거를 따로 검증했습니다. 방송인 김어준 씨는 "이런 정도의 사건은 1년에 몇 건씩이나 있는데 최근 일주일 사이에 거의 모든 언론에서 톱"이라며 여론몰이를 지적했습니다. 이에 대해 정파적 이익을 위해 비극을 다뤄선 안 된다는 반박도 나왔습니다.</p>
+
+  <hr>
+
+  <h2>폐지론은 무엇을 말합니까</h2>
+
+  <p>여당 지도부의 논리는 원칙에 있습니다.</p>
+
+  <p>한병도 대표 직무대행 겸 원내대표는 의원총회에서 "보완수사권 완전 폐지를 골자로 하는 형사소송법 개정으로 검찰개혁의 마지막 퍼즐을 완성해야 한다"고 말했습니다.</p>
+
+  <p>핵심 논거는 이렇습니다. 보완수사권 역시 수사권의 일부라는 것입니다. 예외를 두기 시작하면 과거 검수완박 입법 때처럼 검찰이 수사권을 다시 넓히게 되고, 결국 수사·기소 분리라는 대원칙이 무너진다는 우려입니다.</p>
+
+  <p>대신 부작용은 다른 장치로 막겠다는 구상입니다. 보완수사요구권을 강화해 경찰이 반드시 보완수사에 착수하고 결과를 통보하도록 의무화하고, 원칙적으로 1개월 안에 마치도록 하는 내용입니다. 김한규 원내정책수석부대표는 "경찰의 수사권 남용을 통제하는 방안을 충분히 준비했다"고 밝혔습니다.</p>
+
+  <p>정부도 같은 방향입니다. 김민석 국무총리는 지난 6월 25일 보완수사권 폐지를 정부의 기본 입장으로 정리했습니다.</p>
+
+  <hr>
+
+  <h2>존치론은 무엇을 말합니까</h2>
+
+  <p>야당은 견제 장치를 이야기합니다.</p>
+
+  <p>장동혁 국민의힘 대표는 "검찰 권력까지 경찰에 몰아주면 괴물 경찰이 탄생한다"며 보완수사권을 남겨야 한다고 주장했습니다. 국민의힘은 "보완수사권은 검찰을 위한 제도가 아니라 부실수사를 막을 최소한의 견제장치"라는 입장입니다.</p>
+
+  <p>주목할 대목은 피해자를 앞세운 논리입니다. 경찰을 견제할 수단이 없으면, 변호사를 선임하기 어려운 사회적 약자가 가장 큰 피해를 본다는 것입니다. 박성훈 수석대변인은 "결국 이득 보는 것은 정권과 일부 권력자층"이라고 말했습니다.</p>
+
+  <p>국민의힘은 보완수사권을 유지하는 형사소송법 개정안을 당론으로 정하고 맞불 입법에 나서기로 했습니다. '부산 돌려차기' 사건 피해자와 토론회를 여는 등 저지에 힘을 싣고 있습니다.</p>
+
+  <figure><img src="./images/body-3.png" alt="보완수사권 폐지론과 존치론의 핵심 논거를 쟁점별로 나란히 정리한 비교 표"><figcaption>보완수사권 폐지론과 존치론의 핵심 논거를 쟁점별로 나란히 정리한 비교 표</figcaption></figure>
+
+  <hr>
+
+  <h2>여당 내부는 어디서 갈라졌나</h2>
+
+  <p>이번 국면의 특징은 여기에 있습니다. 전선이 여야 사이에만 있지 않습니다.</p>
+
+  <p>7월 14일 의원총회에서 15명이 발언했고, 그중 10명가량이 전면 폐지에 우려를 나타냈습니다. 박균택·홍기원·이소영·박범계·남인순 의원 등입니다.</p>
+
+  <p>민주당 원내대변인의 설명이 구도를 정확히 보여줍니다. "보완수사권을 전면 존치하자는 의견은 당내에 없는데, 예외적으로 허용할지에 대해 몇 개의 의견들이 있는 것 같다."</p>
+
+  <p>즉 폐지 자체가 아니라 예외를 둘 것이냐가 쟁점입니다.</p>
+
+  <p>홍기원 의원은 7월 14일 절충안을 대표발의했습니다. 직접수사권은 폐지하되, 일부 사건에 한해 보완수사를 허용하자는 형사소송법 개정안입니다.</p>
+
+  <ul><li><strong>사회적 약자 대상 범죄</strong> — 성폭력, 아동·장애인·노인 학대, 스토킹, 가정폭력</li><li><strong>민생범죄</strong> — 보이스피싱, 금융투자 사기</li><li><strong>구속 사건, 공소시효 임박 사건, 피해자 이의신청 사건</strong></li></ul>
+
+  <p>남용을 막을 장치도 함께 담았습니다. 별건수사로 번지지 않도록 동일성 원칙을 엄격히 적용하고, 강제수사가 필요하면 지방공소청장의 승인을 받도록 했습니다. 고민정·이소영·박균택 의원 등 10명이 공동발의에 이름을 올렸습니다.</p>
+
+  <p>홍 의원은 "단 한 명이라도 억울한 피해자가 생긴다면 성공한 개혁이랄 수 있나"라고 말했습니다.</p>
+
+  <p>논의 과정이 순탄하지만은 않습니다. 고민정 의원은 15일 "온갖 험악한 문자가 쏟아진다"며 "문제 제기조차 하지 못하는 공론장은 의미가 없다"고 밝혔습니다.</p>
+
+  <figure><img src="./images/body-4.png" alt="홍기원 의원이 발의한 예외적 보완수사 허용 법안의 적용 대상 범위를 정리한 핵심 포인트 카드"><figcaption>홍기원 의원이 발의한 예외적 보완수사 허용 법안의 적용 대상 범위를 정리한 핵심 포인트 카드</figcaption></figure>
+
+  <hr>
+
+  <h2>사법부는 무엇을 말했나</h2>
+
+  <p>지난 12일, 새로운 목소리가 더해졌습니다.</p>
+
+  <p>대법원 법원행정처가 국회에 제출한 검토 의견에서 처음으로 입장을 냈습니다. 김용민·박은정 의원이 공동발의한 형사소송법 개정안에 대한 것입니다.</p>
+
+  <p>내용은 신중합니다. 보완수사권 폐지는 "충분한 숙의와 검토를 거쳐 입법 정책적으로 결정할 사항"이라고 했습니다. 국회의 몫으로 남긴 것입니다. 다만 "제도 변화로 인한 부작용을 방지하기 위한 충분한 보완 방안이 함께 마련돼야 한다"고 덧붙였습니다.</p>
+
+  <p>어느 편도 들지 않으면서, 보완책은 필요하다고 짚은 셈입니다.</p>
+
+  <hr>
+
+  <h2>앞으로 무엇을 지켜볼까</h2>
+
+  <p>일정이 빠듯합니다.</p>
+
+  <p>민주당은 이르면 다음 주 형사소송법 전문가를 초청한 정책 의원총회를 엽니다. 법조인 단체와 피해자 지원 단체의 의견도 듣기로 했습니다. 법사위와 행안위에서는 보완책 논의가 진행 중입니다.</p>
+
+  <p>세 가지를 눈여겨볼 만합니다.</p>
+
+  <p>첫째, 예외 조항의 향방입니다. 홍기원 안이 당론에 반영될지, 아니면 원안대로 완전 폐지로 갈지가 갈림길입니다.</p>
+
+  <p>둘째, 보완수사요구권이 실제로 작동할지입니다. 법사위 소속 김남희 의원은 현장에서 이 권한이 잘 작동하지 않는다는 간담회 내용을 전한 바 있습니다.</p>
+
+  <p>셋째, 10월 일정입니다. 중수청 직제와 정원은 다음 달까지 확정될 예정이나, 입법이 늦어지면 출범 준비에도 영향이 갈 수 있습니다.</p>
+
+  <figure><img src="./images/body-5.png" alt="앞으로 지켜볼 세 가지 관전 포인트를 정리한 핵심 포인트 카드"><figcaption>앞으로 지켜볼 세 가지 관전 포인트를 정리한 핵심 포인트 카드</figcaption></figure>
+
+  <hr>
+
+  <p>정리하면 이렇습니다.</p>
+
+  <p>이 논쟁에는 서로 다른 두 가지 걱정이 맞물려 있습니다. 하나는 수사기관에 권한이 다시 쏠릴 것이라는 걱정입니다. 다른 하나는 견제가 사라진 자리에서 억울한 사람이 생길 것이라는 걱정입니다. 양쪽 모두 근거를 갖고 있고, 어느 쪽도 가볍지 않습니다.</p>
+
+  <p>— 제도의 옳고 그름은 결국 그 제도 아래 놓인 사람에게서 드러납니다.</p>
+
+  <p>석 달 뒤 무엇이 남을지, 조금 더 지켜볼 일입니다.</p>
+
+  <p class="tags"><span>#보완수사권</span><span>#검찰개혁</span><span>#공소청</span><span>#중대범죄수사청</span><span>#형사소송법</span><span>#수사기소분리</span><span>#뉴스해설</span></p>
+
+  <div class="src"><p class="srch">참고 소스</p><ul><li>YTN '보완수사권 폐지 충돌..."괴물경찰" vs "검찰개혁"' (2026-07-11)</li><li>경향신문 '여당서 보완수사권 폐지 우려 분출' (2026-07-14)</li><li>경향신문 '대법원 법원행정처, 부작용 방지 위한 보완 방안 마련해야' (2026-07-12)</li><li>서울신문 '법원행정처 檢보완수사권 폐지 보완책 필요' (2026-07-13)</li><li>파이낸셜뉴스 '與홍기원, 예외적 檢보완수사 허용 법안발의' (2026-07-14)</li><li>파이낸셜뉴스 '[단독] 불기소율·영장 기각률 치솟는데' (2026-07-13)</li><li>한국일보 '보완수사권 전면 폐지 급브레이크?' (2026-07-14)</li><li>세계일보 '檢 송치 사건의 46% 보완수사' (2026-06-01)</li><li>대한민국 정책브리핑 '검·경 수사권 조정'</li></ul></div>
+
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
