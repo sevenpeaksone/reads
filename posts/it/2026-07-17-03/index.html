@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>유니코드 문자 인코딩 원리 — 한글과 이모지는 컴퓨터에 어떻게 저장될까</title>
+<style>
+  body { margin:0; padding:40px 20px 80px; background:#f7f8fa; color:#1f2328;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif; }
+  .wrap { max-width:700px; margin:0 auto; background:#fff; padding:48px 40px 56px;
+    border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,.07); }
+  .badge { display:inline-block; background:#4f8cff; color:#fff; font-size:13px; font-weight:700;
+    letter-spacing:.06em; padding:5px 12px; border-radius:999px; }
+  .date { color:#8b95a1; font-size:14px; margin-left:10px; }
+  h1 { font-size:30px; line-height:1.4; font-weight:800; margin:20px 0 32px; letter-spacing:-.02em; }
+  h2 { font-size:21px; font-weight:700; margin:44px 0 16px; padding-left:12px;
+    border-left:4px solid #4f8cff; line-height:1.45; }
+  p { font-size:16.5px; line-height:1.85; margin:14px 0; }
+  ul { padding-left:22px; margin:14px 0; }
+  li { font-size:16.5px; line-height:1.85; margin:7px 0; }
+  strong { font-weight:700; color:#111; }
+  hr { border:0; border-top:1px solid #e5e8eb; margin:38px 0; }
+  img { max-width:100%; height:auto; border-radius:10px; display:block; }
+  figure { margin:28px 0; }
+  pre { background:#0f1420; color:#d7e0f0; padding:16px 18px; border-radius:8px;
+    overflow-x:auto; font-size:14px; line-height:1.7; }
+  pre code { background:none; color:inherit; padding:0; }
+  code { background:#eef1f5; color:#22303f; padding:2px 6px; border-radius:4px;
+    font-size:14.5px; font-family:'SF Mono',Menlo,Consolas,monospace; }
+  table { border-collapse:collapse; width:100%; margin:22px 0; font-size:15px; }
+  th { background:#4f8cff; color:#fff; padding:11px 12px; text-align:left; font-weight:700; }
+  td { padding:11px 12px; border-bottom:1px solid #e9edf1; line-height:1.6; }
+  tbody tr:nth-child(even) { background:#fafbfc; }
+  .tags { margin-top:40px; padding-top:24px; border-top:1px solid #e5e8eb; }
+  .tags span { display:inline-block; background:#eef4ff; color:#3b7bf0; font-size:14px;
+    padding:6px 12px; border-radius:6px; margin:0 6px 8px 0; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div><span class="badge">IT</span><span class="date">2026. 07. 17.</span></div>
+  <h1>유니코드 문자 인코딩 원리 — 한글과 이모지는 컴퓨터에 어떻게 저장될까</h1>
+<figure><img src="./images/thumbnail.png" alt="유니코드 문자 인코딩 원리 - 한글과 이모지는 컴퓨터에 어떻게 저장될까"></figure>
+<p>이번 글에서는 유니코드와 문자 인코딩의 원리를 정리해 보겠습니다. 한글이 왜 3바이트인지, 이모지 하나가 왜 25바이트나 되는지, 맥에서 보낸 파일명이 왜 윈도우에서 자소가 분리되는지를 차례로 다룹니다. 오래된 이야기 같지만, 오늘도 어딘가에서 글자가 깨지고 있습니다.</p>
+<p><strong>세 줄 요약</strong></p>
+<ul><li>유니코드는 문자에 <strong>번호(코드포인트)</strong>를 붙일 뿐이고, 그 번호를 바이트로 바꾸는 규칙이 UTF-8·UTF-16·UTF-32입니다.</li><li>UTF-8에서 영어는 1바이트, <strong>한글은 3바이트</strong>, 이모지는 4바이트입니다. 2026년 1월 기준 웹사이트의 <strong>98.9%</strong>가 UTF-8을 씁니다.</li><li>글자가 깨지는 문제 대부분은 <strong>인코딩 불일치</strong>나 <strong>정규화(NFC/NFD) 차이</strong>에서 옵니다.</li></ul>
+<hr>
+<h2>128개의 자리에서 시작했습니다</h2>
+<p>모든 것은 ASCII에서 출발합니다.</p>
+<p>작업은 1960년 10월 6일 미국표준협회 X3.2 소위원회의 첫 회의로 시작됐습니다. 표준 X3.4-1963은 1963년 6월 17일 공표됩니다.</p>
+<p>사양은 단순합니다. <strong>7비트 이진 코드, 표현 가능한 문자는 2의 7제곱, 곧 128자.</strong> 영문 대문자와 숫자, 문장부호, 제어문자가 전부였습니다. 최초판은 28개 자리를 미할당으로 남겨 두었습니다.</p>
+<p>여유가 있어 보이지만 착시입니다. 128자는 영어를 담기에 충분하고, 그 외의 언어에는 애초에 자리가 없습니다. 한글도 한자도 아랍어도 들어갈 틈이 없었습니다.</p>
+<p>지금도 이 유산은 살아 있습니다. &#x27;A&#x27;는 U+0041이고 바이트로는 0x41입니다. 60년 전 정한 번호가 그대로입니다.</p>
+<hr>
+<h2>코드페이지의 시대 — 한글이 깨지던 이유</h2>
+<p>ASCII가 부족하니 나라마다 자기 방식을 만들었습니다. 이것이 코드페이지입니다.</p>
+<p>한국의 경우 <strong>EUC-KR(완성형)</strong>이 있었습니다. KS C 5601:1987을 기반으로 <strong>자주 쓰는 한글 2,350자</strong>를 지원했습니다.</p>
+<p>문제는 산수입니다. 현대 한글로 조합 가능한 음절은 11,172자입니다. 그중 2,350자만 담았으니 나머지 8,800여 자는 <strong>표현할 방법 자체가 없었습니다.</strong> 글자가 물음표로 바뀌거나, 구성 자모가 없어 특정 글자를 아예 입력하지 못하는 일이 실제로 벌어졌습니다.</p>
+<p>그래서 마이크로소프트가 <strong>CP949(확장완성형)</strong>를 내놓습니다. EUC-KR의 확장으로, 빠진 나머지 약 8,000여 자를 추가로 인코딩했습니다.</p>
+<p>땜질은 됐지만 구조적 결함은 남았습니다. 코드페이지 방식에서는 <strong>같은 바이트 값이 나라마다 다른 글자를 뜻합니다.</strong> 어떤 코드페이지로 읽어야 하는지 모르면 글자는 깨집니다. 이른바 &#x27;뷁어&#x27;의 정체가 이것입니다.</p>
+<p>CP949는 아직 한국어 윈도우 계열에 남아 있습니다. 오래된 CSV를 열었을 때 한글이 무너지는 장면을 보신 적이 있다면, 바로 그 흔적입니다.</p>
+<figure><img src="./images/body-1.png" alt="ASCII에서 코드페이지를 거쳐 유니코드로 이어지는 문자 인코딩 발전 3단계"></figure>
+<hr>
+<h2>유니코드의 발상 — 번호부터 정하자</h2>
+<p>유니코드의 해법은 명쾌합니다. <strong>세상 모든 문자에 고유 번호를 하나씩 붙이자.</strong></p>
+<p>유니코드 컨소시엄은 모든 문자 체계의 각 문자에 이름과 0부터 0x10FFFF까지의 16진수 번호를 부여합니다. 이 번호가 <strong>코드포인트</strong>입니다.</p>
+<p>전체 크기는 <strong>1,114,112개</strong>입니다. 범위는 0x000000부터 0x10FFFF까지입니다.</p>
+<p>이 공간은 <strong>평면(Plane)</strong>으로 나뉩니다. 한 평면은 65,536개의 연속된 코드포인트 묶음이고, <strong>총 17개 평면(0번~16번)</strong>이 있습니다. 17 곱하기 65,536은 정확히 1,114,112입니다.</p>
+<p>0번 평면이 <strong>BMP(기본 다국어 평면)</strong>입니다. 흔히 쓰는 문자 대부분이 여기 있습니다. 1번부터 16번까지는 <strong>보조 평면</strong>이라 부릅니다. 이모지가 사는 동네가 이쪽입니다.</p>
+<p>가장 중요한 구분을 짚고 넘어가겠습니다. <strong>코드포인트는 번호일 뿐, 저장 방식이 아닙니다.</strong> U+D55C(한)이라는 번호를 실제 바이트로 어떻게 바꿀지는 별개의 문제입니다. 그 규칙이 UTF-8이고 UTF-16이고 UTF-32입니다.</p>
+<p>현재 상황은 이렇습니다. <strong>Unicode 17.0이 2025년 9월 9일 공개</strong>됐고, <strong>4,803자가 추가되어 총 159,801자</strong>가 됐습니다. 지원 문자 체계는 172개입니다.</p>
+<p>159,801자와 1,114,112개. 아직 86% 이상이 비어 있습니다. 이번에는 자리를 넉넉히 잡은 셈입니다.</p>
+<hr>
+<h2>UTF-8 — 첫 바이트가 길이를 알려줍니다</h2>
+<p>UTF-8은 <strong>1992년 9월 켄 톰슨이 롭 파이크의 설계 기준에 따라 고안</strong>했습니다. Plan 9 운영체제에서 쓸 목적이었습니다. FSS-UTF, UTF-2를 거쳐 지금의 이름이 됐습니다. 표준 문서는 <strong>RFC 3629(2003년 11월, STD 63)</strong>입니다.</p>
+<p>핵심은 <strong>가변 길이</strong>입니다. 문자마다 1바이트에서 4바이트를 씁니다.</p>
+<p>규칙은 이렇습니다. 1바이트 시퀀스는 최상위 비트가 0입니다. <strong>n바이트 시퀀스의 첫 바이트는 상위 n개 비트를 1로 놓고 이어서 0을 붙입니다.</strong> 뒤따르는 바이트는 모두 10으로 시작하며 6비트씩 실어 나릅니다.</p>
+<figure><img src="./images/body-2.png" alt="UTF-8 코드포인트 범위별 바이트 수와 비트 패턴 구조 표"></figure>
+<p>이 설계가 영리한 지점이 있습니다.</p>
+<p><strong>순수 ASCII 문자열은 그대로 유효한 UTF-8 문자열입니다.</strong> 그리고 <strong>ASCII 바이트 값은 다른 자리에 절대 나타나지 않습니다.</strong> 덕분에 ASCII 기준으로 파싱하는 파일시스템이나 C 라이브러리와 그대로 호환됩니다. 첫 바이트만 보면 시퀀스 전체 길이를 알 수 있어 스트림 어디서든 문자 경계를 찾을 수 있습니다. 바이트 값 C0, C1, F5부터 FF까지는 아예 등장하지 않습니다.</p>
+<p>그리고 <strong>한 글자를 인코딩하는 유효한 방법은 오직 하나뿐입니다.</strong> RFC 3629의 표현을 그대로 옮기면 &quot;there is only one valid way to encode a given character&quot;입니다.</p>
+<p>실제 바이트를 보겠습니다. RFC 3629 문서에 실린 예시입니다.</p>
+<p><code>U+D55C U+AD6D U+C5B4</code> — &#x27;한국어&#x27; 세 글자입니다. UTF-8로는 이렇게 됩니다.</p>
+<pre><code>ED 95 9C  EA B5 AD  EC 96 B4</code></pre>
+<p>세 글자에 9바이트. <strong>한 글자당 3바이트입니다.</strong></p>
+<p>여기서 씁쓸한 사실 하나를 인정해야 합니다. <strong>영어는 1바이트, 한글은 3바이트입니다.</strong> UTF-8은 ASCII에 유리하도록 설계된 규칙이고, 한글은 구조적으로 손해를 봅니다. 같은 내용을 담아도 한국어 텍스트가 영어보다 무겁습니다.</p>
+<p>그럼에도 UTF-8은 사실상 승자가 됐습니다. <strong>2026년 1월 기준 조사 대상 웹사이트의 98.9%가 UTF-8을 사용</strong>합니다. 상위 1,000개 페이지 기준으로는 99.9%입니다.</p>
+<hr>
+<h2>UTF-16과 서로게이트 페어</h2>
+<p>예전엔 16비트면 충분하다고 봤습니다. 65,536자면 넉넉하다는 계산이었습니다. 지금은 그 전제가 무너진 자리에 UTF-16의 복잡함만 남았습니다.</p>
+<p>2의 16제곱으로 부족해지자 IEEE는 문자당 4바이트를 쓰는 UCS-4를 내놓습니다. 유니코드 컨소시엄은 <strong>&quot;4바이트는 메모리와 디스크를 너무 낭비한다&quot;</strong>며 반대했습니다. 타협안이 <strong>UTF-16</strong>이었고, 1996년 7월 유니코드 2.0과 함께 도입됩니다.</p>
+<p>지금도 UTF-16은 깊숙이 박혀 있습니다. <strong>C#은 문자열에 UTF-16을 쓰고, 자바는 메모리상 모든 문자열을 UTF-16으로 저장합니다.</strong> 자바스크립트도, 현재 지원되는 모든 윈도우 버전의 OS API도 마찬가지입니다.</p>
+<p>문제는 BMP를 벗어나는 문자입니다. 16비트로는 담기지 않습니다. 그래서 <strong>서로게이트 페어</strong>가 등장합니다.</p>
+<p><strong>상위 서로게이트는 U+D800부터 U+DBFF, 하위 서로게이트는 U+DC00부터 U+DFFF입니다.</strong> 두 개를 붙여 하나의 문자를 표현합니다.</p>
+<p>변환 공식은 이렇습니다.</p>
+<pre><code>코드포인트 = 0x10000 + ((상위 - 0xD800) × 0x400) + (하위 - 0xDC00)</code></pre>
+<p>각 단위가 10비트씩 실으니 2단위면 20비트입니다. 2의 20제곱은 1,048,576. 보조 평면(U+10000~U+10FFFF)을 정확히 덮습니다. 억지스럽지만 앞뒤는 맞습니다.</p>
+<p>실제로 웃는 얼굴 이모지 U+1F600은 UTF-16에서 <strong>0xD83D와 0xDE00</strong> 두 조각으로 저장됩니다.</p>
+<p>기억할 점이 하나 있습니다. <strong>D800부터 DFFF까지는 문자가 아닙니다.</strong> RFC 3629는 이 구간의 인코딩을 명시적으로 금지합니다. UTF-16 전용으로 예약된 자리이고, 직접 문자를 나타내지 않습니다.</p>
+<p>UTF-32는 어떨까요. 문자마다 4바이트로 고정이라 인덱싱이 단순합니다. 대신 메모리를 크게 낭비합니다. 그래서 내부 처리용으로만 가끔 쓰입니다.</p>
+<figure><img src="./images/body-3.png" alt="UTF-8 UTF-16 UTF-32 인코딩 방식 바이트 수와 사용처 비교 표"></figure>
+<hr>
+<h2>한글의 자리 — 11,172자와 &#x27;Korean mess&#x27;</h2>
+<p>한글은 유니코드에서 <strong>Hangul Syllables 블록(U+AC00 ~ U+D7AF)</strong>을 씁니다. 현대 한글 음절 <strong>11,172자</strong>가 미리 조합된 형태로 들어 있습니다. 실제 할당이 끝나는 지점은 U+D7A3입니다.</p>
+<p>11,172라는 숫자가 어디서 왔는지 보면 재미있습니다.</p>
+<p>초성 19자, 중성 21자, 종성은 없거나 27자이니 28가지. <strong>19 × 21 × 28 = 11,172.</strong> 블록 크기와 정확히 맞아떨어집니다. 조합형 문자 체계인 한글의 성질이 숫자에 그대로 드러납니다.</p>
+<p>그런데 이 블록에는 사연이 있습니다.</p>
+<p><strong>1996년, ISO/IEC 10646의 Amendment 5와 Unicode 2.0이 한글 블록을 옮기고 확장했습니다.</strong> 그 결과 <strong>이전 버전으로 저장된 한글 데이터가 전부 무효</strong>가 됐습니다. 표준이 데이터를 배신한 셈입니다.</p>
+<p>이런 비호환 변경이 허용된 이유가 서늘합니다. &quot;주요 구현체도 없고 의미 있는 양의 한글 데이터도 없었다&quot;는 것이었습니다.</p>
+<p>이 사건은 <strong>&quot;Korean mess&quot;</strong>라는 이름으로 RFC 3629 문서에 박제되어 있습니다. 관련 위원회들은 다시는 이런 비호환 변경을 하지 않겠다고 서약했습니다. 원문의 표현은 &quot;never, ever again&quot;입니다.</p>
+<hr>
+<h2>이모지 — 그림이 아니라 조합입니다</h2>
+<p>이모지는 그림 파일이 아닙니다. <strong>문자입니다.</strong> 코드포인트를 받은 어엿한 유니코드 문자입니다.</p>
+<p><strong>2025년 9월 9일 기준 유니코드 표준에는 3,953개의 이모지</strong>가 있습니다. 피부색과 성별 변형을 모두 포함한 수치입니다.</p>
+<p>흥미로운 것은 조합 방식입니다. 여기서 <strong>ZWJ(Zero Width Joiner, U+200D)</strong>가 등장합니다. 폭이 0인 투명한 문자인데요, 이 녀석이 두 이모지를 이어 붙여 새로운 하나로 만듭니다. 현재 약 600개의 ZWJ 시퀀스가 정의되어 있습니다.</p>
+<p>가족 이모지가 대표적입니다.</p>
+<pre><code>남자 + ZWJ + 여자 + ZWJ + 여아 + ZWJ + 남아 = 가족 이모지 하나</code></pre>
+<p>눈에는 그림 하나로 보입니다. 속은 이렇습니다. <strong>코드포인트 7개, UTF-16 코드 단위 11개, UTF-8로는 25바이트.</strong> 글자 하나에 25바이트입니다. 한글 8글자보다 무겁습니다.</p>
+<p>피부색도 같은 원리입니다. <strong>U+1F3FB부터 U+1F3FF까지 5개의 피부색 모디파이어</strong>가 이모지 뒤에 붙어 색을 바꿉니다. 피부에 미치는 자외선의 영향을 연구하려고 만든 <strong>피츠패트릭 척도</strong>를 가져다 쓴 것입니다. U+1F3FB가 가장 밝은 톤입니다.</p>
+<p>정리하면 이렇습니다. 이모지는 하나의 그림이 아니라 <strong>여러 문자를 이어 붙인 문장에 가깝습니다.</strong> 렌더러가 그 조합을 읽고 그림 하나로 그려낼 뿐입니다.</p>
+<p>지원하지 않는 환경에서 가족 이모지가 사람 넷으로 흩어져 보이는 이유가 여기 있습니다. 조합이 풀린 것입니다.</p>
+<hr>
+<h2>NFC와 NFD — 맥에서 온 파일명이 이상한 이유</h2>
+<p>같은 글자를 여러 방식으로 표현할 수 있다는 점이 문제를 만듭니다.</p>
+<p>RFC 3629는 이 문제를 직접 경고합니다. 악센트가 붙은 e는 미리 조합된 U+00E9로도, U+0065와 U+0301(e + 결합 악센트)의 시퀀스로도 표현됩니다. 눈에는 똑같습니다. <strong>컴퓨터에게는 다른 문자열입니다.</strong></p>
+<p>해법이 <strong>정규화(Normalization)</strong>입니다.</p>
+<ul><li><strong>NFC</strong>: 각 음절을 하나의 조합된 문자로 저장합니다.</li><li><strong>NFD</strong>: 정준 분해로 자모 단위까지 쪼개 저장합니다.</li></ul>
+<p>한글로 확인해 보겠습니다. &#x27;한글&#x27; 두 글자입니다.</p>
+<table><thead><tr><th>형식</th><th>코드포인트</th><th>길이</th><th>UTF-8 바이트</th></tr></thead><tbody><tr><td>NFC</td><td>U+D55C U+AE00</td><td>2</td><td>6</td></tr><tr><td>NFD</td><td>U+1112 U+1161 U+11AB U+1100 U+1173 U+11AF</td><td>6</td><td>18</td></tr></tbody></table>
+<p>화면에는 둘 다 &#x27;한글&#x27;로 보입니다. 길이는 2와 6, 바이트는 6과 18. <strong>세 배 차이입니다.</strong> 그리고 두 문자열을 비교하면 결과는 거짓입니다.</p>
+<p>여기서 그 유명한 사고가 시작됩니다.</p>
+<p><strong>macOS는 파일명에 기본적으로 NFD를 쓰고, 윈도우는 NFC를 씁니다.</strong></p>
+<p>애플은 정준 분해로 모든 음절을 쪼개 자음과 모음 코드로 저장합니다. &#x27;각&#x27;을 &#x27;ㄱ + ㅏ + ㄱ&#x27;으로 보관하는 식입니다. 반면 NFC는 &#x27;각&#x27;을 한 글자로 저장합니다.</p>
+<p>그래서 맥에서 파일을 복사하거나 메일로 보내면, 윈도우에서 파일명의 자음과 모음이 분리되어 보입니다. 압축 파일을 풀었더니 이름이 흩어져 있던 경험, 한 번쯤 있으실 겁니다.</p>
+<p>버그가 아닙니다. <strong>양쪽 다 표준을 지키고 있습니다.</strong> 다만 다른 형식을 골랐을 뿐입니다.</p>
+<p>해결은 어렵지 않습니다. 파이썬 <code>unicodedata</code> 모듈의 <code>normalize()</code>로 NFD를 NFC로 바꾸면 됩니다. <code>convmv</code> 같은 도구도 같은 일을 합니다.</p>
+<figure><img src="./images/body-4.png" alt="NFC와 NFD 정규화 방식에 따른 한글 저장 방식 차이 비교"></figure>
+<hr>
+<h2>문자열 길이가 언어마다 다른 이유</h2>
+<p>&quot;이 문자열의 길이는 몇인가.&quot;</p>
+<p>간단해 보이는 질문입니다. 답은 최소 네 가지입니다.</p>
+<ul><li><strong>바이트 수</strong></li><li><strong>코드 단위 수</strong></li><li><strong>코드포인트 수</strong></li><li><strong>자소 클러스터 수</strong></li></ul>
+<p><strong>자소 클러스터(grapheme cluster)</strong>는 사용자 관점에서 한 덩어리로 취급되어야 하는 코드포인트 시퀀스입니다. UAX #29에 정의되어 있습니다. 쉽게 말해 <strong>사람이 &#x27;한 글자&#x27;라고 느끼는 단위</strong>입니다.</p>
+<p>언어마다 세는 기준이 다릅니다.</p>
+<p><strong>자바스크립트</strong>는 UTF-16 기반이라 코드 단위를 셉니다. 가족 이모지의 <code>.length</code>는 <strong>11</strong>입니다. <strong>파이썬 3</strong>은 코드포인트를 셉니다. <code>len()</code>은 <strong>7</strong>입니다. 사람이 보기에는 <strong>1</strong>입니다.</p>
+<p>이 분야에서 유명한 글의 제목이 사정을 요약합니다. <strong>&quot;It&#x27;s not wrong that 🤦🏼‍♂️.length == 7&quot;</strong> — 7이 나오는 게 틀린 게 아니라는 겁니다.</p>
+<p>실제로 이 이모지 하나는 코드포인트 5개, UTF-16 코드 단위 7개, UTF-8로 17바이트, 눈에 보이는 글자 1개입니다. 어느 숫자도 틀리지 않았습니다. <strong>묻는 질문이 다를 뿐입니다.</strong></p>
+<p>제대로 세려면 전용 도구가 필요합니다. 자바스크립트는 <code>Intl.Segmenter</code>, 파이썬은 <code>ugrapheme</code> 같은 라이브러리를 씁니다.</p>
+<figure><img src="./images/body-5.png" alt="이모지 하나의 문자열 길이를 세는 네 가지 기준"></figure>
+<hr>
+<h2>실무에서 지킬 것</h2>
+<p>정리 삼아 몇 가지를 적어둡니다.</p>
+<p><strong>1. UTF-8을 기본값으로 삼습니다.</strong> 웹사이트의 98.9%가 이미 그렇습니다. 특별한 이유가 없다면 따라가는 편이 낫습니다.</p>
+<p><strong>2. 비교하기 전에 정규화합니다.</strong> RFC 3629가 직접 경고한 대목입니다. 같은 것을 뜻하는 시퀀스가 여러 개이므로 문자열 매칭, 인덱싱, 검색, 정렬, 정규식에 문제가 생깁니다. 자격증명과 접근제어 목록의 식별자를 대조하는 상황을 예로 들고 있습니다.</p>
+<p><strong>3. 잘못된 시퀀스 디코딩을 막습니다.</strong> RFC 3629는 이것을 MUST로 규정합니다. 순진한 구현은 과길이 시퀀스 <code>C0 80</code>을 U+0000으로 디코딩할 수 있습니다. 한가한 이야기가 아닙니다. <strong>2001년 웹 서버를 공격한 바이러스가 <code>2F C0 AE 2E 2F</code>, 곧 &quot;/../&quot;의 불법 인코딩을 이용한 익스플로잇을 실제로 사용했습니다.</strong> 인코딩은 보안 문제이기도 합니다.</p>
+<p><strong>4. 범위를 U+10FFFF로 제한합니다.</strong> 제한하지 않으면 5바이트, 6바이트 시퀀스가 들어와 버퍼 오버플로가 날 수 있습니다.</p>
+<p><strong>5. 맥과 윈도우를 오가는 파일명은 NFC로 맞춥니다.</strong></p>
+<p><strong>6. 문자열을 함부로 자르지 않습니다.</strong> 코드포인트나 코드 단위 기준으로 자르면 자소 클러스터가 깨집니다. 이모지가 반토막 나는 화면을 보신 적이 있다면 그 원인입니다.</p>
+<p><strong>7. BOM은 함부로 벗기지 않습니다.</strong> RFC 3629는 정말 필요할 때만 제거하라고 권합니다.</p>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다.</p>
+<p>이 글에서 다룬 내용이 완전하지는 않습니다. 정렬 규칙, 대소문자 변환, 양방향 텍스트처럼 더 험한 영역이 남아 있습니다. 저도 여전히 헷갈리는 부분이 있습니다.</p>
+<p>다만 한 가지는 분명해졌습니다. 우리가 무심히 입력하는 글자 하나에도 60년의 결정이 쌓여 있습니다. 1963년에 정한 128개의 자리, 1996년의 서약, 2003년에 못 박은 네 줄짜리 표. 그 위에 지금의 한글과 이모지가 서 있습니다.</p>
+<p><strong>&quot;글자는 저절로 보이지 않습니다. 누군가 번호를 정했기 때문에 보입니다.&quot;</strong></p>
+<p>한글이 3바이트라는 사실이 억울하지 않냐고 물으신다면, 저는 이렇게 답하겠습니다. 자리가 있다는 것만으로도 충분합니다. 한때는 그 자리조차 없었으니까요.</p>
+<div class="tags"><span>#유니코드</span><span>#문자인코딩</span><span>#UTF8</span><span>#한글인코딩</span><span>#이모지</span><span>#서로게이트페어</span><span>#유니코드정규화</span><span>#개발자상식</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
