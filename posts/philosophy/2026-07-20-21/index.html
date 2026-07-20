@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>롤스의 정의론과 무지의 베일, 공정한 사회는 어떻게 설계되는가</title>
+<style>
+  :root { --accent:#6b5ce7; --ink:#1f2229; --mute:#6b7280; --line:#e8e8ef; }
+  body { margin:0; padding:48px 20px 80px; background:#fafafc; color:var(--ink);
+         font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;
+         -webkit-font-smoothing:antialiased; }
+  .wrap { width:700px; max-width:100%; margin:0 auto; }
+  .meta { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+  .badge { display:inline-block; padding:5px 13px; border-radius:999px; background:var(--accent);
+           color:#fff; font-size:13px; font-weight:700; letter-spacing:.02em; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:31px; line-height:1.42; font-weight:800; margin:0 0 34px; letter-spacing:-.01em; word-break:keep-all; }
+  h2 { font-size:21px; font-weight:700; margin:44px 0 18px; padding-left:13px;
+       border-left:4px solid var(--accent); line-height:1.5; word-break:keep-all; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+  strong { font-weight:700; }
+  img { display:block; width:100%; max-width:100%; height:auto; margin:30px 0;
+        border-radius:10px; box-shadow:0 2px 14px rgba(0,0,0,.09); }
+  hr { border:0; border-top:1px solid var(--line); margin:42px 0; }
+  blockquote { margin:24px 0; padding:20px 24px; background:#f3f2fd;
+               border-left:4px solid var(--accent); border-radius:0 8px 8px 0;
+               font-size:16.5px; line-height:1.8; font-weight:600; word-break:keep-all; }
+  .tags { margin-top:38px; display:flex; flex-wrap:wrap; gap:8px; }
+  .tag { font-size:13.5px; color:var(--accent); background:#f0eefb;
+         padding:5px 11px; border-radius:6px; }
+  @media (max-width:740px){ body{padding:28px 16px 60px;} h1{font-size:25px;} }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta">
+    <span class="badge">철학/인문</span>
+    <span class="date">2026-07-20</span>
+  </div>
+  <h1>롤스의 정의론과 무지의 베일, 공정한 사회는 어떻게 설계되는가</h1>
+<img src="./images/thumbnail.png" alt="무지의 베일을 상징하는 롤스 정의론 대표 이미지">
+<p>이번 글에서는 존 롤스의 정의론과 그 핵심 장치인 무지의 베일을 정리해 보겠습니다. 공정한 사회란 무엇이며, 그것을 어떻게 설계할 수 있는지 함께 따라가 보려 합니다. 어려운 정치철학의 개념이지만, 하나의 사고실험에서 출발하면 생각보다 명료합니다.</p>
+<p>먼저 결론부터 말씀드립니다. 롤스의 답은 이렇습니다. &quot;내가 사회의 어느 자리에 태어날지 전혀 모른다고 가정할 때, 그때 우리가 동의할 규칙이 곧 정의롭다.&quot; 이 한 문장이 정의론 전체를 떠받치는 기둥입니다.</p>
+<hr>
+<h2>롤스는 누구이고, 왜 정의를 다시 물었나</h2>
+<p>존 롤스는 1921년에 태어나 2002년에 세상을 떠난 미국의 정치철학자입니다. 하버드대에서 오래 가르쳤습니다.</p>
+<p>그의 대표작 『정의론』은 1971년에 나왔습니다. 당시 윤리학과 정치철학은 공리주의가 지배하고 있었습니다. &quot;최대 다수의 최대 행복&quot;이라는 익숙한 그 원리입니다.</p>
+<p>공리주의는 명쾌합니다. 그러나 약점이 있습니다. 전체의 행복 총량만 크면, 소수의 희생은 감수해도 된다는 결론에 이를 수 있습니다.</p>
+<p>롤스는 여기에 제동을 걸었습니다. 사회 전체의 이익을 위해 한 사람의 기본 권리를 짓밟는 것은 정의가 아니라고 보았습니다. 그는 오래된 사회계약론의 전통을 현대적으로 되살려, 자신의 이론을 &quot;공정으로서의 정의&quot;라 불렀습니다.</p>
+<p>핵심은 절차입니다. 결과를 미리 정해두는 것이 아니라, 공정한 절차에서 나온 결과라면 정의롭다고 본 것입니다.</p>
+<hr>
+<h2>원초적 입장 — 공정한 출발선을 상상하다</h2>
+<p>그렇다면 어떤 절차가 공정할까요. 롤스는 하나의 가상 상황을 설계합니다. 이를 &#x27;원초적 입장&#x27;이라 부릅니다.</p>
+<p>원초적 입장이란, 사람들이 모여 앞으로 함께 살아갈 사회의 기본 규칙을 처음부터 정하는 자리입니다. 일종의 회의실을 떠올리면 됩니다.</p>
+<p>이 회의실에 모인 사람들은 자유롭고 합리적입니다. 저마다 좋은 삶을 살고 싶어 합니다. 문제는 하나입니다. 사람은 누구나 자기에게 유리한 규칙을 원한다는 점입니다.</p>
+<p>부자는 세금이 낮은 규칙을, 힘센 자는 강자에게 관대한 규칙을 원하기 마련입니다. 이래서는 공정한 합의가 나올 수 없습니다.</p>
+<p>롤스의 해법은 대담합니다. 규칙을 정하는 사람들에게서 &#x27;자기가 누구인지&#x27;에 대한 정보를 아예 지워버리는 것입니다.</p>
+<hr>
+<h2>무지의 베일 — 나를 모른 채 규칙을 정한다</h2>
+<p>바로 이 지점에서 그 유명한 &#x27;무지의 베일&#x27;이 등장합니다.</p>
+<p>무지의 베일을 쓴 사람은 자신에 관한 특수한 정보를 알지 못합니다. 가려지는 것은 대략 이런 것들입니다.</p>
+<p>내가 부자인지 가난한지, 그 사회적 지위를 모릅니다. 재능이 뛰어난지 평범한지, 건강한지 아픈지도 모릅니다. 어떤 가치관과 인생 계획을 가졌는지, 어느 집단에 속하는지조차 모릅니다.</p>
+<img src="./images/body-1.png" alt="무지의 베일이 가려버리는 세 가지 정보를 정리한 핵심 포인트 카드">
+<p>이 상태에서 규칙을 정하면 무슨 일이 벌어질까요.</p>
+<p>자기가 어느 자리에 떨어질지 모르니, 특정 집단에만 유리한 규칙을 만들 수가 없습니다. 부자에게 유리한 규칙을 골랐다가, 베일이 걷힌 뒤 자신이 가난한 사람으로 판명될 수도 있기 때문입니다.</p>
+<p>타고난 우연이 만든 유불리가 규칙 선택에서 사라집니다. 이것이 롤스가 공정성을 확보하는 방식입니다. 자신을 모를 때, 사람은 비로소 모두를 위한 규칙을 생각하게 됩니다.</p>
+<hr>
+<h2>최소극대화 — 최악을 대비하는 합리적 선택</h2>
+<p>베일 속에서 사람은 어떤 규칙을 고를까요. 롤스는 &#x27;최소극대화&#x27;라는 전략을 제시합니다. 어려운 말 같지만 뜻은 단순합니다.</p>
+<p>여러 선택지가 있을 때, 각 선택지의 &#x27;가장 나쁜 결과&#x27;를 비교합니다. 그중 가장 덜 나쁜 것을 고릅니다. 최악의 상황을 가장 견딜 만하게 만드는 선택입니다.</p>
+<p>왜 이렇게 할까요. 내가 밑바닥에 떨어질 수도 있기 때문입니다. 그렇다면 밑바닥이 그나마 살 만한 사회를 고르는 편이 안전합니다.</p>
+<p>여기서 롤스가 도박을 권하지 않았다는 점이 중요합니다. 평균 기대치가 높은 화려한 사회보다, 최하층의 삶이 보장되는 안정된 사회를 택한다는 것입니다.</p>
+<p>물론 이 대목은 논쟁적입니다. 사람이 정말 그렇게 위험을 피하는 쪽으로만 선택하겠느냐는 반문이 있습니다. 이 비판은 뒤에서 다시 다루겠습니다.</p>
+<hr>
+<h2>정의의 두 원칙과 그 우선순위</h2>
+<p>무지의 베일 아래에서 합리적인 사람들이 최종적으로 합의하는 것, 그것이 &#x27;정의의 두 원칙&#x27;입니다.</p>
+<p>제1원칙은 평등한 기본적 자유의 원칙입니다. 모든 사람은 남의 자유와 양립하는 한도에서 가장 넓은 기본적 자유를 평등하게 누립니다. 사상과 양심의 자유, 신체의 자유, 정치적 자유 등이 여기 들어갑니다.</p>
+<p>제2원칙은 사회·경제적 불평등을 다룹니다. 불평등은 두 조건을 모두 채울 때만 허용됩니다. 하나는 공정한 기회 균등입니다. 좋은 자리는 모두에게 열려 있어야 하고, 비슷한 재능과 의욕을 가진 사람은 출신과 무관하게 비슷한 기회를 가져야 합니다. 다른 하나가 그 유명한 차등의 원칙입니다.</p>
+<img src="./images/body-2.png" alt="롤스 정의의 두 원칙과 축차적 우선순위를 정리한 비교 표">
+<p>여기서 순서가 결정적입니다. 세 원칙은 엄격한 우선순위로 배열됩니다. 자유의 원칙이 가장 먼저고, 그다음이 기회 균등, 마지막이 차등의 원칙입니다.</p>
+<p>앞의 원칙이 충족되기 전에는 뒤의 원칙이 끼어들지 못합니다. 그래서 기본적 자유는 경제적 이득을 위해 결코 팔 수 없습니다. 아무리 부가 늘어난다 해도, 그 대가로 누군가의 기본권을 빼앗는 거래는 성립하지 않습니다.</p>
+<hr>
+<h2>차등의 원칙 — 불평등을 다루는 롤스의 방식</h2>
+<p>차등의 원칙은 자주 오해받습니다. &quot;모두 똑같이 나누자&quot;는 주장으로 읽히곤 합니다. 그러나 롤스의 뜻은 다릅니다.</p>
+<p>차등의 원칙은 이렇게 말합니다. 불평등이 있어도 좋다, 단 그 불평등이 최소수혜자에게도 이익이 될 때에 한해서.</p>
+<p>예를 들어 보겠습니다. 의사나 숙련된 기술자에게 더 높은 보수를 줄 수 있습니다. 그래야 사람들이 힘든 훈련을 감수하고, 사회 전체의 생산성이 오릅니다.</p>
+<p>다만 조건이 붙습니다. 그 높은 보수가 정당화되는 것은, 늘어난 결실이 결국 가장 낮은 계층에게까지 흘러가 그들의 처지가 나아질 때뿐입니다. 밑바닥이 나아지지 않는 불평등은 정당화되지 않습니다.</p>
+<p>롤스가 나누고자 한 것은 &#x27;기본재&#x27;입니다. 어떤 인생을 살든 누구에게나 필요한 수단입니다. 권리와 자유, 기회와 권한, 소득과 부, 그리고 자존감의 사회적 기반이 그것입니다. 롤스는 이 가운데 자존감을 가장 중요한 기본재로 꼽았습니다.</p>
+<img src="./images/body-3.png" alt="원초적 입장에서 정의의 두 원칙으로 이어지는 사고 흐름 단계 다이어그램">
+<p>한 가지 덧붙이면, 이 모든 결론은 하늘에서 떨어진 공리가 아닙니다. 롤스는 &#x27;반성적 평형&#x27;이라는 방법을 씁니다. 원칙과 우리의 도덕적 직관을 서로 견주며 어긋나는 부분을 조금씩 맞춰갑니다. 원칙이 직관에 크게 어긋나면 원칙을 손보고, 직관이 편견이면 직관을 버립니다. 그 왕복 끝에 균형점을 찾는 것입니다.</p>
+<hr>
+<h2>노직의 반론 — 자유는 어디까지 침해되는가</h2>
+<p>롤스의 이론이 완벽한 것은 아닙니다. 가장 날카로운 반론은 로버트 노직에게서 나왔습니다.</p>
+<p>노직은 1974년 『아나키, 국가, 유토피아』에서 롤스를 정면으로 겨냥했습니다. 그의 핵심 개념은 &#x27;소유권리론&#x27;입니다.</p>
+<p>노직이 보기에 정의는 결과의 모양이 아니라 과정의 정당성입니다. 정당하게 처음 손에 넣고, 정당하게 주고받았다면, 그 결과가 아무리 불평등해도 정의롭다는 것입니다.</p>
+<img src="./images/body-4.png" alt="롤스와 노직의 정의관을 나란히 대비한 이미지">
+<p>이 관점에서 차등의 원칙은 위험합니다. 결과를 특정한 모양에 맞추려면, 사람들의 자발적 거래를 국가가 끊임없이 간섭해야 합니다. 노직은 이것을 개인의 자유와 소유권에 대한 침해로 봅니다.</p>
+<p>노직은 또 개인의 재능을 &#x27;사회의 공동 자산&#x27;처럼 다루는 롤스의 전제를 비판합니다. 내 재능의 결실은 내 것이지, 사회가 나눠 가질 몫이 아니라는 것입니다. 그래서 그는 국가의 역할을 최소한으로 줄인 &#x27;최소국가&#x27;를 옹호합니다.</p>
+<p>한편 마이클 샌델은 다른 각도에서 비판합니다. 무지의 베일이 상정하는 인간은 자기 역사와 소속에서 완전히 떨어져 나온 &#x27;무연고적 자아&#x27;인데, 그런 텅 빈 개인은 현실에 없다는 지적입니다. 다만 롤스를 옹호하는 이들은, 원초적 입장은 어디까지나 가상의 장치일 뿐 실제 인간을 그렇게 묘사한 것이 아니라고 반박합니다.</p>
+<hr>
+<p>정리하면 이렇습니다. 롤스는 정의를 &#x27;공정한 절차&#x27;의 문제로 바꾸어 놓았습니다. 무지의 베일은 그 절차를 공정하게 만드는 상상의 도구입니다.</p>
+<p>이 사고실험의 힘은 지금도 살아 있습니다. 세금과 복지, 의료 자원의 배분, 나아가 인공지능의 공정성을 논할 때에도 우리는 같은 질문을 던지게 됩니다. &quot;내가 어느 자리에 놓일지 모른다면, 나는 어떤 규칙에 동의하겠는가.&quot;</p>
+<p>완전한 정답은 아닐지 모릅니다. 노직의 반론처럼, 공정을 좇다 자유를 침해할 위험은 늘 남아 있습니다. 그럼에도 이 질문 하나는 오래 남습니다.</p>
+<p>당신이 태어날 자리를 고를 수 없다면, 지금의 이 사회에 기꺼이 동의하시겠습니까.</p>
+<div class="tags"><span class="tag">#롤스정의론</span> <span class="tag">#무지의베일</span> <span class="tag">#원초적입장</span> <span class="tag">#차등의원칙</span> <span class="tag">#정치철학</span> <span class="tag">#공정한사회</span> <span class="tag">#존롤스</span> <span class="tag">#노직</span> <span class="tag">#정의란무엇인가</span> <span class="tag">#철학인문</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

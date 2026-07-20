@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>비교우위의 원리 — 다 잘하는 나라도 무역을 하는 이유</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2bb673;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.meta{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;}
+.date{font-size:13.5px;color:#9aa0ad;font-weight:500;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+.subtitle{font-size:17px;color:#6b7280;font-weight:500;margin:0 0 8px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0;font-size:16px;font-weight:600;color:#1f2330;}
+strong{font-weight:700;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta">
+<span class="cat" style="color:#2bb673;border-color:#2bb673">경제</span>
+<span class="date">2026-07-20</span>
+</div>
+<h1>비교우위의 원리 — 다 잘하는 나라도 무역을 하는 이유</h1>
+<p class="subtitle">리카도의 200년 전 계산으로 푸는 무역의 수수께끼</p>
+
+<figure><img src="./images/thumbnail.png" alt="비교우위의 원리 대표 이미지"><figcaption>비교우위의 원리 — 다 잘하는 나라도 무역을 하는 이유</figcaption></figure>
+
+<p>이번 글에서는 경제학에서 가장 우아하다고 불리는 개념, 비교우위를 정리해 보겠습니다. 한 나라가 모든 것을 더 잘 만드는데도 왜 굳이 다른 나라와 무역을 하는지, 그 오래된 수수께끼를 리카도의 200년 전 계산을 따라가며 풀어봅니다.</p>
+
+<hr>
+
+<h2>절대우위만으로는 설명되지 않는 것</h2>
+<p>무역을 처음 설명한 사람은 애덤 스미스입니다.</p>
+<p>그의 논리는 단순합니다. 각 나라가 남보다 싸게 만드는 물건에 집중하고, 그것을 서로 바꾸면 모두가 이득을 본다. 이를 절대우위라고 부릅니다.</p>
+<p>그런데 여기에는 빈틈이 있습니다.</p>
+<p>만약 어떤 나라가 모든 물건을 다 싸게 만든다면 어떨까요. 스미스의 설명대로라면, 그 나라는 누구와도 무역할 이유가 없어야 합니다. 하지만 현실은 그렇지 않았습니다.</p>
+<p>실제로 어떤 나라는 웬만한 물건을 다 값싸게 만들면서도 여전히 활발히 무역을 합니다. 스미스의 틀로는 이 장면이 잘 설명되지 않습니다.</p>
+<p>이 빈틈을 메운 사람이 데이비드 리카도입니다. 1817년, 그는 《정치경제학과 과세의 원리》에서 답을 내놓습니다. &quot;다 잘하는 나라도 무역을 해야 한다&quot;는, 언뜻 이상해 보이는 결론이었습니다. 이것이 오늘날까지 국제무역 이론의 주춧돌로 남은 <strong>비교우위</strong>입니다.</p>
+
+<figure><img src="./images/body-1.png" alt="절대우위와 비교우위의 차이 비교"><figcaption>절대우위와 비교우위 — 무역을 설명하는 두 원리의 차이</figcaption></figure>
+
+<hr>
+
+<h2>리카도의 유명한 계산 — 포도주와 옷감</h2>
+<p>리카도는 잉글랜드와 포르투갈, 두 나라를 예로 들었습니다. 물건은 포도주와 옷감입니다.</p>
+<p>각 물건 한 단위를 만드는 데 필요한 노동을 표로 보면 이렇습니다.</p>
+
+<figure><img src="./images/body-2.png" alt="잉글랜드와 포르투갈의 옷감·포도주 생산 노동 투입량 비교 표"><figcaption>옷감·포도주 1단위 생산에 드는 노동 (리카도의 예)</figcaption></figure>
+
+<p>숫자를 보면 이상한 점이 눈에 띕니다.</p>
+<p>잉글랜드는 옷감 한 단위에 100명, 포도주 한 단위에 120명이 듭니다. 포르투갈은 옷감에 90명, 포도주에 80명이면 됩니다.</p>
+<p>포르투갈은 두 물건 모두 잉글랜드보다 적은 노동으로 만듭니다. 두 재화 전부에서 <strong>절대우위</strong>를 가진 셈입니다.</p>
+<p>상식대로라면 포르투갈은 무역할 이유가 없어 보입니다. 다 자기가 더 잘 만드니까요. 도리어 잉글랜드가 손을 벌려야 할 처지로 보입니다.</p>
+<p>그런데 리카도의 답은 정반대였습니다. 이런 상황에서도 두 나라가 무역하면 둘 다 이득이라는 것입니다. 그는 이것을 말이 아니라 숫자로 증명했습니다.</p>
+
+<hr>
+
+<h2>열쇠는 '기회비용'이었다</h2>
+<p>리카도가 본 것은 생산비 자체가 아니라 <strong>기회비용</strong>이었습니다.</p>
+<p>기회비용이란, 한 가지를 얻기 위해 포기해야 하는 다른 것의 양입니다.</p>
+<p>포르투갈이 포도주 한 단위를 만들려면 옷감 약 0.89단위를 포기해야 합니다. 잉글랜드가 같은 포도주를 만들려면 옷감 1.2단위를 포기해야 합니다.</p>
+<p>즉 포도주를 만들 때 잃는 것이 포르투갈 쪽이 더 적습니다. 포르투갈은 포도주에 비교우위가 있습니다.</p>
+<p>반대로 옷감은 어떨까요. 잉글랜드가 옷감을 만들 때 포기하는 포도주는 약 0.83단위, 포르투갈은 1.125단위입니다. 옷감은 잉글랜드가 덜 포기합니다. 잉글랜드는 옷감에 비교우위가 있습니다.</p>
+<p>핵심은 이 한 문장으로 압축됩니다.</p>
+<blockquote><p>&quot;모든 것을 잘하는 나라도, 자기가 상대적으로 더 잘하는 하나에만 집중하는 편이 이득이다.&quot;</p></blockquote>
+
+<hr>
+
+<h2>특화하면 세계 전체의 생산이 늘어난다</h2>
+<p>그다음은 특화와 교역입니다.</p>
+<p>포르투갈은 포도주에만, 잉글랜드는 옷감에만 노동을 몰아넣습니다. 그리고 서로 바꿉니다.</p>
+<p>이렇게 하면 두 나라가 따로따로 두 물건을 다 만들 때보다 세계 전체의 생산량이 늘어납니다. 늘어난 몫이 곧 무역의 이익입니다.</p>
+
+<figure><img src="./images/body-3.png" alt="특화에서 교역, 이익 발생까지 4단계 다이어그램"><figcaption>특화에서 이득까지 — 무역의 이익이 생기는 4단계</figcaption></figure>
+
+<p>노동으로 따져보면 더 뚜렷합니다.</p>
+<p>잉글랜드가 포도주를 직접 만들면 120명이 듭니다. 그런데 옷감(100명분)을 만들어 포르투갈 포도주와 바꾸면, 사실상 100명분 노동으로 포도주를 손에 넣는 셈입니다. 20명분을 아낀 것입니다.</p>
+<p>포르투갈도 마찬가지입니다. 옷감을 직접 만들면 90명이 필요하지만, 포도주(80명분)를 만들어 잉글랜드 옷감과 바꾸면 80명분으로 옷감을 얻습니다. 10명분이 굳습니다.</p>
+<p>한쪽이 이득을 보려고 다른 쪽이 손해를 보는 구조가 아닙니다. 두 나라가 동시에 노동을 아낍니다. 없던 이익이 특화에서 새로 생겨나는 것입니다.</p>
+<p>교환 비율만 두 나라의 기회비용 사이에서 정해지면, 양쪽 모두 예전보다 더 많이 쓸 수 있습니다.</p>
+<p>이 원리는 나라 사이에만 통하는 것이 아닙니다.</p>
+<p>서류 정리를 비서보다 빨리 하는 변호사를 떠올려 봅니다. 그래도 그는 서류를 직접 하지 않습니다. 그 시간에 변론을 하면 훨씬 큰 값을 벌기 때문입니다. 다 잘해도 분업하는 것, 그것이 비교우위입니다. 아무리 다재다능한 사람이라도 기회비용 앞에서는 결국 하나에 집중하게 됩니다. 직업이 나뉘고 교역이 생기는 뿌리가 여기에 있습니다.</p>
+<p>비교우위는 한자리에 머물지도 않습니다.</p>
+<p>예전엔 한국이 신발과 가발을 수출했습니다. 지금은 반도체와 스마트폰을 수출합니다. 2023년 반도체 무역수지 흑자만 250억 달러를 넘어, 한국 전체 흑자를 떠받쳤습니다. 비교우위는 고정된 것이 아니라, 자본과 기술이 쌓이며 옮겨 다닙니다. 이것을 <strong>동태적 비교우위</strong>라고 부릅니다.</p>
+
+<hr>
+
+<h2>그러나 현실은 계산보다 복잡합니다</h2>
+<p>비교우위는 아름다운 이론입니다. 폴 새뮤얼슨은 이를 두고 &quot;사회과학에서 몇 안 되는, 참되면서도 자명하지 않은 명제&quot;라고 했습니다.</p>
+<p>다만 아직 완벽한 설명은 아닙니다. 현실에는 이론이 지운 조건들이 살아 있습니다.</p>
+
+<figure><img src="./images/body-4.png" alt="비교우위 이론에 대한 현실의 반론 세 가지 카드"><figcaption>비교우위 이론이 놓치는 것 — 현실의 반론 세 가지</figcaption></figure>
+
+<p>먼저, 이론의 가정 자체가 단순합니다. 리카도의 모형은 생산요소를 노동 하나로 놓고, 노동은 나라 사이를 넘나들지 않으며, 운송비도 관세도 없다고 봅니다. 현실의 무역은 이 깔끔한 조건 밖에서 벌어집니다.</p>
+<p>무엇보다 나라 전체가 이득이라 해도, 그 안의 누군가는 손해를 봅니다. 비교우위를 잃은 산업의 노동자는 임금이 깎이거나 일자리를 잃을 수 있습니다. 스톨퍼-새뮤얼슨 정리가 말하는 대목이 바로 이것입니다. 새뮤얼슨조차 이 분배의 문제를 인정했습니다. 세계 전체의 이득이 승자에게서 패자에게로 저절로 나눠지지는 않는다는 것입니다.</p>
+<p>경제학자 장하준은 다른 각도에서 반문합니다. 지금의 선진국도 자국 산업이 자랄 때까지는 보호무역으로 지켰다는 것입니다. 걸음마 단계의 산업을 곧바로 자유무역에 내던지는 것이 과연 공정하냐는 물음입니다. 후발국에는 산업을 키울 시간이 필요하다는 유치산업 보호론이 여기서 나옵니다.</p>
+<p>이론은 세계 전체의 이득을 말합니다. 현실은 그 이득을 누가 갖고 누가 잃는지를 묻습니다. 두 물음 모두 정당합니다.</p>
+
+<hr>
+
+<p>정리하면 이렇습니다.</p>
+<p>비교우위는 &quot;다 잘하는 나라조차 무역해야 하는 이유&quot;를 기회비용이라는 한 단어로 풀어낸 통찰입니다. 200년이 지나도 그 골격은 여전히 튼튼합니다.</p>
+<p>다만 그 이득이 모두에게 골고루 돌아가는가는, 이론이 아니라 우리가 만드는 제도의 몫입니다.</p>
+<p>무역이 왜 존재하느냐고 누가 묻는다면, 저는 이렇게 답하겠습니다. 서로 다르기 때문이 아니라, 서로 다른 것을 포기할 줄 알기 때문이라고.</p>
+
+<div class="tags"><span>#비교우위</span> <span>#절대우위</span> <span>#기회비용</span> <span>#리카도</span> <span>#자유무역</span> <span>#국제무역</span> <span>#경제상식</span> <span>#교역의이득</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
