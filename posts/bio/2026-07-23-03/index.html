@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>항생제 내성의 원리 — 세균은 어떻게 약을 이겨내고 슈퍼박테리아가 되나</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#ff7676;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.meta{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid;border-radius:16px;}
+.date{font-size:13.5px;color:#9aa0ad;font-weight:500;}
+h1{font-size:30px;font-weight:800;line-height:1.4;letter-spacing:-.5px;margin:0 0 14px;}
+h2{font-size:21px;font-weight:700;margin:42px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;}
+blockquote{margin:24px 0;padding:18px 22px;background:#f7f8fa;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0;font-size:16px;font-weight:600;color:#1f2330;}
+.summary{margin:24px 0;padding:20px 24px;background:#fff3f3;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+.summary p{margin:0 0 8px;font-size:15.5px;font-weight:600;}
+.summary ul{margin:0;padding-left:20px;}
+.summary li{font-size:15.5px;margin-bottom:6px;line-height:1.7;}
+strong{font-weight:700;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f1f3f7;padding:5px 12px;border-radius:14px;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta">
+<span class="cat" style="color:#ff7676;border-color:#ff7676">바이오</span>
+<span class="date">2026-07-23</span>
+</div>
+<h1>항생제 내성의 원리 — 세균은 어떻게 약을 이겨내고 슈퍼박테리아가 되나</h1>
+
+<figure><img src="./images/thumbnail.png" alt="항생제 내성의 원리 대표 이미지"><figcaption>항생제 내성의 원리 — 세균은 어떻게 약을 이겨내고 슈퍼박테리아가 되나</figcaption></figure>
+
+<div class="summary">
+<p>3줄 요약</p>
+<ul>
+<li>항생제는 세균에만 있는 표적(세포벽·리보솜·DNA 효소)을 공격하지만, 세균은 효소 분해·표적 변형·유출 펌프·투과성 감소라는 네 가지 방법으로 약을 이겨냅니다.</li>
+<li>내성은 돌연변이로 생기기도 하지만, 플라스미드를 주고받는 수평적 유전자 전달로 종을 넘어 빠르게 퍼집니다.</li>
+<li>2021년 세균 내성에 직접 기인한 사망은 약 114만 명, 2050년까지 3,900만 명이 사망할 것으로 예측됩니다.</li>
+</ul>
+</div>
+
+<p>이번 글에서는 항생제가 세균을 죽이는 원리부터, 세균이 그 약을 이겨내 슈퍼박테리아가 되는 과정까지를 차근차근 정리해 보겠습니다. 매년 수백만 명의 생명이 걸린 문제이지만, 원리 자체는 생각보다 명료합니다.</p>
+
+<figure><img src="./images/body-1.png" alt="항생제 내성 한눈에 보기 핵심 포인트 카드"><figcaption>항생제 내성 한눈에 보기</figcaption></figure>
+
+<hr>
+
+<h2>항생제는 세균의 어디를 공격하는가</h2>
+<p>항생제의 핵심 전략은 하나입니다. "사람 세포에는 없고 세균에만 있는 부분"을 노리는 것입니다.</p>
+<p>첫째는 세포벽입니다. 페니실린 계열의 베타락탐 항생제는 세균의 단단한 바깥벽인 펩티도글리칸을 만드는 효소, 즉 페니실린 결합 단백질(PBP)에 달라붙습니다. 벽을 짜는 교차결합이 끊기면 세균은 삼투압을 견디지 못하고 부풀어 터집니다.</p>
+<p>둘째는 단백질 공장인 리보솜입니다. 세균의 리보솜은 사람의 것과 구조가 달라, 마크로라이드 같은 약이 세균의 50S 소단위에만 선택적으로 결합해 단백질 생산을 멈춥니다.</p>
+<p>셋째는 DNA입니다. 퀴놀론 계열은 DNA를 풀고 복제하는 효소인 DNA 자이레이스와 토포아이소머레이스를 막아 세균이 번식하지 못하게 합니다.</p>
+<p>정리하면 이렇습니다. 항생제는 세균의 급소만 골라 때리도록 설계된 정밀 무기입니다.</p>
+
+<figure><img src="./images/body-2.png" alt="항생제 3대 표적 단계별 다이어그램"><figcaption>항생제 3대 표적 — 세포벽·리보솜·DNA</figcaption></figure>
+
+<hr>
+
+<h2>세균이 약을 이겨내는 네 가지 방법</h2>
+<p>문제는 세균이 가만히 당하지 않는다는 데 있습니다. 세균이 약을 무력화하는 방식은 크게 네 가지로 나뉩니다.</p>
+<p>첫째, <strong>효소로 약을 부숩니다.</strong> 대표적인 것이 베타락타마제입니다. 이 효소는 페니실린과 세팔로스포린의 핵심 구조인 베타락탐 고리를 잘라 약을 무용지물로 만듭니다. 더 진화한 형태인 카바페네마제는 최후의 보루로 여겨지던 강력한 항생제까지 분해합니다.</p>
+<p>둘째, <strong>표적 자체를 바꿔버립니다.</strong> 약이 달라붙어야 할 자리의 모양을 살짝 바꾸면 약은 결합하지 못합니다. 뒤에 나올 MRSA가 바로 이 방식으로 베타락탐 항생제를 피합니다.</p>
+<p>셋째, <strong>약을 퍼냅니다.</strong> 유출 펌프라 불리는 단백질이 세포 안으로 들어온 약을 계속 밖으로 퍼내, 약이 효과를 낼 만큼 쌓이지 못하게 합니다.</p>
+<p>넷째, <strong>문을 좁힙니다.</strong> 세포막의 통로인 포린을 변형해 약이 세포 안으로 들어오는 양 자체를 줄입니다.</p>
+<p>한 가지 기억할 점은, 세균이 이 방법들을 동시에 여러 개 쓰기도 한다는 사실입니다. 그럴수록 치료는 어려워집니다.</p>
+
+<figure><img src="./images/body-3.png" alt="항생제 내성 4대 기전 비교 표"><figcaption>내성 4대 기전 — 효소 분해·표적 변형·유출·투과성</figcaption></figure>
+
+<hr>
+
+<h2>내성은 어떻게 생기고 퍼지는가</h2>
+<p>내성이 생기는 길은 두 갈래입니다.</p>
+<p>하나는 돌연변이입니다. 세균이 분열하다 우연히 DNA에 변화가 생기고, 그 변화가 내성을 준다면 자손에게 그대로 물려집니다. 이것을 수직 전달이라 부릅니다.</p>
+<p>다른 하나가 더 무섭습니다. 수평적 유전자 전달입니다. 내성 유전자가 담긴 DNA 조각이 세균과 세균 사이를 옮겨 다니는 방식인데요. 돌연변이보다 빠를 뿐 아니라, 서로 다른 종 사이에서도 유전자가 건너뛴다는 점이 핵심입니다.</p>
+<p>수평 전달에는 세 가지 방식이 있습니다. 두 세균이 몸을 맞대고 플라스미드라는 고리 모양 DNA를 건네는 접합, 죽은 세균이 흘린 DNA를 주워 담는 형질전환, 바이러스가 유전자를 실어 나르는 형질도입입니다. 이 중에서도 대부분의 내성 유전자가 플라스미드에 실려 있어, 접합을 통한 확산이 가장 흔하고 효과적입니다.</p>
+<p>여기에 자연선택이 더해집니다. 항생제를 쓰면 약에 약한 세균은 죽고, 우연히 내성을 지닌 소수만 살아남아 번식합니다. 항생제를 많이 쓸수록 이 선택 압력이 강해지고, 내성균은 그만큼 빠르게 우점종이 됩니다.</p>
+
+<figure><img src="./images/body-4.png" alt="돌연변이와 수평적 유전자 전달 대비"><figcaption>돌연변이(수직) vs 수평적 유전자 전달</figcaption></figure>
+
+<hr>
+
+<h2>슈퍼박테리아는 어떤 존재인가</h2>
+<p>여러 약에 동시에 내성을 가진 세균을 흔히 슈퍼박테리아라 부릅니다.</p>
+<p>가장 유명한 것이 MRSA, 메티실린 내성 황색포도상구균입니다. MRSA는 mecA라는 유전자를 SCCmec이라는 이동성 유전자 카세트 안에 품고 있습니다. 이 유전자가 변형된 PBP를 만들어내 베타락탐 항생제가 결합하지 못하게 하는 것입니다. 이 카세트에는 스스로 다른 균으로 옮겨갈 이동 장치까지 들어 있습니다. 2019년 기준 MRSA는 전 세계에서 내성으로 인한 사망에 가장 많이 기여한 병원체로, 약 12만 1천 명의 사망에 관여했습니다.</p>
+<p>다제내성 결핵균도 빼놓을 수 없습니다. 리팜피신에 듣지 않는 결핵균은 치료 기간이 길고 전파력이 높아 세계보건기구가 최우선 관리 대상으로 꼽습니다.</p>
+<p>WHO는 2024년 세균 우선순위 목록을 갱신하며, 카바페넴에 내성을 가진 아시네토박터와 장내세균목을 가장 위급한 등급으로 분류했습니다. 이들 그람음성균은 사망률과 전파력이 높은 데다, 마땅한 치료제조차 없다는 점이 가장 큰 문제입니다.</p>
+
+<hr>
+
+<h2>숫자로 보는 위기의 크기</h2>
+<p>내성이 왜 문제인지는 숫자가 말해 줍니다.</p>
+<p>2021년 한 해, 세균 내성과 연관된 사망은 약 471만 명, 내성에 직접 기인한 사망은 약 114만 명으로 추정됩니다. 1990년 이후 매년 최소 100만 명이 항생제 내성으로 목숨을 잃어 왔습니다.</p>
+<p>미국만 놓고 봐도 매년 280만 건이 넘는 내성 감염과 3만 5천 명 이상의 사망이 발생합니다. 11초마다 한 명이 감염되고, 15분마다 한 명이 숨지는 셈입니다.</p>
+<p>앞날의 전망은 더 무겁습니다. 연구진은 2025년부터 2050년 사이 세균 내성이 3,900만 명의 사망을 일으킬 것으로 예측합니다. 1분에 세 명꼴입니다. 연간 사망자는 2021년 114만 명에서 2050년 191만 명으로 약 70% 늘어날 것으로 봅니다.</p>
+<p>다만 희망이 없는 것은 아닙니다. 미국에서는 예방 노력으로 관련 사망이 전체 18%, 병원 안에서는 약 30% 줄었습니다. 관리가 성과를 낸다는 증거이기도 합니다.</p>
+
+<figure><img src="./images/body-5.png" alt="항생제 내성 사망 통계 요약 표"><figcaption>숫자로 보는 항생제 내성 위기</figcaption></figure>
+
+<hr>
+
+<h2>왜 이렇게까지 됐고, 무엇을 해야 하는가</h2>
+<p>원인의 상당 부분은 오남용에 있습니다. 특히 전 세계 항생제의 약 70%가 사람이 아니라 가축에게 쓰인다는 추정이 있습니다. 성장 촉진과 질병 예방을 이유로 건강한 동물에게도 투여되고, 그렇게 생긴 내성균이 식품과 환경을 거쳐 사람에게 전해집니다. 유럽연합은 2006년 성장촉진용 항생제 사용을 금지했고, 그 결과 2011년부터 2022년까지 가축용 항생제 판매가 53% 줄었습니다. 하지만 여전히 최소 35개국은 성장촉진 사용을 허용하고 있습니다.</p>
+<p>대응의 한 축은 항생제 스튜어드십입니다. 꼭 필요할 때, 맞는 약을, 맞는 용량과 기간으로만 쓰도록 관리하는 것입니다. 세계보건기구는 2030년까지 내성 관련 사망을 2019년 대비 10% 줄이겠다는 목표를 세웠습니다.</p>
+<p>문제는 반대편, 곧 신약 개발이 멈춰 있다는 점입니다. 임상 단계의 항생제는 2023년 97개에서 2025년 90개로 오히려 줄었습니다. 그중 혁신적이라 할 만한 것은 15개, 가장 위급한 병원체에 듣는 것은 단 5개뿐입니다. 시장성이 낮아 민간 투자가 빠져나간 탓입니다.</p>
+
+<hr>
+
+<p>끝으로 한 마디만 더 드리겠습니다.</p>
+<p>항생제 내성은 세균이 특별히 영악해서 생긴 일이 아닙니다. 약을 쓰면 살아남는 놈이 남는다는, 진화의 가장 단순한 법칙이 작동한 결과일 뿐입니다.</p>
+
+<blockquote><p>"우리가 약을 아껴 쓰는 속도가, 세균이 약을 이겨내는 속도를 따라잡아야 합니다."</p></blockquote>
+
+<p>그 속도 경쟁에서 우리가 할 수 있는 일은, 필요할 때만 신중히 쓰는 것에서 시작됩니다.</p>
+
+<div class="tags">
+<span>#항생제내성</span>
+<span>#슈퍼박테리아</span>
+<span>#MRSA</span>
+<span>#세균</span>
+<span>#베타락타마제</span>
+<span>#항생제오남용</span>
+<span>#WHO</span>
+<span>#바이오</span>
+</div>
+
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
