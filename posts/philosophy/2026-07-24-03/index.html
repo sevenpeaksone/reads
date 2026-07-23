@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공리주의란? 밀의 최대 다수의 최대 행복이 옳은 기준일까</title>
+<style>
+  :root { --accent:#8071e6; --accent-soft:#f0eefc; --ink:#232129; --sub:#6b6675; --line:#e9e6f2; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:0 20px;
+    background:#f6f5fa;
+    color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:700px; margin:0 auto; background:#fff; padding:52px 44px 64px; border-radius:14px; box-shadow:0 2px 24px rgba(40,30,80,.06); margin-top:34px; margin-bottom:60px; }
+  .meta { display:flex; align-items:center; gap:12px; margin-bottom:22px; }
+  .badge { background:var(--accent); color:#fff; font-size:13px; font-weight:700; padding:6px 14px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:var(--sub); font-size:14px; }
+  h1 { font-size:30px; line-height:1.4; font-weight:800; letter-spacing:-.01em; margin:0 0 30px; }
+  h2 { font-size:21px; font-weight:700; margin:52px 0 18px; padding-left:2px; color:#1b1922; }
+  p { font-size:16.5px; margin:0 0 20px; }
+  img { max-width:100%; height:auto; display:block; margin:30px auto; border-radius:12px; }
+  hr { border:none; border-top:1px solid var(--line); margin:44px 0; }
+  .lead-quote { font-size:17px; font-weight:600; color:#3a3547; }
+  .tags { margin-top:14px; color:var(--accent); font-size:14.5px; font-weight:600; line-height:2; }
+  strong { font-weight:700; }
+  blockquote { margin:0 0 20px; padding:14px 20px; background:var(--accent-soft); border-left:4px solid var(--accent); border-radius:8px; font-size:16.5px; color:#33304a; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta">
+    <span class="badge">철학/인문</span>
+    <span class="date">2026-07-24</span>
+  </div>
+
+  <h1>공리주의란? 밀의 최대 다수의 최대 행복이 옳은 기준일까</h1>
+
+  <img src="./images/thumbnail.png" alt="공리주의, 최대 다수의 최대 행복은 옳은 기준일까 - 철학 인문 대표 이미지">
+
+  <p>오늘은 존 스튜어트 밀의 공리주의를 정리해 보려 합니다.</p>
+
+  <p>"최대 다수의 최대 행복"이라는 말은 익숙합니다. 하지만 이 표어가 정말 옳고 그름의 기준이 될 수 있는지는 다른 문제입니다. 이 글에서는 벤담의 계산법에서 밀의 질적 구분까지, 그리고 그 이론에 쏟아진 반론까지 차분히 살펴보겠습니다.</p>
+
+  <p>먼저 결론부터 말씀드리면, 공리주의는 강력한 만큼 뚜렷한 한계도 지닌 이론입니다. 어느 한쪽으로 단정하기보다, 그 힘과 빈틈을 함께 보는 편이 낫습니다.</p>
+
+  <hr>
+
+  <h2>■ 행복이 도덕의 잣대가 된다는 발상</h2>
+
+  <p>공리주의의 출발점은 단순합니다.</p>
+
+  <blockquote>어떤 행위가 행복을 늘리면 옳고, 고통을 늘리면 그르다.</blockquote>
+
+  <p>여기서 행복이란 쾌락, 그리고 고통이 없는 상태를 뜻합니다. 도덕의 기준은 나 한 사람의 행복이 아닙니다. 그 행위와 관련된 모든 사람의 행복 총량입니다. 그래서 공리주의는 우리에게 '엄정하게 공평한 관찰자'가 되기를 요구합니다. 내 이익과 남의 이익을 똑같은 무게로 저울에 올리라는 것입니다.</p>
+
+  <p>흔히 이것을 "최대 다수의 최대 행복"이라 부릅니다. 다만 엄밀히 따지면 핵심은 '가장 많은 사람'이 아니라 '행복의 총합을 가장 크게' 하는 데 있습니다. '최대 다수'라는 문구를 앞세운 쪽은 오히려 벤담이었습니다.</p>
+
+  <p>당시로서는 급진적인 생각이었습니다. 신분도, 전통도, 혈통도 아니고 오직 '누구의 행복이든 똑같이 한 사람 몫으로 센다'는 발상이었으니까요.</p>
+
+  <hr>
+
+  <h2>■ 벤담의 양적 공리주의 — 쾌락을 숫자로 재다</h2>
+
+  <p>이 이론의 창시자는 제러미 벤담입니다.</p>
+
+  <p>벤담은 쾌락을 오직 '양'으로 재려 했습니다. 강도, 지속 시간, 확실성, 가까움 같은 요소를 따져 쾌락을 계산하는 '쾌락 계산법'을 제시했습니다. 마치 장부를 적듯 행복과 고통을 더하고 빼서 결론을 냈습니다.</p>
+
+  <p>벤담에게는 쾌락의 종류에 우열이 없었습니다. 양이 같으면 가치도 같습니다.</p>
+
+  <p>그가 남긴 유명한 말이 이를 잘 보여줍니다. "쾌락의 양이 같다면, 압정 놀이는 시만큼 좋다." 어린아이의 단순한 놀이든 위대한 시든, 같은 크기의 쾌락이라면 값어치가 같다는 뜻입니다.</p>
+
+  <img src="./images/body-1.png" alt="벤담의 양적 공리주의와 밀의 질적 공리주의 비교">
+
+  <p>바로 이 지점에서 비판이 쏟아졌습니다. 인간을 동물 수준의 쾌락 추구자로 끌어내린다는 것입니다. 그래서 붙은 별명이 '돼지에게나 어울리는 교리'였습니다.</p>
+
+  <hr>
+
+  <h2>■ 밀의 질적 공리주의 — 쾌락에도 격이 있다</h2>
+
+  <p>존 스튜어트 밀은 이 비판을 정면으로 받았습니다.</p>
+
+  <p>밀은 효용의 원리 자체를 버리지 않았습니다. 다만 벤담의 방식이 인간 삶을 담기엔 너무 얄팍하다고 보았습니다. 그래서 그는 결정적인 한 가지를 더했습니다. 바로 쾌락의 '질'입니다.</p>
+
+  <p>밀은 쾌락을 두 층으로 나눴습니다.</p>
+
+  <p>높은 쾌락은 지성과 상상력, 도덕 감정을 쓰는 즐거움입니다. 책을 읽고, 시를 음미하고, 사유하고, 예술을 감상하는 기쁨입니다. 낮은 쾌락은 먹고 마시고 쉬는 감각적 즐거움입니다.</p>
+
+  <p>핵심은 이것입니다. 높은 쾌락은 양이 아니라 '종류'에서 우월합니다. 그래서 우리가 좇아야 할 것은, 설령 벤담식 총량이 줄더라도, 질 높은 쾌락 쪽입니다.</p>
+
+  <img src="./images/body-2.png" alt="밀의 높은 쾌락과 낮은 쾌락 비교 표">
+
+  <p>그렇다면 어느 쾌락이 더 높은지는 누가 정할까요. 밀의 답은 '두 쾌락을 모두 겪어 본 사람'입니다. 양쪽을 다 아는 이들이 거의 예외 없이 한쪽을 택한다면, 그것이 더 높은 쾌락이라는 것입니다. 관념이 아니라 경험에 기댄 판단입니다.</p>
+
+  <p>이 대목에서 철학사상 가장 많이 인용되는 문장이 나옵니다.</p>
+
+  <blockquote>"만족한 돼지보다 불만족한 인간이 낫고, 만족한 바보보다 불만족한 소크라테스가 낫다."</blockquote>
+
+  <p>인간은 더 높은 능력을 지녔기에, 그 능력이 채워지지 않아 괴롭더라도 낮은 쾌락에 잠긴 삶으로 스스로 내려가려 하지 않는다는 뜻입니다. 밀은 이렇게 '돼지의 철학'이라는 비판에 답했습니다.</p>
+
+  <hr>
+
+  <h2>■ 행위 공리주의와 규칙 공리주의</h2>
+
+  <p>공리주의는 하나가 아닙니다. '효용의 원리를 어디에 적용하느냐'에 따라 갈래가 나뉩니다.</p>
+
+  <p>행위 공리주의는 개별 행위 하나하나에 원리를 곧장 들이댑니다. "지금 이 행위가 다른 어떤 선택보다 더 큰 행복을 낳는가." 오직 이 상황의 실제 결과만 봅니다.</p>
+
+  <p>규칙 공리주의는 한 단계를 더 둡니다. 먼저 '이 규칙을 모두가 따르면 사회 전체에 가장 큰 효용이 생기는가'를 묻습니다. 그리고 개별 행위는 그 최선의 규칙에 맞는지로 판단합니다.</p>
+
+  <img src="./images/body-3.png" alt="행위 공리주의와 규칙 공리주의 판단 방식 비교">
+
+  <p>예를 들어 "약속을 지켜라", "거짓말하지 말라" 같은 규칙은 사회 전체의 효용을 높입니다. 그래서 규칙 공리주의자는 개별적으로는 손해인 순간에도 그 규칙을 지킵니다. 예전엔 상황마다 계산했다면, 지금은 검증된 규칙을 따르는 셈입니다. 이 갈래는 뒤에서 볼 반론들을 누그러뜨리려는 시도로 자주 등장합니다.</p>
+
+  <hr>
+
+  <h2>■ '최대 다수의 최대 행복'에 쏟아진 반론들</h2>
+
+  <p>이제 이 이론의 빈틈을 봅니다. 반론은 크게 네 갈래입니다.</p>
+
+  <p>첫째, 정의와 권리를 침해할 수 있습니다. 유명한 '이식 수술' 사고실험이 있습니다. 건강한 한 사람을 죽여 장기를 나누면 죽어 가는 다섯 환자를 살릴 수 있습니다. 총 행복만 보면 행위 공리주의는 "한 명을 희생하라"는 결론에 이르는 듯합니다. 하지만 대부분은 그런 살인이 결코 옳지 않다고 느낍니다. 이 강한 직관이 공리주의를 시험대에 올립니다.</p>
+
+  <p>둘째, 개인의 분리를 무시합니다. 철학자 존 롤스의 지적입니다. 공리주의는 총합만 볼 뿐, 그 행복이 개인들 사이에 어떻게 나뉘는지에 무관심합니다. "왜 소수의 희생이 다수의 이득으로 정당화되면 안 되는가"를 원리상 되묻지 못합니다. 롤스는 이것이 공리주의가 개인을 목적이 아니라 전체를 위한 수단으로 다루는 지점이라 보았습니다.</p>
+
+  <img src="./images/body-4.png" alt="공리주의에 쏟아진 네 가지 주요 반론">
+
+  <p>셋째, 요구가 지나칩니다. 공리주의는 늘 '공평하게 행복을 극대화하라'고 요구합니다. 그러면 내 돈을 나를 위해 쓰기보다 자선에 기부하는 편이 효용이 크므로, 그것이 '의무'가 됩니다. 보통은 칭찬받되 강제되지 않는 일까지 반드시 해야 할 일로 만든다는 비판입니다.</p>
+
+  <p>넷째, 애초에 측정이 가능한가라는 물음입니다. 서로 다른 사람의 서로 다른 쾌락과 고통을 하나의 잣대로 재고 더하는 일이 실제로 가능한지 의문입니다. 밀조차 '질'을 도입하며 양만으로는 부족함을 인정했지만, 그 질을 무엇으로 객관적으로 재느냐는 여전히 논쟁거리입니다.</p>
+
+  <hr>
+
+  <p>정리하면 이렇습니다.</p>
+
+  <p>공리주의는 결과와 실제 고통에 주목하는 명료한 기준을 줍니다. 모두의 행복을 똑같이 센다는 점에서 평등하고 개혁적이었습니다. 실제로 밀은 여성 참정권과 노예제 폐지를 옹호한 진보적 사상가였고, 그 정신은 오늘의 공공정책에도 흐르고 있습니다.</p>
+
+  <p>동시에 정의와 권리를 총합에 종속시킬 위험, 지나친 도덕적 요구, 계산의 난점이라는 빈틈을 안고 있습니다. 규칙 공리주의처럼 이를 메우려는 시도가 이어지는 이유입니다.</p>
+
+  <p>결국 남는 질문은 하나입니다.</p>
+
+  <p class="lead-quote">"행복의 총량이 커진다면, 그것만으로 옳다고 말할 수 있는가."</p>
+
+  <p>이 물음에 각자 어떻게 답하느냐가, 공리주의를 받아들이는 폭을 정할 것입니다. 쉬운 답이 없다는 사실이야말로, 이 오래된 이론이 아직 우리 곁에 남아 있는 이유일지도 모릅니다.</p>
+
+  <hr>
+
+  <div class="tags">#공리주의 #존스튜어트밀 #최대다수의최대행복 #벤담 #윤리학 #철학공부 #질적공리주의 #공리주의반론</div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
