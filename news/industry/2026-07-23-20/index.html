@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SK실트론 매각, AI 웨이퍼 슈퍼사이클에 흔들리는 두산 인수 셈법</title>
+<style>
+  :root { --ink:#1f2328; --sub:#5b6470; --line:#e6e8eb; --accent:#e94560; --point:#2a55d6; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:#f4f5f7;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    color:var(--ink); line-height:1.8; -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:700px; margin:0 auto; background:#fff; padding:56px 40px 72px; }
+  .badge {
+    display:inline-block; background:var(--accent); color:#fff;
+    font-size:13px; font-weight:700; letter-spacing:1px;
+    padding:7px 16px; border-radius:20px;
+  }
+  .date { color:var(--sub); font-size:14px; margin-left:12px; }
+  h1 {
+    font-size:30px; line-height:1.4; font-weight:800; margin:22px 0 10px;
+    letter-spacing:-0.5px; word-break:keep-all;
+  }
+  .lead {
+    font-size:17px; color:#333a42; margin:24px 0 8px; word-break:keep-all;
+  }
+  hr { border:0; border-top:1px solid var(--line); margin:36px 0; }
+  h2 {
+    font-size:22px; font-weight:800; margin:8px 0 18px;
+    padding-left:14px; border-left:5px solid var(--point);
+    line-height:1.4; word-break:keep-all; letter-spacing:-0.3px;
+  }
+  p { font-size:16.5px; margin:0 0 18px; word-break:keep-all; }
+  img { max-width:100%; height:auto; display:block; margin:26px auto; border-radius:14px; }
+  .closing p { font-size:16.5px; }
+  .quote {
+    font-size:17px; font-weight:700; color:var(--point);
+    padding:4px 0; word-break:keep-all;
+  }
+  .tags {
+    margin-top:14px; padding-top:22px; border-top:1px solid var(--line);
+    color:var(--point); font-size:14px; line-height:2.1; word-break:keep-all;
+  }
+  .tags span { margin-right:8px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+
+  <div>
+    <span class="badge">산업·IT 뉴스</span><span class="date">2026-07-23</span>
+  </div>
+
+  <h1>SK실트론 매각, AI 웨이퍼 슈퍼사이클에 흔들리는 두산 인수 셈법</h1>
+
+  <p class="lead">이번 글에서는 2026년 7월 재계의 뜨거운 관심사인 SK실트론 매각 협상을 정리해 보겠습니다. 반도체용 실리콘 웨이퍼를 만드는 SK실트론을 두고, SK그룹과 두산그룹이 반년 넘게 줄다리기를 이어가고 있습니다. 매각을 강행할지, 아니면 되돌릴지. 그 결정이 왜 이토록 어려워졌는지 짚어보겠습니다.</p>
+
+  <img src="./images/thumbnail.png" alt="SK실트론 매각 협상을 다룬 산업·IT 뉴스 대표 이미지, AI 웨이퍼 슈퍼사이클이 바꾼 두산 인수 셈법">
+
+  <hr>
+
+  <h2>지금 무슨 일이 벌어지고 있나</h2>
+  <p>핵심부터 말씀드립니다. SK그룹이 팔기로 했던 SK실트론을, 다시 손에 쥐고 있을지 고심하고 있습니다.</p>
+  <p>SK㈜는 2025년 12월 17일 두산㈜를 우선협상대상자로 선정했습니다. 매각 대상은 SK실트론 지분 70.6%입니다. 여기까지는 순조로웠습니다.</p>
+  <p>그런데 해가 바뀌고 7개월이 흘렀는데도 본계약은 맺어지지 않았습니다. 우선협상대상자 선정 이후 협상만 이어지는 상황입니다. SK와 두산 모두 "결렬된 것은 아니다"라고 선을 긋고 있습니다만, 통상 6개월인 우선협상 기한이 7월 말 만료되는 만큼 이달이 분수령이라는 관측이 나옵니다.</p>
+  <p>거래가 미뤄진 이유는 단순한 가격 흥정이 아닙니다. 그사이 반도체 시장 자체가 완전히 달라졌기 때문입니다.</p>
+
+  <img src="./images/body-1.png" alt="SK실트론 매각 협상 핵심 정리 - 매각 주체 SK㈜, 인수 후보 두산㈜, 매각 지분 70.6%, 우선협상 선정 2025년 12월, 거론 몸값 5조에서 7조원, 본계약 7개월째 미체결">
+
+  <hr>
+
+  <h2>왜 중요한가 — 웨이퍼는 반도체의 시작점</h2>
+  <p>SK실트론을 이해하려면 웨이퍼가 무엇인지 먼저 알아야 합니다.</p>
+  <p>웨이퍼는 고순도 실리콘으로 만든 얇은 원판입니다. 그 위에 회로를 촘촘히 새기는 여러 공정을 거쳐야 비로소 D램과 낸드 같은 반도체 칩이 완성됩니다. 반도체 산업의 가장 밑단, 출발점에 있는 소재인 셈입니다.</p>
+  <p>SK실트론은 이 실리콘 웨이퍼를 만드는 국내 유일의 전문기업입니다. 특히 첨단 반도체에 주로 쓰이는 300㎜(12인치) 웨이퍼 시장에서 글로벌 3위권으로 꼽힙니다. 1위와 2위는 일본의 신에쓰와 섬코입니다.</p>
+  <p>칩을 아무리 잘 설계해도, 그것을 새길 원판이 없으면 만들 수 없습니다. 웨이퍼가 병목이 되면 반도체 전체가 멈춥니다. SK실트론의 무게는 여기서 나옵니다.</p>
+
+  <img src="./images/body-2.png" alt="반도체 제조에서 실리콘 웨이퍼의 위치를 보여주는 단계별 다이어그램 - 1단계 실리콘 웨이퍼(SK실트론), 2단계 회로 공정, 3단계 D램·낸드 칩 완성">
+
+  <hr>
+
+  <h2>몸값은 왜 5조에서 7조로 뛰었나</h2>
+  <p>우선협상대상자를 정하던 2025년 말만 해도 SK실트론의 거래 규모는 5조원 안팎으로 거론됐습니다. 당초 기업가치 추정은 4조~5조원 수준이었습니다.</p>
+  <p>지금은 분위기가 다릅니다. 최근에는 7조원대까지 몸값이 오르내립니다.</p>
+  <p>다만 이 수치는 확정된 인수가가 아닙니다. 시장에서 "거론"되는 추정치일 뿐입니다. 기업가치 재평가와 거래 구조 조율이 겹치면서 최종 계약이 미뤄지고 있고, 적정 가격을 놓고 양측의 시각차가 좁혀지지 않는 것으로 전해집니다.</p>
+  <p>값이 뛴 배경에는 웨이퍼 품귀 전망이 있습니다. 세계 시장의 절반 이상을 쥔 섬코와 신에쓰조차 2026년까지 12인치 웨이퍼 공급 부족이 이어질 것이라고 내다봤습니다. 신에쓰는 "모든 설비를 동원해 만들고 있지만, 원자재 값 상승과 생산 장비 부족으로 수요를 완전히 채우지 못한다"고 밝혔습니다. 공장을 새로 짓는 데 시간이 걸리니, 수요가 뛰어도 공급이 곧바로 따라가지 못합니다.</p>
+
+  <img src="./images/body-3.png" alt="12인치 실리콘 웨이퍼 글로벌 순위 - 1위 신에쓰, 2위 섬코, 3위 SK실트론, 상위 3사 과점 구조를 나타내는 막대 그래프">
+
+  <hr>
+
+  <h2>셈법을 바꾼 것 — AI 반도체 슈퍼사이클</h2>
+  <p>거래를 흔든 진짜 변수는 인공지능입니다.</p>
+  <p>AI 투자가 늘면서 메모리 수요가 폭발했습니다. SK하이닉스는 2026년 1분기에 매출 52조5763억원, 영업이익 37조6103억원으로 분기 사상 최대 실적을 냈습니다. HBM뿐 아니라 D램과 낸드까지 강세가 번진 결과입니다.</p>
+  <p>수요가 늘면 생산을 늘려야 합니다. SK하이닉스는 앞으로 5년간 웨이퍼 투입 기준 생산능력을 지금의 2배로 키우겠다고 했습니다. 생산이 두 배가 되면, 그만큼 웨이퍼도 더 필요합니다.</p>
+  <p>최태원 SK그룹 회장의 발언도 무게를 더합니다. 그는 2026년 3월 엔비디아 GTC에서 "AI와 HBM 수요 증가로 웨이퍼 부족이 2030년까지 이어질 수 있고, 공급 부족 규모가 20%를 넘을 수 있다"고 경고했습니다. 7월 15일 대한상공회의소 제주포럼에서는 "내년 반도체 수요가 올해보다 60~100% 늘어날 수 있다"고 전망했습니다.</p>
+  <p>예전엔 SK실트론이 재무구조 개선을 위해 정리할 자산이었습니다. 지금은 없어서는 안 될 전략 자산으로 다시 보이기 시작한 것입니다.</p>
+
+  <hr>
+
+  <h2>팔 것인가, 지킬 것인가 — 두 개의 논리</h2>
+  <p>SK 내부의 고민은 두 갈래로 갈립니다.</p>
+  <p>한쪽은 '부채 감축'입니다. SK㈜는 사업 재편, 이른바 리밸런싱의 일환으로 재무구조 개선을 이어왔습니다. 지주사 SK는 7조원대 순차입금을 안고 있고, 실트론을 대신할 만한 대형 매각 카드가 마땅치 않습니다. 그러니 계획대로 팔아야 한다는 지적이 나옵니다.</p>
+  <p>다른 한쪽은 '공급망 사수'입니다. 웨이퍼 부족이 현실이 되면서 소재 내재화의 필요성이 커졌습니다. SK㈜ 이사회 안에서도 신중론이 우세하다고 전해집니다. 반도체 핵심 공급망을 지켜야 한다는 '전략자산론'이 부상한 것입니다.</p>
+  <p>여기에 최 회장 개인의 사정도 얽혀 있습니다. 대법원의 이혼 소송 파기환송으로 조 단위 현금 압박이 다소 풀린 점이 매각 동력을 떨어뜨렸다는 평가가 있습니다.</p>
+  <p>물론 반론도 있습니다. SK실트론을 팔아도 SK의 공급망이 곧바로 약해진다고 보기는 어렵다는 시각입니다. SK하이닉스는 여러 글로벌 업체에서 웨이퍼를 조달하고, SK실트론 역시 다양한 고객사를 두고 있기 때문입니다. 한쪽으로 단정하기에는 아직 이릅니다.</p>
+
+  <img src="./images/body-4.png" alt="SK의 딜레마를 정리한 비교 표 - 매각 강행(부채 감축 논리)과 매각 신중(공급망 사수 논리)을 나란히 비교">
+
+  <hr>
+
+  <h2>큰 그림 — 풀스택 AI라는 퍼즐</h2>
+  <p>이 결정은 SK의 더 큰 그림과 맞닿아 있습니다.</p>
+  <p>최 회장이 강조하는 것은 '풀스택 AI', 즉 수직계열화 전략입니다. SK는 SK하이닉스의 HBM 같은 AI 메모리를 축으로, AI 데이터센터와 에너지 인프라, SK텔레콤의 AI 서비스까지 사업을 넓히고 있습니다.</p>
+  <p>여기에 SK실트론을 더하면 그림이 완성됩니다. 웨이퍼라는 기초 소재부터 메모리, 인프라, 서비스까지. 반도체의 처음과 끝을 한 그룹이 아우르는 구조가 됩니다. 매각을 되돌리려는 기류의 밑바탕에는 이 퍼즐을 완성하려는 계산이 깔려 있습니다.</p>
+  <p>참고로 SK의 리밸런싱은 2024년 시작돼 지금 3년차입니다. 그동안 SK스페셜티, SK바이오팜 지분 등 13조원 규모의 자산을 정리했고, 2025년 말 차입금을 전년보다 11조7000억원 줄여 102조원으로 낮췄습니다. 재무 성과는 이미 상당히 나온 상태입니다. 그만큼 실트론 매각을 서둘러야 할 압박은 예전보다 줄었다고도 볼 수 있습니다.</p>
+
+  <img src="./images/body-5.png" alt="풀스택 AI 수직계열화 흐름 - 실리콘 웨이퍼(SK실트론)에서 메모리(SK하이닉스 HBM), AI 데이터센터·에너지 인프라, SK텔레콤 AI 서비스로 이어지는 구조">
+
+  <hr>
+
+  <div class="closing">
+    <p>정리하면 이렇습니다.</p>
+    <p>SK실트론 매각은 단순한 계열사 정리를 넘어, AI 시대에 웨이퍼라는 자산을 어떻게 볼 것인가라는 질문으로 커졌습니다. 재무 논리는 "팔라"고 하고, 산업 논리는 "쥐고 있으라"고 합니다.</p>
+    <p>2026년 7월 23일 현재, 결론은 아직 나지 않았습니다. 우선협상 기한이 끝나는 이달 말, SK가 어느 쪽 손을 들지 시장이 지켜보고 있습니다.</p>
+    <p class="quote">— 남는 질문은 하나입니다. "지금의 7조원은 비싼 값일까, 아니면 몇 년 뒤 돌아보면 싼 값일까."</p>
+    <p>그 답을 SK가 며칠 안에 내놓아야 합니다.</p>
+  </div>
+
+  <div class="tags">
+    <span>#SK실트론</span><span>#SK실트론매각</span><span>#두산</span><span>#실리콘웨이퍼</span><span>#반도체슈퍼사이클</span><span>#AI반도체</span><span>#SK그룹리밸런싱</span><span>#최태원</span><span>#12인치웨이퍼</span><span>#SK하이닉스</span>
+  </div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
