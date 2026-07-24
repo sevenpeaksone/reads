@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>교착상태(데드락)는 왜 생기나 — 프로세스가 서로 기다리다 멈추는 원리와 해결법</title>
+<style>
+  :root { --accent:#4f8cff; --ink:#1f2430; --muted:#6b7280; --line:#e6e8ee; --bg:#ffffff; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #f4f5f7; color: var(--ink);
+    font-family: 'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 700px; margin: 0 auto; background: var(--bg); padding: 44px 30px 70px; }
+  .meta { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+  .badge {
+    display: inline-block; background: var(--accent); color: #fff;
+    font-size: 13px; font-weight: 700; letter-spacing: .04em;
+    padding: 5px 12px; border-radius: 999px;
+  }
+  .date { color: var(--muted); font-size: 14px; }
+  h1 {
+    font-size: 27px; line-height: 1.42; font-weight: 800; letter-spacing: -0.01em;
+    margin: 6px 0 26px; color: #141821;
+  }
+  h2 {
+    font-size: 20px; font-weight: 700; margin: 46px 0 16px; padding-left: 12px;
+    border-left: 4px solid var(--accent); line-height: 1.4; color: #171c26;
+  }
+  p { font-size: 16.5px; line-height: 1.85; margin: 0 0 18px; color: #2b303b; }
+  img { max-width: 100%; height: auto; display: block; margin: 26px auto; border-radius: 12px; }
+  hr { border: 0; border-top: 1px solid var(--line); margin: 34px 0; }
+  .lead p { color: #3a4150; }
+  blockquote {
+    margin: 26px 0; padding: 16px 20px; background: #f5f8ff;
+    border-left: 4px solid var(--accent); border-radius: 8px;
+    font-size: 17px; font-weight: 600; color: #223; line-height: 1.7;
+  }
+  .tags {
+    margin-top: 20px; padding-top: 22px; border-top: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .tags span { color: var(--accent); font-size: 14px; background: #eef3ff; padding: 5px 11px; border-radius: 6px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+
+  <div class="meta">
+    <span class="badge">IT</span>
+    <span class="date">2026-07-25</span>
+  </div>
+
+  <h1>교착상태(데드락)는 왜 생기나 — 프로세스가 서로 기다리다 멈추는 원리와 해결법</h1>
+
+  <img src="./images/thumbnail.png" alt="교착상태(데드락)는 왜 생기나 - 프로세스가 서로 기다리다 멈추는 원리와 해결법">
+
+  <div class="lead">
+  <p>이번 글에서는 교착상태, 흔히 데드락이라 부르는 현상을 정리해 보겠습니다.</p>
+  <p>여러 프로세스가 서로가 쥔 자원을 기다리다 다 함께 멈춰 버리는 상황입니다.</p>
+  <p>원리부터 실제 사례, 그리고 푸는 방법까지 차례로 짚어 보겠습니다.</p>
+  </div>
+
+  <hr>
+
+  <h2>교착상태란 무엇인가</h2>
+  <p>교착상태는 둘 이상의 프로세스가 서로 상대의 자원을 기다리며 영원히 멈춘 상태를 말합니다.</p>
+  <p>나는 상대가 쥔 것을 기다립니다. 그런데 그 상대도 내가 쥔 것을 기다립니다.</p>
+  <p>결국 아무도 앞으로 나아가지 못합니다.</p>
+  <p>좁은 다리 위에서 마주 온 두 차를 떠올리시면 쉽습니다. 서로 물러서지 않으면 둘 다 다리를 건너지 못합니다.</p>
+  <p>여기서 중요한 특징이 하나 있습니다. 교착에 빠진 프로세스는 상태 변화 자체가 없다는 점입니다.</p>
+  <p>바쁘게 무언가를 시도하는 것이 아니라, 그저 멈춰서 기다립니다. 이 '완전한 정지'가 뒤에서 다룰 라이브락·기아와 데드락을 가르는 기준이 됩니다.</p>
+
+  <hr>
+
+  <h2>왜 멈추는가 — 네 가지 조건</h2>
+  <p>데드락은 아무 때나 생기지 않습니다. 컴퓨터과학자 에드워드 코프만이 정리한 네 가지 조건이 동시에 갖춰질 때만 발생합니다.</p>
+  <p>이를 코프만 조건이라 부릅니다.</p>
+  <p>첫째, 상호 배제입니다. 자원을 한 번에 한 프로세스만 쓸 수 있어야 합니다. 프린터나 특정 메모리처럼 나눠 쓸 수 없는 자원이 그렇습니다.</p>
+  <p>둘째, 점유와 대기입니다. 이미 무언가를 쥔 채로 또 다른 자원을 기다리는 상태입니다.</p>
+  <p>셋째, 비선점입니다. 쥔 자원을 강제로 빼앗을 수 없고, 주인이 스스로 놓아줄 때까지 기다려야 합니다.</p>
+  <p>넷째, 순환 대기입니다. 프로세스들이 원형 사슬을 이뤄 각자 다음 사람이 쥔 자원을 기다립니다.</p>
+
+  <img src="./images/body-1.png" alt="데드락의 4대 필요조건 - 상호 배제, 점유와 대기, 비선점, 순환 대기">
+
+  <p>핵심은 이것입니다. 네 조건 중 하나라도 깨지면 데드락은 성립하지 않습니다.</p>
+  <p>특히 마지막 순환 대기가 완성되는 순간이 방아쇠입니다. 앞의 세 조건이 갖춰진 상태에서 고리가 닫히면, 그때 교착이 확정됩니다.</p>
+
+  <hr>
+
+  <h2>눈에 보이는 교착 — 자원 할당 그래프</h2>
+  <p>교착은 말로 풀면 헷갈리지만, 그림으로 그리면 한눈에 드러납니다.</p>
+  <p>프로세스를 동그라미로, 자원을 네모로 그립니다.</p>
+  <p>자원이 프로세스에 배정되면 자원에서 프로세스로 화살표를 긋습니다. 반대로 프로세스가 자원을 요청 중이면 프로세스에서 자원으로 화살표를 긋습니다.</p>
+  <p>이렇게 그린 그림을 자원 할당 그래프라 부릅니다.</p>
+  <p>여기서 규칙이 하나 나옵니다. 화살표를 따라가다 제자리로 돌아오는 방향 사이클이 생기면, 그 고리가 바로 순환 대기입니다.</p>
+  <p>특히 자원마다 인스턴스가 하나뿐이라면, 사이클이 있다는 말과 교착에 빠졌다는 말은 같은 뜻이 됩니다.</p>
+  <p>다만 자원이 여러 개일 때는 조금 다릅니다. 사이클이 있어도 교착이 아닐 수 있습니다. 이럴 때 사이클은 위험 신호일 뿐, 교착의 확정은 아닙니다.</p>
+
+  <hr>
+
+  <h2>고리가 닫히는 순간 — 식사하는 철학자</h2>
+  <p>순환 대기를 가장 잘 보여 주는 그림이 '식사하는 철학자 문제'입니다.</p>
+  <p>에츠허르 데이크스트라가 1965년에 제시한 고전적인 예시입니다.</p>
+  <p>원탁에 철학자 다섯이 앉아 있습니다. 사람과 사람 사이마다 젓가락이 하나씩, 모두 다섯 개가 놓여 있습니다.</p>
+  <p>밥을 먹으려면 양쪽 젓가락 두 개를 동시에 쥐어야 합니다.</p>
+  <p>이제 다섯 명이 동시에 왼쪽 젓가락을 집었다고 해 봅시다.</p>
+  <p>모두가 오른쪽 젓가락을 기다립니다. 그런데 내 오른쪽 젓가락은 옆 사람의 왼쪽 젓가락입니다.</p>
+  <p>다섯 개의 기다림이 완벽한 원을 그립니다. 아무도 두 번째 젓가락을 얻지 못하고, 식사는 영원히 시작되지 않습니다.</p>
+
+  <img src="./images/body-2.png" alt="식사하는 철학자 문제 - 모두 왼쪽부터 집으면 교착, 낮은 번호부터 집으면 해결">
+
+  <p>해법 하나는 의외로 단순합니다. 젓가락에 번호를 매기고, 항상 낮은 번호부터 집게 하는 것입니다.</p>
+  <p>이렇게 하면 가장 높은 번호 젓가락은 한 사람만 쥘 수 있어, 원형 고리가 끊어집니다.</p>
+  <p>자원에 순서를 부여해 순환 대기 조건을 깨는 방식입니다.</p>
+
+  <hr>
+
+  <h2>데드락인 듯 아닌 것 — 라이브락과 기아</h2>
+  <p>교착상태와 헷갈리는 두 가지가 있습니다. 라이브락과 기아입니다.</p>
+  <p>셋은 '진행하지 못한다'는 점만 같고, 속을 들여다보면 다릅니다.</p>
+  <p>라이브락은 멈춰 있지 않습니다. 계속 움직이지만 진전이 없습니다.</p>
+  <p>복도에서 마주친 두 사람이 서로 같은 쪽으로 자꾸 비켜서다 못 지나가는 상황을 떠올리시면 됩니다. 부지런히 반응하지만, 실질 진행은 0입니다.</p>
+  <p>기아는 또 다릅니다. 자원은 있는데, 특정 프로세스가 다른 프로세스들에 계속 밀려 자원을 얻지 못하는 상태입니다.</p>
+
+  <img src="./images/body-3.png" alt="데드락 라이브락 기아 비교 표 - 상태와 핵심 차이">
+
+  <p>정리하면 이렇습니다. 데드락은 서로를 기다리며 멈춘 것, 라이브락은 진전 없이 바쁜 것, 기아는 무기한 밀려나는 것입니다.</p>
+  <p>예전에는 셋을 뭉뚱그려 '멈췄다'고만 여겼습니다. 지금은 원인이 다르니 처방도 달라야 한다는 점을 짚어 둡니다.</p>
+
+  <hr>
+
+  <h2>실제로 어디서 만나나 — DB와 스레드</h2>
+  <p>교착은 교과서 속 이야기만이 아닙니다. 데이터베이스와 멀티스레드 프로그램에서 자주 마주칩니다.</p>
+  <p>가장 흔한 원인은 락을 잠그는 순서가 엇갈리는 것입니다.</p>
+  <p>예를 들어 보겠습니다. 트랜잭션 A는 '재고'를 먼저 잠그고 '계정'을 잠그려 합니다. 트랜잭션 B는 '계정'을 먼저 잠그고 '재고'를 잠그려 합니다.</p>
+  <p>부하가 몰리면 A는 계정을, B는 재고를 서로 기다리며 교착에 빠집니다.</p>
+
+  <img src="./images/body-4.png" alt="락 순서가 엇갈려 교착에 이르는 과정 - A는 재고, B는 계정을 먼저 잠근 뒤 서로 대기">
+
+  <p>다행히 MySQL의 InnoDB 같은 데이터베이스는 이런 상황을 스스로 감지합니다.</p>
+  <p>데드락 탐지가 기본으로 켜져 있어, 교착을 발견하면 둘 중 한 트랜잭션을 자동으로 롤백해 고리를 풉니다.</p>
+  <p>마지막 데드락 내역은 명령 한 줄로 확인할 수 있습니다.</p>
+  <p>실무의 정석은 예방입니다. 모든 트랜잭션과 스레드가 락을 항상 같은 순서로 잡도록 규칙을 통일하면, 순환 대기가 아예 생기지 않습니다.</p>
+
+  <hr>
+
+  <h2>어떻게 푸는가 — 네 갈래의 대응</h2>
+  <p>교착에 대응하는 길은 크게 네 가지입니다.</p>
+  <p>첫째, 예방입니다. 네 조건 중 하나를 아예 못 만들게 막습니다. 락 순서를 전역으로 고정하는 방법이 대표적입니다.</p>
+  <p>둘째, 회피입니다. 데이크스트라의 은행가 알고리즘이 여기 속합니다. 자원을 내주기 전에, 그래도 시스템이 '안전 상태'에 머무는지 계산하고 안전할 때만 할당합니다.</p>
+  <p>다만 각 프로세스가 최대 얼마를 쓸지 미리 알려야 하고, 요청마다 계산 비용이 커서 범용 환경에서는 잘 쓰이지 않습니다.</p>
+  <p>셋째, 탐지와 회복입니다. 자원 할당 그래프에 사이클이 생겼는지 주기적으로 검사하고, 발견되면 프로세스를 종료하거나 자원을 되돌려 고리를 끊습니다.</p>
+
+  <img src="./images/body-5.png" alt="교착 상태에 대응하는 네 가지 전략 - 예방, 회피, 탐지와 회복, 무시">
+
+  <p>넷째, 무시입니다. 조금 뜻밖일 수 있습니다.</p>
+  <p>윈도우와 리눅스 같은 범용 운영체제는 데드락을 적극적으로 막지 않습니다. 드물게 일어나는 일을 상시로 감시하는 비용이 더 크다고 보기 때문입니다.</p>
+  <p>대신 데이터베이스나 실시간 시스템처럼 신뢰성이 중요한 곳에서는 탐지와 회피를 실제로 구현합니다.</p>
+  <p>완벽한 정답은 없습니다. 자원 활용률을 지킬지, 안전을 택할지에 따라 전략이 갈릴 뿐입니다.</p>
+
+  <hr>
+
+  <p>결국 남는 것은 하나입니다.</p>
+  <p>데드락은 네 조건이 동시에 맞물릴 때만 생기고, 그중 하나만 끊어도 풀린다는 사실입니다.</p>
+  <blockquote>"고리를 만들지 않으면, 갇힐 일도 없습니다."</blockquote>
+  <p>여러 프로세스가 서로를 붙잡고 멈추는 모습은 결국 순서의 문제입니다. 누가 무엇을 먼저 쥐느냐를 정해 두는 것만으로도, 멈춤은 대개 비켜 갑니다.</p>
+
+  <div class="tags">
+    <span>#교착상태</span><span>#데드락</span><span>#Deadlock</span><span>#운영체제</span><span>#프로세스</span><span>#동시성</span><span>#락순서</span><span>#은행가알고리즘</span><span>#식사하는철학자</span><span>#IT기초</span>
+  </div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
