@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HBM4 수율 경쟁, 하반기 AI 메모리 주도권 판가름한다</title>
+<style>
+  :root{
+    --ink:#1f2328; --sub:#5a636e; --line:#e8ebee; --accent:#2f6fed; --bg:#f4f6f8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    color:var(--ink); line-height:1.8; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:700px; margin:0 auto; background:#fff; padding:56px 40px 72px;
+        box-shadow:0 1px 24px rgba(0,0,0,.06);}
+  .badge{display:inline-block; background:#2f6fed; color:#fff; font-size:13px; font-weight:700;
+         padding:6px 14px; border-radius:999px; letter-spacing:.5px;}
+  .date{color:var(--sub); font-size:14px; margin-left:10px;}
+  h1{font-size:29px; line-height:1.4; font-weight:800; margin:22px 0 8px; letter-spacing:-.5px;}
+  h2{font-size:21px; font-weight:800; margin:44px 0 14px; padding-bottom:10px;
+     border-bottom:2px solid var(--ink); letter-spacing:-.3px;}
+  p{margin:0 0 15px; font-size:16.5px;}
+  ul{padding-left:20px; margin:0 0 16px;}
+  li{font-size:16.5px; margin:6px 0;}
+  img{max-width:100%; height:auto; display:block; margin:26px auto; border-radius:12px;
+      box-shadow:0 4px 18px rgba(0,0,0,.10);}
+  hr{border:none; border-top:1px solid var(--line); margin:34px 0;}
+  .lead{font-size:16.5px; color:#2a2f36;}
+  .summary{background:#f5f8ff; border:1px solid #dbe6ff; border-radius:12px;
+           padding:18px 22px; margin:22px 0;}
+  .summary li{margin:8px 0;}
+  blockquote{margin:26px 0; padding:16px 22px; background:#f7f8fa; border-left:4px solid var(--accent);
+             font-size:18px; font-weight:700; color:#22272e; border-radius:0 10px 10px 0;}
+  .disc{font-size:13.5px; color:var(--sub); background:#fafbfc; border:1px solid var(--line);
+        border-radius:10px; padding:14px 18px; margin-top:12px;}
+  .tags{margin-top:26px; font-size:14px; color:var(--accent); line-height:2;}
+  .sources{font-size:13.5px; color:var(--sub); background:#fafbfc; border-radius:10px;
+           padding:16px 20px; margin-top:8px;}
+  .sources h3{font-size:15px; color:var(--ink); margin:0 0 10px;}
+  .sources ul{padding-left:18px;}
+  .sources li{font-size:13.5px; margin:5px 0;}
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+  <div><span class="badge">산업·IT 뉴스</span><span class="date">작성일 2026-07-25</span></div>
+
+  <h1>HBM4 수율 경쟁, 하반기 AI 메모리 주도권 판가름한다</h1>
+
+  <img src="./images/thumbnail.png" alt="차세대 HBM4 수율 경쟁 본격화, 하반기 AI 메모리 주도권 다툼 대표 이미지">
+
+  <p class="lead">이번 글에서는 차세대 메모리 'HBM4'를 둘러싼 삼성전자·SK하이닉스·마이크론의 수율 경쟁을 정리해 보겠습니다. 2026년 7월 넷째 주 현재 진행 중인 양산 시점, 수율, 투자 규모를 근거 자료에 기반해 살펴봅니다.</p>
+
+  <div class="summary">
+    <strong>먼저 세 줄로 요약합니다.</strong>
+    <ul>
+      <li>하반기 HBM 시장이 HBM3E에서 HBM4로 재편되며 3사의 수율 경쟁이 본격화됐습니다.</li>
+      <li>SK하이닉스는 7월 22일 청주 P&amp;T7 후공정 팹에 7조931억원 투자를 공시하며 투자를 앞당겼습니다.</li>
+      <li>수율을 먼저 안정시키는 쪽이 하반기 수익을 가져갑니다. 지금은 SK하이닉스가 과반 우위입니다.</li>
+    </ul>
+  </div>
+
+  <h2>■ 무슨 일이 벌어지고 있나</h2>
+  <p>글로벌 메모리 3사가 HBM4 수율 경쟁에 나란히 뛰어들었습니다. HBM4는 6세대 고대역폭메모리입니다. 하반기 출시되는 엔비디아 AI 가속기 '베라 루빈'에 실립니다.</p>
+  <p>수율은 전체 생산한 반도체 가운데 정상 작동하는 제품의 비율입니다. 수율이 오를수록 팔 수 있는 물량이 늘고, 그만큼 수익도 커집니다. HBM은 여러 D램을 쌓아 만들기 때문에 결함 없이 높은 수율을 내기가 특히 까다롭습니다.</p>
+  <p>전자신문 보도에 따르면, 삼성전자·SK하이닉스·마이크론은 지금 HBM4 수율을 끌어올리는 데 총력을 기울이고 있습니다. 하반기 세 회사의 수익을 가를 승부처가 바로 이 수율이라는 뜻입니다.</p>
+  <img src="./images/body-1.png" alt="삼성전자·SK하이닉스·마이크론 HBM4 현황을 한눈에 정리한 핵심 포인트 카드">
+
+  <h2>■ 왜 지금 수율이 승부처인가</h2>
+  <p>배경에는 수익 구조의 변화가 있습니다. 그동안 실적을 이끈 것은 범용 D램이었습니다. 지금은 사정이 달라졌습니다.</p>
+  <p>범용 D램 가격은 1분기에 전 분기 대비 두 배 가까이 뛰었습니다. 그러나 상승 폭이 빠르게 줄고 있습니다. 2분기 30~50%, 3분기는 0~20% 수준으로 관측됩니다.</p>
+  <p>한동안은 범용 D램 공급이 빠듯해 마진이 역전되는 기현상까지 있었습니다. 서버·PC·모바일용 범용 D램을 팔 때 오히려 이문이 더 남는 상황이었습니다.</p>
+  <p>반면 HBM은 수요가 계속 늘어 가격 상승이 이어질 전망입니다. 마진이 큰 HBM이 다시 실적의 승부수로 떠오른 셈입니다. 예전엔 범용 D램이 곳간을 채웠다면, 지금은 HBM이 그 자리를 되찾고 있습니다.</p>
+  <p>여기에 공급이 빠듯합니다. 엔비디아 '베라 루빈' 출시를 앞두고 수요가 몰리는데, 생산에는 병목이 있습니다. 대형 AI 고객사들은 3~5년짜리 장기공급계약으로 물량을 미리 잡고 있습니다. 그 결과 메모리 3사의 가격 협상력은 한층 세졌습니다. HBM4 가격이 내년에 두 배로 오른다는 전망까지 나옵니다.</p>
+  <img src="./images/body-2.png" alt="범용 D램은 식고 HBM은 달아오른다, 메모리 시장 구조 변화 강조 이미지">
+
+  <h2>■ 삼성전자 — 가장 먼저 양산, 수율로 반격</h2>
+  <p>삼성전자는 올해 2월 업계에서 가장 먼저 HBM4 양산과 출하를 시작했습니다. 이후 약 130일 만에 HBM4 매출 10억 달러를 달성한 것으로 전해집니다.</p>
+  <p>수율도 빠르게 올라왔습니다. 업계에서는 삼성전자가 HBM4 수율을 70% 수준까지 끌어올린 것으로 봅니다. 바탕이 된 것은 1c(10나노 6세대) D램입니다. 올 초 이미 양산 안정권인 80%를 넘겼습니다.</p>
+  <p>차세대 제품인 HBM4E 수율도 최근 70%를 넘어선 것으로 전해집니다. 삼성전자는 HBM 생산능력의 절반가량을 HBM4에 배정한 것으로 알려졌습니다. 승부수가 통한다면 내년에는 HBM 1위를 노려볼 수 있다는 관측도 나옵니다.</p>
+  <p>다만 조심스러운 시각도 있습니다. 삼성전자 HBM4 수율이 아직 SK하이닉스·마이크론에 못 미친다는 분석도 함께 존재합니다. 한쪽으로 단정하기에는 이른 국면입니다.</p>
+
+  <h2>■ SK하이닉스 — 수율 안정과 청주 P&amp;T7 투자 가속</h2>
+  <p>SK하이닉스는 검증된 1b D램과 MR-MUF 패키징으로 양산 안정성을 앞세웁니다. HBM4는 전력효율을 40% 개선하고 데이터 전송속도를 10Gbps로 끌어올렸다고 밝혔습니다. HBM4 수율의 구체적 수치는 공개되지 않았지만, 안정권으로 들어서는 중이라는 관측입니다.</p>
+  <p>주목할 소식은 후공정 투자입니다. SK하이닉스는 7월 22일 공시를 통해 청주 P&amp;T7 팹 건설에 7조931억원을 투자한다고 밝혔습니다. 투자 기간은 2025년 11월부터 2032년 말까지입니다.</p>
+  <p>이번 공시는 투자 일정이 앞당겨지며 이사회 결의 금액이 늘어 다시 의결한 것입니다. P&amp;T7 총 투자비 19조 원 자체에는 변동이 없습니다.</p>
+  <p>P&amp;T7은 패키징과 테스트를 맡는 후공정 전용 팹입니다. HBM은 D램을 여러 층 쌓고 첨단 패키징을 입혀야 합니다. 안정적인 후공정 능력이 곧 경쟁력인 이유입니다. 회사는 신규 장비 발주도 준비하며 공급 물량을 늘리려 하고 있습니다.</p>
+  <img src="./images/body-3.png" alt="SK하이닉스 청주 P&amp;T7 후공정 투자 일정을 보여주는 단계별 다이어그램">
+
+  <h2>■ 마이크론 — 추격자의 속도전</h2>
+  <p>마이크론도 만만치 않습니다. 최근 분기 실적에서 HBM4 매출 10억 달러 달성을 알렸습니다. 연말까지 HBM 시장 점유율을 20%대로 끌어올리겠다는 구상도 내놨습니다.</p>
+  <p>생산능력에서는 한국 두 회사에 아직 밀립니다. 그래서 수율 개선과 대량 생산 전환에 속도를 냅니다. 대규모 설비 투자도 이미 진행 중입니다. HBM4 샘플은 최대 11Gbps 속도로 내놓으며 사양 경쟁에서도 물러서지 않고 있습니다. 올해 HBM 생산능력은 사실상 완판된 것으로 알려져, 남은 변수는 결국 얼마나 빨리 물량을 늘리느냐입니다.</p>
+  <p>세 회사를 나란히 놓으면 강점이 뚜렷하게 갈립니다.</p>
+  <img src="./images/body-4.png" alt="삼성전자·SK하이닉스·마이크론 HBM4 양산 시점·수율·강점·점유율 전망 비교 표">
+
+  <h2>■ 점유율 구도와 앞으로의 전망</h2>
+  <p>현재 판세는 SK하이닉스가 앞서 있습니다. 카운터포인트리서치 기준 1분기 HBM 매출 점유율은 SK하이닉스 58%, 삼성전자와 마이크론이 각각 21%입니다.</p>
+  <p>HBM4 국면 전망은 소스마다 수치가 조금씩 다릅니다. 대체로 SK하이닉스 50%대 중반에서 60% 이상, 삼성전자 20%대 후반, 마이크론 10%대 후반에서 20% 초반으로 모입니다. 수치는 갈려도 순위 구도는 대체로 일치합니다.</p>
+  <p>수요처도 넓어지고 있습니다. 엔비디아를 넘어 구글 등 커스텀 ASIC으로 확대되며 출하 증가에 속도가 붙을 전망입니다. SK하이닉스는 장기계약 비중이 늘며 AI 데이터센터용 매출 비중이 70%까지 커질 것이라는 증권가 분석도 나옵니다.</p>
+  <p>주의할 점도 있습니다. 수율과 점유율 수치는 회사가 공식 확정한 값이 아니라 시장 관측과 추정이 섞여 있습니다. 같은 HBM4를 두고도 삼성전자가 앞선다는 분석과 SK하이닉스가 앞선다는 분석이 함께 나옵니다. 그래서 특정 숫자 하나에 기대기보다, 흐름과 방향을 읽는 편이 안전합니다.</p>
+  <img src="./images/body-5.png" alt="2026년 HBM 시장 점유율 현황과 HBM4 전망을 정리한 핵심 포인트 카드">
+
+  <hr>
+  <p>정리하면 이렇습니다. HBM4의 승패는 화려한 사양보다 수율이라는 기본기에서 갈립니다. 먼저 안정적인 수율에 도달한 쪽이 하반기 수익과 다음 세대의 주도권을 함께 가져갈 것입니다.</p>
+  <blockquote>"결국 남는 것은, 결함 없이 쌓아 올리는 힘입니다."</blockquote>
+  <p>지금은 SK하이닉스가 앞서 있지만, 삼성전자의 반격과 마이크론의 추격도 만만치 않습니다. 하반기 수율 곡선이 이 판을 어디로 끌고 갈지, 조용히 지켜볼 만합니다.</p>
+
+  <div class="disc">※ 이 글은 정보 제공을 위한 것이며, 특정 종목에 대한 투자 권유가 아닙니다. 투자 판단과 그 책임은 투자자 본인에게 있습니다.</div>
+
+  <div class="tags">#HBM4 #고대역폭메모리 #SK하이닉스 #삼성전자 #마이크론 #AI메모리 #반도체수율 #청주P&amp;T7 #엔비디아베라루빈 #반도체뉴스</div>
+
+  <hr>
+  <div class="sources">
+    <h3>참고 출처</h3>
+    <ul>
+      <li>전자신문(2026-07-21), 「메모리 반도체 3사, 'HBM4 수율' 경쟁 점화」</li>
+      <li>한국경제(2026-07-22), 「SK하이닉스, 청주 P&amp;T7 생산시설에 7조931억원 투자」</li>
+      <li>머니투데이(2026-07-02), 「'HBM4' 시장 커지고 가격 오른다…삼성·SK·마이크론 '점유율 전쟁'」</li>
+      <li>파이낸셜뉴스(2026-07-15), 「HBM4 승부수 통했다…삼성전자, 내년 HBM 1위 전망」</li>
+      <li>글로벌이코노믹·경향신문·SK하이닉스 뉴스룸·카운터포인트리서치 등</li>
+    </ul>
+  </div>
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
