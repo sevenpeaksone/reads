@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2분기 GDP 0.6% 깜짝 성장과 정부 3% 상향, 반도체 슈퍼사이클이 가린 리스크</title>
+<style>
+  :root{--ink:#1a2233;--gray:#5b6472;--line:#e6ebf2;--navy:#0f2140;--red:#e5484d;--bg:#f4f7fb;--gold:#c98a12;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:#eef2f7;color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:700px;margin:0 auto;background:#fff;padding:44px 40px 72px;
+    box-shadow:0 2px 24px rgba(15,33,64,0.06);}
+  .meta{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+  .badge{background:var(--red);color:#fff;font-size:14px;font-weight:800;
+    padding:6px 16px;border-radius:999px;letter-spacing:0.5px;}
+  .date{color:var(--gray);font-size:14px;font-weight:600;}
+  h1{font-size:30px;line-height:1.35;font-weight:900;letter-spacing:-0.5px;
+    margin:6px 0 26px;color:var(--navy);}
+  h2{font-size:22px;font-weight:800;color:var(--navy);margin:44px 0 16px;
+    padding-left:14px;border-left:5px solid var(--red);line-height:1.4;}
+  p{font-size:16.5px;line-height:1.85;margin:16px 0;color:#25303f;}
+  hr{border:0;border-top:1px solid var(--line);margin:34px 0;}
+  figure{margin:26px 0;text-align:center;}
+  img{max-width:100%;height:auto;border-radius:14px;
+    box-shadow:0 6px 22px rgba(15,33,64,0.10);}
+  figcaption{font-size:13px;color:var(--gray);margin-top:10px;line-height:1.5;}
+  .disclaimer{font-size:13.5px;color:var(--gray);background:var(--bg);
+    border-radius:10px;padding:16px 20px;line-height:1.7;margin-top:30px;}
+  .tags{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);
+    display:flex;flex-wrap:wrap;gap:9px;}
+  .tag{background:#eef3fa;color:#3a5178;font-size:13.5px;font-weight:600;
+    padding:6px 13px;border-radius:8px;}
+  strong{font-weight:800;}
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/economy/index.html">경제 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+  <article class="wrap">
+    <div class="meta"><span class="badge">경제 뉴스</span><span class="date">2026. 07. 26</span></div>
+    <h1>2분기 GDP 0.6% 깜짝 성장과 정부 3% 상향, 반도체 슈퍼사이클이 가린 리스크</h1>
+    <p>이번 글에서는 2026년 2분기 한국 경제 성적표와 정부의 성장률 상향 소식을 정리해 보겠습니다.<br>숫자는 분명 좋습니다. 다만 그 숫자가 어디에서 왔는지, 그 이면에 무엇이 가려져 있는지를 함께 짚어보려 합니다.</p>
+<figure><img src="./images/thumbnail.png" alt="2026년 2분기 한국 GDP 0.6% 깜짝 성장과 정부 연간 성장률 3% 상향을 알리는 경제 뉴스 표지"><figcaption>2026년 2분기 한국 GDP 0.6% 깜짝 성장과 정부 연간 성장률 3% 상향을 알리는 경제 뉴스 표지</figcaption></figure>
+<hr>
+<h2>무슨 일이 있었나</h2>
+<p>한국은행이 7월 23일 2026년 2분기 실질 국내총생산(GDP) 속보치를 내놨습니다.<br>결과는 전분기 대비 0.6% 성장.<br>전년 동기와 비교하면 3.7% 늘었습니다.</p>
+<p>숫자만 보면 평범해 보일 수 있습니다.<br>그러나 맥락을 얹으면 이야기가 달라집니다.</p>
+<p>한은이 지난 5월 제시했던 2분기 전망치는 0.2%였습니다.<br>실제 성적은 그 세 배에 가까웠습니다.<br>전망을 0.4%포인트나 웃돈 셈입니다.</p>
+<p>직전 분기에 이어 두 개 분기 연속 &#x27;깜짝 성장&#x27;입니다.<br>시장에서는 이를 두고 서프라이즈라는 말을 반복해서 씁니다.</p>
+<p>한 가지 더 눈에 띄는 지표가 있습니다.<br>실질 국내총소득(GDI)입니다.<br>2분기 GDI는 전년 동기 대비 15.6% 뛰었습니다.<br>1998년 1분기 이후 38년 3개월 만의 최고치입니다.<br>반도체 값이 오르며 교역조건이 좋아진 것이 실질 소득을 크게 밀어 올렸습니다.</p>
+<figure><img src="./images/body-1.png" alt="2026년 2분기 실질 GDP 전분기대비 0.6%, 전년동기대비 3.7%, 실질 GDI 15.6% 핵심 수치 카드"><figcaption>2026년 2분기 실질 GDP 전분기대비 0.6%, 전년동기대비 3.7%, 실질 GDI 15.6% 핵심 수치 카드</figcaption></figure>
+<hr>
+<h2>성장의 엔진은 반도체였다</h2>
+<p>이번 성장을 끌고 간 것은 수출이었습니다.<br>그중에서도 반도체입니다.</p>
+<p>2분기 수출은 전기 대비 1.4% 늘었습니다.<br>반도체와 기계·장비가 앞장섰습니다.<br>AI 데이터센터 투자가 전 세계에서 늘면서 메모리 반도체 수요가 함께 커진 결과입니다.</p>
+<p>부문별로 보면 그림이 선명합니다.<br>민간소비는 0.4% 늘었습니다. 가전제품 같은 재화와 음식·숙박 같은 서비스가 함께 회복됐습니다.<br>반면 건설투자는 토목 부진으로 0.2% 뒷걸음쳤습니다.<br>성장에 대한 기여도는 내수와 순수출이 각각 0.3%포인트씩이었습니다.<br>중동에서 전운이 감도는 와중에도 반도체가 성장을 떠받쳤다는 평가가 나옵니다.</p>
+<figure><img src="./images/body-2.png" alt="2026년 2분기 부문별 성장 기여도 막대 그래픽 - 수출 1.4%, 민간소비 0.4%, 순수출 기여 0.3%p, 건설투자 -0.2%"><figcaption>2026년 2분기 부문별 성장 기여도 막대 그래픽 - 수출 1.4%, 민간소비 0.4%, 순수출 기여 0.3%p, 건설투자 -0.2%</figcaption></figure>
+<hr>
+<h2>정부는 왜 성장률을 3%로 올렸나</h2>
+<p>좋은 성적표는 전망치도 끌어올렸습니다.</p>
+<p>정부는 이보다 앞선 7월 14일 &#x27;2026년 하반기 경제성장전략&#x27;을 발표했습니다.<br>이 자리에서 올해 실질 성장률 전망을 3.0%로 상향했습니다.<br>경상성장률은 12.3%로 제시했습니다.</p>
+<p>정부의 그림은 단순한 숫자 상향이 아닙니다.<br>반도체 호황으로 번 성장의 힘을 미래 산업 투자로 잇겠다는 구상입니다.<br>이른바 &#x27;3-4-5 전략&#x27;입니다.<br>2030년까지 잠재성장률 3%, 수출 4강, 1인당 국민소득 5만 달러를 이루겠다는 목표입니다.<br>여기에 반도체·AI 데이터센터·피지컬AI를 축으로 한 1,350조 원 규모의 3대 메가 프로젝트도 붙였습니다.</p>
+<p>다만 여기서 주의할 지점이 하나 있습니다.<br>3.0%는 정부(기획재정부)의 전망입니다.<br>한국은행의 공식 전망치는 다릅니다.<br>한은은 5월 기준 2.6%를 제시했고, 2분기 호조 뒤에야 &quot;3% 성장도 가능하다&quot;는 표현을 조심스레 덧붙였습니다.<br>같은 경제를 두고 정부는 3.0%, 한은은 2.6%를 말하고 있는 셈입니다.<br>어느 쪽 숫자를 인용하느냐에 따라 체감이 달라지니, 출처를 함께 보는 편이 정확합니다.</p>
+<figure><img src="./images/body-3.png" alt="정부 3.0%와 한국은행 2.6% 연간 성장률 전망 비교와 정부의 3-4-5 전략 카드"><figcaption>정부 3.0%와 한국은행 2.6% 연간 성장률 전망 비교와 정부의 3-4-5 전략 카드</figcaption></figure>
+<hr>
+<h2>좋은 숫자 뒤에 남는 질문들</h2>
+<p>여기까지가 밝은 이야기입니다.<br>이제 그늘을 봅니다.</p>
+<p>첫째, 반도체 편중입니다.<br>전체 수출에서 반도체가 차지하는 비중은 5월 기준 42.3%까지 올랐습니다.<br>전년 말 29.9%에서 가파르게 뛴 수치입니다.<br>반도체 수출이 1년 새 40% 넘게 느는 동안, 철강과 석유화학은 1~2% 성장에 그치거나 줄었습니다.<br>자동차와 기계 같은 전통 제조업도 힘겨웠습니다.<br>이렇게 잘되는 쪽과 그렇지 못한 쪽이 갈리는 모습을 두고 &#x27;K자형 양극화&#x27;라 부릅니다.</p>
+<p>한쪽 다리로 서 있는 성장은 그 다리가 흔들리면 함께 흔들립니다.<br>반도체 업황이 꺾이거나 특정 시장 수요가 식으면, 전체 성장률이 크게 출렁일 수 있습니다.</p>
+<p>둘째, 체감의 문제입니다.<br>거시 지표는 환호하는데 서민이 느끼는 살림살이는 그렇지 않다는 지적이 나옵니다.<br>&#x27;거시의 환희, 미시의 비명&#x27;이라는 표현이 이를 압축합니다.<br>성장률 숫자가 반도체가 만든 착시일 수 있다는 경계입니다.</p>
+<p>셋째, 대외 변수입니다.<br>중동의 교전이 이어지며 국제유가가 들썩입니다.<br>유가가 오르면 수입물가와 생산자물가가 따라 오르고, 겨우 살아나던 내수가 다시 위축될 수 있습니다.<br>원달러 환율도 7월 하순 1,470원대 중반에서 오르내렸습니다.<br>높은 환율은 수출 기업에 유리한 면이 있지만, 수입 물가를 자극해 국민 부담을 키우는 양면을 지닙니다.</p>
+<figure><img src="./images/body-4.png" alt="반도체 수출 비중이 전년말 29.9%에서 2026년 5월 42.3%로 급등한 K자형 양극화 그래픽"><figcaption>반도체 수출 비중이 전년말 29.9%에서 2026년 5월 42.3%로 급등한 K자형 양극화 그래픽</figcaption></figure>
+<hr>
+<h2>금리는 방향을 틀었다</h2>
+<p>성장세는 통화정책의 방향도 바꿔놨습니다.</p>
+<p>한국은행 금융통화위원회는 7월 16일 기준금리를 연 2.50%에서 2.75%로 0.25%포인트 올렸습니다.<br>만장일치 결정이었습니다.<br>2023년 1월 이후 약 3년 6개월 만의 첫 인상입니다.</p>
+<p>이 한 번의 인상은 단순한 조정이 아닙니다.<br>내리던 흐름에서 올리는 흐름으로, 긴축 쪽으로 방향을 튼 신호로 읽힙니다.<br>배경에는 탄탄한 성장세, 물가와 기대인플레이션, 불어난 가계부채, 그리고 환율과 부동산 같은 금융안정 부담이 함께 놓여 있습니다.<br>성장이 좋다는 것은 반가운 소식이지만, 그만큼 빚을 진 가계의 이자 부담은 무거워집니다.<br>성장의 온기가 수출 대기업에 집중되는 사이, 금리 인상의 냉기는 대출을 안은 가계와 자영업자에게 먼저 닿습니다.<br>같은 경제 안에서도 온도가 이렇게 엇갈립니다.</p>
+<figure><img src="./images/body-5.png" alt="2026년 한국 경제 네 가지 리스크 카드 - 반도체 편중, 중동·유가, 원달러 환율 1470원대, 기준금리 2.75% 인상"><figcaption>2026년 한국 경제 네 가지 리스크 카드 - 반도체 편중, 중동·유가, 원달러 환율 1470원대, 기준금리 2.75% 인상</figcaption></figure>
+<hr>
+<h2>앞으로 무엇을 볼 것인가</h2>
+<p>그렇다면 하반기에는 어디를 지켜봐야 할까요.</p>
+<p>먼저 반도체 사이클의 지속성입니다.<br>지금의 호황은 AI 투자라는 거대한 흐름에 올라타 있습니다.<br>그 흐름이 언제까지 이어지느냐가 성장의 높이를 결정합니다.<br>전년 동기 대비 지표는 지난해가 부진했던 기저효과도 얹혀 있어, 하반기로 갈수록 성장률 숫자는 다소 낮아질 수 있습니다.</p>
+<p>다음은 대외 통상 환경입니다.<br>반도체가 대미 수출에 크게 기대는 만큼, 미국의 관세·통상 정책 변화가 곧바로 우리 성적표에 반영됩니다.<br>품목도 시장도 한곳에 몰릴수록 외부 충격에 약해지는 법입니다.</p>
+<p>마지막은 금리의 다음 발걸음입니다.<br>이번 인상이 한 번으로 끝날지, 추가 인상으로 이어질지에 따라 가계와 부동산 시장의 체감은 크게 달라집니다.<br>성장과 물가, 부채 사이에서 한국은행이 어떤 균형점을 고를지가 하반기의 관전 포인트입니다.</p>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>2026년 2분기 한국 경제는 반도체라는 강한 엔진 덕분에 예상을 뛰어넘는 성적을 냈습니다.<br>정부는 이 힘을 근거로 연간 성장률을 3%까지 끌어올렸습니다.<br>하지만 그 성장은 특정 산업에 크게 기대고 있고, 체감 경기와 대외 변수라는 그늘을 함께 안고 있습니다.</p>
+<p>결국 남는 것은 하나의 질문입니다.<br>&quot;이 성장을, 반도체 한 품목에만 기대지 않는 성장으로 어떻게 넓힐 것인가.&quot;<br>숫자의 환호가 오래 이어지려면, 그 답을 지금부터 준비해야 할 것입니다.</p>
+<hr>
+<p class="disclaimer">※ 이 글은 공개된 통계와 언론 보도를 바탕으로 한 경제 해설이며, 특정 자산에 대한 투자 권유가 아닙니다. 투자 판단과 그 결과에 대한 책임은 투자자 본인에게 있습니다.</p>
+<div class="tags"><span class="tag">#2분기GDP</span><span class="tag">#한국경제성장률</span><span class="tag">#반도체슈퍼사이클</span><span class="tag">#경제성장전략</span><span class="tag">#기준금리인상</span><span class="tag">#K자형양극화</span><span class="tag">#원달러환율</span><span class="tag">#경제뉴스</span></div>
+  </article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
