@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>필립스 곡선이란 — 물가를 잡으면 실업률이 오르는 이유</title>
+<style>
+  :root { --accent:#2BBE78; --ink:#1b1f24; --mute:#5c6672; --line:#e6e9ee; --bg:#f7f8fa; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    line-height:1.8; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:700px; margin:0 auto; padding:48px 24px 96px; background:#fff;
+    min-height:100vh; box-shadow:0 0 40px rgba(0,0,0,.04); }
+  .meta { display:flex; align-items:center; gap:12px; margin-bottom:22px; }
+  .badge { background:var(--accent); color:#fff; font-size:13px; font-weight:700;
+    padding:5px 13px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:29px; line-height:1.4; font-weight:800; margin:6px 0 30px; letter-spacing:-.01em; }
+  h2 { font-size:21px; font-weight:700; margin:46px 0 16px; padding-left:13px;
+    border-left:4px solid var(--accent); line-height:1.45; }
+  p { font-size:16.5px; margin:16px 0; word-break:keep-all; }
+  strong { font-weight:700; color:#0f1113; }
+  hr { border:none; border-top:1px solid var(--line); margin:36px 0; }
+  figure { margin:28px 0; text-align:center; }
+  figure img { max-width:100%; height:auto; border-radius:12px; border:1px solid var(--line); }
+  figcaption { font-size:13px; color:var(--mute); margin-top:9px; }
+  blockquote.pull { border:none; margin:28px 0; padding:20px 24px; background:rgba(43,190,120,.07);
+    border-left:4px solid var(--accent); border-radius:8px; font-size:16.5px; font-weight:700; color:#0f1113; }
+  .tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:40px; padding-top:26px;
+    border-top:1px solid var(--line); }
+  .tag { color:var(--accent); background:rgba(43,190,120,.09); font-size:13.5px;
+    padding:5px 11px; border-radius:7px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+  <div class="wrap">
+    <div class="meta"><span class="badge">경제</span><span class="date">2026-07-29</span></div>
+    <h1>필립스 곡선이란 — 물가를 잡으면 실업률이 오르는 이유</h1>
+
+    <figure>
+      <img src="./images/thumbnail.png" alt="필립스 곡선이란 - 물가를 잡으면 실업률이 오르는 이유">
+      <figcaption>필립스 곡선이란 - 물가를 잡으면 실업률이 오르는 이유</figcaption>
+    </figure>
+
+    <p>오늘은 필립스 곡선에 대해 이야기해 보려 합니다. 물가와 실업률이 반대로 움직인다는 이 오래된 경제 이론이 어디서 나왔고, 왜 한때 정책의 정답처럼 여겨졌으며, 어떻게 한계에 부딪혔는지 정리해 보겠습니다.</p>
+
+    <hr>
+
+    <h2>임금이 오르면 실업자는 준다 — 필립스의 발견</h2>
+    <p>이야기는 1958년으로 거슬러 올라갑니다. 뉴질랜드 출신 경제학자 A. W. 필립스는 학술지 『이코노미카』에 논문 한 편을 실었습니다. 1861년부터 1957년까지, 거의 100년에 이르는 영국의 자료를 들여다본 결과였습니다.</p>
+    <p>그가 실제로 비교한 것은 실업률과 <strong>명목임금 상승률</strong>이었습니다. 물가가 아니었습니다. 그런데도 결과는 뚜렷했습니다. 실업률이 낮을 때는 임금이 가파르게 올랐고, 실업률이 높을 때는 임금 상승이 더디거나 거의 멈췄습니다.</p>
+    <p>실업자가 적다는 것은 기업이 사람을 구하기 어렵다는 뜻입니다. 그러니 더 높은 임금을 제시해서라도 인력을 붙잡아야 합니다. 반대로 실업자가 많으면 기업은 임금을 굳이 올리지 않아도 사람을 구할 수 있습니다. 단순하지만 설득력 있는 논리였습니다.</p>
+
+    <hr>
+
+    <h2>새뮤얼슨과 솔로, 정책의 '메뉴판'으로 만들다</h2>
+    <p>필립스의 발견을 오늘날 익숙한 형태로 바꾼 것은 다른 두 사람이었습니다. 1960년, 폴 새뮤얼슨과 로버트 솔로가 『아메리칸 이코노믹 리뷰』에 논문을 발표했습니다.</p>
+    <p>두 사람은 임금 대신 <strong>물가 상승률</strong>을 실업률과 짝지었습니다. 미국의 1934년부터 1958년까지 자료를 분석한 결과, 여기서도 물가와 실업률은 반대 방향으로 움직였습니다. 이렇게 해서 오늘날 우리가 아는, 세로축에 인플레이션율을 놓고 우하향하는 그래프가 만들어졌습니다.</p>
+    <p>새뮤얼슨과 솔로는 이 관계를 정책 입안자가 고를 수 있는 <strong>"메뉴판(menu of choice)"</strong>이라 불렀습니다. 인플레이션을 조금 더 감수하면 실업률을 낮출 수 있고, 실업을 더 감수하면 물가를 안정시킬 수 있다는 뜻입니다.</p>
+    <p>두 사람은 이 관계가 단기적인 것이며 장기적으로는 달라질 수 있다고 스스로 단서를 달았습니다. 그런데 1960년대의 정책 논의에서 이 단서는 거의 잊혔습니다. 정부는 실업률과 물가 중 하나를 골라 손잡이를 돌리면 된다고 믿기 시작했습니다.</p>
+
+    <hr>
+
+    <h2>자연실업률이라는 반전 — 프리드먼과 펠프스</h2>
+    <p>이 믿음에 제동을 건 것은 두 경제학자였습니다. 에드먼드 펠프스는 1967년과 1968년에 잇달아 논문을 내놓았고, 밀턴 프리드먼은 1967년 말 미국경제학회 회장 취임 연설에서 같은 문제를 짚었습니다. 이 연설은 이듬해 「통화정책의 역할」이라는 논문으로 출간되었습니다.</p>
+    <p>두 사람의 주장은 같은 방향을 가리켰습니다. 필립스 곡선이 보여주는 상충관계는 사람들이 인플레이션을 <strong>미처 예상하지 못했을 때만</strong> 성립한다는 것이었습니다. 예상하지 못한 물가 상승은 사람을 착각하게 만듭니다. 이 착각이 풀리면 관계도 사라집니다.</p>
+    <p>여기서 나온 개념이 <strong>자연실업률(natural rate of unemployment)</strong>입니다. 경기 상황과 무관하게, 노동시장 구조 자체가 만들어내는 실업률 수준이 있다는 뜻입니다. 정부가 통화 확대로 실업률을 이 수준 아래로 억지로 끌어내리면, 그 효과는 일시적일 뿐이라는 것이 두 사람의 결론이었습니다.</p>
+    <p>이 개념은 훗날 조금 다른 이름으로도 불리게 됩니다. 1975년 프랑코 모딜리아니와 루카스 파파데모스는 '물가상승이 없는 실업률'이라는 뜻의 NIRU를 제안했습니다. 이후 '비가속 인플레이션 실업률', 즉 오늘날의 NAIRU로 다듬어졌습니다. 이 수준 아래로 실업률이 내려가면 인플레이션이 가속되기 시작한다는 뜻입니다. 이름은 달라도 뿌리는 프리드먼-펠프스의 자연실업률과 같습니다.</p>
+
+    <hr>
+
+    <h2>기대가 필립스 곡선을 움직인다</h2>
+
+    <figure>
+      <img src="./images/body-1.png" alt="기대 인플레이션이 필립스 곡선을 밀어올리는 4단계 과정">
+      <figcaption>기대 인플레이션이 필립스 곡선을 밀어올리는 4단계 과정</figcaption>
+    </figure>
+
+    <p>프리드먼과 펠프스의 논리를 단계로 풀면 이렇습니다. 처음에는 실업률이 자연율 수준에 머물러 있고, 실제 인플레이션과 예상 인플레이션이 일치합니다.</p>
+    <p>정부가 경기를 부양하면 실제 물가가 예상보다 빠르게 오릅니다. 노동자는 이를 곧바로 알아채지 못합니다. 실질임금이 낮아진 셈이니 기업은 고용을 늘리고, 실업률은 잠시 떨어집니다.</p>
+    <p>그런데 시간이 지나면 노동자와 기업 모두 높아진 물가를 학습합니다. 예상 인플레이션을 위로 조정하고, 임금 요구도 따라 올립니다. 그러면 실업률은 다시 자연율로 돌아옵니다. 남는 것은 더 높아진 물가뿐입니다.</p>
+    <p>정부가 이 과정을 반복하면 어떻게 될까요. 실업률은 매번 제자리로 돌아오고, 인플레이션만 계단을 오르듯 계속 높아집니다. 실업률을 낮추려던 시도가 결국 물가만 밀어 올리는 셈입니다.</p>
+
+    <hr>
+
+    <h2>1970년대, 곡선이 무너지다 — 스태그플레이션</h2>
+
+    <figure>
+      <img src="./images/body-2.png" alt="1960년대의 전제와 1970년대 스태그플레이션 현실을 좌우로 대비한 그림">
+      <figcaption>1960년대의 전제와 1970년대 스태그플레이션 현실을 좌우로 대비한 그림</figcaption>
+    </figure>
+
+    <p>이론이 예견한 균열은 실제로 찾아왔습니다. 1970년대, 세계 경제는 처음 겪는 조합을 마주합니다. 물가도 오르고 실업률도 함께 오르는, 이른바 <strong>스태그플레이션(stagflation)</strong>이었습니다. 우하향 곡선만 알고 있던 사람들에게는 낯선 풍경이었습니다.</p>
+    <p>계기는 두 번의 오일쇼크였습니다. 1973년, 아랍석유수출국기구가 원유 금수 조치를 발표하며 유가가 치솟았습니다. 미국 경제는 1973년부터 1975년까지 깊은 침체에 빠졌습니다. 1978년에는 이란 혁명의 여파로 세계 원유 생산이 크게 줄었고, 1979년과 1980년 사이 유가는 다시 두 배로 뛰었습니다.</p>
+    <p>오일쇼크 같은 공급 충격은 필립스 곡선이 원래 전제하지 않았던 변수였습니다. 기존 곡선은 수요가 늘면 물가도 오르고 고용도 는다는 그림을 전제로 했습니다. 그런데 공급이 줄어 물가가 오르는 상황에서는 생산과 고용이 함께 위축됩니다. 물가와 실업률이 같은 방향으로 움직이는 것입니다.</p>
+    <p>여기에 프리드먼과 펠프스가 짚었던 기대 인플레이션의 상승이 겹쳤습니다. 높은 물가가 오래 이어지자 사람들은 앞으로도 물가가 계속 오를 것이라 예상하기 시작했습니다. 이 기대가 임금과 가격에 그대로 반영되면서, 인플레이션은 실업률과 무관하게 스스로 굳어졌습니다. 예전엔 실업률만 잡으면 물가도 따라 움직인다고 믿었습니다. 지금은 공급 충격과 기대라는 별개의 힘이 곡선 자체를 밀어 올릴 수 있다는 사실이 분명해졌습니다.</p>
+
+    <hr>
+
+    <h2>그래서 지금 필립스 곡선은 죽었나</h2>
+
+    <figure>
+      <img src="./images/body-3.png" alt="단기 필립스 곡선과 장기 필립스 곡선 비교 표">
+      <figcaption>단기 필립스 곡선과 장기 필립스 곡선 비교 표</figcaption>
+    </figure>
+
+    <p>여기서 균형 잡힌 시각이 필요합니다. 필립스 곡선이 통째로 틀렸다고 보기는 어렵습니다.</p>
+    <p>단기적으로는 여전히 상충관계가 관찰됩니다. 경기가 과열되면 물가가 오르고, 경기가 식으면 실업률이 오르는 흐름은 지금도 유효합니다. 다만 그 관계는 프리드먼-펠프스가 말한 대로 사람들의 기대 수준에 따라 위아래로 이동합니다.</p>
+    <p>장기적으로는 다릅니다. 기대 인플레이션이 실제 인플레이션과 완전히 일치하도록 조정되고 나면, 실업률은 통화정책과 무관하게 자연실업률로 되돌아간다는 것이 자연율 가설의 결론입니다. 그래서 장기 필립스 곡선은 자연실업률 지점에서 수직에 가깝다고 설명됩니다.</p>
+    <p>물론 최근 연구에서는 이 수직선이 정말 완전한 직선인지에 대해 이견도 있습니다. 완만한 곡선에 가깝다는 실증 분석도 나옵니다. 아직 완전히 정리된 논쟁은 아닙니다.</p>
+
+    <figure>
+      <img src="./images/body-4.png" alt="필립스 곡선 60여 년의 흐름을 정리한 핵심 포인트 카드">
+      <figcaption>필립스 곡선 60여 년의 흐름을 정리한 핵심 포인트 카드</figcaption>
+    </figure>
+
+    <hr>
+
+    <p>정리하면 이렇습니다. 필립스 곡선은 처음엔 임금과 실업률의 관찰이었고, 이후 물가와 실업률의 정책 메뉴판이 되었습니다. 그러다 기대라는 변수를 만나며 "공짜 점심은 없다"는 사실을 증명하는 이야기로 바뀌었습니다.</p>
+
+    <blockquote class="pull">물가를 잡으려는 시도는 실업률을 잠시만 움직일 뿐, 결국 남는 것은 사람들의 달라진 기대다.</blockquote>
+
+    <p>지금도 중앙은행이 금리를 올리고 내릴 때마다 이 오래된 곡선의 그림자가 어른거립니다. 필립스 곡선이 여전히 쓸모 있냐고 물으신다면, 절반은 맞고 절반은 틀렸다고 답하겠습니다.</p>
+
+    <div class="tags">
+      <span class="tag">#필립스곡선</span>
+      <span class="tag">#인플레이션</span>
+      <span class="tag">#실업률</span>
+      <span class="tag">#자연실업률</span>
+      <span class="tag">#스태그플레이션</span>
+      <span class="tag">#경제학이론</span>
+    </div>
+  </div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
