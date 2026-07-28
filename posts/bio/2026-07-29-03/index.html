@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>뉴런은 어떻게 신호를 전달하나 — 활동전위와 시냅스의 원리</title>
+<style>
+ :root{ --accent:#FF7676; --ink:#1b1f24; --mute:#5c6672; --line:#e6e9ee; --bg:#f7f8fa; }
+ *{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--ink);font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;line-height:1.8;}
+ .wrap{max-width:700px;margin:0 auto;padding:48px 24px 96px;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.04);}
+ .meta{display:flex;align-items:center;gap:12px;margin-bottom:22px;} .badge{background:var(--accent);color:#fff;font-size:13px;font-weight:700;padding:5px 13px;border-radius:999px;} .date{color:var(--mute);font-size:14px;}
+ h1{font-size:29px;line-height:1.4;font-weight:800;margin:6px 0 30px;} h2{font-size:21px;font-weight:700;margin:46px 0 16px;padding-left:13px;border-left:4px solid var(--accent);line-height:1.45;}
+ p{font-size:16.5px;margin:16px 0;word-break:keep-all;} strong{font-weight:700;color:#0f1113;} hr{border:none;border-top:1px solid var(--line);margin:36px 0;}
+ figure{margin:28px 0;text-align:center;} figure img{max-width:100%;height:auto;border-radius:12px;border:1px solid var(--line);} figcaption{font-size:13px;color:var(--mute);margin-top:9px;}
+ blockquote.pull{border:none;margin:28px 0;padding:20px 24px;background:rgba(255,118,118,.07);border-left:4px solid var(--accent);border-radius:8px;font-size:16.5px;font-weight:700;color:#0f1113;}
+ .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:40px;padding-top:26px;border-top:1px solid var(--line);} .tag{color:var(--accent);background:rgba(255,118,118,.09);font-size:13.5px;padding:5px 11px;border-radius:7px;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head><body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+ <div class="meta"><span class="badge">바이오</span><span class="date">2026-07-29</span></div>
+ <h1>뉴런은 어떻게 신호를 전달하나 — 활동전위와 시냅스의 원리</h1>
+
+ <p>이번 글에서는 뉴런이 신호를 만들고 옆 세포로 건네는 과정을 정리해 보겠습니다.<br>멀리 있는 두 사건을 먼저 말씀드립니다. 발가락을 찧은 순간과 "아프다"고 느끼는 순간 사이에는, 세포막을 오가는 이온들의 정교한 릴레이가 있습니다.<br>그 릴레이의 이름이 <strong>활동전위</strong>이고, 세포와 세포를 잇는 이음매가 <strong>시냅스</strong>입니다.</p>
+
+ <figure><img src="./images/thumbnail.png" alt="뉴런의 신호 전달을 상징하는 대표 이미지 — 활동전위와 시냅스"><figcaption>뉴런의 신호 전달 — 활동전위와 시냅스의 원리</figcaption></figure>
+
+ <h2>신호는 세포 하나에서 시작한다</h2>
+ <p>먼저 뉴런의 생김새부터 봅니다.<br>뉴런은 크게 세 부분입니다. 신호를 받는 <strong>수상돌기</strong>, 살림을 맡는 <strong>세포체</strong>, 신호를 내보내는 <strong>축삭</strong>.</p>
+ <p>수상돌기는 나뭇가지처럼 여러 번 갈라집니다.<br>이 가지로 다른 뉴런 수천 개의 신호가 흘러듭니다.<br>세포체 안의 핵은 유전정보를 보관하고 단백질을 만들며 세포에 필요한 에너지를 댑니다.<br>축삭은 세포체에서 길게 뻗어 나가, 활동전위라는 신호를 다음 세포까지 실어 나릅니다.</p>
+ <p>사람의 뇌에는 이런 뉴런이 <strong>약 860억 개</strong> 있다고 추정됩니다.<br>그 수많은 세포가 서로 손을 맞잡은 자리가 시냅스입니다.<br>축삭 끝의 말단은 다음 뉴런의 수상돌기와 아주 좁은 틈을 사이에 두고 마주 봅니다.</p>
+
+ <figure><img src="./images/body-1.png" alt="뉴런의 세 부분 수상돌기·세포체·축삭의 역할을 정리한 핵심 포인트 카드"><figcaption>뉴런의 세 부분 — 수상돌기·세포체·축삭</figcaption></figure>
+
+ <h2>고요할 때도 세포는 긴장해 있다</h2>
+ <p>아무 자극이 없는 뉴런도 완전히 잠들어 있지는 않습니다.<br>쉬고 있는 뉴런의 막 안쪽은 바깥쪽보다 약 <strong>-70mV</strong> 낮습니다.<br>이것을 <strong>안정막전위</strong>라고 부릅니다.</p>
+ <p>이 -70mV는 세포 안팎의 이온 농도차에서 나옵니다.<br>세포 안에는 칼륨(K⁺)이 많고 나트륨(Na⁺)이 적습니다.<br>바깥은 정반대로, 나트륨이 많고 칼륨이 적습니다.</p>
+ <p>이 기울기를 만드는 것이 <strong>나트륨-칼륨 펌프</strong>입니다.<br>펌프는 에너지(ATP)를 써서 나트륨 3개를 밖으로 퍼내고 칼륨 2개를 안으로 들입니다.<br>내보내는 양이온이 들여오는 양이온보다 하나 더 많으니, 세포 안은 조금 더 음성으로 기웁니다.<br>여기에 더해, 막에는 칼륨이 슬금슬금 새 나가는 통로가 늘 열려 있습니다.<br>그래서 안정막전위는 칼륨이 정하는 값에 가깝습니다.</p>
+
+ <blockquote class="pull">말하자면 뉴런은 늘 방아쇠에 손가락을 얹은 채 대기합니다. 당길 준비가 되어 있어야 순식간에 발사할 수 있습니다.</blockquote>
+
+ <p>이 대기 상태를 지키는 데에도 값이 듭니다.<br>나트륨-칼륨 펌프는 잠시도 쉬지 않고 이온을 퍼 나릅니다.<br>뇌가 가만히 있을 때조차 많은 에너지를 쓰는 이유가 여기에 있습니다.<br>농도차라는 팽팽한 긴장을 유지하는 것 자체가 노동인 셈입니다.</p>
+
+ <h2>역치를 넘으면, 전부 아니면 전무</h2>
+ <p>이제 자극이 들어옵니다.<br>자극이 막을 어느 선까지 밀어 올리면 사건이 시작됩니다.<br>그 선을 <strong>역치</strong>라 하고, 대략 <strong>-55mV</strong>입니다.</p>
+ <p>역치를 넘는 순간 전압개폐 나트륨 채널이 한꺼번에 열립니다.<br>밖에 잔뜩 있던 나트륨이 안으로 쏟아져 들어옵니다.<br>막전위는 -70mV에서 <strong>+30mV</strong>까지 단숨에 치솟습니다. 이것이 <strong>탈분극</strong>입니다.</p>
+ <p>곧이어 전압개폐 칼륨 채널이 열립니다.<br>칼륨이 밖으로 빠져나가면서 막전위가 다시 내려갑니다. <strong>재분극</strong>입니다.<br>칼륨 채널은 조금 늦게 닫혀서, 막전위가 잠깐 -70mV보다 더 아래로 내려갔다 올라옵니다. 이 짧은 과잉이 <strong>과분극</strong>입니다.</p>
+ <p>여기에 중요한 규칙이 하나 있습니다.<br>활동전위는 "실무율", 곧 전부 아니면 전무입니다.<br>역치를 넘기만 하면 신호의 크기는 늘 같습니다.<br>자극이 세다고 더 큰 활동전위가 나오지 않습니다.<br>강한 자극은 크기가 아니라 빈도로, 즉 더 자주 터뜨리는 방식으로 표현됩니다.<br>촛불이든 등대든 켜지는 밝기는 같고, 다만 얼마나 자주 깜빡이느냐가 다른 셈입니다.</p>
+ <p>한 번 터진 뒤 약 <strong>1~2밀리초</strong> 동안 세포는 다음 신호를 받기 어렵습니다.<br>나트륨 채널이 잠시 불활성 상태에 빠져 회복될 시간이 필요하기 때문입니다.<br>이 불응기 덕분에 신호는 뒤로 되돌아가지 않고 한 방향으로만 흐릅니다.</p>
+
+ <figure><img src="./images/body-2.png" alt="활동전위의 네 단계 안정막전위·탈분극·재분극·과분극을 순서대로 보여주는 단계별 다이어그램"><figcaption>활동전위의 네 단계 — 안정막전위, 탈분극, 재분극, 과분극</figcaption></figure>
+
+ <h2>미엘린이 신호를 뛰게 한다</h2>
+ <p>활동전위는 축삭을 따라 옆으로 번져 갑니다.<br>문제는 속도입니다.</p>
+ <p>수초, 곧 미엘린이 없는 축삭에서는 신호가 촘촘히 한 칸씩 이어집니다.<br>전도 속도는 초당 약 <strong>0.5~3미터</strong>에 그칩니다.<br>반면 축삭이 미엘린이라는 절연층으로 감싸이면 이야기가 달라집니다.</p>
+ <p>미엘린은 이온이 새는 것을 막는 절연 테이프 같은 층입니다.<br>그 사이사이에는 <strong>랑비에 결절</strong>이라는 벌어진 틈이 있고, 나트륨 채널이 이 틈에 몰려 있습니다.<br>신호는 미엘린 밑을 미끄러지듯 지나다가 결절에서만 새로 힘을 얻습니다.<br>결절에서 결절로 건너뛰는 셈입니다. 이것을 <strong>도약전도</strong>라 합니다.</p>
+ <p>효과는 큽니다.<br>미엘린을 두른 축삭은 초당 <strong>100미터</strong>를 넘겨 달릴 수 있습니다.<br>게다가 결절에서만 힘을 쓰니 에너지도 아낍니다.<br>예전엔 신호가 한 칸씩 기어갔다면, 지금은 마디를 건너뛰며 내달리는 셈입니다.<br>미엘린이 벗겨지면 이 도약이 무너집니다.<br>신호가 느려지거나 끊기는 병이 바로 그런 경우입니다.</p>
+
+ <figure><img src="./images/body-3.png" alt="무수 축삭의 느린 연속 전도와 유수 축삭의 빠른 도약전도를 나란히 비교한 대비 이미지"><figcaption>무수 축삭 vs 유수 축삭 — 도약전도가 만드는 속도 차이</figcaption></figure>
+
+ <h2>세포와 세포 사이, 화학으로 건네다</h2>
+ <p>신호가 축삭 끝에 닿으면 마지막 관문이 남습니다.<br>뉴런과 뉴런은 붙어 있지 않습니다.<br>그 사이에는 수십 나노미터의 좁은 틈, <strong>시냅스 틈</strong>이 있습니다.</p>
+ <p>전기 신호는 이 틈을 그대로 건너뛰지 못합니다.<br>그래서 뉴런은 신호를 화학 물질로 바꿔 건넵니다.<br>활동전위가 말단에 도착하면 칼슘(Ca²⁺) 채널이 열리고, 칼슘이 들어옵니다.<br>칼슘 신호를 받은 소포가 막에 융합해 <strong>신경전달물질</strong>을 틈으로 쏟아냅니다.</p>
+ <p>건너편 막의 수용체가 이 물질을 붙잡으면, 그 자리의 이온 채널이 열립니다.<br>전기가 화학으로 바뀌었다가, 다시 전기로 돌아오는 순간입니다.<br>여기서 신호의 성격이 갈립니다.</p>
+ <p>글루탐산 같은 <strong>흥분성</strong> 물질은 받는 세포를 탈분극 쪽으로 밀어 올립니다.<br>활동전위가 일어나기 쉽게 부추기는 것입니다.<br>반대로 가바(GABA) 같은 <strong>억제성</strong> 물질은 받는 세포를 과분극시켜 신호를 잠재웁니다.<br>글루탐산은 뇌의 대표적인 흥분성 물질이고, 가바는 그 반대편에서 균형을 잡습니다.<br>악셀만 있고 브레이크가 없다면 신경망은 이내 발작처럼 폭주할 것입니다.</p>
+ <p>하나의 뉴런은 이렇게 밀고 당기는 수많은 입력을 동시에 받습니다.<br>흥분과 억제를 모두 더한 값이 다시 역치를 넘으면, 그 세포도 자기 활동전위를 냅니다.<br>릴레이는 그렇게 다음 주자에게 이어집니다.</p>
+
+ <figure><img src="./images/body-4.png" alt="흥분성 시냅스와 억제성 시냅스를 신경전달물질·이온·효과로 비교한 표"><figcaption>흥분성과 억제성 시냅스 비교</figcaption></figure>
+
+ <hr>
+
+ <p>정리하면 이렇습니다.<br>뉴런은 이온 농도차로 -70mV의 긴장을 품고 대기하다가, 역치를 넘는 순간 +30mV까지 치솟는 활동전위를 터뜨립니다.<br>그 신호는 미엘린 덕에 결절을 뛰어넘어 빠르게 달리고, 시냅스에서는 화학 물질로 모습을 바꿔 다음 세포로 건너갑니다.</p>
+ <p>결국 우리의 생각과 감각은 이 작은 전기·화학 신호의 끝없는 릴레이 위에 서 있습니다.<br>발가락을 찧고 얼굴을 찡그리기까지, 몸속에서는 수많은 방아쇠가 순서대로 당겨진 셈입니다.<br>그 모든 과정이 눈 깜짝할 사이에, 그것도 쉬지 않고 일어납니다.<br>그 정교한 릴레이를 떠올린다면, 무심코 스친 생각 하나도 조금은 다르게 보이지 않을까요.</p>
+
+ <div class="tags">
+  <span class="tag">#뉴런</span><span class="tag">#활동전위</span><span class="tag">#시냅스</span><span class="tag">#안정막전위</span><span class="tag">#신경전달물질</span><span class="tag">#도약전도</span><span class="tag">#뇌과학</span>
+ </div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
