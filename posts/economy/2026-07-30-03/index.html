@@ -1,0 +1,180 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>도덕적 해이란 무엇인가 — 안전장치가 오히려 위험한 행동을 부추기는 이유</title>
+<style>
+ :root{ --accent:#2BBE78; --ink:#1b1f24; --mute:#5c6672; --line:#e6e9ee; --bg:#f7f8fa; }
+ *{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased;}
+ .wrap{max-width:700px;margin:0 auto;padding:48px 24px 96px;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.04);}
+ .meta{display:flex;align-items:center;gap:12px;margin-bottom:22px;}
+ .badge{background:var(--accent);color:#fff;font-size:13px;font-weight:700;padding:5px 13px;border-radius:999px;}
+ .date{color:var(--mute);font-size:14px;}
+ h1{font-size:29px;line-height:1.4;font-weight:800;margin:6px 0 30px;letter-spacing:-.01em;}
+ h2{font-size:21px;font-weight:700;margin:46px 0 16px;padding-left:13px;border-left:4px solid var(--accent);line-height:1.45;}
+ p{font-size:16.5px;margin:16px 0;word-break:keep-all;} strong{font-weight:700;color:#0f1113;}
+ hr{border:none;border-top:1px solid var(--line);margin:36px 0;}
+ figure{margin:28px 0;text-align:center;} figure img{max-width:100%;height:auto;border-radius:12px;border:1px solid var(--line);}
+ figcaption{font-size:13px;color:var(--mute);margin-top:9px;}
+ blockquote.pull{border:none;margin:28px 0;padding:20px 24px;background:rgba(43,190,120,.08);border-left:4px solid var(--accent);border-radius:8px;font-size:16.5px;font-weight:700;color:#0f1113;}
+ .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:40px;padding-top:26px;border-top:1px solid var(--line);}
+ .tag{color:var(--accent);background:rgba(43,190,120,.10);font-size:13.5px;padding:5px 11px;border-radius:7px;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head><body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+ <div class="meta"><span class="badge">경제</span><span class="date">2026-07-30</span></div>
+ <h1>도덕적 해이란 무엇인가 — 안전장치가 오히려 위험한 행동을 부추기는 이유</h1>
+
+ <figure><img src="./images/thumbnail.png" alt="도덕적 해이란 무엇인가 — 안전장치가 오히려 위험을 부추길 때"><figcaption>도덕적 해이 — 안전장치가 오히려 위험을 부추길 때</figcaption></figure>
+
+ <p>이번 글에서는 경제학의 오래된 수수께끼 하나를 정리해 보겠습니다. 위험에 대비하려고 만든 안전장치가, 어째서 사람을 더 위험하게 만드는가 하는 문제입니다. 이것을 도덕적 해이(moral hazard)라고 부릅니다. 이름과 달리 도덕과는 거의 상관이 없습니다.</p>
+
+ <hr>
+
+ <h2>도덕적 해이란 무엇인가</h2>
+ <p>정의부터 담백하게 짚겠습니다. 도덕적 해이란, 자기 행동의 결과를 남이 대신 떠안을 때 사람이나 기업이 더 위험하게 행동하게 되는 유인의 문제입니다.</p>
+ <blockquote class="pull">"위험은 내가 감수하고, 손실은 남이 떠안는다." 이 한 문장이 도덕적 해이의 출발점입니다.</blockquote>
+ <p>손실을 남이 메워준다면 굳이 조심할 이유가 줄어듭니다. 그래서 평소라면 하지 않았을 행동을 하게 됩니다.</p>
+ <p>여기서 오해를 하나 풀어야 합니다. '도덕적'이라는 말이 붙어 있지만, 이것은 누가 나쁜 사람이라는 뜻이 아닙니다. 이 용어를 연구한 뎀비와 보든에 따르면, 18세기 수학자들은 'moral'을 <strong>'주관적'</strong>이라는 의미로 썼습니다. 그 흔적이 지금까지 남아 오해를 부르는 셈입니다.</p>
+ <p>그러니 도덕적 해이가 나타났다면, 대리인이 부도덕한 것이 아니라 그런 유인을 남겨둔 설계자가 어리석은 것입니다. 사람을 탓할 문제가 아니라, 구조를 살펴야 할 문제입니다.</p>
+
+ <hr>
+
+ <h2>역선택과 혼동하지 마십시오</h2>
+ <p>도덕적 해이는 '정보 비대칭'이라는 큰 우산 아래 있습니다. 거래하는 두 사람이 가진 정보의 양이 다를 때 생기는 문제입니다. 그런데 같은 우산 아래 자주 헷갈리는 개념이 하나 더 있습니다. 바로 역선택입니다.</p>
+ <p>둘의 차이는 <strong>무엇이 숨는가, 그리고 언제 숨는가</strong>에 있습니다.</p>
+ <p>역선택은 '숨은 특성'의 문제입니다. 계약을 맺기 <strong>전부터</strong> 이미 존재하는 정보 비대칭입니다. 예컨대 건강이 나쁜 사람일수록 종합보험에 더 적극적으로 가입합니다. 자신이 보험을 많이 쓰게 될 것을 알기 때문입니다. 보험사는 그 사실을 모릅니다.</p>
+ <p>도덕적 해이는 '숨은 행동'의 문제입니다. 계약을 맺기 전에는 정보 차이가 없다가, 계약 <strong>후에</strong> 한쪽이 보이는 행동이 새로운 정보 비대칭을 만듭니다. 보험에 가입한 뒤 부주의해지는 것이 그렇습니다.</p>
+
+ <figure><img src="./images/body-1.png" alt="역선택과 도덕적 해이 비교 — 숨은 특성 계약 전 vs 숨은 행동 계약 후"><figcaption>역선택은 계약 전 숨은 특성, 도덕적 해이는 계약 후 숨은 행동</figcaption></figure>
+
+ <p>정리하면 역선택은 계약 전, 도덕적 해이는 계약 후입니다. 역선택은 상대의 감춰진 성질이고, 도덕적 해이는 상대의 감춰진 행동입니다. 이 두 축만 기억하면 헷갈릴 일이 없습니다.</p>
+
+ <hr>
+
+ <h2>보험이 부르는 방심</h2>
+ <p>도덕적 해이라는 말은 원래 보험 업계에서 나왔습니다. 그 기원은 17세기까지 거슬러 올라가고, 19세기 후반 영국 보험회사들이 널리 썼습니다. 이유는 분명합니다. 보험이라는 제도 자체가 도덕적 해이를 부르기 때문입니다.</p>
+ <p>보험은 손실이 나면 보험사가 메워주는 구조입니다. 그러니 가입자 입장에서는 사고를 막으려는 노력의 값이 떨어집니다.</p>
+ <p>두 가지 얼굴로 나타납니다.</p>
+ <p>하나는 부주의입니다. 화재보험에 들면 화재 예방에 덜 신경 쓰고, 자동차보험에 들면 관리에 소홀해집니다. 사고를 막을 노력이 줄어듭니다.</p>
+ <p>다른 하나는 과잉진료입니다. 진료비를 보험이 대신 내주면, 꼭 필요하지 않은 검사나 진료까지 받으려는 마음이 생깁니다. 불필요한 의료 이용이 늘어납니다.</p>
+
+ <figure><img src="./images/body-2.png" alt="보험에서 나타나는 도덕적 해이 세 가지 — 과잉진료, 부주의, 위험 감수"><figcaption>보험에서 나타나는 도덕적 해이 — 과잉진료·부주의·위험 감수</figcaption></figure>
+
+ <p>두 경우 모두 가입자가 나쁜 사람이라서 벌어지는 일이 아닙니다. 손실을 남이 진다는 구조가 그런 선택을 자연스럽게 만들 뿐입니다.</p>
+
+ <hr>
+
+ <h2>주인과 대리인 사이</h2>
+ <p>도덕적 해이가 가장 또렷하게 드러나는 자리가 '주인-대리인 문제'입니다. 한 사람(대리인)이 다른 사람(주인)을 대신해 일하는데, 대리인의 행동을 주인이 완벽히 지켜볼 수 없을 때 생깁니다.</p>
+ <p>가장 흔한 예가 일터입니다. 노동자가 열심히 일하지 않아도 고용주가 그것을 정확히 관측하기 어렵습니다. 이 감춰진 태만이 곧 숨은 행동입니다.</p>
+ <p>회사로 넓히면 더 큰 그림이 보입니다. 주주가 주인이고 경영진이 대리인입니다. 경영진이 주주의 이익이 아니라 자기 이익을 좇아 과도한 위험을 감수한다면, 그 결과는 주주가 떠안습니다.</p>
+
+ <figure><img src="./images/body-3.png" alt="주인-대리인 관계 사례 세 가지 — 고용주와 노동자, 주주와 경영진, 예금자와 은행"><figcaption>주인-대리인 문제는 사람이 사람을 대신하는 모든 관계에 스며 있다</figcaption></figure>
+
+ <p>이렇게 도덕적 해이는 보험을 넘어, 사람이 사람을 대신해 무언가를 맡는 모든 관계에 스며 있습니다.</p>
+
+ <hr>
+
+ <h2>대마불사, 그리고 2008년</h2>
+ <p>가장 값비싼 도덕적 해이는 금융에서 터졌습니다. 열쇳말은 <strong>'대마불사(too big to fail)'</strong>입니다.</p>
+ <p>어떤 은행이 너무 커서, 망하면 경제 전체가 흔들린다고 해봅시다. 그러면 정부는 결국 그 은행을 구제할 수밖에 없습니다. 문제는 은행이 그 사실을 안다는 데 있습니다.</p>
+ <p>"어차피 구제받는다"고 믿으면 은행은 더 위험한 곳에 돈을 겁니다. 잘되면 이익은 자기 몫이고, 잘못돼도 손실은 정부가, 결국 납세자가 떠안기 때문입니다. <strong>이익은 사유화되고 손실은 사회화됩니다.</strong></p>
+ <p>2008년 글로벌 금융위기가 그 민낯을 드러냈습니다. 금융회사들은 높은 이자를 노려 비우량 주택담보대출을 무분별하게 늘렸고, 이를 기초로 한 증권을 대량 발행했습니다. 자기자본의 <strong>30배가 넘는 자산</strong>을 굴린 곳도 있었습니다.</p>
+
+ <figure><img src="./images/body-4.png" alt="2008년 금융위기 전개 3단계 — 베어스턴스 구제, 리먼 파산, AIG 구제"><figcaption>2008년 — 베어스턴스 구제, 리먼 파산, AIG 구제</figcaption></figure>
+
+ <p>사건은 숨 가쁘게 이어졌습니다. 2008년 3월, 연준은 베어스턴스 인수를 도우며 약 <strong>300억 달러</strong>를 댔습니다. 시장은 이 장면을 이렇게 읽었습니다. "정부가 큰 금융기관은 다 구제하는구나." 9월에는 리먼브라더스가 파산하도록 방치되어 패닉이 번졌고, 며칠 뒤 정부는 AIG를 약 <strong>850억 달러</strong>로 구제했습니다.</p>
+ <p>누구는 살리고 누구는 죽인 일관성 없는 대응. 그 자체가 대마불사에 숨은 도덕적 해이를 세상에 각인시켰습니다.</p>
+ <p>한 가지는 짚고 넘어가야 공정합니다. 2008년 위기의 원인이 도덕적 해이 하나였던 것은 아닙니다. 저금리, 규제 완화, 복잡한 파생상품이 함께 얽혔습니다. 도덕적 해이는 그 위기를 들여다보는 하나의 렌즈입니다.</p>
+
+ <hr>
+
+ <h2>유인을 다시 설계하기</h2>
+ <p>그렇다면 어떻게 다스릴까요. 답은 처벌이 아니라 유인의 재설계에 있습니다. 위험을 만드는 쪽에게 손실의 일부를 지우거나, 행동을 성과와 묶는 것입니다.</p>
+ <p>보험은 비용을 나누는 장치를 씁니다. <strong>본인부담금</strong>은 일정액까지 가입자가 직접 내게 합니다. <strong>공동보험</strong>은 비용을 보험사와 가입자가 비율로 나눕니다. 가입자에게도 돈이 걸리니, 스스로 청구를 아끼게 됩니다.</p>
+ <p>일터에서는 <strong>성과연동 보상</strong>이 쓰입니다. 관측할 수 없는 '노력'을 관측할 수 있는 '성과'로 바꿔 보상과 잇는 방식입니다.</p>
+
+ <figure><img src="./images/body-5.png" alt="도덕적 해이 완화장치 비교표 — 본인부담금, 공동보험, 성과연동, 정보공개 규제"><figcaption>도덕적 해이를 다스리는 네 가지 장치</figcaption></figure>
+
+ <p>금융에서는 규제가 나섭니다. 정보를 투명하게 공개하도록 강제하고, 자기자본을 일정 이상 쌓게 합니다. 사베인스-옥슬리법이 기업의 재무정보 공개를 의무화한 것이 한 예입니다. 모두 정보 비대칭을 줄이고, "손실을 남이 진다"는 착시를 걷어내려는 시도입니다.</p>
+ <p>완벽한 해법은 아직 없습니다. 자기부담을 너무 키우면 정작 보험이 필요한 사람이 보장을 못 받고, 규제를 너무 조이면 정상적인 거래까지 위축됩니다. 균형점을 찾는 일이 늘 숙제로 남습니다.</p>
+
+ <hr>
+
+ <p>정리하면 이렇습니다. 도덕적 해이는 나쁜 사람의 문제가 아니라 잘못 놓인 유인의 문제입니다. 안전장치는 위험을 없애주는 대신, 위험을 남에게 떠넘길 수 있다는 착각을 함께 심습니다.</p>
+ <p>그래서 좋은 제도는 위험을 완전히 지워주지 않습니다. <strong>조심할 이유를 조금은 남겨둡니다.</strong></p>
+ <p>우리가 어떤 보장을 손에 쥘 때 한 번쯤 물어볼 만합니다. 이 안전장치는 나를 지켜주는가, 아니면 나를 방심하게 만드는가.</p>
+
+ <div class="tags">
+  <span class="tag">#도덕적해이</span>
+  <span class="tag">#모럴해저드</span>
+  <span class="tag">#정보비대칭</span>
+  <span class="tag">#역선택</span>
+  <span class="tag">#주인대리인문제</span>
+  <span class="tag">#대마불사</span>
+  <span class="tag">#2008금융위기</span>
+  <span class="tag">#본인부담금</span>
+  <span class="tag">#경제상식</span>
+  <span class="tag">#유인설계</span>
+ </div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
