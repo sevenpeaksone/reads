@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMD 헬리오스·테슬라 AI5 총정리 — AI 반도체 신제품 경쟁과 삼성 2나노 반격</title>
+<style>
+  :root { --ink:#1f2328; --muted:#6b7280; --line:#e5e7eb; --accent:#2f6fed; --accent-soft:#eef3ff; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 20px;
+    background: #f4f5f7;
+    color: var(--ink);
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 700px; margin: 0 auto; padding: 44px 0 72px;
+  }
+  .card {
+    background: #ffffff; border: 1px solid var(--line); border-radius: 16px;
+    padding: 40px 40px 48px; box-shadow: 0 2px 18px rgba(20,24,40,0.05);
+  }
+  .badge {
+    display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .02em;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 6px 12px; border-radius: 999px;
+  }
+  .date { color: var(--muted); font-size: 14px; margin-left: 10px; }
+  h1 {
+    font-size: 30px; line-height: 1.38; font-weight: 800; letter-spacing: -0.01em;
+    margin: 20px 0 8px;
+  }
+  h2 {
+    font-size: 21px; font-weight: 800; line-height: 1.5;
+    margin: 40px 0 14px; padding-top: 8px;
+  }
+  p { font-size: 16.5px; line-height: 1.85; margin: 14px 0; word-break: keep-all; }
+  img { max-width: 100%; height: auto; display: block; border-radius: 12px; margin: 26px auto; }
+  hr { border: none; border-top: 1px solid var(--line); margin: 30px 0; }
+  blockquote {
+    margin: 20px 0; padding: 14px 20px;
+    border-left: 4px solid var(--accent);
+    background: var(--accent-soft); border-radius: 0 10px 10px 0;
+    font-weight: 700; font-size: 17px; line-height: 1.7; color: #23324f;
+  }
+  .lead p { font-size: 17px; }
+  .tags { margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--line); }
+  .tag {
+    display: inline-block; font-size: 13.5px; color: var(--accent);
+    background: var(--accent-soft); border-radius: 8px;
+    padding: 5px 11px; margin: 4px 6px 4px 0;
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+<div class="card">
+
+  <div>
+    <span class="badge">산업·IT 뉴스</span>
+    <span class="date">작성일 2026-07-29</span>
+  </div>
+
+  <h1>AMD 헬리오스·테슬라 AI5 총정리 — AI 반도체 신제품 경쟁과 삼성 2나노 반격</h1>
+
+  <img src="./images/thumbnail.png" alt="AMD 헬리오스와 테슬라 AI5 - AI 반도체 신제품 경쟁과 삼성 파운드리 2나노 반격 대표 이미지">
+
+  <div class="lead">
+    <p>이번 글에서는 2026년 7월 한 주에 몰린 AI 반도체 소식을 한자리에 정리해 보겠습니다. AMD가 새 AI 서버 랙 '헬리오스'를 내놨고, 테슬라의 차세대 칩 'AI5'는 삼성 2나노 공정으로 향했습니다. 무슨 일이 있었는지, 왜 중요한지, 그리고 앞으로 무엇을 지켜봐야 하는지 차례로 짚어 드리겠습니다.</p>
+
+    <p>먼저 세 줄로 요약하면 이렇습니다. AMD는 GPU·CPU·네트워킹을 하나로 묶은 랙 '헬리오스'를 공개하고 3분기 말부터 출하합니다. 테슬라 AI5는 테이프아웃을 마치고 삼성 미국 테일러 공장의 2나노 라인에 올라탔습니다.</p>
+  </div>
+
+  <img src="./images/body-1.png" alt="이번 주 AI 반도체 3대 뉴스 - AMD 헬리오스, 테슬라 AI5 삼성 2나노, AMD-앤트로픽 50억 달러 투자">
+
+  <hr>
+
+  <h2>■ 무슨 일이 있었나</h2>
+
+  <p>AMD는 7월 샌프란시스코에서 'Advancing AI 2026' 행사를 열었습니다. 이 자리에서 랙 스케일 플랫폼 '헬리오스(Helios)'를 전면에 내세웠습니다.</p>
+
+  <p>헬리오스는 부품 하나가 아니라, 액체냉각 랙 한 대를 통째로 파는 제품입니다. 랙 하나에 GPU 'MI455X' 72개와 6세대 EPYC CPU '베니스' 18개, 그리고 펜산도 네트워킹이 들어갑니다. 최상위 구성 기준으로 저정밀(FP4) 연산 2.9 엑사플롭스, HBM4 메모리 총 31TB를 담습니다. 가격은 랙 한 대에 약 525만 달러 수준으로 알려졌습니다.</p>
+
+  <p>핵심 부품의 성능도 함께 공개됐습니다. MI455X는 새 CDNA 5 구조를 쓰며 FP4 기준 최대 40 페타플롭스를 냅니다. GPU 한 개에 HBM4 메모리 432GB를 실었습니다. 큰 모델을 통째로 올려 두기 위한 설계입니다. CPU 베니스는 Zen 6 구조로, 직전 세대보다 정수 연산 성능이 약 1.8배 높고 최대 512 스레드를 지원합니다.</p>
+
+  <p>헬리오스는 이미 양산에 들어갔고, 이번 3분기 말부터 출하가 시작됩니다. 물량은 4분기와 2027년 상반기로 이어집니다. 마이크로소프트, 오픈AI, 메타, 오라클이 초기 도입처로 거론됐습니다.</p>
+
+  <p>같은 주에 테슬라 소식도 나왔습니다. 테슬라의 차세대 자율주행 칩 'AI5'가 테이프아웃, 즉 시제품 양산 단계를 마쳤습니다. 이 칩은 삼성전자 미국 텍사스 테일러 공장에서 2나노 공정으로 만들어집니다. 머스크는 AI5가 전작 대비 최대 40배 빠르다고 밝혔습니다.</p>
+
+  <hr>
+
+  <h2>■ 왜 중요한가</h2>
+
+  <p>지금 AI 반도체 시장의 큰 그림은 하나로 모입니다.</p>
+
+  <blockquote>"칩 한 개가 아니라 랙 한 통을 판다."</blockquote>
+
+  <p>예전엔 GPU 낱개의 성능이 경쟁의 전부였습니다. 지금은 GPU와 CPU, 네트워크, 냉각까지 한 덩어리로 묶은 '랙'이 승부처가 됐습니다. AMD가 헬리오스로 노린 지점이 바로 여기입니다.</p>
+
+  <p>상대는 분명합니다. 엔비디아입니다. 엔비디아의 차세대 랙 '베라 루빈 NVL72'도 GPU 72개를 한 랙에 담습니다. 숫자는 같지만 결이 다릅니다. 헬리오스는 개방형 표준(오픈 랙, UALink, 이더넷)을 앞세워, 폐쇄형 생태계에 지친 고객을 겨냥합니다.</p>
+
+  <img src="./images/body-2.png" alt="AMD 헬리오스와 엔비디아 베라 루빈 스펙 비교 표 - GPU 수, 메모리, 연산 성능, 네트워크 표준, 가격">
+
+  <p>테슬라 AI5가 중요한 이유는 조금 다른 방향에 있습니다. 자율주행과 로봇에 들어갈 '두뇌'를 누가, 어느 공정에서 만드느냐의 문제이기 때문입니다. AI5는 노광 최대 면적(레티클)의 절반 크기 ASIC 다이에 SK하이닉스 메모리 12개를 얹은 구조입니다. 설계는 테슬라가 하고, 생산은 삼성과 TSMC가 나눠 맡습니다.</p>
+
+  <hr>
+
+  <h2>■ 배경과 쟁점 — 삼성 파운드리의 반격</h2>
+
+  <p>여기서 이번 소식의 진짜 무게가 드러납니다. AI5는 원래 한 세대 뒤인 'AI6'용으로 예정됐던 삼성 2나노 공정에 올라탔습니다.</p>
+
+  <p>이 결정이 상징적인 이유가 있습니다. 2나노는 그동안 삼성의 약점으로 꼽히던 자리였습니다. 수율, 즉 정상 칩이 나오는 비율이 2025년 말까지 20% 안팎에 머물렀기 때문입니다.</p>
+
+  <p>그런데 상황이 바뀌었습니다. 2026년 들어 삼성 2나노 수율은 60% 문턱을 넘었고, 2세대 공정에서는 70% 수준까지 올랐다는 보도가 나왔습니다. 대형 고객이 가장 중요한 칩을 맡길 만한 신뢰선을 넘었다는 평가입니다.</p>
+
+  <p>배경에는 큰 계약이 깔려 있습니다. 테슬라와 삼성은 2025년 7월 165억 달러 규모의 파운드리 계약을 맺었습니다. 기간은 2033년까지입니다. 테일러 공장은 올해 말 초기 가동을 거쳐 2027년 본격 양산으로 갑니다.</p>
+
+  <img src="./images/body-3.png" alt="테슬라 AI5 칩 핵심 사양 - 성능 40배, 삼성 2나노 공정, SK하이닉스 메모리 12개, 2027년 양산">
+
+  <p>물론 냉정하게 봐야 할 부분도 있습니다. 파운드리 시장에서 TSMC의 벽은 여전히 높습니다. TSMC는 세계 파운드리 매출의 약 70%를 쥐고 있고, 삼성의 점유율은 7%대에 그칩니다. AI5조차 삼성과 TSMC가 함께 만듭니다. 삼성이 TSMC를 밀어낸 것이 아니라, 같은 선상에 올라섰다는 쪽이 정확합니다.</p>
+
+  <p>그럼에도 의미는 작지 않습니다. 다음 세대 칩인 'AI6'는 아예 전량 삼성 2나노(테일러)에 배정됐습니다. AI 수요가 몰리면서 2026년 2나노 관련 주문은 전년보다 130% 넘게 늘어날 것으로 전망됩니다. "밀려나지 않고 같은 무대에 섰다"는 사실 자체가, 지난 몇 년간 삼성이 듣던 평가와는 분명히 다릅니다.</p>
+
+  <img src="./images/body-4.png" alt="삼성 파운드리와 TSMC 2나노 경쟁 구도 비교 표 - 점유율, 2나노 수율, 대표 고객, 미국 공장">
+
+  <hr>
+
+  <h2>■ 또 하나의 축 — AMD와 앤트로픽의 손잡기</h2>
+
+  <p>같은 주에 나온 세 번째 소식은 돈과 공급망 이야기입니다. AMD는 7월 22일, AI 기업 앤트로픽에 최대 50억 달러를 투자하기로 했습니다.</p>
+
+  <p>단순 투자가 아닙니다. 앤트로픽은 그 대가로 헬리오스 시스템을 통해 AMD의 MI450 계열 GPU를 최대 2기가와트 규모로 들입니다. 첫 1기가와트는 2027년 상반기에 배치가 시작될 전망입니다.</p>
+
+  <p>투자액은 확정 집행이 아니라, 인프라 배치 성과에 연동된 상한선이라는 점은 짚어 둘 필요가 있습니다. 두 회사는 AMD의 소프트웨어 'ROCm'을 앤트로픽의 클로드 모델에 맞춰 최적화하는 협력도 함께 맺었습니다.</p>
+
+  <p>이 그림의 의미는 이렇습니다. 앤트로픽은 엔비디아 한 곳에 매이지 않으려 공급처를 넓혔습니다. AMD는 대형 고객을 확보해 "우리 칩도 실제로 돌아간다"는 증거를 손에 쥐었습니다.</p>
+
+  <hr>
+
+  <h2>■ 앞으로 무엇을 지켜볼까</h2>
+
+  <p>정리하면 이렇습니다. AI 반도체 경쟁의 무대는 낱개 칩에서 랙으로, 그리고 그 칩을 찍어내는 공정으로 넓어졌습니다.</p>
+
+  <p>세 가지를 지켜보면 됩니다. 첫째, 헬리오스가 3분기 말 출하 뒤 실제 성능과 물량에서 엔비디아를 얼마나 따라잡느냐. 둘째, 삼성 테일러 2나노가 AI5 양산에서 수율을 안정적으로 지켜내느냐. 셋째, 앤트로픽 같은 대형 고객의 'AMD 선택'이 일회성인지, 흐름인지.</p>
+
+  <img src="./images/body-5.png" alt="핵심 메시지 - 경쟁의 축이 칩 한 개의 성능에서 시스템 전체와 안정적 공정의 공급으로 이동했다">
+
+  <p>끝으로 한 마디만 더 드리겠습니다. 이번 주 소식의 공통점은 결국 하나였습니다. 경쟁의 축이 '누가 더 빠른 칩을 만드느냐'에서 '누가 더 큰 시스템을, 더 안정적인 공정에서 공급하느냐'로 옮겨 갔다는 것입니다.</p>
+
+  <p>엔비디아의 독주가 언제까지 이어질지 묻는다면, 저는 이렇게 답하겠습니다. 적어도 지금은, 그 뒤를 바짝 쫓는 발소리가 처음으로 또렷하게 들리기 시작했습니다.</p>
+
+  <div class="tags">
+    <span class="tag">#AI반도체</span>
+    <span class="tag">#AMD헬리오스</span>
+    <span class="tag">#테슬라AI5</span>
+    <span class="tag">#삼성파운드리</span>
+    <span class="tag">#2나노</span>
+    <span class="tag">#엔비디아</span>
+    <span class="tag">#앤트로픽</span>
+    <span class="tag">#반도체뉴스</span>
+  </div>
+
+</div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
