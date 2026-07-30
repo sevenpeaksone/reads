@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>신장 여과 원리 총정리 — 네프론의 여과·재흡수·분비로 보는 소변 생성 과정</title>
+<style>
+  :root { --accent:#ff7676; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:0;
+    background-color:#161012;
+    color:#e9e2e4;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    line-height:1.85;
+  }
+  .wrap { max-width:700px; margin:0 auto; padding:56px 24px 96px; }
+  .meta { margin-bottom:20px; font-size:14px; color:#b9adb0; }
+  .badge {
+    display:inline-block; background:var(--accent); color:#1a1012;
+    font-weight:700; font-size:13px; padding:4px 12px; border-radius:999px;
+    margin-right:10px; letter-spacing:1px;
+  }
+  h1 {
+    font-size:30px; line-height:1.4; font-weight:800; color:#fff;
+    margin:0 0 28px; letter-spacing:-0.3px;
+  }
+  h2 {
+    font-size:21px; font-weight:700; color:#fff;
+    margin:52px 0 18px; padding-left:14px;
+    border-left:4px solid var(--accent);
+  }
+  p { font-size:16.5px; margin:0 0 18px; color:#ddd3d5; }
+  hr { border:none; border-top:1px solid #3a2a2e; margin:40px 0; }
+  figure { margin:28px 0; }
+  img { max-width:100%; height:auto; border-radius:14px; display:block; }
+  blockquote, .quote { }
+  .tags { margin-top:8px; display:flex; flex-wrap:wrap; gap:8px; }
+  .tag {
+    font-size:13px; color:var(--accent); background:rgba(255,118,118,0.10);
+    border:1px solid rgba(255,118,118,0.30); padding:4px 11px; border-radius:8px;
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+  <div class="wrap">
+    <div class="meta"><span class="badge">바이오</span>2026년 7월 31일</div>
+    <h1>신장 여과 원리 총정리 — 네프론의 여과·재흡수·분비로 보는 소변 생성 과정</h1>
+<p>오늘은 신장이 어떻게 피를 걸러 소변을 만드는지 그 원리를 정리해 보겠습니다. 하루 동안 신장이 거르는 혈액의 양은 180L에 이르지만, 실제 소변은 1.5L 남짓입니다. 이 놀라운 차이가 어떻게 생기는지, 네프론이라는 작은 여과 장치의 여과·재흡수·분비 과정을 따라가 봅니다.</p>
+<figure><img src="./images/thumbnail.png" alt="신장 네프론의 여과·재흡수·분비로 보는 소변 생성 원리"/></figure>
+<hr/>
+<h2>먼저 결론부터 — 신장은 &#x27;거의 다시 챙기는&#x27; 여과기입니다</h2>
+<p>신장의 일은 단순히 피를 거르는 데서 끝나지 않습니다.</p>
+<p>일단 대량으로 걸러낸 뒤, 몸에 필요한 것을 거의 전부 되찾아옵니다.</p>
+<p>정상 성인의 사구체여과율은 분당 약 125mL입니다. 하루로 환산하면 약 180L를 여과합니다. 그런데 최종 소변은 하루 1.5L 안팎에 불과합니다. 여과된 액체의 약 99%를 다시 흡수하고, 1%만 내보내는 셈입니다.</p>
+<p>왜 이렇게 비효율적으로 보이는 방식을 택했을까요.</p>
+<p>이유는 정밀함에 있습니다. 크게 걸러 두고 필요한 것만 골라 되찾으면, 노폐물은 확실히 버리면서 물과 영양분은 상황에 맞게 조절할 수 있습니다.</p>
+<p>혈액을 조금씩만 거른다면 노폐물이 몸에 남기 쉽습니다. 반대로 크게 걸러 놓으면, 그날의 수분 상태나 식사에 따라 되찾는 양을 자유롭게 바꿀 수 있습니다. 신장이 손해 보는 듯한 방식을 고집하는 데는 이런 이유가 있습니다.</p>
+<hr/>
+<h2>신장의 최소 단위, 네프론의 구조</h2>
+<p>이 모든 일은 &#x27;네프론(nephron)&#x27;이라는 작은 단위에서 일어납니다.</p>
+<p>신장 하나에는 약 100만 개의 네프론이 들어 있습니다.</p>
+<p>네프론은 두 부분으로 나뉩니다. 피를 거르는 &#x27;신소체&#x27;와, 걸러진 액체를 다듬는 &#x27;세뇨관&#x27;입니다.</p>
+<p>신소체는 실뭉치처럼 뭉친 모세혈관인 사구체와, 그것을 감싼 보먼주머니로 이뤄집니다. 세뇨관은 근위세뇨관에서 시작해 헨레고리를 지나 원위세뇨관으로 이어지고, 여러 네프론이 하나의 집합관으로 모입니다.</p>
+<p>물이 흐르는 길로 그려 보면 이렇습니다.</p>
+<p>사구체에서 걸러진 액체는 보먼주머니 → 근위세뇨관 → 헨레고리 → 원위세뇨관 → 집합관을 차례로 지나며 소변으로 완성됩니다.</p>
+<hr/>
+<h2>소변이 만들어지는 세 과정 — 여과, 재흡수, 분비</h2>
+<p>혈액이 소변으로 바뀌는 과정은 세 단계로 이뤄집니다.</p>
+<figure><img src="./images/body-1.png" alt="소변이 만들어지는 여과·재흡수·분비 3단계 과정"/></figure>
+<p>첫째는 여과입니다. 사구체로 들어가는 혈관이 나가는 혈관보다 굵습니다. 그래서 사구체 안의 혈압이 높아지고, 이 압력 차이로 혈장 성분이 보먼주머니로 밀려 나갑니다. 이렇게 걸러진 액체를 원뇨라고 부릅니다. 물, 포도당, 아미노산, 무기염류, 요소처럼 작은 분자는 통과하지만, 적혈구나 단백질처럼 큰 물질은 걸러지지 않습니다.</p>
+<p>둘째는 재흡수입니다. 원뇨가 세뇨관을 지나는 동안, 몸에 필요한 물질이 세뇨관을 감싼 모세혈관으로 다시 흡수됩니다. 포도당과 아미노산은 능동수송으로 거의 100% 되찾아옵니다. 그래서 건강한 사람의 소변에는 당이 나오지 않습니다. 소변에서 당이 검출되면 당뇨를 의심하는 이유가 여기에 있습니다.</p>
+<p>셋째는 분비입니다. 여과 때 미처 걸러지지 못하고 혈액에 남은 노폐물을, 모세혈관에서 세뇨관 쪽으로 다시 내보냅니다. 방향이 재흡수와 반대입니다. 이 과정으로 남은 노폐물을 마저 제거하고, 혈액의 산·염기 균형까지 함께 조율합니다.</p>
+<hr/>
+<h2>세뇨관은 구간마다 맡은 일이 다릅니다</h2>
+<p>세뇨관은 하나의 긴 관이지만, 구간마다 역할이 나뉩니다.</p>
+<figure><img src="./images/body-2.png" alt="근위세뇨관·헨레고리·집합관의 부위별 역할"/></figure>
+<p>근위세뇨관은 재흡수의 주력입니다. 여과된 물의 약 60~70%, 그리고 포도당과 아미노산 대부분을 여기서 되찾습니다.</p>
+<p>헨레고리는 수질 깊숙이 내려갔다 올라오는 U자 고리입니다. 이 구간은 신장 안쪽으로 갈수록 농도가 짙어지는 삼투 기울기를 만듭니다. 이를 역류증폭계라 부릅니다. 이 기울기 덕분에 나중에 집합관에서 물을 효율적으로 빼내 소변을 농축할 수 있습니다.</p>
+<p>원위세뇨관은 나트륨, 칼슘, 인산 같은 물질을 미세하게 조절하는 정밀 구간입니다. 앞선 근위세뇨관이 대량으로 처리한다면, 이곳은 몸의 신호에 맞춰 마지막 미세 조정을 맡습니다.</p>
+<p>집합관은 마지막 관문입니다. 호르몬 신호를 받아 물과 나트륨의 재흡수량을 정하고, 소변의 최종 농도를 결정합니다.</p>
+<hr/>
+<h2>몸은 소변량을 스스로 조절합니다</h2>
+<p>신장은 정해진 대로만 움직이지 않습니다. 몸 상태에 따라 소변량을 바꿉니다.</p>
+<p>여기에는 두 가지 조절 장치가 관여합니다.</p>
+<p>하나는 항이뇨호르몬(ADH), 다른 이름으로 바소프레신입니다. 몸이 탈수되어 혈액이 진해지면 분비됩니다. 집합관에 아쿠아포린이라는 물 통로를 늘려 물 재흡수를 촉진하고, 그 결과 소변량을 줄입니다. 물을 아끼는 장치인 셈입니다.</p>
+<p>다른 하나는 레닌-안지오텐신-알도스테론 시스템입니다. 신장으로 가는 혈류가 줄면 레닌이 분비되고, 연쇄 반응을 거쳐 안지오텐신 II와 알도스테론이 만들어집니다. 이들은 혈관을 조이고 나트륨과 물의 재흡수를 늘려 혈압을 끌어올립니다. 짜게 먹으면 몸이 붓고 혈압이 오르는 것도 이 조절 경로와 무관하지 않습니다.</p>
+<figure><img src="./images/body-3.png" alt="신장이 조절하는 재흡수와 배설 두 방향의 대조"/></figure>
+<p>정리하면, 재흡수는 필요한 것을 되찾는 방향이고 배설은 필요 없는 것을 내보내는 방향입니다. 신장은 이 두 힘의 균형을 매 순간 조절합니다.</p>
+<p>예전에는 소변을 그저 노폐물 찌꺼기로만 여겼습니다. 지금은 소변량과 성분 자체가 몸의 수분·혈압·전해질을 조절한 결과물임을 압니다.</p>
+<hr/>
+<h2>신장이 나빠지면 — GFR이 보내는 신호</h2>
+<p>신장의 상태는 사구체여과율(GFR)로 가늠합니다. 혈액 속 크레아티닌 수치로 이 값을 추정합니다.</p>
+<figure><img src="./images/body-4.png" alt="GFR 수치로 보는 정상 신장과 만성콩팥병 단계 비교"/></figure>
+<p>GFR이 90 이상이면 대체로 정상입니다. 60 밑으로 떨어지면 기능 저하가 시작되고, 15 아래로 내려가면 신부전, 곧 말기신부전으로 투석이나 이식이 필요한 단계입니다.</p>
+<p>문제는 초기에는 거의 증상이 없다는 점입니다. 상당히 나빠질 때까지 조용합니다. 그래서 신장을 &#x27;침묵의 장기&#x27;라 부릅니다.</p>
+<p>기능이 4~5단계까지 떨어지면 그제야 요독 증상이 나타납니다. 피로, 식욕 부진, 가려움증, 근육 경련, 손발 저림, 눈이나 발목 주위의 부종 같은 신호입니다. 노폐물을 충분히 걸러 내지 못해 몸에 쌓인 결과입니다.</p>
+<p>다만 이 글은 원리를 설명하기 위한 것이며, 증상만으로 자가 진단을 권하지는 않습니다. 걱정되는 지표가 있다면 검사를 받아 보시길 권합니다.</p>
+<hr/>
+<p>정리하면 이렇습니다.</p>
+<p>신장은 하루 180L를 크게 걸러 두고, 그중 99%를 정교하게 되찾은 뒤, 남은 1%에 노폐물을 실어 내보냅니다.</p>
+<p>&quot;크게 거르고, 세심하게 되찾는다.&quot; 신장이 피를 다루는 방식은 이 한 문장으로 요약됩니다.</p>
+<p>작은 여과 장치 하나가 이토록 조용히, 그러나 쉼 없이 일하고 있다는 사실을 떠올린다면, 오늘 마시는 물 한 잔이 조금은 달리 느껴지지 않을까 싶습니다.</p>
+<div class="tags"><span class="tag">#신장</span> <span class="tag">#네프론</span> <span class="tag">#소변생성</span> <span class="tag">#사구체여과율</span> <span class="tag">#신장건강</span> <span class="tag">#인체생리학</span> <span class="tag">#재흡수</span> <span class="tag">#만성콩팥병</span></div>
+  </div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

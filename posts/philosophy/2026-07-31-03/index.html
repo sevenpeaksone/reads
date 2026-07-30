@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사르트르 실존주의, '실존은 본질에 앞선다'와 자유라는 형벌을 쉽게 풀어봅니다</title>
+<style>
+  :root{
+    --bg:#0f0f1e; --card:#1a1830; --line:#2b2846;
+    --text:#e6e4f0; --muted:#a7a3c2; --accent:#a096ff; --accent-soft:#c9c3ff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    line-height:1.85; font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:700px; margin:0 auto; padding:56px 24px 96px;}
+  .badge-row{display:flex; align-items:center; gap:10px; margin-bottom:26px;}
+  .badge{
+    display:inline-block; background:rgba(160,150,255,.16); color:var(--accent-soft);
+    font-size:13px; font-weight:700; letter-spacing:.02em;
+    padding:6px 14px; border-radius:999px; border:1px solid rgba(160,150,255,.28);
+  }
+  .date{color:var(--muted); font-size:14px;}
+  h1{
+    font-size:30px; line-height:1.4; font-weight:800; letter-spacing:-.01em;
+    margin:0 0 30px; color:#fff;
+  }
+  h2{
+    font-size:22px; font-weight:700; color:var(--accent-soft);
+    margin:52px 0 18px; letter-spacing:-.01em; line-height:1.45;
+  }
+  p{margin:0 0 20px;}
+  img{max-width:100%; height:auto; border-radius:14px; display:block; margin:30px auto; border:1px solid var(--line);}
+  hr{border:none; border-top:1px solid var(--line); margin:44px 0;}
+  blockquote{
+    margin:34px 0; padding:20px 26px; background:var(--card);
+    border-left:4px solid var(--accent); border-radius:10px;
+    font-size:19px; font-weight:600; color:#fff;
+  }
+  .lead{color:var(--muted);}
+  .tags{
+    margin-top:16px; display:flex; flex-wrap:wrap; gap:10px;
+  }
+  .tags span{
+    color:var(--accent); font-size:14px; background:rgba(160,150,255,.10);
+    padding:5px 12px; border-radius:8px;
+  }
+  strong{color:#fff;}
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+
+  <div class="badge-row">
+    <span class="badge">철학·인문</span>
+    <span class="date">2026년 7월 31일</span>
+  </div>
+
+  <h1>사르트르 실존주의, '실존은 본질에 앞선다'와 자유라는 형벌을 쉽게 풀어봅니다</h1>
+
+  <img src="./images/thumbnail.png" alt="사르트르 실존주의 - 실존은 본질에 앞선다, 자유라는 형벌">
+
+  <p class="lead">이번 글에서는 장폴 사르트르의 실존주의를 정리해 보겠습니다. '실존은 본질에 앞선다'는 한 문장, 그리고 그가 자유를 왜 '형벌'이라 불렀는지가 중심입니다. 어렵게 들리는 개념을 일상의 예로 풀되, 뼈대는 흐트러뜨리지 않으려 합니다.</p>
+
+  <p>먼저 결론부터 말씀드립니다. 사르트르에게 인간은 미리 정해진 설계도가 없는 존재입니다. 그래서 자유롭고, 바로 그 자유 때문에 무겁습니다.</p>
+
+  <hr>
+
+  <h2>■ 실존은 본질에 앞선다 — 종이칼과 사람의 차이</h2>
+
+  <p>책상 위의 종이칼을 떠올려 봅니다. 장인은 '종이를 자른다'는 쓰임새를 먼저 정하고 나서 칼을 만듭니다. 사물은 용도, 곧 본질이 먼저 있고 그 다음에 존재합니다.</p>
+
+  <p>사람은 반대입니다. 우리는 어떤 목적을 위해 설계된 뒤 태어나지 않았습니다. 먼저 세상에 던져져 존재하고, 그 다음에 스스로 자신이 무엇인지를 만들어 갑니다.</p>
+
+  <p>사르트르는 이것을 "실존은 본질에 앞선다"고 압축했습니다. 인간에게는 미리 주어진 본질이 없다는 선언입니다. 이 문장은 그가 1945년에 한 강연에서 처음 꺼냈고, 이듬해 『실존주의는 휴머니즘이다』라는 책으로 묶여 나왔습니다.</p>
+
+  <p>예전에는 인간의 본성이 먼저 정해져 있다고 보았습니다. 사르트르는 그 순서를 뒤집습니다. 정해진 나는 없고, 선택으로 만들어 가는 나만 있습니다.</p>
+
+  <p>이 뒤집기는 생각보다 큽니다. '나는 원래 이런 사람'이라는 말이 설 자리를 잃기 때문입니다. 소심함도, 게으름도 타고난 본질이 아니라 매 순간의 선택이 쌓인 결과가 됩니다. 사르트르의 표현을 빌리면, 인간은 "먼저 존재하고, 세계 속에 불쑥 나타난 뒤에 스스로를 정의"합니다. 어제의 나로 오늘을 변명할 수 없다는 뜻이기도 합니다.</p>
+
+  <img src="./images/body-1.png" alt="사르트르 실존주의 세 가지 핵심 명제 정리">
+
+  <hr>
+
+  <h2>■ 즉자와 대자 — 사물의 존재와 사람의 존재</h2>
+
+  <p>1943년에 나온 대표작 『존재와 무』에서 사르트르는 존재를 두 방식으로 나눕니다.</p>
+
+  <p>하나는 즉자존재입니다. 돌이나 책상처럼 '그것인 바 그대로' 완결되어 있는 존재입니다. 자기 자신과 빈틈없이 일치합니다.</p>
+
+  <p>다른 하나는 대자존재, 곧 인간의 의식입니다. 대자는 늘 무언가가 '결여'된 존재입니다. 아직 되지 않은 자신을 향해 열려 있습니다.</p>
+
+  <p>돌은 돌이 되려고 애쓰지 않습니다. 그러나 사람은 다릅니다. 우리는 끊임없이 '어떤 사람이 될 것인가'를 붙들고 있습니다. 과거에도 환경에도 완전히 갇히지 않기에, 인간은 피할 수 없이 자유롭습니다.</p>
+
+  <p>여기서 '무(無)'라는 말이 중요합니다. 대자는 자기 안에 빈 곳을 품은 존재입니다. 그 빈 곳이 있어 우리는 지금의 나를 넘어설 수 있습니다. 완결된 사물에는 넘어설 여지가 없지만, 결여를 지닌 인간에게는 늘 다른 가능성이 열려 있습니다. 자유의 뿌리가 바로 이 결여입니다.</p>
+
+  <img src="./images/body-2.png" alt="즉자존재와 대자존재 비교">
+
+  <hr>
+
+  <h2>■ 자유라는 형벌 — 인간은 자유롭도록 저주받았다</h2>
+
+  <p>여기서 사르트르의 가장 유명한 말이 나옵니다. "인간은 자유롭도록 저주받았다."</p>
+
+  <p>자유가 왜 저주일까요. 우리는 선택하지 않을 자유가 없기 때문입니다. 선택을 미루는 것마저 하나의 선택입니다. 그리고 모든 선택에는 책임이 따라붙습니다.</p>
+
+  <p>핑계 댈 신도, 미리 정해진 정답표도 없습니다. 그래서 사르트르는 이 상태를 '버려짐'이라 불렀습니다. 우리에게 가치를 정해 줄 입법자가 없다는 뜻입니다.</p>
+
+  <p>이 무게를 그는 세 낱말로 설명합니다. 선택 앞의 떨림인 '불안', 기댈 근거가 없다는 '버려짐', 그리고 뜻대로 되지 않을 수 있음을 안고 행동하는 '절망'입니다. 지휘관이 부하의 목숨이 걸린 명령을 내릴 때의 그 책임감. 사르트르는 우리의 모든 선택이 그와 같다고 보았습니다.</p>
+
+  <img src="./images/body-3.png" alt="불안 버려짐 절망 세 가지 실존 경험">
+
+  <hr>
+
+  <h2>■ 나쁜 믿음 — 자유에서 도망치는 자기기만</h2>
+
+  <p>무게가 버거우면 사람은 도망치고 싶어집니다. 사르트르는 이 도피를 '나쁜 믿음', 곧 자기기만이라 불렀습니다.</p>
+
+  <p>내 결정이 사실은 내가 한 것이 아니라고 둘러대는 태도입니다. "어쩔 수 없었다", "원래 그런 사람이라서"라고 말하며 자신을 하나의 사물처럼 고정하는 것입니다.</p>
+
+  <p>그가 든 예가 인상적입니다. 손님 앞에서 지나치게 '웨이터다운' 몸짓을 연기하는 카페 종업원. 그는 자신을 하나의 역할로 굳혀, 그 안에 자유를 숨깁니다.</p>
+
+  <p>다만 짚어 둘 점이 있습니다. 나쁜 믿음이 가능한 것도 결국 우리가 자유롭기 때문입니다. 자유롭지 않다면 자유를 부정할 필요조차 없을 테니까요.</p>
+
+  <p>반대편에 놓이는 것이 '진정성'입니다. 자신이 자유롭다는 사실을 외면하지 않고, 선택의 몫을 스스로 떠안는 태도입니다. 사르트르가 나쁜 믿음을 길게 파고든 이유도 여기에 있습니다. 자기기만의 구조를 똑똑히 보아야, 비로소 그 반대편으로 걸어갈 수 있기 때문입니다.</p>
+
+  <hr>
+
+  <h2>■ 타자의 시선 — 지옥은 타인이다</h2>
+
+  <p>자유의 무게는 혼자 있을 때만의 문제가 아닙니다. 타인이 나를 바라보는 순간, 나는 그 시선 속에서 하나의 '대상'이 됩니다.</p>
+
+  <p>사르트르는 이를 '시선(the Look)'이라 불렀습니다. 남이 나를 어떻게 볼까를 의식하는 순간, 우리는 있는 그대로가 아니라 '보여지는 나'로 행동하게 됩니다.</p>
+
+  <p>희곡 『닫힌 방』의 저 유명한 대사가 여기서 나옵니다. "지옥은 타인이다." 사람이 싫다는 투정이 아닙니다. 타인의 눈길에 갇혀 한 가지 모습으로 고정되는 일의 불가피함을 말한 것입니다. 나의 자유와 타인의 자유가 부딪히는 자리, 거기서 갈등이 태어납니다.</p>
+
+  <img src="./images/body-4.png" alt="타자의 시선이 나를 대상으로 만드는 과정">
+
+  <hr>
+
+  <h2>■ 앙가주망 — 자유는 참여로 완성된다</h2>
+
+  <p>그렇다면 이 무거운 자유를 어떻게 감당해야 할까요. 사르트르의 답은 안으로 숨는 것이 아니라 밖으로 나서는 것이었습니다.</p>
+
+  <p>그가 말한 '앙가주망'은 사회 참여를 뜻합니다. 인간이 사회와 정치의 문제에 관계하고 뛰어들면서, 자유롭게 자기 실존을 이루어 가는 일입니다.</p>
+
+  <p>직접 참여해 세계를 조금씩 바꿀 때, 내 선택의 폭과 행위의 범위도 함께 넓어집니다. "상황을 바꿈으로써 자기를 해방하라." 이것이 사르트르 윤리학이 향한 지점입니다.</p>
+
+  <p>자유는 골방의 사색이 아니라 세계 속의 행동으로 완성됩니다. 그래서 그의 실존주의는 끝내 책임과 참여의 철학이 됩니다.</p>
+
+  <img src="./images/body-5.png" alt="자유에서 책임을 거쳐 참여로 나아가는 앙가주망">
+
+  <hr>
+
+  <h2>■ 왜 지금 다시 사르트르인가</h2>
+
+  <p>이 철학이 낡은 이야기로만 들리지는 않습니다. 오히려 지금 더 가깝게 느껴지는 대목이 있습니다.</p>
+
+  <p>타인의 시선을 떠올려 봅니다. 우리는 매일 화면 속에서 남에게 '보여지는 나'를 관리합니다. 좋아요와 댓글이라는 눈길 앞에서, 있는 그대로의 나보다 '보여질 나'를 먼저 계산하게 됩니다. 사르트르가 말한 시선의 논리가, 그가 살던 시대보다 지금 더 촘촘해진 셈입니다.</p>
+
+  <p>나쁜 믿음도 마찬가지입니다. "회사가 시켜서", "다들 그러니까"라는 말 뒤로 숨는 순간, 우리는 자신의 자유를 사물의 자리에 내려놓습니다. 편하지만, 그만큼 나를 잃는 거래입니다.</p>
+
+  <p>사르트르의 메시지는 그래서 여전히 유효합니다. 나를 정의하는 것은 상황이 아니라, 그 상황 앞에서 내가 내리는 선택이라는 것.</p>
+
+  <hr>
+
+  <p>정리하면 이렇습니다. 사르트르에게 인간은 정해진 본질 없이 던져진 존재이고, 그래서 자유롭고, 그 자유의 무게를 스스로 짊어져야 합니다.</p>
+
+  <blockquote>"인간은 스스로 만든 것 외에 아무것도 아니다."</blockquote>
+
+  <p>편한 위안을 주는 철학은 아닙니다. 그러나 내 삶의 저자가 나 자신이라는 이 선언은, 무겁게 읽히다가도 어느 순간 가장 든든한 말이 됩니다. 도망칠 곳이 없다면, 남은 길은 정면으로 나를 사는 것뿐입니다.</p>
+
+  <hr>
+
+  <div class="tags">
+    <span>#사르트르</span><span>#실존주의</span><span>#실존은본질에앞선다</span><span>#존재와무</span><span>#자유와책임</span><span>#나쁜믿음</span><span>#앙가주망</span><span>#철학공부</span><span>#인문학</span><span>#실존주의는휴머니즘이다</span>
+  </div>
+
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

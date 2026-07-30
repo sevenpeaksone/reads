@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>세계 종교 달력의 원리 — 부활절·라마단·부처님오신날은 왜 매년 바뀔까</title>
+<style>
+  :root{
+    --bg:#121212; --panel:#1b1a22; --card:#2a2836; --line:#4a475f;
+    --text:#e9e7ef; --mute:#a8a4b8; --accent:#d6b678; --accent-soft:#e4cfa0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    line-height:1.85; font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:700px; margin:0 auto; padding:56px 24px 96px;}
+  .meta{display:flex; align-items:center; gap:12px; margin-bottom:22px;}
+  .badge{
+    background:var(--accent); color:#191720; font-weight:700; font-size:13px;
+    padding:5px 13px; border-radius:999px; letter-spacing:1px;
+  }
+  .date{color:var(--mute); font-size:14px;}
+  h1{
+    font-size:31px; line-height:1.42; font-weight:800; margin:0 0 30px;
+    letter-spacing:-0.4px;
+  }
+  h2{
+    font-size:22px; font-weight:700; margin:52px 0 18px;
+    color:var(--accent-soft); letter-spacing:-0.2px;
+  }
+  p{margin:0 0 20px;}
+  img{max-width:100%; height:auto; display:block; border-radius:14px; margin:30px 0;}
+  hr{border:none; border-top:1px solid var(--line); margin:44px 0;}
+  blockquote{
+    margin:34px 0; padding:20px 26px; background:var(--card);
+    border-left:4px solid var(--accent); border-radius:10px;
+    color:var(--accent-soft); font-size:19px; font-weight:600; line-height:1.7;
+  }
+  .tags{margin-top:52px; display:flex; flex-wrap:wrap; gap:9px;}
+  .tags span{
+    background:var(--panel); border:1px solid var(--line); color:var(--mute);
+    font-size:13.5px; padding:6px 13px; border-radius:999px;
+  }
+  .kicker-quote{color:var(--mute); font-size:15px;}
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/religion/index.html">종교 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+
+  <div class="meta">
+    <span class="badge">종교</span>
+    <span class="date">2026년 7월 31일</span>
+  </div>
+
+  <h1>세계 종교 달력의 원리 — 부활절·라마단·부처님오신날은 왜 매년 바뀔까</h1>
+
+  <img src="./images/thumbnail.png" alt="세계 종교 달력의 원리 대표 이미지">
+
+  <p>오늘은 세계 종교의 축제일과 성일이 어떻게 정해지는지 이야기해 보려 합니다.<br>
+  부활절은 해마다 날짜가 다르고, 라마단은 조금씩 앞당겨집니다. 부처님오신날도 4월과 5월을 오갑니다.<br>
+  그 뒤에는 저마다 다른 달력, 곧 역법(曆法)의 원리가 있습니다. 특정 신앙을 옹호하거나 비판하려는 글이 아닙니다. 종교학의 눈으로, 시간을 세는 방식이 어떻게 다른지 차분히 살펴보겠습니다.</p>
+
+  <hr>
+
+  <h2>시간을 세는 세 가지 방식</h2>
+
+  <p>달력은 무엇을 시간의 기준으로 삼느냐에 따라 크게 셋으로 나뉩니다.</p>
+
+  <p>첫째는 태양력입니다. 태양의 운행, 즉 계절의 주기인 회귀년을 따릅니다. 회귀년은 약 365.2422일입니다. 달의 모양과는 상관없이 계절과 맞추는 데 집중합니다.</p>
+
+  <p>둘째는 태음력입니다. 달이 차고 기우는 한 주기, 곧 삭망월을 기준으로 각 달을 정합니다. 삭망월은 약 29.5306일입니다. 열두 달을 채워도 약 354일에 그쳐, 태양년보다 열하루쯤 짧습니다.</p>
+
+  <p>셋째는 태음태양력입니다. 달을 기준으로 달(月)을 세되, 계절과도 맞추려고 윤달을 끼워 넣습니다. 두 리듬을 모두 붙잡으려는 절충안인 셈입니다.</p>
+
+  <p>문제의 뿌리는 간단한 나눗셈에 있습니다. 회귀년 365.2422일을 삭망월 29.5306일로 나누면 약 12.37달이 됩니다. 딱 열두 달로 떨어지지 않습니다. 이 어중간한 0.37 때문에 태음력은 계절에서 밀려나고, 태음태양력은 이삼 년마다 윤달로 그 오차를 메워야 합니다.</p>
+
+  <img src="./images/body-1.png" alt="태양력·태음력·태음태양력 세 가지 달력 비교 카드">
+
+  <hr>
+
+  <h2>이슬람 — 계절을 놓아준 순수 태음력</h2>
+
+  <p>이슬람의 히즈리력은 순수 태음력입니다. 열두 달, 각 달은 29일이나 30일, 한 해는 354일이나 355일입니다.</p>
+
+  <p>윤달을 넣지 않습니다. 그래서 태양년보다 매년 열흘에서 열하루쯤 짧습니다. 라마단을 비롯한 축제일이 그레고리력 기준으로 해마다 약 11일씩 앞당겨지는 이유입니다.</p>
+
+  <p>예전엔 여름에 들던 라마단이 몇 해 뒤엔 봄으로, 다시 겨울로 옮겨 갑니다. 이렇게 계절을 한 바퀴 도는 데 약 33년이 걸립니다.</p>
+
+  <p>각 달은 전통적으로 초승달이 실제로 관측될 때 시작합니다. 하늘을 직접 살피는 이 관측 때문에, 같은 축제라도 나라에 따라 하루쯤 날짜가 갈리기도 합니다.</p>
+
+  <img src="./images/body-2.png" alt="순수 태음력과 태음태양력의 계절 대응 비교">
+
+  <hr>
+
+  <h2>유대교 — 윤달로 봄을 붙잡는 태음태양력</h2>
+
+  <p>유대력은 태음태양력입니다. 달을 기준으로 삼되, 계절과 맞추기 위해 윤달을 넣습니다.</p>
+
+  <p>보정의 열쇠는 메톤 주기입니다. 19 태양년이 235 삭망월과 거의 정확히 맞아떨어진다는 사실을 이용합니다. 19년 가운데 일곱 번, 아달월 앞에 제1 아달월이라는 윤달을 더합니다.</p>
+
+  <p>이렇게 하는 데는 이유가 있습니다. 전통에 따르면 유월절은 봄에 지켜야 합니다. 윤달을 넣지 않으면 유월절이 점점 겨울로 밀려나기 때문에, 한 달을 더해 다시 봄으로 끌어올리는 것입니다.</p>
+
+  <p>오늘날의 유대력은 4세기 무렵 힐렐 2세가 관측 대신 계산으로 표준화한 형태로 전해집니다.</p>
+
+  <hr>
+
+  <h2>기독교 — 춘분·보름·일요일이 겹치는 부활절</h2>
+
+  <p>부활절은 해마다 날짜가 바뀌는 대표적인 이동 축일입니다. 그 계산법을 콤푸투스라 부릅니다.</p>
+
+  <p>기본 규칙은 이렇습니다. 춘분 당일 또는 그 뒤에 오는 첫 보름, 그 보름 다음의 첫 일요일. 춘분 이후, 보름 다음, 그리고 일요일이라는 세 조건이 한자리에서 겹칩니다.</p>
+
+  <p>여기엔 짚어둘 점이 하나 있습니다. 이때의 춘분과 보름은 실제 천문 관측이 아닙니다. 교회가 3월 21일로 고정한 춘분과, 미리 계산해 둔 '가상의 달'에 근거한 표 계산입니다. 실제 만월과 하루 이틀 어긋나기도 합니다. 전 세계 교회가 하늘을 보지 않고도 같은 날짜를 얻게 하려는 장치입니다.</p>
+
+  <p>그래서 부활절은 3월 22일에서 4월 25일 사이에만 놓입니다. 다만 동방정교회는 지금도 율리우스력으로 계산해, 서방 교회와 날짜가 다른 해가 많습니다.</p>
+
+  <img src="./images/body-3.png" alt="부활절 계산 컴푸투스의 춘분·보름·일요일 3단계">
+
+  <hr>
+
+  <h2>불교와 힌두교 — 보름에 깃든 성일</h2>
+
+  <p>불교의 축일도 아시아 각국의 태음태양력에 기댑니다. 삭망월을 쓰고 19년에 일곱 번 윤달을 넣는 방식은 유대력과 결이 같습니다.</p>
+
+  <p>부처님오신날, 곧 웨삭은 주로 바이샤카월의 보름에 지킵니다. 태음태양력을 따르므로 그레고리력상 날짜가 매년 달라져 보통 4월이나 5월에, 윤달이 든 해에는 6월에 오기도 합니다. 보름날은 부처의 탄생과 깨달음이 겹친다고 여겨 특별한 의미를 지닙니다.</p>
+
+  <p>힌두교의 달력은 판창가라 불리는 태음태양력입니다. 이름은 시간의 다섯 요소를 뜻합니다. 음력의 하루인 티티를 기준으로, 밝아지는 보름과 어두워지는 보름으로 한 달을 나눕니다. 지역에 따라 그믐으로 달을 끝내는 방식과 보름으로 끝내는 방식이 갈려, 같은 축제라도 달 이름이 다르게 보이기도 합니다.</p>
+
+  <hr>
+
+  <h2>그레고리력 — 달력에서 열흘을 지운 개혁</h2>
+
+  <p>오늘 세계가 함께 쓰는 그레고리력에도 종교적 사연이 있습니다.</p>
+
+  <p>이전의 율리우스력은 1년을 365.25일로 잡았습니다. 실제 회귀년보다 매년 약 11분씩 길었습니다. 작은 차이지만 천 년 넘게 쌓이자, 16세기엔 실제 춘분이 달력보다 열흘이나 앞서 있었습니다.</p>
+
+  <p>이 어긋남은 부활절 계산을 흔들었습니다. 교회는 부활절을 325년 니케아 공의회가 합의한 계절로 되돌리려 했습니다.</p>
+
+  <p>그래서 교황 그레고리오 13세는 1582년, 쌓인 열흘을 지웠습니다. 10월 4일 다음 날이 곧바로 10월 15일이 되었습니다. 재발을 막기 위해 윤년 규칙도 손봤습니다. 100으로 나뉘되 400으로 나뉘지 않는 해는 윤년에서 빼기로 한 것입니다.</p>
+
+  <img src="./images/body-4.png" alt="1582년 그레고리력 개혁의 세 단계">
+
+  <p>처음엔 가톨릭 국가들만 받아들였습니다. 개신교와 정교회 국가들은 한동안 옛 달력을 지켰습니다. 종교 축일이 오늘날에도 종파에 따라 갈리는 배경이 여기에 있습니다.</p>
+
+  <hr>
+
+  <h2>한눈에 보는 종교별 역법</h2>
+
+  <p>지금까지의 이야기를 표 하나로 모아 보겠습니다. 어떤 전통이 무엇을 기준으로 삼았는지 견주어 보면 차이가 또렷해집니다.</p>
+
+  <p>이슬람은 순수 태음력이라 계절을 놓아주었고, 유대교와 불교, 힌두교는 태음태양력으로 윤달을 넣어 계절을 붙잡았습니다. 기독교는 태양력을 쓰되 부활절만은 옛 태음태양의 셈법을 물려받았습니다. 같은 '보름'이라도 어디에서는 축제의 중심이 되고, 어디에서는 계산의 재료가 됩니다.</p>
+
+  <img src="./images/body-5.png" alt="이슬람·유대교·기독교·불교·힌두교 역법 비교 표">
+
+  <p>한 가지 덧붙이자면, 어떤 전통도 완벽하게 하늘과 맞아떨어지지는 않습니다. 순수 태음력은 계절과 어긋나고, 태음태양력은 윤달이라는 번거로움을 감수합니다. 태양력조차 400년에 사흘을 덜어내는 보정이 필요합니다. 저마다 무언가를 얻기 위해 무언가를 내려놓은 셈입니다.</p>
+
+  <hr>
+
+  <p>끝으로 한 가지만 덧붙이겠습니다.</p>
+
+  <p>달력은 그저 날짜를 세는 도구가 아닙니다. 어떤 전통은 달을 따라 계절을 놓아주었고, 어떤 전통은 윤달로 계절을 붙잡았습니다. 같은 하늘을 올려다보면서도, 시간을 나누는 방식은 저마다 달랐습니다.</p>
+
+  <blockquote>"축제일을 정하는 방식 안에, 그 종교가 무엇을 소중히 여겼는지가 담겨 있다."</blockquote>
+
+  <p>라마단이 왜 해마다 당겨지는지, 부활절이 왜 매년 바뀌는지 다시 묻는다면, 이제는 달과 태양의 오래된 셈법을 떠올리시게 될 것입니다.</p>
+
+  <div class="tags">
+    <span>#세계종교</span><span>#종교달력</span><span>#부활절계산</span><span>#라마단</span><span>#부처님오신날</span><span>#태음태양력</span><span>#그레고리력</span><span>#비교종교</span><span>#히즈리력</span><span>#유대력</span>
+  </div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
