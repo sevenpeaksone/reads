@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>수요의 가격탄력성 — 가격이 오르면 소비는 얼마나 줄어드나</title>
+<style>
+  body { margin:0; background:#f4f5f7; color:#1c1f26;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif; }
+  .wrap { max-width:700px; margin:0 auto; padding:48px 24px 80px; background:#fff; }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:20px; }
+  .badge { background:#2bbe78; color:#fff; font-size:13px; font-weight:700;
+    padding:4px 12px; border-radius:999px; }
+  .date { color:#8a90a0; font-size:14px; }
+  h1 { font-size:30px; line-height:1.4; font-weight:800; margin:0 0 28px;
+    letter-spacing:-0.02em; }
+  h2 { font-size:21px; font-weight:700; margin:44px 0 16px; color:#12603f;
+    letter-spacing:-0.01em; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; color:#252a33; }
+  strong { color:#12603f; font-weight:700; }
+  hr { border:0; border-top:1px solid #e6e8ec; margin:36px 0; }
+  figure { margin:28px 0; text-align:center; }
+  img { max-width:100%; height:auto; border-radius:12px; }
+  .tags { margin-top:40px; display:flex; flex-wrap:wrap; gap:8px; }
+  .tag { color:#2bbe78; font-size:14px; font-weight:600; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta"><span class="badge">경제</span><span class="date">2026-08-02</span></div>
+  <h1>수요의 가격탄력성 — 가격이 오르면 소비는 얼마나 줄어드나</h1>
+  <figure><img src="./images/thumbnail.png" alt="수요의 가격탄력성 대표 이미지 — 가격이 오르면 소비는 얼마나 줄어드나"></figure>
+<p>가격이 오르면 소비는 준다. 여기까지는 누구나 압니다.<br>
+문제는 &quot;얼마나&quot; 주느냐입니다. 그 민감도를 하나의 숫자로 잡아낸 것이 수요의 가격탄력성입니다.<br>
+이번 글에서는 수요의 가격탄력성이 무엇인지, 어떻게 계산하고, 담배와 휘발유의 소비가 왜 서로 다르게 움직이는지를 정리해 보겠습니다.</p>
+<p>미리 답부터 말씀드리면 이렇습니다. <strong>가격탄력성은 &quot;가격이 1% 오를 때 수요량이 몇 % 줄어드는가&quot;를 재는 자입니다.</strong> 그 값이 1보다 크면 탄력적, 작으면 비탄력적입니다. 그리고 이 하나의 숫자가 기업의 가격 전략과 정부의 세금 설계까지 좌우합니다.</p>
+<hr>
+<h2>가격탄력성이란 무엇인가</h2>
+<p>수요의 가격탄력성은 가격 변화에 수요량이 얼마나 민감하게 반응하는지를 나타내는 지표입니다.<br>
+정의는 단순합니다.</p>
+<p>가격탄력성 = 수요량의 변화율(%) ÷ 가격의 변화율(%)</p>
+<p>가격이 10% 올랐을 때 수요량이 20% 줄었다면 탄력성은 2입니다. 5%만 줄었다면 0.5입니다.<br>
+수요의 법칙상 가격과 수요량은 반대로 움직이므로 원래 부호는 음수입니다. 다만 관례적으로 절댓값을 취해 양수로 다룹니다.</p>
+<p>숫자가 클수록 소비자가 가격에 예민하다는 뜻입니다. 작을수록 값이 올라도 꿋꿋이 산다는 뜻이고요.</p>
+<hr>
+<h2>탄력적과 비탄력적, 기준은 1</h2>
+<p>탄력성의 세계는 숫자 1을 경계로 갈립니다.<br>
+값이 1보다 크면 가격 변화보다 수요량이 더 크게 반응하는 탄력적 상태입니다. 1보다 작으면 덜 반응하는 비탄력적 상태고요.</p>
+<figure><img src="./images/body-1.png" alt="가격탄력성 값에 따른 탄력적·비탄력적 구분 기준 표"></figure>
+<p>한 가지 오해를 짚고 갑니다. 탄력적이라는 말은 &quot;수요가 많다&quot;는 뜻이 아닙니다.<br>
+탄력성은 양(量)이 아니라 민감도입니다. 아무리 많이 팔리는 상품이라도 가격에 둔감하면 비탄력적입니다.</p>
+<hr>
+<h2>오르든 내리든 같은 값 — 중점법</h2>
+<p>계산에는 함정이 하나 있습니다.<br>
+가격이 1,000원에서 1,200원으로 오를 때와, 1,200원에서 1,000원으로 내릴 때. 같은 구간인데도 기준점을 어디로 잡느냐에 따라 변화율이 달라집니다.</p>
+<p>이 문제를 없애려고 쓰는 것이 중점법(호탄력성)입니다.<br>
+시작값과 끝값의 평균을 분모로 삼는 방식입니다.</p>
+<p>중점법 = [수량 변화 ÷ 두 수량의 평균] ÷ [가격 변화 ÷ 두 가격의 평균]</p>
+<p>이렇게 하면 오르는 방향이든 내리는 방향이든 탄력성 값이 같게 나옵니다.<br>
+예를 들어 가격 변화율이 약 22%, 수요량 변화율이 약 40%로 계산되면 탄력성은 40 ÷ 22, 약 1.8이 됩니다. 탄력적인 상품이라는 뜻입니다.</p>
+<p>숫자를 하나 직접 넣어 보겠습니다.<br>
+어떤 카페의 아메리카노가 4,000원일 때 하루 100잔 팔린다고 합시다. 값을 5,000원으로 올렸더니 60잔으로 줄었습니다.<br>
+두 가격의 평균은 4,500원, 두 수량의 평균은 80잔입니다.<br>
+가격은 1,000원 올랐으니 변화율은 1,000 ÷ 4,500, 약 22%. 수량은 40잔 줄었으니 40 ÷ 80, 즉 50%.<br>
+탄력성은 50 ÷ 22, 약 2.3입니다. 값에 매우 예민한 상품이라는 뜻입니다.</p>
+<hr>
+<h2>무엇이 탄력성을 결정하는가</h2>
+<p>같은 가격 인상이라도 상품마다 소비자의 반응은 천차만별입니다.<br>
+그 차이를 만드는 요인은 크게 넷입니다.</p>
+<figure><img src="./images/body-2.png" alt="가격탄력성을 결정하는 4가지 요인 — 대체재, 필수재와 사치재, 소득 비중, 기간"></figure>
+<p>첫째, 대체재의 존재입니다. 가장 중요한 요인입니다.<br>
+가까운 대체재가 많으면 값이 오를 때 다른 상품으로 갈아타기 쉽습니다. 그래서 탄력적입니다. 대체할 것이 없으면 비탄력적이고요.</p>
+<p>둘째, 필수재냐 사치재냐입니다.<br>
+기본 식료품처럼 없으면 안 되는 것은 값이 올라도 계속 삽니다. 비탄력적입니다. 반면 사치품은 값이 오르면 미루거나 포기하기 쉽습니다.</p>
+<p>셋째, 소득에서 차지하는 비중입니다.<br>
+지출 비중이 큰 상품일수록 가격 변화가 살림에 크게 와닿아 탄력적입니다. 껌이나 성냥처럼 비중이 작으면 값이 두 배가 돼도 소비는 잘 안 줄어듭니다.</p>
+<p>넷째, 기간입니다.<br>
+같은 상품도 단기에는 비탄력적이지만 장기에는 탄력적입니다. 시간이 지나면 소비자가 대안을 찾고 습관을 바꾸기 때문입니다.</p>
+<hr>
+<h2>담배는 왜 값이 올라도 안 줄까</h2>
+<p>이론을 현실에 대보면 더 또렷해집니다.</p>
+<figure><img src="./images/body-3.png" alt="담배·휘발유·명품의 가격탄력성 비교 표"></figure>
+<p>담배의 가격탄력성은 대략 0.3에서 0.4로 비탄력적입니다.<br>
+가격이 10% 올라도 성인 흡연량은 약 3%만 줄어듭니다. 중독성 탓에 마땅한 대체재가 없기 때문입니다.</p>
+<p>휘발유도 단기에는 비탄력적입니다. 탄력성이 대략 0.2에서 0.3 수준입니다.<br>
+당장은 차를 두고 다닐 수 없으니까요. 하지만 장기로 가면 0.6에서 0.8까지 커집니다.<br>
+값이 오래 높으면 연비 좋은 차로 바꾸고 대중교통으로 옮겨가기 때문입니다. &quot;예전엔 그냥 넣었지만, 지금은 한 번 더 따진다&quot;는 변화가 시간이 지나며 쌓이는 셈입니다.</p>
+<p>반대로 명품 같은 사치재는 탄력적입니다.<br>
+소득에서 차지하는 비중이 크고, 안 사도 그만이라는 선택지가 늘 있기 때문입니다.</p>
+<hr>
+<h2>가격을 올려야 할까, 내려야 할까</h2>
+<p>탄력성은 교과서 밖으로 나오면 곧장 돈 문제가 됩니다.<br>
+기업의 총수입은 가격과 판매량의 곱입니다. 가격을 올리면 단가는 오르지만 판매량은 줄어듭니다. 어느 쪽이 이기는지가 탄력성에 달렸습니다.</p>
+<figure><img src="./images/body-4.png" alt="탄력적 상품과 비탄력적 상품의 가격 전략 비교"></figure>
+<p>비탄력적인 상품은 값을 올릴수록 총수입이 늘어납니다. 판매량이 조금밖에 안 줄기 때문입니다.<br>
+탄력적인 상품은 반대입니다. 값을 내려 많이 파는 편이 총수입에 유리합니다.<br>
+&quot;탄력적이면 값을 내리고, 비탄력적이면 값을 올려라.&quot; 가격 전략의 오랜 원칙이 여기서 나옵니다.</p>
+<p>여기서 흔한 착각 하나. 총수입이 늘었다고 무조건 수요가 비탄력적인 것은 아닙니다.<br>
+수입 증가가 가격 인상 때문인지 판매량 증가 때문인지, 둘을 함께 봐야 판단이 어긋나지 않습니다.</p>
+<hr>
+<h2>소득·교차·공급, 그리고 세금</h2>
+<p>탄력성은 가격 하나에만 쓰이지 않습니다.</p>
+<p>소득탄력성은 소득이 변할 때 수요가 얼마나 변하는지를 봅니다.<br>
+소득이 늘 때 수요도 느는 상품이 정상재, 오히려 줄어드는 상품이 열등재입니다. 형편이 나아지자 값싼 메뉴를 줄이고 더 나은 것을 찾는 경우가 열등재의 예입니다.</p>
+<p>교차탄력성은 다른 상품의 가격 변화에 대한 반응입니다.<br>
+값이 양수면 대체재(비행기표와 기차표), 음수면 보완재(빵과 땅콩버터)입니다.</p>
+<p>공급탄력성은 값이 오를 때 공급량이 얼마나 느는지를 봅니다. 생산을 늘리기 쉬우면 탄력적, 토지나 해변 호텔처럼 늘리기 어려우면 비탄력적입니다.</p>
+<figure><img src="./images/body-5.png" alt="조세귀착 원리 3단계 — 세금 부과, 탄력성 비교, 부담 결정"></figure>
+<p>세금 이야기로 마무리 짓겠습니다.<br>
+세금을 매기면 그 부담은 소비자와 판매자가 나눠 집니다. 나누는 비율은 탄력성이 정합니다.<br>
+원리는 간단합니다. 더 비탄력적인 쪽이 더 많이 뭅니다. 도망갈 곳이 없는 쪽이 부담을 떠안는 셈입니다.<br>
+담배가 대표적입니다. 수요가 비탄력적이라 세금을 붙여도 판매량은 크게 안 줄고, 인상분을 대부분 소비자가 부담합니다. 정부가 담배와 술에 세금을 매기는 이유이기도 합니다.</p>
+<hr>
+<p>정리하면 이렇습니다.<br>
+가격탄력성은 &quot;가격이 1% 움직일 때 수요가 몇 % 따라 움직이는가&quot;를 재는 하나의 자입니다.<br>
+그 자 하나로 우리는 소비자의 마음, 기업의 가격표, 정부의 세금까지 읽어냅니다.</p>
+<p>다만 이 숫자를 고정된 진리로 여기지는 마시길 권합니다. 같은 상품도 기간과 상황에 따라 탄력성은 달라집니다.</p>
+<p>— 가격이 오르면 소비가 준다는 사실보다, &quot;얼마나&quot; 주는지를 아는 쪽이 늘 한 걸음 앞섭니다.</p>
+<div class="tags"><span class="tag">#경제</span> <span class="tag">#가격탄력성</span> <span class="tag">#수요의가격탄력성</span> <span class="tag">#탄력성</span> <span class="tag">#경제상식</span> <span class="tag">#미시경제</span> <span class="tag">#총수입</span> <span class="tag">#조세귀착</span></div>
+<p>&lt;/content&gt;</p>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
