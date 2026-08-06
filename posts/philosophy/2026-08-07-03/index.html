@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>칸트의 정언명령 — 도덕 법칙은 어떻게 보편적일 수 있는가</title>
+<style>
+  :root{
+    --accent:#7b6cf0;
+    --ink:#22222a;
+    --muted:#6b6b78;
+    --line:#e8e6f2;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:#f4f3f8;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    color:var(--ink);
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:700px;
+    margin:0 auto;
+    padding:48px 24px 80px;
+  }
+  .article{
+    background:#fff;
+    border-radius:16px;
+    padding:44px 40px 56px;
+    box-shadow:0 4px 24px rgba(40,30,90,.06);
+  }
+  .meta{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:22px;
+  }
+  .badge{
+    display:inline-block;
+    background:linear-gradient(135deg,#7b6cf0,#a096ff);
+    color:#fff;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.02em;
+    padding:6px 14px;
+    border-radius:999px;
+  }
+  .date{
+    font-size:14px;
+    color:var(--muted);
+  }
+  h1{
+    font-size:29px;
+    line-height:1.4;
+    font-weight:800;
+    letter-spacing:-.01em;
+    margin:6px 0 26px;
+    color:#1b1b24;
+  }
+  h2{
+    font-size:21px;
+    font-weight:700;
+    margin:44px 0 16px;
+    padding-left:14px;
+    border-left:5px solid var(--accent);
+    line-height:1.45;
+    color:#26263a;
+  }
+  p{
+    font-size:16.5px;
+    margin:16px 0;
+    word-break:keep-all;
+  }
+  .lead{
+    font-size:17px;
+    color:#3a3a48;
+    background:#f7f6fc;
+    border-radius:10px;
+    padding:18px 20px;
+  }
+  .quote{
+    font-size:17px;
+    font-weight:600;
+    color:#3b3560;
+    margin:18px 0;
+    padding:2px 0 2px 16px;
+    border-left:3px solid var(--accent);
+  }
+  img{
+    max-width:100%;
+    height:auto;
+    display:block;
+    margin:26px auto;
+    border-radius:12px;
+  }
+  hr{
+    border:none;
+    border-top:1px solid var(--line);
+    margin:36px 0;
+  }
+  .tags{
+    margin-top:40px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .tags span{
+    font-size:13.5px;
+    color:var(--accent);
+    background:#f1eefc;
+    padding:5px 12px;
+    border-radius:8px;
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <article class="article">
+    <div class="meta">
+      <span class="badge">철학/인문</span>
+      <span class="date">2026-08-07</span>
+    </div>
+    <h1>칸트의 정언명령 — 도덕 법칙은 어떻게 보편적일 수 있는가</h1>
+
+    <img src="./images/thumbnail.png" alt="칸트의 정언명령 - 도덕 법칙은 어떻게 보편적일 수 있는가 대표 이미지">
+
+    <p class="lead">이번 글에서는 칸트의 정언명령을 정리해 보겠습니다. 도덕이 사람마다 다르고 상황마다 흔들리는 것처럼 보이는데, 칸트는 왜 도덕 법칙이 '보편적'일 수 있다고 말했는지를 따라가 봅니다. 개념이 다소 딱딱하지만, 하나씩 짚으면 어렵지 않습니다.</p>
+
+    <hr>
+
+    <h2>칸트가 던진 질문</h2>
+    <p>칸트는 1785년 『도덕형이상학 정초』에서 하나의 질문에 답하려 했습니다.</p>
+    <p class="quote">"도덕 법칙은 어떻게 보편적일 수 있는가."</p>
+    <p>취향은 사람마다 다릅니다. 이익도 상황마다 다릅니다. 그런데 도덕이 그런 것들에 좌우된다면, 그것은 이미 도덕이 아닙니다.</p>
+    <p>칸트는 도덕의 최고 원리를 실천 이성의 원리로 보았습니다. 그리고 그것을 정언명령이라 불렀습니다. 우리의 구체적인 의무들은 모두 이 하나의 원리에서 정당화됩니다.</p>
+    <p>그가 찾으려 한 것은 모든 시대, 모든 문화의 인간에게 똑같이 적용되는 선험적 원리였습니다. 경험에서 끌어온 규칙이 아니라, 이성 자체가 세우는 법칙 말입니다.</p>
+
+    <hr>
+
+    <h2>선의지 — 오직 하나만이 무조건 선하다</h2>
+    <p>『정초』의 첫 문장은 단호합니다. 이 세상에서 무조건적으로 선한 것은 오직 '선의지' 하나뿐이라는 것입니다.</p>
+    <p>재능도, 부도, 심지어 행복도 그 자체로는 선하지 않습니다. 나쁜 의지가 쥐면 얼마든지 해로워집니다.</p>
+    <p>선의지는 결과가 어긋나도 그 가치를 잃지 않습니다. 행위자가 '의무로부터' 행했다면, 뜻대로 되지 않았어도 도덕적 가치는 남습니다.</p>
+    <p>여기서 칸트의 유명한 구분이 나옵니다. '의무에 맞게' 한 행동과 '의무로부터' 한 행동은 다릅니다. 장사꾼이 정직한 이유가 단지 평판 때문이라면, 그 정직은 의무에 맞을 뿐 도덕적 가치는 없습니다. 결과가 아니라 동기가 도덕을 만듭니다.</p>
+
+    <img src="./images/body-1.png" alt="정언명령과 가언명령의 차이 비교">
+
+    <hr>
+
+    <h2>정언명령과 가언명령은 무엇이 다른가</h2>
+    <p>명령에는 두 종류가 있습니다.</p>
+    <p>가언명령은 조건을 답니다. "건강해지고 싶다면 운동하라." 목적을 승인하는 사람에게만 의미가 있습니다. 그 목적을 버리면 명령도 사라집니다. 그래서 보편타당성이 없습니다.</p>
+    <p>정언명령은 조건을 달지 않습니다. 어떤 결과를 위해서가 아니라, 그 행위 자체가 옳으므로 무조건 요구됩니다.</p>
+    <p>"거짓 약속을 하지 말라"는 이유가 붙지 않습니다. 들키면 손해라서가 아닙니다. 그 자체로 그르기 때문입니다. 정언명령은 바로 이런 무조건적 명령의 형식을 가리킵니다.</p>
+
+    <hr>
+
+    <h2>준칙, 그리고 보편법칙 정식</h2>
+    <p>정언명령을 이해하려면 '준칙(maxim)'이라는 말을 먼저 알아야 합니다. 준칙은 내가 어떤 상황에서 어떻게 행동하겠다는 나의 주관적 원리입니다. 말하자면 내 행동의 속마음 규칙입니다.</p>
+    <p>칸트의 첫 번째 정식, 보편법칙 정식은 이렇습니다.</p>
+    <p class="quote">"네 의지의 준칙이 동시에 보편적 법칙이 되기를 네가 의욕할 수 있는, 오직 그런 준칙에 따라서만 행위하라."</p>
+    <p>풀어 쓰면 이렇습니다. 내가 지금 따르려는 규칙을, 모든 사람이 똑같이 따라도 모순이 생기지 않는가. 그 물음을 통과한 준칙만 도덕적이라는 것입니다.</p>
+    <p>칸트는 하나의 정언명령을 여러 각도에서 표현했습니다. 형식을 말하는 보편법칙 정식, 내용을 말하는 인간성 정식, 그 원천을 말하는 자율성 정식과 목적의 왕국 정식입니다.</p>
+
+    <img src="./images/body-2.png" alt="정언명령의 세 정식 - 보편법칙, 인간성, 자율성과 목적의 왕국">
+
+    <hr>
+
+    <h2>인간성 정식 — 사람을 수단으로만 쓰지 말라</h2>
+    <p>두 번째 정식은 조금 더 따뜻하게 들립니다.</p>
+    <p class="quote">"너 자신이든 타인이든, 인간성을 언제나 동시에 목적으로 대우하고 결코 한낱 수단으로만 대우하지 말라."</p>
+    <p>여기서 핵심은 '~로만'입니다. 우리는 서로를 수단으로 씁니다. 버스 기사도, 카페 직원도 내 목적을 위한 수단입니다. 칸트는 그것을 금하지 않습니다.</p>
+    <p>금하는 것은 상대를 '오직 수단으로만' 대하는 태도입니다. 상대를 이성과 존엄을 지닌 목적 그 자체로 함께 존중해야 한다는 것입니다.</p>
+    <p>이성적 존재는 값을 매길 수 없는 내재적 가치를 지닙니다. 물건에는 가격이 있지만, 인격에는 존엄이 있습니다. 이 정식은 인간 존엄이라는 근대적 관념의 철학적 뿌리가 되었습니다.</p>
+
+    <hr>
+
+    <h2>자율성과 목적의 왕국</h2>
+    <p>세 번째 각도는 도덕 법칙이 '어디서 오는가'를 묻습니다.</p>
+    <p>칸트에게 자율은 '마음대로 함'이 아닙니다. 스스로 이성으로 인정한 법칙에 스스로 복종하는 것, 곧 자기 입법입니다.</p>
+    <p>도덕 법칙의 권위는 하늘이나 왕이 아니라, 자유로운 이성적 존재인 우리 자신에게서 나옵니다. 우리가 법을 세우고 그 법을 따릅니다.</p>
+    <p>그래서 칸트는 '목적의 왕국'을 상상합니다. 모든 이성적 존재가 서로를 목적으로 존중하며, 각자가 보편 법칙의 입법자로 참여하는 공동체입니다. 이 왕국의 성원이 세울 법칙에 맞게 행위하라는 것이 마지막 정식입니다.</p>
+
+    <img src="./images/body-3.png" alt="보편화 시험 3단계 - 준칙 확인, 보편화 가정, 모순 검사">
+
+    <hr>
+
+    <h2>보편화 시험 — 거짓 약속의 예</h2>
+    <p>추상적으로 들리니 칸트의 대표 예시를 봅니다.</p>
+    <p>돈이 급한 사람이 갚을 생각 없이 "반드시 갚겠다"며 거짓 약속을 하려 합니다. 준칙은 이렇습니다. "곤란할 때는 지키지 못할 약속을 해도 된다."</p>
+    <p>이 준칙을 보편법칙으로 세워 봅니다. 모두가 곤란할 때마다 거짓 약속을 한다면, 아무도 약속을 믿지 않게 됩니다. 그러면 약속이라는 제도 자체가 사라집니다.</p>
+    <p>칸트의 지적이 여기서 날카롭습니다. 거짓 약속이 성립하려면 상대가 그 약속을 믿어야 합니다. 그런데 보편화하는 순간 믿음이 무너지고, 거짓 약속으로 이루려던 목적 자체가 불가능해집니다. 준칙이 스스로를 무너뜨리는 셈입니다.</p>
+    <p>이런 경우를 칸트는 '개념상의 모순'이라 부릅니다. 그리고 여기서 나오는 의무를 '완전 의무'라 합니다. 반드시 지켜야 하는, 예외 없는 의무입니다.</p>
+    <p>반면 재능을 썩히거나 곤경에 처한 남을 돕지 않는 준칙은 다릅니다. 모두가 그래도 논리적 모순은 없습니다. 다만 이성적 존재로서 그런 세계를 일관되게 '의욕'할 수는 없습니다. 이것은 '의지상의 모순'이고, 여기서 '불완전 의무'가 나옵니다.</p>
+
+    <img src="./images/body-4.png" alt="완전 의무와 불완전 의무 비교 표">
+
+    <hr>
+
+    <h2>남는 물음 — 살인자가 문을 두드릴 때</h2>
+    <p>칸트의 체계는 아름답지만, 완벽하지는 않습니다. 가장 유명한 반론을 보겠습니다.</p>
+    <p>1797년 뱅자맹 콩스탕이 사고실험을 던졌습니다. 살인자가 문 앞에서 "네 친구가 이 집에 있느냐"고 묻습니다. 친구는 실제로 안에 숨어 있습니다. 거짓말을 해야 할까요.</p>
+    <p>콩스탕은 말합니다. "진실을 말하라"를 무조건적으로 밀어붙이면 사회가 불가능해진다고. 살인자에게조차 사실대로 말하는 것이 부조리하다는 것입니다.</p>
+    <p>놀랍게도 칸트는 물러서지 않았습니다. 그는 「인간애로부터 거짓말할 권리에 대하여」에서, 그럼에도 거짓말은 그르다고 답합니다. 진실성은 어떤 불이익이 따르더라도 모든 이에 대한 인간의 형식적 의무라는 것입니다.</p>
+    <p>여기서 형식주의 비판이 나옵니다. 정언명령은 행위의 형식만 따질 뿐 결과를 배제하기에, 현실의 갈등 앞에서 지나치게 경직된다는 지적입니다. "진실을 말하라"와 "무고한 생명을 지켜라"가 충돌할 때, 순수한 형식 시험만으로는 우선순위를 정하기 어렵습니다.</p>
+
+    <img src="./images/body-5.png" alt="거짓말할 권리에 대한 칸트의 인용 강조 박스">
+
+    <p>이 비판은 지금도 유효합니다. 다만 그것이 정언명령을 무너뜨리지는 못했습니다. 오히려 도덕에서 '동기'와 '보편성'을 진지하게 물은 사고방식은, 그 경직성까지 포함해 여전히 우리를 되돌아보게 합니다.</p>
+
+    <hr>
+
+    <p>끝으로 한 마디만 더 드리겠습니다.</p>
+    <p>정언명령이 우리에게 남긴 질문은 결국 하나로 압축됩니다.</p>
+    <p class="quote">"내가 지금 하려는 이 행동을, 모든 사람이 해도 괜찮은가."</p>
+    <p>이 물음 앞에 잠시 멈춰 선다면, 그것만으로도 우리는 이미 칸트가 말한 이성의 자리에 서 있는 셈입니다.</p>
+
+    <div class="tags">
+      <span>#칸트</span><span>#정언명령</span><span>#도덕형이상학정초</span><span>#보편법칙</span><span>#인간성정식</span><span>#윤리학</span><span>#철학공부</span><span>#실천이성</span><span>#자율성</span><span>#목적의왕국</span>
+    </div>
+  </article>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>정보 비대칭과 레몬 시장 — 중고차 시장은 왜 실패하나</title>
+<style>
+  :root { --accent:#2bbe78; --ink:#1a1c1a; --mute:#5b6b60; --line:#e2e8e4; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f5f7f5; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    line-height:1.85; }
+  .wrap { max-width:700px; margin:0 auto; padding:40px 24px 80px; background:#ffffff; }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:22px; }
+  .badge { background:var(--accent); color:#08110c; font-weight:700; font-size:13px;
+    padding:5px 13px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:30px; line-height:1.35; font-weight:800; margin:0 0 30px;
+    letter-spacing:-.01em; }
+  h2 { font-size:21px; font-weight:700; margin:44px 0 14px; padding-left:13px;
+    border-left:4px solid var(--accent); line-height:1.4; }
+  p { font-size:16.5px; margin:0 0 18px; word-break:keep-all; }
+  figure { margin:26px 0; }
+  img { max-width:100%; height:auto; border-radius:12px; display:block; }
+  hr { border:none; border-top:1px solid var(--line); margin:34px 0; }
+  .tags { margin-top:38px; padding-top:22px; border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:8px; }
+  .tag { color:var(--accent); background:#eaf7f0; font-size:13.5px;
+    padding:5px 11px; border-radius:8px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta"><span class="badge">경제</span><span class="date">2026-08-07</span></div>
+  <h1>정보 비대칭과 레몬 시장 — 중고차 시장은 왜 실패하나</h1>
+<figure><img src="./images/thumbnail.png" alt="정보 비대칭과 레몬 시장 — 중고차 시장은 왜 실패하나 대표 이미지"/></figure>
+<p>이번 글에서는 정보 비대칭과 레몬 시장을 정리해 보겠습니다. 왜 멀쩡해 보이는 중고차 시장에서 좋은 차가 자취를 감추는지, 그 원리를 경제학의 눈으로 따라가 봅니다. 결론부터 말씀드리면, 원인은 사기꾼이 아니라 &quot;한쪽만 아는 정보&quot;입니다.</p>
+<hr/>
+<h2>레몬은 왜 레몬이라 불릴까</h2>
+<p>미국에서 &quot;레몬(lemon)&quot;은 겉은 멀쩡해 보여도 사고 나면 계속 고장 나는 불량 중고차를 가리키는 말입니다. 반대로 상태 좋은 차는 &quot;복숭아(peach)&quot;라고 부릅니다.</p>
+<p>이 표현을 경제학 용어로 끌어올린 사람이 조지 애컬로프입니다. 그는 1970년 논문 &quot;The Market for &#x27;Lemons&#x27;&quot;에서, 산 지 얼마 안 된 중고차가 자꾸 고장 나는 흔한 경험을 하나의 시장 실패 모형으로 설명했습니다. 이 짧은 논문 한 편이 훗날 정보 경제학이라는 분야의 문을 열었습니다.</p>
+<p>재미있는 사실 하나. 이 논문은 처음에 세 곳의 학술지에서 거절당했습니다. 두 곳은 &quot;내용이 사소하다&quot;고 했고, 한 곳은 &quot;이게 맞는다면 경제학이 통째로 달라져야 한다&quot;며 돌려보냈습니다. 네 번째 투고지에서 겨우 실렸고, 31년 뒤 노벨상으로 이어졌습니다.</p>
+<hr/>
+<h2>정보 비대칭이라는 출발점</h2>
+<p>문제의 뿌리는 단순합니다. 파는 사람은 차의 진짜 상태를 압니다. 사는 사람은 사기 전까지 모릅니다. 거래하는 두 사람이 가진 정보의 양이 다른 것, 이것을 정보 비대칭이라 합니다.</p>
+<p>정보가 양쪽에 똑같이 있다면 시장은 문제없이 돌아갑니다. 좋은 차는 비싸게, 나쁜 차는 싸게, 각자 제값에 팔리면 그만입니다.</p>
+<p>어긋남은 정보가 한쪽에만 쏠릴 때 시작됩니다. 구매자는 눈앞의 차가 복숭아인지 레몬인지 가려낼 방법이 없습니다. 그래서 어떤 선택을 할까요. 그는 &quot;평균&quot;에 베팅합니다.</p>
+<figure><img src="./images/body-1.png" alt="정보 대칭 시장과 정보 비대칭 시장 비교"/></figure>
+<hr/>
+<h2>좋은 차가 먼저 떠난다 — 역선택의 메커니즘</h2>
+<p>여기서 역선택(adverse selection)이 등장합니다. 이름이 낯설지만 원리는 네 단계로 정리됩니다.</p>
+<p>첫째, 구매자는 품질을 모르니 시장의 평균 품질을 기준으로 값을 부릅니다.<br/>둘째, 이 평균 가격은 좋은 차 주인에게 너무 낮습니다. 그래서 좋은 차 주인이 시장을 떠납니다.<br/>셋째, 좋은 차가 빠지면 남은 차들의 평균 품질이 더 내려가고, 구매자는 값을 더 깎습니다.<br/>넷째, 그러면 그다음으로 괜찮은 차 주인도 팔기를 접습니다.</p>
+<p>이 과정이 반복되면 시장에는 결국 레몬만 남습니다. 심하면 거래 자체가 사라집니다. 좋은 물건이 스스로 빠져나가 남는 쪽의 구성이 나빠지는 것, 그래서 &quot;역(逆)선택&quot;입니다.</p>
+<p>핵심을 한 줄로 압축하면 이렇습니다 — &quot;나쁜 것이 좋은 것을 몰아낸다.&quot;</p>
+<figure><img src="./images/body-2.png" alt="역선택으로 시장이 무너지는 네 단계 다이어그램"/></figure>
+<hr/>
+<h2>숫자로 보면 더 분명합니다</h2>
+<p>추상적으로 들린다면 숫자를 얹어 보겠습니다. 경제학 강의에서 자주 쓰는 예시입니다.</p>
+<p>구매자가 매기는 가치는 상급차 1,000달러, 중급차 500달러, 레몬 0달러라고 합시다. 판매자가 &quot;이 밑으로는 안 판다&quot;고 보는 값은 상급차 800달러, 중급차 400달러, 레몬 0달러입니다.</p>
+<p>세 등급이 골고루 있다면 구매자의 기대가치는 (1000＋500＋0)÷3, 즉 500달러입니다. 구매자는 500달러 넘게 내지 않으려 합니다. 그런데 500달러는 상급차 주인의 최소 희망가 800달러보다 낮습니다. 상급차가 빠집니다.</p>
+<p>이제 남은 건 중급차와 레몬. 기대가치는 (500＋0)÷2로 250달러가 됩니다. 이번엔 중급차 주인의 400달러보다 낮습니다. 중급차도 빠집니다. 마지막에 남는 건 레몬뿐입니다.</p>
+<p>좋은 차가 한 등급씩 차례로 쫓겨나는 이 과정을, 경제학자들은 시장의 조용한 붕괴라고 부릅니다.</p>
+<figure><img src="./images/body-3.png" alt="중고차 등급별 구매자 가치와 판매자 유보가치 비교 표"/></figure>
+<hr/>
+<h2>그래도 시장은 굴러간다 — 신호와 선별</h2>
+<p>그렇다면 현실의 중고차 시장은 왜 완전히 무너지지 않았을까요. 정보의 격차를 메우는 장치들이 생겨났기 때문입니다. 크게 두 방향입니다.</p>
+<p>하나는 신호(signaling)입니다. 정보를 가진 쪽, 즉 파는 사람이 &quot;나는 좋은 유형&quot;임을 믿을 만하게 드러내는 겁니다. 마이클 스펜스는 노동시장에서 학력이 바로 그런 신호라고 봤습니다. 학위가 생산성을 직접 높이지 않더라도, 능력 있는 사람일수록 학위를 따기가 덜 힘들기에 학력이 능력의 신호로 작동한다는 것입니다.</p>
+<p>다른 하나는 선별(screening)입니다. 정보가 없는 쪽, 즉 사는 사람이 상대가 스스로 정체를 드러내도록 판을 짜는 겁니다. 조지프 스티글리츠는 여러 계약을 메뉴처럼 늘어놓는 방법을 제시했습니다. 보험사가 &quot;자기부담금 높고 보험료 싼 상품&quot;과 그 반대 상품을 함께 내놓으면, 위험이 낮은 사람과 높은 사람이 알아서 다른 상품을 고르게 됩니다.</p>
+<figure><img src="./images/body-4.png" alt="신호와 선별을 대비한 비교 이미지"/></figure>
+<hr/>
+<h2>보증, 평판, 인증 — 일상 속 해법</h2>
+<p>이론은 우리 주변에 이미 자리 잡고 있습니다.</p>
+<p>보증서가 대표적입니다. 품질에 자신 없는 판매자는 보증을 걸기 어렵습니다. 그러니 보증을 건다는 사실 자체가 좋은 차라는 신호가 됩니다.</p>
+<p>평판도 힘이 셉니다. 딜러가 불량차를 좋은 차로 속여 팔면 평판을 잃습니다. 반복해서 장사해야 하는 딜러일수록 품질을 지킬 이유가 커집니다.</p>
+<p>인증중고차(CPO)는 이 둘을 묶은 사례입니다. 판매자의 점검·정비는 신호이고, 함께 붙는 보증은 선별입니다. 사고·수리 이력을 투명하게 공개하는 것도 같은 원리입니다.</p>
+<p>한계도 있습니다. 이런 장치들이 정보 격차를 줄여줄 뿐, 완전히 없애지는 못합니다. 보증에도 사각지대가 있고, 평판은 처음 거래에서는 아직 쌓이지 않았습니다.</p>
+<figure><img src="./images/body-5.png" alt="정보 격차를 줄이는 네 가지 장치 핵심 포인트 카드"/></figure>
+<hr/>
+<h2>중고차 밖으로 — 보험, 노동, 대출</h2>
+<p>레몬 시장은 중고차 이야기에 머물지 않습니다.</p>
+<p>보험시장은 역선택의 교과서적 사례입니다. 자신이 아플 것을 아는 사람일수록 보험에 더 적극적으로 가입합니다. 그러면 가입자 중에 아픈 사람 비중이 높아지고, 보험사는 보험료를 올립니다. 건강한 사람은 더 빠져나가고, 위험한 사람만 남습니다.</p>
+<p>노동시장에서는 고용주가 지원자의 실제 능력을 알기 어렵습니다. 그 자리를 학력과 자격증이 채웁니다. 전문의 자격이나 CFA 같은 자격증이 실력의 증표로 통하는 것도 같은 맥락입니다. 대출시장도 마찬가지입니다. 은행은 차입자의 상환능력을 완전히 알 수 없어, 상환 전망이 나쁜 사람이 시장에 남는 문제가 생깁니다. 노벨위원회가 애컬로프의 기여를 설명하며 든 예시도 바로 이 대출시장이었습니다.</p>
+<p>2001년 노벨경제학상은 이 흐름을 만든 애컬로프, 스펜스, 스티글리츠 세 사람에게 돌아갔습니다. 수상 사유는 &quot;정보 비대칭이 존재하는 시장에 대한 분석&quot;이었습니다. 세 사람의 1970년대 연구가 오늘날 정보 경제학의 뼈대를 이룹니다.</p>
+<hr/>
+<p>정리하면 이렇습니다. 시장이 실패하는 건 누군가 나빠서가 아니라, 정보가 한쪽에만 있기 때문입니다. 좋은 것을 지키려면 속임수를 벌하는 것만으로는 부족합니다. 정보의 격차를 좁히는 장치가 함께 있어야 합니다.</p>
+<p>중고차 시장이 완전히 무너지지 않은 이유가 무엇이냐고 물으신다면, 저는 이렇게 답하겠습니다. 사람들이 오랜 시간에 걸쳐 신뢰를 사고팔 방법을 스스로 만들어냈기 때문이라고.</p>
+<div class="tags"><span class="tag">#정보비대칭</span><span class="tag">#레몬시장</span><span class="tag">#역선택</span><span class="tag">#애컬로프</span><span class="tag">#정보경제학</span><span class="tag">#신호와선별</span><span class="tag">#노벨경제학상</span><span class="tag">#중고차시장</span><span class="tag">#보험역선택</span><span class="tag">#경제상식</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

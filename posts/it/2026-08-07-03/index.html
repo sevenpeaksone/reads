@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>해시 테이블은 어떻게 O(1) 검색을 해내나 — 해시 함수와 충돌 해결의 원리</title>
+<style>
+ :root{ --accent:#4F8CFF; --ink:#1b1f24; --mute:#5c6672; --line:#e6e9ee; --bg:#f7f8fa; }
+ *{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased;}
+ .wrap{max-width:700px;margin:0 auto;padding:48px 24px 96px;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.04);}
+ .meta{display:flex;align-items:center;gap:12px;margin-bottom:22px;}
+ .badge{background:var(--accent);color:#fff;font-size:13px;font-weight:700;padding:5px 13px;border-radius:999px;}
+ .date{color:var(--mute);font-size:14px;}
+ h1{font-size:29px;line-height:1.4;font-weight:800;margin:6px 0 30px;letter-spacing:-.01em;}
+ h2{font-size:21px;font-weight:700;margin:46px 0 16px;padding-left:13px;border-left:4px solid var(--accent);line-height:1.45;}
+ p{font-size:16.5px;margin:16px 0;word-break:keep-all;} strong{font-weight:700;color:#0f1113;}
+ code{background:rgba(79,140,255,.09);color:#0f1113;padding:1px 6px;border-radius:5px;font-size:15px;font-family:'SFMono-Regular',Consolas,'Menlo',monospace;}
+ hr{border:none;border-top:1px solid var(--line);margin:36px 0;}
+ figure{margin:28px 0;text-align:center;} figure img{max-width:100%;height:auto;border-radius:12px;border:1px solid var(--line);}
+ figcaption{font-size:13px;color:var(--mute);margin-top:9px;}
+ blockquote.pull{border:none;margin:28px 0;padding:20px 24px;background:rgba(79,140,255,.07);border-left:4px solid var(--accent);border-radius:8px;font-size:16.5px;font-weight:700;color:#0f1113;}
+ .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:40px;padding-top:26px;border-top:1px solid var(--line);}
+ .tag{color:var(--accent);background:rgba(79,140,255,.09);font-size:13.5px;padding:5px 11px;border-radius:7px;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head><body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+ <div class="meta"><span class="badge">IT</span><span class="date">2026-08-07</span></div>
+ <h1>해시 테이블은 어떻게 O(1) 검색을 해내나 — 해시 함수와 충돌 해결의 원리</h1>
+
+ <p>이번 글에서는 해시 테이블이 어떻게 데이터 수와 상관없이 거의 일정한 시간에 값을 찾아내는지를 원리 중심으로 정리해 보겠습니다. 수백만 개가 쌓여도 검색이 느려지지 않는 비결은 무엇인지, 해시 함수와 충돌 해결이라는 두 축을 따라가 봅니다.</p>
+
+ <figure><img src="./images/thumbnail.png" alt="해시 테이블은 어떻게 O(1) 검색을 해내나 — 해시 함수와 충돌 해결의 원리"><figcaption>해시 테이블은 어떻게 O(1) 검색을 해내나</figcaption></figure>
+
+ <hr>
+
+ <h2>검색이 아니라 계산입니다</h2>
+ <p>해시 테이블의 출발점은 발상의 전환에 있습니다.</p>
+ <p>보통의 배열이나 리스트에서 원하는 값을 찾으려면 앞에서부터 하나씩 훑어야 합니다. 원소가 n개면 최악에는 n번을 봐야 하니 <strong>O(n)</strong>입니다. 정렬해 두고 이진 탐색을 써도 <strong>O(log n)</strong>까지가 한계입니다.</p>
+ <p>해시 테이블은 여기서 방향을 틀었습니다. "어디에 있는지 뒤지는" 대신 "어디에 있어야 하는지 계산하는" 쪽을 택했습니다.</p>
+ <p>키를 해시 함수에 넣으면 배열의 인덱스 하나가 곧바로 나옵니다. 그 자리로 한 번에 접근합니다. 배열의 임의 접근은 그 자체로 O(1)이므로, 저장된 데이터가 100개든 1억 개든 걸리는 시간은 크게 달라지지 않습니다.</p>
+ <p>그래서 해시 테이블의 검색·삽입·삭제는 평균적으로 <strong>O(1)</strong>입니다. 이 시간이 원소 수 n과 무관하다는 점이 핵심입니다.</p>
+ <p>다만 이 O(1)은 어디까지나 평균값입니다. 뒤에서 보겠지만, 조건이 어긋나면 최악에는 O(n)까지 나빠질 수 있습니다.</p>
+
+ <figure><img src="./images/body-1.png" alt="검색 방식별 시간 복잡도 비교 — 배열 O(n), 이진 탐색 O(log n), 해시 테이블 평균 O(1)"><figcaption>검색 방식별 시간 복잡도 비교</figcaption></figure>
+
+ <hr>
+
+ <h2>해시 함수 — 키를 자리로 바꾸는 계산</h2>
+ <p>해시 테이블의 성능은 해시 함수에 달려 있습니다.</p>
+ <p>좋은 해시 함수의 조건은 하나로 요약됩니다. 키들을 버킷 전체에 최대한 고르게 흩뿌리는 것입니다. 한쪽에 몰리면 그만큼 충돌이 늘어납니다.</p>
+ <p>가장 기본은 <strong>나눗셈법</strong>입니다. 키 k를 테이블 크기 m으로 나눈 나머지를 인덱스로 씁니다. 식으로는 <code>h(k) = k mod m</code>입니다.</p>
+ <p>이때 m은 보통 소수로 잡습니다. 소수가 값의 군집을 줄여 주기 때문입니다. 반대로 m을 2의 거듭제곱으로 두면 안 됩니다. 그러면 해시값이 키의 하위 몇 비트만 반영하게 되어, 상위 비트에 담긴 정보가 통째로 버려집니다.</p>
+ <p><strong>곱셈법</strong>도 자주 쓰입니다. 키에 0과 1 사이의 상수 A를 곱한 뒤, 그 소수부만 떼어 테이블 크기를 곱합니다. 식은 <code>h(k) = ⌊ m · (k·A mod 1) ⌋</code>입니다. 이 방식은 m 값에 덜 민감해서 계산이 편한 2의 거듭제곱을 그대로 써도 됩니다. A로는 황금비에서 온 0.618 정도의 값이 즐겨 쓰입니다.</p>
+ <p>한 걸음 더 나아간 것이 <strong>유니버설 해싱</strong>입니다. 해시 함수를 하나로 고정하지 않고, 여러 함수 묶음에서 무작위로 골라 씁니다. 특정 입력에 늘 최악이 되는 상황을 막기 위해서입니다. 실제로 파이썬은 이 아이디어를 확장한 해시 랜덤화로, 일부러 충돌을 유발하는 공격을 방어합니다.</p>
+
+ <figure><img src="./images/body-2.png" alt="해시 함수 세 가지 방법 — 나눗셈법, 곱셈법, 유니버설 해싱"><figcaption>키를 자리로 바꾸는 세 가지 방법</figcaption></figure>
+
+ <hr>
+
+ <h2>충돌은 피할 수 없습니다 — 두 갈래의 해결법</h2>
+ <p>서로 다른 두 키가 같은 인덱스를 얻는 일을 <strong>충돌</strong>이라 부릅니다.</p>
+ <p>충돌은 재수가 없어서 생기는 사고가 아닙니다. 저장할 수 있는 키의 종류가 버킷 수보다 많은 이상, 충돌은 반드시 일어납니다. 그래서 해시 테이블의 진짜 승부처는 "충돌을 어떻게 처리하느냐"입니다.</p>
+ <p>크게 두 갈래가 있습니다.</p>
+ <p>하나는 <strong>체이닝</strong>입니다. 같은 자리로 온 키들을 그 버킷에 연결 리스트로 매달아 둡니다. 새 키는 리스트 앞에 붙이면 그만이라 삽입이 평균·최악 모두 O(1)입니다. 기존 원소를 옮기지 않아 구현이 단순하고, 데이터가 버킷 수보다 많아져도 동작합니다. 대신 포인터를 위한 메모리가 더 들고, 여기저기 흩어진 노드를 따라가느라 캐시 효율이 떨어집니다.</p>
+ <p>다른 하나는 <strong>개방 주소법</strong>입니다. 별도 리스트 없이 모든 원소를 배열 안에 직접 넣습니다. 가려는 자리가 차 있으면 정해진 규칙으로 다음 빈 자리를 찾아갑니다. 배열 한 덩어리에 몰아 담으니 캐시에 친화적이고 메모리 밀도가 높습니다. 대신 자리가 차오를수록 급격히 느려지고, 삭제가 까다로워 지웠다는 표식을 따로 남겨야 합니다.</p>
+
+ <figure><img src="./images/body-3.png" alt="충돌 해결의 두 갈래 — 체이닝과 개방 주소법 비교"><figcaption>충돌 해결의 두 갈래</figcaption></figure>
+
+ <hr>
+
+ <h2>빈자리를 찾아가는 세 가지 걸음</h2>
+ <p>개방 주소법은 "다음 빈 자리를 어떻게 찾을까"에서 갈라집니다.</p>
+ <p>가장 단순한 것은 <strong>선형 탐사</strong>입니다. 막히면 바로 옆 칸, 그다음 칸으로 한 칸씩 옮겨 갑니다. 순서대로 훑으니 캐시에는 좋습니다. 그러나 점유된 칸들이 붙어 큰 덩어리를 이루는 <strong>1차 군집</strong>이 생깁니다. 덩어리가 커질수록 그 근처로 온 키는 덩어리 끝까지 밀려나 탐사가 길어집니다.</p>
+ <p><strong>이차 탐사</strong>는 걸음 폭을 제곱으로 키웁니다. 1칸, 4칸, 9칸 식으로 건너뜁니다. 덩어리를 흩어 1차 군집은 피하지만, 같은 자리에서 출발한 키들이 같은 경로를 밟는 <strong>2차 군집</strong>은 남습니다.</p>
+ <p><strong>이중 해싱</strong>은 두 번째 해시 함수로 걸음 폭 자체를 키마다 다르게 정합니다. 군집은 사실상 사라지지만, 널뛰듯 건너뛰는 탓에 캐시 성능은 나빠집니다.</p>
+ <p>완벽한 방법은 없습니다. 저마다 얻는 것과 내주는 것이 다를 뿐입니다.</p>
+
+ <figure><img src="./images/body-4.png" alt="개방 주소법의 세 가지 탐사 — 선형 탐사, 이차 탐사, 이중 해싱"><figcaption>빈자리를 찾는 세 가지 걸음</figcaption></figure>
+
+ <hr>
+
+ <h2>적재율과 리해싱 — 평균 O(1)을 지키는 장치</h2>
+ <p>해시 테이블이 얼마나 찼는지는 <strong>적재율</strong>로 잽니다. 저장된 원소 수를 버킷 수로 나눈 값입니다.</p>
+ <p>이 값이 커질수록 충돌이 잦아지고 성능이 처집니다. 그래서 임계값을 넘으면 <strong>리해싱</strong>을 합니다. 대략 두 배 큰 새 테이블을 만들고, 모든 키를 새 크기에 맞춰 다시 계산해 옮겨 담습니다.</p>
+ <p>리해싱 한 번은 원소 전부를 건드리니 O(n)짜리 비싼 작업입니다. 하지만 아주 드물게만 일어납니다. 여러 번의 값싼 연산에 이 비용을 나눠 얹으면, 평균으로는 여전히 O(1)이 유지됩니다. 이를 <strong>분할 상환</strong>이라 부릅니다.</p>
+ <p>임계 적재율은 정해진 상수가 아니라 구현마다 다른 경험칙입니다. 개방 주소법은 절반쯤 차면 리해시하는 것이 안전하고, 체이닝은 조금 더 여유가 있습니다.</p>
+
+ <hr>
+
+ <h2>실제로는 이렇게 쓰입니다 — 자바와 파이썬</h2>
+ <p>교과서의 원리는 실제 언어 안에서 조금씩 다르게 구현됩니다.</p>
+ <p>자바의 <code>HashMap</code>은 체이닝을 씁니다. 기본 용량은 16, 기본 적재율은 0.75입니다. 16칸의 75%인 12개가 차면 용량을 두 배로 늘리고 전체를 재해시합니다.</p>
+ <p>예전에는 한 버킷에 충돌이 몰리면 그 안이 긴 연결 리스트가 되어 검색이 O(n)까지 처졌습니다. 지금은 다릅니다. 자바 8부터는 한 버킷의 노드가 8개를 넘고 전체 버킷이 64개 이상이면, 그 버킷을 <strong>레드-블랙 트리</strong>로 바꿉니다. 최악의 버킷 검색이 O(n)에서 <strong>O(log n)</strong>으로 올라섭니다. 노드가 6개 밑으로 줄면 다시 리스트로 되돌립니다.</p>
+ <p>파이썬의 <code>dict</code>는 개방 주소법을 씁니다. 다만 단순한 선형 탐사가 아닙니다. 해시값에서 뽑아낸 perturb라는 값을 매 걸음 5비트씩 밀어 넣어, 탐사 경로에 해시의 상위 비트까지 섞습니다. 덕분에 경로가 서로 겹치는 군집을 줄입니다. 리사이즈 시점도 자바보다 보수적이어서, 테이블이 3분의 2쯤 차면 키워 버립니다.</p>
+
+ <figure><img src="./images/body-5.png" alt="자바 HashMap과 파이썬 dict 구현 차이 비교 — 충돌 방식, 리사이즈 시점, 최악 대비"><figcaption>자바와 파이썬은 이렇게 다르다</figcaption></figure>
+
+ <hr>
+
+ <p>정리하면 이렇습니다.</p>
+ <p>해시 테이블의 O(1)은 마법이 아니라 계산과 관리의 합작입니다. 해시 함수가 자리를 곧장 계산해 주고, 충돌 해결과 리해싱이 그 계산이 어긋나지 않도록 뒤를 받칩니다.</p>
+ <blockquote class="pull">그래서 저는 이 자료구조를 이렇게 요약하고 싶습니다 — "빠름은 공짜가 아니라, 잘 설계된 계산의 대가다."</blockquote>
+ <p>평균 O(1)이라는 짧은 표기 뒤에는, 충돌을 인정하고 다스려 온 오랜 궁리가 접혀 있습니다. 다음에 해시맵을 무심코 쓰실 때, 그 한 줄 아래에서 돌아가는 계산을 잠시 떠올려 보시면 좋겠습니다.</p>
+
+ <div class="tags">
+  <span class="tag">#해시테이블</span>
+  <span class="tag">#해시함수</span>
+  <span class="tag">#자료구조</span>
+  <span class="tag">#알고리즘</span>
+  <span class="tag">#시간복잡도</span>
+  <span class="tag">#충돌해결</span>
+  <span class="tag">#개방주소법</span>
+  <span class="tag">#체이닝</span>
+  <span class="tag">#HashMap</span>
+  <span class="tag">#파이썬dict</span>
+ </div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
