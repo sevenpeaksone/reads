@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>트럼프 강제노동 관세 위법 소송, 美 25개주가 던진 통상 쟁점과 한국 영향</title>
+<style>
+  :root{ --ink:#1a2330; --sub:#41506a; --line:#e6ebf2; --navy:#16305c; --accent:#2f6fb0; }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:#eef1f5; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ max-width:700px; margin:0 auto; background:#fff; padding:0 0 60px; }
+  .inner{ padding:0 30px; }
+  .hero{ width:100%; display:block; }
+  .meta{ padding:30px 30px 0; }
+  .badge{
+    display:inline-block; background:var(--navy); color:#fff; font-size:14px; font-weight:700;
+    padding:6px 15px; border-radius:999px; letter-spacing:.5px;
+  }
+  .date{ color:#8a97a8; font-size:14px; margin-left:10px; }
+  h1{
+    font-size:29px; line-height:1.42; font-weight:800; letter-spacing:-0.6px;
+    margin:18px 30px 6px; color:#141c28;
+  }
+  .lead{
+    margin:18px 30px 6px; padding:18px 20px; background:#f6f9fd; border-radius:12px;
+    font-size:16px; line-height:1.85; color:var(--sub);
+  }
+  h2{
+    font-size:21px; font-weight:800; color:var(--navy); letter-spacing:-0.4px;
+    margin:14px 0 14px; padding-bottom:2px;
+  }
+  p{ font-size:16.5px; line-height:1.85; margin:0 0 16px; color:#232d3c; }
+  figure{ margin:26px 0; }
+  img.body{ max-width:100%; height:auto; display:block; border-radius:12px; box-shadow:0 4px 18px rgba(20,40,80,.08); }
+  hr{ border:0; border-top:1px solid var(--line); margin:30px 0; }
+  blockquote{
+    margin:26px 0; padding:18px 22px; background:#0f2544;
+    border-radius:12px; color:#eaf1fa; font-size:18px; font-weight:700; line-height:1.6;
+  }
+  .tags{ margin:26px 30px 0; }
+  .tag{
+    display:inline-block; margin:4px 6px 0 0; padding:6px 13px; border-radius:999px;
+    background:#eef4fb; color:#2f6fb0; font-size:14px; font-weight:600;
+  }
+  .closing{ font-size:16.5px; line-height:1.85; color:#232d3c; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/world/index.html">국제/세계 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+
+  <img class="hero" src="./images/thumbnail.png" alt="트럼프 강제노동 관세 위법 소송 대표 이미지">
+
+  <div class="meta">
+    <span class="badge">국제·세계 뉴스</span>
+    <span class="date">작성일 2026-08-06</span>
+  </div>
+
+  <h1>트럼프 강제노동 관세 위법 소송,<br>美 25개주가 던진 통상 쟁점과 한국 영향</h1>
+
+  <div class="lead">
+    이번 글에서는 미국 민주당 소속 25개 주가 트럼프 행정부의 '강제노동 관세'를 상대로 제기한 집단소송을 정리해 보겠습니다.
+    무슨 일이 벌어졌는지, 왜 중요한지, 양측 논리는 어떻게 갈리는지, 그리고 한국에는 어떤 영향이 있는지 차례로 짚겠습니다.
+    가급적 어느 한쪽으로 기울지 않고, 사실과 쟁점만 담담히 전하겠습니다.
+  </div>
+
+  <div class="inner">
+
+    <figure><img class="body" src="./images/body-1.png" alt="美 25개 주, 트럼프 강제노동 관세 집단소송 핵심 요약 — 8월 3일, CIT, 301조, 10~12.5%, 60개국"></figure>
+
+    <hr>
+
+    <h2>무슨 일이 있었나</h2>
+    <p>2026년 8월 3일, 미국의 민주당 소속 25개 주가 소장을 냈습니다.<br>
+    상대는 트럼프 행정부입니다.<br>
+    쟁점은 무역법 301조에 근거한 이른바 '강제노동 관세'입니다.</p>
+    <p>이 주들은 관세가 위법하다고 주장합니다.<br>
+    소송은 통상 분쟁을 전담하는 연방국제통상법원(CIT)에 접수됐습니다.<br>
+    소송을 이끈 곳은 오리건주이고, 애리조나와 캘리포니아가 함께 앞장섰습니다.</p>
+    <p>요구는 두 가지입니다.<br>
+    하나는 관세 시행을 멈춰 달라는 것.<br>
+    다른 하나는 이미 낸 관세를 돌려 달라는 것입니다.</p>
+    <p>문제가 된 관세는 미국무역대표부(USTR)가 60개 무역 상대국에 매긴 10~12.5%의 추가 관세입니다.<br>
+    이 60개국은 미국 전체 수입의 약 99.4%를 차지합니다.<br>
+    사실상 거의 모든 교역 상대가 대상인 셈입니다.</p>
+
+    <hr>
+
+    <h2>여기까지 어떻게 왔나</h2>
+    <p>이 소송을 이해하려면 반년 전으로 돌아가야 합니다.</p>
+    <p>2026년 2월 20일, 미 연방대법원은 6대 3으로 판결했습니다.<br>
+    트럼프 대통령이 국제비상경제권한법(IEEPA)을 근거로 매긴 '상호관세'가 위법이라는 결론이었습니다.<br>
+    과세는 헌법상 의회의 권한이며, IEEPA에 관세를 부과할 권한까지 담겨 있지는 않다고 본 것입니다.</p>
+    <p>다만 대법원은 선을 그었습니다.<br>
+    이 판결은 IEEPA 관세에만 적용되며, 무역법 232조·122조·301조 같은 다른 근거의 관세는 건드리지 않는다고 명시했습니다.</p>
+    <p>행정부의 대응은 빨랐습니다.<br>
+    2월 24일 IEEPA 관세 징수가 멈추자, 곧바로 무역법 122조를 꺼내 전 세계 수입품에 10% 임시 할증관세를 매겼습니다.<br>
+    이 조치는 최대 150일짜리였습니다.</p>
+    <p>그사이 3월 12일, USTR은 강제노동 관행을 겨냥한 301조 조사에 착수했습니다.<br>
+    그리고 122조 관세의 시한이 다가온 7월 24일, 행정부는 이를 301조 '강제노동 관세'로 갈아 끼웠습니다.<br>
+    "60개국이 강제노동으로 만든 제품의 수입을 제대로 막지 않았다"는 조사 결론이 근거였습니다.</p>
+    <p>예전엔 IEEPA가 관세의 칼자루였습니다.<br>
+    지금은 그 자리를 301조가 대신하고 있습니다.</p>
+
+    <figure><img class="body" src="./images/body-2.png" alt="IEEPA 위법 판결부터 301조 강제노동 관세까지 사건 타임라인"></figure>
+
+    <hr>
+
+    <h2>왜 중요한가</h2>
+    <p>이 다툼의 밑바닥에는 삼권분립이 있습니다.</p>
+    <p>관세는 결국 세금입니다.<br>
+    세금을 매기는 권한은 헌법이 의회에 맡겨 두었습니다.<br>
+    그런데 행정부가 통상 관련 법률을 근거로 폭넓은 관세를 매기고 있습니다.</p>
+    <p>한 근거가 막히면 다른 근거로 옮겨 탄다.<br>
+    이것이 정당한 법 집행인지, 아니면 판결을 피해 가는 우회인지가 이번 소송의 핵심입니다.</p>
+    <p>대상 범위도 가볍지 않습니다.<br>
+    미국 수입의 99.4%가 걸려 있으니, 판결 하나가 세계 통상질서 전체를 흔들 수 있습니다.<br>
+    그래서 이 소송은 미국 내부의 정치 다툼을 넘어, 교역국 모두가 지켜보는 사안이 되었습니다.</p>
+
+    <hr>
+
+    <h2>양측 논리 — 나란히 놓고 보기</h2>
+    <p>먼저 소송을 낸 25개 주의 주장입니다.</p>
+    <p>이들은 USTR이 301조로 사실상 전면 관세를 매긴 것은 의회가 준 권한을 넘어선 위법이라고 봅니다.<br>
+    대법원이 무효로 만든 상호관세를, 근거만 바꿔 되살리려는 시도라는 것입니다.<br>
+    "국제 공급망의 강제노동 문제와, 전 세계에 매긴 일괄 관세 사이에는 합리적 연결고리가 없다"는 표현도 소장에 담겼습니다.<br>
+    301조는 특정국의 불공정 관행을 조사한 뒤, 그 행위를 끝내도록 맞춰 대응하라는 조항인데, 60개국에 획일적 세율을 매긴 것은 그 취지와 어긋나고 행정절차법에도 반한다는 논리입니다.</p>
+    <p>반대편, 트럼프 행정부와 USTR의 논리도 짚어야 균형이 맞습니다.</p>
+    <p>행정부는 대법원이 무효로 한 것은 IEEPA 관세뿐이며 301조는 멀쩡히 살아 있는 권한이라고 봅니다.<br>
+    301조는 대통령이 아니라 USTR에 관세 권한을 주되, 대통령의 지시에 따라 행사하도록 설계된 조항입니다.<br>
+    USTR은 3월부터 진행한 조사에서 "60개 경제권이 강제노동 제품 수입 금지를 제대로 이행하지 않았다"고 결론지었고, 그 결과로 관세를 매겼다는 입장입니다.<br>
+    연방순회항소법원이 과거 HMTX 사건에서 USTR의 관세 조정 재량을 넓게 인정한 선례도 행정부에 유리한 근거로 거론됩니다.</p>
+    <p>한쪽은 "권한 남용"이라 하고, 다른 쪽은 "정당한 통상 조치"라 합니다.<br>
+    판단은 결국 법원의 몫입니다.</p>
+
+    <figure><img class="body" src="./images/body-3.png" alt="25개 주와 트럼프 행정부·USTR 양측 논리 비교"></figure>
+
+    <hr>
+
+    <h2>한국에는 어떤 영향이 있나</h2>
+    <p>한국도 이 관세의 대상입니다.</p>
+    <p>한국은 일본·스위스와 함께 사실상 12.5%의 관세율이 적용됩니다.<br>
+    구조는 이렇습니다.<br>
+    어떤 품목의 기본관세가 12.5%보다 낮으면 301조 추가관세를 얹어 12.5%를 맞춥니다.<br>
+    반대로 기본관세가 이미 12.5%를 넘으면 추가관세는 붙지 않습니다.</p>
+    <p>그나마 다행인 점은 있습니다.<br>
+    이 12.5%는 지난해 한·미가 합의한 15% 상호관세보다는 낮은 수준입니다.<br>
+    정부도 "미국 측이 기존 15% 상한을 재확인했다"고 설명했습니다.</p>
+    <p>그러나 안심하기는 이릅니다.<br>
+    미국은 '과잉생산'을 겨냥한 또 다른 301조 조사로도 한국을 들여다보고 있습니다.<br>
+    여기에 관세가 더해지면 한국의 부담은 최대 25%까지 커질 수 있습니다.</p>
+
+    <figure><img class="body" src="./images/body-4.png" alt="한국에 적용되는 12.5% 관세 구조와 최대 25% 리스크"></figure>
+
+    <hr>
+
+    <h2>앞으로 어떻게 될까</h2>
+    <p>전문가들의 시선은 엇갈리지만, 행정부에 마냥 유리하지는 않습니다.</p>
+    <p>피터슨국제경제연구소(PIIE)는 "이 강제노동 관세가 법정 다툼에서 살아남기 어려울 것"이라고 내다봤습니다.<br>
+    획일적 일괄 관세가 301조의 '조사·맞춤' 요건과 행정절차법 심사를 통과하기 쉽지 않다는 취지입니다.</p>
+    <p>다만 결과를 단정하기는 이릅니다.<br>
+    앞서 본 HMTX 선례처럼 USTR의 재량을 넓게 인정한 판례도 있기 때문입니다.</p>
+    <p>절차는 길게 이어질 전망입니다.<br>
+    CIT가 1심을 맡고, 결과는 연방순회항소법원 항소로 넘어가며, 끝내 대법원까지 갈 수 있습니다.<br>
+    IEEPA 관세가 바로 그 길을 밟아 대법원에서 무효가 됐다는 점을 떠올리면, 이번에도 장기전이 예상됩니다.</p>
+
+    <figure><img class="body" src="./images/body-5.png" alt="향후 재판 절차 — CIT 1심에서 연방대법원까지 3단계"></figure>
+
+    <hr>
+
+    <p class="closing">정리하면 이렇습니다.</p>
+    <p class="closing">이번 소송은 관세 몇 퍼센트의 문제가 아니라, 관세를 매길 권한이 어디까지인가를 묻는 다툼입니다.<br>
+    강제노동을 막겠다는 명분과, 절차와 권한을 지키라는 원칙이 법정에서 맞섭니다.<br>
+    어느 쪽 손을 들어주든, 그 결과는 60개 교역국과 한국 기업의 셈법을 다시 흔들 것입니다.</p>
+
+    <blockquote>"관세의 근거는 바뀌어도, 권한의 한계를 묻는 질문은 남는다."</blockquote>
+
+    <p class="closing">판결이 나오기까지는 시간이 걸릴 것입니다.<br>
+    그때까지 우리가 할 수 있는 일은, 감정이 아니라 사실로 이 사안을 지켜보는 것이라고 생각합니다.</p>
+
+    <figure><img class="body" src="./images/body-6.png" alt="핵심 쟁점 — 관세의 근거는 바뀌어도 권한의 한계를 묻는 질문은 남는다"></figure>
+
+  </div>
+
+  <div class="tags">
+    <span class="tag">#트럼프관세</span><span class="tag">#강제노동관세</span><span class="tag">#무역법301조</span><span class="tag">#미국25개주소송</span><span class="tag">#연방국제통상법원</span><span class="tag">#한국관세영향</span><span class="tag">#통상분쟁</span><span class="tag">#국제뉴스</span>
+  </div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
