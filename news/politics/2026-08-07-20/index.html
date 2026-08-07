@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주 4.5일제 로드맵 정리 — 노동시간 단축과 근로기준법 개정, 어디까지 왔나</title>
+<style>
+  :root { --accent:#4b5fd6; --ink:#1c1f27; --mute:#5b6270; --line:#e7e9ef; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f4f5f8; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','맑은 고딕',sans-serif;
+    -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:700px; margin:0 auto; padding:40px 20px 80px; background:#fff; }
+  .badge-row { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .badge { background:var(--accent); color:#fff; font-size:13px; font-weight:700;
+    padding:5px 12px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:27px; line-height:1.4; font-weight:800; margin:6px 0 26px; letter-spacing:-.01em; }
+  h2 { font-size:20px; font-weight:800; margin:44px 0 14px; padding-left:12px;
+    border-left:4px solid var(--accent); line-height:1.4; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; color:#23262f; }
+  ul { margin:0 0 22px; padding-left:20px; }
+  li { font-size:16.5px; line-height:1.8; margin-bottom:7px; }
+  figure { margin:26px 0; }
+  img { max-width:100%; height:auto; border-radius:12px; display:block;
+    border:1px solid var(--line); }
+  figcaption { font-size:13px; color:var(--mute); text-align:center; margin-top:9px; line-height:1.5; }
+  blockquote { margin:26px 0; padding:18px 22px; background:#f5f6fb;
+    border-left:4px solid var(--accent); border-radius:8px; font-size:17px;
+    font-weight:700; line-height:1.7; color:#2a2e3a; }
+  hr { border:none; border-top:1px solid var(--line); margin:34px 0; }
+  .tags { margin-top:30px; display:flex; flex-wrap:wrap; gap:8px; }
+  .tag { font-size:13.5px; color:var(--accent); background:#eef1fc;
+    padding:5px 11px; border-radius:6px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+  <article class="wrap">
+    <div class="badge-row">
+      <span class="badge">정치/사회 뉴스</span>
+      <span class="date">2026-08-07</span>
+    </div>
+    <h1>주 4.5일제 로드맵 정리 — 노동시간 단축과 근로기준법 개정, 어디까지 왔나</h1>
+    <figure><img src="./images/thumbnail.png" alt="주 4.5일제 로드맵, 어디까지 왔나 - 노동시간 단축과 근로기준법 개정 정리 대표 이미지"><figcaption>주 4.5일제 로드맵, 어디까지 왔나 - 노동시간 단축과 근로기준법 개정 정리 대표 이미지</figcaption></figure>
+<p>이번 글에서는 이재명 정부가 추진 중인 주 4.5일제 로드맵과 근로기준법 개정 논의를 정리해 보겠습니다. 무슨 일이 진행되고 있는지, 왜 중요한지, 노사 양측이 무엇을 두고 맞서는지 차례로 짚겠습니다. 민감한 사안인 만큼 노동계와 경영계 입장을 함께 담았습니다.</p>
+<p>먼저 결론부터 말씀드립니다. 정부는 2030년까지 실노동시간을 OECD 평균 수준인 연 1,700시간대로 줄이는 것을 목표로 삼았습니다. 그 중간 관문이 2028년 법정 노동시간 단축을 통한 주 4.5일제 도입입니다. 아직 법으로 확정된 것은 아니고, 로드맵과 시범사업 단계에 있습니다.</p>
+<hr>
+<h2>무슨 일이 벌어지고 있나</h2>
+<p>출발점은 2025년 8월입니다. 대통령 직속 국정기획위원회가 노동정책 로드맵을 내놨습니다. 뼈대는 세 가지입니다. 주 4.5일제를 임기 안에 도입하고, 법정 노동시간을 OECD 평균까지 낮추며, 5인 미만 사업장에도 근로기준법을 단계적으로 적용한다는 것입니다.</p>
+<p>말로 그친 계획은 아닙니다. 고용노동부는 2025년 9월 &#x27;실노동시간 단축 로드맵 추진단&#x27;을 꾸렸습니다. 약 석 달, 스물다섯 차례의 대화를 거쳤습니다. 그 결과가 2025년 12월 30일 발표된 노사정 공동선언입니다. 정부와 한국노총·민주노총, 경총·중소기업중앙회가 한자리에 모여 방향에 뜻을 모았습니다.</p>
+<p>2026년은 이행의 해입니다. 로드맵 이행 점검단이 출범했고, &#x27;실근로시간단축지원법&#x27; 입법이 추진되고 있습니다.</p>
+<figure><img src="./images/body-1.png" alt="주 4.5일제 로드맵 추진 일정 타임라인 - 2025년 로드맵 발표부터 2030년 OECD 평균 목표까지"><figcaption>주 4.5일제 로드맵 추진 일정 타임라인 - 2025년 로드맵 발표부터 2030년 OECD 평균 목표까지</figcaption></figure>
+<hr>
+<h2>왜 지금 중요한가 — 숫자로 보는 노동시간</h2>
+<p>한국은 여전히 오래 일하는 나라입니다. 통계 기준에 따라 조금씩 다르지만, 지난해 연간 노동시간은 약 1,833시간으로 집계됐습니다. 같은 해 OECD 평균은 약 1,736시간이었습니다. 우리가 100시간 가까이 더 일한 셈입니다.</p>
+<p>물론 흐름은 줄어드는 쪽입니다. 1988년 2,934시간을 정점으로 꾸준히 내려왔습니다. 다만 속도가 문제입니다. OECD 36개국 가운데 여섯 번째로 길다는 사실은 아직 갈 길이 남았음을 보여줍니다.</p>
+<p>예전엔 &#x27;얼마나 많이 일하는가&#x27;가 미덕이었습니다. 지금은 &#x27;어떻게 덜 일하고도 성과를 내는가&#x27;가 화두입니다. 이 변화가 주 4.5일제 논의의 배경입니다.</p>
+<figure><img src="./images/body-2.png" alt="한국과 OECD 평균 연간 노동시간 비교 - 한국 약 1,833시간 대 OECD 평균 약 1,736시간"><figcaption>한국과 OECD 평균 연간 노동시간 비교 - 한국 약 1,833시간 대 OECD 평균 약 1,736시간</figcaption></figure>
+<hr>
+<h2>2026년 지원책과 경기도 시범사업</h2>
+<p>정부는 강제보다 유인을 앞세웠습니다. 2026년 신설된 &#x27;워라밸+4.5 프로젝트&#x27;가 대표적입니다. 노사가 합의해 임금 삭감 없이 주 4.5일제 등으로 노동시간을 줄이면, 해당 노동자 1인당 연간 최대 720만 원을 지원합니다. 병원처럼 생명·안전과 직결된 업종, 교대제를 개편하는 기업, 비수도권 사업장에는 월 10만 원을 더 얹습니다. 신규 채용을 늘리면 1인당 연간 최대 960만 원까지 지원이 커집니다. 이 로드맵 과제에 투입되는 2026년 예산은 9,363억 원 규모입니다.</p>
+<p>지방정부가 먼저 실험대에 올랐습니다. 경기도는 2025년 6월 전국 처음으로 주 4.5일제 시범사업을 시작했습니다. 민간기업 67곳에 경기콘텐츠진흥원 같은 공공기관을 더해 모두 68개 기업·기관이 참여합니다. 방식은 하나로 묶지 않았습니다. 요일을 자율로 고르는 주 4.5일, 주 35시간, 격주 4일제 가운데 형편에 맞게 택합니다.</p>
+<p>핵심은 &#x27;임금은 그대로, 시간만 단축&#x27;입니다. 참여 노동자에게는 1인당 월 최대 26만 원의 임금 보전을, 기업에는 최대 2,000만 원의 컨설팅을 지원합니다. 2025년부터 2027년까지 한시로 운영하며, 노동생산성과 직무만족도 등 44개 지표로 성과를 따집니다.</p>
+<figure><img src="./images/body-3.png" alt="경기도 주 4.5일제 시범사업 핵심 요약 - 68개 기업 참여, 세 가지 운영방식, 월 최대 26만원 지원"><figcaption>경기도 주 4.5일제 시범사업 핵심 요약 - 68개 기업 참여, 세 가지 운영방식, 월 최대 26만원 지원</figcaption></figure>
+<hr>
+<h2>근로기준법, 무엇이 바뀌나</h2>
+<p>노동시간 단축은 근로기준법 개정과 맞물려 있습니다. 쟁점은 크게 셋입니다.</p>
+<p>첫째, 포괄임금제의 원칙적 금지입니다. 국회에는 관련 개정안이 아홉 건 발의돼 있습니다. 고용노동부는 2026년 4월 포괄임금 오남용 방지 지침을 내놓아, 실제 일한 시간에 맞춰 수당을 계산하고 임금 항목을 구분해 적도록 요구했습니다.</p>
+<p>둘째, 노동시간 측정·기록의 의무화입니다. 포괄임금제를 손보려면 실제로 몇 시간 일했는지 남는 기록이 있어야 합니다. 정부는 이를 법으로 못 박고, 디지털 방식의 기록 체계를 갖추도록 하겠다는 방침입니다.</p>
+<p>셋째, 5인 미만 사업장으로의 확대입니다. 지금 5인 미만 사업장은 근로기준법 적용을 받지 않아 주 52시간제나 연장·야간수당의 보호 밖에 있습니다. 정부는 2025년 하반기 직장 내 괴롭힘 금지와 모성보호부터 적용하고, 2027년 상반기에는 유급·대체공휴일과 연차 유급휴가로 범위를 넓힐 계획입니다.</p>
+<figure><img src="./images/body-4.png" alt="근로기준법 개정 3대 쟁점 - 포괄임금제 금지, 노동시간 기록 의무화, 5인 미만 사업장 확대"><figcaption>근로기준법 개정 3대 쟁점 - 포괄임금제 금지, 노동시간 기록 의무화, 5인 미만 사업장 확대</figcaption></figure>
+<hr>
+<h2>노사는 어디서 갈라지나</h2>
+<p>같은 목표를 두고도 길이 갈립니다. 여기서는 양측 목소리를 그대로 전하겠습니다.</p>
+<p>노동계는 &#x27;법정 노동시간 단축&#x27;이 본질이라고 봅니다. 민주노총은 &quot;법정 근로시간 단축 없는 주 4.5일제와 유연근로제는 쉴 권리와 무관하며 오히려 건강을 해친다&quot;고 주장합니다. 한국노총도 &quot;4.5일제를 핑계로 유연근로제를 넓혀 주 52시간제를 푸는 것은 장시간·압축노동을 부르는 꼼수&quot;라고 경계합니다.</p>
+<p>경영계의 셈법은 다릅니다. 경총은 법정근로시간을 줄이면 &quot;기업 경쟁력 저하, 인건비 부담, 대·중소기업 격차 심화&quot; 같은 부작용이 크다고 봅니다. 노동생산성이 낮은 상황에서 시간부터 줄이면 감당이 어렵다는 것입니다. 그래서 연장근로 관리단위 확대와 유연근무처럼, 노사가 시간을 유연하게 고르는 방식이 먼저라고 말합니다.</p>
+<p>또 하나의 우려는 격차입니다. 대기업·공공기관은 임금을 보전받지만, 중소·영세기업 노동자는 오히려 소득이 줄어 &#x27;제3의 양극화&#x27;가 생길 수 있다는 지적입니다. 저는 이 대목이 제도의 성패를 가를 지점이라고 생각합니다.</p>
+<figure><img src="./images/body-5.png" alt="노동계와 경영계 입장 비교 - 노동계는 법정 노동시간 단축이 핵심, 경영계는 유연근무 우선과 중소기업 부담 우려"><figcaption>노동계와 경영계 입장 비교 - 노동계는 법정 노동시간 단축이 핵심, 경영계는 유연근무 우선과 중소기업 부담 우려</figcaption></figure>
+<hr>
+<h2>앞으로의 전망</h2>
+<p>합의된 부분과 남은 부분이 뚜렷합니다. 노사정은 포괄임금 오남용 방지, 근무시간 외 업무지시로부터의 휴식, 야간노동자 건강보호, 연차휴가 활성화 같은 과제에는 뜻을 모았습니다. 반면 법정노동시간 자체, 연장근로 관리단위, 수당 할증률, 연차휴가 저축제도 등은 이견이 커 추가 논의로 넘겼습니다.</p>
+<p>정부는 실근로시간단축지원법 입법을 서두르고, 2028년 법정 노동시간 단축을 매개로 주 4.5일제를 제도화하려 합니다. 경기도 시범사업 결과가 2027년 나오면, 전국 확대의 근거가 될지도 판가름 날 것입니다.</p>
+<p>아직 완성된 그림은 아닙니다. 핵심 쟁점일수록 노사의 거리가 멀고, 법으로 옮겨질 때마다 진통이 예상됩니다.</p>
+<hr>
+<p>정리하면 이렇습니다. 방향은 &#x27;더 적게 일하고도 지속 가능한 사회&#x27;로 향해 있지만, 속도와 방법에는 합의가 남았습니다.</p>
+<p>— 결국 관건은 &quot;누구의 시간을, 누구의 부담으로 줄일 것인가&quot;입니다.</p>
+<p>숫자가 줄어드는 것만으로 삶이 나아지지 않는다면, 우리가 물어야 할 것은 시간의 길이가 아니라 시간의 질이 아닐까 합니다.</p>
+<div class="tags"><span class="tag">#주4.5일제</span><span class="tag">#노동시간단축</span><span class="tag">#근로기준법개정</span><span class="tag">#실노동시간단축로드맵</span><span class="tag">#포괄임금제</span><span class="tag">#경기도주4.5일제</span><span class="tag">#워라밸</span><span class="tag">#노동정책</span></div>
+  </article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
