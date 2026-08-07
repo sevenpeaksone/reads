@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>죄수의 딜레마와 내쉬 균형 — 합리적 선택이 왜 모두를 손해 보게 하나</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#1f9d63;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.85;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.meta{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid var(--accent);color:var(--accent);border-radius:16px;}
+.date{font-size:13.5px;color:#9aa0ad;}
+h1{font-size:29px;font-weight:800;line-height:1.42;letter-spacing:-.5px;margin:0 0 22px;}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;line-height:1.6;}
+blockquote{margin:26px 0;padding:18px 22px;background:#faf7f0;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0;font-size:17px;font-weight:600;color:#3a3320;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f4f0e7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta"><span class="cat">경제</span><span class="date">2026-08-08</span></div>
+<h1>죄수의 딜레마와 내쉬 균형 — 합리적 선택이 왜 모두를 손해 보게 하나</h1>
+<p>이번 글에서는 죄수의 딜레마와 내쉬 균형을 정리해 보겠습니다.</p>
+<p>각자 똑똑하게 행동했는데 결과는 모두에게 나쁜, 그 이상한 구조를 따라가 봅니다.</p>
+<p>게임이론의 출발점부터 현실의 가격 경쟁과 환경 문제까지 이어서 살펴보겠습니다.</p>
+<figure><img src="./images/thumbnail.png" alt="죄수의 딜레마와 내쉬 균형 — 합리적 선택의 함정"><figcaption>죄수의 딜레마와 내쉬 균형 — 합리적 선택의 함정</figcaption></figure>
+<hr>
+<h2>게임이론은 무엇을 다루는가</h2>
+<p>게임이론은 여러 사람이 서로의 선택에 영향을 주고받는 상황을 분석합니다.</p>
+<p>내 선택이 상대의 결과를 바꾸고, 상대의 선택이 내 결과를 바꿉니다.</p>
+<p>바둑이나 협상, 기업의 가격 결정이 모두 여기에 들어갑니다.</p>
+<p>예전에는 이런 상황을 각자의 심리나 도덕으로만 설명했습니다.</p>
+<p>지금은 보수와 전략의 표로 옮겨 냉정하게 계산할 수 있습니다.</p>
+<p>바로 그 계산의 언어를 만든 사람이 존 내쉬입니다.</p>
+<p>그는 1950년, 스물두 살의 나이에 &#x27;내쉬 균형&#x27;이라는 개념을 정리했습니다.</p>
+<p>비슷한 시기 RAND 연구소의 두 수학자 메릴 플러드와 멜빈 드레셔가 한 가지 실험을 설계합니다.</p>
+<p>&#x27;합리적 계산이 늘 좋은 결과로 이어지지는 않는다&#x27;는 점을 보이기 위해서였습니다.</p>
+<p>여기에 내쉬의 지도교수 앨버트 터커가 두 죄수의 이야기를 입혔습니다.</p>
+<p>그렇게 &#x27;죄수의 딜레마&#x27;라는 이름이 붙었습니다.</p>
+<hr>
+<h2>두 용의자의 형량 표</h2>
+<p>이야기는 단순합니다.</p>
+<p>공범으로 의심되는 두 사람 A와 B가 따로 조사를 받습니다.</p>
+<p>서로 말을 맞출 수 없습니다.</p>
+<p>선택지는 둘뿐입니다. 침묵할 것인가, 자백할 것인가.</p>
+<p>검사의 제안은 이렇습니다.</p>
+<p>한 명만 자백하고 상대가 침묵하면, 자백한 사람은 풀려나고 침묵한 사람은 10년을 삽니다.</p>
+<p>둘 다 자백하면 각자 5년입니다.</p>
+<p>둘 다 침묵하면 증거가 부족해 각자 1년에 그칩니다.</p>
+<p>숫자로 옮기면 아래와 같습니다. 형량이니 작을수록 좋습니다.</p>
+<figure><img src="./images/body-1.png" alt="두 용의자의 형량 보수행렬 표"><figcaption>두 용의자의 형량 보수행렬 표</figcaption></figure>
+<hr>
+<h2>각자에게 최선은 &#x27;자백&#x27;이다</h2>
+<p>A의 입장에서 차분히 따져 보겠습니다.</p>
+<p>상대 B가 침묵한다고 가정합니다. 이때 나는 침묵하면 1년, 자백하면 0년입니다. 자백이 낫습니다.</p>
+<p>이번엔 B가 자백한다고 가정합니다. 나는 침묵하면 10년, 자백하면 5년입니다. 역시 자백이 낫습니다.</p>
+<p>상대가 무엇을 하든 나에게는 자백이 유리합니다.</p>
+<p>이렇게 상대의 선택과 무관하게 늘 이득인 전략을 &#x27;우월전략&#x27;이라고 부릅니다.</p>
+<p>A에게 자백은 우월전략입니다.</p>
+<p>B도 똑같은 계산을 하니, B에게도 자백이 우월전략입니다.</p>
+<figure><img src="./images/body-2.png" alt="각자에게 자백이 우월전략이 되는 추론 과정"><figcaption>각자에게 자백이 우월전략이 되는 추론 과정</figcaption></figure>
+<hr>
+<h2>누구도 이탈하지 않는 자리, 내쉬 균형</h2>
+<p>두 사람이 모두 자백하면 각자 5년을 받습니다.</p>
+<p>이 상태가 이 게임의 내쉬 균형입니다.</p>
+<p>내쉬 균형은 이렇게 정의됩니다.</p>
+<p>상대의 선택이 그대로일 때, 나 혼자 전략을 바꿔서는 결과를 더 좋게 만들 수 없는 상태입니다.</p>
+<p>실제로 (자백, 자백)에서 A가 혼자 침묵으로 돌아서면 5년이 10년으로 늘어납니다.</p>
+<p>B도 마찬가지입니다.</p>
+<p>그래서 누구도 먼저 자리를 뜨지 않습니다.</p>
+<p>기이한 점은 여기에 있습니다.</p>
+<p>두 사람 모두 자기에게 가장 유리한 선택을 했습니다.</p>
+<p>그런데 그 합리적 선택이 모인 결과는 두 사람 모두에게 나쁜 자리입니다.</p>
+<p>내쉬가 보인 것은, 이런 균형이 예외가 아니라 흔하다는 사실이었습니다.</p>
+<p>그의 이름을 딴 이 개념은 훗날 경제학의 표준 언어가 되었습니다.</p>
+<hr>
+<h2>왜 모두가 손해인가 — 파레토 비효율</h2>
+<p>둘 다 침묵했다면 각자 1년이었습니다.</p>
+<p>둘 다 자백한 5년보다 분명히 낫습니다.</p>
+<p>누군가를 손해 보게 하지 않고는 더 나아질 수 없는 상태를 &#x27;파레토 최적&#x27;이라 합니다.</p>
+<p>(침묵, 침묵)이 바로 그 자리입니다.</p>
+<p>문제는 그 좋은 자리가 균형이 아니라는 데 있습니다.</p>
+<p>둘 다 침묵한 상태에서도 각자는 몰래 자백해 형량을 1년에서 0년으로 줄일 유혹을 느낍니다.</p>
+<p>그래서 협력은 스스로 무너집니다.</p>
+<p>내쉬 균형은 &#x27;나 혼자 후회할 선택을 했는가&#x27;를 묻습니다.</p>
+<p>파레토 최적은 &#x27;우리가 함께 남겨둔 이득이 있는가&#x27;를 묻습니다.</p>
+<p>죄수의 딜레마에서는 이 두 물음의 답이 어긋납니다.</p>
+<p>개인의 합리성이 집단의 최선을 배반하는 것입니다.</p>
+<figure><img src="./images/body-3.png" alt="내쉬 균형과 파레토 최적의 비교"><figcaption>내쉬 균형과 파레토 최적의 비교</figcaption></figure>
+<hr>
+<h2>같은 함정이 현실에서 반복된다</h2>
+<p>이 구조는 감옥 안에만 있지 않습니다.</p>
+<p>두 기업이 가격을 놓고 다툽니다.</p>
+<p>둘 다 높은 값을 유지하면 모두 이윤이 좋습니다.</p>
+<p>하지만 각자는 몰래 값을 내려 상대의 손님을 데려올 유혹을 느낍니다.</p>
+<p>결국 둘 다 값을 내리고 이윤은 얇아집니다. 담합이 잘 깨지는 이유입니다.</p>
+<p>광고도, 군비도 결이 같습니다.</p>
+<p>경쟁사가 광고를 늘리면 나도 늘려야 하고, 상대가 무장하면 나도 무장해야 합니다.</p>
+<p>서로 자제하는 편이 공동의 최선이지만, 그 약속은 오래가지 못합니다.</p>
+<p>먼저 손을 내린 쪽이 손해를 보기 때문입니다.</p>
+<p>가장 무거운 사례는 공유지의 비극입니다.</p>
+<p>어장과 목초지, 맑은 대기처럼 함께 쓰는 자원이 있습니다.</p>
+<p>각자 조금 더 챙기는 편이 합리적입니다.</p>
+<p>그 합리적 선택이 모이면 남획과 오염으로 공동의 파국이 옵니다.</p>
+<p>냉전기 미국과 소련의 핵무기 경쟁도 같은 얼굴을 하고 있었습니다.</p>
+<p>둘 다 군축하는 편이 나았지만, 상대를 믿지 못해 둘 다 무장의 길로 갔습니다.</p>
+<p>구조를 알아보면, 서로 다른 문제들이 실은 하나의 문제였음을 깨닫게 됩니다.</p>
+<figure><img src="./images/body-4.png" alt="가격 전쟁·군비 경쟁·공유지의 비극 현실 사례 카드"><figcaption>가격 전쟁·군비 경쟁·공유지의 비극 현실 사례 카드</figcaption></figure>
+<hr>
+<h2>그렇다면 협력은 불가능한가</h2>
+<p>다행히 출구가 있습니다.</p>
+<p>열쇠는 &#x27;단 한 번&#x27;이라는 조건을 깨는 데 있습니다.</p>
+<p>게임이 여러 번 반복되면 계산이 달라집니다.</p>
+<p>오늘 배신하면 내일 보복당할 수 있기 때문입니다.</p>
+<p>미래의 그림자가 오늘의 협력을 붙잡습니다.</p>
+<p>정치학자 로버트 액설로드가 1980년에 이를 실험으로 보였습니다.</p>
+<p>그는 반복 죄수의 딜레마 프로그램 대회를 열었고, 여러 전략이 서로 200회씩 맞붙었습니다.</p>
+<p>우승은 &#x27;팃포탯&#x27;이라는 가장 단순한 전략이었습니다.</p>
+<p>첫 수는 협력하고, 그다음부터는 상대가 직전에 한 대로 그대로 따라 하는 규칙입니다.</p>
+<p>액설로드가 꼽은 성공한 전략의 특징은 소박합니다.</p>
+<p>먼저 배신하지 않고, 당하면 응징하되, 상대가 돌아오면 곧바로 용서합니다.</p>
+<p>팃포탯은 상대를 이겨서 이긴 것이 아닙니다.</p>
+<p>상대의 협력을 이끌어내서 이겼습니다.</p>
+<p>다만 이것이 만능은 아닙니다.</p>
+<p>팃포탯의 힘은 대회 설계와 보수 숫자에 기댄 면이 있습니다.</p>
+<p>조건이 바뀌면 다른 전략이 더 나을 수 있다는 반론도 있기는 합니다.</p>
+<p>그래서 현실에서는 반복만으로 부족할 때가 많습니다.</p>
+<p>계약과 법, 규제와 국제 협약처럼 약속을 강제하는 제도가 함께 필요합니다.</p>
+<figure><img src="./images/body-5.png" alt="반복·팃포탯·제도로 이어지는 협력의 탈출구"><figcaption>반복·팃포탯·제도로 이어지는 협력의 탈출구</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>죄수의 딜레마는 어리석음의 이야기가 아닙니다.</p>
+<p>오히려 각자가 지나치게 똑똑했기에 모두가 손해를 보는 이야기입니다.</p>
+<p>개인의 합리성과 공동의 이익이 늘 같은 방향은 아니라는 사실.</p>
+<p>그 불편한 진실을 이 작은 게임이 정확히 보여 줍니다.</p>
+<blockquote><p>&ldquo;혼자만의 최선이 모두의 최선은 아니다.&rdquo;</p></blockquote>
+<p>우리가 사는 세상에는 이런 딜레마가 곳곳에 숨어 있습니다.</p>
+<p>직장에서도, 이웃 사이에서도, 나라와 나라 사이에서도 같은 표가 그려집니다.</p>
+<p>그 함정을 알아보는 눈이, 협력을 설계하는 첫걸음이 되리라 생각합니다.</p>
+<div class="tags"><span>#죄수의딜레마</span> <span>#내쉬균형</span> <span>#게임이론</span> <span>#우월전략</span> <span>#파레토효율</span> <span>#팃포탯</span> <span>#공유지의비극</span> <span>#경제상식</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

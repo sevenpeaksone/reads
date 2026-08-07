@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공개키 암호는 어떻게 비밀 없이 비밀을 지키나 — RSA와 디피–헬만 키 교환의 원리</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2f6fe0;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.85;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.meta{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid var(--accent);color:var(--accent);border-radius:16px;}
+.date{font-size:13.5px;color:#9aa0ad;}
+h1{font-size:29px;font-weight:800;line-height:1.42;letter-spacing:-.5px;margin:0 0 22px;}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;line-height:1.6;}
+blockquote{margin:26px 0;padding:18px 22px;background:#eef3fc;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0;font-size:17px;font-weight:600;color:#213554;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#eef3fc;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta"><span class="cat">IT</span><span class="date">2026-08-08</span></div>
+<h1>공개키 암호는 어떻게 비밀 없이 비밀을 지키나 — RSA와 디피–헬만 키 교환의 원리</h1>
+<p>이번 글에서는 공개키 암호가 어떻게 작동하는지 정리해 보겠습니다. 도청자가 오가는 값을 모두 지켜보는 열린 채널에서도, 두 사람은 어떻게 둘만의 비밀을 만들 수 있을까요. 대칭키의 한계에서 출발해 디피–헬만 키 교환과 RSA, 전자서명, 그리고 우리가 매일 쓰는 HTTPS까지 차근히 따라가 보려 합니다.</p>
+<figure><img src="./images/thumbnail.png" alt="공개키 암호의 원리 — 비밀 없이 비밀을 지키는 법"><figcaption>공개키 암호의 원리 — 비밀 없이 비밀을 지키는 법</figcaption></figure>
+<hr>
+<h2>같은 열쇠의 딜레마</h2>
+<p>전통적인 암호는 열쇠 하나로 잠그고 그 열쇠로 다시 엽니다.</p>
+<p>이를 대칭키 방식이라 부릅니다. 빠르고 단순합니다.</p>
+<p>문제는 다른 곳에 있습니다. 잠근 것을 상대가 열려면, 그 열쇠를 먼저 건네줘야 합니다.</p>
+<p>그런데 열쇠를 안전하게 건넬 통로가 있었다면, 애초에 암호가 왜 필요했을까요.</p>
+<p>이 모순을 &#x27;키 배송 문제&#x27;라고 합니다. 암호학이 오랫동안 풀지 못한 매듭이었습니다.</p>
+<p>참여자가 늘면 사정은 더 나빠집니다. 서로 주고받을 사람이 많아질수록, 관리해야 할 비밀 열쇠의 수가 걷잡을 수 없이 불어납니다.</p>
+<figure><img src="./images/body-1.png" alt="대칭키 vs 공개키 — 같은 열쇠로 잠그고 열기 vs 공개키로 잠그고 개인키로 열기"><figcaption>대칭키 vs 공개키 — 같은 열쇠로 잠그고 열기 vs 공개키로 잠그고 개인키로 열기</figcaption></figure>
+<hr>
+<h2>1976년, 방향이 바뀌다</h2>
+<p>1976년 휘트필드 디피와 마틴 헬만이 「New Directions in Cryptography」라는 논문을 발표합니다.</p>
+<p>암호의 방향을 통째로 바꾼 글이었습니다.</p>
+<p>이들이 던진 발상은 이렇습니다. 열쇠를 두 개로 나누자. 하나는 자물쇠처럼 만인에게 공개하고, 하나는 나만 갖는다.</p>
+<p>공개된 열쇠로 잠근 것은 오직 나의 비밀 열쇠로만 열립니다. 그러니 열쇠를 몰래 배송할 필요가 없습니다.</p>
+<p>이것이 공개키 암호입니다. 흥미롭게도 같은 아이디어를 영국 정보기관 GCHQ의 말콤 윌리엄슨이 몇 년 앞서 떠올렸지만, 기밀로 묶여 세상에 나오지 못했습니다.</p>
+<hr>
+<h2>한 방향은 쉽고, 되돌아오긴 어렵다</h2>
+<p>공개키 암호의 뿌리는 &#x27;일방향 함수&#x27;라는 수학적 성질입니다.</p>
+<p>한쪽으로 계산하기는 쉽지만, 그 반대로 되돌리기는 사실상 불가능에 가깝습니다.</p>
+<p>가장 익숙한 예가 곱셈과 소인수분해입니다. 두 소수를 곱하는 건 순식간입니다. 하지만 커다란 합성수를 다시 소수의 곱으로 쪼개는 일은 지독하게 어렵습니다.</p>
+<p>곱셈은 수가 커져도 금세 끝나지만, 소인수분해는 수가 커질수록 계산 시간이 지수적으로 폭발합니다.</p>
+<p>또 하나는 거듭제곱과 이산로그입니다. 어떤 수를 여러 번 곱한 뒤 나머지를 취하기는 쉽습니다. 그러나 그 결과만 보고 몇 번 곱했는지 되짚기란 사실상 불가능합니다.</p>
+<p>색을 떠올리면 감이 옵니다. 노랑에 빨강을 섞기는 쉽습니다. 그러나 섞인 주황에서 원래의 노랑과 빨강을 다시 분리해내는 건 불가능에 가깝습니다.</p>
+<figure><img src="./images/body-2.png" alt="일방향 함수 — 곱셈은 쉽고 소인수분해는 어렵다, 권장 키 길이"><figcaption>일방향 함수 — 곱셈은 쉽고 소인수분해는 어렵다, 권장 키 길이</figcaption></figure>
+<hr>
+<h2>비밀 없이 비밀을 만드는 절차 — 디피–헬만</h2>
+<p>디피–헬만 키 교환은 이 일방향 함수를 절묘하게 씁니다.</p>
+<p>앨리스와 밥이 도청당하는 채널에서도 둘만의 비밀을 만들어내는 방법입니다.</p>
+<p>순서는 이렇습니다.</p>
+<p>먼저 두 사람은 공개된 값에 합의합니다. 소수 하나와 생성원 하나입니다. 누가 봐도 상관없습니다.</p>
+<p>다음으로 앨리스는 자기만의 비밀 숫자를, 밥도 자기만의 비밀 숫자를 몰래 정합니다.</p>
+<p>각자 공개 값에 자기 비밀을 섞어 중간값을 만들고, 그 중간값을 서로에게 보냅니다. 이 중간값은 도청돼도 괜찮습니다.</p>
+<p>마지막으로 상대가 보낸 중간값에 자기 비밀을 한 번 더 섞습니다. 그러면 두 사람은 정확히 같은 값에 도달합니다. 이것이 공동의 비밀 열쇠입니다.</p>
+<p>앞서 본 색 섞기와 똑같습니다. 공개색 노랑에 앨리스는 빨강을, 밥은 파랑을 섞어 교환합니다. 받은 혼합색에 자기 비밀색을 다시 섞으면 둘 다 &#x27;노랑+빨강+파랑&#x27;이라는 같은 색이 됩니다.</p>
+<p>도청자 이브는 공개 값과 오간 중간값을 모두 봅니다. 그럼에도 최종 비밀은 만들지 못합니다. 비밀 숫자를 알아내려면 이산로그 문제를 풀어야 하는데, 그 문을 여는 효율적인 방법이 아직 세상에 없기 때문입니다.</p>
+<p>다만 이 방식에도 빈틈은 있습니다. 상대가 진짜 앨리스인지, 진짜 밥인지 확인하는 절차가 없다면, 중간에 낀 이브가 양쪽을 속여 각각과 따로 열쇠를 맺을 수 있습니다. 이른바 중간자 공격입니다. 그래서 순수한 디피–헬만은 신원을 증명하는 장치와 반드시 함께 씁니다.</p>
+<figure><img src="./images/body-3.png" alt="디피–헬만과 RSA 비교 표 — 용도, 근거 수학 문제, TLS 역할"><figcaption>디피–헬만과 RSA 비교 표 — 용도, 근거 수학 문제, TLS 역할</figcaption></figure>
+<hr>
+<h2>RSA — 소인수분해라는 벽에 기대다</h2>
+<p>RSA는 1977년 리베스트, 샤미르, 에이들먼 세 사람의 이름에서 나온 이름입니다.</p>
+<p>이 방식은 큰 수의 소인수분해가 어렵다는 사실 하나에 안전을 겁니다.</p>
+<p>과정을 세 걸음으로 나눠 보겠습니다.</p>
+<p>첫째, 키 생성입니다. 커다란 소수 두 개를 무작위로 고르고 곱합니다. 그 곱이 자물쇠 노릇을 하는 공개 값이 됩니다. 여기서 공개 열쇠와 개인 열쇠가 함께 만들어집니다.</p>
+<p>둘째, 암호화입니다. 보내는 사람은 공개 열쇠로 평문을 거듭제곱하고 나머지를 취합니다. 이 모듈러 거듭제곱은 컴퓨터가 빠르게 해냅니다.</p>
+<p>셋째, 복호화입니다. 받는 사람은 자기 개인 열쇠로 같은 종류의 계산을 거쳐 원문을 되살립니다.</p>
+<p>안전의 핵심은 다시 일방향 함수입니다. 공격자가 공개된 곱을 소수 둘로 쪼갤 수만 있다면 개인 열쇠도 알아냅니다. 그러나 그 곱이 충분히 크면, 오늘날의 계산 능력으로는 사실상 불가능합니다.</p>
+<figure><img src="./images/body-4.png" alt="RSA 키 생성-암호화-복호화 단계별 흐름 다이어그램"><figcaption>RSA 키 생성-암호화-복호화 단계별 흐름 다이어그램</figcaption></figure>
+<hr>
+<h2>얼마나 커야 안전한가 — 숫자로 보는 안전</h2>
+<p>막연한 &#x27;충분히 큰&#x27;을 숫자로 바꿔 보겠습니다.</p>
+<p>미국 표준기술연구소 NIST의 권고는 이렇습니다. RSA-2048은 2030년까지 쓸 만하며 112비트 수준의 보안을 제공합니다. 그 이후를 대비하려면 128비트 보안에 해당하는 RSA-3072, 혹은 타원곡선암호로 옮기기를 권합니다.</p>
+<p>키 길이의 무게감은 실제 기록이 말해 줍니다. 2020년 2월, 국제 연구팀이 829비트짜리 수(RSA-250)를 공개적으로 소인수분해하는 데 성공했습니다. 역대 최대 규모였습니다.</p>
+<p>여기에 든 계산량이 약 2,700 코어-년입니다. 수만 대의 컴퓨터를 몇 달간 돌린 셈입니다.</p>
+<p>그런데 이렇게 온 힘을 쏟아 깨뜨린 829비트조차, 실무의 최소 권장선인 2048비트보다 한참 작습니다. 왜 2048비트, 3072비트라는 큰 수를 쓰는지 여기서 분명해집니다.</p>
+<p>한 가지 덧붙이면, 같은 128비트 보안을 타원곡선암호는 256비트 키로 얻습니다. RSA는 같은 안전을 위해 훨씬 긴 열쇠가 필요한 셈입니다. 그래서 최근에는 더 짧고 가벼운 타원곡선 방식으로 무게 중심이 옮겨가고 있습니다.</p>
+<hr>
+<h2>순서를 뒤집으면 서명이 된다</h2>
+<p>공개키 암호에는 또 하나의 얼굴이 있습니다. 전자서명입니다.</p>
+<p>암호화가 공개 열쇠로 잠그고 개인 열쇠로 여는 것이라면, 서명은 그 순서를 뒤집습니다. 개인 열쇠로 서명하고, 누구나 공개 열쇠로 검증합니다.</p>
+<p>방법은 이렇습니다. 먼저 원문을 해시 함수에 통과시켜 짧은 지문 하나를 뽑습니다. 그 지문을 자기 개인 열쇠로 처리하면 서명이 됩니다.</p>
+<p>받는 쪽은 서명자의 공개 열쇠로 서명을 검증해 원래 지문을 되찾고, 자기가 받은 원문을 직접 해시한 값과 맞춰 봅니다. 두 값이 같으면 진짜 그 사람이 보냈고, 도중에 한 글자도 바뀌지 않았다는 뜻입니다.</p>
+<p>이 작은 절차가 신원과 무결성을 동시에 지킵니다.</p>
+<hr>
+<h2>매일 쓰는 HTTPS 속으로</h2>
+<p>이 모든 이야기는 교과서 안에만 있지 않습니다.</p>
+<p>주소창의 자물쇠 표시, 곧 HTTPS 접속마다 공개키 암호가 조용히 일합니다.</p>
+<p>브라우저와 서버는 접속 초입에 TLS 핸드셰이크라는 짧은 인사를 나눕니다. 여기서 공개키 암호가 두 가지 일을 맡습니다.</p>
+<p>하나는 키 교환입니다. 최신 규격인 TLS 1.3은 연결마다 임시 디피–헬만(ECDHE)으로 그때그때 새 비밀 열쇠를 만듭니다. 쓰고 나면 임시 열쇠는 버립니다. 그래서 서버의 장기 열쇠가 훗날 새어 나가도, 지나간 대화는 되살릴 수 없습니다. 이를 순방향 비밀성이라 부릅니다.</p>
+<p>다른 하나는 신원 증명입니다. 서버의 장기 열쇠(가령 RSA 키)는 오직 서명에만 쓰여, &quot;나는 진짜 그 사이트가 맞다&quot;는 것을 증명합니다.</p>
+<p>예전 TLS 1.2 시절엔 서버의 RSA 열쇠로 비밀을 통째로 감싸 보내는 방식이 있었습니다. 지금은 매번 새 열쇠를 만드는 디피–헬만이 그 자리를 대신합니다. 낡은 방식은 아예 걷어냈습니다.</p>
+<p>정리하면 이렇습니다. 디피–헬만이 비밀 열쇠를 만들고, RSA 같은 서명이 상대의 신원을 보증합니다. 두 축이 맞물려 오늘의 안전한 웹이 돌아갑니다.</p>
+<hr>
+<p>끝으로 한 가지만 덧붙이겠습니다.</p>
+<p>공개키 암호의 아름다움은 역설에 있습니다. 열쇠를 감추지 않고 대놓고 공개하는데도, 비밀은 더 단단히 지켜집니다.</p>
+<p>비밀을 숨겨서가 아니라, 되돌릴 수 없는 수학의 벽에 기대어 지키기 때문입니다.</p>
+<p>— 비밀 없이 비밀을 지키는 법, 그 발상 하나가 오늘 우리가 안심하고 검색하고 결제하는 세상을 떠받치고 있습니다.</p>
+<div class="tags"><span>#공개키암호</span> <span>#RSA</span> <span>#디피헬만</span> <span>#키교환</span> <span>#암호학</span> <span>#TLS</span> <span>#전자서명</span> <span>#정보보안</span> <span>#일방향함수</span> <span>#HTTPS</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

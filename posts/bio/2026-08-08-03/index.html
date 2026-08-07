@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>광합성의 원리 — 식물은 어떻게 빛과 이산화탄소로 양분을 만드나</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#d94f5c;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.85;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.meta{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid var(--accent);color:var(--accent);border-radius:16px;}
+.date{font-size:13.5px;color:#9aa0ad;}
+h1{font-size:29px;font-weight:800;line-height:1.42;letter-spacing:-.5px;margin:0 0 22px;}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;line-height:1.6;}
+blockquote{margin:26px 0;padding:18px 22px;background:#faf7f0;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0;font-size:17px;font-weight:600;color:#3a3320;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f4f0e7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta"><span class="cat">바이오</span><span class="date">2026-08-08</span></div>
+<h1>광합성의 원리 — 식물은 어떻게 빛과 이산화탄소로 양분을 만드나</h1>
+<figure><img src="./images/thumbnail.png" alt="광합성의 원리 — 빛과 이산화탄소가 양분이 되기까지"><figcaption>광합성의 원리 — 빛과 이산화탄소가 양분이 되기까지</figcaption></figure>
+<p>이번 글에서는 광합성의 원리를 정리해 보겠습니다.</p>
+<p>식물이 빛과 이산화탄소만으로 어떻게 양분을 만드는지, 그 안에서 벌어지는 두 단계를 차례로 살펴봅니다.</p>
+<p>용어가 조금 낯설 수 있지만, 큰 그림부터 잡으면 어렵지 않습니다.</p>
+<hr>
+<h2>한 줄의 반응식에서 시작합니다</h2>
+<p>광합성은 결국 이 한 줄로 요약됩니다.</p>
+<p>6CO₂ + 12H₂O + 빛에너지 → C₆H₁₂O₆ + 6O₂ + 6H₂O</p>
+<p>이산화탄소와 물을 빛으로 엮어 포도당을 만들고, 산소를 내보냅니다.</p>
+<p>간단히는 `6CO₂ + 6H₂O + 빛 → 포도당 + 6O₂`로도 씁니다.</p>
+<p>여기서 한 가지 짚어 둘 것이 있습니다.</p>
+<p>이때 나오는 산소는 이산화탄소가 아니라 물에서 나옵니다.</p>
+<p>물을 쪼개는 과정에서 산소가 떨어져 나오는 것입니다.</p>
+<p>이 큰 반응은 성격이 다른 두 단계로 나뉩니다.</p>
+<p>빛을 직접 쓰는 명반응, 그리고 빛을 직접 쓰지 않는 캘빈 회로입니다.</p>
+<figure><img src="./images/body-1.png" alt="광합성의 큰 흐름 — 명반응과 캘빈 회로 두 단계"><figcaption>광합성의 큰 흐름 — 명반응과 캘빈 회로 두 단계</figcaption></figure>
+<hr>
+<h2>무대는 엽록체입니다</h2>
+<p>두 단계는 모두 잎세포 속 엽록체에서 일어납니다.</p>
+<p>엽록체는 두 겹의 막으로 싸여 있고, 안에는 두 개의 무대가 있습니다.</p>
+<p>하나는 틸라코이드입니다.</p>
+<p>납작한 동전 모양의 막이 겹겹이 쌓여 그라나를 이룹니다.</p>
+<p>명반응이 벌어지는 곳입니다.</p>
+<p>다른 하나는 스트로마입니다.</p>
+<p>틸라코이드를 둘러싼 젤 같은 액체 부분으로, 효소가 녹아 있습니다.</p>
+<p>캘빈 회로가 돌아가는 곳입니다.</p>
+<p>틸라코이드 막에는 엽록소만 있는 것이 아닙니다.</p>
+<p>카로틴과 잔토필 같은 보조 색소, 그리고 ATP를 만드는 합성효소가 함께 박혀 있습니다.</p>
+<p>빛을 넓은 파장대에서 그러모으기 위한 배치입니다.</p>
+<p>잎이 초록으로 보이는 이유도 여기 있습니다.</p>
+<p>엽록소는 청색광과 적색광을 주로 흡수하고, 녹색광은 되돌려 보냅니다.</p>
+<p>우리가 보는 초록은 잎이 쓰지 않고 튕겨낸 빛인 셈입니다.</p>
+<p>예전에는 광합성을 그저 &#x27;햇빛을 받아 자란다&#x27;는 한마디로 여겼습니다.</p>
+<p>지금은 그 안이 이렇게 정교한 분업으로 짜여 있음을 압니다.</p>
+<hr>
+<h2>명반응 — 빛을 화학에너지로 바꿉니다</h2>
+<p>명반응은 틸라코이드 막에서 일어납니다.</p>
+<p>빛 에너지를 받아 ATP와 NADPH라는 에너지 화폐를 만들고, 덤으로 산소를 내는 단계입니다.</p>
+<p>시작은 광계 II입니다.</p>
+<p>빛을 받은 반응중심이 전자를 튕겨 냅니다.</p>
+<p>빠져나간 전자의 빈자리를 메우려 물을 분해합니다.</p>
+<p>2H₂O → 4H⁺ + 4e⁻ + O₂</p>
+<p>이 순간 산소가 태어납니다.</p>
+<p>동시에 수소이온이 틸라코이드 안쪽에 쌓입니다.</p>
+<p>튕겨 나온 전자는 여러 운반체를 거치며 전자전달계를 통과합니다.</p>
+<p>플라스토퀴논, 사이토크롬 복합체, 플라스토시아닌으로 이어지는 릴레이입니다.</p>
+<p>그 사이 수소이온이 막 안쪽으로 몰려 농도 차가 커집니다.</p>
+<p>이 기울기가 곧 힘입니다.</p>
+<p>쌓인 수소이온이 ATP 합성효소를 통해 빠져나오며 ATP를 찍어 냅니다.</p>
+<p>댐에 고인 물이 수차를 돌리는 모습과 크게 다르지 않습니다.</p>
+<p>마지막으로 광계 I이 전자를 한 번 더 밀어 올립니다.</p>
+<p>이 전자가 페레독신을 거쳐 NADP⁺에 실리면 NADPH가 됩니다.</p>
+<p>정리하면 명반응은 물과 빛을 받아 ATP·NADPH·산소를 내놓습니다.</p>
+<p>앞의 둘은 다음 단계로 넘어가고, 산소는 공기 중으로 나갑니다.</p>
+<figure><img src="./images/body-3.png" alt="명반응의 세 주역 — 광계 II·전자전달계·광계 I"><figcaption>명반응의 세 주역 — 광계 II·전자전달계·광계 I</figcaption></figure>
+<hr>
+<h2>캘빈 회로 — 이산화탄소를 당으로 굳힙니다</h2>
+<p>무대가 스트로마로 바뀝니다.</p>
+<p>캘빈 회로는 명반응이 벌어 준 ATP와 NADPH를 밑천 삼아 이산화탄소를 당으로 붙잡습니다.</p>
+<p>빛을 직접 쓰지는 않지만, 명반응 산물에 기대므로 사실상 빛이 있을 때 함께 돕니다.</p>
+<p>과정은 세 국면으로 순환합니다.</p>
+<p>먼저 고정입니다.</p>
+<p>루비스코라는 효소가 이산화탄소를 5탄소 물질 RuBP에 붙입니다.</p>
+<p>그 결과 3탄소 물질인 3-PGA가 두 분자 생깁니다.</p>
+<p>다음은 환원입니다.</p>
+<p>ATP와 NADPH의 힘으로 3-PGA가 G3P라는 당의 씨앗으로 바뀝니다.</p>
+<p>이 G3P 일부가 빠져나가 포도당과 녹말이 됩니다.</p>
+<p>마지막은 재생입니다.</p>
+<p>남은 G3P가 다시 RuBP로 되돌아가 회로를 이어 갑니다.</p>
+<p>숫자로 보면 인색한 살림입니다.</p>
+<p>포도당 한 분자를 얻으려면 이산화탄소 6분자, ATP 18분자, NADPH 12분자가 듭니다.</p>
+<p>회로를 여섯 번은 돌려야 비로소 당 한 분자가 손에 남는 셈입니다.</p>
+<p>그만큼 명반응이 부지런히 뒷받침해야 합니다.</p>
+<p>&#x27;암반응&#x27;이라는 옛 이름은 오해를 부르기 쉽습니다.</p>
+<p>어둠 속에서 일어난다는 뜻이 아니라, 빛을 직접 쓰지 않는다는 뜻입니다.</p>
+<p>그래서 요즘은 캘빈 회로라는 이름을 즐겨 씁니다.</p>
+<figure><img src="./images/body-4.png" alt="캘빈 회로의 세 국면 — 고정·환원·재생"><figcaption>캘빈 회로의 세 국면 — 고정·환원·재생</figcaption></figure>
+<figure><img src="./images/body-2.png" alt="명반응과 캘빈 회로 비교 — 장소·빛 의존성·산물"><figcaption>명반응과 캘빈 회로 비교 — 장소·빛 의존성·산물</figcaption></figure>
+<hr>
+<h2>같은 원리, 다른 살림살이 — C3·C4·CAM</h2>
+<p>모든 식물이 똑같은 방식으로 사는 것은 아닙니다.</p>
+<p>문제의 핵심은 루비스코의 약점에 있습니다.</p>
+<p>루비스코는 이산화탄소뿐 아니라 산소에도 달라붙습니다.</p>
+<p>덥고 건조해 기공을 닫으면 잎 속 이산화탄소가 줄고 산소가 늘어납니다.</p>
+<p>이때 루비스코가 산소를 붙잡으면 에너지만 쓰고 당은 못 만드는 광호흡이 일어납니다.</p>
+<p>그래서 식물마다 대응이 갈립니다.</p>
+<p>예전 방식이 C3입니다.</p>
+<p>이산화탄소를 곧장 캘빈 회로에 넣습니다. 벼와 밀이 그렇습니다.</p>
+<p>단순하지만 더위에는 광호흡으로 손해를 봅니다.</p>
+<p>이를 공간으로 푼 것이 C4입니다.</p>
+<p>이산화탄소를 먼저 4탄소 물질로 잡아 안쪽 세포로 옮긴 뒤, 그곳 농도를 높여 광호흡을 줄입니다.</p>
+<p>옥수수와 사탕수수가 이 방식입니다.</p>
+<p>시간으로 푼 것이 CAM입니다.</p>
+<p>밤에 기공을 열어 이산화탄소를 저장하고, 낮에는 기공을 닫은 채 그 저장분으로 회로를 돌립니다.</p>
+<p>선인장과 다육식물, 파인애플이 택한 길입니다.</p>
+<p>어느 쪽이 더 낫다고 잘라 말하기는 어렵습니다.</p>
+<p>C4와 CAM은 더위와 가뭄에 강하지만, 서늘하고 물이 넉넉한 곳에서는 오히려 C3가 부담이 적습니다.</p>
+<p>저마다 사는 자리에 맞춰 다른 답을 고른 셈입니다.</p>
+<figure><img src="./images/body-5.png" alt="건조 적응 전략 — C4의 공간 분리와 CAM의 시간 분리"><figcaption>건조 적응 전략 — C4의 공간 분리와 CAM의 시간 분리</figcaption></figure>
+<hr>
+<h2>잎 한 장이 지구를 떠받칩니다</h2>
+<p>광합성은 식물 한 그루의 일로 끝나지 않습니다.</p>
+<p>지구 대부분의 먹이사슬이 여기서 에너지를 얻습니다.</p>
+<p>우리가 마시는 산소도 오랜 세월 광합성이 쌓아 온 결과입니다.</p>
+<p>기후의 관점에서도 그렇습니다.</p>
+<p>잎은 대기의 이산화탄소를 붙잡아 두는 탄소 흡수원입니다.</p>
+<p>숲과 바다의 광합성이 매년 막대한 양의 탄소를 유기물로 바꿔 갈무리합니다.</p>
+<p>그래서 루비스코의 비효율을 손보거나 C4·CAM의 장점을 작물에 옮기려는 연구가 이어집니다.</p>
+<p>실제로 광호흡 부산물을 처리하는 경로를 손봤더니 광합성 효율이 20~30퍼센트 오른 사례도 보고되었습니다.</p>
+<p>식량과 기후, 두 숙제를 한꺼번에 겨냥한 시도입니다.</p>
+<p>다만 아직 갈 길은 멉니다.</p>
+<p>자연이 수억 년에 걸쳐 다듬은 회로를 사람이 단번에 넘어서기는 어렵습니다.</p>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>광합성은 빛으로 에너지를 벌고, 그 에너지로 이산화탄소를 당으로 굳히는 두 손의 협업입니다.</p>
+<blockquote><p>&ldquo;잎은 조용히, 빛을 밥으로 바꾸는 작은 공장입니다.&rdquo;</p></blockquote>
+<p>오늘 창밖의 초록을 다시 보신다면, 그 안에서 쉼 없이 돌아가는 두 단계를 떠올려 보시면 좋겠습니다.</p>
+<div class="tags"><span>#광합성</span> <span>#명반응</span> <span>#캘빈회로</span> <span>#엽록체</span> <span>#광합성원리</span> <span>#루비스코</span> <span>#C4식물</span> <span>#식물생리</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

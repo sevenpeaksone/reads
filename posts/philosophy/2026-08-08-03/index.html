@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>흄의 인과 문제와 회의주의 — 우리는 왜 내일도 해가 뜬다고 믿을 수 있나</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#6a5cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.85;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.meta{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid var(--accent);color:var(--accent);border-radius:16px;}
+.date{font-size:13.5px;color:#9aa0ad;}
+h1{font-size:29px;font-weight:800;line-height:1.42;letter-spacing:-.5px;margin:0 0 22px;}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;line-height:1.6;}
+blockquote{margin:26px 0;padding:18px 22px;background:#faf7f0;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0;font-size:17px;font-weight:600;color:#3a3320;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f4f0e7;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta"><span class="cat">철학/인문</span><span class="date">2026-08-08</span></div>
+<h1>흄의 인과 문제와 회의주의 — 우리는 왜 내일도 해가 뜬다고 믿을 수 있나</h1>
+<p>이번 글에서는 데이비드 흄이 던진 하나의 물음을 정리해 보겠습니다. 우리는 왜 내일도 해가 뜬다고 믿을까요. 당연해 보이는 이 믿음을 흄은 끝까지 밀어붙여, 인과와 회의주의의 문제로 데려갑니다.</p>
+<figure><img src="./images/thumbnail.png" alt="흄의 인과 문제, 우리는 왜 내일을 믿는가 대표 이미지"><figcaption>흄의 인과 문제, 우리는 왜 내일을 믿는가 대표 이미지</figcaption></figure>
+<hr>
+<h2>마음에는 두 종류의 재료가 있다</h2>
+<p>흄의 출발점은 단순합니다. 우리 마음에 떠오르는 모든 것을 그는 둘로 나눕니다.</p>
+<p>하나는 인상입니다. 지금 이 순간 직접 겪는 지각입니다. 손에 닿는 뜨거움, 눈앞의 붉은색처럼 생생하고 힘이 셉니다.</p>
+<p>다른 하나는 관념입니다. 인상이 지나간 뒤 마음에 남는 흐릿한 사본입니다. 어제 본 노을을 떠올릴 때의 그 희미한 그림이 관념입니다.</p>
+<p>여기서 흄은 하나의 원리를 세웁니다. 모든 관념은 반드시 앞선 인상에서 나온다는 것입니다. 관념은 결국 인상의 복사본인 셈입니다.</p>
+<p>그래서 어떤 개념이 정당한지 따질 때, 흄은 늘 같은 질문을 던집니다. &quot;그 관념은 어떤 인상에서 왔는가.&quot; 이 질문이 곧 인과를 해체하는 칼이 됩니다.</p>
+<figure><img src="./images/body-1.png" alt="인상과 관념의 차이를 비교한 대비 이미지"><figcaption>인상과 관념의 차이를 비교한 대비 이미지</figcaption></figure>
+<hr>
+<h2>&#x27;원인&#x27;이라는 관념은 어디서 왔는가</h2>
+<p>우리는 원인과 결과를 자연스럽게 말합니다. 불이 손을 데게 한다. 공이 공을 움직인다. 여기에는 늘 &#x27;필연적 연결&#x27;이라는 느낌이 붙어 있습니다. 원인이 있으면 결과가 반드시 따라온다는 느낌입니다.</p>
+<p>흄은 이 &#x27;필연&#x27;의 인상을 찾아 나섭니다. 그리고 아무리 뒤져도 그것을 세계 안에서 발견하지 못합니다.</p>
+<p>당구공 하나가 다른 공을 치는 장면을 떠올려 보십시오. 우리가 실제로 보는 것은 무엇일까요. 두 사건이 붙어서 일어나고, 한쪽이 앞서고, 그 뒤에 다른 쪽이 움직인다는 사실뿐입니다.</p>
+<p>흄은 인과를 세 요소로 해부합니다. 근접, 그리고 선행, 그리고 늘 함께 일어난다는 항상적 결합입니다. 이 셋은 눈으로 확인할 수 있습니다.</p>
+<p>문제는 정작 핵심이라 여겼던 &#x27;필연적 연결&#x27;입니다. 그것에 해당하는 인상은 어디에도 없습니다. 원인 안에 결과를 강제하는 힘은 결코 지각되지 않습니다.</p>
+<p>흄의 답은 뜻밖입니다. 필연이라는 관념은 세계가 아니라 우리 마음 안에서 생겨난다는 것입니다. 같은 결합을 수없이 겪으면, 마음은 원인을 보는 순간 결과로 미끄러져 갑니다. 그 내적인 이행의 느낌이 &#x27;필연&#x27;의 정체입니다. 필연은 세계의 성질이 아니라, 마음이 세계에 덧씌운 투사인 셈입니다.</p>
+<figure><img src="./images/body-2.png" alt="인과를 근접·선행·항상적 결합 세 단계로 해부한 다이어그램"><figcaption>인과를 근접·선행·항상적 결합 세 단계로 해부한 다이어그램</figcaption></figure>
+<hr>
+<h2>귀납의 문제 — 과거는 미래를 보증하지 못한다</h2>
+<p>여기서 더 깊은 물음이 열립니다. 이른바 귀납의 문제입니다. 흄은 『인간 지성에 관한 탐구』에서 이를 가장 또렷하게 펼칩니다.</p>
+<p>우리는 관찰한 것에서 관찰하지 않은 것으로 늘 건너뜁니다. 지금껏 해가 떴다는 사실에서, 내일도 해가 뜬다는 결론으로 넘어갑니다. 이 넘어감을 무엇이 정당화할까요.</p>
+<p>흄은 이 물음을 하나의 딜레마로 몰아넣습니다.</p>
+<p>이 추론은 &#x27;자연은 한결같다&#x27;는 가정에 기댑니다. 미래가 과거를 닮으리라는 믿음입니다. 그런데 이 가정 자체는 어떻게 증명할까요.</p>
+<p>논리로는 안 됩니다. 자연이 갑자기 달라지는 세계도 모순 없이 상상할 수 있기 때문입니다. 태양이 내일 뜨지 않는다는 말은 이상하게 들려도, 논리적 모순은 아닙니다.</p>
+<p>경험으로도 안 됩니다. &quot;지금까지 귀납이 잘 통했으니 앞으로도 통한다&quot;는 말은, 증명하려는 것을 이미 전제로 깔고 있습니다. 제자리를 도는 순환입니다.</p>
+<p>결국 관찰에서 미래로 건너뛰는 그 비약을, 정당화할 논리적 근거가 없다는 것입니다. 이것이 흄이 남긴 서늘한 결론입니다.</p>
+<figure><img src="./images/body-3.png" alt="관찰에서 미래로 넘어가는 비약과 논리적 공백을 보여주는 카드"><figcaption>관찰에서 미래로 넘어가는 비약과 논리적 공백을 보여주는 카드</figcaption></figure>
+<hr>
+<h2>그렇다면 우리는 왜 믿는가 — 이성이 아니라 습관</h2>
+<p>여기서 흄은 회의주의자로만 남지 않습니다. 그는 방향을 틉니다.</p>
+<p>질문을 바꾸는 것입니다. &quot;이 믿음은 왜 정당한가&quot;라는 물음에 답할 수 없다면, &quot;인간은 왜 이 믿음을 갖고 마는가&quot;라고 되묻습니다.</p>
+<p>그 답이 관습, 또는 습관입니다. 같은 결합을 되풀이해 겪으면, 마음은 두 사건을 짝짓는 데 익숙해집니다. 원인을 보면 결과를 기대하게 됩니다. 이 기대는 추론의 산물이 아닙니다. 반복이 마음에 새긴 성향입니다.</p>
+<p>그래서 흄에게 습관은 &quot;인간 삶의 위대한 안내자&quot;입니다. 우리가 내일을 믿는 것은 논리가 시켜서가 아닙니다. 본성이 그렇게 만들기 때문입니다.</p>
+<p>흥미로운 점은 흄이 이를 결함으로 보지 않았다는 것입니다. 만약 우리가 완벽한 논증이 갖춰질 때까지 아무것도 믿지 않는다면, 삶은 한 걸음도 나아가지 못할 것입니다. 습관은 그 빈자리를 메워 우리를 살게 합니다. 논리의 결핍을 자연이 실용의 방식으로 채우는 셈입니다.</p>
+<p>예전의 철학이 믿음의 근거를 이성에서 찾았다면, 흄은 그것을 자연스러운 심리의 작동에서 찾습니다. 정당화의 물음을, 설명의 물음으로 옮긴 셈입니다.</p>
+<figure><img src="./images/body-4.png" alt="믿음의 근거를 이성과 습관으로 대비한 이미지"><figcaption>믿음의 근거를 이성과 습관으로 대비한 이미지</figcaption></figure>
+<hr>
+<h2>회의주의의 두 얼굴</h2>
+<p>흄의 결론은 반쪽만 보면 오해하기 쉽습니다.</p>
+<p>한편으로 그는 인과의 합리적 근거를 무너뜨립니다. 이 점에서 그는 급진적 회의주의자입니다.</p>
+<p>그러나 다른 한편, 그는 &quot;믿지 말라&quot;고 말하지 않습니다. 오히려 믿음은 이성이 아니라 자연이 강제한다고 봅니다. 서재 안에서는 회의가 승리하지만, 서재를 나서는 순간 자연이 우리를 다시 믿게 만듭니다.</p>
+<p>그래서 흄에게 회의주의와 자연주의는 서로를 떠받치는 한 몸입니다. 합리적 근거는 없지만, 그럼에도 믿는 것이 인간이라는 것. 이 균형이 흄 사상의 묘미입니다.</p>
+<p>물론 흄을 어떻게 읽을지는 지금도 논쟁거리입니다. 순수한 회의주의자로 보는 시선과, 자연주의를 함께 품은 사상가로 보는 시선이 나란히 있습니다. 어느 쪽도 흄의 전부를 담지는 못합니다.</p>
+<hr>
+<h2>흄 이후 — 과학은 이 문제를 어떻게 안고 사는가</h2>
+<p>흄의 물음은 그를 읽은 이들을 잠 못 들게 했습니다.</p>
+<p>칸트는 흄이 자신을 &quot;독단의 잠에서 깨웠다&quot;고 고백했습니다. 그는 인과를 경험에서 끌어내는 대신, 인간 지성이 세계를 이해하기 위해 미리 갖춘 틀로 보았습니다. 흄의 문제에 정면으로 맞선 답이었습니다.</p>
+<p>20세기의 칼 포퍼는 다른 길을 냅니다. 그는 흄이 옳다고 인정합니다. 우리의 모든 보편 법칙은 영원히 추측으로 남는다는 것입니다.</p>
+<p>대신 포퍼는 과학의 성격을 다시 정의합니다. 과학은 증거를 쌓아 이론을 증명하는 일이 아닙니다. 검증과 반증은 논리적으로 대칭이 아니기 때문입니다.</p>
+<p>보편 법칙은 아무리 많은 사례로도 완전히 증명되지 않습니다. 그러나 단 하나의 반례로는 확실하게 무너집니다. 그래서 과학은 이론을 떠받치려 애쓰는 대신, 이론을 반박하려 시도합니다. 반증할 수 있는가, 이것이 과학과 비과학을 가르는 기준이 됩니다.</p>
+<p>흄이 &quot;귀납은 정당화되지 않는다&quot;고 못 박은 자리에서, 포퍼는 과학을 &quot;추측과 반박&quot;으로 바꿔 그 문제를 우회한 셈입니다.</p>
+<figure><img src="./images/body-5.png" alt="포퍼의 검증과 반증의 비대칭을 대비한 이미지"><figcaption>포퍼의 검증과 반증의 비대칭을 대비한 이미지</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다. 흄은 우리가 가장 당연하게 여기던 인과의 끈을, 세계가 아니라 마음이 묶은 것이라고 보여주었습니다. 내일 해가 뜬다는 믿음도 논리의 결론이 아니라 습관의 산물입니다.</p>
+<p>그렇다고 그가 우리에게 믿음을 버리라 하지는 않았습니다. 오히려 근거 없이도 믿고 마는 것이 인간이라는 사실을, 담담히 받아들이라 권합니다.</p>
+<blockquote><p>&ldquo;이성이 침묵한 자리를, 습관이 대신 걸어간다.&rdquo;</p></blockquote>
+<p>우리가 왜 내일을 믿느냐고 흄에게 다시 묻는다면, 그는 이렇게 답할 것입니다. 증명해서가 아니라, 그렇게 살도록 태어났기 때문이라고.</p>
+<div class="tags"><span>#흄</span> <span>#데이비드흄</span> <span>#인과</span> <span>#귀납의문제</span> <span>#회의주의</span> <span>#경험론</span> <span>#인식론</span> <span>#철학</span> <span>#과학철학</span> <span>#포퍼</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
