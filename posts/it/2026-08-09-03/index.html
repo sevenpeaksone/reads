@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>정규표현식 원리 — 유한 상태 기계로 문자열 패턴을 찾는 법</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#2f6fe0;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.85;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.meta{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid var(--accent);color:var(--accent);border-radius:16px;}
+.date{font-size:13.5px;color:#9aa0ad;}
+h1{font-size:29px;font-weight:800;line-height:1.42;letter-spacing:-.5px;margin:0 0 22px;}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;line-height:1.6;}
+blockquote{margin:26px 0;padding:18px 22px;background:#eef3fc;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0;font-size:17px;font-weight:600;color:#213554;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#eef3fc;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta"><span class="cat">IT</span><span class="date">2026-08-09</span></div>
+<h1>정규표현식 원리 — 유한 상태 기계로 문자열 패턴을 찾는 법</h1>
+<p>이번 글에서는 정규표현식이 어떻게 문자열을 찾아내는지 그 속을 열어 정리해 보겠습니다. 우리가 무심코 쓰는 `\d+` 같은 짧은 식이, 컴퓨터 안에서는 &#x27;상태를 옮겨 다니는 작은 기계&#x27;로 바뀌어 돌아갑니다. 그 기계가 무엇이고, 정규표현식이 어떻게 그 기계로 번역되며, 왜 어떤 정규식은 서버를 멈춰 세울 만큼 느려지는지까지 차근히 따라가 보려 합니다.</p>
+<figure><img src="./images/thumbnail.png" alt="정규표현식 원리 — 유한 상태 기계로 문자열 패턴을 찾는 법"><figcaption>정규표현식 원리 — 유한 상태 기계로 문자열 패턴을 찾는 법</figcaption></figure>
+<hr>
+<h2>정규표현식은 &#x27;문자열의 집합&#x27;을 그린 지도입니다</h2>
+<p>정규표현식은 하나의 문자열이 아니라, <strong>규칙을 만족하는 문자열들의 모임</strong>을 기술하는 표기법입니다.</p>
+<p>`\d{3}-\d{4}` 라고 쓰면, 이는 특정 전화번호 하나가 아니라 그런 꼴을 가진 모든 문자열의 집합을 가리킵니다.</p>
+<p>이 발상의 뿌리는 꽤 오래전으로 거슬러 올라갑니다. 1951년 수학자 스티븐 클레이니가 신경망을 수학으로 기술하려다, &#x27;정규 사건&#x27;이라는 표기를 고안한 것이 출발점입니다.</p>
+<p>그가 정리한 세 가지 연산 — 연결, 선택(합집합), 반복(닫힘) — 이 오늘날 우리가 쓰는 정규표현식의 뼈대가 되었습니다. 반복을 뜻하는 `*` 를 지금도 &#x27;클레이니 스타&#x27;라 부르는 이유입니다.</p>
+<p>이론에 머물던 이 표기가 실무로 내려온 것은 1968년경입니다. 켄 톰슨이 텍스트 편집기의 검색·치환에, 그리고 컴파일러의 어휘 분석에 정규표현식을 끌어들이면서 대중화되었습니다.</p>
+<p>여기서 가장 중요한 사실 하나를 짚고 넘어가야 합니다.</p>
+<blockquote><p>&ldquo;정규표현식과 유한 상태 기계는 서로 같은 것을 표현한다.&rdquo;</p></blockquote>
+<p>모든 정규표현식에는 그것과 똑같은 언어를 인식하는 유한 상태 기계가 존재합니다. 바로 이 등가성 덕분에, 사람이 쓴 패턴을 기계가 실행할 수 있는 것입니다.</p>
+<hr>
+<h2>기계가 패턴을 읽는 법: 상태와 전이</h2>
+<p>유한 상태 기계란 이름은 거창하지만 구조는 단순합니다.</p>
+<p><strong>유한한 개수의 상태</strong>가 있고, 입력 문자를 하나 읽을 때마다 한 상태에서 다른 상태로 넘어가는 <strong>전이</strong>가 있습니다.</p>
+<p>시작 상태에서 출발해 문자를 왼쪽부터 하나씩 먹으며 상태를 옮겨 다닙니다. 입력이 끝났을 때 &#x27;수락 상태&#x27;에 도착해 있으면, 그 문자열은 패턴에 매칭된 것입니다.</p>
+<p>비유하자면 지하철 노선도와 같습니다. 출발역에서 시작해, 손에 든 문자 순서대로 정해진 노선을 갈아타고, 마지막에 &#x27;도착역&#x27;에 서 있으면 통과입니다.</p>
+<p>중요한 것은 이 기계가 <strong>패턴 전체를 기억하지 않는다</strong>는 점입니다. 지금 어느 상태에 있는지, 그 하나만 알면 됩니다. 그래서 &#x27;유한 상태&#x27;입니다. 이 단순함이 곧 속도의 비결이 됩니다.</p>
+<figure><img src="./images/body-1.png" alt="유한 상태 기계가 문자를 읽으며 상태를 옮겨 수락 상태에 도달하는 과정"><figcaption>유한 상태 기계가 문자를 읽으며 상태를 옮겨 수락 상태에 도달하는 과정</figcaption></figure>
+<hr>
+<h2>NFA와 DFA, 두 종류의 유한 상태 기계</h2>
+<p>유한 상태 기계에는 성격이 다른 두 종류가 있습니다.</p>
+<p>하나는 <strong>DFA(결정적 유한 오토마타)</strong>입니다. 어떤 상태에서 어떤 문자를 읽으면, 갈 곳이 정확히 하나로 정해집니다. 망설임이 없습니다.</p>
+<p>처리는 입력 문자열이 이끕니다. 문자를 처음부터 순서대로 훑으며, 같은 문자를 두 번 보는 일이 없습니다. 그래서 되돌아갈 일도 없습니다.</p>
+<p>다른 하나는 <strong>NFA(비결정적 유한 오토마타)</strong>입니다. 한 상태에서 같은 문자를 보고도 여러 갈래로 갈 수 있고, 문자를 소비하지 않고 상태만 옮기는 &#x27;ε(엡실론) 전이&#x27;도 허용됩니다.</p>
+<p>말하자면 NFA는 여러 갈림길을 동시에 품을 수 있는 기계입니다. 전통적인 NFA 엔진은 하나의 갈래를 성공적으로 지나면 그 지점을 저장해 두었다가, 뒤에서 막히면 그리로 되돌아와 다른 갈래를 시도합니다.</p>
+<p>두 방식의 차이를 표로 정리하면 이렇습니다.</p>
+<figure><img src="./images/body-2.png" alt="NFA와 DFA의 특성을 정리한 비교 표"><figcaption>NFA와 DFA의 특성을 정리한 비교 표</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>구분</th><th>DFA(결정적)</th><th>NFA(비결정적)</th></tr></thead><tbody><tr><td>다음 상태</td><td>문자마다 하나로 결정</td><td>여러 갈래 가능, ε 전이 허용</td></tr><tr><td>처리 주도</td><td>입력 문자열이 주도</td><td>패턴이 주도(전통 엔진)</td></tr><tr><td>되돌아감</td><td>없음(같은 문자 재검사 안 함)</td><td>있음(저장한 상태로 백트래킹)</td></tr><tr><td>역참조</td><td>불가</td><td>가능</td></tr><tr><td>대표 사용처</td><td>awk, egrep, MySQL</td><td>Perl, Python, Java, .NET, PCRE</td></tr></tbody></table></div>
+<p>흥미로운 점은, 이 둘이 표현할 수 있는 언어의 범위가 똑같다는 사실입니다. 성능과 기능의 성격만 다를 뿐입니다.</p>
+<hr>
+<h2>정규표현식을 기계로 바꾸는 두 단계</h2>
+<p>사람이 쓴 정규표현식이 기계가 되기까지는 대개 두 번의 번역을 거칩니다.</p>
+<p>첫 단계는 <strong>톰슨 구성법</strong>입니다. 정규표현식을 NFA로 바꾸는 방법입니다.</p>
+<p>이 방법은 구문을 따라 재귀적으로 움직입니다. 정규식을 잘게 쪼개 가장 작은 조각(문자 하나)부터 NFA로 만들고, 이 조각들을 세 가지 규칙 — 연결, 선택, 반복 — 으로 ε 전이를 써서 이어 붙입니다.</p>
+<figure><img src="./images/body-3.png" alt="톰슨 구성법의 세 가지 조립 규칙 — 연결, 선택, 반복"><figcaption>톰슨 구성법의 세 가지 조립 규칙 — 연결, 선택, 반복</figcaption></figure>
+<p>이 방식의 미덕은 크기가 통제된다는 데 있습니다. 만들어지는 NFA의 상태 수는 정규식에 든 연산자와 문자 개수의 <strong>최대 두 배</strong>를 넘지 않습니다. 각 단계가 새 상태를 많아야 두 개만 만들기 때문입니다. 즉 NFA로의 번역은 정규식 길이에 비례하는 선형 작업입니다.</p>
+<p>두 번째 단계는 <strong>부분집합 구성법</strong>입니다. NFA를 DFA로 바꾸는 방법입니다.</p>
+<p>핵심 발상은 한 문장으로 요약됩니다. <strong>&quot;DFA의 한 상태는 곧 NFA 상태들의 집합이다.&quot;</strong> NFA가 어떤 입력을 읽었을 때 &#x27;동시에 있을 수 있는 모든 상태의 묶음&#x27;을 하나의 DFA 상태로 삼습니다. 이렇게 하면 여러 갈래를 한 덩어리로 다루게 되어 비결정성이 사라집니다.</p>
+<p>이렇게 얻은 DFA는 다시 &#x27;최소화&#x27;를 거쳐 군더더기 상태를 없앨 수 있습니다. 정리하면 전체 흐름은 이렇습니다 — 정규식에서 NFA로, NFA에서 DFA로, 다시 최소 DFA로.</p>
+<p>다만 여기에는 대가가 있습니다. 상태의 &#x27;집합&#x27;을 다루다 보니, 최악의 경우 DFA의 상태 수가 폭발적으로 늘 수 있습니다. 그래서 실무 엔진은 DFA를 미리 다 만들지 않고, 필요할 때마다 상태를 만들어 저장해 두는 방식을 쓰기도 합니다.</p>
+<hr>
+<h2>되돌아가는 엔진과 되돌아가지 않는 엔진</h2>
+<p>같은 정규표현식을 실행하더라도, 엔진이 매칭하는 방식은 크게 둘로 갈립니다.</p>
+<p>예전엔 대부분의 엔진이 되돌아가며 답을 찾았습니다. 지금은 되돌아가지 않고도 같은 답을 찾는 엔진이 주요 서비스에 자리 잡았습니다.</p>
+<p>되돌아가는 쪽이 <strong>백트래킹 방식</strong>입니다. Perl, PCRE, Python, Java, Ruby 등 우리가 흔히 쓰는 언어 대부분이 여기에 속합니다.</p>
+<p>한 갈래를 끝까지 따라가 보고, 막히면 마지막 분기점으로 되돌아가 다른 갈래를 시도하는 깊이 우선 탐색입니다. 이 유연함 덕에 역참조나 룩어라운드 같은 강력한 기능을 지원할 수 있습니다.</p>
+<p>되돌아가지 않는 쪽이 <strong>오토마타 기반 방식</strong>입니다. 톰슨의 원래 알고리즘은 갈래를 하나씩 시도하는 대신, 가능한 모든 상태를 <strong>동시에</strong> 추적하며 입력을 한 번씩만 훑습니다. 이른바 &#x27;락스텝&#x27; 방식입니다.</p>
+<figure><img src="./images/body-4.png" alt="백트래킹 엔진과 오토마타 기반 엔진의 탐색 방식 대비"><figcaption>백트래킹 엔진과 오토마타 기반 엔진의 탐색 방식 대비</figcaption></figure>
+<p>이 방식은 입력 길이에 비례하는 선형 시간을 보장합니다. 대표 구현이 구글이 만든 <strong>RE2</strong>입니다. RE2는 최악의 경우에도 실행 시간을 패턴 길이와 입력 길이의 곱 규모로 묶어 둡니다.</p>
+<p>물론 공짜는 아닙니다. RE2는 역참조나 일반화된 assertion처럼 백트래킹이 있어야만 구현되는 기능을 의도적으로 뺐습니다. 표현력의 일부를 내주고, 그 대가로 안정적인 속도를 얻은 셈입니다.</p>
+<hr>
+<h2>파국적 백트래킹, 정규식이 서버를 멈추는 순간</h2>
+<p>백트래킹 엔진의 유연함에는 그림자가 있습니다. 바로 <strong>파국적 백트래킹</strong>입니다.</p>
+<p>원리는 이렇습니다. 하나의 입력을 설명할 수 있는 경우의 수가 지수적으로 많은데, 백트래킹 매처가 그 모든 경우를 고집스럽게 하나씩 시도할 때 문제가 터집니다.</p>
+<p>반복이 겹치면 경로의 수가 걷잡을 수 없이 불어납니다. 특히 위험한 것이 <strong>중첩된 수량자</strong>입니다. `(a+)+`, `(a*)*`, `(a|a)*` 처럼 수량자가 붙은 그룹이 또 다른 수량자 안에 들어간 형태입니다.</p>
+<figure><img src="./images/body-5.png" alt="파국적 백트래킹을 일으키는 위험한 패턴 조건"><figcaption>파국적 백트래킹을 일으키는 위험한 패턴 조건</figcaption></figure>
+<p>예를 들어 `(a+)+$` 라는 패턴에 `aaaaaaaaaaaaaaaaX` 처럼 매칭에 실패하도록 끝나는 문자열을 주면 어떻게 될까요. 엔진은 &#x27;a들을 안쪽 반복과 바깥 반복에 어떻게 나눠 담을지&#x27; 그 모든 조합을 시도합니다. 글자 수십 개만으로도 사실상 멈춘 것처럼 느려집니다.</p>
+<p>이것을 악용한 공격이 <strong>ReDoS(정규표현식 서비스 거부)</strong>입니다. 정교하게 만든 짧은 입력 하나로 서버를 마비시키는 것입니다. 실제로 Stack Overflow와 Cloudflare가 이 문제로 큰 장애를 겪은 바 있습니다.</p>
+<p>같은 정규표현식이라도 엔진에 따라 운명이 갈립니다. 너비 우선으로 훑는 톰슨식은 입력 길이에 선형인 시간을 지키지만, 깊이 우선으로 되돌아가는 스펜서식은 최악의 경우 지수 시간으로 치닫습니다. 주류 언어 다수가 후자를 쓰고 있다는 점을 기억해 둘 만합니다.</p>
+<hr>
+<h2>그래서 어떤 엔진을 골라야 하나</h2>
+<p>정답은 하나로 정해져 있지 않습니다. 무엇을 포기할 수 있느냐의 문제입니다.</p>
+<p>역참조나 룩어라운드가 꼭 필요하다면 백트래킹 엔진을 써야 합니다. 반면 사용자 입력을 정규식으로 검사하는 등 외부 데이터를 다룰 때는, 선형 시간을 보장하는 오토마타 기반 엔진이 안전합니다.</p>
+<figure><img src="./images/body-6.png" alt="상황별 정규식 엔진 선택 기준 비교 표"><figcaption>상황별 정규식 엔진 선택 기준 비교 표</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>상황</th><th>권장 방향</th><th>이유</th></tr></thead><tbody><tr><td>역참조·룩어라운드 필요</td><td>백트래킹(PCRE 등)</td><td>해당 기능은 백트래킹만 지원</td></tr><tr><td>사용자 입력 검증</td><td>오토마타 기반(RE2 등)</td><td>ReDoS 위험 차단, 선형 시간</td></tr><tr><td>대량 로그·텍스트 스캔</td><td>DFA 계열</td><td>되돌아감 없어 빠르고 일정</td></tr><tr><td>복잡한 패턴 불가피</td><td>타임아웃·패턴 단순화</td><td>최악 시간 방어 장치</td></tr></tbody></table></div>
+<p>솔직히 어느 방식도 완벽하지는 않습니다. 빠른 쪽은 기능이 좁고, 기능이 넓은 쪽은 위험을 안고 있습니다. 그 사이에서 균형점을 고르는 것이 결국 엔지니어의 몫입니다.</p>
+<hr>
+<p>정리하면 이렇습니다. 정규표현식은 마법이 아니라, &#x27;상태를 옮겨 다니는 작은 기계&#x27;로 번역되어 돌아가는 정직한 계산입니다.</p>
+<p>그 번역 과정을 알면, 왜 어떤 패턴은 빛처럼 빠르고 어떤 패턴은 서버를 멈추는지가 비로소 보입니다.</p>
+<p>— 패턴을 잘 쓰는 사람과 잘못 쓰는 사람의 차이는, 정규식 안에 숨은 기계를 상상할 수 있느냐에서 갈립니다.</p>
+<p>다음에 `*` 하나를 무심코 겹쳐 쓰기 전에, 그 안에서 조용히 갈래를 세는 기계를 한 번 떠올려 보시면 좋겠습니다.</p>
+<div class="tags"><span>#정규표현식</span> <span>#유한상태기계</span> <span>#오토마타</span> <span>#NFA</span> <span>#DFA</span> <span>#톰슨구성법</span> <span>#정규식엔진</span> <span>#ReDoS</span> <span>#백트래킹</span> <span>#RE2</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
