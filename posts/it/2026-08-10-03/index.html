@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>체크섬과 오류 검출·정정 코드 — 손상된 데이터를 어떻게 알아채고 바로잡나</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#4f8cff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.85;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.meta{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid var(--accent);color:var(--accent);border-radius:16px;}
+.date{font-size:13.5px;color:#9aa0ad;}
+h1{font-size:29px;font-weight:800;line-height:1.42;letter-spacing:-.5px;margin:0 0 22px;}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;line-height:1.6;}
+blockquote{margin:26px 0;padding:18px 22px;background:#eef3fc;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0;font-size:17px;font-weight:600;color:#213554;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#eef3fc;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta"><span class="cat">IT</span><span class="date">2026-08-10</span></div>
+<h1>체크섬과 오류 검출·정정 코드 — 손상된 데이터를 어떻게 알아채고 바로잡나</h1>
+<figure><img src="./images/thumbnail.png" alt="체크섬과 오류 검출·정정 코드 — 손상된 데이터를 알아채고 바로잡는 원리"><figcaption>체크섬과 오류 검출·정정 코드 — 손상된 데이터를 알아채고 바로잡는 원리</figcaption></figure>
+<p>이번 글에서는 컴퓨터가 손상된 데이터를 어떻게 알아채고, 어떻게 스스로 바로잡는지를 정리해 보겠습니다.</p>
+<p>패리티 비트에서 시작해 체크섬, CRC, 해밍 코드까지 차례로 따라갑니다.</p>
+<p>핵심 질문은 하나입니다. 비트 하나가 뒤집혔을 때, 우리는 그것을 알 수 있을까요. 나아가 고칠 수 있을까요.</p>
+<hr>
+<h2>데이터는 왜 손상되는가</h2>
+<p>디지털 데이터는 완벽하게 전달되지 않습니다.</p>
+<p>네트워크를 지날 때는 전자기 간섭과 신호 감쇠를 겪습니다. 디스크나 메모리에 머무를 때는 매체 열화와 우주 방사선을 만납니다.</p>
+<p>그 결과 비트 하나가 0에서 1로, 혹은 1에서 0으로 뒤집힙니다. 단 한 비트만 바뀌어도 숫자 하나가, 글자 하나가, 때로는 파일 전체가 달라집니다.</p>
+<p>해결의 뼈대는 의외로 단순합니다. 원본에 <strong>계산된 여분(redundancy) 비트를 덧붙이는 것</strong>입니다.</p>
+<p>받는 쪽이 같은 계산을 다시 해서 값이 맞는지 봅니다. 어긋나면 오류가 생긴 것입니다.</p>
+<p>여기서 길이 두 갈래로 갈립니다. 오류가 났다는 사실만 아는 <strong>검출</strong>, 그리고 오류의 위치를 찾아 되돌리는 <strong>정정</strong>입니다.</p>
+<figure><img src="./images/body-1.png" alt="오류 검출·정정 기법의 발전 4단계 — 패리티 비트에서 체크섬, CRC, 해밍 코드로"><figcaption>오류 검출·정정 기법의 발전 4단계 — 패리티 비트에서 체크섬, CRC, 해밍 코드로</figcaption></figure>
+<hr>
+<h2>가장 단순한 검출, 패리티 비트</h2>
+<p>가장 오래된 방법은 패리티 비트입니다.</p>
+<p>데이터 안에 있는 1의 개수가 홀수인지 짝수인지를 표시하는 비트 하나를 덧붙입니다. 짝수 패리티라면, 전체 1의 개수가 짝수가 되도록 그 비트를 정합니다.</p>
+<p>계산이 빠르고 비용이 거의 들지 않습니다.</p>
+<p>문제는 능력의 한계입니다. 비트 두 개가 동시에 뒤집히면 1의 개수는 다시 짝수로 돌아옵니다. 패리티는 아무 일도 없었다고 판단합니다.</p>
+<p><strong>짝수 개의 오류를 놓친다.</strong> 이것이 패리티의 결정적 약점입니다. 위치를 모르니 정정도 못 합니다.</p>
+<hr>
+<h2>합으로 검사하는 체크섬, 나눗셈으로 검사하는 CRC</h2>
+<p>패리티보다 넓게 보려면 검사 단위를 키워야 합니다.</p>
+<p>체크섬은 데이터를 일정한 크기로 잘라 모두 더합니다. TCP 체크섬이 대표적입니다. 16비트 워드들을 1의 보수로 더하고, 넘친 자리는 하위로 되돌려 다시 더한 뒤, 마지막에 합을 반전합니다.</p>
+<p>단순 패리티보다는 훨씬 많은 오류를 잡아냅니다. 다만 빈틈이 있습니다. 한 워드가 늘고 다른 워드가 그만큼 줄면, <strong>오류가 서로 상쇄되어</strong> 합이 그대로입니다. 이런 패턴은 놓칩니다.</p>
+<p>CRC는 접근이 다릅니다. 덧셈이 아니라 <strong>이진 다항식 나눗셈</strong>을 씁니다.</p>
+<p>미리 정한 생성 다항식으로 데이터가 정확히 나누어떨어지도록 여분 비트를 붙입니다. 받는 쪽은 같은 다항식으로 나눠 나머지가 0인지만 봅니다.</p>
+<p>이더넷이 쓰는 CRC-32의 생성 다항식은 0x04C11DB7입니다. 이더넷 프레임 끝의 FCS가 바로 이 32비트 CRC입니다.</p>
+<p>CRC의 강점은 <strong>버스트 오류</strong>에 있습니다. 신호가 순간적으로 뭉텅이째 망가지는 경우죠. 생성 다항식의 차수가 N이면, 길이 N비트 이하의 연속 오류는 빠짐없이 검출됩니다. 그래서 이더넷, USB, 저장장치가 한결같이 CRC를 택합니다.</p>
+<figure><img src="./images/body-2.png" alt="패리티·체크섬·CRC 세 가지 검출 기법의 핵심 특징 비교"><figcaption>패리티·체크섬·CRC 세 가지 검출 기법의 핵심 특징 비교</figcaption></figure>
+<hr>
+<h2>해밍 거리 — 검출과 정정을 가르는 수학</h2>
+<p>여기까지는 모두 &quot;틀렸다&quot;까지만 말합니다. &quot;어디가 틀렸다&quot;는 다른 차원의 문제입니다.</p>
+<p>그 열쇠가 <strong>해밍 거리</strong>입니다. 같은 길이의 두 비트열에서 서로 다른 자리의 개수를 뜻합니다. 1011과 1001은 한 자리가 다르니 거리 1입니다.</p>
+<p>코드가 쓰는 유효한 값들 사이의 최소 거리, 즉 <strong>최소 해밍 거리(d_min)</strong>가 능력을 결정합니다.</p>
+<p>관계는 간명합니다. s개의 오류를 항상 검출하려면 d_min이 s+1이면 됩니다. t개의 오류를 항상 정정하려면 d_min이 2t+1이어야 합니다.</p>
+<p>정정에 거리가 두 배 가까이 더 드는 이유가 있습니다. 검출은 &quot;유효한 값이 아니다&quot;만 알면 됩니다. 정정은 &quot;변형된 값이 원래 어느 값에 가장 가까운가&quot;까지 짚어야 합니다.</p>
+<p>유효한 값들이 서로 멀찍이 떨어져 있을수록, 조금 흐트러진 데이터도 가장 가까운 원본으로 되돌릴 수 있습니다.</p>
+<figure><img src="./images/body-3.png" alt="최소 해밍 거리와 검출·정정 능력의 관계"><figcaption>최소 해밍 거리와 검출·정정 능력의 관계</figcaption></figure>
+<hr>
+<h2>위치까지 짚어내는 해밍 코드</h2>
+<p>이 원리를 실제 코드로 구현한 것이 해밍 코드입니다.</p>
+<p>해밍 (7,4) 코드는 데이터 4비트에 패리티 3비트를 더해 7비트를 만듭니다. 패리티 세 개는 데이터 비트들을 서로 겹치게 검사합니다. 어떤 두 패리티도 똑같은 조합을 검사하지 않도록 배치됩니다.</p>
+<p>받는 쪽은 패리티를 다시 계산합니다. 어긋난 패리티들의 패턴을 <strong>신드롬(syndrome)</strong>이라 부릅니다.</p>
+<p>여기에 우아한 장치가 있습니다. 잘 설계된 코드에서는 <strong>신드롬 값이 곧 틀린 비트의 위치(주소)</strong>가 됩니다. 신드롬이 0이 아니면, 그 위치의 비트를 뒤집어 바로잡습니다. 재전송은 필요 없습니다.</p>
+<p>다만 이 코드는 코드워드당 오류 하나를 가정합니다. 오류가 둘이면 엉뚱하게 고칠 수 있습니다.</p>
+<p>그래서 패리티를 하나 더 붙여 d_min을 4로 올린 확장 해밍 코드가 있습니다. 단일 오류는 정정하고 이중 오류는 검출하는 이 방식을 <strong>SECDED</strong>라 부릅니다.</p>
+<hr>
+<h2>검출로 그칠까, 정정까지 갈까</h2>
+<p>왜 굳이 정정까지 하려는 걸까요. 틀리면 다시 보내달라고 하면 될 텐데요.</p>
+<p>실제로 웹이나 파일 전송은 그렇게 합니다. 오류를 검출하면 재전송을 요청합니다. 이 방식을 ARQ라 합니다. 양방향이고 지연이 짧을 때 잘 맞습니다.</p>
+<p>그러나 재전송이 불가능한 자리가 있습니다.</p>
+<p>지구와 심우주 탐사선 사이는 신호 왕복에 수 분에서 수 시간이 걸립니다. &quot;다시 보내달라&quot;는 말 자체가 성립하지 않습니다. 받는 쪽이 스스로 고쳐야 합니다. 이것이 <strong>FEC(전진 오류 정정)</strong>입니다.</p>
+<p>저장장치도 마찬가지입니다. 긁힘과 열화로 상한 데이터를 다시 받아올 원본이 없습니다. 그래서 해밍, 리드–솔로몬 같은 코드가 매체 안에 심어져 자동으로 복구합니다.</p>
+<p>정정에는 대가가 따릅니다. 여분이 늘어 전송량이 커집니다. 대역폭이 귀할 땐 부담입니다. 대신 지연을 없앱니다.</p>
+<figure><img src="./images/body-4.png" alt="재전송(ARQ)과 전진 오류 정정(FEC) 비교"><figcaption>재전송(ARQ)과 전진 오류 정정(FEC) 비교</figcaption></figure>
+<hr>
+<h2>우리 곁의 오류 정정</h2>
+<p>이 원리들은 멀리 있지 않습니다.</p>
+<p>서버의 ECC 메모리는 SECDED를 씁니다. 64비트 데이터에 체크 비트 8개를 더한 (72,64) 해밍 코드로, 단일 비트 오류는 정정하고 이중 오류는 검출합니다.</p>
+<p>QR 코드는 리드–솔로몬 코드를 품고 있습니다. 오류정정 레벨은 넷입니다. L은 약 7%, M은 약 15%, Q는 약 25%, H는 약 30%까지 훼손돼도 읽힙니다. 로고를 얹거나 찢겨도 스캔되는 이유가 여기 있습니다.</p>
+<p>RAID는 XOR 패리티로 디스크 고장을 견딥니다. RAID 5는 P = D1 ⊕ D2 ⊕ D3처럼 패리티를 두어, 한 디스크가 죽으면 D2 = D1 ⊕ D3 ⊕ P로 되살립니다. 다만 XOR는 빈칸이 하나일 때만 채웁니다. 두 개가 사라지면 RAID 5로는 복구할 수 없습니다.</p>
+<figure><img src="./images/body-5.png" alt="ECC 메모리·QR 코드·RAID·심우주 통신 등 오류 정정 코드의 실제 사용처"><figcaption>ECC 메모리·QR 코드·RAID·심우주 통신 등 오류 정정 코드의 실제 사용처</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>패리티는 짝수 오류를 놓치고, 체크섬은 상쇄되는 오류에 약합니다. CRC는 버스트 오류를 촘촘히 잡고, 해밍 코드는 위치까지 짚어 바로잡습니다. 그 능력의 경계를 긋는 것은 결국 해밍 거리라는 하나의 수치였습니다.</p>
+<blockquote><p>&ldquo;오류를 없앨 수는 없어도, 견디도록 설계할 수는 있다.&rdquo;</p></blockquote>
+<p>비트가 뒤집히는 세상에서 데이터가 그래도 온전히 도착하는 이유를 물으신다면, 저는 이 조용한 여분 비트들 덕분이라고 답하겠습니다.</p>
+<div class="tags"><span>#체크섬</span> <span>#오류검출</span> <span>#오류정정</span> <span>#CRC</span> <span>#해밍코드</span> <span>#패리티비트</span> <span>#ECC메모리</span> <span>#RAID</span> <span>#QR코드</span> <span>#IT지식</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

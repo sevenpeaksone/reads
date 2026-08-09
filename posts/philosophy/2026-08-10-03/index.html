@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>제논의 역설 — 아킬레스는 왜 거북이를 영원히 못 따라잡나</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#a096ff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.85;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.meta{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid var(--accent);color:var(--accent);border-radius:16px;}
+.date{font-size:13.5px;color:#9aa0ad;}
+h1{font-size:29px;font-weight:800;line-height:1.42;letter-spacing:-.5px;margin:0 0 22px;}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;line-height:1.6;}
+blockquote{margin:26px 0;padding:18px 22px;background:#f0eefc;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0;font-size:17px;font-weight:600;color:#332d55;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f0eefc;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta"><span class="cat">철학/인문</span><span class="date">2026-08-10</span></div>
+<h1>제논의 역설 — 아킬레스는 왜 거북이를 영원히 못 따라잡나</h1>
+<p>이번 글에서는 엘레아의 제논이 남긴 운동의 역설을 정리해 보겠습니다.</p>
+<p>발 빠른 아킬레스가 느린 거북이를 끝내 따라잡지 못한다는 그 유명한 논증입니다.</p>
+<p>왜 이런 이상한 결론이 나오는지, 그리고 그것이 어떻게 풀렸는지 차분히 따라가 보려 합니다.</p>
+<figure><img src="./images/thumbnail.png" alt="제논의 역설 — 아킬레스는 왜 거북이를 영원히 못 따라잡나"><figcaption>제논의 역설 — 아킬레스는 왜 거북이를 영원히 못 따라잡나</figcaption></figure>
+<hr>
+<h2>궤변처럼 들리는 논증 하나</h2>
+<p>거북이가 조금 앞에서 출발합니다.</p>
+<p>아킬레스가 거북이의 출발점에 도착하는 사이, 거북이는 그만큼 앞으로 나아가 있습니다.</p>
+<p>아킬레스가 다시 그 새 지점에 도착하면, 거북이는 또 조금 더 앞서 있습니다.</p>
+<p>이 과정은 무한히 반복됩니다.</p>
+<p>따라잡아야 할 지점이 무한히 남아 있으니, 아킬레스는 거북이를 결코 앞지르지 못한다는 결론에 이릅니다.</p>
+<p>상식과 정면으로 부딪치는 이야기입니다.</p>
+<p>누구나 빠른 사람이 느린 사람을 앞지르는 장면을 매일 봅니다.</p>
+<p>그런데도 이 논증은 쉽게 반박되지 않습니다. 바로 그 점이 제논이 노린 것입니다.</p>
+<figure><img src="./images/body-1.png" alt="상식과 제논의 논증을 나란히 대비한 그림"><figcaption>상식과 제논의 논증을 나란히 대비한 그림</figcaption></figure>
+<hr>
+<h2>제논은 왜 이런 문제를 냈나</h2>
+<p>제논은 기원전 490년경에 태어나 430년경에 세상을 떠난 것으로 전해집니다.</p>
+<p>남부 이탈리아 엘레아 출신으로, 파르메니데스의 제자이자 벗이었습니다.</p>
+<p>아리스토텔레스는 그를 &quot;변증법의 발명자&quot;라 불렀습니다.</p>
+<p>스승 파르메니데스는 급진적인 일원론을 주장했습니다.</p>
+<p>실재는 하나이고 나뉘지 않으며, 우리가 감각으로 보는 운동과 변화는 환상이라는 것입니다.</p>
+<p>제논의 역할은 스승의 말을 되풀이하는 것이 아니었습니다.</p>
+<p>그는 상대편의 상식적 가정을 그대로 받아들였습니다. 운동도 있고, 사물도 여럿 있다고 말이지요.</p>
+<p>그런 다음 그 가정에서 부조리한 결론이 나온다는 것을 보였습니다.</p>
+<p>이런 방식을 귀류법이라 부릅니다.</p>
+<p>&quot;당신 말대로라면, 이렇게 이상한 일이 벌어집니다.&quot; 이것이 제논의 전략이었습니다.</p>
+<p>전해지는 이야기로는, 제논의 저작에 연속에 관한 마흔 개의 논증이 담겨 있었다고 합니다.</p>
+<p>사물이 여럿 존재한다면 그것들은 동시에 무한히 크고 무한히 작아야 한다는 논증도 그 가운데 하나입니다.</p>
+<p>정작 제논 자신의 글은 한 편도 온전히 전해지지 않습니다. 우리가 아는 것은 대부분 플라톤과 아리스토텔레스의 인용을 통해서입니다.</p>
+<figure><img src="./images/body-2.png" alt="제논이 운동을 겨눈 세 논증 — 이분법, 아킬레스와 거북이, 날아가는 화살"><figcaption>제논이 운동을 겨눈 세 논증 — 이분법, 아킬레스와 거북이, 날아가는 화살</figcaption></figure>
+<hr>
+<h2>운동을 겨눈 세 개의 화살</h2>
+<p>제논이 운동을 공격한 논증은 크게 세 가지가 전해집니다.</p>
+<p>첫째는 이분법입니다.</p>
+<p>어느 지점에 가려면 먼저 절반을 가야 하고, 그 절반의 절반을 가야 하며, 이런 나눔이 끝없이 이어집니다.</p>
+<p>무한히 많은 중간 지점이 있으니 애초에 도착 자체가 불가능하다는 이야기입니다.</p>
+<p>둘째가 아킬레스와 거북이입니다.</p>
+<p>구조는 이분법과 같습니다. 느린 자가 빠른 자에게 결코 추월당하지 않는다는 것을 겨눕니다.</p>
+<p>셋째는 날아가는 화살입니다.</p>
+<p>날아가는 화살도 매 순간에는 하나의 위치를 점유합니다.</p>
+<p>그 순간만 떼어 보면 같은 자리에 멈춰 선 화살과 구별되지 않습니다.</p>
+<p>모든 순간에 정지해 있다면, 운동은 대체 어디서 나오느냐고 제논은 되묻습니다.</p>
+<p>앞의 두 역설이 공간의 무한 분할을 겨눴다면, 화살은 시간의 순간을 겨눕니다. 겨냥은 다르지만 노림수는 같습니다.</p>
+<p>세 논증의 뿌리는 하나입니다.</p>
+<p>&quot;유한한 시간 안에 무한히 많은 과제를 끝낼 수는 없다.&quot; 이 전제가 역설을 지탱합니다.</p>
+<hr>
+<h2>무한을 더했더니 유한이 되었다</h2>
+<p>역설의 매듭은 수학에서 풀립니다.</p>
+<p>아킬레스가 지나야 할 거리를 순서대로 늘어놓으면 하나의 수열이 됩니다.</p>
+<p>절반, 그 절반, 또 그 절반. 점점 작아지는 값들이지요.</p>
+<p>여기서 놀라운 사실이 나옵니다.</p>
+<p>1/2 + 1/4 + 1/8 + … 처럼 무한히 이어지는 합이 정확히 1로 수렴합니다.</p>
+<p>무한히 많은 항을 더하는데도 그 합은 유한한 값에 멈춘다는 뜻입니다.</p>
+<p>이런 합을 등비급수라 부릅니다.</p>
+<p>공비가 1보다 작으면, 합은 언제나 유한한 값으로 수렴합니다.</p>
+<p>합을 구하는 공식은 S = a / (1 − r) 입니다. 첫 항이 1/2, 공비가 1/2이면 합은 (1/2)/(1−1/2), 곧 1입니다.</p>
+<p>거리만 유한한 것이 아닙니다.</p>
+<p>아킬레스가 등속으로 달린다면, 그 유한한 거리는 유한한 시간에 주파됩니다.</p>
+<p>한 자료의 설정에서는 무한한 거리들이 약 101.01미터로 합해지고, 1분 0.6초 만에 끝납니다.</p>
+<p>역설의 착오는 여기에 있었습니다.</p>
+<p>&quot;무한히 많은 사건&quot;을 &quot;무한한 양의 시간&quot;으로 착각한 것입니다.</p>
+<p>사건이 무한히 많아도, 그것이 유한한 시간 안에 다 일어날 수 있습니다.</p>
+<p>제논의 논증은 무한히 많은 단계를 하나씩 밟는 그림을 우리 머릿속에 심습니다.</p>
+<p>그 그림에서는 단계가 끝나지 않으니 도착도 없을 것 같습니다.</p>
+<p>그러나 각 단계에 걸리는 시간도 거리와 나란히 절반씩 줄어듭니다. 줄어드는 시간의 총합 역시 유한한 값으로 모입니다.</p>
+<p>무한한 단계를 세는 일과 무한한 시간을 흘려보내는 일은 전혀 다른 이야기였던 셈입니다.</p>
+<figure><img src="./images/body-3.png" alt="무한급수 1/2 + 1/4 + 1/8 이 1로 수렴하는 과정"><figcaption>무한급수 1/2 + 1/4 + 1/8 이 1로 수렴하는 과정</figcaption></figure>
+<hr>
+<h2>아리스토텔레스가 먼저 내놓은 답</h2>
+<p>미적분이 나오기 훨씬 전, 아리스토텔레스는 다른 방식으로 응수했습니다.</p>
+<p>그는 무한을 두 가지로 나눴습니다. 잠재적 무한과 현실적 무한입니다.</p>
+<p>잠재적 무한은 끝없이 나눌 수 있다는 가능성입니다.</p>
+<p>현실적 무한은 그 무한한 나눔이 실제로 다 완결되어 있다는 뜻입니다.</p>
+<p>아리스토텔레스는 오직 잠재적 무한만 있다고 보았습니다.</p>
+<p>제논은 하나의 달리기를 무한히 많은 짧은 달리기의 완결로 바꿔 놓았습니다.</p>
+<p>바로 그 지점에서 허용되지 않는 현실적 무한을 몰래 끌어들였다는 것입니다.</p>
+<p>달리는 자의 과제는 원래 그런 것이 아닙니다.</p>
+<p>무한히 많은 조각을 하나씩 해치우는 일이 아니라, 하나의 연속된 거리를 한 번의 연속된 동작으로 지나는 일입니다.</p>
+<p>예전엔 공간이 무한히 쪼개진 조각들의 더미로 보였습니다.</p>
+<p>지금은 공간이 나눌 수 있되 이미 나뉘어 있지는 않은 연속체로 이해됩니다.</p>
+<p>이 구분 하나로 역설의 힘은 상당히 빠집니다.</p>
+<p>아리스토텔레스는 연속체를 불가분의 점이나 원자로 조립할 수 없다고 보았습니다.</p>
+<p>연속은 이산의 더미와는 종류가 다른 것입니다. 이 통찰은 이후 이천 년 동안 무한을 다루는 밑돌이 되었습니다.</p>
+<figure><img src="./images/body-4.png" alt="잠재적 무한과 현실적 무한을 나란히 견준 그림"><figcaption>잠재적 무한과 현실적 무한을 나란히 견준 그림</figcaption></figure>
+<hr>
+<h2>그래도 남는 물음</h2>
+<p>수학은 아킬레스가 언제 어디서 거북이를 앞지르는지 정확히 계산해 줍니다.</p>
+<p>그 점에서 역설은 분명히 해소되었습니다.</p>
+<p>다만 모든 물음이 지워진 것은 아닙니다.</p>
+<p>날아가는 화살의 물음은 여전히 묵직합니다. 매 순간에 운동이 없다면, 운동은 순간들의 합에서 어떻게 솟아나는가.</p>
+<p>무한과 연속, 순간과 운동의 본성은 아직도 사유의 자리에 남아 있습니다.</p>
+<p>제논의 논증이 한낱 말장난이 아니었던 이유가 여기 있습니다.</p>
+<p>그의 물음은 후대 사람들에게 무한과 연속의 개념을 정밀하게 다듬으라고 밀어붙였습니다.</p>
+<p>근대의 논리학과 미적분이 그 압력 속에서 자라났다고 해도 지나치지 않습니다.</p>
+<figure><img src="./images/body-5.png" alt="제논의 역설이 후대에 남긴 유산 — 무한 개념 정밀화, 미적분의 탄생, 남은 물음"><figcaption>제논의 역설이 후대에 남긴 유산 — 무한 개념 정밀화, 미적분의 탄생, 남은 물음</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>아킬레스는 물론 거북이를 앞지릅니다. 다만 그 당연한 사실을 설명하려고 인류는 이천 년을 썼습니다.</p>
+<blockquote><p>&ldquo;좋은 역설은 틀린 결론으로 옳은 질문을 남긴다.&rdquo;</p></blockquote>
+<p>거북이는 잡혔지만, 제논이 던진 물음은 아직 우리 앞을 걷고 있습니다.</p>
+<div class="tags"><span>#제논의역설</span> <span>#아킬레스와거북이</span> <span>#무한급수</span> <span>#철학</span> <span>#고대철학</span> <span>#아리스토텔레스</span> <span>#무한</span> <span>#미적분</span> <span>#파르메니데스</span> <span>#인문학</span></div>
+<p>&lt;/content&gt;</p>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

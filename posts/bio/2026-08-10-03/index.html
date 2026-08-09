@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>체온은 어떻게 36.5도로 유지되나 — 몸의 온도조절 항상성 원리</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#ff7676;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.85;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.meta{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid var(--accent);color:var(--accent);border-radius:16px;}
+.date{font-size:13.5px;color:#9aa0ad;}
+h1{font-size:29px;font-weight:800;line-height:1.42;letter-spacing:-.5px;margin:0 0 22px;}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;line-height:1.6;}
+blockquote{margin:26px 0;padding:18px 22px;background:#eef3fc;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0;font-size:17px;font-weight:600;color:#213554;}
+ul{margin:0 0 18px;padding-left:22px;}
+li{font-size:16px;margin-bottom:8px;}
+.tablewrap{overflow-x:auto;margin:24px 0;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th{background:var(--accent);color:#fff;font-weight:700;padding:11px 12px;text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid #ebedf0;vertical-align:top;}
+tr:nth-child(even) td{background:#fafbfc;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#eef3fc;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta"><span class="cat">바이오</span><span class="date">2026-08-10</span></div>
+<h1>체온은 어떻게 36.5도로 유지되나 — 몸의 온도조절 항상성 원리</h1>
+<p>한여름 땡볕에서도, 한겨울 칼바람 속에서도 우리 몸속 온도는 거의 변하지 않습니다. 이번 글에서는 몸이 어떻게 체온을 좁은 범위 안에 붙들어 두는지, 그 온도조절 항상성의 원리를 정리해 보겠습니다. 시상하부의 설정점부터 열 생산과 방출, 발열, 그리고 체온조절이 무너지는 순간까지 차례로 살펴봅니다.</p>
+<figure><img src="./images/thumbnail.png" alt="체온 36.5도 온도조절 항상성 원리 대표 이미지"><figcaption>체온 36.5도 온도조절 항상성 원리 대표 이미지</figcaption></figure>
+<hr>
+<h2>몸속 온도계는 시상하부에 있습니다</h2>
+<p>흔히 말하는 36.5도는 피부 표면에서 잰 값입니다. 몸속 깊은 곳의 심부체온은 대략 37도, 정확히는 37 ± 0.5도 범위에서 움직입니다.</p>
+<p>이 온도를 관리하는 중추가 뇌 아래쪽 시상하부입니다. 그중에서도 시각교차앞구역이라는 작은 부위가 몸의 온도조절기 역할을 합니다.</p>
+<p>여기에는 목표 온도가 정해져 있습니다. 이를 설정점이라고 부릅니다. 집 안 보일러의 희망 온도를 떠올리시면 됩니다.</p>
+<p>작동 방식은 음성 피드백입니다. 온도가 설정점에서 벗어나면, 그 변화를 감지해 반대 방향으로 되돌립니다. 내장과 척수, 시상하부 자체에 있는 중추 온도수용체가 심부 온도를 감시하고, 피부의 수용체가 바깥 온도를 읽습니다. 이 신호가 모두 시상하부로 모입니다.</p>
+<p>시상하부는 모인 정보를 종합해 판단합니다. 심부가 목표보다 낮으면 열을 만들고 아끼는 반응을, 높으면 열을 버리는 반응을 켭니다. 설정점보다 조금이라도 벗어나면 되도록 빨리 원래 값으로 끌어오는 것이 이 고리의 목적입니다.</p>
+<p>정상 심부체온은 하나의 고정된 숫자가 아닙니다. 사람마다, 측정 부위와 하루 중 시간대에 따라 대략 36도에서 37.5도 사이를 오갑니다. 대개 새벽에 가장 낮고 늦은 오후에 가장 높습니다.</p>
+<figure><img src="./images/body-1.png" alt="체온을 되돌리는 음성 피드백 고리 4단계 다이어그램"><figcaption>체온을 되돌리는 음성 피드백 고리 4단계 다이어그램</figcaption></figure>
+<hr>
+<h2>열을 만드는 네 가지 장치</h2>
+<p>추위 앞에서 몸은 열을 더 만들어야 합니다. 방법은 하나가 아닙니다.</p>
+<p>첫째, 기초대사입니다. 가만히 있어도 세포가 대사하며 열을 냅니다. 이 기초 열의 최소 30퍼센트는 갑상샘호르몬에 기댑니다.</p>
+<p>둘째, 떨림 열생성입니다. 추위의 1차 방어선입니다. 골격근이 잘게 반복 수축하며 열을 냅니다. 이때 안정 대사율이 최대 다섯 배까지 올라갑니다.</p>
+<p>셋째, 갈색지방의 비떨림 열생성입니다. 신생아와 소형 포유류에서 특히 중요합니다. 갈색지방 세포의 미토콘드리아 안쪽 막에는 UCP1이라는 단백질이 있습니다. 이 단백질은 양성자가 막을 새어 나가게 해서, 원래 에너지 저장(ATP)에 쓰일 힘을 그대로 열로 흩어버립니다. 말하자면 발전기를 돌리지 않고 연료를 태워 난방만 하는 셈입니다.</p>
+<p>넷째, 호르몬입니다. 갑상샘호르몬과 카테콜아민이 열생성을 매개합니다. 갑상샘호르몬은 교감신경의 노르에피네프린 신호를 강화해, 열을 내는 효소들의 활성을 끌어올립니다.</p>
+<p>이 장치들은 따로 놀지 않습니다. 추위에 노출되면 시상하부가 근육 떨림과 갈색지방 열생성, 심박수 증가를 한꺼번에 구동합니다. 추위에 오래 적응하면 교감신경이 갈색지방을 더 키우고, 미토콘드리아와 UCP1의 양도 늘어납니다. 몸이 스스로 난방 설비를 늘리는 셈입니다. 다만 UCP1이 없어도 작동하는 다른 열생성 경로가 있다는 연구도 있어, 갈색지방의 열생성이 UCP1 하나로만 설명되지는 않습니다.</p>
+<figure><img src="./images/body-2.png" alt="열을 만드는 네 가지 장치 핵심 포인트 카드"><figcaption>열을 만드는 네 가지 장치 핵심 포인트 카드</figcaption></figure>
+<hr>
+<h2>열을 버리는 방법과 그 한계</h2>
+<p>반대로 더울 때는 열을 밖으로 내보내야 합니다. 크게 네 경로가 있습니다.</p>
+<p>가장 큰 비중은 복사입니다. 몸이 적외선 형태로 열을 내보내며, 전체의 약 60퍼센트를 차지합니다. 공기를 통한 전도와 대류가 약 15퍼센트, 그리고 땀의 증발이 약 22퍼센트를 담당합니다.</p>
+<p>피부 혈관도 조절 장치입니다. 더우면 혈관을 넓혀 피부로 피를 많이 보냅니다. 피부 혈류는 안정 시 분당 0.5리터에서 열 스트레스 상황에서는 분당 7리터까지 늘어납니다. 반대로 추우면 혈관을 조여 표면으로 새는 열을 줄이고 심부를 지킵니다.</p>
+<p>땀은 마지막 카드입니다. 성인은 시간당 약 1리터, 극한 상황에서는 짧게 시간당 4리터까지 땀을 흘릴 수 있습니다. 땀 1그램이 증발할 때마다 약 0.58킬로칼로리의 열을 빼앗아갑니다.</p>
+<p>여기에 함정이 있습니다. 땀은 증발해야 열을 가져갑니다. 습도가 높으면 땀이 흘러내리기만 하고 증발하지 못합니다. 그래서 무덥고 습한 날이 유난히 견디기 힘든 것입니다.</p>
+<p>열 방출 비율도 고정된 값이 아닙니다. 60퍼센트, 22퍼센트 같은 숫자는 대표적인 조건에서의 대략치일 뿐, 기온과 습도, 바람, 옷차림에 따라 크게 달라집니다. 찬물에 몸을 담그면 전도로 빠져나가는 열이 급격히 늘고, 서늘한 바람이 불면 대류가 커집니다. 몸은 그 상황에 맞춰 어느 경로를 열고 닫을지 매 순간 다시 계산합니다.</p>
+<figure><img src="./images/body-3.png" alt="열을 버리는 네 경로와 방출 비율 비교 표"><figcaption>열을 버리는 네 경로와 방출 비율 비교 표</figcaption></figure>
+<hr>
+<h2>발열은 고장이 아니라 설정점의 이동입니다</h2>
+<p>감기에 걸려 열이 나면, 몸의 온도조절이 망가진 것처럼 보입니다. 사실은 반대입니다.</p>
+<p>발열은 설정점 자체가 위로 올라간 상태입니다. 온도계가 고장 난 게 아니라, 희망 온도를 38도, 39도로 다시 맞춰 놓은 것입니다.</p>
+<p>순서는 이렇습니다. 세균 같은 침입자가 들어오면 대식세포 같은 면역세포가 사이토카인을 내보냅니다. 이 물질을 내인성 발열원이라 부르며, 그중 인터루킨-1이 대표 선수입니다. 이 신호가 뇌혈관 세포를 자극해 프로스타글란딘 E2를 만들게 하고, 이 물질이 시상하부의 설정점을 끌어올립니다.</p>
+<p>이제 몸은 새 목표를 향해 달립니다. 혈관을 조이고 근육을 떨어 열을 올립니다. 열이 오르는 초반에 오히려 오한이 들고 이불을 끌어안게 되는 이유가 여기 있습니다. 실제 체온은 높은데도, 몸은 아직 춥다고 느끼는 것입니다.</p>
+<p>반대로 열이 내릴 때는 설정점이 원래 값으로 돌아옵니다. 그러면 몸은 이제 너무 덥다고 판단해 혈관을 넓히고 땀을 냅니다. 해열제가 프로스타글란딘 생성을 억제해 설정점을 다시 낮추는 방향으로 작용한다고 알려져 있습니다.</p>
+<figure><img src="./images/body-4.png" alt="발열은 설정점이 올라가는 것 기전 단계 다이어그램"><figcaption>발열은 설정점이 올라가는 것 기전 단계 다이어그램</figcaption></figure>
+<hr>
+<h2>조절이 무너지는 순간, 저체온증과 열사병</h2>
+<p>항상성에도 한계가 있습니다. 방어 능력을 넘어서면 심부체온이 무너집니다.</p>
+<p>추위 쪽이 저체온증입니다. 심부체온 32에서 35도는 경증으로, 몸이 떨리고 판단력이 흐려집니다. 28에서 32도는 중등도로, 여기서는 역설적으로 떨림이 멈추고 무기력해집니다. 28도 아래로 떨어지면 중증이며, 의식과 호흡, 맥박이 위태로워집니다.</p>
+<p>더위 쪽이 열사병입니다. 심부체온이 보통 40도를 넘고, 착란이나 발작 같은 중추신경계 이상이 함께 나타납니다. 뜨겁고 건조한 피부가 특징이지만, 반대로 심하게 땀을 흘리기도 합니다. 둘 다 응급 상황이며 지체 없는 처치가 필요합니다.</p>
+<figure><img src="./images/body-5.png" alt="저체온증과 열사병 심부체온 기준 비교"><figcaption>저체온증과 열사병 심부체온 기준 비교</figcaption></figure>
+<hr>
+<p>정리하면 이렇습니다. 우리 몸은 설정점 하나를 기준으로, 열을 만들고 버리는 장치를 쉼 없이 여닫으며 균형을 지킵니다. 가만히 있을 때도, 추위와 더위 앞에서도, 이 조율은 멈추지 않습니다.</p>
+<p>그래서 평범한 36.5도는 사실 가장 정교한 균형의 결과입니다.</p>
+<blockquote><p>&ldquo;체온이 일정하다는 것은, 몸이 매 순간 온도와 싸워 이기고 있다는 뜻입니다.&rdquo;</p></blockquote>
+<p>오늘 별 탈 없이 지나간 하루의 체온도, 그 조용한 균형이 지켜낸 것입니다.</p>
+<div class="tags"><span>#체온조절</span> <span>#항상성</span> <span>#시상하부</span> <span>#체온</span> <span>#발열</span> <span>#저체온증</span> <span>#열사병</span> <span>#갈색지방</span> <span>#인체생리</span> <span>#건강상식</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
