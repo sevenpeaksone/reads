@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신경세포 신호 전달 원리 — 활동전위는 어떻게 생기고 퍼지나</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+  :root { --accent: #ff7676; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #f4f5f7;
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    color: #24272e;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    background: #ffffff;
+  }
+  .badge-row { margin-bottom: 26px; }
+  .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 999px;
+    letter-spacing: 0.02em;
+  }
+  .date {
+    display: inline-block;
+    margin-left: 10px;
+    color: #8b8f98;
+    font-size: 13px;
+    vertical-align: middle;
+  }
+  h1 {
+    font-size: 30px;
+    line-height: 1.4;
+    font-weight: 800;
+    margin: 0 0 34px;
+    letter-spacing: -0.01em;
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    margin: 46px 0 16px;
+    padding-left: 13px;
+    border-left: 4px solid var(--accent);
+    line-height: 1.45;
+  }
+  p { font-size: 16.5px; margin: 0 0 20px; }
+  figure { margin: 30px 0; text-align: center; }
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.10);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid #e6e8ec;
+    margin: 40px 0;
+  }
+  blockquote {
+    margin: 30px 0;
+    padding: 20px 24px;
+    background: #fff2f2;
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #3a2a2c;
+  }
+  .tags { margin-top: 46px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 13px;
+    color: #c65c5c;
+    background: #fdeeee;
+    padding: 5px 11px;
+    border-radius: 6px;
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+  <div class="wrap">
+    <div class="badge-row">
+      <span class="badge">바이오</span>
+      <span class="date">2026-08-11</span>
+    </div>
+    <h1>신경세포 신호 전달 원리 — 활동전위는 어떻게 생기고 퍼지나</h1>
+    <figure><img src="./images/thumbnail.png" alt="활동전위의 원리 — 신경세포는 어떻게 신호를 전달하나 대표 이미지"></figure>
+<p>이번 글에서는 신경세포가 신호를 만들고 전달하는 원리를 정리해 보겠습니다.<br>
+손끝을 데었을 때 우리가 순식간에 손을 떼는 그 과정이, 세포 안에서는 전기의 언어로 오갑니다.<br>
+그 전기 신호의 이름이 활동전위입니다. 어떻게 생기고, 어떻게 퍼지는지 차근차근 살펴보겠습니다.</p>
+<hr>
+<h2>가만히 있을 때에도 세포막은 긴장하고 있다</h2>
+<p>신경세포는 아무 신호도 보내지 않을 때에도 조용히 준비를 하고 있습니다.<br>
+쉬고 있는 뉴런의 세포막 안쪽은 바깥쪽보다 전기적으로 음(-)을 띱니다.<br>
+이 전압 차이를 안정막전위라 부르며, 값은 대략 -70mV입니다.</p>
+<p>핵심은 이온의 분포입니다.<br>
+칼륨(K+)은 세포 안쪽에 많고, 나트륨(Na+)은 바깥쪽에 많습니다.<br>
+쉬는 동안 세포막은 칼륨을 훨씬 잘 통과시킵니다.<br>
+그래서 칼륨이 농도를 따라 조금씩 밖으로 새어 나가고, 안쪽에는 음전하가 남습니다.</p>
+<p>여기에는 두 가지 힘이 함께 작용합니다.<br>
+하나는 농도 차이가 만드는 힘이고, 다른 하나는 전하가 서로 끌고 미는 힘입니다.<br>
+이 둘이 균형을 이루는 지점에서 막전위가 -70mV 부근에 자리를 잡습니다.</p>
+<p>말하자면 안정막전위는 완전한 정지가 아닙니다.<br>
+언제든 터질 수 있도록 팽팽하게 당겨 둔 활시위에 가깝습니다.<br>
+이 긴장이 없다면, 자극이 와도 세포는 아무 반응을 만들지 못합니다.</p>
+<figure><img src="./images/body-1.png" alt="안정 상태 -70mV와 탈분극 +30mV의 막전위 비교"></figure>
+<hr>
+<h2>기울기를 지키는 작은 펌프</h2>
+<p>이 팽팽한 준비 상태는 저절로 유지되지 않습니다.<br>
+나트륨-칼륨 펌프라는 단백질이 끊임없이 일을 합니다.</p>
+<p>이 펌프는 ATP 한 분자를 쓸 때마다 나트륨 3개를 밖으로 퍼내고, 칼륨 2개를 안으로 들여옵니다.<br>
+3 대 2, 이 어긋난 비율 때문에 세포 안은 조금씩 더 음전하로 기웁니다.<br>
+덕분에 나트륨은 밖에, 칼륨은 안에 몰린 상태가 계속 유지됩니다.</p>
+<p>이 농도 차이가 곧 에너지 저장고입니다.<br>
+펌프가 멈추면 기울기는 무너지고, 뉴런은 더 이상 신호를 만들지 못합니다.<br>
+조용해 보이는 이 작업이 사실은 신경 활동의 밑천인 셈입니다.<br>
+그래서 세포는 신호를 보내지 않고 쉬는 동안에도 이 펌프를 돌리며 에너지를 씁니다.</p>
+<hr>
+<h2>역치를 넘는 순간, 문이 열린다</h2>
+<p>자극이 들어오면 막전위가 조금씩 위로 올라갑니다.<br>
+그러다 대략 -55mV에 이르면 결정적인 사건이 일어납니다.<br>
+이 지점을 역치라 부릅니다.</p>
+<p>역치를 넘으면 전압개폐 나트륨 통로가 한꺼번에 열립니다.<br>
+이 통로는 막전위의 변화를 감지해 스스로 문을 여닫는 정교한 장치입니다.<br>
+밖에 몰려 있던 나트륨이 안으로 밀려들면서 막전위가 급격히 치솟습니다.<br>
+음전하였던 안쪽이 순식간에 양전하로 뒤집힙니다.</p>
+<p>여기에는 되먹임의 힘이 숨어 있습니다.<br>
+통로가 열려 나트륨이 들어오면 막전위가 더 오르고, 그러면 이웃한 통로가 또 열립니다.<br>
+한번 시작되면 걷잡을 수 없이 번지는, 폭발에 가까운 반응입니다.</p>
+<p>정점은 약 +30mV입니다.<br>
+여기서 나트륨 통로는 스스로 닫히고, 이번에는 칼륨 통로가 열립니다.<br>
+칼륨이 밖으로 빠져나가면서 막전위는 다시 아래로 내려갑니다. 이것이 재분극입니다.</p>
+<p>내려가던 전위는 -70mV를 잠깐 지나쳐 더 낮게 떨어집니다.<br>
+칼륨 통로가 닫히는 데 시간이 조금 걸리기 때문입니다.<br>
+이 짧은 과분극을 지나고 나면, 세포는 다시 안정막전위로 돌아옵니다.</p>
+<figure><img src="./images/body-2.png" alt="활동전위의 네 단계 — 탈분극, 정점, 재분극, 과분극"></figure>
+<hr>
+<h2>숫자로 정리하는 활동전위</h2>
+<p>지금까지 나온 수치와 주역을 한자리에 모아 봅니다.<br>
+각 단계마다 어떤 이온과 통로가 움직이는지 보면 흐름이 한눈에 잡힙니다.</p>
+<figure><img src="./images/body-3.png" alt="단계별 막전위와 이온의 움직임 정리 표"></figure>
+<p>값은 교과서마다 조금씩 다르게 적기도 합니다.<br>
+안정막전위를 -65mV로 쓰는 자료도 있습니다.<br>
+대표값으로 기억해 두되, 범위가 있다는 점은 알아 두시면 좋겠습니다.</p>
+<hr>
+<h2>전부 아니면 전무, 그리고 잠깐의 침묵</h2>
+<p>활동전위에는 재미있는 성질이 있습니다.<br>
+역치만 넘으면 활동전위는 언제나 같은 크기로 완결됩니다.<br>
+자극이 두 배 세다고 신호가 두 배 커지지 않습니다.</p>
+<p>역치에 못 미치면 아예 일어나지 않습니다.<br>
+이것을 전실무율이라 합니다. 전부 아니면 전무라는 뜻입니다.<br>
+그렇다면 자극의 세기는 어떻게 표현될까요. 크기가 아니라 발화의 빈도로 전해집니다.</p>
+<p>또 하나, 활동전위가 막 지나간 자리는 잠깐 침묵합니다.<br>
+나트륨 통로가 아직 회복되지 않아 새 신호를 만들 수 없는 절대 불응기입니다.<br>
+조금 지나면 더 강한 자극에 한해 반응하는 상대 불응기가 이어집니다.<br>
+이 짧은 침묵 덕분에 신호는 뒤로 되돌아가지 않고 한 방향으로만 흐릅니다.<br>
+또한 불응기는 신호가 겹치지 않도록 간격을 지켜 줍니다.<br>
+아무리 강한 자극이 몰아쳐도 발화 횟수에 상한이 생기는 이유입니다.<br>
+덕분에 신경계는 폭주하지 않고, 신호의 리듬을 안정적으로 유지합니다.</p>
+<figure><img src="./images/body-4.png" alt="활동전위의 세 가지 성질 — 전실무율, 불응기, 한 방향 전도"></figure>
+<hr>
+<h2>뛰어넘어 더 빨리 — 도약전도</h2>
+<p>신호는 축삭을 따라 퍼져 나갑니다.<br>
+여기서 속도를 끌어올리는 장치가 수초입니다.<br>
+수초는 축삭을 감싸는 절연 피막이고, 그 사이 규칙적으로 드러난 틈이 랑비에 결절입니다.</p>
+<p>전압개폐 나트륨 통로는 이 결절에만 모여 있습니다.<br>
+수초로 덮인 구간은 절연되어 전류가 거의 새지 않습니다.<br>
+그래서 활동전위는 결절에서 결절로 건너뛰듯 전달됩니다. 이것이 도약전도입니다.</p>
+<p>효과는 극적입니다.<br>
+수초가 없는 축삭은 초당 약 0.5~3m로 느리게 전달합니다.<br>
+수초가 있는 축삭은 초당 최대 약 120m까지 빨라집니다.</p>
+<p>예전엔 신호가 축삭 전체를 하나하나 훑고 지나갔습니다.<br>
+지금은 결절만 딛고 도약하니 훨씬 빠르고, 이온도 적게 써서 에너지까지 아낍니다.</p>
+<figure><img src="./images/body-5.png" alt="무수 축삭과 유수 축삭의 전도 속도 비교 — 도약전도"></figure>
+<hr>
+<h2>세포와 세포 사이, 화학의 언어로</h2>
+<p>전기 신호가 축삭 끝에 닿으면, 뉴런 사이의 좁은 틈을 건너야 합니다.<br>
+이 틈이 시냅스이고, 폭은 약 20nm에 불과합니다.</p>
+<p>신호가 도착하면 칼슘(Ca2+) 통로가 열려 칼슘이 들어옵니다.<br>
+칼슘은 신호가 되어, 신경전달물질을 담은 소포를 세포막과 융합시킵니다.<br>
+소포가 열리면 신경전달물질이 시냅스 틈으로 쏟아집니다.</p>
+<p>방출된 물질은 건너편 뉴런의 수용체에 붙어 새 전기 신호를 일으킵니다.<br>
+이때 신호는 상대를 흥분시킬 수도, 반대로 가라앉힐 수도 있습니다.<br>
+어떤 신경전달물질이 어떤 수용체를 만나느냐에 따라 결과가 달라지기 때문입니다.</p>
+<p>전기에서 화학으로, 다시 전기로. 신호는 이렇게 언어를 바꿔 가며 이어집니다.<br>
+한 가지 방식만 고집하지 않는 이 유연함이 신경계의 힘이라고 생각합니다.<br>
+물론 아직 완전히 밝혀지지 않은 영역도 많습니다.<br>
+같은 전달물질이 상황에 따라 다르게 작동하는 까닭은, 지금도 활발히 연구되고 있습니다.</p>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다.<br>
+활동전위의 원리는 결국 하나의 문장으로 압축됩니다.</p>
+<blockquote>&quot;기울기를 저장해 두었다가, 역치를 넘는 순간 한꺼번에 터뜨린다.&quot;</blockquote>
+<p>우리가 무언가를 느끼고 움직이는 지금 이 순간에도, 몸속에서는 수많은 활시위가 조용히 당겨졌다 놓이고 있습니다.<br>
+그 미세한 전기의 파도를 떠올려 보신다면, 생각한다는 일이 조금은 다르게 다가올지도 모르겠습니다.</p>
+<div class="tags"><span class="tag">#신경세포</span><span class="tag">#활동전위</span><span class="tag">#안정막전위</span><span class="tag">#나트륨칼륨펌프</span><span class="tag">#도약전도</span><span class="tag">#시냅스</span><span class="tag">#신경전달물질</span><span class="tag">#생명과학</span><span class="tag">#뉴런</span><span class="tag">#신경생리학</span></div>
+  </div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
