@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>하이데거 세계-내-존재, 『존재와 시간』은 인간을 어떻게 다시 물었나</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
+<style>
+:root{--accent:#a096ff;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f6f8;color:#1f2330;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+.wrap{max-width:700px;margin:0 auto;background:#fff;padding:54px 40px 70px;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.05);}
+.meta{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cat{display:inline-block;font-size:13px;font-weight:700;padding:4px 13px;border:1.5px solid var(--accent);color:var(--accent);border-radius:16px;}
+.date{font-size:13.5px;color:#9aa0ad;}
+h1{font-size:29px;font-weight:800;line-height:1.42;letter-spacing:-.5px;margin:0 0 22px;}
+h2{font-size:21px;font-weight:700;margin:44px 0 16px;padding-left:13px;border-left:4px solid var(--accent);letter-spacing:-.3px;}
+p{font-size:16.5px;margin:0 0 18px;}
+hr{border:0;border-top:1px solid #e8eaed;margin:34px 0;}
+figure{margin:28px 0;text-align:center;}
+img{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+figcaption{font-size:13.5px;color:#9aa0ad;margin-top:10px;line-height:1.6;}
+blockquote{margin:26px 0;padding:18px 22px;background:#f0eeff;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
+blockquote p{margin:0;font-size:17px;font-weight:600;color:#3a2f78;}
+.tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
+.tags span{font-size:13.5px;color:var(--accent);background:#f0eeff;padding:5px 12px;border-radius:14px;}
+strong{font-weight:700;}
+em{font-style:italic;color:#4a4f60;}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta"><span class="cat">철학/인문</span><span class="date">2026-08-14</span></div>
+<h1>하이데거 세계-내-존재, 『존재와 시간』은 인간을 어떻게 다시 물었나</h1>
+<figure><img src="./images/thumbnail.png" alt="하이데거 세계-내-존재와 『존재와 시간』을 소개하는 대표 이미지"><figcaption>하이데거 세계-내-존재와 『존재와 시간』을 소개하는 대표 이미지</figcaption></figure>
+<p>이번 글에서는 마르틴 하이데거의 『존재와 시간』을 관통하는 개념 하나를 정리해 보겠습니다. 바로 <strong>세계-내-존재</strong>입니다. 난해하기로 이름난 책입니다만, 그 뼈대는 의외로 우리가 매일 겪는 일에서 출발합니다.</p>
+<hr>
+<h2>이 책이 다시 꺼낸 질문</h2>
+<p>『존재와 시간』은 1927년에 나왔습니다. 하이데거가 밝힌 목표는 한 줄입니다. <strong>"'존재'의 '의미'에 대한 물음을 구체적으로 다듬어내는 것"</strong>(SZ 1).</p>
+<p>이 물음은 우리가 익숙한 질문들과 결이 다릅니다. 연구자 테일러 카먼은 그 차이를 이렇게 정리했습니다. 하이데거의 기획은 <em>무엇이 있는가</em>를 묻지 않고, <em>왜 있는 것이 있는가</em>도 묻지 않으며, 심지어 <em>왜 아무것도 없지 않고 무언가 있는가</em>조차 묻지 않는다고요. 그가 묻는 것은 하나입니다. <strong>무언가가 있다는 것은 무엇을 의미하는가.</strong></p>
+<p>여기서 '의미'는 사전에 실린 뜻이 아닙니다. 무언가가 <strong>말이 될 때</strong> — 우리가 그것을 우리 활동 속으로 받아들이고, 사리에 맞게 반응하고, 이해 가능하게 다룰 수 있을 때 — 그때 그것은 의미를 갖습니다.</p>
+<p>그래서 하이데거는 존재를 존재자와 구별합니다. 존재자란 물질적 사물뿐 아니라 사건도, 수와 개념 같은 추상적 대상도 포함하는 넓은 말입니다. 반면 존재는 <strong>"존재자를 존재자로서 규정하는 것"</strong>입니다.</p>
+<p>문제는 이 물음에 어디서부터 답하느냐입니다. 하이데거의 선택은 인간이었습니다. 개시(開示)가 있는 한에서만 존재가 '있고', 존재는 드러나기 위해 우리를 필요로 하기 때문입니다.</p>
+<figure><img src="./images/body-1.png" alt="현존재, 세계-내-존재, 손안에 있음, 세인 네 가지 핵심 개념을 정리한 카드"><figcaption>현존재, 세계-내-존재, 손안에 있음, 세인 네 가지 핵심 개념을 정리한 카드</figcaption></figure>
+<hr>
+<h2>현존재 — 인간을 '거기-있음'이라 부른 이유</h2>
+<p>하이데거는 인간을 '인간(Mensch)'이라 부르지 않고 <strong>현존재(Dasein)</strong>라 부릅니다. 독일어에서 이 단어는 일상적으로 그냥 '실존'을 뜻합니다. 문자 그대로 옮기면 <strong>'거기-있음'</strong>입니다.</p>
+<p>이름을 바꾼 이유가 있습니다. 인류학이나 심리학, 생물학의 연구가 아니라 <strong>우리의 존재 방식</strong>을 묻고 있음을 분명히 하기 위해서입니다. 현존재란 우리가 존재를 이해하는 존재자인 한에서의 우리를 가리킵니다.</p>
+<p>이 개명은 데카르트를 겨냥합니다. 데카르트 이래 지배적인 그림에서 인간은 물질세계와 근본적으로 구별되는 사유 주체였습니다. 세계 바깥에 앉아 세계를 표상하는 정신이었습니다. 브리태니커의 정리를 빌리면, 하이데거는 그 반대편을 택했습니다. 인간을 <strong>세계-내-존재</strong>로 파악한 것입니다.</p>
+<p>그러자 함께 무너지는 것들이 있습니다. '의식은 개인 내부의 알아차림'이라는 관념이 그렇고, '특정한 심적 상태가 나와 외부 세계 사이를 매개해야 한다'는 전제도 그렇습니다. 현존재는 존재의 '거기'입니다. 존재자들이 자기 자신으로서 스스로를 드러내는 자리입니다.</p>
+<p>여기서 중요한 대목이 하나 더 있습니다. 현존재는 본질적으로 <strong>가능성</strong>과 관계합니다. 그래서 현존재는 자기에 관한 눈앞의 사실들로는 결코 정의되지 않습니다. 몸무게와 출생지와 직업을 모두 나열해도 내가 누구인지는 남습니다.</p>
+<p>스탠퍼드 철학사전은 현존재의 존재가 '걸려 있는' 방식을 셋으로 정리합니다. 자기가 누구인지에 대해 여러 방식이 있다는 것. 자기에 대한 책임을 떠맡는 양태와 떠맡지 않는 양태가 있다는 것. 그리고 아예 존재하지 않기로 결정할 수도 있다는 것입니다.</p>
+<hr>
+<h2>세계-내-존재 — 하이픈이 말해 주는 것</h2>
+<p>하이데거는 이 말에 하이픈을 넣습니다. 이유가 있습니다. 그것이 <strong>통일적 현상</strong>임을 표시하기 위해서입니다.</p>
+<p>통일적 현상이란 따로 존재할 수 없는 부분들로 이루어지고, 각 부분이 다른 부분들과의 관계를 통해서만 그것인 바가 되는 것을 말합니다. 세계, 세계 안에 실존하는 자기, 그리고 '안에-있음'이라는 관계 구조. 이 셋은 조립품이 아닙니다.</p>
+<p>그렇다면 '안에-있음'은 무슨 뜻일까요. 컵이 상자 안에 있는 것과 같은 공간적 포함이 아닙니다. 하이데거가 말하는 것은 <strong>친숙함</strong>입니다. "나는 이곳이 편안합니다"라고 말할 때의 그 친숙함입니다.</p>
+<p>어떤 곳에 편안히 있다는 것은 세 가지를 뜻합니다. 그곳의 삶의 속도와 방식에 익숙하다는 것. 그곳을 특징짓는 활동에 참여할 때 잘 해낸다는 것. 그리고 그 세계가 내미는 것들에 반응할 습관과 기술을 갖췄다는 것입니다.</p>
+<p>공간도 다시 정의됩니다. 사물의 멀고 가까움은 좌표 위의 거리가 아닙니다. <strong>중요함의 차이</strong>가 거리를 만듭니다. 드레이퍼스의 표현이 인상적입니다. "어떤 것이 나에게 가깝다는 것은 내가 그것을 최대한으로 장악할 수 있을 때이다."</p>
+<p>지구 반대편에 있는 부모의 안부는 가깝고, 지금 내 코앞의 벽지 무늬는 멉니다. 예전의 존재론이 사물을 좌표 위에 놓았다면, 하이데거는 사물을 <strong>관심의 그물망</strong> 위에 놓습니다.</p>
+<hr>
+<h2>망치가 부러질 때 세계가 드러납니다</h2>
+<p>하이데거의 도구 분석은 『존재와 시간』에서 가장 널리 알려진 대목입니다.</p>
+<p>어떤 존재자가 어떤 활동에 쓸모 있을 때, 그것은 <strong>손안에 있습니다</strong>(Zuhandenheit). 흔히 도구를 떠올리지만 범위는 훨씬 넓습니다. 태양은 시간을 알고 집을 데우는 데 쓸 수 있기에 "한결같은 항상성을 지니고 사용 가능한 것"입니다(SZ 103). 강과 바람은 동력과 항해에, 산은 채석장으로, 숲은 목재림으로 쓸 수 있습니다(SZ 70).</p>
+<p>손안의 것은 홀로 있지 않습니다. 서로를 가리킵니다. 스탠퍼드 철학사전이 든 예가 선명합니다. <strong>만년필은 나를 종이로 보냅니다. 종이는 나를 책상과 의자로 보냅니다. 의자와 책상과 펜과 종이가 함께 나를 글 쓰기에 알맞은 자세로 인도합니다.</strong></p>
+<p>그래서 하이데거는 이렇게 말합니다. 세계를 이루는 것은 "사물 같은 대상이 아니라 유의미성들"이며, 마주침의 구조에서 일차적 기능을 갖는 것은 "사물이 아니라 지시이고, 실체가 아니라 기능"이라고요.</p>
+<p>드레이퍼스의 문 이야기는 이 말을 일상으로 끌어내립니다. 방을 나설 때 나는 객관적으로는 문을 문으로서 사용하고 있습니다. 그러나 나는 문을 문으로서 <strong>경험하고 있지 않습니다.</strong> 가장 능숙하게 대처할 때 나는 문을 전혀 경험하지 않으며, 그저 밖으로 나간다는 가능성 속으로 밀고 들어가고 있을 뿐입니다.</p>
+<p>반대편에 <strong>눈앞에 있음</strong>(Vorhandenheit)이 있습니다. 공간적·인과적 속성으로 규정되는 존재 방식입니다. 자연과학이 다루는 사물들이 여기 속합니다.</p>
+<p>철학자들은 오랫동안 이쪽을 기초로 여겨 왔습니다. 하이데거는 순서를 뒤집습니다. 우리가 우선 그리고 대개 마주치는 것은 손안의 존재자입니다. 사물이 우리 활동과 무관하게 나타나려면 <strong>"먼저 세계와의 배려적 교섭에 결함이 있어야"</strong> 합니다(SZ 61).</p>
+<p>그 결함이 바로 <strong>고장</strong>입니다. 망치가 부러지면 그것은 손안에 있기를 그칩니다. 그제야 우리는 멈춰 서서 그것을 바라보고, 비로소 그것을 '망치로서' 명시적으로 취합니다. 그리고 그 순간, 평소에는 주의에서 물러나 있던 배경 전체가 드러납니다. 과업이, 작업장이, 실천 전체가요.</p>
+<figure><img src="./images/body-2.png" alt="손안에 있음과 눈앞에 있음의 차이를 나란히 비교한 표"><figcaption>손안에 있음과 눈앞에 있음의 차이를 나란히 비교한 표</figcaption></figure>
+<p>블래트너 교수의 정리에 따르면 고장에는 세 양태가 있습니다. 도구가 오작동하는 <strong>눈에 띔</strong>, 무언가가 없어서 그 동반 도구가 걸리적거리는 <strong>성가심</strong>, 무언가가 장애물이 되는 <strong>뻗댐</strong>입니다. 분필이 사라지면 칠판이 갑자기 성가셔지는 경험, 다들 해 보셨을 겁니다.</p>
+<figure><img src="./images/body-3.png" alt="눈에 띔, 성가심, 뻗댐 등 도구 고장의 세 가지 양태를 정리한 비교 표"><figcaption>눈에 띔, 성가심, 뻗댐 등 도구 고장의 세 가지 양태를 정리한 비교 표</figcaption></figure>
+<p>여기서 흔한 오해를 하나 짚고 넘어가겠습니다. 손안에 있음은 "실제로는 눈앞의 사물인 것 위에 인간이 쓸모를 덧칠한 것"이 아닙니다(SZ 71). 손안의 존재자는 눈앞의 존재자와 개별화되는 방식 자체가 다릅니다.</p>
+<hr>
+<h2>세인(das Man) — 누구든 하는 대로 사는 자기</h2>
+<p>그렇다면 이 세계에 사는 자기는 누구일까요.</p>
+<p>하이데거의 답은 뜻밖입니다. 일상에서 우리 자신은 <strong>세인-자기</strong>입니다.</p>
+<p>우리가 마주치는 세계의 이해가능성은 우선 사회적으로 공유된 목표와 규범, 취향과 기준에 의해 짜여 있습니다. 하이데거는 이 사회적 규범성을 <strong>세인(das Man)</strong>이라 부릅니다. 이유는 단순합니다. 이 이해가능성을 붙들 때 우리는 <strong>'누구든 그렇게 하듯이'</strong> 행위하기 때문입니다.</p>
+<p>타인은 내 머릿속에만 있는 것이 아닙니다. 내 행위의 가능성 자체를 빚습니다. 하이데거의 예가 좋습니다. 어떤 밭이 다른 사람의 소유로 나타나면, 나는 <strong>"밭 가장자리를 따라, 그러나 밭 바깥으로" 걷도록 요청받습니다</strong>(SZ 118). 누가 명령한 것도 아닌데 말입니다.</p>
+<p>세인-자기의 가장 큰 매력은 <strong>짐을 덜어 준다</strong>는 데 있습니다. 어떤 상황에서든 무엇이 적절한 반응인지를 미리 지정해 주기 때문입니다. 선택의 책임을 지지 않아도 됩니다.</p>
+<p>블래트너는 세인의 공공성이 네 가지로 이루어진다고 정리합니다. 사회적 규범에서 벗어나는 것에 신경 쓰고 마음이 흔들리는 <strong>격차성</strong>, <strong>평균성</strong>, <strong>예속</strong>, 그리고 <strong>평준화</strong>입니다.</p>
+<p>담화가 무너진 형태도 있습니다. <strong>잡담</strong>(Gerede)입니다. 이때 우리는 상황의 섬세한 결을 짚어낼 기술을 잃고, 누구나 이해하고 떠들 수 있도록 평준화된 말을 씁니다. 하이데거의 정의가 서늘합니다. <strong>"잡담이란 사태를 미리 자기 것으로 만들지 않고도 모든 것을 이해할 수 있는 가능성이다"</strong>(SZ 169).</p>
+<figure><img src="./images/body-4.png" alt="격차성, 평균성, 예속, 평준화로 이루어진 세인의 공공성 네 요소 카드"><figcaption>격차성, 평균성, 예속, 평준화로 이루어진 세인의 공공성 네 요소 카드</figcaption></figure>
+<p>다만 오해하지 않으셨으면 합니다. 하이데거는 이 상태를 <strong>퇴락</strong>(Verfallen)이라 부르지만, 곧바로 항변합니다. 퇴락을 "나쁘고 개탄스러운 존재적 속성"으로 읽으면 오해라고요(SZ 176). 그것은 도덕적 비난이 아니라 <strong>존재론적-실존론적 구조</strong>입니다.</p>
+<p>이 지점은 학계에서도 논쟁 중입니다. 퇴락이 현존재의 존재론적 특징이라면 본래성은 어떻게 가능하냐는 물음이 남기 때문입니다. 드레이퍼스는 구조적 '퇴락'과 동기화된 '도피'를 나누자고 제안했고, 카먼은 그것만으로는 퇴락이 지닌 지속적인 끌어당김을 설명할 수 없다고 반박했습니다.</p>
+<hr>
+<h2>불안, 그리고 죽음을 향한 존재</h2>
+<p>일상은 잘 굴러갑니다. 그러다 어느 순간, 모든 것이 아무래도 좋아지는 때가 옵니다.</p>
+<p>하이데거는 <strong>불안</strong>(Angst)이라는 기분에 특별한 자리를 줍니다. 불안은 세계와 유의미하게 관계 맺는 일상적 능력의 <strong>고장</strong>입니다. 그리고 고장이기 때문에, 평소엔 너무 흔해서 보이지 않던 것을 보게 해 줍니다.</p>
+<p>불안에 압도되면 사물이 나에게 문제되던 방식이 <strong>붕괴</strong>하고, 세계가 내밀던 것들이 <strong>"아무래도 좋은 것"</strong>으로 나타납니다(SZ 186).</p>
+<p>그런데 바로 그 무너짐 속에서 남는 것이 있습니다. 모든 것이 무너져도 우리는 여전히 <strong>우리의 존재에 대해 마음을 씁니다.</strong> 우리가 관심 갖는 다른 모든 것이 결국 이 근본적인 마음씀에 뿌리내리고 있었던 것입니다.</p>
+<p>『존재와 시간』 §42에서 하이데거는 선언합니다. <strong>현존재의 존재는 마음씀(Sorge)이다.</strong> 마음씀은 세 겹입니다. 자기를 앞질러 있음(기투), 이미 세계 안에 있음(피투성), 존재자 곁에 그리고 타인과 함께 있음. 각각 미래와 과거와 현재에 대응합니다.</p>
+<figure><img src="./images/body-5.png" alt="마음씀(Sorge)의 3중 구조와 미래·과거·현재의 대응 관계를 정리한 표"><figcaption>마음씀(Sorge)의 3중 구조와 미래·과거·현재의 대응 관계를 정리한 표</figcaption></figure>
+<p>죽음에 대한 하이데거의 논의는 자주 오해받습니다. 그는 세 가지를 구별합니다. 유기적 기능이 멎는 <strong>폐사</strong>, 인격이 사회적 역할과 경험을 수행할 수 없게 되는 <strong>사망</strong>, 그리고 현존재에게 닥치는 <strong>죽음</strong>입니다. 죽음은 <strong>"현존재의 절대적 불가능성의 가능성"</strong>으로 정의됩니다(SZ 250).</p>
+<p>여기서 중요한 정정이 하나 있습니다. 하이데거가 말하는 <strong>앞질러 달려가 봄</strong>은 죽음을 곱씹는 것이 아닙니다. 죽음에 대해 생각하는 것도, 이 가능성이 언제 어떻게 실현될지 따지는 것도 아닙니다(SZ 261). 그것은 <strong>나의 유한한 실존을 유한한 것으로서 능동적으로 떠맡는 일</strong>입니다.</p>
+<p>왜 그것이 자유일까요. 나는 시간적으로 유한하기에, 하나의 가능성을 택하는 것은 다른 가능성들을 포기하는 일입니다(SZ 285). 그리고 어떤 실존 방식도 실존의 핵심 문제 — 그것이 끝난다는 사실 — 를 해결해 주지 못합니다.</p>
+<p>객관적으로 옳은 사는 방식은 없다는 뜻입니다. 그리고 바로 그것이 <strong>어떻게 살 것인가에 대한 책임을 나에게 되던집니다.</strong></p>
+<p>여기서 갈립니다. 비본래적 현존재는 이 경험에서 도망칩니다. 일상 규범과 정체성에 대한 순응을 배가하면서, 자기가 마땅히 그래야 하는 대로 살고 있다는 안심을 구합니다(SZ 267–8). 반면 본래적 현존재는 유한성 속에서 자기를 떠맡을 기회를 봅니다.</p>
+<figure><img src="./images/body-6.png" alt="몰입에서 고장, 불안을 거쳐 결단성에 이르는 네 단계 다이어그램"><figcaption>몰입에서 고장, 불안을 거쳐 결단성에 이르는 네 단계 다이어그램</figcaption></figure>
+<p>본래성이란 무엇인가에 대해서는 해석이 여럿입니다. 상황마다 최선을 이끌어내는 실천적 숙련으로 보는 독해가 있고, 지금 자신이 발견하는 그 자기에게 충실한 것으로 보는 독해가 있으며, 각 순간을 삶 전체의 일부로 살아내는 서사로 보는 독해도 있습니다.</p>
+<p>다만 공통점은 분명합니다. 하이데거의 '본래적(eigentlich)'은 <strong>숨겨진 진짜 자아를 찾아내는 일이 아닙니다.</strong> 그것은 <strong>소유된 실존, 붙들린 실존</strong>을 뜻합니다.</p>
+<hr>
+<h2>이 책은 끝나지 않았습니다</h2>
+<p>마지막으로 이 책의 한계를 짚어야 공정하겠습니다.</p>
+<p>『존재와 시간』은 <strong>미완성</strong>입니다. 애초 계획의 3분의 1가량만 출간되었습니다. 하이데거 자신이 가장 중요하다고 여겼던 제1부 제3편은 끝내 나오지 않았고, 서양 존재론을 해체하려던 제2부도 쓰이지 않았습니다. 출간 몇 년 안에 그는 인정했습니다. 그것을 완성할 수 있으리라 생각한 것은 <strong>망상</strong>이었다고요.</p>
+<p>이론 자체의 빈틈도 있습니다. 스탠퍼드 철학사전은 하이데거가 <strong>우리의 물질적 신체가 실존적 공간을 구성하는 데 어떤 역할을 하는지 끝내 설명하지 않았다</strong>고 지적합니다.</p>
+<p>평가도 극단적으로 갈립니다. 버트런드 러셀은 "여기서 언어가 제멋대로 날뛰고 있다는 의심을 지울 수 없다"며 일축했고, A. J. 에이어는 아예 그를 사기꾼이라 불렀습니다. 반면 리처드 로티는 하이데거를 존 듀이, 비트겐슈타인과 나란히 20세기의 중요한 철학자로 꼽았습니다.</p>
+<p>무엇보다 그의 정치적 이력을 지나칠 수 없습니다. 하이데거는 1933년 4월 프라이부르크대 총장으로 선출되었고 5월 1일 나치당에 입당했습니다. 1934년 4월 총장직에서 물러났지만 당적은 체제가 끝날 때까지 유지했습니다. 후설에게 바쳤던 헌정사를, 후설이 유대인이라는 이유로 1941년에 삭제하는 데 동의하기도 했습니다. 이 사실들은 그의 철학을 읽을 때 함께 놓여야 할 무게입니다.</p>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>하이데거의 세계-내-존재는 인간을 세계 바깥의 관찰자 자리에서 끌어내려, 이미 무언가를 하고 있는 자리로 되돌려 놓습니다. 우리는 세계를 먼저 바라보고 나서 사용하는 것이 아닙니다. 이미 쓰고 있고, 그것이 부러질 때에야 비로소 바라봅니다.</p>
+<p><strong>존재는 우리가 앎으로 도달하는 무엇이 아니라, 이미 살고 있음 속에 잠겨 있는 무엇입니다.</strong></p>
+<p>읽기 힘든 책입니다. 개념은 낯설고 문장은 길며, 저자의 삶에는 지울 수 없는 얼룩이 있습니다. 그럼에도 이 책을 권하겠느냐고 물으신다면, 저는 그렇다고 답하겠습니다. 오늘 아침 문고리를 잡던 그 순간이 왜 철학의 자리인지, 한 번쯤은 물어볼 만하기 때문입니다.</p>
+<hr>
+<div class="tags"><span>#하이데거</span><span>#존재와시간</span><span>#세계내존재</span><span>#현존재</span><span>#Dasein</span><span>#실존철학</span><span>#존재론</span><span>#철학입문</span><span>#서양철학</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
