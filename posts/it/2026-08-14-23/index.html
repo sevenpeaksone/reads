@@ -24,7 +24,8 @@ code{background:#f0f2f6;padding:2px 6px;border-radius:5px;font-size:14.5px;font-
 .tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
 .tags span{font-size:13.5px;color:var(--accent);background:#eef4ff;padding:5px 12px;border-radius:14px;}
 strong{font-weight:700;}
-</style><style id="site-chrome-css">
+</style>
+<style id="site-chrome-css">
   #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
   #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
     padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
@@ -64,7 +65,9 @@ strong{font-weight:700;}
 </head>
 <body>
 <div id="read-progress"></div>
-<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+
+<div class="wrap">
 <div class="meta"><span class="cat">IT</span><span class="date">2026-08-14</span></div>
 <h1>Raft 합의 알고리즘, 서버 여러 대가 하나의 진실에 합의하는 원리</h1>
 <figure><img src="./images/thumbnail.png" alt="Raft 합의 알고리즘 대표 이미지"><figcaption>Raft 합의 알고리즘 대표 이미지</figcaption></figure>
@@ -144,7 +147,10 @@ strong{font-weight:700;}
 <p>Raft는 완벽한 알고리즘이 아니라 <strong>타협을 아주 잘 설계한 알고리즘</strong>입니다. 전원 합의 대신 과반 합의를 택했고, 정교한 조정 대신 무작위 타임아웃을 택했으며, 최적의 커밋 판정 대신 보수적인 판정을 택했습니다. 그 대가로 얻은 것이 "읽고 구현할 수 있는 합의"입니다.</p>
 <p>지금 이 순간에도 어느 데이터센터에서는 서버 한 대가 조용히 하트비트를 놓치고, 150에서 300 사이의 어떤 밀리초를 세다가, 다른 두 대에게 표를 구하고 있을 것입니다. 우리가 아무것도 눈치채지 못하는 동안에 말입니다.</p>
 <div class="tags"><span>#Raft</span><span>#분산합의알고리즘</span><span>#리더선출</span><span>#로그복제</span><span>#정족수</span><span>#etcd</span><span>#KafkaKRaft</span><span>#분산시스템</span></div>
-</div><button id="to-top" aria-label="맨 위로">↑</button>
+</div>
+
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
   var root=document.documentElement, KEY='spk-theme';
