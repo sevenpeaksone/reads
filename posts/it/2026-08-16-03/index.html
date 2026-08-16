@@ -22,7 +22,8 @@ code{background:#eef2f8;color:#2a4a80;padding:1px 6px;border-radius:5px;font-siz
 strong{font-weight:700;color:#16233a;}
 .tags{margin-top:40px;padding-top:22px;border-top:1px solid #e8eaed;display:flex;flex-wrap:wrap;gap:8px;}
 .tags span{font-size:13.5px;color:var(--accent);background:#eef3fc;padding:5px 12px;border-radius:14px;}
-</style><style id="site-chrome-css">
+</style>
+<style id="site-chrome-css">
   #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
   #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
     padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
@@ -62,7 +63,9 @@ strong{font-weight:700;color:#16233a;}
 </head>
 <body>
 <div id="read-progress"></div>
-<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+
+<div class="wrap">
 <div class="meta"><span class="cat">IT</span><span class="date">2026-08-16</span></div>
 <h1>CPU 분기 예측의 원리 — 프로세서는 어떻게 조건문의 답을 미리 맞히나</h1>
 <p>이번 글에서는 CPU 분기 예측이 어떻게 작동하는지 정리해 보겠습니다. 프로세서는 조건문의 결과가 확정되기도 전에 다음 명령을 골라 파이프라인을 채웁니다. 그 추측이 어떤 원리로 이루어지는지, 틀렸을 때 무엇을 잃는지, 그리고 그 추측이 어쩌다 보안 취약점으로 이어졌는지까지 차례로 따라가 보겠습니다.</p>
@@ -181,7 +184,10 @@ strong{font-weight:700;color:#16233a;}
 <p>빠르게 만들려면 미리 움직여야 하고, 미리 움직이면 흔적이 남습니다.</p>
 <p>컴퓨터가 똑똑해 보이는 이유가 무엇이냐고 물으신다면, 잘 맞히기 때문이 아니라 틀릴 것을 감수하고 먼저 움직이기 때문이라고 답하겠습니다.</p>
 <div class="tags"><span>#CPU분기예측</span><span>#명령어파이프라인</span><span>#투기적실행</span><span>#TAGE예측기</span><span>#분기이력테이블</span><span>#파이프라인플러시</span><span>#Spectre취약점</span><span>#컴퓨터구조</span></div>
-</div><button id="to-top" aria-label="맨 위로">↑</button>
+</div>
+
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
   var root=document.documentElement, KEY='spk-theme';
