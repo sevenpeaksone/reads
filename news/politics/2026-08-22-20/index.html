@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>패스트트랙 330일에서 90일로 줄인 국회법 개정안, 무엇이 달라지나</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 48px 20px 96px;
+    background: #f7f8fa; color: #22252b;
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    width: 700px; max-width: 100%; margin: 0 auto;
+    background: #fff; padding: 44px 40px 56px;
+    border-radius: 14px; box-shadow: 0 2px 18px rgba(20,24,40,.07);
+  }
+  .meta { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .badge {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    background: #2b2d36; color: #d6a862;
+    font-size: 13px; font-weight: 700; letter-spacing: .04em;
+  }
+  .date { font-size: 13.5px; color: #8a8f9b; }
+  h1 {
+    font-size: 30px; line-height: 1.42; font-weight: 800;
+    margin: 0 0 28px; letter-spacing: -.01em; color: #16181d;
+  }
+  h2 {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 21px; line-height: 1.45; font-weight: 700;
+    margin: 44px 0 16px; color: #16181d; letter-spacing: -.01em;
+  }
+  h2 .bar {
+    flex: 0 0 auto; width: 5px; height: 20px;
+    border-radius: 3px; background: #d6a862;
+  }
+  p { font-size: 16.5px; line-height: 1.85; margin: 0 0 18px; color: #34383f; }
+  strong { font-weight: 700; color: #16181d; }
+  hr { border: 0; border-top: 1px solid #e8eaef; margin: 34px 0; }
+  figure { margin: 26px 0; }
+  figure img, img {
+    display: block; width: 100%; max-width: 100%; height: auto;
+    border-radius: 10px; border: 1px solid #eceef2;
+  }
+  .tags { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 13.5px; color: #5d6472; background: #f1f3f7;
+    padding: 6px 12px; border-radius: 999px;
+  }
+  @media (max-width: 760px) {
+    body { padding: 20px 12px 60px; }
+    .wrap { padding: 28px 20px 40px; }
+    h1 { font-size: 25px; }
+    h2 { font-size: 19px; }
+    p { font-size: 16px; }
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta">
+    <span class="badge">정치/사회 뉴스</span>
+    <span class="date">2026-08-22</span>
+  </div>
+  <h1>패스트트랙 330일에서 90일로 줄인 국회법 개정안, 무엇이 달라지나</h1>
+<p>2026년 8월 20일 국회 본회의에서 국회법 개정안 하나가 통과됐습니다. 패스트트랙, 즉 신속처리안건의 심사 기간을 최장 330일에서 90일로 줄이는 내용입니다. 이 글에서는 개정안이 정확히 무엇을 바꾸는지, 그 제도가 원래 왜 만들어졌는지, 여야는 각각 무엇을 근거로 맞서는지를 차례로 정리하겠습니다.</p>
+<figure><img src="./images/thumbnail.png" alt="패스트트랙 심사기간 330일에서 90일로 단축한 국회법 개정안 2026년 8월 20일 본회의 통과" loading="lazy"></figure>
+<hr>
+<h2><span class="bar"></span>표결로 확인된 사실부터</h2>
+<p>국회는 이날 제438회 국회 제1차 본회의를 열었습니다. 8월 임시국회의 첫 본회의였습니다. 국회법 개정안은 재석 의원 234명 가운데 찬성 153명, 반대 81명으로 가결됐습니다. 사회는 조정식 국회의장이 봤습니다.</p>
+<p>표결 양상은 뚜렷했습니다. 여당인 더불어민주당 의원들이 찬성에, 국민의힘을 비롯한 야당 의원들이 반대에 몰렸다는 것이 언론의 공통된 분석입니다.</p>
+<p>이 법안이 이날 처리된 데는 앞선 사정이 있습니다. 개정안은 지난 7월 31일 이미 본회의에 상정됐습니다. 국민의힘이 무제한토론, 곧 필리버스터로 맞섰습니다. 그런데 7월 임시국회 회기가 종료되면서 필리버스터가 자동으로 끝났습니다. 국회법 규정에 따라 법안은 다음 회기의 첫 본회의에 자동 상정됐고, 그것이 8월 20일이었습니다.</p>
+<p>의결 이후의 공포일과 시행일은 확인된 보도에서 명시되지 않았습니다. 이 부분은 아직 단정하기 어렵습니다.</p>
+<hr>
+<h2><span class="bar"></span>330일 가운데 어디가 줄었나</h2>
+<p>숫자만 보면 240일이 사라졌습니다. 하지만 한 덩어리가 통째로 잘린 것은 아닙니다. 세 단계가 각각 줄었습니다.</p>
+<p>먼저 소관 상임위원회의 심사 기한이 최장 180일에서 60일로 단축됩니다. 다음으로 법제사법위원회의 체계·자구 심사가 최장 90일에서 30일로 줄어듭니다. 마지막 단계의 변화가 가장 큽니다. 예전에는 법안이 본회의에 부의된 뒤에도 최장 60일을 더 기다려야 했습니다. 지금은 부의된 뒤 처음 열리는 본회의에 곧바로 상정됩니다. 대기 기한이 사실상 없어진 셈입니다.</p>
+<figure><img src="./images/body-1.png" alt="패스트트랙 심사기간 개정 전후 비교 표: 상임위 180일에서 60일, 법사위 90일에서 30일, 본회의 부의 후 첫 본회의 상정, 합계 330일에서 90일" loading="lazy"></figure>
+<p>여기서 짚어둘 대목이 하나 있습니다. <strong>패스트트랙에 올리는 문턱 자체는 이번에 바뀌지 않았습니다.</strong> 안건을 신속처리대상으로 지정하려면 여전히 국회 재적 의원 5분의 3 이상, 또는 소관 상임위원회 재적 위원 5분의 3 이상의 찬성이 필요합니다.</p>
+<p>바뀐 것은 &#x27;들어가는 조건&#x27;이 아니라 &#x27;들어간 뒤의 속도&#x27;입니다. 이 구분이 이번 논쟁의 출발점입니다.</p>
+<hr>
+<h2><span class="bar"></span>패스트트랙은 원래 무엇이었나</h2>
+<p>제도의 뿌리는 2012년으로 거슬러 올라갑니다. 2012년 5월 2일, 18대 국회의 마지막 본회의에서 이른바 국회선진화법이 처리됐습니다. 형식은 국회법 개정안이었습니다.</p>
+<p>당시 문제의식은 두 가지였습니다. 하나는 본회의장의 몸싸움이었습니다. 다른 하나는 다수당의 일방적 강행 처리, 이른바 날치기였습니다. 국회선진화법은 이 둘을 한꺼번에 막으려 했습니다.</p>
+<p>그래서 제도도 두 축으로 짜였습니다. 한쪽에는 안건 신속처리제도, 곧 패스트트랙이 놓였습니다. 다수당이 소수당의 반대에도 법안을 처리할 수 있는 합법적 통로입니다. 대신 지정 요건을 재적 5분의 3 이상으로 높여 단순 과반으로는 쓸 수 없게 했습니다. 반대쪽에는 필리버스터가 놓였습니다. 소수당이 표결을 늦출 수 있는 방어 수단입니다.</p>
+<figure><img src="./images/body-2.png" alt="2012년 국회선진화법이 세운 두 축: 패스트트랙과 필리버스터의 역할 대비" loading="lazy"></figure>
+<p>330일이라는 기간은 이 설계 안에서 나왔습니다. 상임위 최장 180일, 법사위 최장 90일, 본회의 부의 후 최장 60일. 지연을 위한 장치가 아니라 &quot;다수가 밀어붙이더라도 1년 가까이는 논의하라&quot;는 숙의 강제 장치에 가까웠습니다.</p>
+<p>실제로 쓰인 사례도 있습니다. 2019년 4월 말, 공수처 설치법과 검경 수사권 조정안, 선거제 개혁안이 잇따라 패스트트랙에 지정됐습니다. 공직선거법 개정안은 2019년 12월 27일, 공수처법은 12월 30일, 검경 수사권 조정안은 이듬해 1월 13일에 통과됐습니다. 상한인 330일보다는 짧은, 약 8개월의 여정이었습니다. 다만 그 과정에서 물리적 충돌이 벌어져 국회선진화법의 취지가 무색해졌다는 평가도 함께 남았습니다.</p>
+<hr>
+<h2><span class="bar"></span>여당과 야당, 각각의 논거</h2>
+<p>이번 개정을 두고 양측의 주장은 정면으로 갈립니다. 양쪽 논리를 그대로 옮기면 이렇습니다.</p>
+<p><strong>여당 측 주장.</strong> 민주당은 패스트트랙이 오히려 신속한 법안 처리의 걸림돌이 되고 있다고 봅니다. 여당은 &quot;&#x27;슬로트랙&#x27;이라는 오명이 붙은 패스트트랙을 90일로 단축해 국회가 민생 현안에 제때 응답할 수 있도록 바로잡겠다&quot;고 밝혔습니다. 신속처리제도라는 이름을 달고 있으면서 1년 가까이 걸리는 구조 자체가 모순이라는 것입니다. 부동산 공급대책 후속 입법을 더 미루기 어렵다는 현실적 판단도 배경으로 지목됩니다.</p>
+<p><strong>야당 측 주장.</strong> 국민의힘은 이 법을 &quot;입법 독재 고속도로법&quot;이자 &quot;국회 거수기법&quot;이라고 불렀습니다. 정점식 원내대표는 본회의 전 의원총회에서 &quot;다수당의 입법 강행 처리 속도를 더 높이는 입법 독재 고속도로법&quot;이라고 비판했습니다. 앞서 7월 29일 국회 운영위원회 전체회의에서 김승수 원내운영수석부대표는 &quot;패스트트랙은 소수 의견을 충분히 보장하려는 것&quot;이라고 말했습니다. 심사 기간이 90일로 줄면 쟁점 법안을 놓고 충분히 토론하거나 여야가 협의할 시간이 사라진다는 우려입니다.</p>
+<figure><img src="./images/body-3.png" alt="패스트트랙 단축을 둘러싼 여당과 야당의 주장 비교 표" loading="lazy"></figure>
+<p>제도 자체에도 양면이 있습니다. 심사 기간이 짧아지면 시급한 민생 법안이 회기에 갇혀 폐기되는 일은 줄어듭니다. 반대로 충분한 검토 없이 처리된 법안의 부작용은 나중에 드러납니다. 어느 쪽 손해가 더 큰지는 앞으로 이 제도가 어떤 법안에 쓰이느냐에 달려 있습니다.</p>
+<hr>
+<h2><span class="bar"></span>같은 날 함께 처리된 것, 그리고 미뤄진 것</h2>
+<p>이날 본회의가 대치만으로 채워진 것은 아닙니다. 여야가 합의한 법안 70여 건이 함께 통과됐습니다.</p>
+<p>정부의 9·7 부동산 공급대책 후속 법안들이 포함됐습니다. 주택법 개정안은 도시형 생활주택의 세대수 기준을 500세대 미만으로 완화하고, 역세권은 최대 700세대 미만까지 한시적으로 허용합니다. 공공주택 특별법 개정안은 공공주택 사업의 환경·보상 절차를 개선하고 사업 기간을 줄이는 내용입니다.</p>
+<p>5·18민주화운동 보상법 개정안도 통과됐습니다. 정신적 손해배상청구권의 소멸시효를 없애고, 법 시행 전에 시효가 완성된 사람에게도 적용하도록 했습니다. 재석 185명 중 찬성 165명, 반대 8명, 기권 12명이었습니다. 표결 구도가 국회법 개정안과 사뭇 달랐다는 점이 눈에 띕니다.</p>
+<p>특별감찰관 후보 3명에 대한 추천안도 의결됐습니다. 민주당은 최길수 변호사를, 국민의힘은 강지식 변호사를, 대한변호사협회는 최용훈 변호사를 각각 추천했습니다. 이재명 대통령이 추천서를 받은 날부터 사흘 안에 한 명을 지명하고 인사청문회를 거치면, 2016년 9월 이후 약 10년간 비어 있던 자리가 채워집니다.</p>
+<figure><img src="./images/body-4.png" alt="2026년 8월 20일 본회의에서 함께 처리된 안건과 미뤄진 안건 정리 표" loading="lazy"></figure>
+<p>반면 미뤄진 것도 있습니다. 용산공원 조성 특별법 개정안과 도시정비법 개정안 등이 상정되지 않았습니다. 천준호 민주당 원내운영수석부대표는 김승수 국민의힘 원내운영수석부대표와 회동한 뒤 &quot;국토부 장관과 서울시장이 논의하는 것을 지켜보고 반영해서 다음 주에 처리하기로 했다&quot;고 전했습니다.</p>
+<p>쟁점은 용산공원 부지의 주택 공급입니다. 김윤덕 국토교통부 장관은 &quot;훼손된 곳에 대해 제한적으로 청년, 신혼부부에게 주택을 공급하겠다는 것&quot;이라고 설명했습니다. 오세훈 서울시장은 &quot;남산부터 한강까지 이어지는 녹지 축의 주요 부분&quot;이라며 &quot;전체 부지 가운데 일정 부분이라도 주거 용도로 전용하는 데 동의하기 어렵다&quot;고 맞섰습니다. 두 사람은 이날 만났지만 이견만 확인했습니다.</p>
+<hr>
+<h2><span class="bar"></span>앞으로 무엇을 지켜볼 것인가</h2>
+<p>민주당은 본회의에 부의된 법안이 110여 건에 이른다며 처리를 서두르고 있습니다. 참전유공자 예우법, 우주개발진흥법 같은 민생·산업 법안이 포함돼 있습니다. 다만 이 수치는 여당 측이 밝힌 계획 기준이라는 점을 감안해 읽을 필요가 있습니다.</p>
+<p>국민의힘은 비쟁점 민생법안에는 협조하되, 정부 부동산 정책을 뒷받침하는 법안까지 일괄 처리하지는 않겠다는 입장입니다. 시장의 자발적 매물과 임대 물량을 유도하는 방향으로 정책을 바꿔야 한다는 요구도 이어가고 있습니다.</p>
+<p>또 하나의 불씨는 6·3 지방선거 투표용지 부족 사태를 다루는 국정조사특별위원회입니다. 재검표 방식을 놓고 민주당은 특검 임명 뒤 진행하자는 쪽이고, 국민의힘은 증거 훼손 가능성을 이유로 특검 또는 특검보 입회 아래 진행해야 한다고 맞서고 있습니다.</p>
+<figure><img src="./images/body-5.png" alt="다음 본회의로 넘어간 세 가지 쟁점: 대기 법안, 부동산 입법, 선거 재검표" loading="lazy"></figure>
+<p>여당은 필리버스터 관련 국회법 정비도 별도로 논의해 왔습니다. 다만 그 개정안이 어디까지 진행됐는지는 확인되지 않았습니다. 분명한 것은 패스트트랙과 필리버스터가 2012년에 한 묶음으로 설계된 제도라는 점입니다. 한쪽을 손대면 다른 쪽의 무게도 달라집니다.</p>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>이번 개정으로 다수당이 법안을 통과시키는 데 필요한 의석수는 달라지지 않았습니다. 달라진 것은 시간입니다. <strong>&quot;문턱은 그대로 두고, 통로만 넓혔다&quot;</strong> — 이번 국회법 개정을 한 줄로 줄이면 그렇게 됩니다.</p>
+<p>속도는 그 자체로 선도 악도 아닙니다. 급한 법을 제때 통과시키는 힘이 되기도 하고, 설익은 법을 그대로 흘려보내는 통로가 되기도 합니다. 어느 쪽이 될지는 90일이라는 시간을 국회가 어떻게 쓰느냐에 달려 있을 것입니다.</p>
+<p>그 답은 다음 본회의부터 하나씩 드러날 것입니다.</p>
+<hr>
+<div class="tags"><span class="tag">#패스트트랙</span> <span class="tag">#국회법개정안</span> <span class="tag">#신속처리안건</span> <span class="tag">#국회선진화법</span> <span class="tag">#국회본회의</span> <span class="tag">#입법절차</span> <span class="tag">#정치뉴스해설</span> <span class="tag">#용산공원특별법</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
