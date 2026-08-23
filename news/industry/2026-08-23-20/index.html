@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>포스트 HBM 경쟁, 삼성은 위로 쌓고 SK하이닉스는 표준을 열었다</title>
+<style>
+body{margin:0;background:#f2f4f7;font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;color:#1f2328;}
+.page{max-width:700px;margin:0 auto;background:#fff;padding:44px 34px 60px;min-height:100vh;box-shadow:0 0 24px rgba(0,0,0,.05);}
+.badge{display:inline-block;background:#2563eb;color:#fff;font-size:13px;font-weight:800;padding:6px 14px;border-radius:999px;letter-spacing:.4px;}
+.date{display:inline-block;margin-left:10px;color:#8b95a1;font-size:13.5px;font-weight:600;vertical-align:middle;}
+h1{font-size:30px;font-weight:800;line-height:1.42;letter-spacing:-.7px;margin:18px 0 0;color:#111;}
+.lead-rule{height:3px;width:52px;background:#2563eb;border-radius:2px;margin:22px 0 30px;}
+p{font-size:16.5px;line-height:1.85;margin:0 0 20px;color:#2b2f36;}
+h2{font-size:21px;font-weight:800;line-height:1.5;margin:44px 0 18px;color:#111;padding-left:13px;border-left:5px solid #2563eb;}
+hr{border:0;border-top:1px solid #e6e8eb;margin:38px 0;}
+ul{margin:0 0 22px;padding-left:21px;}
+li{font-size:16.5px;line-height:1.82;margin-bottom:9px;color:#2b2f36;}
+strong{font-weight:700;color:#111;}
+figure{margin:26px 0 30px;}
+figure img{max-width:100%;height:auto;display:block;border-radius:10px;border:1px solid #e6e8eb;}
+blockquote{margin:26px 0;background:#f7f8fa;border-left:4px solid #b0b8c1;border-radius:0 8px 8px 0;padding:17px 20px;font-size:14.5px;line-height:1.8;color:#4e5968;}
+.tags{margin-top:30px;padding-top:22px;border-top:1px solid #e6e8eb;}
+.tag{display:inline-block;background:#eef2ff;color:#3b5bdb;font-size:13.5px;font-weight:600;padding:5px 12px;border-radius:999px;margin:0 6px 8px 0;}
+@media (max-width:720px){.page{padding:30px 18px 46px;}h1{font-size:25px;}h2{font-size:19px;}p,li{font-size:16px;}}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="page">
+<div><span class="badge">산업·IT 뉴스</span><span class="date">2026년 8월 23일</span></div>
+<h1>포스트 HBM 경쟁, 삼성은 위로 쌓고 SK하이닉스는 표준을 열었다</h1>
+<div class="lead-rule"></div>
+<figure><img src="./images/thumbnail.png" alt="FMS 2026 포스트 HBM 경쟁 대표 이미지 - 삼성전자 zHBM 수직 적층과 SK하이닉스·샌디스크 HBF 개방형 표준 대비"></figure>
+<p>이번 글에서는 지난 8월 초 미국에서 열린 메모리 행사 FMS 2026을 정리해 보겠습니다. HBM 이후의 메모리를 두고 삼성전자와 SK하이닉스가 서로 다른 답을 같은 무대에 내놓았기 때문입니다. 용어가 낯설 수 있으니 기술 설명은 최대한 쉬운 비유와 함께 풀어보겠습니다.</p>
+<p><strong>세 줄 요약</strong></p>
+<ul><li>2026년 8월 4~6일 미국 캘리포니아주 산타클라라 컨벤션센터에서 FMS 2026이 열렸습니다.</li><li>삼성전자는 AI 가속기 위에 메모리를 얹는 zHBM을, SK하이닉스는 샌디스크와 함께 HBF의 첫 표준 규격을 공개했습니다.</li><li>같은 문제(메모리 병목)에 삼성은 '맞춤형 수직 통합', SK하이닉스는 '개방형 표준'으로 답했습니다.</li></ul>
+<hr>
+<h2>무슨 일이 있었나</h2>
+<p>FMS는 메모리와 스토리지 분야의 세계적인 학술·전시 행사입니다. 올해 행사는 현지시간 8월 4일부터 6일까지 사흘간 진행됐습니다.</p>
+<p>행사장의 화두는 하나로 모였습니다. '메모리 장벽(Memory Wall)'입니다.</p>
+<p>연산을 담당하는 두뇌가 아무리 빨라도, 재료가 제때 도착하지 않으면 요리는 늦어집니다. AI가 단순한 질의응답을 넘어 스스로 계획하고 실행하는 에이전트 단계로 넘어가면서, 데이터를 저장하고 옮기는 쪽이 발목을 잡기 시작한 것입니다.</p>
+<p>삼성전자는 첫날 차세대 3D 메모리 아키텍처 <strong>zHBM</strong>의 목업을 업계 최초로 공개했습니다. 400단 이상을 쌓은 10세대 V낸드 'V10 BV-NAND'와, 낸드에 신경망처리장치(NPU)를 일체형으로 붙인 'zNAND-O'도 함께 내놓았습니다.</p>
+<p>같은 날 SK하이닉스는 샌디스크와 공동으로 <strong>HBF(고대역폭 플래시)의 첫 표준 규격</strong>을 공개했습니다. 개방형 데이터센터 기술 협력체인 OCP를 통해서였습니다. 전시 부스에서는 개발 중인 10세대 375단 4D 낸드의 웨이퍼와 제품도 처음 선보였습니다.</p>
+<p>기술의 지향점은 비슷했지만, 시장에 다가서는 방식은 정반대였습니다.</p>
+<hr>
+<h2>그전에, 메모리에는 층이 있습니다</h2>
+<figure><img src="./images/body-1.png" alt="SRAM, HBM·D램, HBF, SSD로 이어지는 AI 메모리 계층 구조와 각 계층의 용량·속도 비교"></figure>
+<p>비전공자에게 가장 헷갈리는 대목이라 짚고 넘어가겠습니다.</p>
+<p>컴퓨터의 기억장치는 하나가 아니라 여러 층으로 나뉩니다. 요리하는 주방에 빗대면 이해가 빠릅니다.</p>
+<ul><li><strong>SRAM</strong>은 손에 쥔 칼과 도마입니다. 즉시 쓸 수 있지만 올려둘 공간이 거의 없습니다.</li><li><strong>HBM과 D램</strong>은 조리대 위입니다. 손이 빠르게 닿지만 면적이 제한됩니다.</li><li><strong>SSD</strong>는 지하 창고입니다. 어마어마하게 크지만 다녀오는 데 시간이 걸립니다.</li></ul>
+<p>D램과 낸드의 차이도 간단합니다. D램은 전원이 꺼지면 내용이 사라지는 화이트보드, 낸드는 꺼져도 남는 공책입니다. 화이트보드는 빠르고, 공책은 싸고 큽니다.</p>
+<p>문제는 조리대와 지하 창고 사이가 너무 멀다는 점입니다. AI 모델의 파라미터가 수천억에서 수조 개로 불어나면서 조리대만으로는 감당이 안 되는데, 그렇다고 매번 창고까지 뛰어갈 수도 없습니다.</p>
+<p>바로 이 빈 구간이 이번 경쟁의 무대입니다.</p>
+<hr>
+<h2>삼성전자 zHBM — 옆이 아니라 위로</h2>
+<figure><img src="./images/body-2.png" alt="기존 HBM의 옆면 배치와 삼성전자 zHBM의 수직 적층 배치를 비교한 다이어그램"></figure>
+<p>기존 HBM은 GPU 같은 AI 가속기의 <strong>옆면</strong>에 나란히 붙습니다. 이미 상당한 속도를 냈지만, 신호가 오가는 데 걸리는 시간과 전력 소모라는 한계가 남아 있었습니다.</p>
+<p>zHBM은 이 배치를 바꿉니다. 가속기 <strong>바로 위에</strong> 메모리를 수직으로 얹습니다. 데이터가 움직이는 거리를 사실상 0에 가깝게 줄이는 발상입니다.</p>
+<p>기사에 등장한 비유가 적절합니다. 옆 건물까지 걸어가는 대신, 같은 건물 안 엘리베이터로 층만 오가는 셈입니다.</p>
+<p>삼성전자가 밝힌 수치는 이렇습니다. 2028년 양산 예정인 8세대 HBM5와 비교해 <strong>성능은 최대 8배</strong>, <strong>전력 대비 성능은 최대 3배</strong>, <strong>열 저항은 절반 이상</strong> 낮아진다는 것입니다.</p>
+<p>다만 솔직한 대목도 있습니다. 가속기 위에 얹으면 열이 문제가 되기에, 기존 HBM보다 <strong>D램 단수를 줄이는 설계</strong>를 적용했습니다. 삼성전자 D램 개발실 관계자는 지금 고객사들이 밀도를 높이는 것보다 발열 제어와 대역폭 확장을 훨씬 강하게 원한다고 설명했습니다.</p>
+<p>즉 zHBM은 용량을 키우는 기술이 아닙니다. 속도와 전력 효율을 극단까지 밀어붙이는 기술입니다.</p>
+<p>또 하나의 축은 맞춤형입니다. 삼성전자는 메모리와 가속기 사이의 인터레이어에 <strong>고객사별 IP를 넣을 수 있다</strong>고 밝혔습니다. 원하는 용량과 성능, 전력 조건에 맞춰 구조 자체를 바꿔 준다는 의미입니다.</p>
+<p>여기서 삼성이 내세우는 무기가 나옵니다. 메모리 설계와 파운드리 공정, 첨단 패키징을 한 회사가 모두 갖고 있다는 점입니다. 이른바 '원스톱 턴키'입니다.</p>
+<p>낸드에서도 같은 전략이 이어집니다. V10 BV-NAND는 286단이던 9세대에서 곧바로 400단 이상으로 뛰었습니다. 웨이퍼 본딩과 3단 적층 기술로 집적도를 전 세대 대비 약 58% 높였습니다. zNAND-O는 서버가 아니라 기기 안에서 돌아가는 온디바이스 AI를 겨냥합니다. 삼성전자 메모리사업부의 한 임원은 "개개인의 가정에 미니 데이터센터를 구축하도록 돕는 것"을 비전으로 제시했습니다.</p>
+<hr>
+<h2>SK하이닉스·샌디스크 HBF — 없던 층을 하나 만든다</h2>
+<figure><img src="./images/body-3.png" alt="HBF 첫 표준 규격 핵심 스펙 - 8단·16단 적층, 최대 512GB, 0.4~3.0TB/s, UCIe, OCP 공개"></figure>
+<p>SK하이닉스의 답은 방향이 다릅니다. 조리대를 키우는 대신, <strong>조리대 바로 옆에 대형 냉장고를 놓자</strong>는 쪽입니다.</p>
+<p>HBF는 HBM과 SSD 사이에 놓이는 새로운 메모리 계층입니다. HBM처럼 빠르게 데이터를 주고받으면서, 낸드를 기반으로 하기에 용량을 크게 키울 수 있습니다.</p>
+<p>이번에 공개된 표준의 골자는 다음과 같습니다.</p>
+<ul><li>8단(8-Hi)과 16단(16-Hi) 두 가지 낸드 다이 스택 구성</li><li>스택당 <strong>최대 512GB</strong> 용량</li><li>대역폭은 세 등급으로 나뉘어 <strong>약 0.4TB/s에서 최대 3.0TB/s</strong></li><li>칩 간 연결은 개방형 칩렛 표준인 <strong>UCIe</strong> 채택</li><li>전기적 가이드라인, 패키징·신뢰성 지침, 읽기/쓰기 소프트웨어 가이드까지 포함</li></ul>
+<p>주목할 점은 규격을 푼 방식입니다. 특정 기업의 독점 기술이 아니라, OCP를 통해 누구나 볼 수 있는 개방형 표준으로 내놓았습니다. 2025년 8월 두 회사가 표준화 협력을 맺고, 2026년 2월 컨소시엄을 띄운 지 약 여섯 달 만의 결과물입니다.</p>
+<p>성능을 숫자로만 보면 흥미로운 대목이 있습니다. HBF 최고 등급의 대역폭 3TB/s는 HBM4 단일 스택의 2TB/s를 넘어섭니다. 용량 격차는 더 큽니다. HBM4가 스택당 64GB인 반면 HBF는 512GB입니다.</p>
+<p>물론 이것만으로 HBM을 대신할 수는 없습니다. 규격 자체가 HBM을 <strong>대체가 아니라 공존</strong> 대상으로 설계됐습니다.</p>
+<p>왜 하필 지금 낸드일까요. AI 추론 작업의 성격 때문입니다.</p>
+<p>요즘 널리 쓰이는 MoE(전문가 혼합) 구조는 토큰 하나를 처리할 때 전체 파라미터 중 일부만 깨웁니다. 나머지 방대한 파라미터는 잠들어 있습니다. 이 잠든 부분을 값비싼 D램이 아니라 HBF에 재워두자는 발상입니다. 게다가 모델을 서비스하는 일은 대부분 저장된 가중치를 <strong>반복해서 읽는</strong> 작업이라, 낸드의 약점인 쓰기 수명이 실사용에서 크게 부각되지 않습니다.</p>
+<p>낸드 쪽 성과도 있었습니다. SK하이닉스가 처음 공개한 10세대 375단 4D 낸드는 전 세대보다 전력 대비 성능을 2.5배 높였습니다. 회사는 이를 기반으로 한 기업용 SSD를 내년 초부터 양산할 계획입니다.</p>
+<hr>
+<h2>왜 중요한가 — 제품이 아니라 구조를 건 싸움</h2>
+<figure><img src="./images/body-4.png" alt="삼성전자와 SK하이닉스의 포스트 HBM 전략 비교표 - 맞춤형 수직 통합과 개방형 표준"></figure>
+<p>한 반도체 업계 관계자의 말이 이번 대결의 성격을 잘 요약합니다. 포스트 HBM 경쟁은 단일 제품의 사양보다 <strong>AI 시스템 구조를 누가 먼저 장악하느냐</strong>의 싸움이라는 것입니다.</p>
+<p>정리하면 이렇게 갈립니다.</p>
+<p>삼성전자는 고객사의 칩에 맞춰 메모리를 직접 얹는 '맞춤 양복'을 택했습니다. 메모리·파운드리·패키징을 모두 가진 회사만 할 수 있는 방식입니다. 대신 고객 한 곳 한 곳과 깊이 묶여야 합니다.</p>
+<p>SK하이닉스는 여러 고객이 함께 입을 수 있는 '공용 규격'을 먼저 펼쳤습니다. 경쟁사가 다른 규격을 내놓기 전에 표준을 선점하겠다는 계산입니다. 대신 생태계가 따라오지 않으면 힘을 잃습니다.</p>
+<p>이해관계도 단순하지 않습니다. HBF 컨소시엄에는 현재 구글과 텐스토렌트가 참여하고 있습니다. 구글 딥마인드 연구자가 행사 패널에 직접 나섰다는 점도 눈여겨볼 만합니다. AI 서비스를 직접 굴리는 쪽이 메모리 비용에 가장 민감하기 때문입니다.</p>
+<p>반면 엔비디아와 AMD, 인텔, 마이크론, 그리고 삼성전자는 아직 이 컨소시엄에 이름을 올리지 않았습니다. 국내외 매체가 이를 두고 '관망'이라 표현한 이유입니다.</p>
+<p>여기서 평가가 엇갈립니다. 주요 프로세서 업체가 빠져 있으니 아직 갈 길이 멀다는 시각이 있고, 구글과 텐스토렌트를 확보한 것만으로도 '낸드를 메모리로 쓰는' 표준 경쟁에서 선두를 잡았다는 시각도 있습니다. 어느 쪽이 맞는지는 지금 단정하기 어렵습니다.</p>
+<hr>
+<h2>남은 문턱 — 아직 발표된 기술입니다</h2>
+<figure><img src="./images/body-5.png" alt="HBF가 넘어야 할 과제 5가지 - 지연시간, 쓰기 내구성, 발열·전력, 패키징 비용, 생태계 확보"></figure>
+<p>들뜬 소식만 전하는 것은 정직하지 않습니다. 한계도 함께 봐야 합니다.</p>
+<p>첫째, <strong>지연시간</strong>입니다. 대역폭에서는 앞서더라도, 요청에 반응하는 속도에서 HBF가 HBM4를 넘어서기는 어렵다는 것이 해외 하드웨어 매체들의 대체적인 평가입니다.</p>
+<p>둘째, <strong>내구성</strong>입니다. 낸드는 D램보다 쓰기 수명이 짧습니다. 읽기 중심 작업에서는 문제가 작다지만, 반복적인 AI 연산에 맞는 관리 기술은 여전히 숙제입니다.</p>
+<p>셋째, <strong>발열과 전력</strong>입니다. GPU 가까이에 대용량 낸드를 붙이면 열 관리가 새로운 변수가 됩니다. 이 점은 zHBM도 똑같이 안고 있는 부담입니다.</p>
+<p>넷째, <strong>비용</strong>입니다. HBF는 실리콘 인터포저와 UCIe 물리 계층 같은 고가의 3차원 패키징을 요구합니다. 당분간 데스크톱이나 소비자용 기기로 내려오기는 어렵고, 서버랙과 맞춤형 가속기 보드에 머무를 전망입니다.</p>
+<p>다섯째, 가장 근본적인 문제입니다. <strong>아직 양산 단계가 아닙니다.</strong> HBF는 이제 막 규격이 공개됐고, zHBM은 목업 공개 단계입니다. 업계에서는 HBF의 첫 양산 시점으로 2027년, zHBM의 양산 체제로 2029~2030년이 거론되지만 확정된 일정은 아닙니다.</p>
+<p>한 가지 더 덧붙이면, 이번에 나온 성능 수치는 모두 <strong>제조사가 발표한 값</strong>입니다. 해외 전문 매체도 실제 하드웨어를 직접 시험해 보기 전이라고 명시했습니다. 숫자를 그대로 믿기보다 방향을 읽는 편이 낫습니다.</p>
+<hr>
+<h2>전망 — 두 갈래 길이 어디서 만날까</h2>
+<p>예전에는 메모리 경쟁이 '누가 더 빠른 칩을 만드느냐'의 문제였습니다. 지금은 '누가 시스템의 구조를 정의하느냐'의 문제로 옮겨갔습니다.</p>
+<p>시장 지표를 보면 두 회사 모두 여유가 있는 상황은 아닙니다. 시장조사업체 카운터포인트리서치 집계 기준 2026년 2분기 글로벌 D램 시장에서 삼성전자가 39%로 1위를 되찾았고, SK하이닉스는 26%였습니다. 마이크론이 25%로 1%포인트 차까지 따라붙었고, 중국 창신메모리도 7%를 가져갔습니다. SK하이닉스는 1년 전보다 매출을 크게 늘리고도 점유율은 오히려 내려앉았습니다.</p>
+<p>호황 속에서도 순위는 흔들립니다. 그래서 다음 판을 먼저 그리려는 것입니다.</p>
+<p>두 전략이 정면충돌만 하는 것은 아닙니다. 삼성의 zHBM은 속도를, SK하이닉스의 HBF는 용량을 겨냥합니다. 겨냥하는 지점이 다릅니다. 실제 AI 데이터센터에서는 두 계층이 함께 쓰일 가능성이 큽니다.</p>
+<p>관건은 결국 고객사입니다. 엔비디아를 비롯한 AI 가속기 업체들이 어느 구조를 채택하느냐에 따라 판이 정해집니다. 개방형 표준이 먼저 세를 얻을지, 맞춤형 통합이 성능으로 답을 낼지는 앞으로 몇 년의 문제입니다.</p>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다.</p>
+<p>이번 FMS 2026이 남긴 메시지는 한 문장으로 압축됩니다 — <strong>"이제 메모리는 부품이 아니라 설계의 출발점이다."</strong></p>
+<p>기술 발표는 늘 화려하지만, 실제로 살아남는 것은 고객이 선택한 구조 하나뿐입니다. 몇 년 뒤 어느 쪽 지도가 맞았는지 되짚어 보게 될 텐데요. 그때 이 8월의 사흘을 다시 떠올리게 될 것이라고 생각합니다.</p>
+<hr>
+<blockquote>※ 이 글은 공개된 보도 자료와 언론 보도를 정리한 정보성 글입니다. 본문에 언급된 시장 점유율과 실적은 산업 현황을 설명하기 위한 것으로, 특정 기업에 대한 <strong>투자 권유가 아닙니다.</strong> 투자 판단과 그 책임은 투자자 본인에게 있습니다. 또한 본문의 성능 수치는 각 기업이 발표한 값이며 제3자 검증을 거치지 않았습니다.</blockquote>
+<div class="tags"><span class="tag">#포스트HBM</span> <span class="tag">#zHBM</span> <span class="tag">#HBF</span> <span class="tag">#FMS2026</span> <span class="tag">#삼성전자</span> <span class="tag">#SK하이닉스</span> <span class="tag">#AI반도체</span> <span class="tag">#메모리반도체</span> <span class="tag">#낸드플래시</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
