@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>귀가 소리를 듣는 원리, 고막 진동부터 달팽이관 주파수 분해까지</title>
+<meta name="description" content="고막과 이소골의 임피던스 정합, 기저막의 진행파와 토노토피, 유모세포의 기계-전기 변환까지 귀가 소리를 듣는 원리를 정리했습니다.">
+<meta property="og:title" content="귀가 소리를 듣는 원리, 고막 진동부터 달팽이관 주파수 분해까지">
+<meta property="og:image" content="./images/thumbnail.png">
+<style>
+  :root { --accent:#ff7676; --ink:#1f2226; --mute:#6d7480; --line:#e7e9ee; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:48px 20px 96px;
+    background:#fbfbfc; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { width:700px; max-width:100%; margin:0 auto; }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .badge {
+    display:inline-block; padding:5px 13px; border-radius:999px;
+    background:var(--accent); color:#fff; font-size:13px; font-weight:700; letter-spacing:.02em;
+  }
+  .date { color:var(--mute); font-size:14px; }
+  h1 {
+    font-size:30px; line-height:1.42; font-weight:800;
+    margin:0 0 28px; letter-spacing:-.01em; word-break:keep-all;
+  }
+  h2 {
+    font-size:21px; line-height:1.5; font-weight:700;
+    margin:52px 0 18px; padding-left:14px;
+    border-left:4px solid var(--accent); word-break:keep-all;
+  }
+  p { font-size:17px; line-height:1.85; margin:0 0 22px; word-break:keep-all; }
+  ul { margin:0 0 24px; padding-left:20px; }
+  li {
+    font-size:16.5px; line-height:1.8; margin-bottom:11px;
+    word-break:keep-all; padding-left:2px;
+  }
+  li::marker { color:var(--accent); }
+  strong { font-weight:700; }
+  hr { border:0; border-top:1px solid var(--line); margin:44px 0; }
+  figure { margin:32px 0; }
+  figure img {
+    max-width:100%; height:auto; display:block;
+    border-radius:12px; border:1px solid var(--line);
+  }
+  figcaption {
+    margin-top:10px; font-size:13px; line-height:1.6;
+    color:var(--mute); text-align:center; word-break:keep-all;
+  }
+  .tags { margin-top:56px; padding-top:26px; border-top:1px solid var(--line); }
+  .tags span {
+    display:inline-block; margin:0 8px 8px 0; padding:6px 12px;
+    background:#f2f3f6; border-radius:999px; font-size:13px; color:#4a5058;
+  }
+  @media (max-width:520px) {
+    body { padding:28px 16px 64px; }
+    h1 { font-size:25px; } h2 { font-size:19px; }
+    p { font-size:16px; } li { font-size:15.5px; }
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+  <div class="meta"><span class="badge">바이오</span><span class="date">2026-08-25</span></div>
+  <h1>귀가 소리를 듣는 원리, 고막 진동부터 달팽이관 주파수 분해까지</h1>
+  <figure><img src="./images/thumbnail.png" alt="귀가 소리를 듣는 원리 대표 이미지 - 고막 진동부터 달팽이관의 주파수 분해까지" loading="lazy"><figcaption>귀가 소리를 듣는 원리 대표 이미지 - 고막 진동부터 달팽이관의 주파수 분해까지</figcaption></figure>
+  <p>이번 글에서는 귀가 소리를 듣는 원리를 처음부터 끝까지 따라가 보겠습니다. 공기의 떨림이 어떻게 전기 신호가 되는지, 그 사이에 어떤 장치들이 끼어 있는지를 순서대로 정리했습니다.</p>
+  <p><strong>세 줄 요약</strong></p>
+  <ul><li>중이의 고막과 이소골은 소리를 키우는 장치가 아니라, 공기와 액체 사이의 벽을 넘기는 <strong>임피던스 정합 장치</strong>입니다. 이 장치가 없으면 소리 에너지의 99.9% 이상이 튕겨 나갑니다.</li><li>달팽이관은 주파수를 <strong>위치로 번역</strong>합니다. 높은 음은 입구 쪽, 낮은 음은 안쪽에서 최대로 흔들립니다.</li><li>유모세포는 소리를 전기로 바꾸는 동시에 스스로 밀어주는 <strong>능동 증폭기</strong>이기도 합니다. 그리고 사람의 유모세포는 재생되지 않습니다.</li></ul>
+  <hr>
+  <h2>소리는 공기의 떨림, 귀는 그 떨림을 받는 창구입니다</h2>
+  <p>소리는 물체의 진동이 공기 분자에 만든 압력의 물결입니다. 이 물결의 초당 반복 횟수가 주파수, 단위는 헤르츠(Hz)입니다.</p>
+  <p>사람이 들을 수 있는 범위는 젊은 귀 기준으로 대략 <strong>20 Hz에서 20,000 Hz</strong>입니다. 그중에서도 <strong>1,000~4,000 Hz</strong> 대역에 가장 예민합니다. 세기로 보면 <strong>0 dB에서 130 dB</strong> 정도가 사람의 청각 범위이고, 130 dB 부근에서 소리는 감각이 아니라 통증이 됩니다.</p>
+  <p>귓바퀴는 이 물결을 모읍니다. 모은 소리를 깔때기 같은 외이도로 밀어 넣고, 외이도 끝에 고막이 기다립니다. 외이도는 바깥 3분의 2가 연골, 안쪽 3분의 1이 뼈이며, 바깥쪽에는 기름샘이 있어 귀지를 만들어 통로를 지킵니다.</p>
+  <p>여기서 한 가지 덧붙일 점이 있습니다. 외이도는 단순한 통로가 아니라 <strong>공명관</strong>입니다. 다만 이 공명은 파장이 짧은 소리, 대략 <strong>2,000~7,000 Hz</strong> 대역에서만 작동합니다. 우리가 모음과 자음을 또렷이 구분해 듣는 능력이 바로 이 대역의 민감도와 맞닿아 있습니다.</p>
+  <figure><img src="./images/body-1.png" alt="소리가 전기 신호가 되기까지의 여섯 단계 - 외이, 고막, 중이, 내이, 유모세포, 청신경" loading="lazy"><figcaption>소리가 전기 신호가 되기까지의 여섯 단계 - 외이, 고막, 중이, 내이, 유모세포, 청신경</figcaption></figure>
+  <hr>
+  <h2>중이의 진짜 임무는 증폭이 아니라 정합입니다</h2>
+  <p>여기서 물리적으로 곤란한 문제가 하나 생깁니다.</p>
+  <p>바깥에서 온 소리는 <strong>공기 중을 달리는 진동</strong>입니다. 그런데 진동이 신경 신호로 바뀌는 내이는 <strong>액체로 가득 찬 공간</strong>입니다.</p>
+  <p>임피던스는 매질이 움직임에 저항하는 정도를 뜻합니다. 임피던스가 높다는 것은 그것을 움직이려면 더 큰 압력이 필요하다는 뜻입니다. 공기처럼 임피던스가 낮은 매질에서 물처럼 높은 매질로 소리가 넘어갈 때는, <strong>음향 에너지의 99.9% 이상이 반사되어 되돌아갑니다.</strong></p>
+  <p>머리를 물에 담근 채로는 옆 사람이 하는 말이 잘 들리지 않습니다. 같은 이유입니다.</p>
+  <p>중이는 이 손실을 메우려고 존재합니다. 두 가지 장치를 씁니다.</p>
+  <p><strong>첫째, 넓이비입니다.</strong> 고막의 유효 진동 면적은 등골 족판보다 <strong>17~20배</strong> 넓습니다. 실측하면 고막이 약 69 mm², 등골 족판이 약 3.4 mm² 정도입니다. 같은 힘이 20배 좁은 면적에 몰리니 단위면적당 압력이 그만큼 커집니다. 압정이 뾰족한 끝에서 압력을 키우는 것과 같은 원리입니다.</p>
+  <p><strong>둘째, 지렛대비입니다.</strong> 추골의 자루가 침골의 긴 돌기보다 약 <strong>1.3배</strong> 깁니다. 이 길이 차이가 힘을 키우고 속도를 줄입니다. 짐이 바퀴에 가까울수록 들기 쉬운 외바퀴 손수레와 같습니다.</p>
+  <p>두 효과를 곱하면 중이의 기계적 이득은 <strong>약 22배</strong>, 압력으로는 <strong>약 25~30 dB</strong>입니다. 그 덕분에 음향 에너지의 90% 이상이 달팽이관까지 도달합니다. 반대로 이소골 연쇄가 끊어지면 <strong>50~60 dB</strong>의 전음성 난청이 생길 수 있습니다.</p>
+  <p>다만 이 설명이 완전하지는 않습니다. 레이저 간섭계 실험을 보면 고막과 이소골의 반응은 주파수에 따라 크게 달라집니다. 넓이비와 지렛대비만으로 정리하는 방식은 교과서적 모델이고, 실제 중이는 그보다 복잡하게 움직입니다.</p>
+  <figure><img src="./images/body-2.png" alt="중이의 임피던스 정합 비교 표 - 넓이비 17~20배, 지렛대비 1.3배, 합계 약 22배와 25~30dB 이득" loading="lazy"><figcaption>중이의 임피던스 정합 비교 표 - 넓이비 17~20배, 지렛대비 1.3배, 합계 약 22배와 25~30dB 이득</figcaption></figure>
+  <hr>
+  <h2>달팽이관은 주파수를 위치로 번역합니다</h2>
+  <p>등골이 난원창을 피스톤처럼 밀면, 그 진동은 액체로 옮겨 갑니다.</p>
+  <p>달팽이관은 지름 10 mm 남짓한 나선입니다. 풀어 펴면 길이 35 mm쯤 되는 관이고, 태아 시기 10주경 두 바퀴 반의 코일을 이룹니다. 내부는 전정계, 중간계, 고실계 세 방으로 나뉘어 있습니다.</p>
+  <p>핵심은 중간계와 고실계를 가르는 <strong>기저막</strong>입니다.</p>
+  <p>기저막은 폭과 뻣뻣함이 균일하지 않습니다. 입구 쪽인 기저부에서는 좁고 단단하고, 안쪽 정점부로 갈수록 넓고 유연해집니다. 이런 구조에서는 에너지가 어디서 들어오든 움직임이 항상 뻣뻣한 쪽에서 시작해 유연한 쪽으로 번져 갑니다.</p>
+  <p>헝가리 출신 연구자 <strong>게오르크 폰 베케시</strong>가 이 현상을 밝혔습니다. 그는 튜브 모형과 사체 표본으로, 소리 자극이 기저막을 따라 <strong>진행파</strong>를 만든다는 것을 보였습니다. 이 파도는 기저부에서 정점부로 나아가며 진폭이 커지고 속도가 느려지다가, 어느 지점에서 최대 변위에 이릅니다. 그 지점의 위치를 정하는 것이 바로 소리의 주파수입니다.</p>
+  <p><strong>높은 음은 입구 쪽에서, 낮은 음은 안쪽에서</strong> 최대로 흔들립니다. 주파수가 위치로 지도화되는 이 배치를 <strong>토노토피</strong>라고 부릅니다.</p>
+  <p>가장 인상적인 대목은 그다음입니다. 여러 음이 섞인 복잡한 소리가 들어오면, 기저막은 그 소리를 이루는 개별 음들이 각각 만들었을 진동을 그대로 겹쳐 놓은 패턴으로 흔들립니다. 달팽이관은 별도의 계산 없이, 구조 하나로 소리를 성분별로 풀어헤치는 <strong>기계식 주파수 분석기</strong>인 셈입니다.</p>
+  <figure><img src="./images/body-3.png" alt="기저막 토노토피 비교 - 기저부는 좁고 뻣뻣해 높은 음, 정점부는 넓고 유연해 낮은 음에 반응한다" loading="lazy"><figcaption>기저막 토노토피 비교 - 기저부는 좁고 뻣뻣해 높은 음, 정점부는 넓고 유연해 낮은 음에 반응한다</figcaption></figure>
+  <hr>
+  <h2>유모세포 1만 6천 개가 만드는 전기 신호</h2>
+  <p>기저막 위에는 <strong>코르티기관</strong>이 얹혀 있고, 그 안에 감각세포인 유모세포가 줄지어 있습니다.</p>
+  <p>사람의 유모세포는 <strong>내유모세포 한 줄과 외유모세포 세 줄</strong>로 배열됩니다. 개수는 한쪽 귀에 내유모세포 약 <strong>3,500개</strong>, 외유모세포 약 <strong>1만 2천 개</strong> 수준입니다. 합쳐서 1만 6천 개 남짓, 참깨 몇 알 부피에도 못 미치는 규모입니다.</p>
+  <p>변환 과정은 이렇습니다.</p>
+  <p>진행파가 기저막을 밀어 올릴 때, 기저막과 그 위를 덮은 개막은 회전축이 서로 어긋나 있습니다. 그래서 수직 운동이 <strong>옆으로 미끄러지는 전단 운동</strong>으로 바뀝니다. 이 미끄러짐이 유모세포 꼭대기의 <strong>부동섬모</strong>를 휘게 합니다.</p>
+  <p>부동섬모가 휘면 그 끝의 기계적 개폐 채널이 열립니다. 그러면 이온이 세포 안으로 밀려 들어오고, 세포의 막전위가 바뀌면서 전기 신호가 생깁니다.</p>
+  <p>이온이 밀려 들어올 수 있는 이유는 달팽이관 안에 미리 걸어둔 전압 때문입니다. 중간계를 채운 내림프는 칼륨이 주 양이온이라, 주변 외림프보다 전위가 <strong>80~90 mV 더 양(+)</strong>입니다. 측벽의 혈관조가 이 상태를 유지합니다. 귀 안에 작은 배터리가 상시 충전되어 있는 것과 같습니다.</p>
+  <p>역할은 둘로 갈립니다. <strong>실제 감각 수용기는 내유모세포입니다.</strong> 뇌로 올라가는 청신경 섬유의 <strong>95%</strong>가 내유모세포에서 나옵니다. 외유모세포에 붙은 종말은 대부분 반대 방향, 즉 뇌에서 내려오는 원심성 축삭입니다.</p>
+  <figure><img src="./images/body-4.png" alt="내유모세포와 외유모세포 비교 표 - 배열, 세포 수, 신경 연결, 주된 역할, 손상 시 결과" loading="lazy"><figcaption>내유모세포와 외유모세포 비교 표 - 배열, 세포 수, 신경 연결, 주된 역할, 손상 시 결과</figcaption></figure>
+  <hr>
+  <h2>귀는 듣기만 하지 않습니다, 스스로 소리를 냅니다</h2>
+  <p>그렇다면 외유모세포는 왜 훨씬 많은 걸까요.</p>
+  <p>예전에는 달팽이관을 <strong>수동적인 장치</strong>로 보았습니다. 베케시의 모형이 그랬습니다. 기저막을 서로 이어진 소리굽쇠 묶음처럼, 물리적 성질만으로 주파수를 가르는 구조로 이해했습니다.</p>
+  <p>지금은 다르게 봅니다. 실제 청각의 주파수 동조는 수동 역학만으로 설명하기에는 너무 날카롭습니다. 특히 아주 작은 소리에서 기저막은, 큰 소리에서 측정한 값을 선형으로 늘려 예측한 것보다 <strong>훨씬 크게</strong> 움직입니다. 어딘가에서 에너지를 보태고 있다는 뜻입니다.</p>
+  <p>증거는 세 갈래로 모였습니다.</p>
+  <p>첫째, <strong>귀가 소리를 냅니다.</strong> 고막에 민감한 마이크를 대고 짧은 음을 준 뒤 반응을 살피면 소리가 되돌아 나옵니다. 자극 없이 저절로 나오기도 합니다. 이 현상을 <strong>이음향방사</strong>라고 합니다.</p>
+  <p>둘째, 외유모세포로 내려가는 원심성 신경다발을 자극하면 청신경의 동조 곡선이 뭉툭해집니다. 주파수 선택성이 무뎌지는 것입니다.</p>
+  <p>셋째, 떼어낸 외유모세포에 미세 전류를 흘리면 세포가 스스로 길이를 바꿉니다. 변환 과정이 거꾸로 돌아가는 셈입니다.</p>
+  <figure><img src="./images/body-5.png" alt="달팽이관이 능동 증폭기라는 세 가지 증거 - 이음향방사, 원심성 신경 자극, 외유모세포의 자체 운동" loading="lazy"><figcaption>달팽이관이 능동 증폭기라는 세 가지 증거 - 이음향방사, 원심성 신경 자극, 외유모세포의 자체 운동</figcaption></figure>
+  <p>이 운동을 담당하는 단백질이 <strong>프레스틴</strong>입니다. 프레스틴을 제거한 생쥐는 기계적 변환 자체는 멀쩡한데도 청각 민감도가 <strong>40~60 dB</strong> 떨어졌습니다.</p>
+  <p>숫자를 나란히 놓으면 그림이 분명해집니다. 중이가 약 25~30 dB를 벌고, 외유모세포의 능동 증폭이 그 위에 40~60 dB를 얹습니다. <strong>우리가 나뭇잎 스치는 소리까지 듣는 것은, 두 층의 증폭이 포개진 결과입니다.</strong></p>
+  <hr>
+  <h2>전기 신호가 뇌에 닿기까지</h2>
+  <p>유모세포가 만든 신호는 나선신경절 뉴런을 거쳐 <strong>와우신경</strong>, 즉 8번 뇌신경을 타고 올라갑니다.</p>
+  <p>경로는 여러 정거장을 지납니다. 와우핵에서 시작해 상올리브핵, 외측섬유대, 하구, 내측슬상체를 거쳐 청각피질에 도달합니다. 이 경로를 지나며 소리의 <strong>주파수, 강도, 공간적 위치</strong>가 부호화됩니다.</p>
+  <p>부호화 방식도 두 가지가 겹칩니다. 하나는 앞서 본 위치 정보입니다. 어느 신경섬유가 반응했는가가 곧 어떤 주파수인가를 알려줍니다. 다른 하나는 <strong>시간 정보</strong>입니다. 청신경의 발화가 소리 파형의 위상에 맞춰 정확히 동기화되는 현상을 <strong>위상 잠금</strong>이라 부릅니다.</p>
+  <p>위상 잠금은 대략 수 킬로헤르츠까지 관찰됩니다. 다만 정확한 상한선은 아직 논쟁 중이고, 연구자에 따라 추정치의 폭이 상당히 큽니다. 확정된 사실처럼 말하기는 어렵습니다.</p>
+  <p>분명한 것은, 음높이 지각과 말소리 이해가 이 시간 정보에 기대고 있다는 점입니다.</p>
+  <hr>
+  <h2>한번 잃은 유모세포는 돌아오지 않습니다</h2>
+  <p>지금까지 살펴본 구조는 정교하지만, 그만큼 약합니다.</p>
+  <p>70 dBA 이하의 소리는 오래 들어도 청력을 해칠 가능성이 낮습니다. 그러나 <strong>85 dBA 이상</strong>의 소리에 길게, 또는 반복해서 노출되면 난청이 생길 수 있습니다. 소리가 클수록 손상까지 걸리는 시간은 짧아집니다.</p>
+  <p>참고할 만한 수치를 옮겨 둡니다. 일상 대화가 60~70 dBA, 오토바이가 80~110 dBA, <strong>최대 볼륨의 헤드폰 음악과 콘서트가 94~110 dBA</strong>입니다.</p>
+  <p>세계보건기구는 좀 더 구체적인 기준을 제시합니다. <strong>80 dB의 소리는 주당 40시간까지 안전하게 들을 수 있습니다. 90 dB이면 주 4시간으로 줄어듭니다.</strong> 100 dB에서는 20분, 110 dB에서는 2분 30초입니다.</p>
+  <p>권고 사항도 단순합니다. 기기 볼륨을 최대치의 60% 이하로 유지하고, 잘 맞는 노이즈 캔슬링 헤드폰을 쓰고, 한 시간마다 10분씩 조용한 곳에서 귀를 쉬게 하라는 것입니다. 팔 하나 거리에 있는 사람에게 말하려고 목소리를 높여야 한다면, 그곳은 이미 너무 시끄럽습니다.</p>
+  <p>문제는 회복 가능성입니다. 조류나 양서류는 손상된 유모세포를 다시 만들어냅니다. <strong>사람의 유모세포는 재생되지 않습니다. 한번 없어지면 영영 없어집니다.</strong></p>
+  <p>콘서트 뒤에 귀가 먹먹하거나 울리는 것은 감각세포가 피로해진 상태입니다. 대개는 회복됩니다. 그러나 반복되고 길어지면 감각세포와 주변 구조가 영구적으로 손상됩니다. 충격음이나 지속적 소음 뒤의 일시적 난청이 16~48시간 만에 사라지더라도, 최근 연구는 <strong>장기적인 잔여 손상이 남을 수 있다</strong>고 봅니다.</p>
+  <p><strong>이명</strong>도 같은 뿌리에서 나옵니다. 외부 소리가 없는데도 울림이나 윙윙거림을 느끼는 증상이며, 3개월을 넘기면 만성으로 분류합니다. 큰 소리 노출이 내이 유모세포를 상하게 하고, 그것이 난청과 이명으로 이어집니다.</p>
+  <p>숫자로 보면 규모가 작지 않습니다. 세계보건기구는 <strong>2050년까지 약 25억 명이 어느 정도의 난청을 갖게 될 것</strong>으로 봅니다. 열 명 중 한 명꼴입니다. 지금도 <strong>안전하지 않은 청취 습관 탓에 10억 명이 넘는 젊은 성인이 예방 가능한 난청 위험</strong>에 놓여 있습니다.</p>
+  <p>귀울림이 계속되거나 높은 음이 잘 들리지 않는다면, 혼자 판단하지 마시고 이비인후과 진료를 받아 보시길 권합니다.</p>
+  <figure><img src="./images/body-6.png" alt="WHO 안전 청취 기준 표 - 소리 크기별 주당 안전 청취 시간, 80dB 40시간부터 120dB 12초까지" loading="lazy"><figcaption>WHO 안전 청취 기준 표 - 소리 크기별 주당 안전 청취 시간, 80dB 40시간부터 120dB 12초까지</figcaption></figure>
+  <hr>
+  <p>정리하면 이렇습니다.</p>
+  <p>귀는 소리를 키우는 기관이 아닙니다. 공기와 물 사이에 놓인 벽을 넘기고, 뒤섞인 진동을 성분별로 펼쳐 놓고, 그것을 전기로 옮겨 적는 <strong>번역 장치</strong>입니다. 고막과 이소골이 임피던스를 맞추고, 기저막이 주파수를 위치로 바꾸고, 유모세포가 그 움직임을 전압으로 바꿉니다.</p>
+  <p>이 모든 일이 1만 6천 개 남짓한 세포에서, 그것도 되돌릴 수 없는 조건으로 일어납니다.</p>
+  <p>&quot;들린다는 것은 당연한 일이 아니라, 매 순간 성립하고 있는 일입니다.&quot;</p>
+  <p>오늘 이어폰 볼륨을 한 칸 낮출 이유가 있느냐고 물으신다면, 저는 충분히 있다고 답하겠습니다.</p>
+  <div class="tags"><span>#귀구조</span><span>#달팽이관</span><span>#청각원리</span><span>#고막</span><span>#유모세포</span><span>#소음성난청</span><span>#이명</span><span>#임피던스정합</span><span>#토노토피</span><span>#안전청취</span></div>
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

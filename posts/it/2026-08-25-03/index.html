@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>데이터베이스는 정전에도 데이터를 어떻게 지키나 — WAL과 복구의 원리</title>
+<meta name="description" content="선행 기록 로그가 지키는 약속, 체크포인트와 3단계 복구가 하는 일">
+<meta property="og:title" content="데이터베이스는 정전에도 데이터를 어떻게 지키나 — WAL과 복구의 원리">
+<meta property="og:description" content="선행 기록 로그가 지키는 약속, 체크포인트와 3단계 복구가 하는 일">
+<meta property="og:image" content="./images/thumbnail.png">
+<style>
+  :root { --accent:#3f6bd8; --accent-soft:#eef2fd; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f4f5f8; color:#1c2128;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    line-height:1.85; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:700px; margin:0 auto; padding:44px 28px 84px; background:#fff;
+    min-height:100vh; box-shadow:0 0 40px rgba(0,0,0,.05); }
+  .topbar { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .cat { display:inline-block; background:var(--accent); color:#fff; font-size:13px;
+    font-weight:700; padding:5px 14px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:#8a929e; font-size:14px; }
+  h1 { font-size:29px; line-height:1.42; font-weight:800; margin:14px 0 10px;
+    letter-spacing:-.02em; }
+  .subtitle { font-size:16.5px; color:#6b7280; font-weight:500; margin:0 0 4px; }
+  h2 { font-size:21px; font-weight:800; margin:46px 0 15px; padding-left:13px;
+    border-left:5px solid var(--accent); line-height:1.45; letter-spacing:-.01em; }
+  p { font-size:16.5px; margin:16px 0; }
+  ul.bul { margin:14px 0 20px; padding-left:22px; }
+  ul.bul li { font-size:16px; margin-bottom:9px; line-height:1.75; }
+  hr { border:0; border-top:1px solid #e8eaed; margin:34px 0; }
+  figure { margin:28px 0; text-align:center; }
+  img { max-width:100%; height:auto; border-radius:12px;
+    box-shadow:0 4px 18px rgba(0,0,0,.09); }
+  figcaption { font-size:13px; color:#9aa0ad; margin-top:10px; line-height:1.55; }
+  blockquote { margin:24px 0; padding:18px 22px; background:var(--accent-soft);
+    border-left:4px solid var(--accent); border-radius:0 10px 10px 0; }
+  blockquote p { margin:0; font-size:15.5px; color:#3f4658; line-height:1.75; }
+  code { background:#f1f3f7; color:#2c3550; padding:1px 6px; border-radius:5px;
+    font-size:14.5px; font-family:'SFMono-Regular',Consolas,Menlo,monospace; }
+  strong { font-weight:700; }
+  .tags { margin-top:40px; padding-top:22px; border-top:1px solid #e8eaed;
+    display:flex; flex-wrap:wrap; gap:8px; }
+  .tags span { font-size:13.5px; color:var(--accent); background:var(--accent-soft);
+    padding:5px 12px; border-radius:14px; }
+  .srchead { margin-top:34px; font-weight:700; font-size:15px; color:#6b7280; }
+  ul.src { margin:0; padding-left:20px; }
+  ul.src li { font-size:13.5px; color:#8a909c; margin-bottom:6px; line-height:1.65; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="topbar"><span class="cat">IT</span><span class="date">2026-08-25</span></div>
+  <h1>데이터베이스는 정전에도 데이터를 어떻게 지키나 — WAL과 복구의 원리</h1>
+  <p class="subtitle">선행 기록 로그가 지키는 약속, 체크포인트와 3단계 복구가 하는 일</p>
+  <p>이번 글에서는 데이터베이스가 갑작스러운 정전을 견디는 방식을 정리해 보겠습니다.<br>핵심은 WAL, 우리말로 선행 기록 로그입니다. 여기에 체크포인트와 3단계 복구가 어떻게 맞물리는지까지 함께 살펴보겠습니다.</p>
+  <figure><img src="./images/thumbnail.png" alt="데이터베이스 정전 복구와 WAL 선행 기록 로그를 다루는 IT 기술 글 대표 이미지"><figcaption>데이터베이스 정전 복구와 WAL 선행 기록 로그를 다루는 IT 기술 글 대표 이미지</figcaption></figure>
+  <hr>
+  <figure><img src="./images/body-1.png" alt="데이터를 먼저 쓰는 방식과 로그를 먼저 쓰는 WAL 방식의 대비"><figcaption>데이터를 먼저 쓰는 방식과 로그를 먼저 쓰는 WAL 방식의 대비</figcaption></figure>
+  <hr>
+  <h2>세 줄로 먼저 답하면</h2>
+  <ul class="bul"><li>데이터 파일을 고치기 전에 &quot;무엇을 어떻게 고칠지&quot;를 로그에 먼저 적습니다. 이것이 WAL의 전부입니다.</li><li>로그가 무한히 자라는 것을 막기 위해 주기적으로 체크포인트를 찍습니다. 복구는 이 지점부터 시작합니다.</li><li>재시작하면 분석·재현·되돌리기 세 단계를 거쳐 크래시 직전 상태로 되돌아갑니다.</li></ul>
+  <hr>
+  <h2>로그를 먼저 쓴다는 규칙</h2>
+  <p>PostgreSQL 공식 문서는 WAL의 중심 개념을 한 문장으로 못박습니다.<br>데이터 파일에 대한 변경은 그 변경을 서술하는 WAL 레코드가 영구 저장소로 기록된 <strong>뒤에만</strong> 쓰여야 한다는 것입니다.</p>
+  <p>순서를 뒤집었을 뿐인데 결과가 달라집니다.<br>이 절차를 지키면 커밋할 때마다 데이터 페이지를 디스크로 내릴 필요가 없습니다. 크래시가 나더라도 로그에서 다시 적용(REDO)하면 되기 때문입니다.</p>
+  <p>ARIES 알고리즘은 이 규칙을 숫자로 표현합니다.<br>모든 로그 레코드에는 전역에서 유일하고 단조 증가하는 번호(LSN)가 붙습니다. 각 데이터 페이지는 자신을 마지막으로 고친 로그의 번호(<code>pageLSN</code>)를 품고 있고, 시스템은 디스크에 기록을 마친 마지막 번호(<code>flushedLSN</code>)를 따로 기억합니다.</p>
+  <blockquote><p>페이지를 디스크에 쓰려면 <code>pageLSN ≤ flushedLSN</code> 이어야 한다.<br>이 부등식 한 줄이 정전으로부터 데이터를 지키는 계약입니다.</p></blockquote>
+  <hr>
+  <h2>왜 하필 로그가 더 싼가</h2>
+  <p>로그를 한 번 더 쓰는데도 전체 쓰기 비용은 오히려 줄어듭니다. 이유는 세 가지입니다.</p>
+  <ul class="bul"><li><strong>flush 대상이 하나로 줄어듭니다.</strong> 커밋을 보장하려고 디스크에 내려야 할 것은 변경된 모든 데이터 파일이 아니라 WAL 파일 하나뿐입니다.</li><li><strong>순차 쓰기입니다.</strong> 데이터 페이지는 저장소 여기저기에 흩어져 있지만, 로그는 파일 끝에 이어 붙습니다. 흩어진 위치를 찾아다니는 비용이 사라집니다.</li><li><strong>한 번의 fsync가 여러 커밋을 함께 처리합니다.</strong> 작은 트랜잭션이 동시에 몰릴 때 특히 효과가 큽니다.</li></ul>
+  <p>버퍼 풀 정책으로 보면 WAL은 STEAL과 NO-FORCE를 함께 택한 시스템입니다.<br>STEAL은 아직 커밋되지 않은 변경도 디스크에 미리 내려도 된다는 뜻이고, NO-FORCE는 커밋 시점에 굳이 내리지 않아도 된다는 뜻입니다.</p>
+  <figure><img src="./images/body-2.png" alt="버퍼 풀 정책 네 조합의 런타임 성능과 복구 난이도 비교표"><figcaption>버퍼 풀 정책 네 조합의 런타임 성능과 복구 난이도 비교표</figcaption></figure>
+  <p>반대편 선택지도 있기는 합니다. NO-STEAL과 FORCE를 택하면 복구가 아주 단순해집니다. 되돌릴 것도, 다시 적용할 것도 없으니까요.<br>다만 한 트랜잭션이 고쳐야 할 데이터 전부가 메모리에 들어가야만 실행할 수 있다는 치명적인 제약이 붙습니다. 커밋마다 쓰기가 몰려 SSD 수명도 빨리 깎입니다.</p>
+  <p>카네기멜런대 데이터베이스 강의는 이 대목을 이렇게 정리합니다.<br>&quot;거의 모든 현대 DBMS가 WAL을 쓴다. 런타임 성능이 가장 빠르기 때문이다.&quot; 대신 로그를 재생해야 하므로 복구 시간은 더 걸린다는 단서도 함께 답니다.</p>
+  <hr>
+  <h2>로그는 영원히 자란다 — 그래서 체크포인트</h2>
+  <p>WAL의 약점은 분명합니다. 로그 파일이 끝없이 커집니다.<br>수십 년을 무중단으로 돌아온 시스템이라면 로그만 페타바이트 단위로 쌓일 수 있습니다. 재시작할 때마다 그 전부를 재생한다면 복구는 사실상 불가능해집니다.</p>
+  <p>그래서 데이터베이스는 주기적으로 <strong>체크포인트</strong>를 찍습니다.<br>버퍼에 남아 있던 더티 페이지를 전부 디스크로 내리고, 특별한 체크포인트 레코드를 로그에 남기는 작업입니다. 이 지점 이전의 변경은 데이터 파일에 반영되어 있음이 보장됩니다. 덕분에 앞쪽 로그는 버려도 되고, 복구도 여기서부터 시작하면 됩니다.</p>
+  <figure><img src="./images/body-3.png" alt="PostgreSQL·SQLite·MySQL InnoDB의 체크포인트 기본 설정 비교표"><figcaption>PostgreSQL·SQLite·MySQL InnoDB의 체크포인트 기본 설정 비교표</figcaption></figure>
+  <p>실제 제품들의 기본값을 보면 설계 철학이 드러납니다.</p>
+  <p>PostgreSQL은 <code>checkpoint_timeout</code> 5분 또는 <code>max_wal_size</code> 1GB 중 <strong>먼저 도달하는 쪽</strong>에서 체크포인트를 시작합니다. 한꺼번에 쏟아지는 I/O를 막기 위해 쓰기를 시간에 걸쳐 분산하는데, 그 비율을 정하는 <code>checkpoint_completion_target</code>의 기본값은 0.9입니다. 다음 예정 시각 직전에 끝나도록 속도를 조절하는 셈입니다.</p>
+  <p>SQLite는 훨씬 단순합니다. WAL 파일이 1,000페이지, 기본 페이지 크기 기준으로 약 4MB에 도달하는 커밋 시점에 자동으로 체크포인트를 실행합니다. 그래서 대부분의 커밋은 아주 빠르고, 가끔 걸리는 한 번의 커밋만 눈에 띄게 느려집니다.</p>
+  <p>MySQL InnoDB는 8.0.30부터 <code>innodb_redo_log_capacity</code> 하나로 redo 로그 용량을 관리합니다. 기본값은 104,857,600바이트, 곧 100MB입니다. 이 용량을 32개 파일로 나눠 쓰므로 파일 하나는 약 3.27MB가 됩니다.</p>
+  <p>여기엔 정답이 없는 딜레마가 있습니다.<br>체크포인트를 자주 찍으면 복구는 빨라집니다. 재현할 로그가 적어지니까요. 그러나 더티 페이지를 자주 내리는 비용이 늘고, 뒤에서 이야기할 전체 페이지 기록 때문에 오히려 로그 양이 불어납니다. PostgreSQL 문서가 &quot;체크포인트는 꽤 비싸므로 너무 자주 일어나지 않게 하라&quot;와 &quot;복구 시간이 걱정되면 간격을 줄이라&quot;를 나란히 적어둔 이유입니다.</p>
+  <hr>
+  <h2>다시 켰을 때 벌어지는 세 단계</h2>
+  <p>전원이 돌아와 데이터베이스가 올라오면, 화면에는 아무 일도 없는 듯 보입니다. 그 몇 초 사이에 세 단계가 지나갑니다.<br>IBM 연구소가 1990년대 초 DB2를 위해 만든 ARIES 알고리즘이 오늘날 표준이 된 그 절차입니다.</p>
+  <figure><img src="./images/body-4.png" alt="ARIES 크래시 복구 3단계 다이어그램: 분석, 재현, 되돌리기"><figcaption>ARIES 크래시 복구 3단계 다이어그램: 분석, 재현, 되돌리기</figcaption></figure>
+  <p><strong>첫째, 분석(Analysis).</strong><br>마지막 체크포인트 위치에서 시작해 로그를 앞으로 훑습니다. 이 과정에서 두 개의 표가 완성됩니다. 크래시 순간에 살아 있던 트랜잭션 목록과, 디스크에 미처 닿지 못했을 수 있는 페이지 목록입니다.</p>
+  <p><strong>둘째, 재현(Redo).</strong><br>&quot;역사를 그대로 반복한다&quot;가 이 단계의 구호입니다. 더티 페이지 중 가장 오래된 기록 지점부터 로그를 다시 적용해 크래시 직전의 상태를 그대로 되살립니다.<br>직관에 어긋나는 대목이 하나 있습니다. <strong>어차피 취소될 트랜잭션의 변경까지 일단 전부 되살립니다.</strong> 상태를 한 번 정확히 복원해 두는 편이 알고리즘 전체를 훨씬 단순하게 만들기 때문입니다.</p>
+  <p><strong>셋째, 되돌리기(Undo).</strong><br>이제 크래시 시점에 아직 끝나지 않았던 트랜잭션만 골라 역순으로 되돌립니다. 이때 되돌린 동작 자체도 보상 로그 레코드(CLR)로 기록해 둡니다. 복구 도중에 또 정전이 나더라도 같은 일을 두 번 하지 않기 위해서입니다.</p>
+  <hr>
+  <h2>로그만으로는 못 고치는 것 — 찢어진 페이지</h2>
+  <p>WAL이 만능은 아닙니다. 로그가 손대지 못하는 손상이 하나 있습니다.</p>
+  <p>디스크 플래터는 보통 512바이트 섹터 단위로 나뉘고, 물리적인 읽기·쓰기는 섹터 통째로 처리됩니다.<br>그런데 PostgreSQL은 한 번에 8,192바이트, 즉 16개 섹터를 씁니다. 이 쓰기 도중에 전원이 끊기면 어떤 섹터는 새 데이터로, 어떤 섹터는 옛 데이터로 남습니다. 한 페이지 안에 신·구가 뒤섞인 <strong>찢어진 페이지(torn page)</strong>가 됩니다.</p>
+  <p>행 단위 변경만 담은 로그로는 이런 페이지를 되살릴 수 없습니다. 기반이 되는 페이지 자체가 이미 깨져 있기 때문입니다.</p>
+  <figure><img src="./images/body-5.png" alt="찢어진 페이지를 막는 두 방어책: 전체 페이지 기록과 이중 쓰기 버퍼"><figcaption>찢어진 페이지를 막는 두 방어책: 전체 페이지 기록과 이중 쓰기 버퍼</figcaption></figure>
+  <p>해법은 제품마다 다릅니다.</p>
+  <ul class="bul"><li><strong>PostgreSQL — 전체 페이지 기록(<code>full_page_writes</code>).</strong> 체크포인트 이후 어떤 페이지를 처음 고칠 때, 변경분이 아니라 그 페이지 전체를 WAL에 통째로 기록합니다. 복구 시 이 이미지로 페이지를 통째 복원합니다. 기본값은 켜짐입니다.</li><li><strong>MySQL InnoDB — 이중 쓰기 버퍼(doublewrite buffer).</strong> 버퍼 풀에서 내려가는 페이지를 제자리에 쓰기 전에 별도 영역에 먼저 씁니다. 제자리 쓰기가 찢어지면 복구할 때 이 사본에서 온전한 페이지를 찾아옵니다.</li></ul>
+  <p>여기에 무결성 검사가 겹칩니다. PostgreSQL은 WAL의 개별 레코드마다 CRC-32C 체크섬을 붙여 기록하고, 크래시 복구·아카이브 복구·복제 때마다 검사합니다. WAL에 담긴 전체 페이지 이미지는 언제나 체크섬으로 보호됩니다.</p>
+  <hr>
+  <h2>WAL은 소프트웨어의 약속일 뿐입니다</h2>
+  <p>여기까지가 잘 설계된 이야기입니다. 한계도 솔직히 적어두겠습니다.</p>
+  <p>메인 메모리와 디스크 플래터 사이에는 캐시가 세 겹 놓여 있습니다. 운영체제 버퍼 캐시, 디스크 컨트롤러 캐시, 그리고 드라이브 자체의 캐시입니다.<br>이 중 뒤의 둘이 쓰기 지연(write-back) 방식이면 전원이 끊기는 순간 내용이 통째로 사라집니다. PostgreSQL 문서는 소비자용 IDE·SATA 드라이브가 특히 그럴 가능성이 높고, 많은 SSD도 휘발성 쓰기 지연 캐시를 갖고 있다고 경고합니다.</p>
+  <figure><img src="./images/body-6.png" alt="메모리와 디스크 플래터 사이에 놓인 세 겹의 캐시 계층"><figcaption>메모리와 디스크 플래터 사이에 놓인 세 겹의 캐시 계층</figcaption></figure>
+  <p>문서의 결론은 담담합니다.<br>운영체제가 스토리지에 쓰기를 요청해도, 그 데이터가 진짜 비휘발 영역에 도착했는지 확인할 방법은 사실상 없다는 것입니다. 그러니 모든 저장 계층이 무결성을 보장하도록 만드는 일은 <strong>관리자의 책임</strong>이라고 못박습니다. 배터리 백업(BBU)이 달린 컨트롤러를 쓰거나, 드라이브 캐시를 끄거나, <code>pg_test_fsync</code> 같은 도구로 직접 확인하라는 조언이 뒤따릅니다.</p>
+  <p>설정으로 지속성을 스스로 낮추는 경우도 있습니다.<br>PostgreSQL의 <code>synchronous_commit</code>을 끄면 WAL이 디스크에 닿기 전에 커밋 성공을 돌려줍니다. 위험 구간의 최대 길이는 <code>wal_writer_delay</code>의 3배이고, 이 값의 기본은 200밀리초입니다. 다만 이 설정이 데이터베이스를 깨뜨리지는 않습니다. 최근 커밋 몇 건이 사라질 뿐, 상태는 그 트랜잭션들이 깨끗하게 취소된 것과 같습니다.<br>SQLite에서 <code>PRAGMA synchronous</code>를 NORMAL로 두면 커밋마다 하던 동기화를 건너뜁니다. 빨라지는 대신 전원 장애 뒤 트랜잭션이 롤백될 수 있습니다.</p>
+  <p>구현 자체에 흠이 남기도 합니다. 2026년 3월, SQLite 개발진은 WAL 모드에서 두 연결이 같은 순간 쓰기와 체크포인트를 시도할 때 발생하는 데이터 레이스 결함을 발견해 3.51.3에서 고쳤습니다. 2010년의 3.7.0부터 존재했던 것으로 추정되지만, 실험실에서 자연 발생으로 재현하지 못했을 만큼 조건이 까다로웠습니다. 개발진은 실제 발생률을 SSD 오작동이나 우주선 입자 충돌 수준으로 추정하면서도, 결과가 심각하니 업그레이드하라고 권합니다.</p>
+  <hr>
+  <h2>복구를 넘어선 쓸모</h2>
+  <p>같은 로그가 다른 일도 합니다.</p>
+  <p>WAL을 계속 보관해 두면 이전 물리 백업 위에 원하는 시점까지만 재생해 되돌릴 수 있습니다. 시점 복구(PITR)입니다. 백업이 순간 스냅샷일 필요조차 없습니다. 백업이 만들어지던 그 시간대의 로그를 재생하면 내부 불일치가 저절로 교정됩니다.<br>스탠바이 서버가 받아 재생하면 복제가 되고, 외부 시스템이 구독하면 변경 데이터 캡처(CDC)가 됩니다. 데이터 웨어하우스와 마이크로서비스에 변경을 흘려보내는 그 파이프의 원류가, 원래는 정전을 대비해 만든 기록인 셈입니다.</p>
+  <hr>
+  <p>정리하면 이렇습니다.</p>
+  <p>예전의 데이터베이스는 커밋할 때마다 데이터를 제자리에 밀어 넣느라 느렸습니다. 지금은 순서를 하나 바꾸는 것으로 그 비용을 걷어냈습니다. 고치기 전에 적어두고, 주기적으로 정산하고, 다시 켜지면 세 단계로 따라잡습니다.</p>
+  <p>결국 데이터베이스가 정전을 견디는 힘은 화려한 기술이 아니라 순서를 지키는 고집에서 나옵니다 — 먼저 적고, 그다음에 고친다.</p>
+  <p>그렇다면 이 약속만 믿어도 되겠냐고 물으신다면, 절반은 그렇다고 답하겠습니다. 나머지 절반은 그 아래 놓인 디스크가 정직한지에 달려 있습니다.</p>
+  <div class="tags"><span>#WAL</span> <span>#선행기록로그</span> <span>#데이터베이스복구</span> <span>#체크포인트</span> <span>#ARIES</span> <span>#PostgreSQL</span> <span>#SQLite</span> <span>#InnoDB</span> <span>#트랜잭션</span> <span>#데이터베이스원리</span></div>
+  <p class="srchead">참고 소스</p><ul class="src"><li>PostgreSQL 18 공식 문서 — 28.3. Write-Ahead Logging (WAL) / 28.5. WAL Configuration / 28.1. Reliability / 28.4. Asynchronous Commit</li><li>PostgreSQL 18 공식 문서 — 19.5. Write Ahead Log (checkpoint_timeout, max_wal_size, full_page_writes 기본값)</li><li>SQLite 공식 문서 — "Write-Ahead Logging" (sqlite.org/wal.html, 2026-04-13 최종 갱신)</li><li>MySQL 8.4 Reference Manual — 17.6.5 Redo Log / 17.6.4 Doublewrite Buffer</li><li>Andy Pavlo, CMU 15-445/645 Database Systems (Spring 2026) — Lecture #22 "Database Logging"</li><li>Andy Pavlo, CMU 15-445/645 Database Systems (Spring 2026) — Lecture #23 "Database Crash Recovery"</li><li>C. Mohan 외, "ARIES: A Transaction Recovery Method Supporting Fine-Granularity Locking and Partial Rollbacks Using Write-Ahead Logging", ACM Transactions on Database Systems 17(1), 1992</li><li>Mydbops — "Dynamic InnoDB Redo Log Resize in MySQL 8.0.30" (innodb_redo_log_capacity 기본값 교차 확인)</li><li>Kevin Sookocheff — "Write-ahead logging and the ARIES crash recovery algorithm"</li><li>PostgreSQL Wiki — "Corruption" (write-back 캐시·write barrier 관련 사례)</li></ul>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
