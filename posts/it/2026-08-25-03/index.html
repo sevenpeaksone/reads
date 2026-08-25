@@ -47,6 +47,7 @@
   ul.src { margin:0; padding-left:20px; }
   ul.src li { font-size:13.5px; color:#8a909c; margin-bottom:6px; line-height:1.65; }
 </style>
+
 <style id="site-chrome-css">
   #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
   #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
@@ -88,6 +89,8 @@
 <body>
 <div id="read-progress"></div>
 <nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+
+
 <div class="wrap">
   <div class="topbar"><span class="cat">IT</span><span class="date">2026-08-25</span></div>
   <h1>데이터베이스는 정전에도 데이터를 어떻게 지키나 — WAL과 복구의 원리</h1>
@@ -159,6 +162,9 @@
   <div class="tags"><span>#WAL</span> <span>#선행기록로그</span> <span>#데이터베이스복구</span> <span>#체크포인트</span> <span>#ARIES</span> <span>#PostgreSQL</span> <span>#SQLite</span> <span>#InnoDB</span> <span>#트랜잭션</span> <span>#데이터베이스원리</span></div>
   <p class="srchead">참고 소스</p><ul class="src"><li>PostgreSQL 18 공식 문서 — 28.3. Write-Ahead Logging (WAL) / 28.5. WAL Configuration / 28.1. Reliability / 28.4. Asynchronous Commit</li><li>PostgreSQL 18 공식 문서 — 19.5. Write Ahead Log (checkpoint_timeout, max_wal_size, full_page_writes 기본값)</li><li>SQLite 공식 문서 — "Write-Ahead Logging" (sqlite.org/wal.html, 2026-04-13 최종 갱신)</li><li>MySQL 8.4 Reference Manual — 17.6.5 Redo Log / 17.6.4 Doublewrite Buffer</li><li>Andy Pavlo, CMU 15-445/645 Database Systems (Spring 2026) — Lecture #22 "Database Logging"</li><li>Andy Pavlo, CMU 15-445/645 Database Systems (Spring 2026) — Lecture #23 "Database Crash Recovery"</li><li>C. Mohan 외, "ARIES: A Transaction Recovery Method Supporting Fine-Granularity Locking and Partial Rollbacks Using Write-Ahead Logging", ACM Transactions on Database Systems 17(1), 1992</li><li>Mydbops — "Dynamic InnoDB Redo Log Resize in MySQL 8.0.30" (innodb_redo_log_capacity 기본값 교차 확인)</li><li>Kevin Sookocheff — "Write-ahead logging and the ARIES crash recovery algorithm"</li><li>PostgreSQL Wiki — "Corruption" (write-back 캐시·write barrier 관련 사례)</li></ul>
 </div>
+
+
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
