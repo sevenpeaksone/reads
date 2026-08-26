@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>프로네시스와 중용, 아리스토텔레스가 말한 덕이 규칙이 아닌 이유</title>
+<style>
+:root { --ink:#1e2229; --sub:#5c6675; --line:#e6e9ee; --accent:#6b5ce7; --soft:#f6f5fd; }
+* { box-sizing:border-box; }
+body { margin:0; padding:48px 20px 96px; background:#fbfbfd;
+  font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+  color:var(--ink); -webkit-font-smoothing:antialiased; }
+.wrap { width:700px; max-width:100%; margin:0 auto; }
+h1 { font-size:31px; line-height:1.45; font-weight:800; letter-spacing:-0.4px; margin:0 0 18px; }
+.meta { display:flex; align-items:center; gap:10px; margin:0 0 34px; }
+.badge { display:inline-block; padding:5px 12px; border-radius:999px; background:var(--soft);
+  color:var(--accent); font-size:13px; font-weight:700; letter-spacing:0.2px; }
+.date { color:var(--sub); font-size:13.5px; }
+h2 { font-size:21px; line-height:1.5; font-weight:800; letter-spacing:-0.3px; margin:44px 0 18px; }
+h2 .mk { color:var(--accent); margin-right:9px; font-size:15px; vertical-align:2px; }
+p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+strong { font-weight:700; color:#12151b; }
+hr { border:0; border-top:1px solid var(--line); margin:40px 0; }
+figure { margin:30px 0; }
+figure img { display:block; width:100%; max-width:100%; height:auto; border-radius:10px;
+  border:1px solid var(--line); }
+.tags { margin-top:34px; padding-top:24px; border-top:1px solid var(--line);
+  display:flex; flex-wrap:wrap; gap:8px; }
+.tag { font-size:13.5px; color:var(--accent); background:var(--soft);
+  padding:5px 11px; border-radius:6px; }
+@media (max-width:720px){ body{padding:32px 16px 72px;} h1{font-size:25px;} h2{font-size:19px;} p{font-size:16px;} }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+<h1>프로네시스와 중용, 아리스토텔레스가 말한 덕이 규칙이 아닌 이유</h1>
+<div class="meta"><span class="badge">철학/인문</span><span class="date">2026-08-27</span></div>
+<figure><img src="./images/thumbnail.png" alt="프로네시스와 중용, 덕은 왜 습관에서 오는가 - 아리스토텔레스 실천적 지혜 대표 이미지"></figure>
+<p>이번 글에서는 아리스토텔레스의 프로네시스(실천적 지혜)와 중용을 정리해 보겠습니다. 결론부터 말씀드리면 세 가지입니다. 중용은 산술적 중간이 아니고, 덕은 규칙을 외워서 생기지 않으며, 그 둘을 잇는 것이 프로네시스라는 이름의 능력입니다.</p>
+<hr>
+<h2><span class="mk">■</span>앎이라고 다 같은 앎이 아닙니다</h2>
+<p>『니코마코스 윤리학』 6권에서 아리스토텔레스는 앎을 여러 갈래로 나눕니다. 그중 세 가지가 이 글의 축입니다.</p>
+<p><strong>에피스테메(episteme)</strong>는 학문적 지식입니다. 필연적이고 영원한 것, 달리 있을 수 없는 것을 다룹니다. 제1원리에서 논증으로 연역됩니다. 기하학이 그렇습니다.</p>
+<p><strong>테크네(techne)</strong>는 기예이자 제작술입니다. 달리 있을 수 있는 것을 다루되, 그중 &#x27;만들어지는 것&#x27;을 다룹니다. 건축과 항해가 여기 속합니다. 테크네의 목적은 자기 바깥에 있습니다. 구두는 신기 위해 만듭니다.</p>
+<p><strong>프로네시스(phronesis)</strong>는 실천적 지혜입니다. 역시 달리 있을 수 있는 것을 다루지만, 그중 &#x27;행해지는 것&#x27;을 다룹니다. 그리고 결정적인 차이가 하나 있습니다. 프로네시스의 목적은 바깥에 없습니다. 좋은 행위 그 자체가 목적입니다.</p>
+<p>아리스토텔레스는 이렇게 정의합니다. &quot;인간에게 좋고 나쁜 것들에 관하여 행위할 수 있는, 참되고 이성을 동반한 상태&quot;(1140b5). 그가 예로 든 인물은 페리클레스입니다. 자기에게 좋은 것과 인간 일반에게 좋은 것을 함께 볼 줄 아는 사람이지요.</p>
+<figure><img src="./images/body-1.png" alt="에피스테메 테크네 프로네시스를 대상 방식 목적 전형으로 비교한 표"></figure>
+<p>세 가지를 가르는 시금석 하나를 덧붙이겠습니다. 아리스토텔레스는 6권 5장에서 이렇게 씁니다. &quot;기예에서는 일부러 잘못하는 사람이 더 낫지만, 실천적 지혜에서는 그 반대다&quot;(1140b22).</p>
+<p>일부러 오타를 낸 타자수는 실력이 나쁘지 않습니다. 할 줄 아는데 안 한 것이니까요. 그러나 일부러 비겁하게 군 사람은 더 나쁩니다. 이 비대칭이 프로네시스가 기술이 아니라 덕이라는 증거입니다.</p>
+<hr>
+<h2><span class="mk">■</span>중용은 10과 2 사이의 6이 아닙니다</h2>
+<p>중용(中庸)이라는 말은 오해를 많이 받습니다. 적당히, 무난하게, 튀지 않게. 대개 그런 뜻으로 쓰입니다.</p>
+<p>아리스토텔레스가 말한 중용은 그것이 아닙니다. 2권 6장에서 그는 두 종류의 중간을 구분합니다.</p>
+<p>하나는 <strong>대상에서의 중간</strong>입니다. 양 극단에서 등거리에 있는 지점입니다. 10과 2의 중간은 언제나 6입니다. 모든 사람에게 하나이고 동일합니다.</p>
+<p>다른 하나는 <strong>우리에게 상대적인 중간</strong>입니다. 지나치지도 모자라지도 않은 것입니다. 이것은 하나가 아니며, 모두에게 같지도 않습니다.</p>
+<p>그가 든 예가 명료합니다. 어떤 사람에게 10파운드는 너무 많고 2파운드는 너무 적다고 합시다. 그렇다고 트레이너가 6파운드를 처방하지는 않습니다. 전설적인 레슬러 밀론에게 6파운드는 너무 적고, 운동을 막 시작한 사람에게는 너무 많기 때문입니다.</p>
+<p>중용은 계산의 결과가 아닙니다. 사람과 상황에 매번 다시 맞춰야 하는 조준입니다.</p>
+<figure><img src="./images/body-2.png" alt="산술적 중간과 우리에게 상대적인 중용을 좌우로 대비한 그림"></figure>
+<p>그래서 중용은 &#x27;적당히&#x27;가 아니라 &#x27;정확히&#x27;입니다. 아리스토텔레스는 다섯 개의 좌표를 제시합니다. 적절한 때에, 적절한 대상에 대해, 적절한 사람에게, 적절한 동기로, 적절한 방식으로(1106b21).</p>
+<p>다섯이 동시에 맞아야 합니다. 그래서 그는 2권 9장에서 이렇게 못 박습니다.</p>
+<p>&quot;누구나 화를 낼 수 있다. 그건 쉽다. 그러나 올바른 상대에게, 올바른 정도로, 올바른 때에, 올바른 동기로, 올바른 방식으로 화내는 것은 아무나 할 수 없고 쉽지도 않다&quot;(1109a26).</p>
+<figure><img src="./images/body-3.png" alt="니코마코스 윤리학 1109a26 누구나 화를 낼 수 있다 인용 강조 박스"></figure>
+<hr>
+<h2><span class="mk">■</span>그렇다고 아무 데나 중용이 있는 것은 아닙니다</h2>
+<p>중용론을 도덕 상대주의로 읽는 분들이 계십니다. 상황에 따라 다르다면 결국 아무거나 괜찮다는 뜻 아니냐는 것이지요.</p>
+<p>아리스토텔레스 본인이 이 오해를 미리 막아둡니다. 2권 6장 끝부분입니다.</p>
+<p>모든 감정과 모든 행위에 중용이 있는 것은 아닙니다. 이름 자체에 이미 나쁨이 들어 있는 것들이 있습니다. 악의, 파렴치, 시기가 그렇고 간통, 절도, 살인이 그렇습니다. 이런 것들에는 과잉도 결핍도 중간도 없습니다.</p>
+<p>그가 남긴 문장은 단호합니다. &quot;적절한 상대와, 적절한 때에, 적절한 방식으로 간통하기&quot; 같은 것은 없다는 것입니다. 그냥 하면 틀린 것입니다.</p>
+<p>중용은 넓은 회색지대를 만드는 이론이 아닙니다. 오히려 조준을 요구하는 이론입니다.</p>
+<hr>
+<h2><span class="mk">■</span>덕은 배워서가 아니라 해봄으로써 생깁니다</h2>
+<p>이제 이 글의 제목으로 돌아가겠습니다. 덕은 왜 규칙이 아니라 습관에서 오는가.</p>
+<p>아리스토텔레스는 어원에서 시작합니다. 성격의 덕을 뜻하는 그리스어 &#x27;에티케(ethike)&#x27;는 &#x27;습관&#x27;을 뜻하는 &#x27;에토스(ethos)&#x27;의 미세한 변형입니다. 우리가 오늘날 쓰는 &#x27;윤리(ethics)&#x27;라는 말 자체가 습관에서 나온 셈입니다.</p>
+<p>그다음 그는 두 가지를 차례로 부정합니다.</p>
+<p>첫째, 덕은 본성에 반해서 생기지 않습니다. &quot;돌은 본성상 아래로 움직이므로, 만 번을 위로 던져 훈련시켜도 위로 움직이도록 습관화되지 않는다&quot;(1103a20).</p>
+<p>둘째, 덕은 본성적으로 이미 갖춰져 있지도 않습니다. 인간은 덕을 받아들일 수 있도록 본성적으로 적응되어 있을 뿐이고, 완성하는 것은 습관입니다.</p>
+<p>여기서 그는 감각과 덕을 나란히 놓고 결정적인 대비를 만듭니다. 시각과 청각은 능력이 먼저고 사용이 나중입니다. 많이 봐서 눈이 생긴 것이 아니니까요. 덕은 정반대입니다. 먼저 행함으로써 얻습니다.</p>
+<p>&quot;우리는 집을 지어봄으로써 건축가가 되고, 리라를 연주함으로써 리라 연주자가 된다. 마찬가지로 정의로운 행위를 함으로써 정의로워지고, 절제 있는 행위를 함으로써 절제 있게 되고, 용감한 행위를 함으로써 용감해진다&quot;(1103a32).</p>
+<p>같은 원인이 덕을 만들고 또 파괴합니다. 리라를 연주함으로써 좋은 연주자도 나쁜 연주자도 나옵니다. 위험 앞에서 물러서는 데 익숙해지면 겁쟁이가 되고, 맞서는 데 익숙해지면 용감해집니다.</p>
+<p>그래서 2권 1장은 이렇게 끝납니다. &quot;어릴 때부터 어떤 습관을 들이는가는 작은 차이가 아니다. 아주 큰 차이, 아니 모든 차이를 만든다&quot;(1103b23).</p>
+<figure><img src="./images/body-4.png" alt="반복된 행위에서 헥시스를 거쳐 덕에 이르는 4단계 다이어그램"></figure>
+<p>다만 여기에는 흔한 오해가 하나 붙습니다. 습관화가 곧 덕이라는 오해입니다.</p>
+<p>아리스토텔레스가 쓴 단어는 <strong>헥시스(hexis)</strong>입니다. 이 말은 수동적으로 몸에 밴 버릇이 아닙니다. 무언가가 능동적으로 스스로를 붙들고 있는 상태를 뜻합니다.</p>
+<p>『인터넷 철학 백과사전』(IEP)의 정리가 정확합니다. 습관화는 덕으로 가는 보조 수단이지 덕 자체가 아닙니다. 진짜 덕은 선택과 이해와 앎을 요구합니다. 남들이 하니까 친절한 것은 덕이 아닙니다. 그것이 옳은 방식임을 알아보고, 그 자체를 위해 선택해야 합니다.</p>
+<hr>
+<h2><span class="mk">■</span>프로네시스는 왜 규칙집이 될 수 없는가</h2>
+<p>여기서 두 축이 만납니다. 중용의 정의를 다시 보겠습니다.</p>
+<p>&quot;덕이란 중용에 놓인, 선택과 관련된 성격의 상태다. 그 중용은 우리에게 상대적이며, 로고스에 의해 — 실천적 지혜를 가진 사람이 규정할 그 로고스에 의해 — 규정된다&quot;(1106b36).</p>
+<p>문장의 마지막이 중요합니다. 중용의 기준이 공식이 아니라 <strong>사람</strong>에게 걸려 있습니다. 프로니모스, 즉 실천적 지혜를 가진 사람이 판단할 그 방식이 기준입니다.</p>
+<p>왜 공식으로 못 박지 않았을까요. 아리스토텔레스가 직접 답합니다.</p>
+<p>행위에 관한 논의는 윤곽으로만 주어져야 합니다. 정밀하게가 아니라. 그리고 개별 사례는 &quot;어떤 기술이나 규정에도 속하지 않는다&quot;고 그는 씁니다. &quot;행위자 자신이 매번 그 상황에 무엇이 적절한지 고려해야 한다&quot;는 것입니다. 의술과 항해술이 그렇듯이 말이지요(1104a5).</p>
+<p>한 걸음 더 나아간 근거가 6권 8장에 있습니다.</p>
+<p>젊은이는 기하학자와 수학자는 될 수 있습니다. 그러나 실천적으로 지혜로운 젊은이는 찾기 어렵다고 그는 말합니다. 이유는 간단합니다. 프로네시스는 보편만이 아니라 <strong>개별</strong>을 다루는데, 개별은 경험을 통해서만 익숙해지고, 경험을 주는 것은 시간의 길이이기 때문입니다(1142a11).</p>
+<p>이것이 가장 실증적인 증거입니다. 덕이 규칙집이라면 열여덟 살도 외울 수 있습니다. 외워도 지혜로워지지 않는다는 사실이, 그것이 규칙이 아님을 보여줍니다.</p>
+<p>그래서 아리스토텔레스는 프로네시스가 &quot;궁극의 개별 사실&quot;에 관계한다고 정리합니다. 그리고 그 개별은 학문적 지식의 대상이 아니라 <strong>지각(perception)</strong>의 대상입니다. 2권 9장의 짧은 문장이 이를 압축합니다. &quot;판단은 지각에 달려 있다&quot;(1109b23).</p>
+<figure><img src="./images/body-5.png" alt="프로네시스가 규칙으로 환원되지 않는 네 가지 이유 카드"></figure>
+<p>여기서 한 가지는 솔직히 인정해야 합니다. 이 대목이 신비주의로 읽힐 여지가 있다는 점입니다.</p>
+<p>『스탠퍼드 철학백과』(SEP)는 이 오해를 명시적으로 차단합니다. 좋은 사람이 &quot;각 경우에서 참을 보며 기준이자 척도가 된다&quot;는 구절(1113a32)은, 그가 말로 표현할 수 없는 직관을 지녔다는 뜻이 아닙니다. 아리스토텔레스에게 좋은 사람은 <strong>숙고를 잘하는 사람</strong>이고, 숙고는 이성적 탐구의 과정입니다.</p>
+<p>SEP는 한 절의 제목을 아예 이렇게 달았습니다. &quot;윤리 이론은 결정 절차를 제공하지 않는다.&quot; 중용론은 의사결정 알고리즘으로 의도된 적이 없습니다. 덕이 왜 매력적인지 보여주고, 어떤 성질이 덕인지 체계화하는 것이 그 역할입니다.</p>
+<hr>
+<h2><span class="mk">■</span>영리한 것과 지혜로운 것은 다릅니다</h2>
+<p>6권 13장에 짚고 넘어갈 구분이 하나 더 있습니다.</p>
+<p><strong>영리함(deinotes)</strong>은 설정된 목표에 이르는 수단을 잘 찾는 능력입니다. 목표가 고귀하면 칭찬받지만, 나쁘면 교활함이 됩니다. 목표 자체는 묻지 않는 능력이지요.</p>
+<p><strong>자연적 덕</strong>은 타고난 기질입니다. 태어날 때부터 정의롭거나 용감한 성향 말입니다.</p>
+<p>문제는 이성 없는 자연적 덕이 오히려 해롭다는 점입니다. 아리스토텔레스의 비유가 강렬합니다. &quot;눈 없이 움직이는 튼튼한 몸이 크게 넘어지듯이&quot;(1144b10). 힘은 있는데 볼 줄을 모릅니다.</p>
+<p>여기서 그는 스승의 스승을 반박합니다. 소크라테스는 덕이 곧 앎이고, 따라서 덕이 규칙이자 이성적 원리 <strong>그 자체</strong>라고 보았습니다. 아리스토텔레스는 다르게 답합니다. 덕은 이성적 원리를 <strong>함축한다</strong>는 것입니다. 함축하는 것과 그것인 것은 다릅니다.</p>
+<p>그리고 결론을 내립니다. &quot;실천적 지혜 없이 엄밀한 의미에서 좋은 사람이 될 수 없고, 성격의 덕 없이 실천적으로 지혜로울 수도 없다&quot;(1144b30).</p>
+<p>습관이 재료를 만들고, 프로네시스가 그것을 볼 수 있게 합니다. 둘은 서로를 필요로 합니다.</p>
+<hr>
+<h2><span class="mk">■</span>2,300년 뒤, 이 논의가 되살아났습니다</h2>
+<p>한동안 이 이야기는 서구 윤리학의 중심에서 밀려나 있었습니다. 근대 이후의 도덕철학은 대체로 규칙의 언어로 쓰였기 때문입니다. 칸트의 정언명령과 밀의 최대 행복 원리가 그렇습니다.</p>
+<p>전환점은 1958년입니다. <strong>G. E. M. 앤스콤</strong>이 학술지 『Philosophy』 33권에 「Modern Moral Philosophy」를 발표합니다.</p>
+<p>앤스콤이 겨눈 것은 &#x27;법 개념의 윤리&#x27;입니다. 오직 의무와 책무만 다루는 윤리 말이지요. 그의 논지는 이렇습니다. 의무라는 개념은 입법자의 존재를 전제하는데, 세속화된 현대 사회는 더 이상 그 전제를 두지 않습니다. 전제가 사라졌는데 개념만 남았다는 것입니다.</p>
+<p>대안으로 그가 제시한 것이 아리스토텔레스였습니다. 성격, 덕, 번영이라는 개념으로 돌아가자는 제안이었지요. 참고로 오늘날 널리 쓰이는 &#x27;결과주의(consequentialism)&#x27;라는 용어도 이 논문에서 나왔습니다.</p>
+<p>두 번째 순간은 1981년입니다. <strong>알래스데어 매킨타이어</strong>의 『After Virtue』입니다.</p>
+<p>매킨타이어는 역사 속 수많은 덕 목록을 조사한 뒤, 그것들이 서로 양립하지 않는다는 사실을 확인합니다. 그리고 그 차이가 서로 다른 <strong>실천(practices)</strong>에서 비롯된다고 결론짓습니다. 덕은 일관된 사회적 활동 형태인 실천 안에서 행사되며, 그 활동에 내재하는 선을 실현하려 한다는 것입니다.</p>
+<p>아리스토텔레스의 습관화가, 매킨타이어에게서는 역사적·사회적으로 구성된 실천 안의 훈련으로 확장된 셈입니다.</p>
+<figure><img src="./images/body-6.png" alt="아리스토텔레스에서 앤스콤을 거쳐 매킨타이어로 이어지는 덕 윤리 계보 다이어그램"></figure>
+<p>물론 이 흐름에도 비판이 따라붙습니다. IEP는 세 가지를 정리합니다. 자기중심적이라는 비판, 행위 지침을 주지 못한다는 비판, 도덕적 운에 너무 많이 기댄다는 비판입니다.</p>
+<p>특히 두 번째는 뼈아픕니다. &quot;덕 있는 사람이라면 할 법한 대로 하라&quot;는 조언은 당장 무엇을 해야 할지 알려주지 않으니까요.</p>
+<p>덕 윤리 쪽의 대답은 이렇습니다. 쉽고 즉각적인 답은 줄 수 없다, 그런 답이 존재하지 않기 때문이다. 대신 본보기가 되는 사람과, 평생에 걸친 판단력의 발달이 있을 뿐이라는 것입니다.</p>
+<p>납득이 되실 수도 있고 안 되실 수도 있습니다. 저는 이것이 회피라기보다 정직한 인정에 가깝다고 생각합니다.</p>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>에피스테메는 논증으로 가르칠 수 있고, 테크네는 배울 수 있습니다. 프로네시스는 시간을 요구합니다. 개별을 알아보는 눈은 겪어야 열리기 때문입니다.</p>
+<p>중용은 계산이 아니라 조준입니다. 그리고 그 조준을 가능하게 하는 것은 규칙집이 아니라, 반복된 행위가 만들어낸 성격의 상태입니다.</p>
+<p>&quot;덕은 아는 것이 아니라, 되는 것입니다.&quot;</p>
+<p>아리스토텔레스가 2권 2장에 남긴 문장으로 닫겠습니다. 우리는 덕이 무엇인지 알기 위해서가 아니라, 좋은 사람이 되기 위해 탐구한다고 그는 썼습니다. 이 글을 읽고 무엇이 남았느냐고 물으신다면, 아직은 잘 모르겠다고 답하겠습니다. 다만 오늘 한 번의 행위가 내일의 나를 조금 바꾼다는 말은, 이제 은유로 들리지 않습니다.</p>
+<div class="tags"><span class="tag">#아리스토텔레스</span> <span class="tag">#프로네시스</span> <span class="tag">#실천적지혜</span> <span class="tag">#중용</span> <span class="tag">#니코마코스윤리학</span> <span class="tag">#덕윤리</span> <span class="tag">#철학공부</span> <span class="tag">#매킨타이어</span> <span class="tag">#앤스콤</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
