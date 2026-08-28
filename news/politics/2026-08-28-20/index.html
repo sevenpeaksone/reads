@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>선관위 특검 출범 절차, 국민추천위 구성부터 수사 범위 쟁점까지</title>
+<style>
+  :root { --ink:#1f2328; --muted:#6b7382; --line:#e6e8ec; --accent:#3d5a94; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:48px 20px 80px; background:#f7f8fa; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif; }
+  .wrap { max-width:700px; margin:0 auto; background:#fff; border:1px solid var(--line);
+    border-radius:14px; padding:44px 40px 56px; }
+  .meta { display:flex; align-items:center; gap:12px; margin-bottom:22px; }
+  .cat { display:inline-block; background:#eef2fb; color:var(--accent); border:1px solid #d6dff2;
+    font-size:13px; font-weight:800; padding:6px 13px; border-radius:999px; }
+  .date { font-size:14px; color:var(--muted); }
+  h1 { font-size:30px; line-height:1.42; letter-spacing:-.02em; font-weight:800; margin:0 0 26px; }
+  h2 { font-size:21px; line-height:1.5; font-weight:800; margin:40px 0 16px; padding-left:13px;
+    border-left:4px solid var(--accent); }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 17px; color:#2b3038; }
+  hr { border:0; border-top:1px solid var(--line); margin:34px 0; }
+  figure { margin:28px 0; }
+  figure img { max-width:100%; height:auto; display:block; border-radius:10px; border:1px solid var(--line); }
+  .tags { margin-top:30px; padding-top:22px; border-top:1px solid var(--line); }
+  .tag { display:inline-block; background:#f1f3f7; color:#59616f; font-size:13.5px;
+    padding:6px 12px; border-radius:999px; margin:0 7px 8px 0; }
+  .foot { max-width:700px; margin:22px auto 0; font-size:13px; color:#98a0ae; line-height:1.7; }
+  @media (max-width:640px) { .wrap { padding:30px 22px 42px; } h1 { font-size:25px; } }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+  <div class="meta"><span class="cat">정치·사회 뉴스</span><span class="date">2026년 8월 28일</span></div>
+  <h1>선관위 특검 출범 절차, 국민추천위 구성부터 수사 범위 쟁점까지</h1>
+  <figure><img src="./images/thumbnail.png" alt="선관위 특검 출범 절차를 소개하는 대표 이미지"></figure>
+  <p>이번 글에서는 이른바 &#x27;선관위 특검&#x27;이 어떤 절차를 밟아 출범했는지 정리해 보겠습니다. 누구의 주장이 옳은지를 가리는 글이 아닙니다. 제도가 어떻게 설계돼 있고, 무엇이 쟁점이며, 앞으로 어떤 절차가 남았는지를 순서대로 짚어보려 합니다.</p>
+  <hr>
+  <h2>시작은 투표용지 부족 사태였습니다</h2>
+  <p>2026년 6월 3일 제9회 전국동시지방선거 당일, 서울 송파구를 비롯한 일부 지역에서 투표용지가 모자라는 일이 벌어졌습니다. 유권자가 투표소에서 오래 기다리거나 발길을 돌리는 상황이 생기면서 참정권 침해 논란으로 번졌습니다.</p>
+  <p>대응은 세 갈래로 갈렸습니다. 6월에 검경 합동수사본부가 꾸려졌고, 국회는 국정조사특별위원회를 가동했으며, 여야는 별도로 특별검사 도입을 논의하기 시작했습니다.</p>
+  <p>특검법의 정식 명칭은 깁니다. &#x27;제9회 동시지방선거 투표용지 부족 사태 등 국민참정권 침해 의혹 진상규명을 위한 특별검사 임명 등에 관한 법률&#x27;입니다. 이름 그대로 출발점은 투표용지 부족이었습니다.</p>
+  <p>법안 처리는 비교적 빠르게 진행됐습니다. 7월 21일 여야가 특검 추천 방식에 합의했고, 7월 27일 국회 법제사법위원회 전체회의에 특검법안 네 건이 상정됐습니다. 그리고 7월 30일 본회의를 통과했습니다. 여야 합의 처리였습니다.</p>
+  <figure><img src="./images/body-1.png" alt="투표용지 부족 사태부터 특검 출범까지의 주요 일정 타임라인"></figure>
+  <hr>
+  <h2>특검은 네 단계를 거쳐 정해졌습니다</h2>
+  <p>이번 특검의 임명 절차는 다소 복잡합니다. 여당도 야당도 직접 특검을 지명하지 않는 구조이기 때문입니다.</p>
+  <p>첫째, 국민추천위원회를 만듭니다. 더불어민주당과 국민의힘이 각 3인씩, 모두 6인으로 구성합니다. 한쪽이라도 반대하는 후보는 대통령에게 추천할 수 없도록 했습니다. 사실상 서로에게 거부권을 준 셈입니다.</p>
+  <p>8월 5일 위원 명단이 확정됐습니다. 민주당은 조두현·조기연 변호사와 서강대 정치외교학과 교수 한 명을, 국민의힘은 김용관 변호사(전 서울중앙지법 부장판사), 최창호 변호사(전 서울남부지검 형사부장), 차진아 고려대 법학전문대학원 교수를 각각 추천했습니다.</p>
+  <p>둘째, 법조 직역 단체가 후보를 냅니다. 대한변호사협회가 3인, 법학전문대학원협의회가 3인, 모두 6인을 국민추천위에 올립니다. 정당이 아니라 제3의 전문가 집단이 후보 풀을 만드는 방식입니다.</p>
+  <p>셋째, 국민추천위가 6인 중 2인으로 압축합니다. 8월 14일 국회에서 열린 2차 회의에서 이태한·이혁 두 명으로 좁혔습니다. 위원 6명 전원 합의였습니다.</p>
+  <p>넷째, 대통령이 그중 한 명을 임명합니다. 법이 정한 기한은 추천서가 제출된 날로부터 3일입니다. 8월 18일 이재명 대통령이 이태한 변호사를 특별검사로 임명했습니다.</p>
+  <figure><img src="./images/body-2.png" alt="특별검사 임명 절차 네 단계 흐름도"></figure>
+  <hr>
+  <h2>절차가 이렇게 설계된 이유</h2>
+  <p>특검 제도에서 가장 예민한 대목은 &#x27;누가 특검을 고르느냐&#x27;입니다. 선거 관리 기관을 수사하는 특검이라면 더 그렇습니다. 어느 한쪽이 지명권을 쥐면 결과가 나오기 전부터 신뢰가 흔들립니다.</p>
+  <p>그래서 이번에는 후보 발굴을 법조 단체에 맡기고, 걸러내는 일은 여야가 함께하고, 마지막 선택만 대통령이 하도록 나눴습니다. 권한을 잘게 쪼개 어느 한 주체도 결론을 좌우하지 못하게 한 구조입니다.</p>
+  <p>다만 한계도 지적됐습니다. 변협과 법전협이 올린 후보 6명이 모두 검사 출신이었다는 점입니다. 절차의 다원성과 인선의 다양성은 별개라는 이야기가 나온 배경입니다.</p>
+  <p>임명된 이태한 특검은 사법연수원 23기로, 검찰에서 19년가량 특수·형사·공판 부서를 거친 인물입니다. 취임 당시 그는 &quot;특검의 역할은 의혹을 확대하는 게 아니라 의혹을 해소하는 것&quot;이라며 &quot;여당이나 야당 어느 쪽에도 불리한 결론을 미리 정해놓고 수사하지 않겠다&quot;고 밝혔습니다.</p>
+  <hr>
+  <h2>규모와 시간표</h2>
+  <p>특검팀은 작지 않습니다. 특별검사 1명에 특검보 5명, 파견검사 최대 20명, 특별수사관 70명, 파견공무원 최대 70명까지 둘 수 있습니다. 매체에 따라 총원 표기가 조금 다르지만 최대 160여 명 규모입니다.</p>
+  <p>시간은 이렇게 짜여 있습니다. 먼저 수사준비기간이 최장 20일 주어집니다. 특검보를 고르고 사무실을 마련하는 기간입니다. 이후 기본 수사기간 90일, 필요하면 30일씩 두 차례 연장해 최장 150일입니다. 준비기간까지 더하면 최장 170일입니다.</p>
+  <p>특검은 9월 6일까지 준비를 마치고 본격 수사에 들어갈 계획으로 알려졌습니다. 8월 19일에는 합동수사본부를 찾아 사건 인계 절차를 시작했습니다.</p>
+  <figure><img src="./images/body-3.png" alt="선관위 특검의 활동기간과 인력 규모를 정리한 핵심 숫자"></figure>
+  <hr>
+  <h2>쟁점 하나 — 어디까지 수사할 것인가</h2>
+  <p>특검법이 정한 수사 대상은 투표용지 부족 하나가 아닙니다. 선거 통계 입력과 정정 방식, 투표용지 인쇄 물량 하한 기준을 낮춘 과정의 절차 문제, 선거관리 시스템 전산 문제, 부정 채용과 승진 특혜, 외유성 해외출장, 수의계약 특혜와 업체 유착 등 이른바 &#x27;12개 의혹&#x27;이 함께 묶였습니다.</p>
+  <p>문제는 범위입니다. 특검법의 선거관리 시스템 관련 조항이 6·3 지방선거로 명시적으로 한정돼 있지 않다는 해석이 나오면서, 지난 총선이나 대선까지 수사 대상이 될 수 있다는 이야기가 이어졌습니다.</p>
+  <p>국민의힘은 확대를 요구했습니다. 당 선관위개혁특위는 &quot;투표자 수 조작은 부실이 아니라 부정&quot;이라며 대선 전산까지 특검이 들여다봐야 한다고 주장했습니다. 장동혁 대표는 선관위 해체와 사전투표 폐지론까지 함께 제기했습니다.</p>
+  <p>더불어민주당은 신중했습니다. 여야가 합의한 대로 특검법을 신속히 처리하자면서도, 수사 범위를 무한정 넓히자는 요구에는 정치 공세의 성격이 있다고 보고 경계했습니다.</p>
+  <p>여기서 한 가지는 분명히 해둘 필요가 있습니다. 12개 항목은 모두 &#x27;수사 대상&#x27;일 뿐, 사법적으로 확정된 사실이 아닙니다. 의혹이 제기됐고 이제 조사가 시작된 단계입니다.</p>
+  <hr>
+  <h2>쟁점 둘 — 선관위 서버</h2>
+  <p>가장 첨예했던 대목입니다.</p>
+  <p>국민의힘은 중앙선관위 서버를 수사 대상에 반드시 넣어야 한다고 주장했습니다. 전산 조작 여부를 확인하려면 서버를 직접 봐야 한다는 논리였습니다.</p>
+  <p>더불어민주당은 다르게 봤습니다. 수사 대상은 범죄의 주체로 한정되므로 서버 자체는 수사 대상이 아니라는 것입니다. 선관위 직원이 서버를 이용해 범죄를 저질렀다면 검찰이 영장을 청구하고 법원이 발부하는 절차로 접근하면 된다는 설명이었습니다. 민주당 원내지도부에서는 서버를 못 박는 방식이 자칫 부정선거를 주장해온 쪽의 논리로 읽힐 수 있다는 우려도 나왔습니다.</p>
+  <p>결과적으로 7월 30일 합의된 특검법에는 선거 전산시스템이 수사 대상에 포함됐습니다. 다만 서버에 어떤 방식으로, 어디까지 접근할지는 여전히 해석의 영역으로 남아 있습니다.</p>
+  <hr>
+  <h2>쟁점 셋 — 올림픽공원 투표지 247만 장</h2>
+  <p>서울 송파구 올림픽공원 개표소에는 6·3 지방선거 투표용지 약 247만 장이 보관돼 있습니다. 이 투표지를 공개 재검표할 것인지가 8월 내내 국정조사특위의 뇌관이었습니다.</p>
+  <p>재검표를 먼저 제안한 쪽은 국민의힘이었습니다. 그런데 시기를 놓고 입장이 갈렸습니다. 민주당은 8월 18일에 곧바로 실시하자고 했고, 국민의힘은 특검이 발족한 뒤 특검 수사와 연계해야 한다고 맞섰습니다.</p>
+  <p>8월 26일 특검 측이 국조특위에 공문을 보냈습니다. 현장 검증에서 이상 투표용지가 나올 경우 증거가 훼손되지 않도록 증거 확보 조치를 보장해 달라는 취지였습니다.</p>
+  <p>같은 공문을 두고 해석이 정반대였습니다. 민주당과 조국혁신당은 &quot;특검과 협의가 완료됐다&quot;며 즉각 재검표를 요구했습니다. 윤건영 민주당 간사는 국민의힘이 조건을 계속 바꿔왔다며 &quot;요구한 모든 조건을 들어줬다&quot;고 주장했습니다.</p>
+  <p>국민의힘은 반대로 읽었습니다. 주진우 의원은 특검이 증거인멸을 우려해 협조의 전제조건을 알려온 것이라고 설명했습니다. 그는 &quot;선관위 주도로 하루 만에 247만 표를 정밀 감식하는 게 제대로 된 검증이냐&quot;고 반문하며, 회의를 열어 구체적 방법을 짜자는 제안을 민주당이 거부했다고 맞받았습니다.</p>
+  <figure><img src="./images/body-4.png" alt="수사 범위·선관위 서버·재검표 시기 세 가지 쟁점에 대한 여야 입장 비교표"></figure>
+  <hr>
+  <h2>국정조사는 이렇게 마무리됩니다</h2>
+  <p>국정조사특위는 75일간 활동했고 8월 31일 종료됩니다. 예전에는 국정조사가 이 사안의 중심이었습니다. 지금은 무게추가 특검으로 완전히 옮겨간 모양새입니다.</p>
+  <p>결과보고서 채택도 불투명해졌습니다. 국민의힘은 재검표와 별개로 보고서를 채택하자는 입장이고, 민주당은 재검표가 무산된 마당에 나머지 절차는 의미가 크지 않다는 입장입니다. 양쪽 모두 상대에게 책임을 돌리고 있습니다.</p>
+  <hr>
+  <h2>남은 절차와 전망</h2>
+  <p>앞으로 이어질 순서는 대체로 정해져 있습니다.</p>
+  <p>첫째, 9월 6일까지 수사준비기간입니다. 특검보 5명을 포함한 수사팀 인선과 사무실 마련이 이 기간에 이뤄집니다.</p>
+  <p>둘째, 합동수사본부가 6월부터 쌓아온 자료를 넘겨받는 인계 작업입니다.</p>
+  <p>셋째, 수사 대상의 우선순위를 정하는 일입니다. 12개 의혹을 150일 안에 모두 다루기는 어렵다는 것이 대체적인 관측입니다. 무엇을 먼저 볼 것인지가 사실상 첫 과제로 꼽힙니다.</p>
+  <p>넷째, 재검표 문제입니다. 국정조사 틀에서는 무산됐지만 특검 수사 과정에서 증거 확보 차원의 검증이 다시 논의될 여지는 남아 있습니다. 다만 확정된 계획은 아직 없습니다.</p>
+  <p>기간을 산술적으로 계산하면 연장을 모두 쓸 경우 수사는 해를 넘길 수 있습니다.</p>
+  <figure><img src="./images/body-5.png" alt="수사준비기간 종료부터 재검표 재논의 가능성까지 남은 절차 네 가지"></figure>
+  <hr>
+  <p>정리하면 이렇습니다. 특검을 뽑는 절차는 여야 합의로 마무리됐지만, 무엇을 어디까지 수사할 것인지에 대한 합의는 아직 없습니다. 절차가 끝난 자리에서 내용을 둘러싼 다툼이 다시 시작된 셈입니다.</p>
+  <p>그래서 지금 필요한 것은 하나입니다 — 결론을 미리 정해두지 않는 태도.</p>
+  <p>의혹은 제기됐고 수사는 이제 시작입니다. 무엇이 사실로 밝혀질지 물으신다면, 아직은 기다려야 한다고 답하겠습니다.</p>
+  <div class="tags"><span class="tag">#선관위특검</span><span class="tag">#국민추천위원회</span><span class="tag">#특별검사임명절차</span><span class="tag">#투표용지부족사태</span><span class="tag">#국정조사</span><span class="tag">#선거관리위원회</span><span class="tag">#정치뉴스해설</span></div>
+</article>
+<p class="foot">이 글은 2026년 8월 28일까지 공개된 언론 보도를 바탕으로 정리한 절차 해설입니다. 본문에 언급된 의혹은 모두 수사 대상일 뿐 사법적으로 확정된 사실이 아니며, 특정 정당의 입장을 지지하거나 배척하지 않습니다.</p>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
