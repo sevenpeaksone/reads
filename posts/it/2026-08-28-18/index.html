@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>분산 시스템은 사건 순서를 어떻게 정하나 — 램포트 논리시계와 벡터시계</title>
+<style>
+  :root { --accent:#4f8cff; --ink:#1f2328; --mute:#6b7280; --line:#e6e8ec; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:48px 20px 90px;
+    background:#f6f7f9; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { width:700px; max-width:100%; margin:0 auto; background:#fff;
+          padding:52px 44px 60px; border:1px solid var(--line); border-radius:14px; }
+  .meta { margin-bottom:22px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .badge { display:inline-block; background:var(--accent); color:#fff;
+           font-size:13px; font-weight:700; letter-spacing:.04em;
+           padding:5px 13px; border-radius:999px; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:31px; line-height:1.42; font-weight:800; margin:0 0 30px;
+       letter-spacing:-.01em; word-break:keep-all; }
+  h2 { font-size:21px; line-height:1.5; font-weight:700; margin:46px 0 16px;
+       padding-left:13px; border-left:4px solid var(--accent); word-break:keep-all; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+  ul { margin:0 0 22px; padding-left:22px; }
+  li { font-size:16.5px; line-height:1.8; margin-bottom:9px; word-break:keep-all; }
+  strong { font-weight:700; }
+  code { background:#f0f2f5; border-radius:4px; padding:2px 6px;
+         font-family:'SF Mono',Menlo,Consolas,monospace; font-size:14.5px; }
+  hr { border:0; border-top:1px solid var(--line); margin:38px 0; }
+  figure { margin:30px 0; }
+  img { max-width:100%; height:auto; display:block; border-radius:10px; }
+  .tags { color:var(--accent); font-size:14.5px; line-height:1.9;
+          margin-top:34px; word-break:keep-all; }
+  @media (max-width:760px) { .wrap { padding:34px 20px 44px; } h1 { font-size:25px; } }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+  <div class="meta"><span class="badge">IT</span><span class="date">2026-08-28</span></div>
+  <h1>분산 시스템은 사건 순서를 어떻게 정하나 — 램포트 논리시계와 벡터시계</h1>
+  <figure><img src="./images/thumbnail.png" alt="분산 시스템의 사건 순서를 다루는 글의 대표 이미지"></figure>
+  <p>이번 글에서는 분산 시스템이 사건의 순서를 어떻게 정하는지 정리해 보겠습니다. 서버 시계를 아무리 잘 맞춰도 &quot;이 요청이 저 요청보다 먼저&quot;라고 단정할 수 없는 이유부터 시작합니다. 1978년 램포트가 내놓은 논리시계와, 그 한계를 메운 벡터시계까지 차례로 살펴보겠습니다.</p>
+  <hr>
+  <h2>시계를 맞춰도 순서를 알 수 없는 이유</h2>
+  <p>두 서버가 각자 로그를 남깁니다. A는 10시 00분 05초, B는 10시 00분 03초. B가 먼저 일어난 일일까요.</p>
+  <p>답할 수 없습니다.</p>
+  <p>수정 진동자로 만든 컴퓨터 시계는 스스로 어긋납니다. 램포트는 원논문에서 이 편차 상수를 <strong>κ ≤ 10⁻⁶</strong>, 즉 100만분의 1 수준으로 잡았습니다. 하루 86,400초에 이 값을 곱하면 약 86밀리초입니다. 열흘이면 1초가 벌어지는 셈입니다. 이것이 드리프트(drift)입니다.</p>
+  <p>NTP는 이 어긋남을 주기적으로 되돌립니다. 하지만 0으로 만들지는 못합니다. 공용 인터넷에서는 수십 밀리초, 잘 관리된 사내망에서도 밀리초 안팎의 오차가 남습니다. 이것이 스큐(skew)입니다.</p>
+  <p>더 곤란한 점이 있습니다. NTP는 시계를 <strong>뒤로 되감기도 합니다.</strong> 램포트는 논문에서 물리시계를 다룰 때 &quot;시계를 재설정할 때는 항상 앞으로만 돌리고 뒤로는 돌리지 않는다고 가정한다&quot;고 못 박았습니다. 뒤로 돌리면 같은 프로세스 안에서조차 순서가 깨지기 때문입니다. 현실의 벽시계는 그 가정을 지키지 않습니다.</p>
+  <p>그래서 램포트는 아예 다른 길을 택했습니다. 물리시계를 쓰지 않고 &#x27;먼저&#x27;를 정의하기로 한 것입니다.</p>
+  <figure><img src="./images/body-1.png" alt="물리시계 NTP와 논리시계 happened-before가 재는 것의 차이 비교"></figure>
+  <hr>
+  <h2>사건 사이의 &#x27;먼저&#x27;를 다시 정의하다</h2>
+  <p>램포트는 분산 시스템을 이렇게 정의합니다. &quot;메시지 전달 지연이 한 프로세스 안의 사건 간격에 비해 무시할 수 없이 큰 시스템.&quot;</p>
+  <p>그 위에서 화살표 기호 <strong>→(happened-before)</strong>를 세 조건으로 세웁니다.</p>
+  <ul><li>같은 프로세스 안에서 a가 b보다 앞서 실행되면 a → b</li><li>a가 메시지를 보내는 사건이고 b가 그 메시지를 받는 사건이면 a → b</li><li>a → b 이고 b → c 이면 a → c</li></ul>
+  <p>여기서 물리시간은 한 번도 등장하지 않습니다. 오직 프로그램 실행 순서와 메시지만 씁니다.</p>
+  <p>그리고 남는 것이 있습니다. a → b도 아니고 b → a도 아닌 두 사건. 램포트는 이를 <strong>동시(concurrent)</strong>라고 부릅니다.</p>
+  <p>여기서 오해하기 쉬운 대목이 하나 있습니다. 동시라는 말은 &quot;같은 시각에 일어났다&quot;는 뜻이 아닙니다. <strong>&quot;서로에게 인과적으로 영향을 줄 수 없었다&quot;</strong>는 뜻입니다. 원논문의 그림에서도 한쪽이 물리적으로 명백히 더 이른 시각에 그려져 있지만, 두 사건은 여전히 동시입니다. 메시지가 도착하기 전까지 상대가 무엇을 했는지 알 방법이 없기 때문입니다.</p>
+  <p>램포트 본인도 이 정의가 특수상대성이론의 시공간 형식과 닮았다는 점을 논문에 적어두었습니다.</p>
+  <figure><img src="./images/body-2.png" alt="happened-before 관계를 성립시키는 세 가지 조건"></figure>
+  <hr>
+  <h2>램포트 논리시계, 두 줄의 구현 규칙</h2>
+  <p>이제 각 사건에 숫자를 붙입니다. 조건은 하나입니다. <strong>a → b 이면 C(a) &lt; C(b)</strong>여야 합니다. 논문은 이를 Clock Condition이라 부릅니다.</p>
+  <p>이를 만족시키는 구현 규칙은 놀랄 만큼 단순합니다.</p>
+  <ul><li><strong>IR1</strong>: 각 프로세스는 연속한 두 사건 사이에서 자기 카운터를 하나 올린다.</li><li><strong>IR2</strong>: 메시지를 보낼 때 현재 카운터 값을 타임스탬프로 실어 보낸다. 받은 쪽은 자기 카운터를 현재 값 이상이면서 받은 타임스탬프보다는 큰 값으로 올린다.</li></ul>
+  <p>실무에서는 흔히 <code>C = max(C_로컬, C_수신) + 1</code>로 씁니다.</p>
+  <p>메모리 몇 바이트와 덧셈 한 번. 이것으로 인과 순서가 숫자에 보존됩니다.</p>
+  <figure><img src="./images/body-3.png" alt="램포트 논리시계의 IR1 IR2 규칙과 전체순서 부여 네 단계"></figure>
+  <hr>
+  <h2>전체순서는 편의이지 진실이 아닙니다</h2>
+  <p>→ 관계는 부분순서입니다. 순서를 매길 수 없는 짝이 남습니다. 그런데 실무에서는 줄을 하나로 세워야 할 때가 많습니다. 요청 처리 순서를 정하려면 그렇습니다.</p>
+  <p>램포트의 해법은 소박합니다. 타임스탬프가 같으면 <strong>프로세스 번호로 승부를 냅니다.</strong> 프로세스에 임의의 순서 ≺를 하나 정해두고, 값이 같을 때 번호가 작은 쪽을 앞세웁니다. 이렇게 만든 관계 ⇒는 전체순서가 되고, → 를 그대로 포함합니다.</p>
+  <p>논문은 이 전체순서로 분산 상호배제 알고리즘까지 풀어 보입니다. 오늘날 상태기계 복제(State Machine Replication)라 부르는 방식의 원형입니다.</p>
+  <p>다만 논문 스스로 두 가지 한계를 적어두었습니다.</p>
+  <p>첫째, 그 알고리즘은 <strong>모든 프로세스의 적극적 참여를 요구합니다.</strong> 한 프로세스만 죽어도 나머지가 명령을 실행하지 못하고 시스템이 멈춥니다.</p>
+  <p>둘째, 전체순서 ⇒는 유일하지 않습니다. 시계를 어떻게 고르느냐에 따라 다른 순서가 나옵니다. 논문의 표현을 그대로 옮기면 이렇습니다. <strong>&quot;유일하게 결정되는 것은 부분순서 → 뿐이다.&quot;</strong></p>
+  <hr>
+  <h2>램포트 시계가 답하지 못하는 질문</h2>
+  <p>여기가 핵심입니다.</p>
+  <p>a → b 이면 LC(a) &lt; LC(b). 이건 성립합니다.</p>
+  <p>그런데 <strong>역은 성립하지 않습니다.</strong> LC(a) &lt; LC(b)라는 사실만으로 a → b라고 결론지을 수 없습니다.</p>
+  <p>램포트는 그 이유를 논문에서 직접 설명합니다. 역이 성립한다면 동시인 두 사건은 반드시 같은 값을 가져야 하는데, 그러면 Clock Condition 자체가 무너지는 모순이 생깁니다.</p>
+  <p>프린스턴 COS 418 강의자료가 이 관계를 깔끔하게 표로 정리했습니다.</p>
+  <ul><li>a → b 이면 → LC(a) &lt; LC(b) <strong>(참)</strong></li><li>LC(a) &lt; LC(b) 이면 → b가 a보다 먼저는 아니다. 하지만 a → b인지, a와 b가 동시인지는 <strong>모른다</strong></li><li>a와 b가 동시이면 → LC 값에 대해 <strong>말할 수 있는 것이 없다</strong></li></ul>
+  <p>강의자료의 한 줄이 이유를 설명합니다. <strong>&quot;정수 하나로는 둘 이상의 프로세스에서 일어난 사건을 순서지을 수 없다.&quot;</strong></p>
+  <p>램포트 시계로는 충돌을 감지할 수 없습니다. 두 값이 다르다는 사실만으로는, 그것이 진짜 인과 관계인지 우연히 벌어진 무관한 두 사건인지 구분이 안 되기 때문입니다.</p>
+  <hr>
+  <h2>벡터시계 — 숫자 하나를 벡터로 늘리다</h2>
+  <p>해결책은 직관적입니다. 정수 하나가 부족하면 <strong>프로세스 수만큼 정수를 씁니다.</strong></p>
+  <p>프로세스가 n개면 각 사건에 길이 n짜리 벡터를 붙입니다. VC(e) = [c₁, c₂, …, cₙ]. 여기서 cₖ는 &quot;e보다 인과적으로 앞선다고 알고 있는 프로세스 k의 사건 개수&quot;입니다.</p>
+  <p>갱신 규칙은 두 줄입니다.</p>
+  <ul><li>프로세스 i에서 사건이 일어나면 → <strong>자기 자리 cᵢ만 1 증가</strong></li><li>프로세스 j가 벡터 [d₁, …, dₙ]이 실린 메시지를 받으면 → <strong>모든 자리를 cₖ = max(cₖ, dₖ)로 갱신한 뒤, 자기 자리 cⱼ를 1 증가</strong></li></ul>
+  <p>비교 규칙도 명확합니다.</p>
+  <ul><li>모든 자리에서 a ≤ b이고 둘이 같지 않으면 → <strong>V(a) &lt; V(b), 즉 인과관계 있음</strong></li><li>어떤 자리에서는 a가 크고 다른 자리에서는 b가 크면 → <strong>동시(concurrent)</strong></li></ul>
+  <p>이 두 번째 조건이 결정적입니다. 벡터가 서로 엇갈린다는 것은, 두 쪽이 서로 모르는 정보를 각자 가지고 있다는 뜻입니다. 다시 말해 <strong>진짜 충돌</strong>입니다.</p>
+  <p>같은 상황에서 두 시계가 내놓는 답을 비교해 보면 차이가 분명해집니다. 램포트 시계는 &quot;a가 먼저이거나, 둘이 동시이거나&quot; 둘 중 하나로만 좁혀줍니다. 벡터시계는 &quot;a가 먼저&quot;라고 확정합니다. 강의자료의 표현대로, 벡터시계 타임스탬프는 happened-before 관계를 <strong>정확히 포착</strong>합니다.</p>
+  <p>정리하면 이렇습니다. 램포트 시계는 가능한 여러 순서 중 하나를 뽑아주고, 벡터시계는 무엇이 인과이고 무엇이 동시인지를 판정해 줍니다.</p>
+  <figure><img src="./images/body-4.png" alt="램포트 논리시계와 벡터시계의 판정 능력 비교 표"></figure>
+  <hr>
+  <h2>벡터시계의 청구서 — O(N)</h2>
+  <p>공짜는 아닙니다.</p>
+  <p>벡터시계는 프로세스 수 n에 대해 저장 공간, 메시지 크기, 비교 연산 시간이 <strong>모두 선형으로 늘어납니다.</strong> 노드 5개짜리 클러스터라면 부담이 없습니다. 수천 노드라면 이야기가 달라집니다.</p>
+  <p>1986년 리스코프와 라딘이 사실상 벡터시계에 해당하는 다중 파트 타임스탬프를 제안하면서 붙인 단서가 이 사정을 잘 보여줍니다. &quot;복제본은 보통 소수(예: 3~7개)일 것이므로 이런 타임스탬프는 실용적이다.&quot;</p>
+  <p>Amazon Dynamo는 이 문제를 정면으로 다뤘습니다. 원논문의 해법은 <strong>잘라내기(truncation)</strong>입니다. (node, counter) 쌍마다 마지막 갱신 시각을 함께 저장해 두고, 쌍의 개수가 임계값(논문 표현으로는 &quot;예를 들어 10개&quot;)에 이르면 가장 오래된 쌍을 버립니다.</p>
+  <p>그리고 그 대가를 논문이 직접 인정합니다. 이 방식은 조상-후손 관계를 정확히 유도할 수 없게 만들어 병합을 비효율적으로 만들 수 있다고요. 다만 프로덕션에서 문제가 드러난 적이 없어 깊이 조사하지는 않았다고 덧붙입니다.</p>
+  <p>한계를 알면서도 감수하는 선택. 실무의 모습은 대개 이렇습니다.</p>
+  <hr>
+  <h2>실제 시스템은 어디에 서 있는가</h2>
+  <p>네 시스템의 선택이 서로 다릅니다.</p>
+  <p><strong>Amazon Dynamo (2007)</strong> — 벡터시계로 충돌을 감지합니다. 설계 목표가 &quot;항상 쓰기 가능한(always writeable)&quot; 저장소였기 때문입니다. 고객의 장바구니 담기를 거절할 수 없으니, 충돌 해결의 복잡함을 쓰기가 아니라 읽기 쪽으로 밀어냈습니다. 24시간 프로덕션 측정에서 요청의 <strong>99.94%가 버전 하나만</strong> 보았고, 2개를 본 요청은 0.00057%에 그쳤습니다. 흥미로운 점은 충돌의 주된 원인이 장애가 아니라 <strong>동시 쓰기 클라이언트 수의 증가</strong>, 주로 자동화 봇이었다는 관찰입니다. 대가도 있습니다. 논문은 &quot;장바구니 담기는 결코 유실되지 않지만, <strong>삭제한 상품이 되살아날 수 있다</strong>&quot;고 적었습니다.</p>
+  <p><strong>Riak</strong> — Dynamo 계열 구현으로 벡터시계를 채택했다가 형제 값 폭발(sibling explosion)에 부딪혔습니다. 재시도나 끼어든 쓰기를 진짜 동시 쓰기와 구분하지 못해, 병합해도 값이 끝없이 불어나는 문제였습니다. 해법은 <strong>Dotted Version Vectors</strong>였고, 이후 형제 값은 보통 2~3개로 묶였습니다. Riak 2.0부터 기본 논리시계가 되었습니다.</p>
+  <p><strong>Apache Cassandra</strong> — 다른 길입니다. 모든 변경에 클라이언트나 코디네이터 노드의 <strong>물리 타임스탬프</strong>를 붙이고, 큰 쪽이 이기는 last-write-wins로 충돌을 해소합니다. 단순하고 빠릅니다. 대신 정확성이 시계 동기화에 걸립니다. 공식 문서도 NTP 같은 시각 동기화 절차가 필요하다고 명시합니다. 노드 A가 10시 00분 05초로, 노드 B가 10시 00분 03초로 알고 있으면, <strong>인과적으로 나중인 B의 쓰기가 낡은 것으로 버려집니다.</strong> 실무에서는 드리프트를 500밀리초 이내로 유지하도록 권고하지만, 작은 오차는 늘 남습니다. 클레프만이 갱신 유실(lost update) 위험을 지적한 지점이 여기입니다.</p>
+  <p><strong>Google Spanner (2012)</strong> — 아예 물리시계 쪽으로 돌아갑니다. 다만 <strong>오차를 숨기지 않고 API로 드러냅니다.</strong> TrueTime의 <code>TT.now()</code>는 시각 하나가 아니라 [earliest, latest] 구간을 돌려줍니다. GPS 수신기와 원자시계를 함께 쓰는데, 두 장비의 고장 방식이 서로 다르기 때문입니다. 구간의 반폭 ε은 프로덕션에서 <strong>약 1~7밀리초 사이를 톱니처럼 오가며, 대부분의 시간 동안 4밀리초</strong>입니다. 폴링 주기 30초에 드리프트 20만분의 1(200마이크로초/초)을 적용하면 0~6밀리초가 나오고, 나머지 1밀리초는 타임마스터까지의 통신 지연입니다. 그리고 커밋할 때 그 불확실성만큼 <strong>기다립니다.</strong> 논문은 예상 대기가 최소 2ε이라고 적었고, 1복제본 실험에서 실측 commit wait은 약 5밀리초였습니다.</p>
+  <p>한 가지는 분명히 해둘 필요가 있습니다. Spanner 논문은 램포트 논리시계나 벡터시계를 비판하지 않습니다. 논문 어디에도 &#x27;logical clock&#x27;이라는 표현이 나오지 않습니다. 대비 대상은 &quot;느슨하게 동기화된 시계&quot;입니다. 논문의 결론은 이렇습니다. &quot;이제 우리는 느슨하게 동기화된 시계와 빈약한 시간 API에 의존해 분산 알고리즘을 설계하는 일을 그만두어야 한다.&quot;</p>
+  <p>흥미롭게도 램포트는 1978년에 이미 이 길을 언급해 두었습니다. 논리시계로는 시스템 밖에서 벌어진 인과(예컨대 전화 통화로 전달된 선후관계)를 잡을 수 없다고 인정하면서, 그것을 잡으려면 <strong>Strong Clock Condition을 만족하는 물리시계</strong>가 필요하다고 적었습니다. 34년 뒤 구글이 만든 것이 바로 그 물리시계입니다.</p>
+  <figure><img src="./images/body-5.png" alt="Dynamo Riak Cassandra Spanner 네 시스템의 시계 전략 비교 표"></figure>
+  <hr>
+  <h2>그 다음 — 버전 벡터에서 CRDT까지</h2>
+  <p>흐름은 계속 이어집니다.</p>
+  <p><strong>버전 벡터(version vector)</strong>는 사건 대신 복제본의 데이터 버전을 추적합니다. 용어 자체는 1983년 파커 등의 논문에서 나왔습니다. Riak은 이를 인과 맥락(causal context)이라는 이름으로 부릅니다.</p>
+  <p><strong>하이브리드 논리시계(HLC)</strong>는 물리시간과 램포트식 카운터를 한 쌍으로 묶습니다. ⟨물리시각, 카운터⟩ 형태로, 물리시각이 같을 때만 카운터로 인과를 가릅니다. 크기가 상수로 고정되어 벡터시계처럼 불어나지 않습니다. MongoDB는 MVCC 저장소의 버전 관리에, CockroachDB는 분산 트랜잭션의 인과성 유지에 이 방식을 씁니다.</p>
+  <p><strong>CRDT</strong>는 발상을 뒤집습니다. 충돌을 감지해서 나중에 푸는 대신, <strong>애초에 병합이 항상 가능하도록 자료구조를 설계합니다.</strong> 조건은 셋입니다. 상태들이 합반격자(join semilattice)를 이루고, 연산이 상태를 키우는 방향으로만 작동하며, 병합 함수가 두 상태의 최소상계를 만들면 됩니다. 병합 함수가 교환·결합·멱등 법칙을 지키면 메시지가 뒤죽박죽 도착하거나 중복되어도 모든 복제본이 같은 값으로 수렴합니다.</p>
+  <p>예전에는 순서를 세우는 것이 목표였습니다. 지금은 순서를 세우지 않고도 답이 하나로 모이게 만드는 쪽이 늘고 있습니다.</p>
+  <hr>
+  <p>끝으로 한 마디만 더 드리겠습니다.</p>
+  <p>램포트 논리시계와 벡터시계는 1980년대의 유물이 아닙니다. 오늘 우리가 쓰는 분산 데이터베이스가 충돌을 감지하는 방식, 협업 편집기가 커서 위치를 맞추는 방식, 오프라인 앱이 다시 접속했을 때 데이터를 합치는 방식이 모두 여기서 갈라져 나왔습니다.</p>
+  <p>이 주제가 남기는 교훈은 하나로 압축됩니다. <strong>&quot;분산 시스템에서 시간은 측정하는 값이 아니라 합의하는 약속이다.&quot;</strong></p>
+  <p>서버 시계를 더 정밀하게 맞추면 순서 문제가 풀리겠냐고 물으신다면, 저는 아니라고 답하겠습니다. 정밀도는 오차를 줄일 뿐, 무엇이 무엇의 원인이었는지는 끝내 말해주지 못하기 때문입니다.</p>
+  <p class="tags">#분산시스템 #램포트논리시계 #벡터시계 #happenedbefore #인과관계 #분산데이터베이스 #Dynamo #Spanner #TrueTime #CRDT</p>
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
