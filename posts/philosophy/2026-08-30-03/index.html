@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>밀의 해악 원칙, 사회는 개인의 자유를 어디까지 제한할 수 있는가</title>
+<meta name="description" content="존 스튜어트 밀의 해악 원칙을 자유론 원문과 함께 정리했습니다. 자기관계적 행위와 타자관계적 행위의 구분, 표현의 자유 네 가지 근거, 온정주의와 불쾌 원칙, 하트-데블린 논쟁까지 다룹니다.">
+<meta property="og:title" content="밀의 해악 원칙, 사회는 개인의 자유를 어디까지 제한할 수 있는가">
+<meta property="og:image" content="./images/thumbnail.png">
+<style>
+  :root { --accent:#6f63e0; --ink:#1f2330; --sub:#5d6475; --line:#e6e8ef; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f6f7fb; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;
+    -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:700px; margin:0 auto; padding:48px 20px 80px; background:#fff;
+    box-shadow:0 0 0 1px rgba(20,24,40,.05); }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .badge { display:inline-block; background:var(--accent); color:#fff; font-size:13px;
+    font-weight:700; padding:5px 12px; border-radius:999px; letter-spacing:.02em; }
+  .date { font-size:13px; color:var(--sub); }
+  h1 { font-size:30px; line-height:1.4; font-weight:800; margin:0 0 14px; letter-spacing:-.02em; }
+  .lead-line { height:3px; width:64px; background:var(--accent); border-radius:2px; margin:0 0 34px; }
+  h2 { font-size:21px; line-height:1.45; font-weight:800; margin:44px 0 16px;
+    padding-left:14px; border-left:5px solid var(--accent); letter-spacing:-.01em; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+  blockquote { margin:26px 0; padding:18px 22px; background:#f3f2fd;
+    border-left:4px solid var(--accent); border-radius:0 10px 10px 0;
+    font-size:16.5px; line-height:1.8; color:#2c3040; word-break:keep-all; }
+  figure { margin:30px 0; }
+  img { max-width:100%; height:auto; display:block; border-radius:10px; }
+  hr { border:0; border-top:1px solid var(--line); margin:38px 0; }
+  .tags { margin-top:36px; }
+  .tag { display:inline-block; font-size:13px; color:var(--accent); background:#f2f1fc;
+    border-radius:999px; padding:5px 12px; margin:0 6px 8px 0; }
+  @media (max-width:640px) { .wrap { padding:32px 18px 60px; } h1 { font-size:25px; } h2 { font-size:19px; } }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta"><span class="badge">철학/인문</span><span class="date">2026-08-30</span></div>
+  <h1>밀의 해악 원칙, 사회는 개인의 자유를 어디까지 제한할 수 있는가</h1>
+  <div class="lead-line"></div>
+  <figure><img src="./images/thumbnail.png" alt="밀의 해악 원칙과 자유의 경계를 주제로 한 대표 이미지"></figure>
+  <p>이번 글에서는 존 스튜어트 밀이 『자유론』에서 제시한 해악 원칙을 정리해 보겠습니다. 사회가 개인에게 언제 강제력을 써도 되는가, 그 경계를 어디에 그을 것인가에 관한 이야기입니다. 원문에 실제로 적힌 문장과 그 문장을 둘러싼 반대 해석을 함께 놓아보려 합니다.</p>
+  <hr>
+  <h2>해악 원칙은 정확히 무엇을 말하는가</h2>
+  <p>밀은 1859년 『자유론』을 냅니다. 다루는 주제는 의지의 자유가 아닙니다. 사회가 개인에게 정당하게 행사할 수 있는 권력의 본질과 그 한계입니다.</p>
+  <p>그가 내놓은 원칙은 한 문장으로 압축됩니다.</p>
+  <blockquote>&quot;문명사회의 어느 구성원에 대하여 그의 의사에 반하여 권력이 정당하게 행사될 수 있는 유일한 목적은 타인에게 끼치는 해악을 방지하기 위함이다.&quot;</blockquote>
+  <p>여기서 놓치기 쉬운 대목이 두 가지 있습니다.</p>
+  <p>첫째, 밀은 강제와 설득을 엄격히 나눕니다. 그 사람의 육체적·도덕적 이익을 위한다는 이유는 충분한 근거가 되지 못합니다. 그렇게 하는 편이 더 낫다거나 더 행복해진다는 이유도 마찬가지입니다. 밀의 표현대로라면 그런 사정은 &quot;충고하고, 설득하고, 간청하는 좋은 이유&quot;일 뿐입니다. 강제할 이유는 되지 못합니다.</p>
+  <p>둘째, 밀이 말한 권력에는 법만 들어 있지 않습니다. 여론의 도덕적 강제도 포함됩니다. 그는 사회가 간섭해선 안 될 일에 명령을 내릴 때, 그것은 여러 종류의 정치적 억압보다 더 가공할 &#x27;사회적 전제&#x27;가 된다고 썼습니다. 극단적인 형벌로 뒷받침되지는 않지만, 빠져나갈 틈이 훨씬 적기 때문입니다.</p>
+  <p>그래서 이 원칙의 결론은 이렇게 이어집니다. &quot;개인은 자기 자신에 대하여, 즉 자신의 육체와 정신에 대하여 주권자이다.&quot;</p>
+  <figure><img src="./images/body-1.png" alt="자유론 1장의 해악 원칙 핵심 문장을 담은 인용 강조 박스"></figure>
+  <hr>
+  <h2>나에게만 관계되는 행위와 남에게 관계되는 행위</h2>
+  <p>밀은 인간의 행위를 둘로 나눕니다. 오직 자신에게만 관계되는 행위와 다른 사람에게 관계되는 행위입니다. 앞쪽은 자유로워야 하고, 사회가 간섭할 권한은 뒤쪽에만 있습니다.</p>
+  <p>이 구분 위에서 그는 보호받아야 할 자유를 세 영역으로 정리합니다. 내면적 의식의 영역, 곧 양심과 사상과 감정의 자유가 첫째입니다. 자기 성격에 맞게 삶의 계획을 세울 자유가 둘째입니다. 남에게 해를 끼치지 않는 목적이라면 무엇을 위해서든 결합할 자유가 셋째입니다.</p>
+  <p>표현의 자유는 어디에 속할까요. 밀은 표현이 원리상 타인에 관계되는 영역에 속한다고 인정합니다. 다만 사상의 자유와 거의 같은 근거에 기대고 있어 &quot;실질적으로 분리 불가능&quot;하다고 봅니다.</p>
+  <p>또 하나 자주 빠지는 대목이 있습니다. 밀은 부작위로도 남에게 해를 끼칠 수 있다고 명시합니다. 법정에서 증언하는 일, 공동방위에서 자기 몫을 하는 일, 동료의 생명을 구하거나 무방비 상태의 약자를 학대에서 지키는 일이 그가 든 예입니다.</p>
+  <p>물론 그도 신중합니다. 해를 끼친 것에 책임을 묻는 것은 규칙이고, 해를 막지 못한 것에 책임을 묻는 것은 예외라고 못 박습니다. 그럼에도 그 예외를 정당화할 만큼 명백하고 심각한 경우는 많다고 덧붙입니다.</p>
+  <p>이 대목을 두고 학계의 독해가 갈립니다. 라이언즈나 그레이는 해악의 원리를 &#x27;해악방지의 원리&#x27;로 넓게 읽을 수 있다고 봅니다. 그렇게 읽으면 구조 불이행을 처벌하는 이른바 &#x27;나쁜 사마리아인의 법&#x27;까지 정당화됩니다. 반대로 브라운은 구조하지 않은 모든 경우에 내가 누군가에게 해를 끼쳤다는 결론이 도출되지는 않는다고 반박합니다.</p>
+  <p>법제 역시 갈려 있습니다. 독일·프랑스를 포함한 유럽 15개국은 구조의무 규정을 두고 있습니다. 미국은 1973년 버몬트주가 처음 도입했습니다. 한국 형법에는 일반적 구조의무 규정이 없습니다.</p>
+  <figure><img src="./images/body-2.png" alt="자기관계적 행위와 타자관계적 행위를 좌우로 나눠 비교한 그림"></figure>
+  <hr>
+  <h2>사상과 표현은 왜 거의 절대적으로 보호되어야 하는가</h2>
+  <p>『자유론』 2장은 표현의 자유를 다룹니다. 밀은 장 끝에서 자기 논변을 네 가지로 직접 요약합니다.</p>
+  <p>첫째, 침묵당한 의견이 참일 수 있습니다. 그것을 부정하는 것은 자신의 무오류성을 가정하는 일입니다.</p>
+  <p>둘째, 틀린 의견도 진리의 한 부분을 담고 있습니다. 지배적 의견이 전체 진리인 경우는 드물거나 없습니다. 그래서 &quot;상반된 의견의 충돌&quot;을 통해서만 나머지 진리가 보충될 기회를 얻습니다.</p>
+  <p>셋째, 받아들여진 의견이 전체 진리라 하더라도 다투어지지 않으면 편견처럼 보유됩니다. 그 유명한 표현이 여기서 나옵니다. 충분히, 자주, 두려움 없이 토론되지 않으면 아무리 참인 것이라도 살아 있는 진리가 아니라 &#x27;죽은 교리&#x27;로 남습니다.</p>
+  <p>넷째, 그 교리의 의미 자체가 약해집니다. 형식적인 고백만 남고, 이성이나 경험에서 우러나는 진짜 확신의 성장을 오히려 가로막습니다.</p>
+  <p>주목할 점은 밀이 &quot;온건하게 표현한다면 허용한다&quot;는 조건부 옹호론도 거부했다는 것입니다. 공격이 통렬할 때는 언제나 상대가 불쾌를 느끼므로, 그 경계선을 정하는 일 자체가 불가능하다고 보았기 때문입니다.</p>
+  <p>그렇다고 표현이 무제한인 것은 아닙니다. 3장의 곡물상 사례가 그 한계를 보여줍니다. 곡물상이 가난한 이를 굶긴다는 의견을 신문이나 책에 쓰는 것은 완전히 정당합니다. 그러나 횃불을 든 성난 군중이 곡물상의 집 앞에 몰려 있을 때 그 자리에서 같은 말을 외치는 것은 다릅니다. 밀은 이를 &quot;해로운 행위에 대한 적극적 선동&quot;이라 부르며 보호 범위 밖에 둡니다.</p>
+  <figure><img src="./images/body-3.png" alt="오류가능성 부분적 진리 죽은 교리 의미의 소실로 정리한 표현의 자유 네 가지 근거 카드"></figure>
+  <hr>
+  <h2>온정주의와 불쾌 원칙, 그리고 밀 자신의 흔들림</h2>
+  <p>밀의 정식화를 그대로 받아들이면 세 가지가 한꺼번에 배제됩니다. 행위 자체의 부도덕성을 이유로 삼는 법적 도덕주의, 타인에게 주는 불쾌감, 그리고 본인을 위한다는 명분의 온정주의입니다.</p>
+  <p>그런데 밀 자신이 두 군데에서 흔들립니다.</p>
+  <p>하나는 다리 사례입니다. 무너질 것이 확인된 다리를 건너려는 사람을 보았고 경고할 시간이 없다면, 붙잡아 되돌려도 그의 자유를 침해한 것이 아니라고 밀은 말합니다. 자유란 자신이 원하는 것을 하는 데 있고, 그는 강물에 빠지기를 원하지 않기 때문입니다.</p>
+  <p>다른 하나는 노예계약입니다. 밀은 자신을 노예로 파는 계약을 무효로 봅니다. 한번 자유를 포기하면 다시는 자유를 누릴 수 없기 때문입니다. 여기서 나온 문장이 &quot;자유의 원칙이 자유롭지 않을 자유까지 허용하지는 않는다&quot;입니다.</p>
+  <p>이 대목의 해석은 정면으로 부딪칩니다. 제럴드 드워킨은 밀이 제한된 온정주의를 시사한다고 읽습니다. 조엘 파인버그는 그 해석이 『자유론』의 본지를 오해한 것이라며 거부합니다. 절충하는 쪽은 자율성이 결여된 상태를 보충하는 &#x27;약한 온정주의&#x27;라면 자유론 안에 수용될 수 있다고 봅니다.</p>
+  <p>불쾌 원칙도 사정이 비슷합니다. 파인버그는 심각한 불쾌를 막는 것이 형사금지의 좋은 이유가 된다며 이를 원리로 세웠습니다. 다만 그가 붙인 조건이 까다롭습니다. 특정 집단이 아니라 무작위로 뽑은 어떤 부류에게서도 같은 반응이 나와야 하고, 상당한 불편 없이 그 장면을 피할 수 있다면 국가가 개입해선 안 됩니다.</p>
+  <p>스탠퍼드 철학백과는 이 불쾌 원칙이 &quot;밀의 공식 입장을 넘어선다&quot;고 명시합니다. 반대로 국내 법철학 연구에서는 밀이 5장에서 미풍양속 침해 행위를 언급한 대목을 근거로, 불쾌감의 원칙을 보충적 원칙으로 인정했다고 읽기도 합니다.</p>
+  <p>정리하자면 이렇습니다. 해악 원칙이라는 이름은 하나지만, 그 안의 결론은 하나가 아닙니다. 밀은 불쾌도 자기 해악도 인정하지 않았습니다. 파인버그는 불쾌를 더했습니다. 하트와 라즈는 자기 해악까지 인정될 수 있다고 보았습니다. 이들을 묶어주는 유일한 공통점은 법적 도덕주의에 대한 거부뿐입니다.</p>
+  <figure><img src="./images/body-4.png" alt="밀 파인버그 하트 라즈가 인정한 자유 제한 근거를 비교한 표"></figure>
+  <hr>
+  <h2>밀이 스스로 둔 예외, 그리고 그 예외가 남긴 문제</h2>
+  <p>해악 원칙을 선언한 바로 다음 문단에서 밀은 예외를 둡니다.</p>
+  <p>첫째는 어린이와 미성년자입니다. 아직 보살핌을 필요로 하는 이들은 외부의 침해뿐 아니라 자신의 행위로부터도 보호받아야 한다고 그는 씁니다.</p>
+  <p>둘째가 논쟁적입니다. 밀은 &quot;뒤처진 사회&quot;를 논의에서 제외하며, 야만인을 상대할 때 전제는 정당한 통치 방식이라고 적었습니다. 그 목적이 그들의 개선이고 수단이 실제로 그 목적을 달성함으로써 정당화되는 한에서라는 단서가 붙습니다.</p>
+  <p>이 문장은 논쟁의 여지 없이 원문에 실려 있습니다. 평가는 갈립니다.</p>
+  <p>비판하는 쪽은 밀이 동인도회사에서 25년을 일했다는 사실을 함께 봅니다. 자유주의적 보편주의의 약속에서 식민지 신민을 배제한 이 대목이, 제국 시대 자유주의의 근본적 모호함을 드러낸다는 것입니다.</p>
+  <p>완화해 읽는 쪽은 &#x27;관용적 제국주의&#x27;라는 표현을 씁니다. 밀이 옹호한 것은 법적 권리 보호와 상충하는 관점에 대한 관용이었고, 말년으로 갈수록 식민주의의 진보 가능성에 회의적이 되었다는 해석입니다.</p>
+  <p>어느 쪽 해석을 택하든 남는 물음이 하나 있습니다. &quot;성숙한 능력&quot;의 기준을 누가 판정하는가입니다. 판정 권한을 쥔 쪽이 곧 개입을 정당화하는 쪽이 되기 때문입니다. 밀 자신이 가장 경계했던 구조가, 그가 둔 예외 안에 들어와 있는 셈입니다.</p>
+  <hr>
+  <h2>도덕은 법으로 강제될 수 있는가 — 데블린과 하트</h2>
+  <p>밀이 그은 선은 100년 뒤 영국에서 다시 시험대에 오릅니다.</p>
+  <p>1957년 울펜덴 보고서는 사적으로 이루어지는 동의한 성인 간의 동성애 행위를 더 이상 범죄로 삼아서는 안 된다고 권고했습니다. 근거는 그런 행위가 타인에게 해를 끼치지 않는다는 것이었습니다. 보고서는 법의 기능이 시민의 사생활에 개입하거나 특정한 행동 양식을 강제하는 데 있지 않다고 못 박았습니다.</p>
+  <p>데블린 경이 반박합니다. 사회는 공통 도덕에 의해 구성되며, 그 도덕은 인정된 정부만큼이나 사회에 필수적이라는 것입니다. 도덕이 충분히 강제되지 않으면 사회는 해체되고, 따라서 사회는 자신을 방어할 권리를 갖는다고 그는 주장했습니다.</p>
+  <p>하트가 응수합니다. 데블린은 &quot;어떤 공유된 도덕은 어느 사회의 존립에도 필수적이다&quot;라는 받아들일 만한 명제에서, &quot;사회는 특정 시점의 그 도덕과 동일하므로 도덕의 변화는 곧 사회의 파괴다&quot;라는 받아들일 수 없는 명제로 미끄러졌다는 지적입니다.</p>
+  <p>앞의 명제는 폭력 제한, 정직, 약속 이행 같은 최소한에 한정하면 그럴듯합니다. 그런데 그 최소한은 데블린이 거부한 해악 원칙으로 이미 설명됩니다. 스탠퍼드 철학백과는 데블린의 해체 논증이 이 비판으로 치명상을 입은 것으로 보인다고 평가합니다.</p>
+  <p>다만 하트가 밀의 충실한 계승자였던 것은 아닙니다. 그는 밀이 반온정주의를 &quot;오늘날 우리에게 환상적으로 보일 정도까지&quot; 밀고 나갔다고 비판했습니다. 데블린이 이를 두고 하트가 밀에 대해 반란을 일으켰다고 표현한 것도 그 때문입니다.</p>
+  <p>한 가지 더 짚어둘 것이 있습니다. 밀의 선긋기가 애초에 가능하냐는 물음입니다. 스티븐 이래 비판자들은 &quot;어떤 인간도 섬이 아니다&quot;라고 말합니다. 조직된 사회에서 아무에게도 해를 끼치지 않는 행위 부류를 식별하는 것은 불가능하며, 밀의 선은 환상이라는 것입니다.</p>
+  <p>밀의 방어선은 4장에 있습니다. 명확한 손해나 그 위험이 있을 때 사안은 자유의 영역을 벗어납니다. 그러나 단지 우연적이고 추정적인 손해는 &quot;인간 자유라는 더 큰 선을 위해 사회가 감당할 수 있는 불편&quot;이라는 것이 그의 답입니다.</p>
+  <figure><img src="./images/body-5.png" alt="울펜덴 보고서와 데블린 하트의 입장을 정리한 카드"></figure>
+  <hr>
+  <h2>오늘의 논쟁에서 이 원칙은 어떻게 쓰이는가</h2>
+  <p>예전에는 이 논쟁의 무대가 성 도덕과 음란물이었습니다. 지금은 혐오표현과 디지털 공론장으로 옮겨왔습니다.</p>
+  <p>제러미 웨일드론은 혐오표현이 취약한 소수자의 평등한 존엄을 훼손한다고 주장합니다. 그 해악은 부러진 뼈처럼 만져지지 않습니다. 포용성이라는 공공재와, 동등하게 대우받을 자격의 토대를 침식하는 종류의 것입니다.</p>
+  <p>반론도 분명합니다. 그런 해악 개념은 검열을 정당화하는 데 밀의 원칙이 요구하는 특정성과 중대성을 결여한다는 것입니다. 결국 쟁점은 하나로 모입니다. 혐오표현은 &#x27;해악&#x27;인가, &#x27;불쾌&#x27;인가. 해악이라면 밀의 원칙 안에서도 규제가 가능하고, 불쾌라면 밀의 공식 입장으로는 불가능합니다.</p>
+  <p>디지털 환경은 또 다른 물음을 던집니다. 2024년 『다이달로스』에 실린 한 논문은 이렇게 정리합니다. 밀은 철저한 경험주의자였고, 무제한의 토론이 전체적으로 최선의 결과를 낳는다는 경험적 판단 위에 자기 논증을 세웠습니다. 그런데 디지털 기술은 사상과 토론이 생산되고 유통되고 수용되는 방식을 바꾸었습니다. 밀의 논증이 딛고 선 전제 일부가 흔들릴 수 있다는 문제 제기입니다.</p>
+  <p>안전 규제도 같은 자리에 있습니다. 안전벨트와 헬멧 의무, 강제수혈 명령은 모두 온정주의 정당화 논쟁의 실제 사례입니다. 흥미롭게도 하트는 &quot;개인이 자기 이익을 가장 잘 안다는 믿음의 전반적 쇠퇴&quot;를 이미 언급했습니다. 오늘날의 넛지 논의를 절반쯤 앞질러 간 진단입니다.</p>
+  <p>밀 자신도 규제를 전면 부정하지는 않았습니다. 5장에서 그는 독극물 판매를 금지하는 대신 구매자 기록과 경고 라벨을 두는 방식을 제안합니다. 자유를 지키면서 위험을 줄이는 절충의 감각이 여기에 있습니다.</p>
+  <hr>
+  <p>정리하면 이렇습니다.</p>
+  <p>밀의 해악 원칙은 답이 아니라 물음의 형식입니다. 이 원칙은 무엇이 옳은가를 알려주지 않습니다. 다만 강제를 하려는 쪽에 입증 책임을 지웁니다. 누가 어떤 해를 입는지 말하지 못한다면, 그 강제는 정당화되지 않는다는 것입니다.</p>
+  <p>한계는 분명합니다. 해악의 범위는 여전히 논쟁 중이고, 밀이 스스로 둔 예외에는 오늘의 눈으로 감당하기 어려운 문장이 섞여 있습니다. 자기관계적 행위라는 구분이 실제로 그어지는가에 대한 회의도 사라지지 않았습니다.</p>
+  <p>그럼에도 이 원칙이 167년을 버틴 이유는 하나일 것입니다. &quot;금지하려는 쪽이 먼저 설명해야 한다.&quot;</p>
+  <p>우리가 이 원칙을 여전히 읽어야 하냐고 물으신다면, 저는 그렇다고 답하겠습니다. 답을 얻기 위해서가 아니라, 무엇을 물어야 하는지 잊지 않기 위해서입니다.</p>
+  <p class="tags"><span class="tag">#존스튜어트밀</span> <span class="tag">#자유론</span> <span class="tag">#해악의원칙</span> <span class="tag">#표현의자유</span> <span class="tag">#법철학</span> <span class="tag">#하트데블린논쟁</span> <span class="tag">#철학공부</span> <span class="tag">#인문학</span></p>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
