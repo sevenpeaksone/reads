@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>컨테이너는 어떻게 격리되나 — 네임스페이스와 cgroup으로 읽는 도커의 원리</title>
+<style>
+  :root { --accent:#4f8cff; --ink:#1f2328; --mute:#6b7280; --line:#e6e8ec; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:48px 20px 90px;
+    background:#f6f7f9; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { width:700px; max-width:100%; margin:0 auto; background:#fff;
+          padding:52px 44px 60px; border:1px solid var(--line); border-radius:14px; }
+  .meta { margin-bottom:22px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .badge { display:inline-block; background:var(--accent); color:#fff;
+           font-size:13px; font-weight:700; letter-spacing:.04em;
+           padding:5px 13px; border-radius:999px; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:31px; line-height:1.42; font-weight:800; margin:0 0 30px;
+       letter-spacing:-.01em; word-break:keep-all; }
+  h2 { font-size:21px; line-height:1.5; font-weight:700; margin:46px 0 16px;
+       padding-left:13px; border-left:4px solid var(--accent); word-break:keep-all; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+  ul { margin:0 0 22px; padding-left:22px; }
+  li { font-size:16.5px; line-height:1.8; margin-bottom:9px; word-break:keep-all; }
+  strong { font-weight:700; }
+  code { background:#f0f2f5; border-radius:4px; padding:2px 6px;
+         font-family:'SF Mono',Menlo,Consolas,monospace; font-size:14.5px; }
+  blockquote { margin:0 0 22px; padding:16px 20px; background:#f4f7fd;
+               border-left:4px solid var(--accent); border-radius:0 8px 8px 0; }
+  blockquote p { margin:0; font-size:16px; color:#33404f; line-height:1.8; }
+  pre { margin:0 0 22px; padding:16px 18px; background:#1f2430; color:#e8ecf4;
+        border-radius:10px; overflow-x:auto; }
+  pre code { background:none; color:inherit; padding:0; font-size:14px; line-height:1.7; }
+  hr { border:0; border-top:1px solid var(--line); margin:38px 0; }
+  figure { margin:30px 0; }
+  img { max-width:100%; height:auto; display:block; border-radius:10px; }
+  .tags { color:var(--accent); font-size:14.5px; line-height:1.9;
+          margin-top:34px; word-break:keep-all; }
+  @media (max-width:760px) { .wrap { padding:34px 20px 44px; } h1 { font-size:25px; } }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+  <div class="meta"><span class="badge">IT</span><span class="date">2026-08-29</span></div>
+  <h1>컨테이너는 어떻게 격리되나 — 네임스페이스와 cgroup으로 읽는 도커의 원리</h1>
+  <figure><img src="./images/thumbnail.png" alt="컨테이너 격리 원리를 다루는 글의 대표 이미지"></figure>
+  <p>이번 글에서는 컨테이너가 어떻게 격리되는지를 커널 수준에서 정리해 보겠습니다. 도커를 오래 써 왔어도 &quot;컨테이너는 가벼운 가상머신&quot;이라는 설명에서 더 나아가기는 어렵습니다. 그 자리를 네임스페이스와 cgroup, 그리고 OverlayFS로 채워보려 합니다.</p>
+  <hr>
+  <h2>컨테이너라는 것은 사실 없습니다</h2>
+  <p>먼저 한 가지를 짚고 넘어가야 합니다.</p>
+  <p>리눅스 커널에는 <code>container</code>라는 이름의 자료구조가 없습니다. 컨테이너를 만드는 시스템콜도 없습니다.</p>
+  <p>있는 것은 평범한 프로세스 하나입니다. 다만 그 프로세스가 <strong>자신에게만 유효한 세계관</strong>을 갖도록 커널이 몇 가지 장치를 걸어둔 것뿐입니다.</p>
+  <p>그 장치가 세 가지입니다. 무엇을 볼 수 있는지 정하는 <strong>네임스페이스</strong>, 얼마나 쓸 수 있는지 정하는 <strong>cgroup</strong>, 무엇을 할 수 있는지 정하는 <strong>capabilities와 seccomp</strong>입니다. 여기에 파일시스템을 겹쳐 보여주는 OverlayFS가 붙습니다.</p>
+  <p>도커는 이 장치들을 조립해 주는 도구입니다. 격리 자체는 도커가 아니라 커널이 합니다.</p>
+  <hr>
+  <h2>네임스페이스 — 자원을 나누지 않고 시야를 나눕니다</h2>
+  <p>man 페이지의 정의가 가장 정확합니다.</p>
+  <blockquote><p>&quot;네임스페이스는 전역 시스템 자원을 하나의 추상화로 감싸서, 그 안의 프로세스들에게 마치 자기만의 독립된 인스턴스를 가진 것처럼 보이게 만든다.&quot;</p></blockquote>
+  <p>핵심은 &#x27;보이게 만든다&#x27;는 표현입니다. 자원을 복제하는 것이 아닙니다. <strong>보이는 범위를 갈아 끼우는 것</strong>입니다.</p>
+  <p>현재 리눅스 매뉴얼이 정리한 네임스페이스는 여덟 종류입니다.</p>
+  <p>마운트 네임스페이스는 마운트 지점을, PID는 프로세스 ID를, 네트워크는 네트워크 장치와 스택과 포트를, IPC는 System V IPC와 POSIX 메시지 큐를, UTS는 호스트명과 NIS 도메인명을, 유저는 사용자·그룹 ID를, cgroup은 cgroup 루트 디렉터리를 격리합니다. 여기에 부팅 시각과 모노토닉 클럭을 격리하는 타임 네임스페이스가 리눅스 5.6부터 합류했습니다.</p>
+  <p>작은 흔적 하나가 눈에 띕니다. 마운트 네임스페이스의 플래그 이름만 <code>CLONE_NEWNS</code>입니다. 뒤에 타입 이름이 붙지 않습니다. 가장 먼저 만들어졌기 때문입니다. 그때는 네임스페이스라고 하면 마운트 네임스페이스 하나뿐이었습니다.</p>
+  <figure><img src="./images/body-1.png" alt="리눅스 네임스페이스 8종의 clone 플래그와 격리 대상을 정리한 표"></figure>
+  <hr>
+  <h2>네임스페이스는 파일로 존재합니다</h2>
+  <p>추상적인 개념처럼 들리지만, 실체는 파일시스템에 있습니다.</p>
+  <p>모든 프로세스는 <code>/proc/pid/ns/</code> 아래에 자기가 속한 네임스페이스마다 심볼릭 링크를 하나씩 갖습니다.</p>
+  <pre><code>$ readlink /proc/$$/ns/uts
+uts:[4026531838]</code></pre>
+  <p>대괄호 안의 숫자는 아이노드 번호입니다. 두 프로세스가 같은 네임스페이스에 있는지 확인하고 싶다면 이 링크의 <code>st_dev</code>와 <code>st_ino</code>를 비교하면 됩니다. 리눅스 3.7까지는 하드링크였고, 3.8부터 심볼릭 링크로 바뀌었습니다.</p>
+  <p>재미있는 성질이 하나 있습니다. 이 파일을 bind mount 하거나 파일 디스크립터로 열어두면, <strong>안에 있던 프로세스가 전부 죽어도 네임스페이스는 살아남습니다.</strong> 프로세스 없는 네트워크 네임스페이스를 만들어두는 기법이 여기서 나옵니다.</p>
+  <hr>
+  <h2>clone, setns, unshare — 세 개의 시스템콜</h2>
+  <p>네임스페이스를 다루는 API는 사실상 세 개뿐입니다.</p>
+  <ul><li><strong><code>clone(2)</code></strong> — 새 프로세스를 만들면서 <code>CLONE_NEW*</code> 플래그를 주면 플래그마다 새 네임스페이스가 생기고 자식이 그 멤버가 됩니다. 컨테이너 &#x27;생성&#x27;의 실체입니다.</li><li><strong><code>setns(2)</code></strong> — 이미 있는 네임스페이스에 합류합니다. <code>/proc/pid/ns/*</code>의 파일 디스크립터를 넘깁니다. <code>docker exec</code>와 <code>nsenter</code>가 이걸 씁니다.</li><li><strong><code>unshare(2)</code></strong> — 호출한 프로세스 자신을 새 네임스페이스로 옮깁니다.</li></ul>
+  <p>여기서 권한 조건이 중요합니다. 매뉴얼은 이렇게 못 박습니다.</p>
+  <blockquote><p>&quot;clone과 unshare로 새 네임스페이스를 만드는 일은 대부분의 경우 CAP_SYS_ADMIN 능력을 요구한다. 유저 네임스페이스만 예외다. 리눅스 3.8부터는 유저 네임스페이스 생성에 어떤 특권도 필요하지 않다.&quot;</p></blockquote>
+  <p>이 한 줄이 두 갈래 결과를 낳았습니다. 한쪽으로는 root 없이 컨테이너를 돌리는 rootless 모드가 가능해졌습니다. 다른 한쪽으로는 권한 상승 공격의 진입점이 열렸습니다. 도커의 기본 seccomp 프로파일이 <code>clone</code>을 막으면서도 <code>CLONE_NEWUSER</code>만은 따로 언급하는 이유가 여기 있습니다.</p>
+  <figure><img src="./images/body-2.png" alt="clone setns unshare 세 시스템콜의 역할 비교"></figure>
+  <hr>
+  <h2>PID 1이 되는 순간 규칙이 달라집니다</h2>
+  <p>PID 네임스페이스는 조금 특별합니다. 단순히 번호를 다시 매기는 데 그치지 않습니다.</p>
+  <p>새 PID 네임스페이스의 첫 프로세스는 그 안에서 init, 즉 PID 1이 됩니다. 그리고 커널이 PID 1에게만 적용하는 규칙이 셋 있습니다.</p>
+  <p>첫째, 고아가 된 프로세스가 전부 PID 1에게 재부모화됩니다. PID 1이 좀비를 거둬주지 않으면 좀비가 쌓입니다.</p>
+  <p>둘째, <strong>PID 1에게는 직접 핸들러를 등록한 시그널만 전달됩니다.</strong> 나머지는 무시됩니다. SIGKILL과 SIGSTOP은 조상 네임스페이스에서 보낸 경우에만 강제로 전달됩니다.</p>
+  <p>셋째, PID 1이 종료되면 커널이 그 네임스페이스의 모든 프로세스를 SIGKILL로 죽입니다.</p>
+  <p><code>docker stop</code>이 10초를 기다렸다가 결국 강제 종료로 넘어가는 광경을 보신 적이 있으실 겁니다. 대개 원인은 여기입니다. 애플리케이션이 PID 1로 뜬 채 SIGTERM 핸들러를 등록하지 않은 것입니다. <code>docker run --init</code> 옵션이 존재하는 이유이기도 합니다.</p>
+  <hr>
+  <h2>cgroup — 격리가 아니라 배분입니다</h2>
+  <p>여기서 오해가 자주 생깁니다. cgroup은 격리 장치가 아닙니다.</p>
+  <p>도커 공식 보안 문서가 이 구분을 분명히 합니다.</p>
+  <blockquote><p>&quot;cgroup은 한 컨테이너가 다른 컨테이너의 데이터와 프로세스에 접근하거나 영향을 주는 것을 막는 역할은 하지 않는다. 다만 일부 서비스 거부 공격을 막는 데는 필수적이다.&quot;</p></blockquote>
+  <p>정리하면 이렇습니다. <strong>네임스페이스는 보이는 것을 나누고, cgroup은 쓸 수 있는 양을 나눕니다.</strong> 서로 다른 문제를 풉니다.</p>
+  <p>cgroup 코드는 2006년에 시작해 커널 2.6.24에 처음 들어갔습니다. 네임스페이스보다 조금 늦었습니다.</p>
+  <hr>
+  <h2>cgroup v1과 v2는 무엇이 다른가</h2>
+  <p>예전에는 컨트롤러마다 별도의 계층 구조를 붙일 수 있었습니다. 지금은 하나로 모읍니다.</p>
+  <p>v1은 memory, cpu, blkio, pids 같은 컨트롤러마다 각자의 트리를 가질 수 있었습니다. 유연했지만, 같은 프로세스가 컨트롤러마다 다른 위치에 놓일 수 있어 정책을 맞추기가 까다로웠습니다.</p>
+  <p>v2는 <strong>통합 계층 구조(unified hierarchy)</strong> 하나만 씁니다. 마운트할 때 컨트롤러를 지정할 필요가 없습니다. 컨트롤러 지원 시점은 memory·io·pids가 리눅스 4.5, cpu가 4.15입니다.</p>
+  <p>v2가 도입한 두 제약이 설계 철학을 보여줍니다.</p>
+  <p>하나는 하향식 제약입니다. 자원은 위에서 아래로만 분배되며, 부모에게서 받지 못한 자원은 자식에게 나눠줄 수 없습니다.</p>
+  <p>다른 하나는 <strong>내부 프로세스 금지 제약</strong>입니다. 커널 문서의 표현을 옮기면, 자기 프로세스를 갖고 있지 않은 cgroup만 자식에게 도메인 자원을 분배할 수 있습니다. 결과적으로 프로세스는 항상 트리의 잎에만 놓입니다. 부모의 프로세스와 자식 cgroup이 자원을 두고 경쟁하는 애매한 상황이 원천 차단됩니다.</p>
+  <hr>
+  <h2>숫자 두 개로 CPU를, 파일 두 개로 메모리를</h2>
+  <p>실제 제한은 파일에 숫자를 쓰는 일입니다.</p>
+  <p><code>cpu.max</code>는 값 두 개를 갖는 파일이고, 형식은 <code>$MAX $PERIOD</code>입니다. 기본값은 <code>max 100000</code>입니다. 즉 주기가 10만 마이크로초, <strong>100밀리초</strong>입니다. <code>docker run --cpus=1.5</code>는 결국 이 파일에 <code>150000 100000</code>을 쓰는 일로 귀결됩니다.</p>
+  <p>여기서 CFS 스로틀링이 나옵니다. 100밀리초 구간 안에서 할당량을 다 써버리면, 남은 시간 동안 그 컨테이너는 스케줄에서 밀립니다. CPU 사용률이 한도에 못 미치는데도 응답이 튀는 현상의 배후가 대개 이것입니다.</p>
+  <p>메모리 쪽은 v2가 한계를 둘로 쪼갠 것이 인상적입니다.</p>
+  <p><code>memory.max</code>는 하드 리밋입니다. 커널 문서 그대로 옮기면, 사용량이 이 한계에 닿고 줄일 수 없으면 <strong>해당 cgroup 안에서 OOM 킬러가 호출됩니다.</strong></p>
+  <p><code>memory.high</code>는 다릅니다. <strong>이 한계를 넘어도 OOM 킬러는 절대 호출되지 않습니다.</strong> 대신 회수 압력이 걸리며 해당 cgroup이 스로틀됩니다. 극단적인 상황에서는 한계가 뚫리기도 합니다.</p>
+  <p>커널 문서는 오히려 <code>memory.high</code>를 주된 제어 수단으로 권합니다. high 한계의 합이 실제 메모리보다 크도록 오버커밋해두고, 전역 메모리 압력이 사용량에 따라 분배하도록 두는 것이 유효한 전략이라고 적어두었습니다. 죽이는 대신 조이기 때문에, 관리 에이전트가 관찰하고 개입할 시간이 생긴다는 논리입니다.</p>
+  <p>죽이는 한계와 조이는 한계를 나눈 것. v1에는 없던 구분입니다.</p>
+  <p>도커는 20.10부터 cgroup v2를 지원합니다. rootless 모드에서 리소스 제한을 걸려면 v2가 필요하고, <strong>cgroup v1 rootless는 보안상의 이유로 지원하지 않으며 앞으로도 지원하지 않는다</strong>고 명시되어 있습니다.</p>
+  <figure><img src="./images/body-3.png" alt="cgroup v1과 v2의 계층 구조 및 리소스 제한 방식 비교 표"></figure>
+  <hr>
+  <h2>OverlayFS — 이미지가 가벼운 진짜 이유</h2>
+  <p>이미지 레이어 이야기를 자주 듣지만, 그 아래는 union mount라는 오래된 기법입니다.</p>
+  <p>OverlayFS는 두 디렉터리를 겹쳐서 하나처럼 보여줍니다. 아래쪽을 <code>lowerdir</code>, 위쪽을 <code>upperdir</code>이라 부르고, 합쳐진 모습은 <code>merged</code>라는 디렉터리로 노출됩니다.</p>
+  <p>도커에 대입하면 이렇습니다.</p>
+  <ul><li><code>lowerdir</code> = 이미지 레이어. 읽기 전용이고 여러 장입니다.</li><li><code>upperdir</code> = 컨테이너 레이어. 쓰기 가능하고 한 장뿐입니다.</li><li><code>merged</code> = 컨테이너 안에서 보이는 최종 파일시스템입니다.</li><li><code>work</code> = OverlayFS가 내부적으로 쓰는 작업 공간입니다.</li></ul>
+  <p><code>overlay2</code> 드라이버는 하위 레이어를 <strong>최대 128장</strong>까지 지원합니다.</p>
+  <p>디스크에는 <code>/var/lib/docker/overlay2</code> 아래에 레이어별 디렉터리가 쌓입니다. 5개 레이어짜리 이미지를 받으면 디렉터리가 여섯 개 생깁니다. 레이어 다섯 개와 <code>l</code>이라는 디렉터리 하나입니다. 이 <code>l</code> 디렉터리에는 축약된 레이어 식별자가 심볼릭 링크로 들어 있는데, 이유가 소박합니다. <strong><code>mount</code> 명령의 인자가 페이지 크기 제한에 걸리지 않게 하기 위해서</strong>입니다.</p>
+  <p>동작은 copy-on-write입니다. 하위 레이어의 파일을 읽기만 하면 복사 없이 그대로 서빙합니다. 수정하는 순간에만 <code>upperdir</code>로 복사한 뒤 고칩니다.</p>
+  <p>여기에 함정이 하나 있습니다. <strong>OverlayFS는 블록 단위가 아니라 파일 단위로 동작합니다.</strong> 수 기가바이트짜리 파일의 1바이트만 고쳐도 파일 전체가 복사됩니다. 데이터베이스 파일을 컨테이너 레이어에 두면 안 되는 이유입니다. 볼륨이 존재하는 이유이기도 합니다.</p>
+  <figure><img src="./images/body-4.png" alt="OverlayFS의 lowerdir upperdir merged work 네 디렉터리 구조"></figure>
+  <hr>
+  <h2>컨테이너 안의 root는 root가 아닙니다</h2>
+  <p>격리의 마지막 축은 권한 축소입니다. 세 겹으로 걸립니다.</p>
+  <p><strong>첫째, capabilities.</strong> 리눅스는 root라는 이분법을 40여 개의 세분화된 능력으로 쪼개두었습니다. 1024번 미만 포트에 바인딩하고 싶다면 root가 아니라 <code>CAP_NET_BIND_SERVICE</code>만 있으면 됩니다.</p>
+  <p>도커는 이 중 <strong>14개만 남기고 전부 떨어뜨립니다.</strong> 차단 목록이 아니라 허용 목록 방식입니다. <code>CHOWN</code>, <code>DAC_OVERRIDE</code>, <code>FSETID</code>, <code>FOWNER</code>, <code>MKNOD</code>, <code>NET_RAW</code>, <code>SETGID</code>, <code>SETUID</code>, <code>SETFCAP</code>, <code>SETPCAP</code>, <code>NET_BIND_SERVICE</code>, <code>SYS_CHROOT</code>, <code>KILL</code>, <code>AUDIT_WRITE</code>가 전부입니다.</p>
+  <p>여기 <code>CAP_SYS_ADMIN</code>이 없다는 점이 결정적입니다. 마운트도, 새 네임스페이스 생성도, 커널 모듈 적재도 여기에 걸립니다. 컨테이너 안에서 root를 얻어내도 할 수 있는 일이 크게 줄어듭니다.</p>
+  <p><strong>둘째, seccomp.</strong> 기본 프로파일은 <strong>300개 남짓한 시스템콜 중 약 44개</strong>를 막습니다. 기본 동작이 <code>SCMP_ACT_ERRNO</code>이므로 차단 시 프로세스를 죽이지 않고 권한 거부 오류를 돌려줍니다.</p>
+  <p>차단 사유를 읽어보면 seccomp의 역할이 드러납니다. <code>add_key</code>가 막히는 이유는 &quot;커널 키링이 네임스페이스화되어 있지 않아서&quot;입니다. <code>clock_settime</code>이 막히는 이유는 &quot;시각과 날짜가 네임스페이스화되어 있지 않아서&quot;입니다.</p>
+  <p>즉 <strong>seccomp는 네임스페이스가 미처 가리지 못한 구멍을 메우는 장치</strong>입니다. <code>mount</code>, <code>setns</code>, <code>bpf</code>, <code>swapon</code>, <code>create_module</code> 같은 호출도 함께 막힙니다. <code>acct</code>와 <code>quotactl</code>이 막히는 이유는 조금 다릅니다. 컨테이너가 자기에게 걸린 리소스 제한을 스스로 풀어버릴 수 있기 때문입니다.</p>
+  <p><strong>셋째, AppArmor.</strong> 도커는 컨테이너용 기본 프로파일 <code>docker-default</code>를 tmpfs에 생성해 커널에 적재합니다. 이 프로파일은 컨테이너에 적용되며, 데몬에는 적용되지 않습니다.</p>
+  <p>세 장치가 겹쳐 작동하는 예가 <code>ptrace</code>입니다. AppArmor로 막고, seccomp로 막고, <code>CAP_PTRACE</code>를 떨어뜨려 또 막습니다. 하나가 뚫려도 나머지가 남도록 설계한 것입니다.</p>
+  <figure><img src="./images/body-5.png" alt="capabilities seccomp AppArmor 세 겹 권한 축소 장치 정리"></figure>
+  <hr>
+  <h2>그래서 VM과 무엇이 다른가</h2>
+  <p>가장 큰 차이는 하나입니다. <strong>컨테이너는 호스트 커널을 공유합니다.</strong> VM은 게스트 커널을 따로 갖습니다.</p>
+  <p>성능 쪽 근거로는 IBM 리서치가 2015년 ISPASS에서 발표한 비교 연구가 지금도 인용됩니다. Xeon E5-2665 2소켓 16코어, 램 256기가바이트 서버에서 커널 3.11, Docker 1.0, QEMU 1.5.0으로 측정한 실험입니다.</p>
+  <p>MySQL을 SysBench로 돌린 결과가 이렇습니다.</p>
+  <blockquote><p>&quot;Docker는 네이티브와 비슷한 성능을 보였고, 동시성이 높아질수록 차이가 점근적으로 <strong>2%</strong>에 수렴했다. KVM은 오버헤드가 훨씬 컸고, <strong>측정한 모든 구간에서 40%를 넘었다.</strong>&quot;</p></blockquote>
+  <p>다만 논문의 결론 부분이 더 중요합니다. 컨테이너와 VM 모두 CPU와 메모리에는 사실상 오버헤드가 없고, <strong>영향을 받는 것은 I/O와 OS 상호작용뿐</strong>이라는 관찰입니다. 오버헤드가 I/O 연산마다 추가 사이클로 나타나기 때문에, 큰 I/O보다 <strong>작은 I/O가 훨씬 크게 손해</strong>를 봅니다.</p>
+  <p>논문은 도커 자신의 대가도 지적합니다. 당시 기본 드라이버였던 AUFS를 두고, 도커처럼 파일시스템 위에서 가상화하는 방식과 KVM처럼 블록 계층 아래에서 가상화하는 방식의 차이가 드러난다고 적었습니다. 그래서 파일시스템이나 디스크를 많이 쓰는 애플리케이션은 볼륨으로 우회하라고 권합니다. NAT 오버헤드는 <code>--net=host</code>로 없앨 수 있지만, 그러면 네트워크 네임스페이스의 이점을 포기하는 것이라고 덧붙입니다.</p>
+  <p>2015년 실험이고 AUFS 기준이라는 점은 감안해야 합니다. 지금 기본 드라이버는 overlay2입니다. 그래도 레이어드 파일시스템이 I/O에 비용을 매긴다는 구조적 결론은 여전히 유효합니다.</p>
+  <hr>
+  <h2>격리의 한계 — 커널은 하나뿐입니다</h2>
+  <p>좋은 점만 적을 수는 없습니다.</p>
+  <p>도커 공식 문서가 스스로 인정하는 문장이 있습니다. 컨테이너에 주어지는 기본 capability와 마운트 집합이 <strong>불완전한 격리를 제공할 수 있으며, 커널 취약점과 결합되면 특히 그렇다</strong>는 것입니다.</p>
+  <p>실제로 두 번의 큰 사건이 있었습니다.</p>
+  <p><strong>CVE-2019-5736</strong>은 runc 1.0-rc6 이하가 대상이었습니다. 파일 디스크립터 처리 실수를 이용해 <code>/proc/self/exe</code>를 경유하면 <strong>호스트의 runc 바이너리를 덮어쓸 수 있었습니다.</strong> 결과는 호스트 root 획득입니다. 수정은 우아했습니다. <code>/proc/self/exe</code>가 가리키는 대상을 메모리에 통째로 복사한 사본으로 만들어, 덮어써도 호스트가 다치지 않게 했습니다.</p>
+  <p><strong>CVE-2024-21626</strong>, 이른바 Leaky Vessels는 더 최근입니다. runc v1.1.11 이하가 대상이었고, Dockerfile의 <code>WORKDIR</code> 적용 순서 문제였습니다. 특권 호스트 디렉터리의 파일 디스크립터가 닫히기 전에 <code>chdir</code>이 수행되는 틈을 노립니다. 공격 코드가 놀랄 만큼 짧습니다.</p>
+  <pre><code>FROM ubuntu
+WORKDIR /proc/self/fd/[9]
+RUN cd ../../../../../ &amp;&amp; cat etc/shadow</code></pre>
+  <p>이 두 줄로 호스트 파일시스템에 닿습니다. Wiz의 조사에 따르면 <strong>클라우드 환경의 최소 80%에 취약한 인스턴스가 존재</strong>했습니다. 패치는 runc v1.1.12, Moby v25.0.2였습니다.</p>
+  <p>물론 조건은 있습니다. Wiz도 명시하듯, 임의의 실행 중인 컨테이너에서 코드 실행 권한을 얻었다는 사실만으로 이 취약점을 악용할 수 있는 것은 아닙니다. 이미지나 Dockerfile, 실행 인자 중 하나를 공격자가 통제하거나, 누군가 <code>runc exec</code>로 들어오기를 기다려야 합니다.</p>
+  <p>그래서 업계가 택한 길이 둘로 갈립니다. <strong>gVisor</strong>는 Go로 쓴 유저스페이스 커널을 두고, Sentry라는 컴포넌트가 시스템콜을 가로채 유저 공간에서 처리합니다. 호스트 커널로 내려가는 호출을 줄이는 방식입니다. <strong>Kata Containers</strong>는 아예 워크로드마다 전용 게스트 커널을 가진 VM을 띄웁니다. 탈출하려면 게스트 커널을 뚫고 하이퍼바이저까지 뚫어야 합니다.</p>
+  <p>어느 쪽도 공짜는 아닙니다. gVisor는 Sentry 자체의 취약점을 막지 못하고, Kata는 microVM의 비용을 치릅니다.</p>
+  <figure><img src="./images/body-6.png" alt="컨테이너와 가상머신의 격리 방식 성능 탈출 위험 비교 표"></figure>
+  <hr>
+  <p>정리하면 이렇습니다.</p>
+  <p>컨테이너는 하나의 기술이 아닙니다. 시야를 나누는 네임스페이스, 몫을 나누는 cgroup, 권한을 깎는 capabilities와 seccomp, 파일시스템을 겹치는 OverlayFS가 각자 다른 문제를 풀고 있을 뿐입니다. 도커는 그 조각들을 한 줄의 명령으로 묶어주는 포장지에 가깝습니다.</p>
+  <p>이 주제가 남기는 문장은 하나로 압축됩니다. <strong>&quot;컨테이너는 벽을 세운 것이 아니라, 커널에게 무엇을 보여줄지 물어본 것이다.&quot;</strong></p>
+  <p>그렇다면 컨테이너를 신뢰 경계로 삼아도 되겠냐고 물으신다면, 저는 조심스럽게 아니라고 답하겠습니다. 벽이 아니라 약속이기 때문입니다. 약속은 커널이 지키는 한에서만 유효합니다.</p>
+  <p class="tags">#컨테이너격리 #도커원리 #리눅스네임스페이스 #cgroup #OverlayFS #seccomp #컨테이너보안 #runc #컨테이너와VM차이</p>
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

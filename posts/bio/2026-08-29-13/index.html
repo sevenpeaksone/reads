@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>후각의 원리, 코가 수천 가지 냄새를 구별하고 기억과 연결하는 방법</title>
+<style>
+  :root { --accent:#ff7676; --ink:#1f2226; --mute:#6d7480; --line:#e7e9ee; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:48px 20px 96px;
+    background:#fbfbfc; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { width:700px; max-width:100%; margin:0 auto; }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .badge {
+    display:inline-block; padding:5px 13px; border-radius:999px;
+    background:var(--accent); color:#fff; font-size:13px; font-weight:700; letter-spacing:.02em;
+  }
+  .date { color:var(--mute); font-size:14px; }
+  h1 {
+    font-size:30px; line-height:1.42; font-weight:800;
+    margin:0 0 28px; letter-spacing:-.01em; word-break:keep-all;
+  }
+  h2 {
+    font-size:21px; line-height:1.5; font-weight:700;
+    margin:52px 0 18px; padding-left:14px;
+    border-left:4px solid var(--accent); word-break:keep-all;
+  }
+  p { font-size:17px; line-height:1.85; margin:0 0 22px; word-break:keep-all; }
+  strong { font-weight:700; }
+  code {
+    background:#f0f1f4; padding:1px 6px; border-radius:4px;
+    font-size:15px; font-family:'SFMono-Regular',Menlo,Consolas,monospace;
+  }
+  hr { border:0; border-top:1px solid var(--line); margin:44px 0; }
+  figure { margin:32px 0; }
+  figure img {
+    max-width:100%; height:auto; display:block;
+    border-radius:12px; border:1px solid var(--line);
+  }
+  figcaption {
+    margin-top:10px; font-size:13px; line-height:1.6;
+    color:var(--mute); text-align:center; word-break:keep-all;
+  }
+  .tags { margin-top:56px; padding-top:26px; border-top:1px solid var(--line); }
+  .tags span {
+    display:inline-block; margin:0 8px 8px 0; padding:6px 12px;
+    background:#f2f3f6; border-radius:999px; font-size:13px; color:#4a5058;
+  }
+  @media (max-width:520px) {
+    body { padding:28px 16px 64px; }
+    h1 { font-size:25px; } h2 { font-size:19px; } p { font-size:16px; }
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+  <div class="meta"><span class="badge">바이오</span><span class="date">2026-08-29</span></div>
+  <h1>후각의 원리, 코가 수천 가지 냄새를 구별하고 기억과 연결하는 방법</h1>
+  <p>이번 글에서는 후각의 원리를 정리해 보겠습니다.<br>코 안쪽 5제곱센티미터 남짓한 조직이 어떻게 수천 가지 냄새를 갈라내는지,<br>그리고 그 신호가 왜 하필 기억과 감정으로 곧장 흘러드는지 살펴보려 합니다.</p>
+  <figure><img src="./images/thumbnail.png" alt="후각의 원리 대표 이미지 - 코는 어떻게 냄새를 구별하는가"><figcaption>후각의 원리 대표 이미지 - 코는 어떻게 냄새를 구별하는가</figcaption></figure>
+  <hr>
+  <h2>냄새는 코의 천장에서 붙잡힙니다</h2>
+  <p>사람의 후각상피는 약 5제곱센티미터입니다.<br>비강 천장, 콧구멍에서 7센티미터쯤 위이자 안쪽에 자리합니다.<br>개의 후각상피는 사람의 약 40배 넓습니다. 출발선부터 차이가 큽니다.</p>
+  <p>이 상피에 후각수용체 뉴런이 빽빽이 박혀 있습니다.<br>각 뉴런은 돌기를 하나 내밀고, 그 끝이 곤봉처럼 부풉니다.<br>거기서 움직이지 않는 섬모 10~15개가 점액층 속으로 뻗습니다.<br>수용체 단백질은 바로 이 섬모막에 있습니다.</p>
+  <p>그래서 냄새 분자는 공기 중에서 곧바로 수용체에 닿지 못합니다.<br>먼저 점액에 녹아야 합니다.<br>이 점액은 상피 곳곳의 보먼샘이 만들어 냅니다.<br>후각은 기체의 감각처럼 보이지만, 실제 접촉은 액체 안에서 일어납니다.</p>
+  <hr>
+  <h2>400개의 수용체로 수만 가지를 갈라내는 방법</h2>
+  <p>1991년 리처드 액설과 린다 벅이 결정적인 답을 내놓았습니다.<br>두 사람은 후각수용체가 거대한 GPCR 계열일 것이고, 발현은 후각상피에만 국한될 것이라고 가정했습니다.<br>그 가정 위에서 축퇴 프라이머 PCR로 유전자를 훑었고, 7회 막관통 단백질을 코딩하는 다중유전자군 18개를 클로닝했습니다.<br>논문은 셀(Cell) 65권에 실렸고, 2004년 노벨 생리의학상으로 이어졌습니다.</p>
+  <p>수치는 조심해서 읽어야 합니다.<br>노벨상 위원회가 말한 &quot;약 1,000개&quot;는 두 사람이 연구한 생쥐 기준입니다.<br>같은 자료가 물고기는 약 100개, 사람은 생쥐보다 적다고 분명히 적어 두었습니다.<br>유전체 분석 결과 사람의 기능하는 후각수용체 유전자는 약 400개입니다.<br>그리고 비슷한 수의 망가진 유전자, 곧 위유전자를 함께 가지고 있습니다.<br>연구마다 위유전자를 400개로 보기도 하고 600개로 보기도 합니다. 기능과 비기능을 가르는 기준이 달라서입니다.</p>
+  <figure><img src="./images/body-1.png" alt="어류 약 100개 생쥐 약 1000개 사람 약 400개, 종별 후각수용체 유전자 수 비교"><figcaption>어류 약 100개 생쥐 약 1000개 사람 약 400개, 종별 후각수용체 유전자 수 비교</figcaption></figure>
+  <p>핵심은 개수가 아니라 쓰는 방식입니다.<br>하나의 수용체는 여러 냄새 분자에 반응합니다.<br>하나의 냄새 분자는 여러 수용체를 켭니다.<br>결합이 엄격하지 않습니다. 면역계의 항원 인식과 결정적으로 다른 지점입니다.</p>
+  <p>그래서 냄새는 개별 수용체가 아니라 켜진 수용체들의 조합으로 부호화됩니다.<br>1999년 벅 연구팀이 셀에 발표한 조합 코딩(combinatorial coding)입니다.<br>노벨상 위원회는 이 방식을 조각보나 모자이크의 색깔에 비유했습니다.<br>색 400개로 만들 수 있는 무늬의 수를 떠올려 보시면 이해가 빠릅니다.</p>
+  <hr>
+  <h2>냄새 분자 하나가 전기 신호가 되기까지</h2>
+  <p>수용체에 분자가 붙으면 단백질 모양이 바뀝니다.<br>그 순간 후각 전용 G단백질인 G_olf가 깨어납니다.<br>G_olf는 III형 아데닐산 고리화효소를 자극하고, 세포 안 cAMP 농도가 오릅니다.<br>cAMP는 CNG 채널에 직접 달라붙어 문을 엽니다. 나트륨과 칼슘이 밀려듭니다.</p>
+  <p>여기서 후각만의 두 번째 증폭이 붙습니다.<br>들어온 칼슘이 칼슘 활성 염소이온 채널을 엽니다.<br>후각 섬모 안에는 염소이온이 능동적으로 쌓여 있어서, 채널이 열리면 염소이온이 바깥으로 빠져나갑니다.<br>그 결과 탈분극이 한 번 더 커집니다.<br>연구에 따르면 자극이 약할 때든 포화 상태일 때든 이 염소이온 전류가 지배적입니다.</p>
+  <figure><img src="./images/body-2.png" alt="냄새 분자 결합에서 염소이온 증폭까지 후각 신호전달 4단계"><figcaption>냄새 분자 결합에서 염소이온 증폭까지 후각 신호전달 4단계</figcaption></figure>
+  <hr>
+  <h2>한 뉴런은 오직 한 수용체만 켭니다</h2>
+  <p>액설과 벅이 각자 밝혀낸 사실 중 가장 예상 밖이었던 것이 이것입니다.<br>후각수용체 뉴런 하나는 기능하는 수용체 유전자를 단 하나만 발현합니다.<br>&#x27;한 뉴런 – 한 수용체 규칙&#x27;입니다.</p>
+  <p>이 규칙은 다음 단계로 이어집니다.<br>같은 수용체를 쓰는 뉴런들의 축삭은 후각구의 같은 사구체 하나로 모입니다.<br>후각구에는 잘 정의된 미세영역인 사구체가 약 2,000개 있습니다.<br>수용체 종류 수의 대략 두 배입니다.</p>
+  <p>사구체 안에서 축삭은 승모세포와 만납니다.<br>승모세포 하나는 사구체 하나에만 반응합니다.<br>정보의 특이성이 흐려지지 않고 그대로 다음 단계로 넘어갑니다.</p>
+  <p>정리하면 이렇습니다.<br>코에서는 화학적 사건이던 것이, 후각구에서는 켜진 사구체들의 공간적 지도로 바뀝니다.<br>냄새가 뇌 안에서 그림이 되는 지점입니다.</p>
+  <hr>
+  <h2>후각만 시상을 거치지 않습니다</h2>
+  <p>감각 정보는 대개 시상을 거쳐 1차 감각피질로 갑니다.<br>시각도 청각도 촉각도 그렇습니다.<br>후각만 예외입니다.</p>
+  <p>후각로는 시상을 건너뛰고 전후각핵, 후각결절, 이상피질로 직행합니다.<br>동시에 편도체와 외측 내후각피질로도 들어갑니다.<br>사람에서 후각구가 편도체 하위영역들로 보내는 단일시냅스 투사가 확인되었습니다.<br>여기서 다시 해마와 안와전두피질로 연결됩니다.</p>
+  <p>배선이 이러하니 결과도 달라집니다.<br>냄새로 떠오른 자전적 기억은 다른 단서로 떠오른 기억보다 더 오래되었고 더 정서적입니다.<br>허츠 연구팀은 같은 단서를 냄새로 줄 때와 다른 감각으로 줄 때를 비교했습니다.<br>냄새 쪽이 더 정서적이었고, 이는 자기보고뿐 아니라 심박수 상승 같은 생리 반응으로도 나타났습니다.<br>프루스트의 마들렌에서 이름을 딴 &#x27;프루스트 효과&#x27;입니다.</p>
+  <p>다만 한 가지는 분명히 해 두어야 합니다.<br>연구가 일관되게 보여 준 것은 정서적 강도와 생생함, 그리고 기억의 오래됨입니다.<br>냄새 기억이 더 정확하다는 뜻은 아닙니다.</p>
+  <figure><img src="./images/body-3.png" alt="시상을 거치는 다른 감각과 시상을 우회해 편도체로 가는 후각 경로 비교"><figcaption>시상을 거치는 다른 감각과 시상을 우회해 편도체로 가는 후각 경로 비교</figcaption></figure>
+  <p>여담이지만 맛도 상당 부분 후각입니다.<br>음식을 씹을 때 냄새 분자가 입에서 비강 뒤쪽으로 올라가 후각상피에 닿습니다. 후비강 후각입니다.<br>풍미는 후비강 냄새와 미각과 체성감각이 전측 섬피질에서 합쳐진 결과입니다.<br>감기에 걸려 &quot;맛이 없다&quot;고 느끼는 것은 대개 미각이 아니라 이 경로가 막힌 탓입니다.</p>
+  <hr>
+  <h2>30일에서 60일마다 새로 태어납니다</h2>
+  <p>뇌의 신경세포는 대체로 평생 교체되지 않습니다.<br>후각수용체 뉴런은 다릅니다. 보통 30~60일마다 새것으로 바뀝니다.</p>
+  <p>바깥 공기에 직접 노출되는 자리이니 손상이 잦습니다.<br>그래서 상피 아래에 두 종류의 기저 줄기세포가 대기합니다.<br>구형 기저세포는 평상시 뉴런 생산을 도맡습니다.<br>수평 기저세포는 평소 조용히 잠들어 있다가, 뉴런을 넘어 상피 자체가 무너질 만큼 큰 손상이 오면 그때 깨어납니다.</p>
+  <p>예전에는 이 재생 능력이 사실상 무한하다고 여겨졌습니다.<br>지금은 그렇게 보지 않습니다.<br>노화와 함께 후각 줄기세포의 재생 능력에도 한계가 있다는 연구가 나와 있습니다.</p>
+  <hr>
+  <h2>코로나19가 남긴 것</h2>
+  <p>코로나19는 후각을 대중적인 화제로 만들었습니다.<br>밝혀진 기전은 다소 뜻밖이었습니다.<br>바이러스가 직접 공격한 것은 후각뉴런이 아니라 지지세포였습니다.<br>지지세포에서 감염과 바이러스 증식의 증거가 확인되었습니다.</p>
+  <p>지지세포는 후각뉴런에 대사와 분비와 구조를 지원합니다.<br>이 뒷받침이 무너지면 뉴런 자체가 멀쩡해도 후각은 손상됩니다.</p>
+  <p>회복 수치는 자료마다 차이가 큽니다.<br>대부분의 환자에서 후각은 몇 주에 걸쳐 돌아온다는 보고가 있습니다.<br>반면 2년 추적 전향 연구에서는 53%가 여전히 후각 저하를, 42%가 미각 저하를 호소했습니다.<br>감염자 전체를 보느냐 특정 코호트를 추적하느냐에 따라, 또 &#x27;저하&#x27;의 정의에 따라 숫자가 달라집니다.<br>무후각증을 겪은 사람 중 최소 5~10%에서는 증상이 지속되며, 냄새가 왜곡되는 착후각이 함께 오는 경우가 많습니다.</p>
+  <p>오래 가는 후각소실의 정체도 조금씩 드러났습니다.<br>지속성 환자의 후각상피에서는 인터페론 감마를 내는 T세포가 넓게 침윤해 있었습니다.<br>골수계 세포 구성도 달라져 있었습니다.<br>정작 바이러스 RNA나 단백질은 검출되지 않았는데, 지지세포의 유전자 발현은 계속되는 염증 신호에 반응하는 모습이었습니다. 후각수용체 뉴런의 수도 줄어 있었습니다.<br>남아 있는 것은 바이러스가 아니라 가라앉지 않은 면역 반응이었던 셈입니다.</p>
+  <figure><img src="./images/body-4.png" alt="코로나19 후각소실의 초기 기전과 회복 데이터 및 후각훈련 정리표"><figcaption>코로나19 후각소실의 초기 기전과 회복 데이터 및 후각훈련 정리표</figcaption></figure>
+  <p>치료로는 후각훈련이 가장 널리 쓰입니다.<br>후멜 등이 제안한 방식은 장미, 레몬, 유칼립투스, 정향 네 가지 향을 하루 두 번 맡는 것입니다.<br>새 후각뉴런 형성을 자극한다는 설명과, 중추에서 냄새 자극을 등록하는 능력이 올라간다는 설명이 함께 제기됩니다.<br>효과는 여러 연구에서 확인되었습니다만, 어떤 프로토콜이 우월한지는 아직 확립되지 않았습니다.<br>향을 8종으로 늘린 강화 훈련도 4주 기간에서는 4종 훈련보다 낫지 않았습니다.</p>
+  <hr>
+  <h2>사람은 몇 가지 냄새를 구별할 수 있을까</h2>
+  <p>가장 유명한 숫자는 &quot;약 1만 가지&quot;입니다.<br>2004년 노벨상 위원회 보도자료에도 이 표현이 등장합니다.</p>
+  <p>그런데 이 숫자의 뿌리는 실험 데이터가 아닙니다.<br>1927년 크로커와 헨더슨이 냄새를 향기로움, 산, 탄내, 카프릴산 네 성분으로 나눈 분류 체계를 만들었습니다.<br>각 성분을 0에서 8까지 아홉 단계로 매기면 조합은 6,561가지가 나옵니다.<br>훗날 크로커가 이를 1만으로 반올림했고, 그 값이 100년 가까이 인용되어 왔습니다.<br>두 사람은 애초에 사람이 맡을 수 있는 냄새의 총수를 세려 한 적이 없습니다.</p>
+  <p>2014년에는 정반대 방향의 숫자가 나왔습니다.<br>부시디 등이 사이언스에 냄새 혼합물 변별 실험을 근거로 &quot;최소 1조 가지 이상&quot;을 제시했습니다.</p>
+  <p>반박도 곧바로 따라왔습니다.<br>거킨과 카스트로는 2015년 이라이프(eLife) 논문에서 이 추정 틀이 취약하다고 지적했습니다.<br>같은 데이터로 원래 값보다 수십 자릿수 크거나 작은 값을 얼마든지 만들어 낼 수 있다는 것입니다.<br>피험자 수 같은 설계 변수 하나만 조금 바꿔도 결과가 크게 흔들린다고 했습니다.<br>결정적으로, 사용된 기하학적 유추는 하한이 아니라 상한을 정합니다.<br>결론은 &quot;최소 1.72조&quot;가 아니라 &quot;최대 1.72조&quot;여야 한다는 뜻입니다.<br>마이스터도 별도로 같은 취지의 비판을 냈습니다.</p>
+  <p>원저자 측은 다시 반박했고, 논쟁은 아직 끝나지 않았습니다.<br>가장 정직한 답은 거킨과 카스트로의 논문 제목 그대로입니다. 아직 모른다는 것입니다.</p>
+  <figure><img src="./images/body-5.png" alt="구별 가능한 냄새 수를 둘러싼 1만 가지 설과 1조 가지 설 논쟁 정리표"><figcaption>구별 가능한 냄새 수를 둘러싼 1만 가지 설과 1조 가지 설 논쟁 정리표</figcaption></figure>
+  <hr>
+  <p>끝으로 한 마디만 더 드리겠습니다.</p>
+  <p>후각의 원리를 따라가 보면 남는 인상은 정교함보다 유연함 쪽입니다.<br>수용체는 냄새 분자를 정확히 알아보지 않습니다. 대충 알아봅니다.<br>대신 대충 아는 수용체 400개가 동시에 손을 들고, 그 손의 조합이 냄새의 이름이 됩니다.</p>
+  <p>&quot;정확하지 않아서 오히려 넓다.&quot;</p>
+  <p>구별할 수 있는 냄새가 몇 가지인지는 아직 아무도 모릅니다.<br>다만 오늘 마신 커피의 향이 십 년 전 어느 아침을 데려온다면,<br>그것은 코가 시상을 건너뛰고 편도체에 곧장 말을 건 결과입니다.</p>
+  <div class="tags"><span>#후각의원리</span><span>#후각수용체</span><span>#조합코딩</span><span>#프루스트효과</span><span>#후각소실</span><span>#노벨생리의학상</span><span>#후각구</span><span>#후각훈련</span></div>
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
