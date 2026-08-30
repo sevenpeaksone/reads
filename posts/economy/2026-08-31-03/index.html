@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>코즈 정리와 거래비용, 외부효과가 협상으로 풀릴 때와 실패할 때</title>
+<meta name="description" content="코즈 정리와 거래비용을 정리했습니다. 문제의 상호성과 Sturges v Bridgman 판례, 소 떼와 농부의 숫자 예시, 협상이 깨지는 네 지점, 샤스타 카운티 실증, 피구세와 미국 산성비 프로그램·EU ETS·한국 배출권거래제, 그리고 거래비용이 기업의 경계를 정하는 논리까지 다룹니다."/>
+<style>
+  :root { --accent:#2bbe78; --ink:#1a1c1a; --mute:#5b6b60; --line:#e2e8e4; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f5f7f5; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;
+    line-height:1.85; }
+  .wrap { max-width:700px; margin:0 auto; padding:40px 24px 80px; background:#ffffff; }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:22px; }
+  .badge { background:var(--accent); color:#08110c; font-weight:700; font-size:13px;
+    padding:5px 13px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:30px; line-height:1.35; font-weight:800; margin:0 0 30px; letter-spacing:-.01em;
+    word-break:keep-all; }
+  h2 { font-size:21px; font-weight:700; margin:44px 0 14px; padding-left:13px;
+    border-left:4px solid var(--accent); line-height:1.4; word-break:keep-all; }
+  p { font-size:16.5px; margin:0 0 18px; word-break:keep-all; }
+  ul { margin:0 0 20px; padding-left:20px; }
+  li { font-size:16.5px; margin-bottom:8px; word-break:keep-all; }
+  strong { font-weight:700; }
+  figure { margin:26px 0; }
+  img { max-width:100%; height:auto; border-radius:12px; display:block; }
+  hr { border:none; border-top:1px solid var(--line); margin:34px 0; }
+  .tags { margin-top:38px; padding-top:22px; border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:8px; }
+  .tag { color:var(--accent); background:#eaf7f0; font-size:13.5px;
+    padding:5px 11px; border-radius:8px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta"><span class="badge">경제</span><span class="date">2026-08-31</span></div>
+  <h1>코즈 정리와 거래비용, 외부효과가 협상으로 풀릴 때와 실패할 때</h1>
+<p>이번 글에서는 코즈 정리와 거래비용을 정리해 보겠습니다. 공장 매연이나 이웃의 소음 같은 외부효과가 왜 어떤 때는 당사자끼리의 협상만으로 깔끔하게 정리되고, 어떤 때는 끝내 실패해 정부가 개입하게 되는지가 이 글의 질문입니다. 로널드 코즈의 두 논문에서 출발해 배출권거래제라는 현실 정책까지, 그리고 마지막에는 회사의 경계선까지 이어보려 합니다.</p>
+<figure><img src="./images/thumbnail.png" alt="코즈 정리와 거래비용 - 외부효과는 왜 때로 협상으로 풀리고 때로 끝내 실패하는가"/></figure>
+<hr/>
+<h2>코즈가 뒤집은 질문 — 누가 누구에게 피해를 주는가</h2>
+<p>외부효과를 이야기할 때 우리는 보통 가해자와 피해자를 먼저 나눕니다. 공장이 매연을 뿜고 주민이 피해를 본다, 이런 식입니다.</p>
+<p>코즈는 이 구도부터 의심했습니다. 그는 <strong>문제가 상호적 성격을 갖는다</strong>고 썼습니다. 결정해야 할 진짜 질문은 A가 B에게 피해를 입히도록 허용할 것인가, 아니면 B가 A에게 피해를 입히도록 허용할 것인가라는 것입니다.</p>
+<p>소 떼가 이웃 농부의 작물을 밟습니다. 목축업자를 막으면 이번엔 목축업자가 손실을 봅니다. 일부 소가 반드시 이탈한다면, 고기 공급을 늘리는 일은 곡물 공급을 줄이는 대가로만 가능합니다. 코즈의 표현대로 선택의 본질은 명확합니다. 고기냐 곡물이냐.</p>
+<p>그가 1960년 논문에서 든 판례가 이 시각을 잘 보여줍니다. <strong>Sturges v Bridgman(1879)</strong> 사건에서 제과업자는 오랫동안 같은 자리에서 기계를 돌렸습니다. 그 옆에 의사가 나중에 진료실을 지었고, 진동과 소음 때문에 진료가 불가능해졌습니다. 법원은 제과업자에게 기계 사용 중지를 명했습니다.</p>
+<p>코즈가 주목한 것은 판결의 승패가 아닙니다. 그 판결이 곧 두 부지의 재산권을 어떻게 나눌지 정한 행위였다는 점입니다.</p>
+<p><strong>Bryant v Lefever</strong> 사건은 더 노골적입니다. 한 이웃이 벽을 세우자 다른 이웃의 굴뚝에서 연기가 역류했습니다. 코즈는 이렇게 정리했습니다. &quot;연기 피해는 벽을 세운 사람과 불을 지핀 사람 양쪽이 함께 일으킨 것이다.&quot;</p>
+<figure><img src="./images/body-1.png" alt="외부효과를 보는 두 시각 비교 - 가해자와 피해자를 나누는 전통적 시각과 문제의 상호성을 강조한 코즈의 시각"/></figure>
+<hr/>
+<h2>거래비용이 0이라면 — 권리를 누구에게 주든 결과는 같습니다</h2>
+<p>여기서 그 유명한 명제가 나옵니다.</p>
+<p>노벨위원회의 정식화를 그대로 옮기면 이렇습니다. 재산권이 명확히 정의되고, 이전 가능하며, 권리를 한 사람에서 다른 사람에게 넘기는 계약의 거래비용이 0이라면, <strong>자원의 사용은 그 권리가 애초에 누구에게 배분되었는지에 의존하지 않습니다.</strong> 최초 배분이 비효율적이었다면 자발적 계약을 통해 더 나은 결과가 저절로 실현됩니다. 계약에 비용이 들지 않고 양쪽 모두 이득을 보기 때문입니다.</p>
+<p>코즈가 든 숫자를 보면 감이 옵니다. 농부 쪽 울타리의 연간 설치비는 9달러, 곡물은 톤당 1달러입니다. 소가 3마리일 때 농부는 2마리로 줄여주면 최대 3달러, 1마리로 줄여주면 최대 5달러, 목축을 아예 접으면 최대 6달러까지 낼 의사가 있습니다.</p>
+<p>울타리 9달러와 이 금액들을 견주는 순간, 누구에게 권리가 있느냐와 무관하게 가장 값싼 해법이 드러납니다. 소를 막을 권리가 농부에게 있다면 목축업자가 돈을 내고 사 오면 되고, 반대라면 농부가 돈을 내고 사 오면 됩니다. 사회 전체가 치르는 총비용은 같습니다.</p>
+<p>한 가지 덧붙이겠습니다. <strong>&#x27;코즈 정리&#x27;라는 이름은 코즈가 붙인 것이 아닙니다.</strong> 조지 스티글러가 1966년 자신의 교과서 『가격이론』에서 처음 &#x27;정리&#x27;라고 명명하고 퍼뜨렸습니다. 코즈 본인은 논문에서 그 표현을 쓴 적이 없습니다.</p>
+<figure><img src="./images/body-2.png" alt="코즈의 소 떼와 농부 사례 숫자 표 - 울타리 연 9달러, 곡물 톤당 1달러, 소를 줄일 때 농부의 지불 의사 금액"/></figure>
+<hr/>
+<h2>정작 코즈는 그 정리를 반기지 않았습니다</h2>
+<p>이 대목이 흥미롭습니다.</p>
+<p>코즈는 1988년 저서 『기업, 시장, 그리고 법』에서 이렇게 못박았습니다. 거래비용이 0인 세계가 흔히 &#x27;코즈적 세계&#x27;라 불려왔지만, 진실과 이보다 더 먼 것은 없다고요. 그것은 현대 경제이론의 세계이며, 자신은 경제학자들을 그 세계에서 나오게 하려 했다는 것입니다.</p>
+<p>노벨위원회조차 이를 &quot;다소 역설적&quot;이라고 표현했습니다. 코즈 분석의 본론은 거래비용이 0일 때가 아니라 <strong>거래비용이 결코 0이 아니라는 사실</strong>에 있었기 때문입니다. 거래비용 없는 세계는 어디까지나 가상의 비교 기준입니다.</p>
+<p>정리하자면 이렇습니다. 예전에는 코즈 정리를 &quot;정부 개입 없이 시장이 알아서 푼다&quot;는 주장으로 읽었습니다. 지금은 그 반대로 읽는 편이 원저자의 의도에 가깝습니다. <strong>협상이 왜 실패하는지를 보라는 초대장</strong>에 가깝습니다.</p>
+<hr/>
+<h2>협상이 깨지는 네 개의 지점</h2>
+<p>현실의 거래비용은 크게 세 갈래입니다. 정보를 얻는 비용, 협상하는 비용, 합의를 집행하고 감시하는 비용입니다. 이것들이 협상을 무너뜨리는 방식은 대략 넷으로 나뉩니다.</p>
+<ul><li><strong>정보 비대칭</strong> — 공장이 자기 저감비용을 주민보다 훨씬 잘 압니다. 주민은 오염의 건강 영향을 정확히 계측하지 못합니다. 이러면 협상은 효율적 지점에 닿지 못하고 길어집니다.</li><li><strong>버티기(holdout)</strong> — 이웃 열 명 중 아홉 명이 합의해도 한 명이 과도한 보상을 요구하며 버티면 전체가 멈춥니다. 공격적인 참가자 한 명이 자기 기여를 훨씬 웃도는 몫을 가져갈 수 있습니다.</li><li><strong>무임승차</strong> — 수천 명이 대기오염 피해를 본다고 해봅시다. 각자는 협상 비용을 부담할 유인이 거의 없습니다. 남이 해결해 주기를 기다리는 편이 개인에겐 합리적입니다.</li><li><strong>쌍방독점의 비결정성</strong> — 새뮤얼슨의 비판입니다. 파는 쪽도 하나, 사는 쪽도 하나인 상황에서는 가장 이상적인 게임이론적 조건에서도 파레토 최적해가 반드시 등장한다고 볼 수 없습니다.</li></ul>
+<p>여기에 더해, 당사자가 셋 이상이면 거래비용이 0이어도 안정적 합의가 성립하지 않을 수 있다는 연구 계열도 있습니다. 다만 이 쟁점은 학계에서 아직 논쟁 중입니다.</p>
+<figure><img src="./images/body-3.png" alt="코즈적 협상이 깨지는 네 가지 원인 - 정보 비대칭, 버티기, 무임승차, 쌍방독점"/></figure>
+<hr/>
+<h2>샤스타 카운티 — 법을 모르는 이웃들이 만든 질서</h2>
+<p>이론만으로는 답이 나오지 않습니다. 실제로 확인해 본 사람이 있습니다.</p>
+<p>법학자 로버트 엘릭슨은 캘리포니아 북부 샤스타 카운티를 조사했습니다. 이곳은 역사적 우연으로 개방목축구역과 폐쇄목축구역이 뒤섞인 지역입니다. 개방구역에서는 농부가 소를 막을 울타리를 칠 책임을 지고, 폐쇄구역에서는 목장주가 소를 가둘 책임을 집니다. 코즈의 우화를 검증하기에 이보다 좋은 조건은 드뭅니다.</p>
+<p>결과는 두 갈래였습니다.</p>
+<p>책임 규칙이 달라져도 <strong>울타리의 품질은 달라지지 않았습니다.</strong> 코즈가 예측한 불변성과 일치합니다.</p>
+<p>그런데 이유가 코즈의 설명과 달랐습니다. 주민들은 자기 지역의 가축 무단침입 법규를 상당히 모르고 있었습니다. 이웃들은 법이 아니라 <strong>비공식 규범과 자력구제</strong>로 분쟁을 처리했습니다. 소가 넘어오면 이웃에게 말하고, 다음에 갚고, 심하면 관계를 끊었습니다.</p>
+<p>결과는 코즈가 맞혔고, 과정은 빗나갔습니다. 협상은 있었지만 그것은 계산기를 두드리는 협상이 아니라 오래 이웃해 살아온 사람들의 규범이었습니다.</p>
+<hr/>
+<h2>배출권거래제 — 협상을 인위적으로 싸게 만드는 방법</h2>
+<p>거래비용을 줄일 수 없다면, 정부가 개입하는 길밖에 없어 보입니다. 전통적 처방은 피구세입니다. 외부효과를 낳는 활동에 세금을 물려 사회적 비용을 내부화합니다. 배출원이 많고 넓게 퍼져 있을 때 행정비용이 낮고 세수까지 생긴다는 장점이 있습니다.</p>
+<p>그런데 제3의 길이 있습니다. <strong>정부가 총량만 정하고, 누가 얼마나 줄일지는 당사자들끼리 거래하게 하는 방식</strong>입니다. 코즈적 협상을 정부가 설계로 싸게 만들어주는 셈입니다.</p>
+<p>첫 대규모 실험은 미국이었습니다. 1990년 대기청정법 개정안 4장에 근거한 <strong>산성비 프로그램</strong>입니다.</p>
+<ul><li>목표는 연간 이산화황 배출을 1980년 대비 1,000만 톤 줄이는 것이었습니다. 1980년 미국 총배출량은 약 2,600만 톤이었습니다.</li><li>1995년 1단계, 2000년 2단계로 전국 약 3,200기의 석탄화력 설비에 총량 상한을 씌웠습니다.</li><li>2007년까지 연간 배출량이 목표치 900만 톤 아래로 내려갔습니다. 1980년 대비 43% 감축입니다. 같은 기간 석탄화력 발전량은 오히려 26% 이상 늘었습니다.</li><li>비용이 압권입니다. 1990년 EPA 자체 추정 이행비용은 61억 달러였습니다. 1998년 전력연구소 추정 실제 비용은 17억 달러, 미래자원연구소 추정은 11억 달러였습니다.</li></ul>
+<p>목표를 넘겨 달성하고 비용은 예상의 몇 분의 일에 그쳤습니다. 배출권 거래를 택한 덕에 대안 대비 15~90%를 아꼈다는 평가가 나옵니다.</p>
+<figure><img src="./images/body-4.png" alt="미국 산성비 프로그램 목표와 실제 결과 비교 표 - 감축 목표, 대상 설비, 이행비용 추정치와 실제치"/></figure>
+<p>유럽은 규모가 다릅니다. <strong>EU 배출권거래제(EU ETS)</strong>는 2005년 출범해 지금은 4기(2021~2030년)를 지나고 있습니다.</p>
+<p>2026년 총량 상한은 고정배출원과 해운을 합쳐 약 11억 8,540만 톤입니다. 2025년 평균 경매가는 톤당 73.43유로, 유통시장 평균가는 74.35유로였습니다. 대상은 고정 설비 8,704곳, 항공사 393곳, 해운사 3,313곳입니다. 제도 도입 이후 2025년 말까지 누적 수입은 2,657억 유로에 달합니다.</p>
+<p>성과도 분명합니다. 2025년 초 기준 대상 설비의 배출량은 2005년 대비 약 50% 줄었습니다. 2030년 목표는 62% 감축입니다.</p>
+<p>여기서 눈여겨볼 것은 <strong>집행 장치</strong>입니다. 배출권을 제출하지 않으면 톤당 100유로의 과징금을 물고, 그만큼의 배출권을 추가로 사서 내야 하며, 위반 사업자 명단이 공개됩니다. 배출량 보고서는 독립 검증기관의 검증을 거칩니다. 코즈가 말한 집행비용을 제도가 대신 떠안는 구조입니다.</p>
+<p>한국도 2015년 1월 1일 배출권거래제를 시작했습니다. 2026년부터 제4차 계획기간(2026~2030년)에 들어가며, 발전 부문 유상할당이 50%까지 확대되고 전력 벤치마크 계수가 40% 강화됩니다. 다만 가격은 다릅니다. 2026년 초 기준 국내 배출권 가격은 1만 원대에 머물렀습니다. 유럽의 73유로대와는 상당한 거리가 있습니다.</p>
+<p>한계도 인정해야 합니다. 총량을 어디에 그을지, 무상할당을 얼마나 줄지는 결국 정치의 영역입니다. 이 지점에서 다시 협상비용이 발생합니다.</p>
+<hr/>
+<h2>다시 기업으로 — 거래비용이 회사의 경계를 정합니다</h2>
+<p>코즈의 이야기는 여기서 끝나지 않습니다. 오히려 출발점으로 돌아갑니다.</p>
+<p>그는 1960년 논문보다 23년 앞선 <strong>1937년, 스물여섯 살에 「기업의 본질」</strong>을 발표했습니다. 질문은 단순했습니다. 왜 기업이라는 조직이 존재하는가. 왜 각 기업은 특정한 규모를 갖는가.</p>
+<p>시장이 그렇게 효율적이라면, 모든 일은 개인 간 계약으로 처리되어야 합니다. 그런데 현실에서는 자원의 상당 부분이 의도적으로 가격기구에서 빠져나와 회사 안에서 명령으로 조정됩니다.</p>
+<p>코즈의 답이 곧 거래비용이었습니다.</p>
+<p><strong>기업은 어떤 일을 내부에서 처리하는 총비용이 시장에서 사고파는 비용보다 낮을 때 생겨납니다.</strong> 그리고 <strong>추가로 한 가지 일을 더 내부에서 처리하는 비용이 시장 계약보다 커지는 지점까지 확장하다 멈춥니다.</strong> 그 지점이 회사의 경계입니다.</p>
+<p>노벨위원회는 여기에 한 문장을 덧붙였습니다. 거래비용이 0이라면 기업은 애초에 생기지 않는다고요. 모든 배분이 개인 간 단순 계약으로 이루어질 테니까요.</p>
+<p>계약의 종류도 갈립니다. 의무를 전부 명시한 계약이 있고, 일부러 불완전하게 남겨 한쪽의 결정 재량을 두는 계약이 있습니다. 후자의 대표가 고용계약입니다. 지시하고 명령할 여지가 남아 있습니다. <strong>기업이란 이런 &#x27;열린 계약&#x27;들의 묶음이 만들어내는 재량 그 자체</strong>입니다.</p>
+<p>올리버 윌리엄슨은 이를 세 가지 요인으로 체계화했습니다. 자산 특수성, 불확실성, 거래 빈도입니다. 특히 자산 특수성이 핵심입니다. 특정 거래에만 맞춘 설비나 인력에 투자하면 그 투자는 다른 곳에서 가치가 급락합니다. 상대가 이를 알고 재협상을 요구하면 발이 묶입니다. 이른바 홀드업 문제입니다. 그래서 자산 특수성이 높을수록 기업은 시장에서 사 오는 대신 <strong>수직통합</strong>을 택합니다.</p>
+<figure><img src="./images/body-5.png" alt="거래비용이 회사의 경계를 정하는 순서 다이어그램 - 값을 알아본다, 안팎을 견준다, 내부화한다, 여기서 멈춘다"/></figure>
+<p>노벨위원회는 이 두 논문이 하나의 원을 그린다고 정리했습니다.</p>
+<p>거래비용이 0이면 기업은 불필요해지고, 권리 배분에 관한 입법도 무의미해집니다. 두 결론이 정확히 평행입니다. 뒤집으면, <strong>거래비용이 결코 0이 아니라는 사실 자체가</strong> 계약 형태의 다양성도, 온갖 입법도, 기업의 존재도 설명합니다. 거래비용이 계약을 완전히 가로막는 자리에는 다른 제도가 들어섭니다. 기업이거나, 개정된 법률이거나.</p>
+<hr/>
+<p>정리하면 이렇습니다.</p>
+<p>코즈 정리는 시장이 만능이라는 주장이 아닙니다. 그 반대에 가깝습니다. 재산권이 명확하고 당사자가 소수이며 정보가 대칭이면 협상은 스스로 답을 찾습니다. 그러나 피해자가 수천 명으로 흩어지고, 손해를 입증하기 어렵고, 합의를 지킬 방법이 마땅치 않으면 협상은 시작조차 되지 않습니다.</p>
+<p>그럴 때 등장하는 것이 피구세이고, 배출권거래제이고, 규제이고, 그리고 회사입니다. 이것들은 시장의 실패를 메우는 임시방편이 아니라 <strong>거래비용이라는 제약 아래에서 선택된 서로 다른 제도적 답안</strong>입니다.</p>
+<p>코즈가 남긴 문장 하나로 닫겠습니다. &quot;권리를 행사하는 비용은 언제나 다른 곳에서 발생하는 손실이다.&quot;</p>
+<p>외부효과 문제에 깨끗한 정답이 있느냐고 물으신다면, 없다고 답하겠습니다. 다만 어떤 비용을 누가 치를지를 정하는 일은 남습니다. 그 선택을 조금 더 또렷하게 보게 해준 것이 코즈의 기여라고 생각합니다.</p>
+<div class="tags"><span class="tag">#코즈정리</span><span class="tag">#거래비용</span><span class="tag">#외부효과</span><span class="tag">#재산권</span><span class="tag">#피구세</span><span class="tag">#배출권거래제</span><span class="tag">#법경제학</span><span class="tag">#경제학기초</span><span class="tag">#기업의본질</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

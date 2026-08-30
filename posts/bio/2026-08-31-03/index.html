@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>리보솜 단백질 번역 원리 — 코돈 해독부터 접힘과 항생제까지</title>
+<style>
+  :root { --accent:#ff7676; --ink:#1f2226; --mute:#6d7480; --line:#e7e9ee; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:48px 20px 96px;
+    background:#fbfbfc; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { width:700px; max-width:100%; margin:0 auto; }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .badge {
+    display:inline-block; padding:5px 13px; border-radius:999px;
+    background:var(--accent); color:#fff; font-size:13px; font-weight:700; letter-spacing:.02em;
+  }
+  .date { color:var(--mute); font-size:14px; }
+  h1 {
+    font-size:30px; line-height:1.42; font-weight:800;
+    margin:0 0 28px; letter-spacing:-.01em; word-break:keep-all;
+  }
+  h2 {
+    font-size:21px; line-height:1.5; font-weight:700;
+    margin:52px 0 18px; padding-left:14px;
+    border-left:4px solid var(--accent); word-break:keep-all;
+  }
+  p { font-size:17px; line-height:1.85; margin:0 0 22px; word-break:keep-all; }
+  ul { margin:0 0 22px; padding-left:20px; }
+  li { font-size:17px; line-height:1.85; margin-bottom:8px; word-break:keep-all; }
+  strong { font-weight:700; }
+  code {
+    background:#f0f1f4; padding:1px 6px; border-radius:4px;
+    font-size:15px; font-family:'SFMono-Regular',Menlo,Consolas,monospace;
+  }
+  hr { border:0; border-top:1px solid var(--line); margin:44px 0; }
+  figure { margin:32px 0; }
+  figure img {
+    max-width:100%; height:auto; display:block;
+    border-radius:12px; border:1px solid var(--line);
+  }
+  figcaption {
+    margin-top:10px; font-size:13px; line-height:1.6;
+    color:var(--mute); text-align:center; word-break:keep-all;
+  }
+  .tags { margin-top:56px; padding-top:26px; border-top:1px solid var(--line); }
+  .tags span {
+    display:inline-block; margin:0 8px 8px 0; padding:6px 12px;
+    background:#f2f3f6; border-radius:999px; font-size:13px; color:#4a5058;
+  }
+  @media (max-width:520px) {
+    body { padding:28px 16px 64px; }
+    h1 { font-size:25px; } h2 { font-size:19px; } p, li { font-size:16px; }
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+  <div class="meta"><span class="badge">바이오</span><span class="date">2026-08-31</span></div>
+  <h1>리보솜 단백질 번역 원리 — 코돈 해독부터 접힘과 항생제까지</h1>
+  <p>오늘은 리보솜이 유전 정보를 단백질로 바꾸는 과정을 정리해 보려 합니다.<br>DNA가 mRNA로 옮겨 적히는 데까지는 비교적 널리 알려져 있습니다.<br>그 다음 구간, 그러니까 세 글자짜리 암호가 실제 아미노산 사슬이 되는 지점을 들여다보겠습니다.</p>
+  <p>먼저 세 줄로 요약합니다.</p>
+  <ul><li>유전부호는 코돈 64개로 이루어지고, 그중 61개가 아미노산 20종을 지정합니다.</li><li>번역의 정확도는 합성효소와 리보솜 두 곳에서 이중으로 지켜지며, 최종 오류율은 코돈 1천~1만 개당 1개 수준입니다.</li><li>펩티드 결합을 만드는 촉매는 단백질이 아니라 RNA입니다. 리보솜 표적 항생제는 바로 이 구조의 차이를 노립니다.</li></ul>
+  <figure><img src="./images/thumbnail.png" alt="리보솜, 코돈을 단백질로 바꾸는 기계 — 유전부호 해독부터 접힘과 항생제까지"><figcaption>리보솜, 코돈을 단백질로 바꾸는 기계 — 유전부호 해독부터 접힘과 항생제까지</figcaption></figure>
+  <hr>
+  <h2>코돈 64개, 아미노산 20종</h2>
+  <p>mRNA는 A, C, G, U 네 가지 염기로 적혀 있습니다.<br>아미노산 하나는 염기 세 개, 곧 코돈 하나가 지정합니다.<br>네 가지를 세 자리에 배열하니 경우의 수는 64가지입니다.</p>
+  <p>이 가운데 3개는 종결 신호입니다. 나머지 61개가 아미노산을 지정합니다.<br>그런데 단백질에 쓰이는 표준 아미노산은 20종뿐입니다.<br>숫자가 세 배쯤 남습니다.</p>
+  <p>남는 자리는 중복으로 채워집니다. 아미노산 하나에 코돈이 여러 개 배정되는 것이죠.<br>이것을 축퇴성이라고 부릅니다.<br>흥미로운 점은 같은 아미노산을 가리키는 코돈들이 <strong>거의 언제나 세 번째 염기에서만 다르다</strong>는 것입니다.</p>
+  <p>세 번째 자리가 느슨하다는 뜻입니다.<br>그래서 tRNA는 안티코돈 첫 자리에서 비표준 짝짓기를 허용합니다. 흔들림이라 부르는 현상입니다.<br>tRNA 한 종류가 코돈 여럿을 읽을 수 있으니, 세균은 tRNA를 50종쯤만 갖추고도 61개 코돈을 감당합니다.</p>
+  <figure><img src="./images/body-1.png" alt="코돈 64개가 아미노산 20종을 지정하는 방식을 정리한 표. 종결 코돈 3개, 지정 코돈 61개, 축퇴성과 흔들림의 차이"><figcaption>코돈 64개가 아미노산 20종을 지정하는 방식을 정리한 표. 종결 코돈 3개, 지정 코돈 61개, 축퇴성과 흔들림의 차이</figcaption></figure>
+  <hr>
+  <h2>정확도는 리보솜 밖에서 먼저 결정됩니다</h2>
+  <p>번역이 정확하려면 tRNA에 올바른 아미노산이 실려야 합니다.<br>그 일을 아미노아실-tRNA 합성효소가 맡습니다.<br>아미노산 종류마다 전용 효소가 있어, tRNA의 CCA 말단에 아미노산을 에스터 결합으로 붙입니다.</p>
+  <p>문제는 아미노산끼리 너무 닮았다는 데 있습니다.<br>이소류신과 발린은 메틸기 하나 차이입니다.<br>결합 에너지만 따지면 100배 정도의 차이밖에 나지 않습니다.</p>
+  <p>그래서 효소는 체를 두 번 씁니다.<br>활성 부위가 큰 것을 거르고, 30옹스트롬쯤 떨어진 별도의 교정 부위가 작은 것을 거릅니다.<br>큰 이소류신은 교정 부위에 아예 들어가지 못하고, 잘못 실린 발린만 들어가 잘려 나갑니다.</p>
+  <p>이 이중 체 덕분에 판별력은 1만에서 10만 배까지 올라갑니다.<br>발린이 이소류신 자리를 차지하는 비율은 3,000분의 1 수준으로 떨어집니다.<br>tRNA 오충전 자체의 오류율은 100만 분의 1 정도로 보고됩니다.</p>
+  <p>리보솜에서도 검문이 한 번 더 있습니다.<br>아미노아실-tRNA는 혼자 오지 않고 EF-Tu와 GTP를 낀 삼중복합체로 들어옵니다.<br>코돈이 맞을 때에만 EF-Tu의 GTP 가수분해가 촉진되고, 그제야 tRNA가 놓여납니다.</p>
+  <p>맞지 않으면 그 전에 떨어져 나갑니다.<br>이 두 단계 걸러내기를 동역학적 교정이라 부릅니다. 1970년대에 홉필드와 니니오가 제안한 원리입니다.</p>
+  <figure><img src="./images/body-2.png" alt="번역의 정확도를 지키는 세 관문 카드. 합성효소 활성 부위, 합성효소 교정 부위, 리보솜 A 자리의 초기 선택과 교정"><figcaption>번역의 정확도를 지키는 세 관문 카드. 합성효소 활성 부위, 합성효소 교정 부위, 리보솜 A 자리의 초기 선택과 교정</figcaption></figure>
+  <hr>
+  <h2>대단위와 소단위, 그리고 세 개의 자리</h2>
+  <p>세균 리보솜은 70S입니다. 분자량은 약 2.5 메가달톤입니다.<br>대칭이 없어 결정으로 만들기가 대단히 까다로웠고, 그 어려움이 구조 규명을 수십 년 늦췄습니다.</p>
+  <p>소단위인 30S는 16S rRNA 약 1,600개 뉴클레오타이드에 단백질 20종가량으로 이루어집니다.<br>대단위인 50S는 23S rRNA 약 2,900개, 5S rRNA 약 120개에 단백질 33종가량입니다.<br>자료마다 단백질 수는 조금씩 다릅니다. 종에 따라 달라지기 때문입니다.</p>
+  <p>사람의 세포질 리보솜은 80S입니다.<br>40S는 18S rRNA와 단백질 33종, 60S는 28S와 5.8S와 5S rRNA에 단백질 46종 안팎입니다.<br>더 크고 복잡하지만, 알려진 범위에서 작동 원리는 세균과 같습니다.</p>
+  <p>두 단위가 맞물린 틈에 tRNA가 앉는 자리가 셋 있습니다.<br>A 자리는 새 tRNA가 들어오는 입구, P 자리는 자라던 사슬을 든 tRNA의 자리, E 자리는 빈 tRNA가 빠져나가는 출구입니다.<br>사슬은 A에서 P로, tRNA는 P에서 E로 한 칸씩 밀려갑니다.</p>
+  <hr>
+  <h2>개시, 신장, 종결</h2>
+  <p>세균의 개시는 mRNA 위의 샤인-달가노 서열에서 시작합니다.<br>개시 코돈 AUG보다 다섯에서 여덟 염기 앞에 있는 이 짧은 구간이 16S rRNA의 3&#x27; 말단과 짝을 짓습니다.<br>개시인자 IF1, IF2, IF3가 붙고, 포밀메티오닌을 실은 개시 tRNA가 P 자리에 앉습니다.</p>
+  <p>사람 세포는 방식이 다릅니다.<br>eIF4F 복합체가 mRNA의 5&#x27; 캡을 붙잡고, 40S가 실린 사전개시복합체를 끌어와 아래로 훑어 내려갑니다.<br>코작 서열이 있는 AUG에서 멈춥니다.</p>
+  <p>신장은 세 동작의 반복입니다.<br>EF-Tu가 tRNA를 데려오고, 펩티드 전이 중심이 결합을 만들고, EF-G가 GTP를 쓰며 리보솜을 한 코돈 앞으로 밉니다.<br>EF-Tu는 코돈이 맞아야 켜지지만, EF-G는 붙자마자 GTP를 가수분해합니다. 검문과 추진의 역할이 나뉘어 있는 셈입니다.</p>
+  <p>종결은 정지 코돈이 A 자리에 들어올 때 일어납니다.<br>RF1은 UAA와 UAG를, RF2는 UAA와 UGA를 알아봅니다.<br>방출인자는 P 자리 펩티딜-tRNA의 에스터 결합을 끊어 완성된 사슬을 놓아주고, RF3가 이들을 회수합니다.</p>
+  <p>여기서 한 가지 짚어둘 것이 있습니다.<br>방출인자에게는 교정 단계가 없습니다. 단 한 번의 판단으로 정지 코돈과 비슷한 코돈을 구별해야 합니다.</p>
+  <figure><img src="./images/body-3.png" alt="개시에서 종결까지 리보솜이 밟는 네 단계 다이어그램. 개시, tRNA 진입, 펩티드 결합, 전좌와 종결"><figcaption>개시에서 종결까지 리보솜이 밟는 네 단계 다이어그램. 개시, tRNA 진입, 펩티드 결합, 전좌와 종결</figcaption></figure>
+  <hr>
+  <h2>촉매는 단백질이 아니라 RNA였습니다</h2>
+  <p>오랫동안 사람들은 펩티드 결합을 만드는 것이 리보솜 단백질일 것이라 짐작했습니다.<br>2000년에 답이 나왔습니다.</p>
+  <p>토머스 스타이츠 연구진이 고세균 50S 대단위의 구조를 2.4옹스트롬 해상도로 풀었습니다.<br>그리고 펩티드 전이 중심에서 18옹스트롬 이내에 단백질 사슬이 하나도 보이지 않았습니다.<br>촉매 자리 주변이 온통 23S rRNA였던 것입니다.</p>
+  <p>리보솜은 리보자임입니다. 지금까지 알려진 것 중 가장 큰 RNA 효소입니다.<br>반응 자체는 단순합니다. A 자리 아미노산의 아미노기가 P 자리 tRNA의 에스터 결합을 친핵 공격합니다.<br>2005년 계산 연구는 23S rRNA의 A2451 잔기와 물 분자들이 만드는 수소결합 그물이 활성화 에너지를 낮춘다고 제안했습니다.</p>
+  <p>2009년 노벨 화학상은 이 구조를 밝힌 세 사람에게 돌아갔습니다.<br>아다 요나트, 토머스 스타이츠, 벤카트라만 라마크리슈난입니다.<br>요나트가 1980년대에 결정학의 길을 열었고, 2000년에 스타이츠가 대단위를, 라마크리슈난이 소단위를 고해상도로 풀었습니다.</p>
+  <p>&quot;단백질을 만드는 기계의 심장이 RNA다.&quot;<br>생명의 초기에 RNA가 먼저였다는 견해에 이 발견은 큰 힘을 실었습니다.</p>
+  <hr>
+  <h2>초당 스무 개, 그리고 남는 오차</h2>
+  <p>대장균 리보솜은 최대 초당 20개 안팎의 아미노산을 이어 붙입니다.<br>같은 세포의 RNA 중합효소는 초당 40에서 80개 뉴클레오타이드를 읽습니다.<br>코돈 하나가 세 염기이니 두 속도가 거의 맞물립니다. 우연은 아닐 것입니다.</p>
+  <p>효모는 초당 3에서 10개로 더 느립니다. 다만 측정 온도가 30도이고 대장균은 37도입니다.<br>생쥐 배아줄기세포를 리보솜 프로파일링으로 재보니 초당 6개 정도였고, 유전자마다 값이 꽤 일정했습니다.<br>자료마다 숫자가 다르므로 단일한 값으로 못박기는 어렵습니다.</p>
+  <p>정확도는 어떨까요.<br>DNA 복제의 오류율은 1억 분의 1 수준입니다. 전사는 10만에서 1만 분의 1입니다.<br>번역은 코돈당 1만에서 1천 분의 1로, 셋 중 가장 큽니다.</p>
+  <p>그러니까 유전자 발현의 정확도를 실질적으로 제한하는 구간은 A 자리에서 일어나는 코돈 해독입니다.<br>300개 아미노산짜리 단백질이라면 열 개 중 하나쯤에 오류가 섞이는 셈입니다.</p>
+  <p>이 정도면 허술한 것 아니냐고 물으실 수 있습니다.<br>그런데 속도를 올리려고 코돈을 완벽 일치형으로 바꿔봤더니 접힘 오류가 늘었다는 실험이 있습니다.<br>빠름과 정확함, 그리고 제대로 접힐 시간 사이에 상충 관계가 있다는 뜻입니다.</p>
+  <figure><img src="./images/body-4.png" alt="번역 속도와 오류율 비교 표. 대장균 효모 생쥐의 번역 속도, DNA 복제와 전사와 번역의 오류율"><figcaption>번역 속도와 오류율 비교 표. 대장균 효모 생쥐의 번역 속도, DNA 복제와 전사와 번역의 오류율</figcaption></figure>
+  <hr>
+  <h2>사슬은 터널을 지나 접힙니다</h2>
+  <p>만들어진 사슬은 곧바로 세포질에 던져지지 않습니다.<br>대단위를 관통하는 약 100옹스트롬 길이의 출구 터널을 지나야 합니다.<br>이 터널에는 아미노산 30개에서 40개 정도가 들어갑니다.</p>
+  <p>그러니 처음 서른몇 개가 만들어지는 동안 사슬은 터널 안에 갇혀 있습니다.<br>분해효소로부터 보호받는 대신, 취할 수 있는 구조도 제한됩니다.</p>
+  <p>터널 출구에는 샤페론이 기다립니다.<br>세균에서는 트리거 팩터가 리보솜에 붙은 채 팔을 뻗어 출구 위에 요람을 만듭니다.<br>그 안에서 갓 나온 사슬이 응집을 피해 접힙니다.</p>
+  <p>진핵세포에서는 NAC과 Hsp70 계열이 그 역할을 나눠 맡습니다.<br>사슬이 없을 때 RAC은 스스로를 잠가둔 구조를 취하다가, 출구에 사슬이 나타나면 크게 모양을 바꿔 작동을 시작합니다.<br>기다리다가 켜지는 방식입니다.</p>
+  <p>터널을 나온 뒤에도 혼자 접히지 못하는 단백질이 있습니다.<br>샤페로닌이 그런 단백질을 통 안에 가둬 접힘 전용 공간을 내줍니다.<br>세포질 단백질의 10퍼센트 남짓이 이 도움을 받고, 대장균에서 샤페로닌 없이는 접히지 못하는 절대 의존군은 85종으로 집계되었습니다.</p>
+  <hr>
+  <h2>항생제는 이 기계의 차이를 노립니다</h2>
+  <p>번역은 세균에게 생존 필수 과정입니다.<br>그리고 세균의 70S와 사람의 80S는 구조가 다릅니다.<br>이 차이가 항생제의 근거입니다.</p>
+  <p>테트라사이클린은 30S의 A 자리에 끼어듭니다.<br>방향족 고리 네 개짜리 골격이 tRNA와 물리적으로 부딪혀, 새 tRNA가 앉지 못하게 만듭니다.</p>
+  <p>아미노글리코사이드는 같은 30S의 해독 부위에 붙습니다.<br>번역을 멈추는 대신 mRNA를 잘못 읽게 만듭니다. 세균은 엉터리 단백질을 쏟아내다 죽습니다.</p>
+  <p>클로람페니콜은 50S의 펩티드 전이 중심을 칩니다.<br>23S rRNA의 A2451과 C2452 사이 틈에 자리 잡아 결합 형성을 막습니다.</p>
+  <p>마크롤라이드는 조금 다릅니다.<br>에리스로마이신과 아지트로마이신은 펩티드 전이 중심 옆 출구 터널을 막습니다.<br>사슬은 만들어지지만 나가지 못합니다.</p>
+  <figure><img src="./images/body-5.png" alt="리보솜 표적 항생제 비교 표. 테트라사이클린, 아미노글리코사이드, 클로람페니콜, 마크롤라이드의 표적 부위와 작용 방식"><figcaption>리보솜 표적 항생제 비교 표. 테트라사이클린, 아미노글리코사이드, 클로람페니콜, 마크롤라이드의 표적 부위와 작용 방식</figcaption></figure>
+  <p>다만 선택성이 완전하지는 않습니다.<br>사람의 미토콘드리아 리보솜은 세균 리보솜을 닮았습니다.<br>미토콘드리아 12S rRNA의 m.1555A&gt;G 변이는 A 자리 구조를 대장균 16S rRNA와 더 비슷하게 만듭니다.</p>
+  <p>이 변이를 가진 분에게 아미노글리코사이드를 쓰면 난청이 생길 수 있습니다.<br>미토콘드리아 번역이 손상되고, ATP 생산이 떨어지고, 활성산소가 늘어 달팽이관이 상합니다.<br>좋은 표적이라고 해서 부작용이 없다는 뜻은 아닙니다.</p>
+  <p>내성도 걸림돌입니다.<br>2009년 노벨위원회 자료는 미국에서 세균 감염 사망자가 연간 약 9만 명으로, 20년 전 약 1만 3천 명에서 크게 늘었다고 적었습니다.<br>다행히 고해상도 구조가 나온 덕분에, 지금은 결합 부위를 보면서 약을 설계하는 길이 열려 있습니다.</p>
+  <hr>
+  <p>정리하면 이렇습니다.</p>
+  <p>번역은 암호를 푸는 일이면서 동시에 오차를 관리하는 일입니다.<br>합성효소가 체를 두 번 쓰고, 리보솜이 검문을 두 번 하고, 그러고도 남는 오차를 샤페론이 뒤에서 수습합니다.<br>완벽을 목표로 삼지 않고, 감당할 만한 오차를 유지하는 쪽을 택한 설계입니다.</p>
+  <p>예전에는 이 기계의 심장이 단백질일 것이라 여겼습니다. 지금은 RNA라는 것을 압니다.<br>그 사실 하나가 생명의 기원을 보는 시선까지 바꿔 놓았습니다.</p>
+  <p>세포가 왜 더 정확해지지 않았느냐고 물으신다면 — 더 정확해질 수 없었던 것이 아니라,<br>그럴 만한 이유가 없었던 것이라고 답하겠습니다.</p>
+  <div class="tags"><span>#리보솜</span><span>#단백질번역</span><span>#유전부호</span><span>#코돈</span><span>#tRNA</span><span>#리보자임</span><span>#분자생물학</span><span>#항생제작용기전</span><span>#단백질접힘</span></div>
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
