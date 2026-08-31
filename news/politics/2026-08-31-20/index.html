@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KTX SRT 통합 9월 1일 시행, 운임 10% 인하와 쟁점 총정리</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 48px 20px 96px;
+    background: #f7f8fa; color: #22252b;
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    width: 700px; max-width: 100%; margin: 0 auto;
+    background: #fff; padding: 44px 40px 56px;
+    border-radius: 14px; box-shadow: 0 2px 18px rgba(20,24,40,.07);
+  }
+  .meta { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .badge {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    background: #2b2d36; color: #d6a862;
+    font-size: 13px; font-weight: 700; letter-spacing: .04em;
+  }
+  .date { font-size: 13.5px; color: #8a8f9b; }
+  h1 {
+    font-size: 30px; line-height: 1.42; font-weight: 800;
+    margin: 0 0 28px; letter-spacing: -.01em; color: #16181d;
+  }
+  h2 {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 21px; line-height: 1.45; font-weight: 700;
+    margin: 44px 0 16px; color: #16181d; letter-spacing: -.01em;
+  }
+  h2 .bar { flex: 0 0 auto; width: 5px; height: 20px; border-radius: 3px; background: #d6a862; }
+  p { font-size: 16.5px; line-height: 1.85; margin: 0 0 18px; color: #34383f; }
+  ul { margin: 0 0 20px; padding-left: 4px; list-style: none; }
+  ul li {
+    position: relative; padding-left: 18px;
+    font-size: 16.5px; line-height: 1.8; margin: 0 0 10px; color: #34383f;
+  }
+  ul li::before {
+    content: ""; position: absolute; left: 2px; top: 12px;
+    width: 6px; height: 6px; border-radius: 50%; background: #d6a862;
+  }
+  strong { font-weight: 700; color: #16181d; }
+  hr { border: 0; border-top: 1px solid #e8eaef; margin: 34px 0; }
+  figure { margin: 26px 0; }
+  figure img, img {
+    display: block; width: 100%; max-width: 100%; height: auto;
+    border-radius: 10px; border: 1px solid #eceef2;
+  }
+  figcaption { margin-top: 9px; font-size: 13px; color: #8a8f9b; text-align: center; }
+  .tags { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { font-size: 13.5px; color: #5d6472; background: #f1f3f7; padding: 6px 12px; border-radius: 999px; }
+  @media (max-width: 760px) {
+    body { padding: 20px 12px 60px; }
+    .wrap { padding: 28px 20px 40px; }
+    h1 { font-size: 25px; }
+    h2 { font-size: 19px; }
+    p { font-size: 16px; }
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta">
+    <span class="badge">정치·사회 뉴스</span>
+    <span class="date">2026년 8월 31일</span>
+  </div>
+  <h1>KTX SRT 통합 9월 1일 시행, 운임 10% 인하와 쟁점 총정리</h1>
+<figure><img src="./images/thumbnail.png" alt="KTX SRT 통합 운행 시행을 알리는 대표 이미지" loading="lazy"><figcaption>KTX SRT 통합 운행 시행을 알리는 대표 이미지</figcaption></figure>
+<p>9월 1일부터 SRT라는 이름이 사라집니다. 수서역에서 출발하는 열차도 앞으로는 KTX입니다. 이번 글에서는 무엇이 어떻게 바뀌는지, 그리고 이 결정을 둘러싼 찬반의 논리가 각각 무엇인지를 정리해 보겠습니다.</p>
+<p>먼저 세 줄로 요약하겠습니다. 첫째, 운임이 평균 10% 내려갑니다. 서울~부산은 5만 9,800원에서 5만 4,400원이 됩니다. 둘째, 좌석이 늘어납니다. 하루 평균 1만 6,000석 규모입니다. 셋째, 예매 앱은 &#x27;코레일+&#x27; 하나로 합쳐집니다.</p>
+<figure><img src="./images/body-1.png" alt="9월 1일부터 달라지는 네 가지 핵심 변화 정리 카드" loading="lazy"><figcaption>9월 1일부터 달라지는 네 가지 핵심 변화 정리 카드</figcaption></figure>
+<hr>
+<h2><span class="bar"></span>9월 1일, 무슨 일이 벌어지는가</h2>
+<p>국토교통부는 8월 31일 코레일과 SR의 기관 통합을 완료했다고 밝혔습니다. 그리고 9월 1일부터 KTX와 SRT를 &#x27;KTX&#x27;라는 하나의 이름으로 운행합니다.</p>
+<p>절차는 이미 다 끝났습니다. 국토부는 재정경제부, 공정거래위원회 등과 인력 정원을 협의하고 기업결합 심사를 거쳤습니다. 사업 양수도 인가, 철도사업계획 변경, 철도안전관리체계 변경 같은 법정·행정 절차도 마무리했습니다.</p>
+<p>가장 먼저 체감되는 변화는 요금입니다. 기존 KTX 운임을 SRT 수준으로 끌어내리는 방식입니다. SRT 요금이 오르는 것이 아니라, 더 비쌌던 KTX 요금이 내려옵니다.</p>
+<p>서울~부산 기준운임은 5만 9,800원에서 5만 4,400원으로 5,400원 낮아집니다. 용산~광주송정은 4만 6,800원에서 4만 2,000원으로 4,800원 내려갑니다. 이 인하된 운임은 통합 이후 3년간 유지되며, 그 뒤 적정 요금은 다시 검토하기로 했습니다.</p>
+<figure><img src="./images/body-2.png" alt="통합 전후 주요 구간 KTX 운임 비교 표" loading="lazy"><figcaption>통합 전후 주요 구간 KTX 운임 비교 표</figcaption></figure>
+<hr>
+<h2><span class="bar"></span>좌석은 얼마나, 그리고 어떻게 늘어나는가</h2>
+<p>코레일은 분리 운영하던 고속철도 차량을 통합 운용해 하루 평균 1만 6,000석, 주간 기준 11만 6,000석을 추가 공급한다고 밝혔습니다. 운행 횟수는 주중 379회에서 402회로, 주말 431회에서 457회로 늘어납니다.</p>
+<p>공정거래위원회와 국토부가 함께 내놓은 사업계획 기준으로는 주말 좌석이 1만 7,000석 이상, 운행 횟수가 25회 이상 늘어납니다. 국토부 설명에 따르면 현재 공급 규모 대비 약 6% 확대에 해당합니다. 수서역에서 출발하는 이른바 수서축 좌석은 약 30% 늘어난다는 보도도 나왔습니다.</p>
+<p>방식은 두 가지입니다. 하나는 중련열차입니다. 출발역부터 종착역까지 두 편성을 이어 붙여 운행합니다. 다른 하나는 복합열차입니다. 목적지가 다른 두 열차를 붙여 보내다가 동대구역 같은 지점에서 분리해 부산행과 포항행으로 나눕니다. KTX-산천 한 편성이 410석인데, 이렇게 묶으면 820석이 됩니다.</p>
+<p>여기에 회차 제약이 사라집니다. 예전엔 코레일 열차는 서울·용산역으로, SR 열차는 수서역으로 되돌아가야 했습니다. 지금은 부산에서 올라온 열차가 서울이든 수서든 상황에 맞게 향할 수 있습니다. 대기 시간이 줄면 열차 운행률이 올라가고, 여유 편성이 생깁니다.</p>
+<p>수서역에는 955석 규모의 대용량 편성이 투입됩니다. 서대전·구포역을 경유하는 노선도 새로 생깁니다.</p>
+<figure><img src="./images/body-3.png" alt="통합에 따른 고속철도 좌석과 운행 횟수 확대 비교 표" loading="lazy"><figcaption>통합에 따른 고속철도 좌석과 운행 횟수 확대 비교 표</figcaption></figure>
+<hr>
+<h2><span class="bar"></span>이용자가 실제로 챙겨야 할 것들</h2>
+<p>승차권 예매 앱부터 달라졌습니다. &#x27;코레일톡&#x27;과 &#x27;SRT&#x27;가 &#x27;코레일+&#x27;로 합쳐졌고, 8월 3일부터 운영을 시작했습니다. 서울역과 수서역 출발 열차를 한 화면에서 조회하고 예매할 수 있습니다.</p>
+<p>회원 전환은 사람마다 다릅니다. 기존 코레일 회원은 자동으로 통합회원이 됩니다. 반면 SR 회원이거나 양쪽 모두에 가입한 분은 별도의 전환 절차를 밟아야 합니다. 여기서 한 번 걸리는 분들이 나올 수 있습니다.</p>
+<p>혜택은 대체로 넓어지는 쪽입니다.</p>
+<ul><li>마일리지: 결제 금액의 5% 적립이 수서 출·도착 열차에도 적용됩니다.</li><li>환승 할인: 고속열차에서 무궁화호·ITX-새마을 등 일반열차로 갈아탈 때 일반열차 운임의 30%를 할인받습니다.</li><li>할인 상품: 임산부·청소년·청년 할인, 온라인 특가, N카드를 모든 고속열차에서 쓸 수 있습니다.</li><li>승차권 변경: 승차일 전후 7일, 출발 30분 전까지 수수료 없이 변경할 수 있습니다.</li><li>환불: 결제 후 10분 이내 환불 위약금 면제가 통합회원 전체로 확대됩니다.</li><li>지연 배상: 90분 이상 지연 시 운임의 75%, 120분 이상이면 전액을 보상합니다.</li></ul>
+<p>자유석과 입석 운영도 확대되고, 정기승차권을 비롯한 기타 서비스도 편익을 높이는 방향으로 통합 운영될 예정입니다. 코레일은 AI 기반 매크로 탐지 시스템으로 부당한 승차권 선점도 막겠다고 밝혔습니다.</p>
+<figure><img src="./images/body-4.png" alt="예매 앱과 마일리지 등 이용자가 챙겨야 할 실무 변화 정리 표" loading="lazy"><figcaption>예매 앱과 마일리지 등 이용자가 챙겨야 할 실무 변화 정리 표</figcaption></figure>
+<hr>
+<h2><span class="bar"></span>10년 전으로 되돌아가는 길</h2>
+<p>이 결정이 왜 논쟁적인지 알려면 출발점을 봐야 합니다.</p>
+<p>SR은 2013년에 설립됐고 2016년부터 영업을 시작했습니다. 2016년 12월 수서발 고속철도가 개통하면서 SRT가 달리기 시작했고, 그때 철도 운영에 경쟁체제가 도입됐습니다. 명분은 분명했습니다. 경쟁을 통해 효율을 높이고 서비스를 개선하겠다는 것이었습니다.</p>
+<p>당시에도 반발은 있었습니다. 철도노조는 수서발 KTX를 떼어내는 것이 민영화로 가는 길목이라고 규정하며 23일간 파업했습니다. 다만 SR은 민간기업이 아니라 정부가 지배하는 준시장형 공기업으로 2019년 지정됐습니다. &#x27;민영화&#x27;라는 표현은 노동계와 일부 시민사회가 붙인 정치적 규정에 가깝습니다.</p>
+<p>그 뒤 10년 가까이, 경쟁체제는 실제로 무엇을 남겼을까요. 평가는 갈립니다.</p>
+<p>한쪽에서는 SRT가 KTX보다 약 10% 싼 운임을 들고 나오면서 가격 견제가 작동했고, 코레일도 마일리지와 할인 상품으로 맞대응하며 서비스 경쟁이 이어졌다고 봅니다. 다른 쪽에서는 두 회사가 각각 유지하는 중복 비용을 문제 삼습니다. 2024년 국정감사에서는 경쟁체제로 연 406억 원이 낭비된다는 지적이 나오기도 했습니다.</p>
+<figure><img src="./images/body-5.png" alt="2013년 SR 설립부터 2026년 재통합까지 이어지는 단계별 경과 다이어그램" loading="lazy"><figcaption>2013년 SR 설립부터 2026년 재통합까지 이어지는 단계별 경과 다이어그램</figcaption></figure>
+<hr>
+<h2><span class="bar"></span>찬성과 반대, 어느 쪽도 근거는 있습니다</h2>
+<p>공정위는 7월 31일 이 기업결합을 승인했습니다. 원래는 간이심사 대상이었습니다. 코레일과 SR 모두 정부가 단독으로 지배하는 공기업이어서, 공정거래법상 특수관계인 관계이기 때문입니다. 그런데도 공정위는 고속철도가 국가 기간시설이라는 점을 들어 심층심사를 했습니다. 공기업 간 기업결합을 심층 심사한 첫 사례입니다.</p>
+<p>경쟁 제한 우려가 낮다고 본 근거는 규제였습니다. 운임은 국토부 장관이 고시한 상한을 넘길 수 없고, 변경하려면 신고 수리를 받아야 합니다. 좌석 공급과 관련한 사업계획 변경이나 약관 변경도 인가나 신고 수리가 필요합니다. 요컨대 마음대로 올리거나 줄일 수 없는 구조라는 설명입니다.</p>
+<p>찬성 측 논거는 이렇습니다. 요금이 실제로 내려가고 좌석이 늘어난다는 점, 중복 비용을 줄일 수 있다는 점, 앱과 마일리지와 할인 제도가 하나로 정리돼 이용자가 편해진다는 점입니다. 오건호 &#x27;내가만드는복지국가&#x27; 공동대표는 분리 운영이 민영화가 좌절된 뒤 시장화를 우회적으로 추진한 결과였다며 통합을 반겼습니다. 다만 그도 &quot;통합이 다시 공기업 독점으로 회귀하는 결과가 되어서는 안 된다&quot;는 단서를 달았습니다.</p>
+<p>반대와 우려의 논거도 가볍지 않습니다.</p>
+<p>첫째, 독점의 구조적 위험입니다. 단일 공기업이 운영하면 서비스 개선과 비용 절감에 대한 내부 압력이 약해질 수 있고, 과거 공기업 독점에서 반복된 조직 비대화가 재현될 가능성을 배제하기 어렵다는 지적입니다.</p>
+<p>둘째, 파업 리스크의 단일화입니다. 지금까지는 두 회사의 노조 구조가 달라 파업이 나도 피해가 분산됐습니다. 하나가 되면 전국 고속철도가 동시에 멈출 수 있습니다.</p>
+<p>셋째, 수치의 신뢰성입니다. SR 노동조합은 좌석 증가와 비용 절감 수치의 전면 재검증을 요구했습니다. 코레일과 SR 사이의 제도적 불균형이 진짜 문제인데 통합으로 경쟁 기반 혁신이 훼손된다는 입장입니다.</p>
+<p>넷째, 절차 문제입니다. 국회 국토교통위원회에서는 충분한 연구용역 없이 정책 판단만으로 통합을 추진하는 것이 위험하다는 지적이 나왔습니다.</p>
+<figure><img src="./images/body-6.png" alt="고속철도 통합 찬성 논거와 우려 논거를 나란히 비교한 표" loading="lazy"><figcaption>고속철도 통합 찬성 논거와 우려 논거를 나란히 비교한 표</figcaption></figure>
+<hr>
+<h2><span class="bar"></span>남은 숙제 세 가지</h2>
+<p>이해관계가 얽힌 지점을 짚어두겠습니다.</p>
+<p>먼저 선로입니다. 평택~오송 구간은 이미 선로 용량이 포화 상태라는 사실을 국토부가 브리핑에서 인정했습니다. 해법으로 제시한 2복선화는 2028년 말에야 완공됩니다. 그전까지는 열차 운용 효율화로 버텨야 합니다. SR이 발주한 신규 14편성 효과도 이번 1만 7,000석 수치에는 들어가 있지 않습니다. 신규 31편성은 2028년까지 순차 도입됩니다.</p>
+<p>다음은 재무입니다. 코레일의 부채비율은 2025년 280.2%로 최근 3년 오름세입니다. 2025년 연결 영업손실은 3,524억 원, 미처리결손금은 12조 7,126억 원입니다. 요금을 내리면 적자가 더 커지는 것 아니냐는 질문이 브리핑에서도 나왔습니다. 정부는 2028년 말 복선화와 신규 차량 도입에 따른 좌석 확대로 매출이 늘어 법정 부채비율 안에서 관리할 수 있다고 답했습니다. 코레일은 5년간 11조 7,137억 원 규모의 자구노력으로 2029년 부채비율 138.9%를 목표로 하고 있습니다.</p>
+<p>마지막은 사람입니다. SR 직원은 기존 근로조건 유지를 전제로 포괄 고용승계됩니다. 고용·직무·보수·복지 같은 세부 사항은 노사 협의로 조정합니다. 코레일 조직 안에 SR 업무를 승계하는 &#x27;통합사업관리부문&#x27;을 두되, 최대 3년까지만 운영합니다. 1년 뒤 이행 정도와 조직 안정화 상황을 평가해 운영 기간을 정합니다. 열차와 앱은 하나가 됐지만 조직은 아직 완전히 섞이지 않은 상태입니다.</p>
+<p>감시 장치도 짚어야 합니다. 공정위와 국토부는 8월 3일 업무협약을 맺고 3년간 운임·좌석·서비스 이행 상황을 함께 점검하기로 했습니다. 다만 이번 건은 조건부 승인이나 시정조치가 아니어서 이행강제금을 물릴 수는 없다고 공정위가 밝혔습니다. 점검은 하되 강제할 수단은 없는 셈입니다.</p>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다.</p>
+<p>이번 통합에서 확실한 것은 두 가지입니다. 요금이 내려갔고, 하나였던 선택지가 정말 하나가 됐습니다.</p>
+<p>찬성하는 쪽은 중복을 걷어낸 정상화라 하고, 반대하는 쪽은 견제가 사라진 독점이라 합니다. 전문가들이 공통으로 말하는 대목은 조금 다릅니다. 논쟁의 본질은 통합 여부가 아니라 독점의 부작용을 어떻게 통제할 것인가에 있다는 것입니다.</p>
+<p>3년의 이행 점검, 2028년의 선로 확장, 그리고 그 뒤에 다시 열릴 요금 재검토. 답은 그 시간표 위에 놓여 있습니다.</p>
+<p>당장 다음 주 표를 끊는 사람에게는 5,400원이 먼저 보일 것입니다. 그 5,400원이 3년 뒤에도 그 자리에 있을지는, 지금부터 지켜볼 몫입니다.</p>
+<div class="tags"><span class="tag">#KTXSRT통합</span> <span class="tag">#KTX운임인하</span> <span class="tag">#코레일플러스</span> <span class="tag">#고속철도통합</span> <span class="tag">#수서역KTX</span> <span class="tag">#코레일SR통합</span> <span class="tag">#철도경쟁체제</span> <span class="tag">#KTX마일리지</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
