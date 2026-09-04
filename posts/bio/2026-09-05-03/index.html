@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>간 해독 대사 원리, 1상·2상 반응과 초회통과 효과로 읽는 약 용량</title>
+<meta name="description" content="간의 해독 대사 원리를 1상 반응의 CYP450 효소계와 2상 포합 반응, 문맥을 거치는 초회통과 효과, 니트로글리세린과 프로프라놀롤의 생체이용률, 자몽주스의 장 CYP3A4 억제와 리팜핀의 유도, 아세트아미노펜 NAPQI 독성 기전, CYP2D6 유전다형성에 따른 개인차까지 정리했습니다.">
+<meta property="og:title" content="간 해독 대사 원리, 1상·2상 반응과 초회통과 효과로 읽는 약 용량">
+<meta property="og:description" content="간의 해독 대사 원리를 1상 반응의 CYP450 효소계와 2상 포합 반응, 문맥을 거치는 초회통과 효과, 니트로글리세린과 프로프라놀롤의 생체이용률, 자몽주스의 장 CYP3A4 억제와 리팜핀의 유도, 아세트아미노펜 NAPQI 독성 기전, CYP2D6 유전다형성에 따른 개인차까지 정리했습니다.">
+<meta property="og:image" content="./images/thumbnail.png">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 48px 20px 96px;
+    background: #f5f6f8; color: #1f2328;
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 700px; margin: 0 auto; background: #fff;
+    padding: 44px 40px 60px; border-radius: 14px;
+    box-shadow: 0 2px 14px rgba(20,24,32,.07); }
+  .meta { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .cat, .badge { display: inline-block; padding: 5px 13px; border-radius: 999px;
+    background: #ff7676; color: #fff; font-size: 13px; font-weight: 700;
+    letter-spacing: .02em; }
+  .date { color: #8a929e; font-size: 14px; }
+  h1 { font-size: 29px; line-height: 1.4; font-weight: 800; margin: 0 0 30px;
+    letter-spacing: -.01em; color: #14181f; }
+  h2 { font-size: 21px; line-height: 1.5; font-weight: 700; margin: 44px 0 16px;
+    color: #14181f; padding-left: 13px; border-left: 4px solid #ff7676; }
+  p { font-size: 16.5px; line-height: 1.85; margin: 0 0 20px; color: #2c3239; }
+  ul, ol { padding-left: 22px; margin: 0 0 20px; }
+  li { font-size: 16.5px; line-height: 1.85; margin-bottom: 7px; color: #2c3239; }
+  strong { font-weight: 700; color: #14181f; }
+  hr { border: 0; border-top: 1px solid #e6e9ee; margin: 40px 0; }
+  figure { margin: 30px 0; }
+  figure img { max-width: 100%; height: auto; display: block;
+    border-radius: 10px; }
+  figcaption { margin-top: 10px; font-size: 13px; color: #98a0ab;
+    text-align: center; line-height: 1.6; }
+  .tags { margin-top: 48px; padding-top: 26px; border-top: 1px solid #e6e9ee;
+    display: flex; flex-wrap: wrap; gap: 8px; }
+  .tags span { font-size: 13.5px; color: #6b7684; background: #f1f3f6;
+    padding: 6px 12px; border-radius: 999px; }
+  @media (max-width: 640px) {
+    body { padding: 20px 12px 60px; }
+    .wrap { padding: 28px 20px 40px; }
+    h1 { font-size: 24px; }
+    h2 { font-size: 19px; }
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta"><span class="cat">바이오</span><span class="date">2026-09-05</span></div>
+  <h1>간 해독 대사 원리, 1상·2상 반응과 초회통과 효과로 읽는 약 용량</h1>
+  <figure><img src="./images/thumbnail.png" alt="간의 해독 대사 원리 - 1상·2상 반응과 초회통과 효과로 읽는 약 용량" loading="lazy"><figcaption>간의 해독 대사 원리 - 1상·2상 반응과 초회통과 효과로 읽는 약 용량</figcaption></figure>
+  <p>이번 글에서는 간이 약과 독을 처리하는 방식을 정리해 보겠습니다. 1상 반응과 2상 반응, 그리고 초회통과 효과라는 세 개의 축으로 풀어갑니다.</p>
+  <p>먼저 결론부터 세 줄로 적습니다.</p>
+  <ul><li>간의 해독은 <strong>1상에서 분자에 작용기를 만들고, 2상에서 극성 분자를 붙여 내보내는</strong> 두 단계로 이루어집니다.</li><li>위장관에서 흡수된 약은 전신으로 퍼지기 전에 간을 한 번 통과합니다. 이 <strong>초회통과 효과</strong>가 경구 용량이 정맥 용량보다 훨씬 큰 이유입니다.</li><li>자몽주스, 아세트아미노펜 독성, 사람마다 다른 약효는 모두 <strong>이 두 단계의 효소 활성이 흔들릴 때</strong> 생기는 일입니다.</li></ul>
+  <hr>
+  <h2>간이 해독의 중심에 놓인 이유</h2>
+  <p>생체변환의 대부분은 간에서, 그중에서도 간세포에서 일어납니다. 간세포는 간 질량의 약 80%를 차지하는 주된 세포입니다.</p>
+  <p>위치가 결정적입니다. 간은 두 갈래로 피를 받습니다. 문맥에서 약 75%, 간동맥에서 약 25%입니다.</p>
+  <p>문맥은 위장관에서 곧장 올라오는 혈관입니다. 우리가 삼킨 것은 전신 순환에 닿기 전에 반드시 간을 먼저 지나갑니다. 해부학적 배치 자체가 관문인 셈입니다.</p>
+  <p>간 소엽 안에서도 역할이 갈립니다. 중심정맥 주변인 3구역이 해독과 생체변환에 가장 크게 관여합니다.</p>
+  <p>물론 간만 일하는 것은 아닙니다. 신장, 폐, 그리고 소장 상피세포에서도 대사가 일어납니다. 뒤에서 다룰 자몽주스 이야기는 바로 이 소장 쪽에서 벌어지는 일입니다.</p>
+  <figure><img src="./images/body-1.png" alt="위장관 흡수에서 문맥, 간 초회통과, 전신 순환으로 이어지는 약물의 이동 경로 4단계" loading="lazy"><figcaption>위장관 흡수에서 문맥, 간 초회통과, 전신 순환으로 이어지는 약물의 이동 경로 4단계</figcaption></figure>
+  <hr>
+  <h2>1상 반응, 분자에 손잡이를 다는 일</h2>
+  <p>1상 반응은 크게 세 갈래입니다. 산화, 환원, 가수분해입니다.</p>
+  <p>목적은 분해가 아닙니다. 분자에 -OH, -NH2, -COOH 같은 극성 작용기를 새로 만들거나, 숨어 있던 것을 드러내는 일입니다. 다음 단계에서 무언가를 붙이려면 붙일 자리가 있어야 하기 때문입니다.</p>
+  <p>이 일을 맡는 것이 CYP450 효소계입니다. 간세포 소포체 막에 붙어 있는 효소군이고, CYP450을 이용한 1상 반응은 ATP가 아니라 NADPH를 씁니다.</p>
+  <p>사람은 기능하는 CYP 유전자를 57개 가지고 있습니다. 그런데 실제 약물 대사의 대부분은 여섯 개가 처리합니다. CYP1A2, CYP2C9, CYP2C19, CYP2D6, CYP2E1, CYP3A4입니다. 이 여섯이 전체 반응의 약 80~90%를 담당합니다.</p>
+  <p>그중에서도 CYP3A4가 압도적입니다. 사람 간에서 가장 풍부한 아이소자임이고, 시판 약물 가운데 약 절반의 산화 대사에 관여합니다. 다만 간 CYP450 전체에서 CYP3A4가 차지하는 비율은 자료마다 편차가 커서, 여기서는 &quot;가장 풍부하다&quot;는 선까지만 적겠습니다.</p>
+  <p>한 가지 예외를 기억해 둘 만합니다. 이미 -OH나 -NH2, -COOH를 가진 약물은 1상을 건너뛰고 곧장 2상으로 들어갑니다.</p>
+  <figure><img src="./images/body-2.png" alt="1상 반응과 2상 반응 비교 - 작용기를 만드는 CYP450 산화와 극성 분자를 붙이는 포합" loading="lazy"><figcaption>1상 반응과 2상 반응 비교 - 작용기를 만드는 CYP450 산화와 극성 분자를 붙이는 포합</figcaption></figure>
+  <hr>
+  <h2>2상 반응, 물에 녹는 꼬리표를 붙이는 일</h2>
+  <p>2상은 포합 반응입니다. 1상에서 만들어진 자리에 더 극성인 내인성 분자를 붙입니다.</p>
+  <p>동원되는 전이효소는 여럿입니다. UDP-글루쿠론산 전이효소가 글루쿠론산을, 황산전이효소가 황산을, 글루타티온 S-전이효소가 글루타티온을 붙입니다. 아세틸화, 메틸화, 글리신 포합도 여기에 듭니다.</p>
+  <p>가장 주요한 경로는 글루쿠론산화입니다. 황산화와 글루타티온 포합까지 셋을 묶어 2상의 3대 경로로 봅니다.</p>
+  <p>포합이 끝나면 분자량이 커지고, 수용성이 올라가고, 음전하가 붙습니다. 그 결과 막을 통과하지 못해 세포 안에 갇힙니다. 밖으로 내보내려면 운반체의 도움을 받아야 합니다.</p>
+  <p>예전에는 해독을 독을 부수는 일로 이해했습니다. 지금은 내보낼 수 있는 형태로 표시를 다는 일로 봅니다. 이 관점의 전환이 뒤에 나올 아세트아미노펜 이야기를 이해하는 열쇠가 됩니다.</p>
+  <figure><img src="./images/body-3.png" alt="2상 포합 반응 여섯 경로 비교표 - 글루쿠론산화, 황산화, 글루타티온 포합과 담당 전이효소" loading="lazy"><figcaption>2상 포합 반응 여섯 경로 비교표 - 글루쿠론산화, 황산화, 글루타티온 포합과 담당 전이효소</figcaption></figure>
+  <hr>
+  <h2>초회통과 효과가 약 용량을 정합니다</h2>
+  <p>간을 한 번 지날 때 제거되는 분율을 간 추출률이라고 부릅니다. 초회통과 대사의 크기를 재는 지표입니다.</p>
+  <p>추출률이 높은 대표 약물로는 니트로글리세린, 프로포폴, 프로프라놀롤, 리도카인이 꼽힙니다.</p>
+  <p>수치를 보면 감이 옵니다.</p>
+  <ul><li>니트로글리세린은 경구 투여 시 약 90%가 전신 순환에 닿기 전에 대사됩니다. 그래서 경구 생체이용률이 사실상 없다시피 합니다. 설하정으로 쓰는 이유가 여기 있습니다.</li><li>프로프라놀롤은 지용성이 높아 거의 완전히 흡수됩니다. 그런데 간에서 75~85%가 제거되어, 생체이용률은 약 25% 안팎에 머뭅니다.</li></ul>
+  <p>여기서 두 가지가 따라 나옵니다.</p>
+  <p>첫째, 초회통과가 큰 약일수록 경구 용량과 정맥 용량의 차이가 벌어집니다. 같은 혈중 농도를 만들려면 관문에서 잃을 몫까지 미리 얹어야 하기 때문입니다.</p>
+  <p>둘째, 초회통과가 큰 약일수록 사람 사이의 혈중 농도 편차도 커집니다. 관문이 클수록 그 관문의 개인차가 최종 결과에 크게 증폭됩니다.</p>
+  <p>우회하는 길도 있습니다. 설하, 직장, 경피, 흡입, 정맥 투여는 문맥을 거치지 않거나 부분적으로만 거칩니다. 니트로글리세린 설하정이 교과서적인 사례입니다.</p>
+  <figure><img src="./images/body-4.png" alt="니트로글리세린과 프로프라놀롤의 간 추출률과 경구 생체이용률 비교표" loading="lazy"><figcaption>니트로글리세린과 프로프라놀롤의 간 추출률과 경구 생체이용률 비교표</figcaption></figure>
+  <hr>
+  <h2>자몽주스가 위험한 이유는 간이 아니라 장에 있습니다</h2>
+  <p>자몽주스는 CYP3A4로 대사되는 약물의 전신 노출량을 늘립니다. 흔히 간 이야기로 오해하지만, 주 표적은 장의 CYP3A4입니다.</p>
+  <p>전제가 되는 사실이 있습니다. CYP3A4는 소장 상피세포에서 발현되는 주된 CYP 형태이고, 3A 계열이 그 세포의 시토크롬 함유 효소 가운데 70% 이상을 차지합니다. 삼킨 약은 간에 닿기도 전에 장벽에서 이미 상당량이 대사되는 셈입니다.</p>
+  <p>원인 물질은 푸라노쿠마린류입니다. 푸라노쿠마린만 제거한 자몽주스로는 상호작용이 재현되지 않았습니다. 이 실험이 인과를 확정했습니다.</p>
+  <p>억제 방식이 까다롭습니다. 푸라노쿠마린은 CYP3A4에 결합해 기전기반 비가역적 억제를 일으키고, 효소 자체를 빠르게 분해시킵니다. 경쟁적 억제도 함께 작용합니다. 베르가모틴이 가장 강한 기전기반 억제제로 지목됩니다.</p>
+  <p>비가역적이라는 말의 무게는 지속 시간에서 드러납니다. 펠로디핀에 자몽주스 200mL를 함께 준 연구에서, 간격이 4시간일 때 상호작용이 가장 컸습니다. 10시간을 벌리면 최대 효과의 절반, 하루를 벌려도 4분의 1이 남았습니다.</p>
+  <p>효소가 새로 만들어질 때까지 영향이 이어진다는 뜻입니다. &quot;아침에 마셨으니 저녁 약은 괜찮다&quot;는 통념이 위험한 이유가 여기 있습니다.</p>
+  <hr>
+  <h2>억제의 반대편에는 유도가 있습니다</h2>
+  <p>효소를 막는 일이 있으면, 늘리는 일도 있습니다.</p>
+  <p>유도제는 CYP 아이소자임과 약물 수송체의 발현 자체를 늘립니다. 결과적으로 함께 먹은 약의 청소율이 크게 달라집니다.</p>
+  <p>기전은 핵수용체를 거칩니다. 리팜핀과 세인트존스워트는 모두 PXR이라는 수용체에 결합합니다. PXR이 활성화되면 핵으로 들어가 RXR과 짝을 이루고, CYP3A4를 비롯한 표적 유전자의 프로모터에 붙어 발현을 켭니다.</p>
+  <p>범위도 넓습니다. 세인트존스워트는 CYP3A4, CYP2C9, CYP2C19를 유도합니다. 리팜피신은 CYP2A6, CYP2B6, CYP2C8, CYP2C9, CYP2C19, CYP3A4, CYP3A7 유전자 근처에서 유도 영역이 확인되었습니다.</p>
+  <p>억제와 유도는 시간의 결이 다릅니다. 억제는 효소 단백질에 직접 작용하므로 대체로 즉시 나타납니다. 유도는 유전자 발현부터 새 단백질 합성까지 거쳐야 하므로 며칠에 걸쳐 서서히 올라오고, 서서히 가라앉습니다.</p>
+  <p>방향이 뒤집히는 경우도 있습니다. 클로피도그렐은 프로드럭입니다. 혈소판 억제는 활성 대사체가 만들어 내고, 그 활성화의 일부를 CYP2C19가 맡습니다. 그래서 리팜핀이 CYP2C19를 강하게 유도하면 활성 대사체가 늘고 출혈 위험이 올라갈 수 있습니다.</p>
+  <p>&quot;효소를 늘리면 약효가 준다&quot;는 도식이 언제나 성립하지는 않습니다.</p>
+  <figure><img src="./images/body-5.png" alt="CYP450 억제와 유도 비교표 - 작용 지점, 대표 기전, 나타나는 속도와 지속 시간" loading="lazy"><figcaption>CYP450 억제와 유도 비교표 - 작용 지점, 대표 기전, 나타나는 속도와 지속 시간</figcaption></figure>
+  <hr>
+  <h2>아세트아미노펜, 경로가 밀려날 때 생기는 일</h2>
+  <p>해열진통제로 흔히 쓰는 아세트아미노펜은 1상과 2상의 균형을 보여 주는 좋은 사례입니다.</p>
+  <p>정상 용량에서 대사 분배는 이렇습니다.</p>
+  <ul><li>글루쿠론산 포합 약 50~60%</li><li>황산 포합 약 30~40%</li><li>CYP450 산화 약 5~15%, 그중 독성 대사체로 가는 몫이 약 5~9%</li></ul>
+  <p>평상시에는 2상이 90% 가까이를 처리합니다. 1상 산화는 소수 경로입니다.</p>
+  <p>문제는 그 소수 경로의 산물입니다. CYP2E1이 주로, CYP1A2와 CYP3A4가 거들어 아세트아미노펜을 NAPQI라는 반응성 대사체로 바꿉니다.</p>
+  <p>NAPQI는 반감기가 극히 짧고, 정상 상태에서는 글루타티온과 곧바로 결합해 무독화됩니다. 글루타티온이 설프하이드릴 공여체로 붙잡아 주는 것입니다.</p>
+  <p>과량이 들어오면 순서가 무너집니다.</p>
+  <ol><li>글루쿠론산과 황산 포합 경로가 포화됩니다.</li><li>남은 약물이 CYP 산화 경로로 밀려나 NAPQI 생성이 늘어납니다.</li><li>간의 글루타티온 저장고가 고갈됩니다.</li><li>붙잡히지 못한 NAPQI가 세포 단백질에 공유결합합니다.</li><li>특히 미토콘드리아 단백질과 부가체를 만들면 산화 스트레스와 기능장애를 거쳐 괴사성 세포사로 이어집니다.</li></ol>
+  <p>에탄올이 위험한 이유도 여기서 설명됩니다. 쥐 간 실험에서 에탄올은 미토콘드리아 글루타티온을 선택적으로 고갈시켜 아세트아미노펜 독성을 키웠습니다.</p>
+  <p>해독제인 N-아세틸시스테인은 두 방향으로 작용하는 것으로 여겨집니다. 글루타티온 합성의 기질이 되어 주고, NAPQI를 직접 붙잡습니다.</p>
+  <figure><img src="./images/body-6.png" alt="아세트아미노펜 과량 시 경로 포화에서 NAPQI 증가, 글루타티온 고갈, 공유결합까지 4단계" loading="lazy"><figcaption>아세트아미노펜 과량 시 경로 포화에서 NAPQI 증가, 글루타티온 고갈, 공유결합까지 4단계</figcaption></figure>
+  <hr>
+  <h2>같은 약을 먹어도 사람마다 다릅니다</h2>
+  <p>효소의 활성은 사람마다 다릅니다. 유전다형성 때문입니다.</p>
+  <p>가장 잘 알려진 사례가 CYP2D6와 코데인입니다. 코데인 자체는 진통 효과가 약하고, CYP2D6가 모르핀으로 바꿔 주어야 작동합니다.</p>
+  <ul><li><strong>저대사자</strong>는 코데인이 모르핀으로 잘 바뀌지 않습니다. 진통 효과를 거의 얻지 못합니다. CPIC 지침은 이 경우 코데인을 피하고 CYP2D6를 거치지 않는 진통제를 쓰도록 권고합니다.</li><li><strong>초고속대사자</strong>는 반대입니다. 모르핀이 과도하게 만들어져, 통상 용량에서도 중증 독성 위험이 있습니다. 건강한 자원자 연구에서 초고속대사자는 정상대사자보다 모르핀 혈중 AUC 중앙값이 약 45% 높았습니다.</li></ul>
+  <p>빈도는 인구집단에 따라 크게 갈립니다. 정상기능 대립유전자 조합을 가진 사람이 43~67% 정도이고, 백인 기준 저대사자는 약 5~10%, 초고속대사자는 약 1~7%로 보고됩니다. 반면 중동 지역 보고에서는 저대사자가 0.91%, 초고속대사자가 11.2%로 정반대에 가깝습니다.</p>
+  <p>하나의 숫자로 요약할 수 없다는 점이 오히려 중요한 결론입니다.</p>
+  <p>클로피도그렐도 비슷합니다. CYP2C19 기능이 떨어지는 대립유전자를 가진 사람은 활성 대사체가 덜 만들어져 항혈소판 효과가 약해질 수 있습니다.</p>
+  <p>한 가지 솔직히 덧붙이자면, 이번에 확인한 자료 범위에서는 한국인 집단의 CYP2D6·CYP2C19 빈도에 대한 신뢰할 만한 수치를 찾지 못했습니다. 그래서 이 글에서는 다루지 않았습니다.</p>
+  <hr>
+  <p>정리하면 이렇습니다.</p>
+  <p>간의 해독은 두 박자로 움직입니다. 1상이 손잡이를 만들고, 2상이 꼬리표를 붙입니다. 그리고 이 두 박자가 문맥이라는 관문 위에서 작동하기 때문에, 우리가 삼킨 약의 상당 부분은 몸에 퍼지기도 전에 사라집니다.</p>
+  <p>자몽주스도, 아세트아미노펜 독성도, 사람마다 다른 약효도 결국 같은 이야기의 변주였습니다. 어느 한 효소의 활성이 흔들리면 나머지 계산이 전부 어긋납니다.</p>
+  <p>그래서 &quot;약의 용량은 몸이 무엇을 견디는지가 아니라, 간이 무엇을 얼마나 지우는지에 맞춰 정해진 숫자&quot;라고 이해하는 편이 정확합니다.</p>
+  <p>한 가지만 분명히 해 두겠습니다. 이 글은 원리를 이해하기 위한 일반 교양 설명입니다. 복용 중인 약의 용량, 병용 여부, 음식과의 간격 같은 개인의 판단은 반드시 의사나 약사와 상의하시기 바랍니다. 같은 성분이라도 사람에 따라 결론이 달라지는 영역이기 때문입니다.</p>
+  <p>간이 하는 일을 알고 나면 약을 대하는 태도가 조금 달라집니다. 설명서의 작은 글씨가 왜 그렇게 깐깐한지, 이제는 짐작이 되실 것입니다.</p>
+  <div class="tags"><span>#간해독</span> <span>#약물대사</span> <span>#초회통과효과</span> <span>#CYP450</span> <span>#1상2상반응</span> <span>#자몽주스상호작용</span> <span>#아세트아미노펜</span> <span>#유전다형성</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
