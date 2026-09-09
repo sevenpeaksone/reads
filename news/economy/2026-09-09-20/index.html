@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8월 물가 3.1% 재상승, 한국은행이 금리를 3%로 올린 이유</title>
+<meta name="description" content="1년 2개월 만에 끝난 동결, 시작된 긴축 사이클">
+<style>
+  :root { --ink:#1a1a1a; --sub:#6b7684; --line:#e5e8eb; --accent:#0f3b63; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:0 20px 80px;
+    background:#fafbfc; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { width:100%; max-width:700px; margin:0 auto; }
+  header.post { padding:48px 0 28px; border-bottom:1px solid var(--line); margin-bottom:36px; }
+  .meta { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+  .badge {
+    display:inline-block; background:var(--accent); color:#fff;
+    font-size:13px; font-weight:700; letter-spacing:.5px;
+    padding:6px 16px; border-radius:999px;
+  }
+  .date { font-size:14px; color:var(--sub); }
+  h1 { font-size:30px; line-height:1.42; font-weight:800; margin:0 0 14px; letter-spacing:-.3px; }
+  .subtitle { font-size:16px; color:var(--sub); line-height:1.6; margin:0; }
+  h2 {
+    font-size:21px; font-weight:700; line-height:1.5;
+    margin:52px 0 18px; padding-left:14px; border-left:5px solid var(--accent);
+    letter-spacing:-.2px;
+  }
+  p { font-size:17px; line-height:1.85; margin:0 0 18px; }
+  ul { margin:0 0 22px; padding-left:22px; }
+  li { font-size:17px; line-height:1.85; margin-bottom:10px; }
+  hr { border:0; border-top:1px solid var(--line); margin:40px 0; }
+  figure { margin:32px 0; }
+  img { max-width:100%; height:auto; display:block; border-radius:10px;
+         box-shadow:0 4px 18px rgba(15,59,99,.10); }
+  blockquote {
+    margin:32px 0; padding:22px 26px; background:#fff;
+    border-left:5px solid #b91c1c; border-radius:8px;
+    font-size:16px; line-height:1.8; color:#40474f;
+    box-shadow:0 2px 10px rgba(0,0,0,.04);
+  }
+  strong { font-weight:700; color:#0b2b48; }
+  .tags { margin-top:34px; font-size:15px; color:var(--accent); line-height:2; }
+  .tag { display:inline-block; background:#eef4f9; color:var(--accent);
+          padding:5px 13px; border-radius:6px; margin:0 6px 8px 0; font-size:14px; }
+  @media (max-width:620px) { h1 { font-size:25px; } p,li { font-size:16px; } }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/economy/index.html">경제 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <header class="post">
+    <div class="meta"><span class="badge">경제 뉴스</span><span class="date">2026-09-09</span></div>
+    <h1>8월 물가 3.1% 재상승, 한국은행이 금리를 3%로 올린 이유</h1>
+    <p class="subtitle">1년 2개월 만에 끝난 동결, 시작된 긴축 사이클</p>
+  </header>
+  <article>
+<p>이번 글에서는 2026년 8월 소비자물가와 한국은행 기준금리 인상을 함께 정리해 보겠습니다. 물가 상승률은 한 달 만에 다시 3%대로 올라섰고, 금통위는 그보다 앞서 기준금리를 3.00%로 끌어올렸습니다. 두 사건은 따로 떨어진 뉴스가 아니라 하나의 흐름입니다.</p>
+<figure><img src="./images/rate0909-thumb.png" alt="2026년 8월 소비자물가 3.1%와 기준금리 3.00% 인상을 함께 보여주는 대표 이미지"></figure>
+<hr>
+<h2>세 줄 요약</h2>
+<ul><li>2026년 8월 소비자물가 상승률은 3.1%로, 7월 2.8%에서 두 달 만에 다시 3%대에 올라섰습니다.</li><li>한국은행 금융통화위원회는 그에 앞선 8월 27일 기준금리를 연 2.75%에서 3.00%로 0.25%포인트 올렸습니다. 7월에 이은 두 달 연속 인상입니다.</li><li>물가·금리 사이클이 완전히 방향을 틀었습니다. 다만 8월 물가에는 통신요금 기저효과라는 착시가 상당 부분 섞여 있습니다.</li></ul>
+<hr>
+<h2>무슨 일이 있었나 — 숫자부터 정리합니다</h2>
+<p>국가데이터처가 9월 2일 발표한 2026년 8월 소비자물가동향에 따르면, 지난달 소비자물가지수는 120.05였습니다. 1년 전보다 3.1% 올랐습니다. 전월 대비로는 0.2% 상승했습니다.</p>
+<p>흐름을 보면 5월 3.1%, 6월 3.2%였다가 7월에 2.8%로 내려앉았습니다. 그리고 8월에 다시 3.1%로 올라섰습니다. 한 달 만의 복귀입니다.</p>
+<p>더 눈여겨볼 지표는 근원물가입니다. 식료품과 에너지를 제외한 지수가 3.4% 올랐습니다. 전월 2.6%에서 0.8%포인트나 뛰었습니다. 2023년 5월 3.8% 이후 가장 높은 숫자입니다. 농산물과 석유류를 제외한 지수도 3.1%로, 2023년 12월 이후 최고 수준을 기록했습니다.</p>
+<p>생활물가지수는 3.2% 상승했습니다. 그 안을 들여다보면 식품이 0.8% 오른 반면 식품 이외 품목은 4.8% 올랐습니다. 장바구니보다 다른 곳에서 부담이 커졌다는 뜻입니다.</p>
+<figure><img src="./images/rate0909-1.png" alt="2026년 5월부터 8월까지 소비자물가 상승률과 근원물가 추이 비교표"></figure>
+<hr>
+<h2>3.1%를 뜯어보면 — 통신요금 하나가 만든 착시</h2>
+<p>물가를 끌어올린 주역은 뜻밖에도 휴대전화 요금이었습니다. 8월 휴대전화료는 1년 전보다 26.7% 올랐습니다. 통신사가 지난해 8월 요금을 50% 감면했던 탓에 비교 기준이 낮아졌기 때문입니다. 이른바 기저효과입니다.</p>
+<p>그 여파로 공공서비스 물가는 6.5% 상승했습니다. 전월 상승률이 1.4%였으니 오름폭이 한꺼번에 벌어진 셈입니다.</p>
+<p>국가데이터처 이두원 경제동향통계심의관은 이 기저효과의 기여분을 약 0.58%포인트로 계산했습니다. 이를 걷어내면 8월 물가는 2.5% 수준으로 본다고 설명했습니다. 3.1%라는 숫자를 그대로 받아들이면 안 되는 이유입니다.</p>
+<p>나머지 품목은 어땠을까요. 석유류는 14.2% 올라 여전히 두 자릿수였습니다. 경유 19.6%, 등유 19.7%, 휘발유 11.5%입니다. 다만 상승폭 자체는 전월보다 소폭 줄었습니다. 농축수산물은 오히려 2.6% 하락했습니다. 출하량이 늘고 정부 할인행사가 겹친 결과입니다. 그럼에도 쌀 6.2%, 고등어 6.5%, 수입 쇠고기 7.4%, 달걀 5.2%처럼 자주 사는 품목은 올랐습니다. 가공식품도 1.5% 올라 7월 1.0%보다 오름폭이 커졌습니다. 출고가 인상이 순차적으로 반영되고 있습니다.</p>
+<figure><img src="./images/rate0909-2.png" alt="8월 소비자물가를 품목별로 분해한 상승 기여 요인 카드"></figure>
+<hr>
+<h2>한국은행은 왜 물가 발표 전에 먼저 움직였나</h2>
+<p>금통위의 인상 결정은 물가 발표보다 엿새 앞선 8월 27일에 나왔습니다.</p>
+<p>금통위는 이날 기준금리를 연 2.75%에서 3.00%로 0.25%포인트 올렸습니다. 7월에 2.50%에서 2.75%로 올린 데 이어 한 달 만의 추가 인상입니다. 시장에서는 이를 '백투백 인상'이라고 부릅니다. 금통위가 기준금리를 연속으로 올린 것은 이번이 네 번째입니다.</p>
+<p>예전에는 동결이 기본값이었습니다. 지난해 5월 2.50%로 내린 뒤 1년 2개월 동안 금리는 그 자리에 머물렀습니다. 지금은 다릅니다. 두 달 사이에 0.5%포인트가 올라갔고, 긴축 사이클이 본격적으로 시작됐습니다.</p>
+<p>시장의 예상과도 어긋났습니다. 7월 인상 직후 실시된 설문에서는 응답자 전원이 다음 변경 시점을 10월로 봤습니다. 8월에는 동결 의견이 상당했습니다. 금통위는 그 예상을 깼습니다.</p>
+<p>신현송 한국은행 총재는 기자간담회에서 '호미로 막을 것을 가래로 막는다'는 속담을 꺼냈습니다. 물가가 튀어 오른 뒤에 대응하면 훨씬 큰 대가를 치른다는 뜻입니다. 그는 두 번 연이은 인상을 두고 "관례를 벗어난 조치"라고 표현했습니다. 시장에 강한 신호를 보내겠다는 의도였습니다.</p>
+<p>선제 대응의 논리는 이렇습니다. 기대인플레이션을 일찍 붙잡아두면 긴축의 강도와 기간을 줄일 수 있고, 결국 성장 측면에서 치르는 비용도 최소화할 수 있다는 것입니다.</p>
+<figure><img src="./images/rate0909-3.png" alt="기준금리 2.50%에서 2.75%를 거쳐 3.00%까지 오른 인상 경로 다이어그램"></figure>
+<hr>
+<h2>이번 결정의 진짜 배경 — 성장률 3.3%</h2>
+<p>금통위가 과감해질 수 있었던 근거는 물가가 아니라 성장이었습니다.</p>
+<p>한은은 같은 날 수정경제전망을 통해 2026년 실질 GDP 성장률 전망치를 3.3%로 올렸습니다. 5월 전망치 2.6%에서 0.7%포인트를 높인 것입니다. 2021년 4.7% 이후 5년 만에 가장 높은 수준이고, 한은이 보는 잠재성장률 2%를 크게 웃돕니다. 정부 전망 3.0%와 한국개발연구원 전망 3.2%도 넘어섭니다. 내년 전망치 역시 2.1%에서 2.9%로 올렸습니다.</p>
+<p>상향분의 절반은 반도체가 만들었습니다. 반도체 경기 호조의 기여도가 0.35%포인트였습니다. 여기에 지난해와 올해 1분기 실적치 수정 효과 0.20%포인트, 투자 가속화 0.10%포인트, 중동 리스크 충격이 예상보다 작았던 점 0.10%포인트가 더해졌습니다. 올해 경상수지 흑자는 역대 최대인 4,500억 달러로 전망됐습니다.</p>
+<p>물가 전망도 함께 조정됐습니다. 소비자물가 전망치는 올해 2.7%, 내년 2.3%로 5월과 같았습니다. 반면 한은이 더 무게를 두는 근원물가 전망치는 올해와 내년 모두 2.5%로 올라갔습니다. 기대인플레이션율은 2.7~2.8% 수준을 유지하고 있습니다.</p>
+<p>환율도 고려 대상이었습니다. 신 총재는 원·달러 환율이 1300원대로 내려왔지만 역사적으로 보면 여전히 높은 수준이라고 평가했습니다. 환율이 밀어 올리는 수입물가가 국내 물가로 번지는 것을 미리 차단하겠다는 뜻입니다.</p>
+<figure><img src="./images/rate0909-4.png" alt="한국은행 8월 수정경제전망의 성장률·물가 전망치 변화 비교표"></figure>
+<hr>
+<h2>만장일치는 아니었습니다</h2>
+<p>이번 결정이 매끄럽게 이뤄진 것은 아닙니다.</p>
+<p>표결은 6대 1이었습니다. 황건일 위원은 기준금리를 연 2.75%로 동결하는 것이 바람직하다는 소수의견을 냈습니다. 금리 인상 결정에서 동결 소수의견이 나온 것은 2023년 1월 이후 약 3년 7개월 만입니다. 가파른 인상 속도에 대한 우려였습니다.</p>
+<p>통화정책방향 결정문에서 '금리 인상 기조'라는 문구가 빠진 점도 눈에 띕니다. 대신 물가와 경기, 금융안정 상황을 면밀히 점검하며 추가 인상의 시기와 속도를 결정하겠다고 적었습니다. 속도조절 가능성을 열어둔 표현입니다.</p>
+<p>부담을 지는 쪽은 결국 차주입니다. 금리가 0.5%포인트 오르면 가계의 연간 이자 부담은 6조 5,000억 원 늘어나는 것으로 분석됐습니다. 계층별로는 고소득 가계 4조 2,000억 원, 중소득 가계 1조 6,000억 원, 저소득 가계 7,000억 원입니다. 주택담보대출 차주만 놓고 보면 3조 7,000억 원이 늘어납니다. 실제 은행 대출금리도 이미 오름세입니다. 2026년 6월 기준 전체 대출금리는 연 4.31%로 전월 4.19%보다 0.12%포인트 상승했습니다.</p>
+<p>한은도 이 부담을 모르지 않습니다. 다만 예상을 웃도는 성장세가 그 부담을 감당할 여력을 만들어줬다는 것이 이번 결정의 논리였습니다.</p>
+<hr>
+<h2>앞으로는 어떻게 될까</h2>
+<p>시선은 이제 다음 회의와 최종 도착점으로 향합니다.</p>
+<p>이번에 공개된 향후 6개월 시계의 기준금리 전망, 이른바 점도표의 중간값은 3.25%였습니다. 현 수준보다 0.25%포인트 높습니다. 2027년 2월까지 네 차례 회의가 남은 상황에서 최소 한 번의 추가 인상 가능성을 공식화한 셈입니다. 일부에서는 최종금리가 3.75%까지 갈 수 있다는 시각도 나옵니다.</p>
+<p>신 총재는 추가 인상의 폭과 시기를 데이터로 판단하겠다고 했습니다. "금통위의 모든 회의는 라이브"라는 표현을 썼습니다. 10월 금통위 전까지 소비자물가와 2분기 GDP 잠정치, 경제심리지수, 소득개선 파급효과를 살피겠다는 것입니다.</p>
+<p>바깥 변수도 만만치 않습니다. 9월 9일 런던 ICE 선물거래소에서 11월 인도분 브렌트유는 배럴당 100.02달러를 기록했습니다. 100달러를 넘긴 것은 7월 24일 이후 처음입니다. 홍해에서 사우디아라비아와 예멘 후티 반군의 교전이 격화되면서 4년간의 휴전이 깨진 영향입니다. 뱅크오브아메리카는 이런 소규모 충돌이 연말까지 이어지면 브렌트유가 95~120달러 사이에서 거래될 수 있다고 봤습니다.</p>
+<p>한은의 시나리오 분석에 따르면, 중동을 둘러싼 교착이 장기화될 경우 연 성장률은 0.1~0.3%포인트 낮아지고 물가는 0.1~0.4%포인트 높아집니다. 8월에도 석유류는 이미 14.2% 오른 상태였습니다.</p>
+<p>미국 쪽도 변수입니다. 연방준비제도는 2025년 12월 이후 정책금리를 3.50~3.75%로 유지해 왔습니다. 다음 회의는 9월 15일과 16일입니다. 2% 목표를 웃도는 물가와 공급 측 압력을 지적하는 연준 인사들의 매파적 발언이 이어지면서, 시장은 인하가 아니라 인상 가능성을 저울질하고 있습니다. 미국 금리가 더 올라가면 달러가 강해지고 원·달러 환율도 다시 밀려 올라갈 수 있습니다. 그러면 수입물가를 통해 국내 물가로 되돌아옵니다.</p>
+<figure><img src="./images/rate0909-5.png" alt="추가 인상을 좌우할 세 가지 변수 - 점도표 3.25%, 브렌트유 100달러, 미 연준 9월 FOMC"></figure>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>8월의 3.1%는 통신요금이 만든 착시를 상당 부분 담고 있습니다. 그 착시를 걷어내면 2.5%입니다. 그러나 근원물가 3.4%와 국제유가 100달러는 착시가 아닙니다. 한국은행이 물가 발표를 기다리지 않고 먼저 움직인 이유도 여기에 있다고 생각합니다.</p>
+<p>— 지금 우리가 보고 있는 것은 한 달치 숫자가 아니라, 방향이 바뀐 사이클입니다.</p>
+<p>물론 이 판단이 끝까지 옳을지는 아직 알 수 없습니다. 성장률 3.3%가 반도체 한 축에 크게 기대고 있다는 점, 그리고 그 축이 흔들리면 그림이 달라진다는 점은 한은도 인정하고 있습니다.</p>
+<p>금리가 계속 오를 것이냐고 물으신다면, 저는 이렇게 답하겠습니다. 오르느냐 마느냐보다, 어디서 멈추느냐를 지켜볼 때입니다.</p>
+<hr>
+<blockquote><strong>면책 안내</strong><br>이 글은 공개된 통계와 언론 보도를 정리한 정보성 콘텐츠이며, <strong>투자 권유나 금융 자문이 아닙니다.</strong> 기준금리·물가·환율 전망은 상황에 따라 언제든 바뀔 수 있습니다. 예금·대출·투자 관련 의사결정은 본인의 판단과 책임 아래, 필요하다면 전문가 상담을 거쳐 진행하시기 바랍니다.</blockquote>
+<hr>
+<p class="tags"><span class="tag">#소비자물가</span> <span class="tag">#기준금리</span> <span class="tag">#한국은행</span> <span class="tag">#금통위</span> <span class="tag">#물가상승률</span> <span class="tag">#근원물가</span> <span class="tag">#국제유가</span> <span class="tag">#경제뉴스</span></p>
+  </article>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
