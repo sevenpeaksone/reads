@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>원달러 환율 1300원대로 내렸는데 한국은행은 왜 기준금리를 올렸나</title>
+<meta name="description" content="2026년 9월 원달러 환율은 1,345.9원까지 내려왔지만 한국은행 기준금리는 3.00%로 올랐습니다. 환율·유가·수도권 집값이 만든 새로운 물가 지도를 해설합니다.">
+<style>
+  :root{
+    --ink:#222;
+    --sub:#555;
+    --line:#e6e6e6;
+    --accent:#c9922b;
+    --teal:#1f8a7a;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:0 16px;
+    background:#fafafa;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:700px; margin:0 auto;
+    background:#fff; padding:52px 40px 70px;
+  }
+
+  /* ── 헤더 ── */
+  .meta{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+  .badge{
+    display:inline-block; background:#1a1a2e; color:#f6c667;
+    border-radius:999px; padding:6px 16px;
+    font-size:13px; font-weight:700; letter-spacing:.5px;
+  }
+  .date{font-size:13px;color:#8a8a8a;letter-spacing:.3px}
+
+  h1{
+    font-size:30px; font-weight:800; line-height:1.45;
+    letter-spacing:-.7px; margin:0 0 26px;
+  }
+
+  hr.rule{border:0;border-top:1px solid var(--line);margin:38px 0}
+
+  /* ── 본문 ── */
+  p{font-size:16.5px; line-height:1.85; margin:0 0 18px; color:var(--ink)}
+  strong{font-weight:700}
+  h2{
+    font-size:21px; font-weight:800; line-height:1.5;
+    margin:44px 0 20px; padding-bottom:12px;
+    border-bottom:2px solid #1a1a2e; letter-spacing:-.4px;
+  }
+
+  /* 요약 박스 */
+  .summary{
+    background:#f6f7fb; border-left:4px solid var(--accent);
+    border-radius:6px; padding:22px 24px; margin:26px 0 34px;
+  }
+  .summary .t{font-size:15px;font-weight:800;margin-bottom:12px;color:#1a1a2e}
+  .summary ul{margin:0;padding-left:20px}
+  .summary li{font-size:15.5px;line-height:1.8;margin-bottom:8px;color:#3a3a3a}
+  .summary li:last-child{margin-bottom:0}
+
+  img{max-width:100%;height:auto;display:block;margin:32px auto;border-radius:10px}
+
+  /* 마무리 핵심 문장 */
+  .punch{
+    font-size:19px; font-weight:800; text-align:center;
+    color:#1a1a2e; line-height:1.65;
+    margin:30px 0; padding:22px 18px;
+    background:#f6f7fb; border-radius:10px;
+  }
+
+  /* 면책 */
+  .disclaimer{
+    margin-top:44px; background:#fff8ec;
+    border:1px solid #f0dcb4; border-radius:8px;
+    padding:20px 22px; font-size:14px; line-height:1.8; color:#6b5a34;
+  }
+  .disclaimer b{color:#a3761b}
+
+  /* 해시태그 */
+  .tags{margin-top:36px; display:flex; flex-wrap:wrap; gap:8px}
+  .tags span{
+    background:#f2f3f7; color:#5a6070; border-radius:999px;
+    padding:7px 14px; font-size:13.5px;
+  }
+
+  @media (max-width:600px){
+    .wrap{padding:34px 20px 50px}
+    h1{font-size:24px}
+    h2{font-size:19px}
+    p{font-size:16px}
+  }
+</style>
+
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/news/economy/index.html">경제 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+
+
+<div class="wrap">
+
+  <div class="meta">
+    <span class="badge">경제 뉴스</span>
+    <span class="date">2026년 9월 12일</span>
+  </div>
+
+  <h1>원달러 환율 1300원대로 내렸는데 <br>한국은행은 왜 기준금리를 올렸나</h1>
+
+  <img src="./images/thumbnail.png" alt="원달러 환율 1345원과 한국은행 기준금리 3.00%를 함께 보여주는 경제 뉴스 대표 이미지">
+
+  <p>이번 글에서는 2026년 9월 현재의 원달러 환율과 기준금리를 함께 정리해 보겠습니다. 석 달 전만 해도 1,600원을 걱정하던 환율이 지금은 1,340원대입니다. 그런데 한국은행은 그사이 금리를 두 번 올렸습니다.</p>
+
+  <div class="summary">
+    <div class="t">세 줄 요약</div>
+    <ul>
+      <li>원달러 환율은 6월 8일 야간장 1,561.5원에서 9월 11일 1,345.9원까지 내려왔습니다.</li>
+      <li>한국은행은 7월과 8월 연속으로 기준금리를 올려 연 3.00%로 만들었고, 추가 인상 가능성을 열어뒀습니다.</li>
+      <li>환율이 비운 자리를 국제유가와 수도권 집값·가계부채가 대신 채웠습니다. 물가 압력의 주인공이 바뀐 것입니다.</li>
+    </ul>
+  </div>
+
+  <h2>■ 무슨 일이 있었나 — 석 달 만에 216원이 빠졌습니다</h2>
+
+  <p>2026년 6월 8일, 원달러 환율은 야간장에서 1,561.5원까지 치솟았습니다. 글로벌 금융위기 한복판이던 2009년 3월 이후 17년 3개월 만의 최고치였습니다.</p>
+
+  <p>시장은 술렁였습니다. 당시 기사 제목에는 1,600원이라는 숫자가 오르내렸습니다.</p>
+
+  <p>그리고 9월 11일, 서울외환시장의 주간거래 종가는 1,345.9원이었습니다. 전 거래일보다 6.7원 오른 값입니다.</p>
+
+  <p>고점에서 216원 가까이 내려온 셈입니다. 7월 장중 고점과 9월 7일 저점만 비교하면 하락 폭은 224.5원에 이릅니다.</p>
+
+  <p>같은 기간 한국은행은 반대로 움직였습니다. 7월에 기준금리를 연 2.50%에서 2.75%로 올렸습니다. 3년 9개월 만의 인상이었습니다. 8월 27일에는 다시 3.00%로 올렸습니다. 두 달 연속, 이른바 '백투백' 인상입니다.</p>
+
+  <p>기준금리가 3%대에 올라선 것은 2024년 11월 이후 1년 9개월 만입니다.</p>
+
+  <img src="./images/body-1.png" alt="2026년 원달러 환율 추이 그래프 - 6월 8일 1561.5원 고점에서 9월 11일 1345.9원까지 하락">
+
+  <hr class="rule">
+
+  <h2>■ 왜 중요한가 — 환율과 금리가 따로 움직이기 시작했습니다</h2>
+
+  <p>보통은 이렇게 읽습니다. 환율이 오르면 수입 물가가 오르고, 물가가 오르면 중앙은행이 금리를 올린다.</p>
+
+  <p>예전엔 그 순서가 잘 들어맞았습니다. 지금은 순서가 흐트러졌습니다.</p>
+
+  <p>환율이 내려왔는데도 금리는 올라갑니다. 이 어긋남이 지금 한국 경제를 읽는 첫 번째 열쇠입니다.</p>
+
+  <p>이유는 두 가지입니다.</p>
+
+  <p>하나는 한국은행이 이번 인상을 위기 대응이 아니라 <strong>경기 대응</strong>으로 보고 있다는 점입니다. 한국은행은 8월 금통위에서 2026년 성장률 전망치를 5월의 2.6%에서 3.3%로 0.7%포인트 끌어올렸습니다. 경기가 꺾여서 올린 금리가 아니라, 경기가 좋아서 올린 금리입니다.</p>
+
+  <p>다른 하나는 물가를 밀어올리는 힘의 출처가 바뀌었다는 점입니다. 상반기에는 환율이었습니다. 하반기에는 유가와 자산시장입니다.</p>
+
+  <hr class="rule">
+
+  <h2>■ 배경 ① 환율은 왜 내려왔나</h2>
+
+  <p>세 가지가 겹쳤습니다.</p>
+
+  <p><strong>첫째, 수출기업이 달러를 팔기 시작했습니다.</strong> 상반기 내내 "원화 약세가 더 갈 것"이라며 환전을 미뤄두었던 기업들이, 고점이라는 인식이 퍼지자 쌓아둔 달러를 시장에 내놓았습니다.</p>
+
+  <p><strong>둘째, 반도체 자금이 들어왔습니다.</strong> 반도체 수출 호조에 따른 외화 유입이 수급의 방향을 돌려놓았습니다.</p>
+
+  <p><strong>셋째, 달러 자체가 약해졌습니다.</strong> 미국 연방준비제도가 금리를 더 올리지 않으리라는 관측이 퍼진 영향입니다.</p>
+
+  <p>당국의 대응도 있었습니다. 6월 8일 오전 11시 45분, 윤경수 한국은행 국제국장과 이형렬 재정경제부 국제금융국장은 공동으로 '외환당국 메시지'를 냈습니다. 펀더멘털 대비 과도한 변동성과 일방향 쏠림은 결코 용인하지 않겠다는 내용이었습니다. 그해 두 번째 공식 구두개입이었습니다.</p>
+
+  <p>하루 전인 6월 7일에는 구윤철 부총리 겸 재정경제부 장관 주재로 긴급 시장상황점검회의, 이른바 F4 회의가 열렸습니다. 신현송 한국은행 총재, 이억원 금융위원장, 이찬진 금융감독원장이 함께 앉았습니다. 약 100조 원 규모의 시장안정 프로그램은 지금도 가동 중입니다.</p>
+
+  <p>이재명 대통령은 같은 날 취임 1년 기자회견에서 "지금 정상은 아닌 것 같다, 일시적 현상이라고 봐야 한다"고 말했습니다. 급등의 원인으로는 국내 주식시장 급등에 따른 외국인 투자자의 포트폴리오 조정을 지목했습니다.</p>
+
+  <p>결과적으로 그 판단은 들어맞았습니다. 다만 환율이 내려온 힘의 상당 부분은 개입이 아니라 수급이었다고 보는 편이 정확할 것입니다.</p>
+
+  <p>한 가지 더. 8월 말 외환보유액은 4,422억 8,000만 달러로, 한 달 사이 143억 3,000만 달러가 늘었습니다. 1971년 월별 통계를 시작한 이후 가장 큰 증가 폭입니다. 방어에 쓰고도 곳간이 더 찼다는 뜻입니다.</p>
+
+  <img src="./images/body-2.png" alt="한국은행 기준금리 인상 경로 다이어그램 - 2.50%에서 2.75%, 3.00%로 이어진 두 차례 연속 인상">
+
+  <hr class="rule">
+
+  <h2>■ 배경 ② 그럼에도 금리를 올린 이유</h2>
+
+  <p>한국은행은 9월 10일 국회에 통화신용정책보고서를 제출했습니다. 작성은 김종화 금융통화위원이 주관했습니다.</p>
+
+  <p>보고서의 자기 평가는 이렇습니다. 중동 정세 불안과 반도체 경기 호조로 물가와 성장세가 예상보다 크게 확대되고 금융안정 리스크가 지속된 데 대응해 선제적 연속 인상을 단행했다는 것입니다.</p>
+
+  <p>앞으로의 변수로는 세 가지를 꼽았습니다.</p>
+
+  <p><strong>하나, 중동발 지정학 리스크.</strong> 9월 9일 런던 ICE선물거래소에서 브렌트유 11월 인도분이 배럴당 100.01달러를 기록했습니다. 7월 24일 이후 처음으로 100달러선을 넘었습니다. 예멘의 친이란 후티 반군이 사우디아라비아 남부 정유시설을 공격하면서, 호르무즈해협에 이어 홍해 공급망까지 막힐 수 있다는 우려가 커졌습니다. 일부에서는 150달러 전망도 나왔습니다.</p>
+
+  <p><strong>둘, 반도체 수출 호조의 파급.</strong> 수출이 잘되면 시차를 두고 내수와 수요측 물가 압력으로 번집니다. 한국은행은 최근 명목소득 증가율이 1970년대 고도성장기 수준이라고 표현했습니다.</p>
+
+  <p><strong>셋, 수도권 주택시장과 가계부채.</strong> 서울 주택매매가격의 전월 대비 상승률은 2025년 11월 이후 0%대에 머물다가 2026년 6월을 기점으로 1%대로 올라섰습니다. 7월에는 1.094%였습니다. 강남3구와 용산은 오름세가 상당 폭 둔화됐지만, 서울 외곽과 경기 규제지역은 여전히 높습니다. 8월 은행 주택담보대출은 4조 원 늘어 전월(3조 5,000억 원)보다 증가 폭이 커졌습니다.</p>
+
+  <p>한국은행은 이를 두고 "금융불균형 위험이 누증되고 있다"고 진단했습니다.</p>
+
+  <p>정작 물가는 애매합니다. 8월 소비자물가는 전년 같은 달보다 3.1% 올라 두 달 만에 3%대로 돌아왔습니다. 다만 휴대폰 요금감면 기저효과가 0.58%포인트에 달해, 이를 걷어내면 2.5% 수준입니다. 공공서비스가 6.5%, 서비스 전체가 3.7% 오른 반면 농축수산물은 2.6% 내렸습니다.</p>
+
+  <img src="./images/body-3.png" alt="물가를 밀어올리는 세 가지 압력 카드 - 국제유가 100달러, 수도권 집값 1.094%, 가계대출 4조 원 증가">
+
+  <hr class="rule">
+
+  <h2>■ 쟁점 — 어디까지 올릴 것인가</h2>
+
+  <p>8월 27일 금통위가 공개한 '금통위원 6개월 후 조건부 금리전망'은 꽤 명확한 신호를 보냈습니다.</p>
+
+  <p>공개된 21개의 점 가운데 3.25%에 10개가 몰렸습니다. 3.50%에 6개, 현재 수준인 3.00%에 5개였습니다. 중간값은 3.25%, 평균은 3.26%입니다. 석 달 전보다 0.25%포인트 높아진 값입니다.</p>
+
+  <p>전체 21개 중 16개가 현재보다 높은 금리를 가리켰습니다. 시장이 최종금리를 다시 계산한 이유가 여기에 있습니다.</p>
+
+  <p>그렇다고 10월 인상이 정해진 것은 아닙니다. 한국은행은 10월 인상을 단정하는 것은 무리라며, 직전까지 들어오는 자료를 종합해 판단하는 '라이브 미팅'이 될 것이라고 선을 그었습니다. 8월 결정도 만장일치가 아니었습니다. 금통위원 7명 중 황건일 위원은 2.75% 동결 소수의견을 냈습니다.</p>
+
+  <p>환율이 물가에 얼마나 영향을 주는지를 두고도 견해가 갈립니다. KDI는 환율이 1,500원까지 올라도 소비자물가 추가 상승은 최대 0.2%포인트에 그친다고 봤습니다. 한국은 수출 경쟁이 치열해 환율 상승분이 최종 가격에 다 전가되지 않는 구조이기 때문입니다. 반면 한국은행과 재정경제부는 원화 약세가 수입물가를 거쳐 소비자물가로 번질 압력이 커졌다고 경고해 왔습니다.</p>
+
+  <p>어느 쪽이 옳은지는 아직 판정이 나지 않았습니다.</p>
+
+  <img src="./images/body-4.png" alt="금통위원 6개월 후 조건부 금리전망 점도표 - 3.00% 5개, 3.25% 10개, 3.50% 6개 분포">
+
+  <hr class="rule">
+
+  <h2>■ 누가 무엇을 걱정하나</h2>
+
+  <p>이해관계는 선명하게 갈립니다.</p>
+
+  <p><strong>수출기업</strong>은 환율 하락이 아픕니다. 상반기 고환율은 실적을 부풀려 줬습니다. 그 효과가 빠지고 있습니다.</p>
+
+  <p><strong>수입기업과 소비자</strong>는 환율 하락이 반갑습니다. 다만 유가가 100달러를 넘나들면서 그 혜택이 상쇄되고 있습니다. 정부의 석유 최고가격제가 시험대에 올라 정유사 손실정산 심사가 진행 중입니다.</p>
+
+  <p><strong>대출을 낀 가계</strong>는 금리 인상이 직접적인 부담입니다. 김종화 위원도 이 점을 짚었습니다. 두 차례 인상의 영향을 면밀히 살피겠다면서, 일부 취약부문의 부담이 높아질 것으로 예상되는 만큼 재정 등 거시경제정책과의 적절한 정책 조합으로 부작용을 완화해야 한다고 말했습니다.</p>
+
+  <p><strong>주식시장</strong>은 흔들리고 있습니다. 9월 11일 코스피는 124.01포인트(1.76%) 내린 6,909.91로 마감하며 7,000선을 하루 만에 내줬습니다. 외국인과 기관이 4조 원 규모를 팔았습니다.</p>
+
+  <hr class="rule">
+
+  <h2>■ 앞으로는 어떻게 될까</h2>
+
+  <p>세 갈래로 정리됩니다.</p>
+
+  <p><strong>환율.</strong> 시장에서는 1,330~1,350원 구간의 움직임을 주시하고 있습니다. 유가 상승과 미국 물가가 다시 달러를 밀어올리면 반등할 수 있고, 수출기업의 달러 매도가 이어지면 더 내려갈 수 있습니다. 어느 쪽도 단정하기 어렵습니다.</p>
+
+  <p><strong>금리.</strong> 방향은 위쪽입니다. 다만 속도는 열려 있습니다. 점도표의 중간값 3.25%가 하나의 기준선이 될 것입니다.</p>
+
+  <p><strong>물가.</strong> 열쇠는 중동입니다. 유가가 100달러 위에 오래 머무르면 비용 압력이 되살아납니다. 반대로 진정되면 한국은행이 서두를 이유가 줄어듭니다.</p>
+
+  <p>한국은행이 9월 보고서에서 "대내외 여건 급변이 최대 변수"라고 적은 것도 이 때문일 것입니다. 지금 통화정책은 정해진 길을 가는 것이 아니라, 매달 들어오는 숫자를 보며 발을 내딛는 중입니다.</p>
+
+  <img src="./images/body-5.png" alt="환율은 내려왔지만 물가의 주인공이 바뀌었다는 핵심 메시지를 담은 인용 강조 이미지">
+
+  <hr class="rule">
+
+  <p>정리하면 이렇습니다.</p>
+
+  <p>환율 1,600원의 공포는 지나갔습니다. 그런데 금리는 오히려 오르고 있습니다. 위기가 끝나서가 아니라, 경제를 압박하는 힘의 이름이 바뀌었기 때문입니다.</p>
+
+  <div class="punch">"환율은 내려왔지만,<br>물가의 주인공이 바뀌었을 뿐입니다."</div>
+
+  <p>숫자는 계속 움직일 것입니다. 6월에 1,561원이던 환율이 석 달 만에 1,345원이 된 것처럼 말입니다. 그러니 오늘의 숫자 하나에 마음을 걸기보다, 그 숫자를 밀고 있는 힘이 무엇인지 살펴보시길 권합니다.</p>
+
+  <p>지금 그 힘의 이름은 유가와 집값입니다.</p>
+
+  <div class="disclaimer">
+    <b>투자 권유가 아닙니다.</b> 이 글은 공개된 보도자료와 언론 보도를 정리한 정보 제공 목적의 해설이며, 특정 상품의 매수·매도나 투자 판단을 권유하지 않습니다. 환율과 금리는 수시로 변동하며, 본문의 수치는 2026년 9월 11일까지 확인된 자료를 기준으로 합니다. 투자에 따른 최종 책임은 투자자 본인에게 있습니다.
+  </div>
+
+  <div class="tags">
+    <span>#원달러환율</span><span>#기준금리</span><span>#한국은행</span><span>#금통위</span>
+    <span>#물가상승률</span><span>#국제유가</span><span>#가계부채</span><span>#경제뉴스</span>
+  </div>
+
+</div>
+
+
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
