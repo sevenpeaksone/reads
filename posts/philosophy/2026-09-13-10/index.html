@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[철학/인문] 토마스 아퀴나스 자연법 — 도덕의 근거를 이성에서 찾은 4층 구조</title>
+<style>
+  :root { --text:#222; --muted:#777; --line:#e5e5e5; --accent:#6a5acd; --bg-note:#f6f5fb; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:0; background:#fafafa; color:var(--text);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    line-height:1.8; -webkit-font-smoothing:antialiased; }
+  .container { max-width:700px; margin:0 auto; padding:44px 24px 80px; background:#fff; }
+  .meta { display:flex; align-items:center; gap:10px; margin:0 0 20px; }
+  .badge { display:inline-block; background:var(--accent); color:#fff; font-size:13px;
+    font-weight:700; padding:4px 12px; border-radius:999px; letter-spacing:-0.01em; }
+  .date { font-size:13.5px; color:var(--muted); }
+  h1 { font-size:28px; line-height:1.4; font-weight:800; margin:0 0 28px;
+    letter-spacing:-0.02em; color:#111; }
+  h2 { font-size:21px; font-weight:700; line-height:1.45; margin:48px 0 16px;
+    padding-left:12px; border-left:4px solid var(--accent); letter-spacing:-0.01em; color:#111; }
+  p { font-size:16.5px; margin:0 0 16px; }
+  img { max-width:100%; height:auto; display:block; margin:28px auto; border-radius:8px; }
+  hr { border:none; border-top:1px solid var(--line); margin:40px 0; }
+  blockquote { margin:24px 0; padding:16px 20px; background:var(--bg-note);
+    border-left:4px solid var(--accent); border-radius:4px; color:#33305a;
+    font-size:18px; font-weight:600; line-height:1.65; }
+  blockquote p { margin:0; font-size:inherit; }
+  strong { font-weight:700; color:#111; }
+  em { font-style:normal; }
+  .tags { margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
+    font-size:14.5px; line-height:2; color:var(--accent); }
+  .tags span { margin-right:8px; white-space:nowrap; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="container">
+
+  <div class="meta"><span class="badge">철학/인문</span><span class="date">2026-09-13</span></div>
+
+  <h1>토마스 아퀴나스 자연법 — 도덕의 근거를 이성에서 찾은 4층 구조</h1>
+
+  <img src="./images/thumbnail.png" alt="토마스 아퀴나스 자연법 — 도덕의 근거를 이성에서 찾은 4층 구조 대표 이미지">
+  <p>이번 글에서는 토마스 아퀴나스의 자연법 이론을 정리해 보겠습니다. 도덕의 근거를 어디에 두어야 하는가. 이 오래된 물음을 13세기의 한 신학자가 어떻게 다뤘는지 따라가 봅니다.</p>
+  <p>먼저 결론부터 적겠습니다. 아퀴나스의 자연법 이론은 도덕의 근거를 신앙이 아니라 <strong>이성</strong>에 두려 한 시도입니다. 그는 법을 영원법·자연법·인정법·신법의 네 층으로 나누고, 그중 자연법을 "이성적 존재가 자기 이성으로 영원법에 참여하는 방식"으로 규정했습니다. 그래서 원리상 신앙이 없는 사람도 자연법을 알 수 있습니다. 800년 가까이 지난 지금도 이 틀은 법철학과 인권 논의에서 계속 소환되고 있습니다.</p>
+  <hr>
+  <h2>13세기, 신앙과 이성이 다시 부딪친 자리</h2>
+  <p>토마스 아퀴나스는 1224년 또는 1225년 이탈리아에서 태어나 1274년 3월 7일 세상을 떠났습니다.</p>
+  <p>백작의 막내아들이었습니다. 몬테카시노의 베네딕도회 수도원에서 어린 시절 교육을 받았고, 나폴리 대학에서 아리스토텔레스의 저작을 처음 만났습니다. 1244년 도미니코회에 들어간 뒤에는 북쪽으로 가서 알베르투스 마그누스 밑에서 배웠습니다. 아리스토텔레스 전집의 해설서를 쓴 스승이었습니다.</p>
+  <p>시대 배경을 먼저 짚어야 이 이론이 왜 나왔는지 보입니다.</p>
+  <p>스탠퍼드 철학백과는 아퀴나스가 "아리스토텔레스 전집이 라틴어 번역으로 도착하면서 신앙과 이성의 관계라는 질문이 다시 열린 서구 문화의 결정적 분기점"에 살았다고 적습니다. 오랫동안 잊혔던 고대 그리스의 방대한 논증 체계가 한꺼번에 밀려들어 온 것입니다. 신앙만으로 설명하던 세계에 이성이라는 다른 언어가 끼어들었습니다.</p>
+  <p>아퀴나스의 자연법론은 그 충돌에 대한 응답입니다. 그는 파리 대학 신학 교수를 지냈고, 1265년부터 1274년까지 <em>『신학대전』</em>을 썼습니다. 끝내 완성하지 못한 책입니다. 자연법 논의는 그 제2부의 제1부, 제90문에서 제108문까지 이어지는 「법에 관한 논고」에 담겨 있습니다.</p>
+  <hr>
+  <h2>법의 정의부터 이성이 먼저 온다</h2>
+  <p>논의의 출발점은 제90문 제4항의 법 정의입니다.</p>
+  <blockquote class="pull"><p>"법이란 공동선을 위한 이성의 명령으로서, 공동체를 돌보는 이가 제정하고 공포한 것이다."</p></blockquote>
+  <p>네 조각으로 나뉩니다. 이성의 명령일 것, 공동선을 향할 것, 공동체를 돌보는 이가 만들 것, 그리고 공포될 것. 공포되지 않은 법은 구속력을 얻지 못합니다.</p>
+  <p>여기서 한 가지를 눈여겨보시길 권합니다. 정의의 첫 단어가 '신의 뜻'이 아니라 '이성'입니다.</p>
+  <p>중세 신학자의 법 정의치고는 담백합니다. 법은 명령권자의 의지이기 이전에 이성의 산물이라는 것. 이 한 줄에 이미 그의 기획 전체가 들어 있습니다.</p>
+  <hr>
+  <h2>네 개의 층 — 영원법, 자연법, 인정법, 신법</h2>
+  <p>제91문에서 아퀴나스는 법을 네 종류로 나눕니다. 각 항이 한 층씩 맡습니다.</p>
+  <img src="./images/body-1.png" alt="영원법·자연법·인정법·신법 네 층을 원천과 인식 방법, 신학대전 해당 문항으로 비교한 표">
+  <p>맨 위는 <strong>영원법</strong>입니다. 모든 피조물이 그에 따라 질서 지어지는 신의 이성적 계획입니다. 인간이 그 전체를 들여다볼 수는 없습니다.</p>
+  <p>핵심은 그다음 층입니다. <strong>자연법</strong>은 인간이 영원법에 '참여'하는 방식입니다.</p>
+  <p>이 참여라는 말이 중요합니다. 스탠퍼드 철학백과의 설명을 빌리면 이렇습니다. 비이성적 존재는 영원법에 '결정됨으로써만' 참여합니다. 돌은 떨어지고 나무는 자랍니다. 자유롭지 않게, 본성이 시키는 대로 움직일 뿐입니다.</p>
+  <p>반면 "인간 같은 이성적 존재는 영원법에서의 자기 몫을 파악하고, 그에 따라 자유롭게 행위할 수 있습니다."</p>
+  <p>파악하고, 자유롭게 행위한다. 자연법을 '법'이라 부를 자격이 여기서 나옵니다.</p>
+  <p><strong>인정법</strong>은 인간이 자연법에서 도출해 만든 실정법입니다. <strong>신법</strong>은 계시를 통해 주어진 법이고요.</p>
+  <p>그렇다면 자연법과 인정법이 있는데 신법은 왜 또 필요할까요. 아퀴나스는 제91문 제4항에서 네 가지 이유를 듭니다. 그중 네 번째가 특히 눈에 띕니다. 인정법은 모든 악행을 금지할 수 없다는 것입니다. 모든 악을 없애려 들면 "많은 좋은 것까지 없애버리고 공동선의 진전을 가로막게 되기" 때문입니다.</p>
+  <p>법이 도덕을 전부 강제해서는 안 된다는 이야기입니다. 13세기 문장이라기에는 상당히 근대적입니다.</p>
+  <hr>
+  <h2>"선을 행하고 악을 피하라" — 모든 것이 여기서 시작한다</h2>
+  <p>제94문 제2항이 자연법론의 심장입니다.</p>
+  <p>아퀴나스는 이렇게 논증합니다. 사변 이성에서 가장 먼저 파악되는 것이 '존재'이듯, 행위를 향하는 실천 이성에서 가장 먼저 파악되는 것은 '선'이다. 그리고 실천 이성의 제1원리는 "선이란 모든 것이 추구하는 것"이라는 개념 위에 세워진다.</p>
+  <p>그래서 도출되는 법의 제1계율이 이것입니다.</p>
+  <blockquote class="pull"><p>"선은 행해지고 추구되어야 하며, 악은 피해야 한다."</p></blockquote>
+  <p>너무 당연해서 허탈하실지도 모르겠습니다. 그러나 아퀴나스에게 이 원리는 증명의 대상이 아니라 출발점입니다. 그는 인간이 '선'과 '악'이라는 말의 뜻을 이해하는 순간 이 원리를 자연적으로 안다고 보았고, 그 앎을 담고 있는 자연적 습성을 <strong>신데레시스</strong>라 불렀습니다. 자연법의 제1원리들을 지닌 습성입니다.</p>
+  <p>증명이 필요 없는 자리에서 시작해야 논증이 성립합니다. 기하학이 공리에서 출발하듯이 말이지요.</p>
+  <hr>
+  <h2>원리에서 규범으로, 자연적 경향성이라는 다리</h2>
+  <p>문제는 다음입니다. "선을 행하라"는 원리 하나로는 아무 구체적 규범도 나오지 않습니다.</p>
+  <p>아퀴나스는 여기서 곧바로 계명 목록으로 건너뛰지 않습니다. <strong>자연적 경향성</strong>을 경유합니다. 논리는 이렇습니다. 선은 목적의 성격을 가지므로, 인간이 자연적으로 끌리는 모든 것은 이성에 의해 선으로 파악되고 따라서 추구의 대상이 된다.</p>
+  <p>경향성은 세 층으로 나뉩니다.</p>
+  <img src="./images/body-2.png" alt="아퀴나스가 구분한 자연적 경향성 세 층을 카드 세 장으로 정리한 이미지">
+  <p>첫째, 모든 실체와 공유하는 경향성. 자기 존재의 보존입니다. 인간 생명을 지키고 그것을 방해하는 것을 막는 일이 여기 속합니다.</p>
+  <p>둘째, 다른 동물과 공유하는 경향성. 남녀의 결합, 자녀의 양육과 교육 같은 것입니다.</p>
+  <p>셋째, 인간의 이성적 본성에 고유한 경향성. 아퀴나스가 든 예는 신에 관한 진리를 아는 것, 무지를 피하는 것, 그리고 사회 안에서 사는 것입니다.</p>
+  <p>세 번째 층에 '무지를 피하는 것'과 '사회 안에서 사는 것'이 나란히 놓인 대목이 흥미롭습니다. 알려는 욕구와 함께 살려는 욕구를 같은 무게로 본 것입니다.</p>
+  <img src="./images/body-3.png" alt="제1원리에서 자연적 경향성과 자연법 계율을 거쳐 인정법으로 이어지는 4단계 다이어그램">
+  <hr>
+  <h2>자연법에서 실정법으로 가는 두 갈래 길</h2>
+  <p>제95문 제2항에서 아퀴나스는 인정법이 자연법에서 나오는 방식을 둘로 나눕니다. 법철학적으로 대단히 중요한 구분입니다.</p>
+  <img src="./images/body-4.png" alt="결론에 의한 도출과 규정에 의한 도출을 좌우로 나란히 놓고 비교한 이미지">
+  <p>하나는 <strong>결론에 의한 도출</strong>입니다. 학문에서 원리로부터 결론이 연역되듯 나옵니다. 아퀴나스가 든 예는 이렇습니다. "누구에게도 해를 끼쳐서는 안 된다"는 원리에서 "살인해서는 안 된다"가 결론으로 나옵니다.</p>
+  <p>다른 하나는 <strong>규정에 의한 도출</strong>입니다. 라틴어로 <em>determinatio</em>라고 합니다. 기예에서 일반 형식이 세부로 구체화되는 것과 같습니다. 자연법은 "악행자는 처벌받아야 한다"고 말합니다. 그러나 어떤 방식으로 얼마나 처벌할 것인지는 자연법이 정해주지 않습니다. 그것은 규정의 영역입니다.</p>
+  <p>권위의 무게가 다릅니다.</p>
+  <p>결론으로 도출된 것은 인정법에만 기대지 않고 자연법에서도 힘을 얻습니다. 반면 규정으로 도출된 것은 "오직 인정법의 힘만" 가집니다.</p>
+  <p>이 구분이 왜 필요했을까요. 자연법이 모든 법의 내용을 미리 다 정해놓았다는 오해를 막기 때문입니다. 우측통행이냐 좌측통행이냐, 형량을 3년으로 하느냐 5년으로 하느냐. 자연법은 여기에 답하지 않습니다. 입법자의 재량 영역이 이론 안에 명시적으로 확보되어 있는 셈입니다.</p>
+  <hr>
+  <h2>부정의한 법은 정말 법이 아닌가</h2>
+  <p>가장 널리 인용되면서 가장 많이 오해받는 대목입니다.</p>
+  <p>"부정의한 법은 법이 아니다"(<em>lex iniusta non est lex</em>). 이 문장은 흔히 아퀴나스의 테제로 소개됩니다. 마틴 루터 킹도 1963년 「버밍엄 감옥에서 보낸 편지」에서 이 계보를 따랐습니다.</p>
+  <p>그런데 학술적으로는 짚어야 할 사실이 몇 가지 있습니다.</p>
+  <p>첫째, 해당 라틴어 문구는 아퀴나스 자신의 문장이 아닙니다. 제95문 제2항에서 그가 인용하는 것은 아우구스티누스의 말입니다. "정의롭지 않은 것은 법의 외양을 갖지 못한다."</p>
+  <p>둘째, 흔히 붙는 "전혀"(at all)라는 말은 라틴어 원문에 없습니다. 연구자들은 이것이 19세기에 덧붙여진 표현이라고 지적합니다.</p>
+  <p>셋째, 아퀴나스는 부정의한 법이 법의 지위를 완전히 잃는다고 말하지 않았습니다. 그것은 '단적으로' 법이 아닐 뿐, 권위를 가진 자에게서 나왔다는 점에서 법의 성격은 유지합니다.</p>
+  <p>그가 실제로 쓴 문장은 이렇습니다. "모든 인정법은 자연법에서 도출된 만큼만 법의 본성을 가진다. 그러나 어느 지점에서든 자연법에서 벗어난다면, 그것은 더 이상 법이 아니라 법의 왜곡이다."</p>
+  <p>그렇다면 복종해야 하는가. 제96문 제4항에서 아퀴나스는 부정의한 법을 두 종류로 나눕니다.</p>
+  <img src="./images/body-5.png" alt="부정의한 법의 네 가지 유형과 각각의 복종 여부를 정리한 비교 표">
+  <p><strong>인간적 선에 반하는 법</strong>은 세 경우에 생깁니다. 입법자가 공공복리가 아니라 자기 탐욕이나 명예를 위해 부담을 지울 때. 자신에게 주어진 권한을 넘어 법을 만들 때. 부담을 불평등하게 분배할 때.</p>
+  <p>이런 법은 양심을 구속하지 않습니다. 다만 단서가 붙습니다. "스캔들이나 소요를 피하기 위해서라면" 예외일 수 있고, 그런 이유라면 사람이 자기 권리를 양보해야 한다는 것입니다.</p>
+  <p><strong>신적 선에 반하는 법</strong>은 다릅니다. 우상 숭배를 강요하는 참주의 법 같은 경우입니다. 여기에는 "어떤 방식으로도 복종해서는 안 된다"고 못 박습니다.</p>
+  <p>정리하면 아퀴나스의 답은 "불복하라"도 "복종하라"도 아닙니다. 분별하라는 요청에 가깝습니다. 법을 어기는 것이 공동체에 더 큰 해를 끼친다면, 공동선에 대한 의무가 오히려 복종을 지시할 수도 있습니다. 시원한 답을 기대하셨다면 다소 맥이 빠지실 수 있겠습니다.</p>
+  <hr>
+  <h2>아퀴나스도 알고 있던 한계</h2>
+  <p>자연법이 모든 사람에게 똑같은지를 묻는 제94문 제4항은 이 이론의 가장 솔직한 대목입니다.</p>
+  <p>일반 원리 차원에서는 동일합니다. 정당성에서도, 인식에서도 그렇습니다.</p>
+  <p>그러나 세부 사항으로 내려가면 달라집니다. 대부분의 경우에는 같지만 소수의 경우 어긋날 수 있습니다. 인식이 어긋나는 이유로 그는 "정념, 나쁜 습관, 또는 본성의 악한 성향에 의해 이성이 뒤틀렸기 때문"을 듭니다.</p>
+  <p>그가 든 사례가 구체적입니다. 절도는 자연법에 명백히 반하지만, 율리우스 카이사르가 전하는 바에 따르면 게르만족 사이에서는 잘못으로 여겨지지 않았다는 것입니다. 카이사르의 기록에 따르면 그들은 국경 밖에서의 약탈을 "젊은이를 단련하고 나태를 막기 위한 것"으로 여겼다고 합니다.</p>
+  <p>도덕적 다양성이라는 인류학적 사실을 아퀴나스는 이미 알고 있었습니다. 그리고 그것을 이론 바깥으로 밀어내는 대신 이론 안에서 처리하려 했습니다.</p>
+  <p>물론 이 처리 방식이 충분한지는 별개 문제입니다. "저쪽이 틀렸다"고 말하려면 옳고 그름의 기준을 이미 전제해야 하니까요. 순환의 혐의를 완전히 벗기는 어렵습니다.</p>
+  <hr>
+  <h2>논쟁은 끝나지 않았다</h2>
+  <p>아퀴나스의 기획은 후대에 계속 도전받았습니다.</p>
+  <p>가장 유명한 반론은 데이비드 흄의 것입니다. 고전 자연법 전통은 자연의 사실 상태에서 당위로 어떻게 건너가는지를 설명하지 못한다는 지적입니다. 이른바 존재-당위 문제입니다. 20세기에 들어서는 G. E. 무어의 '자연주의적 오류' 개념과 뒤섞여 자연법에 대한 표준적 비판으로 굳어졌습니다. 다만 두 논점이 엄밀히는 서로 다른 것인데 뭉뚱그려졌다는 학술적 지적도 함께 있습니다.</p>
+  <p>근대의 분기점으로는 흔히 후고 그로티우스가 꼽힙니다. "설령 신이 존재하지 않는다고 인정하더라도" 자연법 원리는 성립한다는 그의 문장이 자연법을 신학에서 떼어냈다는 서술입니다. 하지만 최근 연구는 이 '세속화 서사'에 의문을 제기합니다. 그 문장 자체가 중세까지 거슬러 올라간다는 것이 근거 중 하나입니다.</p>
+  <img src="./images/body-6.png" alt="하트-풀러 논쟁, 신자연법론, 세계인권선언, 버밍엄 감옥의 편지를 카드 네 장으로 정리한 이미지">
+  <p>현대로 오면 무대가 넓어집니다.</p>
+  <p><strong>하트–풀러 논쟁</strong>은 1958년 <em>『하버드 로 리뷰』</em>에서 벌어졌습니다. H. L. A. 하트는 법과 도덕이 별개라는 실증주의 입장을 폈고, 론 L. 풀러는 도덕이 법의 구속력의 원천이라고 반박했습니다.</p>
+  <p><strong>신자연법론</strong>은 존 피니스가 저메인 그리세즈 등과 함께 발전시킨 현대판 토마스주의입니다. 이들은 생명, 지식, 놀이, 미적 경험, 사교성, 실천적 합리성, 종교라는 일곱 가지 기본선을 제시합니다. 자명하고, 서열이 매겨지지 않으며, 그 자체로는 전(前)도덕적인 선들입니다.</p>
+  <p>비판도 만만치 않습니다. 기본선 사이에 위계가 없으면 행위자는 선택의 도덕성을 판단할 수단 없이 선택해야 한다는 지적이 있습니다. 토마스주의 진영 안에서도 반론이 나옵니다. 아퀴나스의 토대는 형이상학적인데 피니스와 그리세즈의 토대는 경험적이고, 궁극 목적을 버렸다는 것입니다.</p>
+  <p><strong>세계인권선언</strong>은 이 전통의 실천적 성과로 자주 언급됩니다. 1948년 선언의 기초 과정에는 자크 마리탱의 가톨릭 인격주의가 영향을 주었습니다. 선언의 핵심 개념인 '존엄'이 자주 언급되면서도 끝내 정의되지 않은 채 남은 데는 이유가 있었습니다. 마리탱의 접근이 그것입니다. 기초자들은 보편적 권리의 언어로 된 실천 원리에 합의하기 위해 도덕의 형이상학적 토대까지 합의할 필요는 없다는 것이었습니다.</p>
+  <p>형이상학적 불일치를 안은 채 실천적 합의에 도달하는 길. 어쩌면 이것이 아퀴나스 이후 자연법 전통이 찾아낸 가장 현실적인 타협일지도 모르겠습니다.</p>
+  <p><strong>마틴 루터 킹</strong>은 버밍엄 감옥에서 이 전통을 가장 널리 알린 문장을 남겼습니다. 그는 정의로운 법을 "도덕법과 맞아떨어지는 인간이 만든 법전"으로, 부정의한 법을 "도덕법과 조화를 이루지 못하는 법전"으로 정의했습니다. 그리고 나치 독일을 언급하며, 히틀러 치하에서는 그 모든 행위가 합법이었다는 사실을 상기시켰습니다.</p>
+  <p>합법과 정당함이 갈라지는 자리. 아퀴나스가 800년 전에 열어둔 물음이 바로 그 지점에 있습니다.</p>
+  <hr>
+  <p>정리하면 이렇습니다.</p>
+  <p>아퀴나스는 도덕의 근거를 권위에서 이성으로 옮기려 했습니다. 그 시도가 완전히 성공했다고 보기는 어렵습니다. 존재에서 당위로 건너가는 다리는 여전히 흔들리고, 기본선의 목록을 누가 정하느냐는 물음도 아직 남아 있습니다.</p>
+  <p>예전에는 이런 이론을 중세의 유물쯤으로 여겼습니다. 지금은 다르게 봅니다. 법이 정한 것과 옳은 것이 어긋날 때 우리가 무엇을 붙들어야 하는지, 그 질문을 가장 정교하게 다듬어놓은 틀이 여기 있기 때문입니다.</p>
+  <p>"법이 곧 정의는 아니다." 이 한 줄을 논증으로 세우려 한 것이 그의 평생 작업이었습니다.</p>
+  <p>그래서 아퀴나스를 지금도 읽을 만하냐고 물으신다면, 답은 어렵지 않습니다. 합법과 정당함이 갈라지는 순간은 어느 시대에나 찾아오기 때문입니다.</p>
+  <hr>
+  <div class="tags"><span>#토마스아퀴나스</span><span>#자연법</span><span>#자연법이론</span><span>#신학대전</span><span>#법철학</span><span>#서양철학사</span><span>#중세철학</span><span>#윤리학</span></div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRDT 원리 — 동시에 편집해도 문서가 충돌 없이 합쳐지는 이유</title>
+<style>
+  :root { --accent:#4f8cff; --ink:#1f2328; --mute:#6b7280; --line:#e6e8ec; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:48px 20px 90px;
+    background:#f6f7f9; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { width:700px; max-width:100%; margin:0 auto; background:#fff;
+          padding:52px 44px 60px; border:1px solid var(--line); border-radius:14px; }
+  .meta { margin-bottom:22px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .badge { display:inline-block; background:var(--accent); color:#fff;
+           font-size:13px; font-weight:700; letter-spacing:.04em;
+           padding:5px 13px; border-radius:999px; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:30px; line-height:1.42; font-weight:800; margin:0 0 30px;
+       letter-spacing:-.01em; word-break:keep-all; }
+  h2 { font-size:21px; line-height:1.5; font-weight:700; margin:46px 0 16px;
+       padding-left:13px; border-left:4px solid var(--accent); word-break:keep-all; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+  .lead { font-size:14px; font-weight:700; color:var(--accent);
+          margin:26px 0 10px; letter-spacing:.02em; }
+  ul.summary { margin:0 0 22px; padding-left:22px; }
+  ul.summary li { font-size:16.5px; line-height:1.8; margin-bottom:9px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; margin:24px 0; font-size:15.5px; }
+  thead th { background:rgba(79,140,255,.10); color:var(--ink);
+             font-weight:700; text-align:left; padding:11px 14px;
+             border-bottom:2px solid rgba(79,140,255,.35); word-break:keep-all; }
+  tbody td { padding:11px 14px; border-bottom:1px solid var(--line);
+             line-height:1.7; word-break:keep-all; }
+  tbody tr:nth-child(even) td { background:#fafbfc; }
+  blockquote.formula { margin:24px 0; padding:18px 22px; background:rgba(79,140,255,.06);
+        border:1px solid rgba(79,140,255,.22); border-radius:10px;
+        font-size:17px; line-height:1.75; text-align:center; word-break:keep-all; }
+  blockquote.formula strong { font-weight:700; color:#123; }
+  strong { font-weight:700; color:#0f1113; }
+  code { background:rgba(79,140,255,.09); border-radius:5px; padding:2px 6px;
+         font-family:'SF Mono',Menlo,Consolas,monospace; font-size:14.5px; }
+  hr { border:0; border-top:1px solid var(--line); margin:38px 0; }
+  figure { margin:30px 0; }
+  img { max-width:100%; height:auto; display:block; border-radius:10px; }
+  .tags { color:var(--accent); font-size:14.5px; line-height:1.9;
+          margin-top:34px; padding-top:26px; border-top:1px solid var(--line);
+          word-break:keep-all; }
+  @media (max-width:760px) { .wrap { padding:34px 20px 44px; } h1 { font-size:24px; } }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+  <div class="meta"><span class="badge">IT</span><span class="date">2026-09-13</span></div>
+  <h1>CRDT 원리 — 동시에 편집해도 문서가 충돌 없이 합쳐지는 이유</h1>
+  <p>이번 글에서는 CRDT, 우리말로 충돌 없는 복제 자료구조를 정리해 보겠습니다. 여러 사람이 같은 문서를 동시에 고치는데도 &quot;누가 이길지&quot; 묻는 창이 뜨지 않는 이유를 다룹니다. 답은 네트워크가 아니라 자료구조 안에 들어 있습니다.</p>
+  <figure><img src="./images/thumbnail.png" alt="CRDT와 동시 편집의 원리 - 여러 명이 고쳐도 하나로 합쳐지는 이유"></figure>
+  <p class="lead">세 줄 요약</p>
+  <ul class="summary"><li>CRDT는 충돌을 <strong>잘 해결하는</strong> 기술이 아닙니다. 순서가 바뀌든 중복 배달되든 같은 결과가 나오도록 <strong>충돌이 성립할 수 없게</strong> 자료구조를 설계한 것입니다.</li><li>비결은 <strong>&quot;3번째 글자&quot;라는 위치 번호를 버리고, 문자마다 변하지 않는 고유 ID를 붙이는 것</strong>입니다. 주소가 변하지 않으니 변환할 것도 없습니다.</li><li>값비싸다는 통념은 구현 문제였습니다. 26만 번의 편집을 <strong>Automerge 초기 버전은 291초에 880MB</strong>로 처리했지만, <strong>Yjs는 0.97초에 3.3MB</strong>로 끝냅니다.</li></ul>
+  <hr>
+  <h2>위치 번호를 버리고, 글자마다 이름표를 답니다</h2>
+  <p>문제의 출발점은 단순합니다.<br>두 사람이 같은 문장을 동시에 고칠 때, &quot;위치 3&quot;이라는 말이 두 사람에게 다른 뜻이 됩니다.<br>상대가 앞쪽에 한 글자를 끼워 넣는 순간 내 위치 3은 위치 4가 되어 버리니까요.</p>
+  <p>CRDT는 이 문제를 정면으로 풀지 않습니다.<br>아예 위치 번호를 쓰지 않습니다.</p>
+  <p>대신 문자마다 <strong>(사용자 ID, 논리 시계)</strong> 짝으로 된 고유 ID를 붙입니다.<br>이 조합을 램포트 타임스탬프(Lamport Timestamp)라고 부릅니다.<br>사용자 식별자는 겹치지 않고, 논리 시계는 글자를 넣을 때마다 하나씩 올라갑니다.</p>
+  <p>그래서 삽입은 &quot;위치 3에 넣어라&quot;가 아니라 이렇게 표현됩니다.</p>
+  <blockquote class="formula">ID가 (seph, 0)인 글자 <strong>뒤에</strong> 넣어라.</blockquote>
+  <p>이 주소는 다른 사람이 무슨 짓을 하든 변하지 않습니다.<br>문서가 아무리 길어져도, 앞쪽이 통째로 지워져도 그대로입니다.<br><strong>변하지 않는 주소를 쓰면 주소를 고쳐 쓸 일이 없어집니다.</strong></p>
+  <figure><img src="./images/body-1.png" alt="위치 번호로 주소를 잡을 때와 고유 ID로 주소를 잡을 때 삽입 자리가 달라지는 과정을 비교한 다이어그램"></figure>
+  <hr>
+  <h2>순서가 뒤바뀌어도, 두 번 와도 같은 답이 나와야 합니다</h2>
+  <p>CRDT라는 이름과 이론적 뼈대는 2011년 논문에서 나왔습니다.<br>마크 샤피로(Marc Shapiro), 누누 프레기사, 카를로스 바케로, 마렉 자비르스키 네 사람의 SSS 2011 논문 &quot;Conflict-free Replicated Data Types&quot;입니다.</p>
+  <p>여기서 정의한 개념이 <strong>강한 최종 일관성(Strong Eventual Consistency)</strong> 입니다.<br>보통의 최종 일관성은 &quot;언젠가는 맞춰진다&quot;고만 약속합니다.<br>맞추는 방법, 즉 충돌 해결은 시스템이 알아서 하라고 남겨 둡니다.</p>
+  <p>강한 최종 일관성은 한 칸 더 갑니다.<br><strong>같은 업데이트 묶음을 받은 복제본은 곧바로 같은 상태입니다.</strong><br>합의 절차도, 롤백도, 충돌 해결 화면도 필요 없습니다.</p>
+  <p>무엇이 이걸 보장할까요.<br>상태 기반 CRDT는 자기 상태 공간이 <strong>결합 반격자(join-semilattice)</strong> 를 이루도록 설계됩니다.<br>어려운 말 같지만, 실제로 요구하는 것은 병합 연산이 가진 세 가지 성질뿐입니다.</p>
+  <table><thead><tr><th>성질</th><th>네트워크가 저지르는 사고</th><th>결과</th></tr></thead><tbody><tr><td>교환법칙</td><td>메시지 순서가 뒤바뀐다</td><td>결과 같음</td></tr><tr><td>결합법칙</td><td>중간에서 묶어 한꺼번에 보낸다</td><td>결과 같음</td></tr><tr><td>멱등성</td><td>같은 메시지를 두 번 배달한다</td><td>결과 같음</td></tr></tbody></table>
+  <p>분산 환경에서 벌어지는 사고는 사실상 이 세 가지입니다.<br>순서가 섞이고, 묶여서 오고, 중복으로 옵니다.<br>세 성질을 갖춘 병합 연산은 이 세 사고에 전부 면역입니다.</p>
+  <p>가장 간단한 예가 증가 전용 카운터(G-Counter)입니다.<br>노드마다 자기 칸을 하나씩 가진 벡터를 두고, 각자 자기 칸만 올립니다.<br>병합은 <strong>각 칸의 최댓값을 취하는 것</strong>이 전부입니다.<br>최댓값 연산은 순서를 바꿔도, 묶어도, 두 번 해도 답이 같습니다.</p>
+  <figure><img src="./images/body-2.png" alt="CRDT 병합 연산이 갖춰야 할 세 가지 성질 교환법칙 결합법칙 멱등성을 정리한 카드"></figure>
+  <hr>
+  <h2>예전에는 연산을 변환했습니다</h2>
+  <p>동시 편집 기술의 원조는 CRDT가 아닙니다.<br><strong>1989년 C. Ellis와 S. Gibbs</strong>가 GROVE라는 그룹 편집 시스템에서 제안한 <strong>OT(Operational Transformation, 연산 변환)</strong> 입니다.</p>
+  <p>발상은 이렇습니다.<br>문서를 복제하는 대신 <strong>연산을 복제</strong>합니다.<br>들어온 연산을 이미 적용된 연산들에 맞춰 <strong>변환</strong>한 뒤 적용합니다.<br>상대가 위치 1에 한 글자를 넣었다면, 내 &quot;위치 3에 삽입&quot;을 &quot;위치 4에 삽입&quot;으로 고쳐서 적용하는 식입니다.</p>
+  <p>2009년 구글 웨이브와 구글 독스가 이 방식을 협업 기능의 핵심으로 채택했습니다.<br>ShareJS와 ShareDB 같은 오픈소스 계보도 여기서 나왔습니다.</p>
+  <p>문제는 정확성이었습니다.<br>발표 몇 년 뒤부터 오류 사례가 보고되기 시작했고, 원래의 dOPT 알고리즘이 실패하는 경우는 여러 연구 그룹이 각각 재발견해 <strong>dOPT 퍼즐</strong>이라는 이름까지 붙었습니다.<br>수렴을 보장하려면 변환 함수가 TP1과 TP2라는 두 성질을 만족해야 하는데, 한 분석은 <strong>문헌에 제시된 변환 함수들이 모두 부정확했다</strong>고 지적합니다.<br>나아가 삽입·삭제라는 기본 시그니처만으로는 두 성질을 동시에 만족시키는 것 자체가 불가능하다는 주장도 있습니다.<br>이전 해법을 모두 반증했다며 새 증명을 내놓은 연구가 나중에 다시 결함이 발견되는 일도 반복됐습니다.</p>
+  <p>피그마(Figma)는 멀티플레이어 기능을 만들 때 OT를 쓰지 않기로 했습니다.<br>공동창업자 에반 월리스가 블로그에서 밝힌 이유는 담백합니다.<br>OT는 긴 텍스트를 낮은 오버헤드로 다루기엔 훌륭하지만, 가능한 상태의 조합 폭발을 일으켜 올바르게 구현하기가 매우 어렵다는 것입니다.<br>그가 인용한 문장이 상황을 잘 요약합니다.</p>
+  <blockquote class="formula">&quot;형식적 증명이 매우 복잡하고 오류가 나기 쉽다. 삽입과 삭제라는 문자 단위 원시 연산 두 개만 다루는 OT 알고리즘조차 그렇다.&quot;</blockquote>
+  <figure><img src="./images/body-3.png" alt="OT 연산 변환과 CRDT의 등장 시기 주소 방식 중앙 서버 정확성 채택 사례를 비교한 표"></figure>
+  <hr>
+  <h2>글자마다 ID를 붙이면 문서가 터지지 않습니까</h2>
+  <p>당연한 의심입니다.<br>문자 하나하나에 ID를 붙이고, 삭제해도 지우지 못한다면 문서는 커지기만 할 테니까요.</p>
+  <p>실제로 지우지 못합니다.<br>삭제한 문자를 배열에서 진짜로 빼면, 그 문자를 부모로 참조하던 다른 삽입이 갈 곳을 잃습니다.<br>그래서 삭제 표시만 남기고 자리를 지킵니다. 이것을 <strong>툼스톤(tombstone, 묘비)</strong> 이라 부릅니다.</p>
+  <p>이 의심 때문에 실제로 발을 뺀 프로젝트들이 있습니다.<br>코드미러 6(CodeMirror 6)의 개발자는 &quot;그런 표현의 비용이 상당하다&quot;며 채택하지 않았습니다.<br>자이 에디터(Xi Editor)는 CRDT를 데이터 모델로 썼다가 &quot;그 상당한 무게값을 못 하고 있다&quot;며 동기식 모델로 되돌렸습니다.</p>
+  <p>판을 바꾼 것은 알고리즘이 아니라 <strong>표현 방식</strong>이었습니다.</p>
+  <p>사람은 보통 왼쪽에서 오른쪽으로 이어서 칩니다.<br>그래서 Yjs는 &quot;hello&quot;를 다섯 개 아이템이 아니라 <strong>하나의 아이템</strong>으로 저장합니다.<br>ID는 시작점만 두고, 개별 문자는 오프셋으로 식별합니다.<br>긴 글을 붙여넣어도 아이템 하나입니다.</p>
+  <p>결과적으로 <strong>메타데이터의 양이 입력한 글자 수가 아니라 사용자 조작 횟수에 비례</strong>하게 됩니다.<br>삭제는 표시만 남기고 내용을 버리므로, Yjs에서는 지우면 오히려 메모리가 줄어듭니다.</p>
+  <p>숫자로 확인해 보겠습니다.<br>마틴 클레프만이 17쪽짜리 학회 논문을 실제로 집필하며 기록한 키 입력 전체가 공개된 벤치마크로 쓰입니다.<br><strong>단일 문자 삽입 182,315회, 삭제 77,463회, 최종 문서 104,852자</strong>입니다.</p>
+  <p>이 트레이스를 적용했을 때 Yjs가 만든 <code>Item</code> 객체는 <strong>10,971개</strong>뿐이었습니다.<br>26만 번의 조작이 1만 1천 개로 압축된 셈입니다.<br>메모리 19.7MB, 인코딩된 문서 159,927바이트, 파싱 시간 20밀리초.<br>원문 대비 저장 오버헤드가 약 53%입니다.</p>
+  <figure><img src="./images/body-4.png" alt="Automerge Yjs Diamond Types가 26만 번의 편집을 처리하는 데 걸린 시간과 메모리를 비교한 벤치마크 표"></figure>
+  <p>같은 트레이스를 다른 구현으로 돌린 결과는 차이가 더 극적입니다.<br>Automerge 초기 버전은 <strong>291초에 880MB</strong>를 썼고, 가장 느린 단일 편집 하나가 <strong>1.8초</strong>를 잡아먹었습니다.<br>Yjs는 <strong>0.97초에 3.3MB</strong>입니다.<br>러스트로 짠 Diamond Types는 네이티브 기준 <strong>0.056초</strong> — 5,000배 넘는 차이입니다.</p>
+  <p>Automerge도 러스트로 전면 재작성했습니다.<br>2.0에서 26만 연산을 1,816밀리초에 처리했고, 컬럼 지향 바이너리 인코딩으로 <strong>전체 편집 히스토리를 담고도 오버헤드 30%</strong>를 달성했습니다. 문자당 1바이트가 안 됩니다.<br>참고로 0.14 시절의 순진한 JSON 인코딩은 <strong>문자당 1,300바이트를 넘기기도</strong> 했습니다.<br>2025년 7월의 3.0은 런타임에서도 압축 표현을 그대로 쓰도록 재설계해 메모리를 10배 이상 줄였습니다.<br>『모비딕』 전문을 붙여넣었을 때 2.0은 700MB, 3.0은 <strong>1.3MB</strong>를 씁니다.</p>
+  <hr>
+  <h2>피그마는 진짜 CRDT를 쓰지 않습니다</h2>
+  <p>흥미로운 절충 사례라 따로 적습니다.</p>
+  <p>피그마는 CRDT에서 영감을 얻되 그것을 그대로 쓰지는 않는다고 스스로 밝힙니다.<br>이유는 명확합니다.<br>CRDT는 중앙 권위자가 없는 환경을 위한 도구이고, 거기엔 피할 수 없는 성능·메모리 비용이 따릅니다.<br>피그마는 서버가 권위자이므로 그 비용을 걷어냈습니다.</p>
+  <p>문서는 HTML DOM과 닮은 <strong>객체 트리</strong>입니다.<br><code>Map&lt;객체ID, Map&lt;속성, 값&gt;&gt;</code> 형태의 2단 맵으로 보면 됩니다.<br>서버는 각 (객체, 속성)에 대해 마지막으로 받은 값을 기억합니다.<br>CRDT 문헌의 LWW 레지스터와 비슷하지만 <strong>타임스탬프가 필요 없습니다.</strong> 서버가 순서를 정의하니까요.</p>
+  <p>대가도 분명합니다.<br>충돌의 최소 단위가 속성 값 전체입니다.<br>텍스트가 <code>B</code>일 때 한 사람이 <code>AB</code>로, 다른 사람이 <code>BC</code>로 바꾸면 결과는 <code>AB</code> 또는 <code>BC</code>입니다.<br><strong><code>ABC</code>는 절대 나오지 않습니다.</strong><br>피그마는 디자인 툴이지 텍스트 에디터가 아니므로 이 경우를 최적화 대상으로 삼지 않았다고 말합니다.</p>
+  <p>가장 까다로웠던 것은 트리였습니다.<br>객체의 부모를 바꾸는 연산이 문제입니다.<br>삭제 후 재생성 방식은 객체 정체성이 바뀌어 동시 편집이 유실되므로 쓸 수 없었고, 결국 <strong>부모 링크를 자식의 속성으로</strong> 저장하기로 했습니다.<br>그러자 새 문제가 생깁니다. A를 B의 자식으로, 동시에 B를 A의 자식으로 만들면 사이클이 생깁니다.<br>서버는 사이클을 만드는 갱신을 거부하지만, 클라이언트는 서버가 거부했다는 사실을 아직 모르는 상태에 잠시 놓입니다.<br>피그마의 해법은 그 객체들을 잠깐 트리에서 떼어 두었다가 되돌리는 것입니다. 좋은 해법은 아니라고 본인들도 인정합니다.</p>
+  <p>자식들의 순서는 <strong>분수 인덱싱(fractional indexing)</strong> 으로 정합니다.<br>각 자식의 위치를 0과 1 사이의 분수로 두고, 두 객체 사이에 끼워 넣을 때는 <strong>두 위치의 평균</strong>을 씁니다.</p>
+  <figure><img src="./images/body-5.png" alt="피그마 멀티플레이어 설계의 네 가지 선택 속성 단위 LWW 객체 ID 생성 부모 링크 속성 분수 인덱싱을 정리한 단계별 다이어그램"></figure>
+  <hr>
+  <h2>아직 풀리지 않은 문제도 있습니다</h2>
+  <p>완벽한 기술이라고 말하려는 것은 아닙니다.</p>
+  <p>가장 알려진 약점은 <strong>상호 끼어들기(interleaving)</strong> 입니다.<br>두 사람이 같은 자리에 각각 한 문단씩 동시에 쓰면, 두 문단이 문자 단위로 뒤섞여 읽을 수 없는 글자 뭉치가 되는 현상입니다.<br>각 문단 내부의 순서는 멀쩡히 정의돼 있는데도 그렇습니다.</p>
+  <p>2023년 매튜 와이드너와 마틴 클레프만의 조사 결과는 냉정합니다.<br><strong>조사한 모든 CRDT와 OT 알고리즘이 어떤 형태로든 끼어들기 이상을 보였습니다.</strong><br>Logoot과 LSEQ에서 특히 두드러지고, RGA도 삽입이 연속적이지 않으면 약한 형태가 나타납니다.<br>기존의 비끼어들기 정의들은 만족 자체가 불가능했습니다.<br>두 사람은 <strong>최대 비끼어들기</strong>라는 새 기준을 정의하고 Fugue와 FugueMax를 제안해, FugueMax가 이 기준을 만족함을 증명했습니다.</p>
+  <p>메타데이터 자체도 없앨 수 없습니다.<br>모든 CRDT는 문자마다 고유 ID와 부가 정보를 붙이고, 그 정보는 충돌 해결에 필요하기 때문에 버릴 수 없습니다.<br>줄일 수 있는 것은 양이 아니라 <strong>표현 방식</strong>입니다.</p>
+  <p>&quot;CRDT가 OT보다 빠르다&quot;는 통념도 조심스럽습니다.<br>Yjs를 만든 케빈 얀스 본인이 이렇게 지적합니다.<br>학계는 초당 연산 수로 성능을 재지만, 공유 편집에서 정말 중요한 지표는 <strong>문서를 여는 데 걸리는 파싱 시간</strong>입니다.<br>그리고 파싱 시간만 놓고 보면 메타데이터를 거의 안 붙이는 중앙집중 방식이 오히려 유리합니다.<br>만든 사람이 직접 인정하는 한계입니다.</p>
+  <figure><img src="./images/body-6.png" alt="CRDT가 부담이 되는 자리와 잘 맞는 자리를 좌우로 나눠 정리한 대비 이미지"></figure>
+  <hr>
+  <p>끝으로 한 마디만 더 드리겠습니다.</p>
+  <p>동시 편집을 처음 접했을 때는 서버가 어떤 영리한 중재를 하는 줄 알았습니다.<br>지금은 정반대라는 것을 압니다.<br>중재하지 않아도 되도록 자료구조를 미리 깎아 둔 것에 가깝습니다.</p>
+  <p><strong>&quot;충돌을 잘 해결하는 대신, 충돌이 성립할 수 없게 만든다.&quot;</strong></p>
+  <p>CRDT를 한 문장으로 줄이면 이 말이 남습니다.<br>순서를 지킬 수 없는 세계에서, 순서에 의존하지 않는 연산을 고르는 일입니다.<br>그 선택 하나가 합의 프로토콜 전체를 지워 버립니다.</p>
+  <p>여러 명이 붙어 고친 문서가 조용히 하나로 합쳐지는 장면을 다시 보게 되신다면, 그 조용함이 우연이 아니라는 점을 떠올려 보시면 좋겠습니다.</p>
+  <p class="tags">#CRDT #동시편집 #실시간협업 #분산시스템 #Yjs #Automerge #최종일관성 #자료구조 #개발자공부</p>
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

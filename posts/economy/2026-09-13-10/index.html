@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>탄소세와 배출권거래제 차이, 오염에 가격을 매기는 두 방식을 비교했습니다</title>
+<meta name="description" content="피구세(탄소세)는 가격을, 배출권거래제는 수량을 정합니다. 와이츠먼의 Prices vs Quantities 기준부터 2026년 EU-ETS 80유로대, 한국 K-ETS 3만원대 가격과 탄소국경조정제도(CBAM)까지 정리했습니다.">
+<style>
+  :root{
+    --ink:#222;
+    --sub:#555;
+    --line:#e6e6e6;
+    --accent:#1f8a5e;
+    --deep:#123a2b;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:0 16px;
+    background:#fafafa;
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:700px; margin:0 auto;
+    background:#fff; padding:52px 40px 70px;
+  }
+
+  /* ── 헤더 ── */
+  .meta{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+  .badge{
+    display:inline-block; background:var(--deep); color:#5fe0a2;
+    border-radius:999px; padding:6px 16px;
+    font-size:13px; font-weight:700; letter-spacing:.5px;
+  }
+  .date{font-size:13px;color:#8a8a8a;letter-spacing:.3px}
+
+  h1{
+    font-size:30px; font-weight:800; line-height:1.45;
+    letter-spacing:-.7px; margin:0 0 26px;
+  }
+
+  hr.rule{border:0;border-top:1px solid var(--line);margin:38px 0}
+
+  /* ── 본문 ── */
+  p{font-size:16.5px; line-height:1.85; margin:0 0 18px; color:var(--ink)}
+  strong{font-weight:700}
+  h2{
+    font-size:21px; font-weight:800; line-height:1.5;
+    margin:44px 0 20px; padding-bottom:12px;
+    border-bottom:2px solid var(--deep); letter-spacing:-.4px;
+  }
+
+  ul.body{margin:0 0 22px; padding-left:22px}
+  ul.body li{font-size:16.5px; line-height:1.85; margin-bottom:9px}
+  ol.body{margin:0 0 22px; padding-left:24px}
+  ol.body li{font-size:16.5px; line-height:1.85; margin-bottom:9px}
+
+  /* 요약 박스 */
+  .summary{
+    background:#f2f8f5; border-left:4px solid var(--accent);
+    border-radius:6px; padding:22px 24px; margin:26px 0 34px;
+  }
+  .summary .t{font-size:15px;font-weight:800;margin-bottom:12px;color:var(--deep)}
+  .summary ol{margin:0;padding-left:20px}
+  .summary li{font-size:15.5px;line-height:1.8;margin-bottom:8px;color:#3a3a3a}
+  .summary li:last-child{margin-bottom:0}
+
+  img{max-width:100%;height:auto;display:block;margin:32px auto;border-radius:10px}
+
+  /* 마무리 핵심 문장 */
+  .punch{
+    font-size:19px; font-weight:800; text-align:center;
+    color:var(--deep); line-height:1.65;
+    margin:30px 0; padding:22px 18px;
+    background:#f2f8f5; border-radius:10px;
+  }
+
+  /* 해시태그 */
+  .tags{margin-top:36px; display:flex; flex-wrap:wrap; gap:8px}
+  .tags span{
+    background:#f2f3f7; color:#5a6070; border-radius:999px;
+    padding:7px 14px; font-size:13.5px;
+  }
+
+  .note{
+    margin-top:40px; background:#f7f8fa;
+    border:1px solid #e4e7ec; border-radius:8px;
+    padding:18px 20px; font-size:13.5px; line-height:1.8; color:#6b7280;
+  }
+
+  @media (max-width:600px){
+    .wrap{padding:34px 20px 50px}
+    h1{font-size:24px}
+    h2{font-size:19px}
+    p{font-size:16px}
+    ul.body li, ol.body li{font-size:16px}
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+
+  <div class="meta">
+    <span class="badge">경제</span>
+    <span class="date">2026년 9월 13일</span>
+  </div>
+
+  <h1>탄소세와 배출권거래제 차이,<br>오염에 가격을 매기는 두 방식을 비교했습니다</h1>
+
+  <img src="./images/thumbnail.png" alt="탄소세와 배출권거래제, 오염에 가격을 매기는 두 방식">
+
+  <p>이번 글에서는 오염에 가격을 매기는 두 가지 방식을 정리해 보겠습니다. 하나는 세금을 매기는 피구세이고, 다른 하나는 배출 총량을 정해두고 그 권리를 사고팔게 하는 배출권거래제입니다. 겉보기엔 비슷한 목적을 가졌지만, 작동 원리와 남는 위험이 전혀 다릅니다.</p>
+
+  <div class="summary">
+    <div class="t">세 줄 요약</div>
+    <ol>
+      <li>피구세는 <strong>가격을 정하고 배출량을 시장에 맡기는</strong> 방식, 배출권거래제는 <strong>배출량을 정하고 가격을 시장에 맡기는</strong> 방식입니다.</li>
+      <li>1974년 와이츠먼은 "한계저감비용 곡선이 한계피해 곡선보다 가파르면 세금이, 반대면 수량규제가 낫다"는 기준을 제시했습니다.</li>
+      <li>2026년 현재 EU 배출권은 톤당 80유로대, 한국 배출권은 3만원대입니다. 이 격차가 탄소국경조정제도(CBAM) 아래에서 비용으로 돌아옵니다.</li>
+    </ol>
+  </div>
+
+  <h2>■ 공장 굴뚝의 연기는 누구의 비용입니까</h2>
+
+  <p>경제학에서 오염을 다루는 출발점은 <strong>외부효과(externality)</strong>입니다.</p>
+
+  <p>공장이 물건을 만들 때 부담하는 비용은 원료비와 인건비, 전기료 정도입니다. 그런데 굴뚝에서 나온 연기는 인근 주민의 건강과 농작물에 피해를 줍니다. 이 피해는 공장의 회계장부 어디에도 적히지 않습니다.</p>
+
+  <p>기업이 마주하는 비용을 <strong>사적 한계비용(MC)</strong>, 사회 전체가 실제로 치르는 비용을 <strong>사회적 한계비용(MC + MD)</strong>이라고 부릅니다. 여기서 MD는 한계외부피해입니다. 둘 사이의 간격만큼 기업은 싸게 생산하고, 그만큼 시장은 오염을 과잉 생산합니다.</p>
+
+  <p>이 개념을 정리한 사람이 영국 경제학자 <strong>아서 세실 피구</strong>입니다. 1920년 저서 『후생경제학』에서 스승 앨프리드 마셜의 외부효과 개념을 발전시켜, 부정적 외부효과에는 세금을, 긍정적 외부효과에는 보조금을 매기자고 제안했습니다.</p>
+
+  <p>핵심은 처벌이 아닙니다. <strong>가격표가 잘못 붙어 있으니 바로잡자는 이야기</strong>입니다.</p>
+
+  <img src="./images/body-1.png" alt="사적 한계비용, 한계외부피해, 사회적 한계비용의 관계를 정리한 카드">
+
+  <hr class="rule">
+
+  <h2>■ 피구세, 가격을 정하고 수량은 시장에 맡깁니다</h2>
+
+  <p>피구세의 설계는 단순합니다. 효율적 산출량 지점에서의 한계피해와 같은 금액(τ = MD at Q*)을 단위당 세금으로 매깁니다.</p>
+
+  <p>그러면 기업이 실제로 마주하는 비용은 MC가 아니라 MC + τ가 됩니다. 누가 강제하지 않아도 기업은 스스로 사회적으로 바람직한 수준까지 생산을 줄입니다. 이것을 <strong>외부효과의 내부화</strong>라고 부릅니다.</p>
+
+  <p>탄소세가 대표적인 사례입니다.</p>
+
+  <p>스웨덴은 1991년 톤당 250크로나(약 23유로)로 탄소세를 시작했습니다. 2026년 현재 세율은 톤당 1,520크로나, 약 134유로입니다. 35년에 걸쳐 여섯 배 가까이 올린 셈입니다.</p>
+
+  <p>장점은 명확합니다. <strong>기업은 내년 탄소 비용이 얼마일지 알 수 있습니다.</strong> 설비 투자를 계획할 때 이보다 중요한 정보는 드뭅니다.</p>
+
+  <p>한계도 분명합니다. 세율을 정할 수는 있지만, <strong>그 세율에서 배출량이 얼마나 줄어들지는 아무도 모릅니다.</strong> 스웨덴이 세율을 계속 올려온 것도 그래서입니다.</p>
+
+  <hr class="rule">
+
+  <h2>■ 배출권거래제, 수량을 정하고 가격은 시장에 맡깁니다</h2>
+
+  <p>배출권거래제는 방향이 정반대입니다.</p>
+
+  <p>정부가 먼저 <strong>배출허용총량(cap)</strong>을 정합니다. 그 총량만큼 배출권을 발행해 기업에 나눠주거나 경매로 팝니다. 기업은 남으면 팔고 모자라면 삽니다.</p>
+
+  <p>거래가 허용되는 것이 이 제도의 핵심입니다. 감축 비용이 톤당 5천원인 기업과 5만원인 기업이 있다면, 싼 쪽이 먼저 줄이고 배출권을 팔면 됩니다. 사회 전체로 보면 같은 감축을 더 적은 비용으로 달성합니다.</p>
+
+  <p>장점은 <strong>배출량 목표가 확실히 지켜진다</strong>는 점입니다. 총량이 정해져 있으니까요.</p>
+
+  <p>대신 가격이 흔들립니다. 경기가 나빠져 공장이 덜 돌면 배출권 수요가 줄고 가격이 떨어집니다. 감축 유인도 함께 약해집니다.</p>
+
+  <img src="./images/body-2.png" alt="탄소세와 배출권거래제의 구조를 항목별로 비교한 표">
+
+  <hr class="rule">
+
+  <h2>■ 와이츠먼의 답 — 어느 곡선이 더 가파른가</h2>
+
+  <p>그래서 둘 중 무엇이 나은가. 이 질문에 정면으로 답한 것이 <strong>마틴 와이츠먼의 1974년 논문 "Prices vs. Quantities"</strong>입니다. 4,000회 넘게 인용된 환경경제학의 기초 문헌입니다.</p>
+
+  <p>와이츠먼의 출발점은 이렇습니다. 규제자가 기업의 저감비용을 정확히 안다면, 세금과 수량규제는 완전히 같은 결과를 냅니다. 문제는 <strong>아무도 그 비용을 모른다</strong>는 데 있습니다.</p>
+
+  <p>이 불확실성 아래에서 두 도구는 다르게 실패합니다. 그리고 어느 쪽이 덜 실패하는지는 두 곡선의 기울기가 결정합니다.</p>
+
+  <ul class="body">
+    <li><strong>한계저감비용(MAC) 곡선이 더 가파르면 → 세금(가격규제)이 유리합니다.</strong> 감축을 조금만 더 밀어붙여도 비용이 폭등하는 상황입니다. 세금은 비용 상한 역할을 해 줍니다.</li>
+    <li><strong>한계피해(MD) 곡선이 더 가파르면 → 총량제한(수량규제)이 유리합니다.</strong> 배출이 조금만 늘어도 피해가 급격히 커지는 상황입니다. 이때는 비용이 비싸더라도 수량을 묶어야 합니다.</li>
+  </ul>
+
+  <p>한 가지 더 흥미로운 결론이 있습니다. 비용 쪽 불확실성은 도구 선택에 결정적이지만, <strong>편익(피해) 쪽 불확실성은 두 도구가 서로 무관하다면 선택에 영향을 주지 않습니다.</strong></p>
+
+  <p>온실가스는 대기에 축적된 총량이 문제이고 단년도 배출량의 한계피해는 비교적 완만하다고 보는 견해가 많습니다. 그래서 와이츠먼 기준상 탄소에는 가격규제가 유리하다는 해석이 통상적입니다. 다만 이는 모형 가정에 따라 달라지며, 카프와 트래거 같은 후속 연구자들이 계속 재검토하고 있습니다. 정답이 확정된 영역은 아닙니다.</p>
+
+  <img src="./images/body-3.png" alt="와이츠먼 기준, 한계피해 곡선이 가파를 때와 한계저감비용 곡선이 가파를 때의 대비">
+
+  <hr class="rule">
+
+  <h2>■ EU 배출권 시장이 겪은 20년</h2>
+
+  <p>이론은 이론이고, 실제 시장은 훨씬 거칠었습니다.</p>
+
+  <p><strong>2005년, EU-ETS가 출범했습니다.</strong> 세계 최초의 대규모 온실가스 배출권 거래제입니다.</p>
+
+  <p>1기(2005~2007)는 실패에 가까웠습니다. 배출권을 너무 많이, 그것도 대부분 무상으로 나눠줬습니다. 게다가 다음 기간으로 이월(banking)하는 것도 막혀 있었습니다. 공급과잉이 쌓였고, <strong>2007년 배출권 가격은 톤당 1.5유로 수준에서 사실상 0유로까지 무너졌습니다.</strong></p>
+
+  <p>수량규제의 약점이 그대로 드러난 장면입니다. 배출 총량은 지켜졌지만 가격이 사라지면서 감축 유인도 함께 사라졌습니다.</p>
+
+  <p>EU는 이 경험을 반영해 <strong>2019년 1월 시장안정화예비분(MSR)</strong>을 가동했습니다. 유통 중인 배출권 수가 과도하게 쌓이면 일부를 예비분으로 흡수해 공급을 조절하는 장치입니다.</p>
+
+  <p>그 뒤로 가격은 자리를 잡았습니다. 2026년 흐름을 보면 이렇습니다.</p>
+
+  <ul class="body">
+    <li>4월 7일 현물 약 70유로</li>
+    <li>6월 초 약 77유로</li>
+    <li>7월 22일 12월물 선물이 6개월 최고치인 86.60유로</li>
+    <li>8월 29일 약 82유로</li>
+  </ul>
+
+  <p>2025~2026년 변동 범위는 톤당 60~95유로였습니다. <strong>예전엔 0유로까지 떨어지던 시장이, 지금은 80유로 안팎에서 움직입니다.</strong></p>
+
+  <hr class="rule">
+
+  <h2>■ 한국 K-ETS, 2026년에 벌어진 일</h2>
+
+  <p>한국은 2015년 1월 배출권거래제를 시작했습니다. 아시아 최초의 국가 단위 제도입니다.</p>
+
+  <p>그런데 오랫동안 가격이 오르지 않았습니다. 도입 당시 톤당 8,640원이었고, 2022년 초 3만원대 중반까지 올랐다가 다시 급락해 2025년에는 8,000원대까지 내려앉았습니다. 10년 동안 제자리걸음이었던 셈입니다.</p>
+
+  <p>2026년에 상황이 바뀌었습니다.</p>
+
+  <ul class="body">
+    <li>3월: 1만 5,000원 돌파</li>
+    <li>6월: 한 달 만에 60% 급등</li>
+    <li>8월 20일: KAU25 기준 톤당 3만 100원</li>
+    <li>8월 말 종가: 2만 9,450원</li>
+    <li>9월 7일: 2만 9,950원</li>
+  </ul>
+
+  <p>8월 한 달 상승률 13.5%로 아시아·태평양 주요 시장 가운데 가장 높았습니다. 1년 사이 234.7%, 약 3.5배 올랐습니다.</p>
+
+  <p>이유는 공급 쪽에 있었습니다. <strong>제4차 계획기간(2026~2030)이 시작되면서 배출허용총량이 크게 줄었습니다.</strong> 연평균 기준으로 3차 6.02억 톤에서 4차 5.07억 톤으로, 15.7% 감소했습니다.</p>
+
+  <p>유상할당 비중도 확대됩니다. 발전 부문은 2026년 15%에서 2030년 50%까지 단계적으로 올라갑니다. 산업 등 나머지 부문은 10%에서 15%로 조정됩니다. 경매 수익은 약 27조원으로 추산되며, 탄소중립 설비 투자와 CCUS, 수소환원제철 등에 재투자한다는 계획입니다.</p>
+
+  <p>여기에 CBAM 대응을 위한 선취 매수세가 더해졌습니다.</p>
+
+  <p>다만 우려도 함께 나옵니다. 가격이 급등하는 동안 <strong>시장안정화 예비분의 발동 기준 마련은 지연되고 있다</strong>는 지적이 있습니다. 가격이 오른다고 다 좋은 것은 아닙니다. 예측 가능성이 없으면 기업은 투자 결정을 미룹니다.</p>
+
+  <img src="./images/body-4.png" alt="한국 배출권 가격 10년, 2015년 8640원에서 2026년 9월 2만9950원까지의 흐름">
+
+  <hr class="rule">
+
+  <h2>■ 두 제도는 서로를 닮아가고 있습니다</h2>
+
+  <p>교과서는 가격규제와 수량규제를 깔끔하게 나눕니다. 현실은 그렇지 않습니다.</p>
+
+  <p>순수한 캡앤트레이드는 가격 폭락과 폭등을 모두 겪습니다. 그래서 각국은 <strong>가격 칼라(price collar)</strong>를 도입했습니다. 하한과 상한을 함께 두어 가격이 일정 구간 안에서 움직이게 만드는 장치입니다.</p>
+
+  <ul class="body">
+    <li><strong>캘리포니아</strong>는 2013년 시작한 배출권 시장에서 소프트 가격 칼라를 운영합니다. 주 전체 온실가스의 85%를 포괄하며, 최근 제도 개편에서 상하한 트리거를 조정해 60달러 폭의 가격 회랑을 유지하도록 했습니다.</li>
+    <li><strong>RGGI</strong>는 비용억제예비분(CCR)을 둡니다. 경매 낙찰가가 기준을 넘으면 추가 배출권을 풀어 가격을 누릅니다. 2024년 트리거 가격은 톤당 15.92달러였고, 매년 7%씩 올라갑니다.</li>
+    <li><strong>캘리포니아·퀘벡·RGGI 모두</strong> 경매 최저입찰가 형태의 소프트 가격 하한을 갖고 있습니다.</li>
+    <li><strong>EU</strong>는 건물·수송 부문으로 확대하는 제2 배출권거래제(ETS2)에 소프트 가격상한을 넣었습니다. 2020년 불변가격 기준 톤당 45유로(2025년 가격으로 약 55유로)를 넘으면 예비분에서 추가 물량을 방출합니다. 시행 시점은 2027년으로 예정됐다가 연기 논의가 이어지고 있어, 아직 확정적으로 말하기 어렵습니다.</li>
+  </ul>
+
+  <p>정리하면 이렇습니다. <strong>수량제도에 가격 안전장치를 붙이면 세금에 가까워지고, 세금에 배출 목표 연동 조정을 붙이면 수량제도에 가까워집니다.</strong> 순수한 피구세도, 순수한 캡앤트레이드도 현실에는 거의 없습니다.</p>
+
+  <img src="./images/body-5.png" alt="캘리포니아, RGGI, EU-ETS, ETS2의 가격 안전장치를 비교한 표">
+
+  <hr class="rule">
+
+  <h2>■ 탄소국경조정제도가 계산을 바꿉니다</h2>
+
+  <p>한 나라만 탄소가격을 올리면 문제가 생깁니다. 공장이 규제가 느슨한 나라로 옮겨가는 <strong>탄소누출(carbon leakage)</strong>입니다. 배출은 줄지 않고 일자리만 빠져나갑니다.</p>
+
+  <p>EU의 답이 <strong>탄소국경조정제도(CBAM)</strong>입니다.</p>
+
+  <p>철강, 알루미늄, 시멘트, 비료, 전력, 수소를 EU로 수입할 때, 생산 과정에서 나온 탄소배출량만큼 CBAM 인증서를 사서 제출하게 하는 제도입니다. 인증서 가격은 EU 배출권 시장 가격을 그대로 따라갑니다. 1분기 톤당 75.36유로, 2분기 75.28유로로 정해졌습니다.</p>
+
+  <p>일정은 조정을 겪었습니다. 당초 2026년 1월 1일부터 인증서 구매 의무가 시작될 예정이었으나 2027년 2월 1일로 연기됐고, 연간 제출 기한도 5월 31일에서 9월 30일로 넉 달 늘었습니다. 소규모 수입업체 면제 기준을 연간 50톤 이하로 바꾸면서 기존안 대비 약 90%의 수입업체가 적용 대상에서 빠질 것으로 예상됩니다.</p>
+
+  <p>한국 기업에 중요한 지점은 여기입니다.</p>
+
+  <p><strong>CBAM은 EU 탄소가격과 수출국 탄소가격의 차액을 메우는 구조입니다.</strong> 한국에서 이미 낸 탄소 비용은 공제받습니다. 즉 국내 탄소가격이 낮을수록 그 차액만큼을 EU에 내야 합니다.</p>
+
+  <p>2026년 9월 기준으로 EU 배출권은 80유로대, 한국 배출권은 3만원대입니다. 격차가 여전히 큽니다. 국내 탄소가격이 낮으면 기업 부담이 줄어드는 것처럼 보이지만, 수출 기업 입장에서는 그 차액이 국내 재정이 아니라 EU 재정으로 넘어가는 셈입니다.</p>
+
+  <img src="./images/body-6.png" alt="탄소국경조정제도 CBAM의 4단계 작동 순서 다이어그램">
+
+  <hr class="rule">
+
+  <h2>■ 세계는 지금 어디까지 와 있습니까</h2>
+
+  <p>세계은행 『State and Trends of Carbon Pricing 2026』 기준으로 정리하면 이렇습니다.</p>
+
+  <ul class="body">
+    <li>탄소세 <strong>47개</strong>, 배출권거래제 <strong>40개</strong>, 합쳐 <strong>87개 제도</strong>가 시행 중입니다.</li>
+    <li>이들이 포괄하는 범위는 <strong>전 세계 온실가스 배출량의 29%</strong>입니다.</li>
+    <li>2025년 탄소가격 수입은 <strong>1,070억 달러</strong>를 넘었습니다.</li>
+    <li>그중 <strong>70% 이상이 배출권거래제에서 나옵니다.</strong> 경매 비중 확대와 가격 상승이 반영된 결과입니다.</li>
+  </ul>
+
+  <p>제도 수는 탄소세가 더 많지만, 돈이 움직이는 규모는 배출권거래제가 압도적입니다. 수입은 여전히 유럽과 북미에 집중돼 있고, 중·저소득국은 가격이 낮고 경매도 제한적이라 수입이 훨씬 적습니다.</p>
+
+  <p>아직 전 세계 배출량의 3분의 1에도 미치지 못합니다. 갈 길이 멉니다.</p>
+
+  <hr class="rule">
+
+  <p>끝으로 한 마디만 더 드리겠습니다.</p>
+
+  <p>피구세와 배출권거래제 중 무엇이 옳은지를 따지는 것은 생각보다 중요하지 않을지 모릅니다. 와이츠먼의 기준은 여전히 유효하지만, 현실의 제도들은 이미 양쪽을 섞어 쓰고 있습니다. 가격 칼라를 단 배출권 시장은 절반쯤 세금이고, 배출 목표에 연동해 세율을 조정하는 탄소세는 절반쯤 수량규제입니다.</p>
+
+  <p>정말 중요한 것은 다른 데 있어 보입니다.</p>
+
+  <div class="punch">"가격이 있는가,<br>그리고 그 가격을 믿을 수 있는가."</div>
+
+  <p>EU가 2007년의 0유로에서 2026년의 80유로대까지 오는 데 20년이 걸렸습니다. 한국도 10년의 정체 끝에 이제 막 3만원 선에 올라섰습니다. 숫자가 오르는 것보다 그 숫자를 기업이 예측할 수 있게 되는 일이 더 어렵습니다.</p>
+
+  <p>오염에 가격을 매기는 일이 결국 성공할 것이냐고 물으신다면, 아직은 지켜보는 중이라고 답하겠습니다.</p>
+
+  <div class="tags">
+    <span>#탄소세</span>
+    <span>#배출권거래제</span>
+    <span>#피구세</span>
+    <span>#외부효과</span>
+    <span>#탄소가격</span>
+    <span>#CBAM</span>
+    <span>#탄소국경조정제도</span>
+    <span>#경제공부</span>
+  </div>
+
+  <div class="note">
+    본문의 가격 수치는 인용 시점 기준입니다. EU-ETS와 K-ETS 가격은 변동성이 크므로, 최신 시세는 각각 ICE·EEX와 한국거래소 배출권시장 정보플랫폼에서 확인하시기 바랍니다. ETS2 시행 시점과 CBAM 인증서 구매 개시 시점은 제도 개정이 진행 중이라 변동 가능성이 있습니다.
+  </div>
+
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
