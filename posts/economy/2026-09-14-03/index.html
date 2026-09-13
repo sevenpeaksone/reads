@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>트리핀 딜레마, 기축통화국이 적자를 멈출 수 없는 구조적 이유</title>
+<meta name="description" content="트리핀 딜레마를 정리했습니다. 1960년 로버트 트리핀의 문제 제기, 브레튼우즈 체제에서 달러 공급과 금 태환 신뢰의 상충, 1959~1964년 금 보유량과 대외 달러부채의 역전, 1971년 닉슨 쇼크, 변동환율 이후에도 남은 현대판 트리핀 딜레마와 기축통화 특권, SDR과 다극 통화체제 논의까지 다룹니다."/>
+<style>
+  :root { --accent:#2bbe78; --ink:#1a1c1a; --mute:#5b6b60; --line:#e2e8e4; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f5f7f5; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;
+    line-height:1.85; }
+  .wrap { max-width:700px; margin:0 auto; padding:40px 24px 80px; background:#ffffff; }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:22px; }
+  .badge { background:var(--accent); color:#08110c; font-weight:700; font-size:13px;
+    padding:5px 13px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:30px; line-height:1.35; font-weight:800; margin:0 0 30px; letter-spacing:-.01em;
+    word-break:keep-all; }
+  h2 { font-size:21px; font-weight:700; margin:44px 0 14px; padding-left:13px;
+    border-left:4px solid var(--accent); line-height:1.4; word-break:keep-all; }
+  p { font-size:16.5px; margin:0 0 18px; word-break:keep-all; }
+  ul { margin:0 0 20px; padding-left:20px; }
+  li { font-size:16.5px; margin-bottom:8px; word-break:keep-all; }
+  strong { font-weight:700; }
+  figure { margin:26px 0; }
+  img { max-width:100%; height:auto; border-radius:12px; display:block; }
+  hr { border:none; border-top:1px solid var(--line); margin:34px 0; }
+  .tags { margin-top:38px; padding-top:22px; border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:8px; }
+  .tag { color:var(--accent); background:#eaf7f0; font-size:13.5px;
+    padding:5px 11px; border-radius:8px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta"><span class="badge">경제</span><span class="date">2026-09-14</span></div>
+  <h1>트리핀 딜레마, 기축통화국이 적자를 멈출 수 없는 구조적 이유</h1>
+<figure><img src="./images/thumbnail.png" alt="트리핀 딜레마 - 기축통화국은 왜 적자를 멈출 수 없는가, 1960년의 경고에서 2025년의 27조 달러까지"/></figure>
+<p>이번 글에서는 트리핀 딜레마를 정리해 보겠습니다. 1960년에 제기된 이 문제는 브레튼우즈 체제를 무너뜨렸고, 금 태환이 사라진 지 반세기가 지난 지금도 형태를 바꿔 남아 있습니다. 기축통화국이 왜 적자를 계속 낼 수밖에 없는지, 그 적자가 왜 스스로의 신뢰를 갉아먹는지를 순서대로 따라가 보겠습니다.</p>
+<figure><img src="./images/body-1.png" alt="트리핀 딜레마의 두 뿔 - 달러를 아끼면 세계 유동성이 마르고, 달러를 풀면 금 태환 신뢰가 무너진다"/></figure>
+<hr/>
+<h2>1960년, 예일대 교수가 의회에서 꺼낸 모순</h2>
+<p>벨기에 태생의 경제학자 로버트 트리핀은 1959년부터 한 가지를 지적했습니다. 1960년에는 『황금과 달러의 위기(Gold and the Dollar Crisis)』를 펴냈고, 그해 12월 미 의회 합동경제위원회에 나가 같은 이야기를 했습니다.</p>
+<p>논리는 단순합니다.</p>
+<p>브레튼우즈 체제는 달러를 세계의 결제수단으로 삼았습니다. 세계 무역이 커지면 그만큼 달러가 더 필요합니다. 금 생산량으로는 그 수요를 감당할 수 없습니다. 1940년대에 정한 온스당 35달러라는 값이 금을 지나치게 싸게 매겨 두었기 때문입니다.</p>
+<p>그러면 부족분은 어디서 나올까요. 미국의 국제수지 적자에서 나옵니다. 미국이 밖으로 달러를 흘려보내야 세계가 준비자산을 얻습니다.</p>
+<p>문제는 그다음입니다. 대외 달러 부채가 쌓일수록, 각국 중앙은행이 그 달러를 금으로 바꿔 달라고 몰려올 가능성이 커집니다. 은행이 예금자에게 몰리는 것과 같은 구조입니다. 미국이 이를 막으려 긴축하면, 이번엔 세계가 디플레이션에 빠집니다.</p>
+<p><strong>&quot;달러를 충분히 공급하면 신뢰가 무너지고, 신뢰를 지키면 유동성이 마른다.&quot;</strong></p>
+<p>트리핀은 이 모순에 출구가 없다고 봤습니다. 그가 내놓은 해법은 케인스가 1943년에 구상했던 &#x27;방코르&#x27;처럼, 어느 나라의 통화도 아닌 국제 준비자산을 새로 만드는 것이었습니다.</p>
+<hr/>
+<h2>금 한 덩이에 달러 서른다섯 개</h2>
+<p>체제의 뼈대부터 짚겠습니다. 1944년 미국 뉴햄프셔주 브레튼우즈에 44개국이 모였습니다. 미국의 화이트 안과 영국의 케인스 안이 타협해 만든 결과가 이렇습니다. 각국 통화는 달러에 고정하고, 달러만 금에 온스당 35달러로 고정합니다. 자본 이동은 통제합니다.</p>
+<p>출발은 안전해 보였습니다. 당시 미국이 세계 공적 금 보유고의 약 4분의 3을 갖고 있었기 때문입니다. 체제가 실제로 돌아가기 시작한 것은 주요국이 경상거래 태환성을 회복한 1958년부터입니다.</p>
+<p>그런데 이 설계에는 미국만 누리는 예외가 하나 있었습니다. 다른 나라는 적자가 나면 긴축해야 했지만, 중심 통화국인 미국은 국제수지를 조정할 의무가 없었습니다. n개 통화 체제에서 n-1번째 통화였던 셈입니다. 유럽은 이 비대칭을 불쾌하게 여겼습니다.</p>
+<figure><img src="./images/body-2.png" alt="브레튼우즈 체제의 설계 - 1944년 협정, 금 온스당 35달러 고정, 각국 통화의 달러 페그, 1958년 본격 가동"/></figure>
+<hr/>
+<h2>1959년과 1964년, 숫자가 뒤집힌 두 시점</h2>
+<p>트리핀의 경고가 숫자로 확인되기까지는 오래 걸리지 않았습니다.</p>
+<p>마이클 보르도가 연준의 『Banking and Monetary Statistics 1941–1970』을 근거로 정리한 바에 따르면, <strong>1959년에 미국의 통화용 금 보유량이 대외 달러 부채 총액과 같아졌습니다.</strong> 같은 해 나머지 세계가 가진 통화용 금이 미국을 앞질렀습니다. 그리고 <strong>1964년에는 외국 통화당국이 보유한 공적 달러 부채가 미국의 금 보유량을 넘어섰습니다.</strong></p>
+<p>두 연도가 다른 이유는 기준이 다르기 때문입니다. 1959년은 민간까지 포함한 전체 대외 달러 부채, 1964년은 외국 정부·중앙은행이 들고 있던 몫만 센 것입니다. 어느 기준을 쓰든 결론은 같습니다. 약속을 전부 지킬 금은 이미 없었습니다.</p>
+<figure><img src="./images/body-3.png" alt="브레튼우즈가 무너져 간 12년의 연표 - 1959년 금과 달러부채 등가, 1961년 런던 금 풀 결성, 1964년 역전, 1968년 금 풀 붕괴, 1971년 금 창구 폐쇄"/></figure>
+<hr/>
+<h2>열 개가 넘던 응급처치의 목록</h2>
+<p>1960년 10월 20일, 런던 금 시장에서 금값이 온스당 40달러까지 치솟았습니다. 공식 가격보다 14% 높은 값입니다. 이때부터 미국과 유럽은 체제를 떠받치려고 온갖 장치를 동원했습니다.</p>
+<ul><li><strong>런던 금 풀(1961년 11월)</strong> — 영국·서독·스위스·네덜란드·벨기에·이탈리아·프랑스·미국 8개 중앙은행이 금을 모아 런던 금값을 35달러 근처로 눌렀습니다.</li><li><strong>연준 통화스와프(1962년 3월)</strong> — 프랑스 중앙은행과 처음 맺었고, 그해 말까지 9개 중앙은행으로 늘려 총 9억 달러 규모를 확보했습니다.</li><li><strong>이자평형세(1963년)</strong> — 자본 유출에 세금을 매겼습니다.</li><li><strong>오퍼레이션 트위스트(1962년)</strong> — 단기금리를 올려 자본을 붙잡으려 했습니다.</li><li><strong>독일 압박</strong> — 미군 철수를 언급하며 금 태환 자제를 요구했습니다.</li></ul>
+<p>효과는 있었습니다. 다만 오래가지 않았습니다. 1967년 11월 파운드가 평가절하되자 금 투기가 되살아났고, 프랑스가 이탈하면서 <strong>1968년 3월 17일 금 풀이 무너졌습니다.</strong> 이후 중앙은행 거래용과 민간시장용 금값을 분리하는 이중가격제로 넘어갑니다.</p>
+<p>가장 정직한 지표는 스와프 라인입니다. 1962년 9억 달러였던 규모는 1971년 8월 금 창구가 닫힐 때 <strong>112억 달러</strong>가 되어 있었습니다. 9년 만에 12배가 넘게 불어난 것입니다. 보르도의 표현을 빌리면, 이 성장 자체가 &quot;일시적 처방이 아니라 구조적 문제&quot;라는 신호였습니다.</p>
+<hr/>
+<h2>1971년 8월, 캠프 데이비드의 사흘</h2>
+<p>방아쇠를 당긴 것은 유럽이었습니다. 1971년 8월 초, 프랑스와 영국이 보유 달러를 금으로 바꾸겠다는 뜻을 밝혔습니다.</p>
+<p>8월 13일부터 15일까지, 닉슨 대통령과 참모 열다섯 명이 캠프 데이비드에 모였습니다. 연준 의장 아서 번스, 재무장관 존 코널리, 국제통화담당 재무차관 폴 볼커가 그 자리에 있었습니다.</p>
+<p>8월 15일 저녁 TV 연설에서 세 가지가 발표됩니다.</p>
+<p>첫째, <strong>금 창구 폐쇄.</strong> 외국 정부는 더 이상 달러를 금으로 바꿀 수 없게 됐습니다. 국제통화체제가 사실상 불환 체제로 넘어간 순간입니다.</p>
+<p>둘째, <strong>90일간 임금·물가 동결.</strong> 전시가 아닌 시기에 미국 정부가 임금과 물가를 통제한 첫 사례였습니다.</p>
+<p>셋째, <strong>수입품 10% 부가관세.</strong></p>
+<p>그해 12월 스미소니언 협정으로 고정환율을 되살리려 했지만 실패했습니다. <strong>1973년 3월, 조정가능 페그는 완전히 사라졌습니다.</strong></p>
+<figure><img src="./images/body-4.png" alt="1971년 닉슨 쇼크의 전개 - 프랑스와 영국의 금 태환 요구, 캠프 데이비드 사흘간의 회의, 8월 15일 3종 조치 발표, 1973년 변동환율 이행"/></figure>
+<hr/>
+<h2>트리핀이 틀렸다는 반론도 있습니다</h2>
+<p>여기서 한 가지는 분명히 해 두겠습니다. 트리핀 딜레마는 확립된 정설이 아니라 지금도 논쟁 중인 가설입니다.</p>
+<p><strong>첫 번째 반론은 1966년에 나왔습니다.</strong> 데프레·킨들버거·샐런트는 「달러와 세계 유동성: 소수의견」에서 미국의 적자가 문제가 아니라고 주장했습니다. 나머지 세계가 달러의 유동성 서비스 때문에 자발적으로 달러를 보유하는 것이므로, 그 적자는 수요가 결정하는 값이라는 논리입니다. 미국은 적자국이 아니라 &#x27;세계의 은행&#x27;이라는 것입니다.</p>
+<p><strong>두 번째 반론은 훨씬 뒤에 나왔습니다.</strong> 보르도와 맥컬리는 2019년 『IMF Economic Review』에 실은 「트리핀: 딜레마인가 신화인가」에서 이렇게 정리합니다. 트리핀은 전간기의 &#x27;금 부족이 디플레이션을 부른다&#x27;는 서사를 되살려 큰 영향력을 얻었지만, 실제로 일어난 일은 정반대였다는 것입니다. 미국의 신중함과 세계적 디플레이션이 아니라, <strong>미국의 방만함과 세계적 인플레이션</strong>이 왔습니다. 두 사람은 2차대전 후 미국의 금 포지션이 1900년 영국보다 나쁘지 않았다는 점도 덧붙입니다.</p>
+<p>실제로 보르도는 브레튼우즈 붕괴의 핵심 원인을 구조가 아니라 정책에서 찾습니다. 1965년부터 미국이 베트남전 비용과 &#x27;위대한 사회&#x27; 재정적자를 통화로 수용하면서, 기축통화국에 부적절한 인플레이션 정책을 폈다는 것입니다. 1969~70년 침체가 끝날 무렵 실업률은 6%, 소비자물가 상승률은 5.4%였습니다.</p>
+<p>구조의 문제인가, 정책의 실패인가. 이 물음은 아직 닫히지 않았습니다.</p>
+<hr/>
+<h2>금 창구는 닫혔는데 딜레마는 남았습니다</h2>
+<p>금 태환이 사라졌으니 딜레마도 끝났어야 합니다. 그런데 그렇지 않았습니다.</p>
+<p>에마뉘엘 파리와 마테오 마조리는 2017년 이 점을 이렇게 설명했습니다. 예전의 약속은 &#x27;달러를 금 35달러에 바꿔 주겠다&#x27;는 명시적 약속이었습니다. 지금의 약속은 &#x27;위기가 와도 달러 자산은 안전하다&#x27;는 암묵적 약속입니다. 형태는 달라졌지만 <strong>두 건물 모두 신뢰라는 같은 지반 위에 서 있습니다.</strong></p>
+<p>그래서 딜레마도 형태를 바꿔 돌아옵니다. 이번엔 재정의 얼굴입니다.</p>
+<p>한쪽 뿔은 이렇습니다. 세계는 안전자산을 원하고, 그 수요를 미 재무부가 채워 주지 않으면 글로벌 유동성이 마릅니다. 다른 쪽 뿔은 이렇습니다. 그 수요를 다 채우려면 국가부채를 계속 늘려야 하고, 그러면 발행자의 신용 자체가 흔들립니다.</p>
+<p>숫자로 보면 이렇습니다. 미 상무부 경제분석국이 2026년 3월에 발표한 통계에 따르면, <strong>2025년 말 미국의 순대외투자포지션은 마이너스 27조 5,400억 달러</strong>입니다. 대외자산 42조 9,600억 달러, 대외부채 70조 4,900억 달러의 차액입니다. 1년 전 마이너스 26조 5,400억 달러에서 1조 달러가 더 벌어졌습니다. 2025년 경상수지 적자는 1조 1,200억 달러로 GDP의 3.6%였습니다.</p>
+<p>재정 쪽도 같은 방향입니다. 의회예산처는 2026년 2월 전망에서 연방정부의 민간보유 부채가 <strong>2026 회계연도 말 GDP의 101%, 2036년 120%, 2056년 175%</strong>에 이를 것으로 봤습니다. 1946년의 기존 최고치 106%를 2036년에 넘어서는 경로입니다.</p>
+<p>여기에 하나를 더 겹쳐 보면 대비가 뚜렷해집니다. 미국이 지금 보유한 금은 <strong>약 2억 6,150만 트로이온스, 8,133톤</strong>입니다. 법정 장부가인 온스당 42.22달러로 계산하면 110억 달러, 2026년 9월의 시세로 환산해도 1조 1,500억 달러 안팎입니다. 대외부채 70조 달러의 <strong>2%에도 못 미칩니다.</strong></p>
+<figure><img src="./images/body-5.png" alt="1971년 브레튼우즈와 2025년 달러 본위제 비교표 - 약속의 형태, 담보, 대외부채 70조 달러, 순대외포지션 마이너스 27조 5,400억 달러, 금 보유량"/></figure>
+<hr/>
+<h2>특권에는 값이 붙어 있습니다</h2>
+<p>기축통화국이 누리는 이익을 1960년대 프랑스는 &#x27;과도한 특권(exorbitant privilege)&#x27;이라 불렀습니다. 이 말은 나중에 학술적으로 측정됩니다.</p>
+<p>구랭샤와 레이의 2007년 연구에 따르면, 미국은 대외자산에서 얻는 수익률이 대외부채에 지급하는 수익률을 지속적으로 웃돕니다. <strong>1973~2004년 기간 초과수익률은 연 3.32%</strong>였습니다. 1952년 이후로 범위를 넓히면 연 2.69% 수준입니다.</p>
+<p>이유는 미국 대차대조표의 비대칭입니다. 미국은 안전하고 유동적인 부채를 발행해 돈을 빌리고, 그 돈으로 위험하고 덜 유동적인 자산에 투자합니다. 세계의 은행이라기보다 세계의 벤처캐피털리스트에 가깝습니다.</p>
+<p>다만 특권만 있는 것은 아닙니다. 같은 연구자들은 &#x27;과도한 의무(exorbitant duty)&#x27;라는 짝을 붙였습니다. <strong>2007~2009년 글로벌 금융위기 동안 미국이 나머지 세계에 넘겨준 가치는 미국 GDP의 19%</strong>에 달했습니다. 세계가 흔들릴 때 손실을 먼저 흡수하는 것도 기축통화국의 몫이라는 뜻입니다.</p>
+<hr/>
+<h2>대안은 왜 자라지 않는가</h2>
+<p>트리핀이 원했던 &#x27;어느 나라의 것도 아닌 준비자산&#x27;은 실제로 만들어졌습니다. IMF가 1969년에 창설한 <strong>특별인출권(SDR)</strong>입니다.</p>
+<p>2021년 8월 23일에는 역사상 최대 규모의 배분이 있었습니다. <strong>SDR 4,565억, 약 6,500억 달러</strong>입니다. 2026년 8월 말 기준 누적 배분 잔액은 SDR 6,608억, 약 9,066억 달러입니다.</p>
+<p>2009년 3월에는 중국인민은행 총재 저우샤오촨이 「국제통화체제 개혁」이라는 글에서 SDR을 &#x27;초주권 준비통화&#x27;로 키우자고 제안했습니다. 그 글은 트리핀 딜레마를 직접 이름으로 거론하며, 준비통화 발행국은 세계에 유동성을 공급하면서 동시에 그 통화의 가치를 지킬 수 없다고 적었습니다. 케인스의 방코르도 함께 언급했습니다.</p>
+<p>그런데 SDR은 크게 자라지 못했습니다. 9,066억 달러는 세계 외환보유액 13조 1,000억 달러의 7% 남짓입니다. SDR 바스켓 안에서도 2022년 8월부터 적용된 가중치를 보면 달러가 43.38%, 유로 29.31%, 위안 12.28%, 엔 7.59%, 파운드 7.44%입니다. 결국 달러 비중이 가장 큽니다.</p>
+<p>달러 자체는 어떨까요. IMF의 최신 COFER 통계에 따르면 <strong>2026년 1분기 세계 외환보유액에서 달러 비중은 57.13%</strong>입니다. 유로 20.03%, 엔 5.44%, <strong>위안은 1.99%</strong>입니다.</p>
+<p>여기서 대비가 하나 드러납니다. 예전엔 달러가 세계 외환보유액의 71%(1999년)를 차지했습니다. 지금은 57%대입니다. 27년간 14%포인트가 빠졌습니다. 그런데 그 자리를 메운 것은 특정 통화가 아니라 호주달러·캐나다달러·원화 같은 &#x27;기타 통화&#x27;의 분산이었습니다. 유력한 후보로 꼽히던 위안화는 여전히 2% 문턱을 넘지 못하고 있습니다.</p>
+<figure><img src="./images/body-6.png" alt="IMF COFER 기준 세계 외환보유액 통화별 비중 변화 - 달러는 1999년 71.0%에서 2026년 1분기 57.13%로, 위안은 1.99%"/></figure>
+<p>이 대목에서 두 갈래 전망이 갈립니다. 아이켄그린은 다극 통화체제로의 이행이 분산 이익과 안전자산 공급 확대를 가져와 딜레마를 완화할 수 있다고 봅니다. 반면 파리와 마조리는 1920년대 파운드-달러 병존기를 근거로, 투자자들이 두 통화 사이를 몰려다니며 오히려 불안정이 커질 수 있다고 경고합니다. 유력한 대안이 커질수록 달러에서 빠져나가기도 쉬워진다는 것입니다.</p>
+<p>어느 쪽이 맞을지는 아직 모릅니다. 저는 여기서 단정하지 않겠습니다.</p>
+<hr/>
+<p>정리하면 이렇습니다.</p>
+<p>트리핀 딜레마는 기축통화국의 도덕성 문제가 아닙니다. 세계가 한 나라의 부채를 준비자산으로 쓰기로 하는 순간 따라붙는 산수의 문제입니다. 세계 경제가 그 나라보다 빨리 자라는 한, 공급해야 할 통화는 늘고 담보는 상대적으로 줄어듭니다. 1971년에는 그 담보가 금이었고 한계가 눈에 보였습니다. 지금은 담보가 신뢰라 한계가 보이지 않습니다.</p>
+<p>보이지 않는다는 것이 없다는 뜻은 아닙니다 — 이 한 줄이 트리핀이 66년 전에 남긴 경고의 전부일지도 모릅니다.</p>
+<p>그렇다면 달러의 시대가 곧 끝나겠냐고 물으신다면, 저는 그렇게 답하지 않겠습니다. 보르도의 말처럼 예측 가능한 미래에 달러를 대체할 통화는 보이지 않습니다. 다만 파리와 마조리의 물음은 남습니다. 문제는 언제 끝나는가가 아니라, 그 이행이 얼마나 험난할 것인가입니다.</p>
+<div class="tags"><span class="tag">#트리핀딜레마</span><span class="tag">#기축통화</span><span class="tag">#브레튼우즈체제</span><span class="tag">#닉슨쇼크</span><span class="tag">#달러패권</span><span class="tag">#경상수지적자</span><span class="tag">#국제통화체제</span><span class="tag">#SDR</span><span class="tag">#안전자산</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
