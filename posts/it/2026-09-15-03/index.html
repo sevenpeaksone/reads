@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>캐시 일관성 MESI 프로토콜, 멀티코어가 같은 값을 보게 만드는 원리</title>
+<meta name="description" content="코어마다 사본을 들고 있는데도 어긋나지 않는 이유">
+<meta property="og:title" content="캐시 일관성 MESI 프로토콜, 멀티코어가 같은 값을 보게 만드는 원리">
+<meta property="og:description" content="코어마다 사본을 들고 있는데도 어긋나지 않는 이유">
+<meta property="og:image" content="./images/thumbnail.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --accent:#3f6bd8; --accent-soft:#eef2fd; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f4f5f8; color:#1c2128;
+    font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;
+    line-height:1.85; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:700px; margin:0 auto; padding:44px 28px 84px; background:#fff;
+    min-height:100vh; box-shadow:0 0 40px rgba(0,0,0,.05); }
+  .topbar { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .cat { display:inline-block; background:var(--accent); color:#fff; font-size:13px;
+    font-weight:700; padding:5px 14px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:#8a929e; font-size:14px; }
+  h1 { font-size:29px; line-height:1.42; font-weight:800; margin:14px 0 10px;
+    letter-spacing:-.02em; }
+  .subtitle { font-size:16.5px; color:#6b7280; font-weight:500; margin:0 0 22px; }
+  .hero { margin:0 0 30px; }
+  h2 { font-size:21px; font-weight:800; margin:46px 0 15px; padding-left:13px;
+    border-left:5px solid var(--accent); line-height:1.45; letter-spacing:-.01em; }
+  p { font-size:16.5px; margin:16px 0; }
+  ul.bul { margin:14px 0 20px; padding-left:22px; }
+  ul.bul li { font-size:16px; margin-bottom:9px; line-height:1.75; }
+  hr { border:0; border-top:1px solid #e8eaed; margin:34px 0; }
+  figure { margin:28px 0; text-align:center; }
+  img { max-width:100%; height:auto; border-radius:12px;
+    box-shadow:0 4px 18px rgba(0,0,0,.09); }
+  figcaption { font-size:13px; color:#9aa0ad; margin-top:10px; line-height:1.55; }
+  blockquote { margin:24px 0; padding:18px 22px; background:var(--accent-soft);
+    border-left:4px solid var(--accent); border-radius:0 10px 10px 0; }
+  blockquote p { margin:0; font-size:15.5px; color:#3f4658; line-height:1.75; }
+  .tw { overflow-x:auto; margin:24px 0; }
+  table { border-collapse:collapse; width:100%; font-size:14.5px; line-height:1.6; }
+  th { background:var(--accent); color:#fff; font-weight:700; padding:10px 12px;
+    text-align:left; white-space:nowrap; }
+  td { padding:10px 12px; border-bottom:1px solid #e8eaed; vertical-align:top; }
+  tbody tr:nth-child(even) td { background:#f8f9fc; }
+  code { background:#f1f3f7; color:#2c3550; padding:1px 6px; border-radius:5px;
+    font-size:14.5px; font-family:'SFMono-Regular',Consolas,Menlo,monospace; }
+  pre { background:#1c2233; color:#dfe5f3; padding:18px 20px; border-radius:11px;
+    overflow-x:auto; margin:22px 0; line-height:1.65; }
+  pre code { background:none; color:inherit; padding:0; font-size:14px; }
+  strong { font-weight:700; }
+  .tags { margin-top:40px; padding-top:22px; border-top:1px solid #e8eaed;
+    display:flex; flex-wrap:wrap; gap:8px; }
+  .tags span { font-size:13.5px; color:var(--accent); background:var(--accent-soft);
+    padding:5px 12px; border-radius:14px; }
+  .srchead { margin-top:34px; font-weight:700; font-size:15px; color:#6b7280; }
+  ul.src { margin:0; padding-left:20px; }
+  ul.src li { font-size:13.5px; color:#8a909c; margin-bottom:6px; line-height:1.65; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="topbar"><span class="cat">IT</span><span class="date">2026-09-15</span></div>
+  <h1>캐시 일관성 MESI 프로토콜, 멀티코어가 같은 값을 보게 만드는 원리</h1>
+  <p class="subtitle">코어마다 사본을 들고 있는데도 어긋나지 않는 이유</p>
+  <figure class="hero"><img src="./images/thumbnail.png" alt="캐시 일관성 MESI 프로토콜, 멀티코어가 같은 값을 보게 만드는 원리"></figure>
+  <p>이번 글에서는 멀티코어 CPU의 캐시 일관성 프로토콜을 정리해 보겠습니다. 코어마다 자기 캐시에 같은 주소의 사본을 들고 있는데도 값이 어긋나지 않는 이유, 그 합의를 만드는 하드웨어 규약이 오늘의 주제입니다.</p>
+  <p>먼저 세 줄로 요약하겠습니다.</p>
+  <ul class="bul"><li>캐시 라인 하나에 <strong>두 비트</strong>를 붙여 네 가지 상태(M·E·S·I)를 표시하는 것, 그게 MESI의 전부입니다.</li><li><strong>E(Exclusive) 상태 하나</strong>가 버스 트랜잭션 한 번을 통째로 없앱니다. MESI가 MSI를 대체한 이유입니다.</li><li>프로토콜의 관리 단위는 바이트가 아니라 <strong>64바이트 라인</strong>입니다. 여기서 false sharing이라는 함정이 나옵니다.</li></ul>
+  <hr>
+  <h2>코어마다 사본이 생기는 이유</h2>
+  <p>문제의 출발점은 단순합니다. 캐시가 빠르기 때문입니다.</p>
+  <p>CMU 15-418 강의자료가 제시한 Core i7 계층을 보겠습니다. L1 데이터 캐시는 코어 전용 32KB에 접근 지연 4~6 사이클, L2는 코어 전용 256KB에 12 사이클, L3는 칩 전체가 공유하는 8MB에 26~31 사이클입니다. 7-cpu.com이 아이스레이크(i7-1065G7)에서 실측한 값도 결이 같습니다. L1 5 사이클, L2 13 사이클, L3 41~42 사이클, 그리고 RAM은 42 사이클에 87ns가 더 붙습니다.</p>
+  <p>절대값은 세대마다 다릅니다. 변하지 않는 것은 격차입니다. 한 단계 내려갈 때마다 비용이 두세 배씩 뜁니다.</p>
+  <figure><img src="./images/body-1.png" alt="L1 5사이클 L2 13사이클 L3 41~42사이클 캐시 라인 64바이트를 정리한 캐시 계층별 접근 지연 비교표" loading="lazy"><figcaption>L1 5사이클 L2 13사이클 L3 41~42사이클 캐시 라인 64바이트를 정리한 캐시 계층별 접근 지연 비교표</figcaption></figure>
+  <p>그래서 캐시를 포기할 수 없습니다. 대신 값을 잃습니다.</p>
+  <p>USC EE 457 강의자료가 드는 예시가 명확합니다. P1이 블록 X를 읽어 자기 캐시에 담습니다. P2도 읽어서 담습니다. 이제 P1이 X에 씁니다. 바뀌는 것은 P1 캐시의 사본뿐입니다. 이때 P2가 X를 읽으면 낡은 값을 받습니다. P2도 X에 쓰면, 서로 다른 두 버전이 동시에 존재하게 됩니다.</p>
+  <p>CMU 강의자료의 진단이 이 상황을 한 문장으로 요약합니다. 일관성 문제는 전역 상태인 메인 메모리와 지역 상태인 전용 캐시가 <strong>동시에 존재</strong>하기 때문에 생긴다는 것입니다.</p>
+  <hr>
+  <h2>일관성은 무엇을 보장하는 약속인가</h2>
+  <p>용어부터 정리하는 편이 좋겠습니다. 캐시 일관성(coherence)은 생각보다 좁은 약속입니다.</p>
+  <p>CMU 강의자료는 세 가지 조건으로 정의합니다.</p>
+  <p>첫째, <strong>프로그램 순서</strong>. P가 X에 쓰고 나서 P가 X를 읽으면, 중간에 아무도 쓰지 않은 한 자기가 쓴 값이 나옵니다.</p>
+  <p>둘째, <strong>쓰기 전파</strong>. 다른 프로세서가 X에 쓴 뒤 충분한 시간이 지나 읽으면 그 값이 나옵니다.</p>
+  <p>셋째, <strong>쓰기 직렬화</strong>. 같은 위치에 대한 두 쓰기는 모든 프로세서에게 같은 순서로 보입니다. X에 1, 2 순으로 썼다면 어떤 프로세서도 2를 1보다 먼저 관측하지 않습니다.</p>
+  <p>여기서 두 번째 조건의 단서를 눈여겨보셔야 합니다. 전파는 보장하되, <strong>언제</strong> 전파되는지는 규정하지 않습니다. 이 빈칸이 나중에 메모리 배리어가 서는 자리가 됩니다.</p>
+  <p>같은 자료가 경계선을 이렇게 긋습니다. 일관성은 <strong>같은 주소</strong>에 대한 읽기·쓰기의 동작을 정의하고, 메모리 컨시스턴시는 <strong>서로 다른 주소들</strong> 사이의 동작을 정의한다고요. 헷갈리기 쉬운 두 단어이지만 관할 구역이 다릅니다.</p>
+  <hr>
+  <h2>write-through를 써도 해결되지 않습니다</h2>
+  <p>가장 소박한 해법부터 보겠습니다. 쓸 때마다 메모리까지 즉시 기록하는 write-through입니다.</p>
+  <p>메모리는 항상 최신이 됩니다. 그런데 다른 캐시에 남은 낡은 사본은 그대로입니다. 결국 무효화를 알리는 별도 장치가 필요합니다. 게다가 모든 쓰기가 메모리로 나가니 대역폭 요구가 감당이 안 됩니다.</p>
+  <p>그래서 write-back으로 갑니다. 그러자 새로운 개념이 따라옵니다. <strong>소유권</strong>입니다.</p>
+  <p>write-back 캐시에서 dirty 비트는 곧 배타적 소유권을 뜻하게 됩니다. 유효한 사본을 가진 유일한 캐시이고, 다른 캐시가 요청하면 데이터를 공급할 책임을 진다는 뜻입니다. 그래서 이 계열의 프로토콜을 ownership protocol이라고도 부릅니다.</p>
+  <p>규칙도 여기서 나옵니다. 배타 상태의 라인은 아무에게도 알리지 않고 마음대로 고칠 수 있습니다. 반대로 배타가 아닌 라인에 쓰려면, 먼저 &quot;나 이제 쓸 테니 너희는 더 못 읽는다&quot;는 통보를 브로드캐스트해야 합니다. 자기 캐시에 유효한 사본이 있어도 마찬가지입니다.</p>
+  <hr>
+  <h2>MSI에서 MESI로 — E 하나가 지우는 것</h2>
+  <p>기본형은 세 상태입니다. I(Invalid), S(Shared, 읽기 전용), M(Modified, 나만 가진 수정본).</p>
+  <p>버스 위를 오가는 신호는 세 가지가 핵심입니다. BusRd는 수정 의도 없는 읽기 요청, BusRdX는 읽으면서 다른 사본을 모두 무효화하는 요청, BusUpgr는 데이터는 이미 있으니 다른 사본만 무효화하라는 신호입니다. 마지막 것은 Read-For-Ownership, 줄여서 RFO라고도 불립니다.</p>
+  <p>MSI에는 분명한 낭비가 있습니다. 데이터를 읽고 나서 쓰는, 가장 흔한 패턴에서 버스를 두 번 씁니다. I에서 S로 가려고 BusRd 한 번, S에서 M으로 가려고 BusRdX 한 번입니다.</p>
+  <p>CMU 강의자료가 짚는 대목이 뼈아픕니다. 이 비효율은 <strong>애플리케이션에 공유가 전혀 없어도</strong> 발생합니다. 아무도 건드리지 않는 내 데이터를 읽고 쓰는데 버스를 두 번 점유하는 셈입니다.</p>
+  <p>1984년 ISCA에 실린 Papamarcos와 Patel의 논문이 여기에 답을 냈습니다. 일리노이 대학 어배너-섐페인에서 개발되어 <strong>Illinois 프로토콜</strong>이라는 별칭이 붙은 그 방식입니다. 논문의 목표는 명확했습니다. 버스 트래픽과 버스 대기 시간을 줄이되, 전역 테이블을 쓰지 않고, 프로세서를 추가해도 캐시 모듈을 고칠 필요가 없게 만드는 것.</p>
+  <p>해법은 S를 둘로 쪼개는 것이었습니다.</p>
+  <div class="tw"><table><thead><tr><th>상태</th><th>사본 수</th><th>메모리와 일치</th><th>쓰기</th></tr></thead><tbody><tr><td><strong>M</strong> (Modified)</td><td>나 하나뿐</td><td>불일치(dirty)</td><td>즉시 가능</td></tr><tr><td><strong>E</strong> (Exclusive)</td><td>나 하나뿐</td><td>일치(clean)</td><td><strong>버스 없이 즉시 가능</strong></td></tr><tr><td><strong>S</strong> (Shared)</td><td>여럿</td><td>일치(clean)</td><td>불가, 승격 필요</td></tr><tr><td><strong>I</strong> (Invalid)</td><td>—</td><td>—</td><td>—</td></tr></tbody></table></div>
+  <figure><img src="./images/body-2.png" alt="Modified Exclusive Shared Invalid 네 가지 MESI 상태를 사본 수와 쓰기 가능 여부로 정리한 카드" loading="lazy"><figcaption>Modified Exclusive Shared Invalid 네 가지 MESI 상태를 사본 수와 쓰기 가능 여부로 정리한 카드</figcaption></figure>
+  <p>E는 &quot;깨끗한데 나만 갖고 있다&quot;는 상태입니다. 배타성을 소유권에서 떼어낸 것이죠. 메모리 사본이 아직 유효하므로 flush 책임이 없고, 그러면서도 유일한 사본이므로 남에게 물어볼 것도 없습니다.</p>
+  <p>그 결과 <strong>E에서 M으로 올라갈 때 버스 트랜잭션이 발생하지 않습니다.</strong> 조용히 승격합니다. MESI가 MSI를 대체한 이유는 사실상 이 한 줄입니다.</p>
+  <hr>
+  <h2>E 상태를 만들어 주는 전선 한 가닥</h2>
+  <p>그런데 캐시는 자기가 유일한 사본인지 어떻게 알까요.</p>
+  <p>버스에 신호선을 하나 더 답니다. USC 강의자료가 설명하는 <strong>shared 핸드셰이크 신호</strong>입니다. 읽기 요청이 버스에 올라오면, 사본을 가진 다른 캐시들이 이 선을 당깁니다. 아무도 당기지 않으면 요청한 쪽은 자기가 유일하다고 가정해도 됩니다.</p>
+  <p>그래서 I 상태에서 읽기가 발생하면 두 갈래로 갈립니다.</p>
+  <ul class="bul"><li>shared 신호가 <strong>올라오면</strong> → S 상태로 진입</li><li>shared 신호가 <strong>조용하면</strong> → E 상태로 진입</li></ul>
+  <p>전이 규칙을 표로 옮기면 이렇습니다.</p>
+  <div class="tw"><table><thead><tr><th>현재</th><th>이벤트</th><th>버스 동작</th><th>다음</th></tr></thead><tbody><tr><td>I</td><td>읽기, 아무도 사본 없음</td><td>BusRd</td><td><strong>E</strong></td></tr><tr><td>I</td><td>읽기, 다른 캐시에 사본 있음</td><td>BusRd</td><td>S</td></tr><tr><td>I</td><td>쓰기</td><td>BusRdX</td><td>M</td></tr><tr><td><strong>E</strong></td><td><strong>쓰기</strong></td><td><strong>없음</strong></td><td><strong>M</strong></td></tr><tr><td>E</td><td>원격 BusRd 스누핑</td><td>shared 신호 assert</td><td>S</td></tr><tr><td>S</td><td>쓰기</td><td>BusUpgr</td><td>M</td></tr><tr><td>S</td><td>원격 BusRdX/BusUpgr 스누핑</td><td>—</td><td>I</td></tr><tr><td>M</td><td>원격 BusRd 스누핑</td><td>Flush</td><td>S</td></tr><tr><td>M</td><td>원격 BusRdX 스누핑</td><td>Flush</td><td>I</td></tr></tbody></table></div>
+  <figure><img src="./images/body-3.png" alt="I에서 E, E에서 M, M에서 S, S에서 I로 이어지는 MESI 상태 전이 단계별 다이어그램" loading="lazy"><figcaption>I에서 E, E에서 M, M에서 S, S에서 I로 이어지는 MESI 상태 전이 단계별 다이어그램</figcaption></figure>
+  <p>M 상태 라인에 반복해서 쓰는 동안에도 버스는 조용합니다. write-back의 이득이 여기서 나옵니다.</p>
+  <hr>
+  <h2>스누핑과 디렉터리 — 규모가 갈라놓는 두 갈래</h2>
+  <p>지금까지 이야기는 전부 버스를 전제했습니다. 모두가 같은 매체를 듣고 있으니 브로드캐스트가 공짜였습니다.</p>
+  <p>코어가 많아지면 그 전제가 무너집니다. CMU 강의자료의 표현대로, 캐시 미스가 날 때마다 그 캐시가 <strong>다른 모든 캐시와 통신</strong>합니다. 확장 가능한 점대점 인터커넥트를 써도 메모리 요청 하나당 P개의 메시지가 필요합니다. 전방위 브로드캐스트는 근본적으로 확장되지 않습니다.</p>
+  <p>구현 부담도 만만치 않습니다. 스누핑에 응답하느라 프로세서의 로드·스토어가 방해받지 않으려면 <strong>태그를 복제</strong>해 두어야 합니다. 참고로 GPU는 지금까지도 캐시 일관성을 구현하지 않습니다. 그래픽 작업에서는 이 오버헤드가 값어치를 못 한다고 판단됐기 때문입니다.</p>
+  <p>같은 자료가 버스의 역할을 다시 뜯어봅니다. 버스가 준 것은 두 가지, 순서와 통신입니다. 그런데 일관성은 서로 다른 주소에 대한 요청의 순서를 요구하지 않습니다. 그리고 브로드캐스트도 요구하지 않습니다. <strong>공유자에게만</strong> 알리면 됩니다.</p>
+  <p>그래서 디렉터리가 등장합니다. 라인마다 &quot;누가 사본을 갖고 있는지&quot;를 한 곳에 적어 두고, 그 목록에 있는 노드에게만 점대점 메시지를 보냅니다.</p>
+  <figure><img src="./images/body-4.png" alt="스누핑과 디렉터리 방식을 요청당 메시지 수 확장성 지연 저장 오버헤드로 비교한 표" loading="lazy"><figcaption>스누핑과 디렉터리 방식을 요청당 메시지 수 확장성 지연 저장 오버헤드로 비교한 표</figcaption></figure>
+  <p>대가도 있습니다. 홉이 늘어납니다. 더티 라인에 대한 읽기 미스 하나를 처리하는 데 기본형은 <strong>다섯 번의 네트워크 트랜잭션</strong>이 필요하고, 그중 넷이 임계 경로 위에 놓입니다. 저장 공간도 문제입니다. 64바이트 라인 기준으로 노드가 64개면 오버헤드가 12%, 256개면 50%, 1024개면 200%까지 올라갑니다.</p>
+  <p>그래서 실무는 타협합니다. 공유자 수가 대체로 적다는 관찰이 근거입니다. Ocean 벤치마크에서는 쓰기의 99% 이상이 공유자 다섯 이하였습니다. 그렇다면 전체 비트맵 대신 포인터 몇 개만 두면 됩니다. 또 메모리 대부분은 애초에 캐시에 없으니, 디렉터리 크기를 메모리가 아니라 <strong>캐시 크기에 비례</strong>하게 만들 수도 있습니다.</p>
+  <p>오늘날 멀티코어가 고른 답은 세 번째입니다. 공유 L3에 디렉터리를 심는 방식입니다. Core i7이 그렇게 합니다. L3는 inclusive이고, 디렉터리는 해당 라인을 가진 L2 목록을 들고 있습니다. 모든 L2에 소리치는 대신 목록에 있는 L2에게만 보냅니다. 덧붙이자면 Core i7의 코어 간 연결은 버스가 아니라 링입니다.</p>
+  <hr>
+  <h2>다섯 번째 상태 — MESIF와 MOESI</h2>
+  <p>MESI에는 남은 구멍이 하나 있습니다. S 상태 라인을 여러 캐시가 갖고 있을 때, 새 읽기 요청에 <strong>누가 응답할지 정해져 있지 않다</strong>는 점입니다. 그래서 느린 메모리가 대신 공급하거나, 모두가 응답해 중복이 생깁니다.</p>
+  <p>인텔과 AMD는 각각 다른 글자를 붙여 이 구멍을 메웠습니다.</p>
+  <div class="tw"><table><thead><tr><th>구분</th><th>MESIF (Intel)</th><th>MOESI (AMD)</th></tr></thead><tbody><tr><td>추가 상태</td><td><strong>F</strong> (Forward)</td><td><strong>O</strong> (Owned)</td></tr><tr><td>메모리와 값</td><td>일치(clean)</td><td><strong>불일치(dirty)</strong></td></tr><tr><td>주된 목적</td><td>읽기 요청 응답자 확정</td><td>메모리 갱신 지연</td></tr><tr><td>효과</td><td>응답자 1명 보장</td><td>flush 회피, 캐시 간 직접 공급</td></tr></tbody></table></div>
+  <figure><img src="./images/body-5.png" alt="MOESI의 Owned 상태와 MESIF의 Forward 상태를 목적과 동작으로 나란히 비교한 그림" loading="lazy"><figcaption>MOESI의 Owned 상태와 MESIF의 Forward 상태를 목적과 동작으로 나란히 비교한 그림</figcaption></figure>
+  <p>MESIF의 F는 Goodman과 Hum의 2009년 문서에 이렇게 표현돼 있습니다. <strong>&quot;동등한 것들 중 첫째&quot;</strong>라고요. 라인을 공유하는 노드들 가운데 딱 하나에만 부여되고, 요청이 오면 내용을 공급할 책임을 집니다. MOESI의 O와 닮았지만 결정적으로 다릅니다. F는 메모리와 값이 <strong>일치</strong>하고, 쓰기가 아니라 <strong>읽기</strong> 요청을 빠르게 하려는 상태입니다.</p>
+  <p>이 프로토콜은 2001년 6월에 완성됐고, 상업적 사정으로 8년간 공개되지 않았습니다. 인텔의 QuickPath Interconnect가 여기서 파생됐습니다. 효과는 홉 수로 나타납니다. 다른 캐시에 E나 M으로 있는 라인을 가져올 때 3-hop 프로토콜은 세 홉이 필요하지만, MESIF는 <strong>두 홉</strong>이면 됩니다. 문서의 성능 투사로는 4GHz·4노드 TPC-C에서 6~11% 향상입니다.</p>
+  <p>MOESI의 O는 반대 방향입니다. USC 강의자료의 근거가 간결합니다. M에서 S로 내려갈 때 flush가 일어나고, 이는 느린 메인 메모리 갱신을 부릅니다. 그러니 <strong>메인 메모리 갱신은 꼭 필요할 때까지 미루는 게 최선</strong>이라는 것이죠. M에서 S 대신 M에서 O로 보내고, 메모리는 낡은 채로 둡니다. 그동안 다른 캐시의 읽기 요청은 Owner가 빠르게 처리합니다.</p>
+  <p>그래서 MOESI에서는 S의 의미마저 달라집니다. 공유 라인이 메모리 대비 dirty일 수 있습니다. 그런 경우 어딘가에 반드시 O 상태 캐시가 하나 있고, 그 캐시가 갱신 책임을 집니다.</p>
+  <p>한계도 분명합니다. MOESI는 dirty 라인은 빠르게 공유하지만 clean 라인에서는 응답자를 정하지 못해 결국 메모리를 씁니다. MESIF가 푼 문제를 MOESI는 못 풉니다. 그래서 둘을 합친 MOESIF도 가능합니다.</p>
+  <hr>
+  <h2>false sharing — 입도가 만드는 함정</h2>
+  <p>여기까지가 프로토콜의 좋은 면입니다. 이제 대가를 보겠습니다.</p>
+  <p>프로토콜의 관리 단위는 바이트도 워드도 아닙니다. <strong>캐시 라인</strong>입니다. x86과 대부분의 ARM에서 64바이트입니다.</p>
+  <p>false sharing 글의 한 문장이 이 대가를 정확히 짚습니다. 일관성 프로토콜은 입도가 거칠어서 어떤 쓰기든 <strong>라인 전체를 무효화</strong>하며, 그래서 8바이트짜리 정수 하나를 갱신하면 이웃한 <strong>56바이트도 함께</strong> 무효화된다는 것입니다.</p>
+  <p>전형적인 코드는 이렇게 생겼습니다.</p>
+  <pre><code>// 스레드별 누적 변수 — 무엇이 문제일까요
+int myCounter[NUM_THREADS];</code></pre>
+  <p><code>int</code>가 4바이트이니 64바이트 라인 하나에 카운터 열여섯 개가 들어앉습니다. 스레드 열여섯이 &quot;각자 자기 것만 건드린다&quot;고 믿지만, 하드웨어 눈에는 같은 라인을 두고 벌이는 싸움입니다. 라인이 캐시들 사이를 핑퐁하며 트래픽을 만듭니다.</p>
+  <p>CMU 강의자료가 이 상황을 이렇게 정리합니다. <strong>본질적 통신은 전혀 없고, 전부 인공적 통신이라고요.</strong> 필요해서 주고받는 게 아니라, 배치를 잘못해서 생긴 통신이라는 뜻입니다.</p>
+  <figure><img src="./images/body-6.png" alt="캐시 라인에 밀집된 packed 배치와 캐시 라인 단위로 패딩한 padded 배치를 대조한 false sharing 그림" loading="lazy"><figcaption>캐시 라인에 밀집된 packed 배치와 캐시 라인 단위로 패딩한 padded 배치를 대조한 false sharing 그림</figcaption></figure>
+  <p>해법은 패딩입니다. 리눅스 커널은 <code>__cacheline_aligned_in_smp</code> 매크로로 처리합니다. C++17은 <code>alignas</code>와 <code>hardware_destructive_interference_size</code>를 제공합니다. 상수가 아니라 구현이 알려 주는 값인 이유가 있습니다. 라인 크기가 플랫폼마다 다르기 때문입니다.</p>
+  <p>실측도 있습니다. 2023년에 공개된 Rust MPSC 큐 벤치마크가 Apple M1 Pro, Intel i5-9600k, AMD EPYC Milan, Intel Cascade Lake 네 플랫폼에서 밀집 배치와 패딩 배치를 비교했습니다. 결론은 밀집 배치가 <strong>전 구간에서 더 느렸고</strong>, 스레드 수가 늘수록 격차가 벌어졌다는 것입니다.</p>
+  <p>다만 여기에는 솔직한 단서가 붙습니다. 같은 실험의 서버 플랫폼에서는 생산자가 열다섯을 넘고 경합이 극심할 때 오히려 밀집 배치가 좋았습니다. 더미 명령을 넣어 압력을 <strong>줄이자</strong> 패딩 배치가 앞서기 시작했습니다. 저자도 멀티 소켓·멀티 NUMA 구성의 인터커넥트 특성 탓으로 추정할 뿐 확정하지 못했습니다. 캐시 라인 정렬은 강력한 원칙이지만 만능은 아닙니다.</p>
+  <hr>
+  <h2>일관성이 지켜져도 배리어가 필요한 이유</h2>
+  <p>마지막으로 가장 자주 오해되는 지점을 짚겠습니다.</p>
+  <p>하드웨어가 MESI를 완벽하게 지키는데도, 왜 프로그래머는 여전히 메모리 배리어를 써야 할까요.</p>
+  <p>캐시 일관성 입문 글의 설명이 가장 깔끔합니다. <strong>스토어 버퍼와 무효화 큐는 일관성 프로토콜에 아예 들어오지 않는다</strong>는 것입니다. MESI 입장에서는 버스에서 무효화 트랜잭션에 ack를 보낸 순간 그 라인은 이미 I 상태이고, 이후의 모든 버스 트랜잭션에 대해 I처럼 행동하겠다고 약속한 것입니다.</p>
+  <p>그 ack가 실제 캐시 반영보다 앞설 수 있다는 사실, 스토어가 캐시에 닿기 전 버퍼에 머문다는 사실은 프로토콜이 관여하지 않는 영역입니다. 구현 세부사항일 뿐입니다.</p>
+  <p>Sorin과 동료들의 교과서는 더 단호합니다. 컨시스턴시와 달리 <strong>캐시 일관성은 소프트웨어에 보이지도 않고, 필수도 아니다</strong>라고 씁니다.</p>
+  <p>MESIF 문서도 같은 선을 긋습니다. MESIF는 순차 일관성을 강제하지 않고 지원할 뿐이며, 프로세서 설계가 제약을 완화하면 같은 하드웨어 위에서 더 약한 메모리 모델이 나온다고요. 완료 확인을 받기 전에 변경을 노출하거나, 무효화를 ack한 뒤에도 그 라인의 값으로 로드를 커밋하는 식으로 말입니다.</p>
+  <p>예전에는 &quot;캐시 일관성이 곧 순서 보장&quot;이라고 생각했습니다. 지금은 두 층이 완전히 분리된 것으로 봅니다. 아래층에서 MESI가 같은 주소에 대한 합의를 만들고, 위층에서 메모리 모델이 서로 다른 주소들 사이의 순서를 규정합니다.</p>
+  <hr>
+  <p>정리하면 이렇습니다.</p>
+  <p>MESI는 캐시 라인 하나에 두 비트를 붙여 네 가지 상태를 표시하고, 버스 신호 몇 개로 그 상태를 옮겨 다니게 만드는 규약입니다. E 상태 하나를 추가해 가장 흔한 접근 패턴에서 버스 트랜잭션을 지웠고, F와 O를 더해 응답자 문제와 flush 비용을 각각 해결했습니다. 코어가 많아지자 브로드캐스트를 버리고 디렉터리로 갈아탔습니다. 40년 넘게 같은 문제를 조금씩 다듬어 온 셈입니다.</p>
+  <p>그리고 그 대가가 64바이트라는 입도입니다. 여기서 false sharing이 나옵니다.</p>
+  <p><strong>&quot;프로토콜은 주소를 보지 않습니다. 라인을 봅니다.&quot;</strong></p>
+  <p>코드를 쓰면서 캐시 라인의 경계를 의식해야 하느냐고 물으신다면, 대부분의 경우에는 아니라고 답하겠습니다. 다만 스레드마다 하나씩 들고 있는 그 작은 카운터 앞에서만은, 잠깐 멈춰 서 보시길 권합니다.</p>
+  <hr>
+  <div class="tags"><span>#캐시일관성</span> <span>#MESI프로토콜</span> <span>#멀티코어CPU</span> <span>#캐시라인</span> <span>#falsesharing</span> <span>#MOESI</span> <span>#MESIF</span> <span>#컴퓨터구조</span></div>
+  <p class="srchead">참고 소스</p><ul class="src"><li>USC EE 457 Unit 10, &quot;Parallel Processing / Cache Coherency&quot; (Mark Redekopp, Univ. of Southern California) — MSI/MESI/MOESI 상태 전이도, 버스 트랜잭션 정의, shared 신호</li><li>CMU 15-418 Parallel Computer Architecture and Programming, Lecture 10 &quot;Cache Coherence: Part I&quot; (Spring 2012) — 일관성 정의 3조건, Core i7 캐시 계층, MESI 상태도, false sharing</li><li>CMU 15-418/618, Lecture 13 &quot;Directory-Based Cache Coherence&quot; (Spring 2019) — 스누핑 확장성 한계, 디렉터리 구조와 저장 오버헤드, Core i7 in-cache 디렉터리</li><li>Goodman, J.R. &amp; Hum, H.H.J., &quot;MESIF: A Two-Hop Cache Coherency Protocol for Point-to-Point Interconnects&quot; (2009, 프로토콜은 2001년 완성) — F 상태 정의, 2-hop vs 3-hop, QPI 파생</li><li>Papamarcos, M.S. &amp; Patel, J.H., &quot;A Low-Overhead Coherence Solution for Multiprocessors with Private Cache Memories&quot;, ISCA 1984 — MESI(Illinois 프로토콜) 원 논문</li><li>MOESI protocol — Wikipedia (AMD64 Architecture Programmer&#x27;s Manual Vol.2 &quot;System Programming&quot; pp.169-172 인용) — Owned 상태 정의</li><li>7-cpu.com, &quot;Intel Ice Lake&quot; (i7-1065G7) — L1/L2/L3/RAM 접근 지연 및 64바이트 캐시 라인 실측</li><li>&quot;Measuring the impact of false sharing&quot;, alic.dev, 2023-01 — wait-free MPSC 큐 packed/padded 레이아웃 벤치마크 (M1 Pro, i5-9600k, EPYC Milan, Cascade Lake)</li><li>Fabian Giesen (ryg blog), &quot;Cache coherency primer&quot;, 2014 — 스토어 버퍼·무효화 큐가 일관성 프로토콜 바깥에 있다는 설명</li><li>Sorin, D.J., Hill, M.D., Wood, D.A. (+ Nagarajan), &quot;A Primer on Memory Consistency and Cache Coherence&quot; — 일관성과 컨시스턴시의 층위 구분</li><li>UC Berkeley CS258 &quot;MESI State Transition Diagram&quot; (David Culler) / NCSU CSC-ECE 506 Ch.8 위키 — BusUpgr = Read-For-Ownership 용어 정의</li><li>Sweazey, P. &amp; Smith, A.J., &quot;A Class of Compatible Cache Consistency Protocols and their Support by the IEEE Futurebus&quot;, ISCA 1986 — MOESI 5상태 분류 원전</li></ul>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
