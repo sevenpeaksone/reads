@@ -61,6 +61,7 @@
   ul.src li { font-size:13.5px; color:#8a909c; margin-bottom:6px; line-height:1.65; }
 </style>
 
+
 <style id="site-chrome-css">
   #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
   #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
@@ -102,6 +103,8 @@
 <body>
 <div id="read-progress"></div>
 <nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+
+
 
 
 <div class="wrap">
@@ -214,6 +217,9 @@ int myCounter[NUM_THREADS];</code></pre>
   <div class="tags"><span>#캐시일관성</span> <span>#MESI프로토콜</span> <span>#멀티코어CPU</span> <span>#캐시라인</span> <span>#falsesharing</span> <span>#MOESI</span> <span>#MESIF</span> <span>#컴퓨터구조</span></div>
   <p class="srchead">참고 소스</p><ul class="src"><li>USC EE 457 Unit 10, &quot;Parallel Processing / Cache Coherency&quot; (Mark Redekopp, Univ. of Southern California) — MSI/MESI/MOESI 상태 전이도, 버스 트랜잭션 정의, shared 신호</li><li>CMU 15-418 Parallel Computer Architecture and Programming, Lecture 10 &quot;Cache Coherence: Part I&quot; (Spring 2012) — 일관성 정의 3조건, Core i7 캐시 계층, MESI 상태도, false sharing</li><li>CMU 15-418/618, Lecture 13 &quot;Directory-Based Cache Coherence&quot; (Spring 2019) — 스누핑 확장성 한계, 디렉터리 구조와 저장 오버헤드, Core i7 in-cache 디렉터리</li><li>Goodman, J.R. &amp; Hum, H.H.J., &quot;MESIF: A Two-Hop Cache Coherency Protocol for Point-to-Point Interconnects&quot; (2009, 프로토콜은 2001년 완성) — F 상태 정의, 2-hop vs 3-hop, QPI 파생</li><li>Papamarcos, M.S. &amp; Patel, J.H., &quot;A Low-Overhead Coherence Solution for Multiprocessors with Private Cache Memories&quot;, ISCA 1984 — MESI(Illinois 프로토콜) 원 논문</li><li>MOESI protocol — Wikipedia (AMD64 Architecture Programmer&#x27;s Manual Vol.2 &quot;System Programming&quot; pp.169-172 인용) — Owned 상태 정의</li><li>7-cpu.com, &quot;Intel Ice Lake&quot; (i7-1065G7) — L1/L2/L3/RAM 접근 지연 및 64바이트 캐시 라인 실측</li><li>&quot;Measuring the impact of false sharing&quot;, alic.dev, 2023-01 — wait-free MPSC 큐 packed/padded 레이아웃 벤치마크 (M1 Pro, i5-9600k, EPYC Milan, Cascade Lake)</li><li>Fabian Giesen (ryg blog), &quot;Cache coherency primer&quot;, 2014 — 스토어 버퍼·무효화 큐가 일관성 프로토콜 바깥에 있다는 설명</li><li>Sorin, D.J., Hill, M.D., Wood, D.A. (+ Nagarajan), &quot;A Primer on Memory Consistency and Cache Coherence&quot; — 일관성과 컨시스턴시의 층위 구분</li><li>UC Berkeley CS258 &quot;MESI State Transition Diagram&quot; (David Culler) / NCSU CSC-ECE 506 Ch.8 위키 — BusUpgr = Read-For-Ownership 용어 정의</li><li>Sweazey, P. &amp; Smith, A.J., &quot;A Class of Compatible Cache Consistency Protocols and their Support by the IEEE Futurebus&quot;, ISCA 1986 — MOESI 5상태 분류 원전</li></ul>
 </div>
+
+
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 
 <script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>

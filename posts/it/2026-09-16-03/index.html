@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>가상 메모리와 페이지 테이블, 같은 주소를 써도 충돌하지 않는 이유</title>
+<meta name="description" content="x86-64가 48비트 주소를 네 단계로 번역하는 방식">
+<meta property="og:title" content="가상 메모리와 페이지 테이블, 같은 주소를 써도 충돌하지 않는 이유">
+<meta property="og:description" content="x86-64가 48비트 주소를 네 단계로 번역하는 방식">
+<meta property="og:image" content="./images/thumbnail.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --accent:#3f6bd8; --accent-soft:#eef2fd; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f4f5f8; color:#1c2128;
+    font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;
+    line-height:1.85; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:700px; margin:0 auto; padding:44px 28px 84px; background:#fff;
+    min-height:100vh; box-shadow:0 0 40px rgba(0,0,0,.05); }
+  .topbar { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .cat { display:inline-block; background:var(--accent); color:#fff; font-size:13px;
+    font-weight:700; padding:5px 14px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:#8a929e; font-size:14px; }
+  h1 { font-size:29px; line-height:1.42; font-weight:800; margin:14px 0 10px;
+    letter-spacing:-.02em; }
+  .subtitle { font-size:16.5px; color:#6b7280; font-weight:500; margin:0 0 22px; }
+  .hero { margin:0 0 30px; }
+  h2 { font-size:21px; font-weight:800; margin:46px 0 15px; padding-left:13px;
+    border-left:5px solid var(--accent); line-height:1.45; letter-spacing:-.01em; }
+  p { font-size:16.5px; margin:16px 0; }
+  ul.bul { margin:14px 0 20px; padding-left:22px; }
+  ul.bul li { font-size:16px; margin-bottom:9px; line-height:1.75; }
+  hr { border:0; border-top:1px solid #e8eaed; margin:34px 0; }
+  figure { margin:28px 0; text-align:center; }
+  img { max-width:100%; height:auto; border-radius:12px;
+    box-shadow:0 4px 18px rgba(0,0,0,.09); }
+  figcaption { font-size:13px; color:#9aa0ad; margin-top:10px; line-height:1.55; }
+  blockquote { margin:24px 0; padding:18px 22px; background:var(--accent-soft);
+    border-left:4px solid var(--accent); border-radius:0 10px 10px 0; }
+  blockquote p { margin:0; font-size:15.5px; color:#3f4658; line-height:1.75; }
+  .tw { overflow-x:auto; margin:24px 0; }
+  table { border-collapse:collapse; width:100%; font-size:14.5px; line-height:1.6; }
+  th { background:var(--accent); color:#fff; font-weight:700; padding:10px 12px;
+    text-align:left; white-space:nowrap; }
+  td { padding:10px 12px; border-bottom:1px solid #e8eaed; vertical-align:top; }
+  tbody tr:nth-child(even) td { background:#f8f9fc; }
+  code { background:#f1f3f7; color:#2c3550; padding:1px 6px; border-radius:5px;
+    font-size:14.5px; font-family:'SFMono-Regular',Consolas,Menlo,monospace; }
+  pre { background:#1c2233; color:#dfe5f3; padding:18px 20px; border-radius:11px;
+    overflow-x:auto; margin:22px 0; line-height:1.65; }
+  pre code { background:none; color:inherit; padding:0; font-size:14px; }
+  strong { font-weight:700; }
+  .tags { margin-top:40px; padding-top:22px; border-top:1px solid #e8eaed;
+    display:flex; flex-wrap:wrap; gap:8px; }
+  .tags span { font-size:13.5px; color:var(--accent); background:var(--accent-soft);
+    padding:5px 12px; border-radius:14px; }
+  .srchead { margin-top:34px; font-weight:700; font-size:15px; color:#6b7280; }
+  ul.src { margin:0; padding-left:20px; }
+  ul.src li { font-size:13.5px; color:#8a909c; margin-bottom:6px; line-height:1.65; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="topbar"><span class="cat">IT</span><span class="date">2026-09-16</span></div>
+  <h1>가상 메모리와 페이지 테이블, 같은 주소를 써도 충돌하지 않는 이유</h1>
+  <p class="subtitle">x86-64가 48비트 주소를 네 단계로 번역하는 방식</p>
+  <figure class="hero"><img src="./images/thumbnail.png" alt="가상 메모리와 페이지 테이블, 같은 주소를 써도 충돌하지 않는 이유"></figure>
+  <p>이번 글에서는 가상 메모리와 페이지 테이블을 정리해 보겠습니다. 프로그램 두 개가 같은 주소를 읽고 쓰는데도 서로의 데이터를 건드리지 않는 이유, 그 번역 장치가 오늘의 주제입니다.</p>
+  <p>먼저 세 줄로 요약하겠습니다.</p>
+  <ul class="bul"><li>프로세스마다 <strong>다른 페이지 테이블</strong>을 CR3에 걸어둡니다. 같은 가상 주소가 다른 물리 프레임에 도착하는 근거는 그것뿐입니다.</li><li>x86-64는 48비트 주소를 <strong>9·9·9·9·12비트</strong>로 잘라 네 단계를 내려갑니다. 테이블 한 장은 4KB, 엔트리는 512개, 하나가 8바이트입니다.</li><li>네 번 걸어 내려가는 비용은 <strong>TLB</strong>가 감춰 줍니다. TLB가 놓치는 순간 그 비용이 그대로 드러납니다.</li></ul>
+  <hr>
+  <h2>프로그램이 보는 주소는 실제 주소가 아닙니다</h2>
+  <p>출발점부터 정리하겠습니다.</p>
+  <p>페이징은 각 프로세스가 <strong>완전한 가상 주소 공간</strong>을 보게 만드는 장치입니다. 물리 메모리가 그만큼 있을 필요도, 전부 올라와 있을 필요도 없습니다. MMU가 그 사이에 서서 가상 주소를 물리 주소로 바꿉니다.</p>
+  <p>그라츠 공대 운영체제 자료가 이 지점을 한 문장으로 짚습니다. MMU가 주소를 매핑하기 때문에 <strong>서로 다른 프로세스가 같은 주소 영역을 쓰는 것이 가능해진다</strong>고요.</p>
+  <p>핵심은 단순합니다. 프로세스마다 최상위 페이지 테이블의 물리 주소를 CR3 레지스터에 따로 걸어둡니다. 주소 0x400000을 읽는 명령은 두 프로세스에서 글자 그대로 똑같습니다. 그러나 걸려 있는 테이블이 다르므로 도착지가 다릅니다.</p>
+  <p>OSDev 문서의 표현을 빌리면, 한 주소 공간의 가상 주소는 <strong>일반적으로 다른 주소 공간에서 같은 데이터를 가리키지 않습니다</strong>. 충돌이 안 나는 게 아니라, 애초에 만날 일이 없는 구조입니다.</p>
+  <p>덤으로 따라오는 것이 보호입니다. 사용자 프로세스는 자기 주소 공간에 매핑된 것만 보고 고칠 수 있습니다. x86-64에서는 이 페이지 단위 보호가 세그먼테이션을 완전히 대체했습니다. IA-32에는 둘 다 남아 있지만 세그먼테이션은 이제 레거시로 취급됩니다.</p>
+  <hr>
+  <h2>48비트를 다섯 토막으로 자릅니다</h2>
+  <p>x86-64의 가상 주소는 이름과 달리 64비트를 다 쓰지 않습니다. <strong>실제로 쓰는 것은 48비트</strong>이고, 상위 16비트는 정해진 값을 가져야 합니다.</p>
+  <p>그 48비트가 이렇게 나뉩니다.</p>
+  <div class="tw"><table><thead><tr><th>구간</th><th>비트 수</th><th>역할</th></tr></thead><tbody><tr><td>PML4 인덱스</td><td>9비트</td><td>1단계 테이블에서 몇 번째 엔트리인가</td></tr><tr><td>PDPT 인덱스</td><td>9비트</td><td>2단계 테이블에서 몇 번째인가</td></tr><tr><td>PD 인덱스</td><td>9비트</td><td>3단계 테이블에서 몇 번째인가</td></tr><tr><td>PT 인덱스</td><td>9비트</td><td>4단계 테이블에서 몇 번째인가</td></tr><tr><td>offset</td><td>12비트</td><td>4KB 페이지 안에서 몇 번째 바이트인가</td></tr></tbody></table></div>
+  <p>9 더하기 9 더하기 9 더하기 9 더하기 12, 정확히 48입니다.</p>
+  <p>숫자가 왜 9와 12인지도 계산으로 나옵니다. 페이지가 4KB이므로 그 안을 가리키려면 <code>2^12 = 4096</code>, 12비트가 필요합니다. 그리고 네 종류의 테이블은 <strong>모두 크기가 4KB이고 엔트리 하나가 8바이트</strong>입니다. 4096을 8로 나누면 512, 512개를 인덱싱하려면 <code>2^9 = 512</code>, 즉 9비트입니다.</p>
+  <p>테이블을 페이지 한 장에 딱 맞춘 결과가 9비트라는 숫자인 셈입니다.</p>
+  <figure><img src="./images/body-1.png" alt="PML4에서 PDPT, PD, PT를 거쳐 물리 페이지에 도달하는 4단계 주소 변환 과정 다이어그램" loading="lazy"><figcaption>PML4에서 PDPT, PD, PT를 거쳐 물리 페이지에 도달하는 4단계 주소 변환 과정 다이어그램</figcaption></figure>
+  <p>걸어 내려가는 순서도 기계적입니다. 최상위 9비트로 PML4 엔트리를 찾습니다. 그 엔트리에는 다음 테이블인 PDPT의 <strong>물리 주소</strong>가 들어 있습니다. 다음 9비트로 PDPT 엔트리를 찾고, 같은 식으로 PD와 PT까지 내려갑니다. 마지막 PT 엔트리가 물리 페이지의 베이스 주소를 알려주고, 여기에 12비트 offset을 더하면 끝입니다.</p>
+  <p>중간에 한 단계라도 실패하면 페이지 폴트가 납니다.</p>
+  <hr>
+  <h2>왜 한 장짜리 표를 쓰지 않는가</h2>
+  <p>의문이 하나 남습니다. 표 한 장이면 될 것을 왜 네 번에 나눠 찾을까요.</p>
+  <p>OSTEP의 계산이 답이 됩니다. 32비트 주소 공간에 4KB 페이지, 엔트리 4바이트로 평면 테이블을 만들면 엔트리가 <code>2^20</code>개, 크기는 <code>2^22바이트 = 4MB</code>입니다. <strong>프로세스 하나당 4MB</strong>입니다. 그마저 커널이 예약한 메모리에 놓아야 합니다. MMU 하드웨어에는 들어가지 않으니까요.</p>
+  <p>같은 방식을 48비트에 적용해 보겠습니다. 엔트리는 <code>2^36</code>개, 하나가 8바이트이므로 <code>2^39바이트</code>, <strong>512GiB</strong>입니다. 프로세스 하나가 쓰지도 않을 주소를 위해 512GiB짜리 표를 들고 있어야 한다는 뜻입니다. 계산해 보면 바로 포기하게 되는 설계입니다.</p>
+  <p>다단계의 절약은 <strong>비어 있는 구간을 통째로 생략한다</strong>는 데서 나옵니다. 상위 엔트리의 present 비트를 0으로 두면 그 아래 서브트리 전체를 아예 할당하지 않아도 됩니다. 실제 프로그램의 주소 공간은 코드, 힙, 스택 근처에만 몰려 있고 나머지는 광활하게 비어 있습니다. 희소한 지도에는 희소한 자료구조가 맞습니다.</p>
+  <p>대가도 정확히 따라옵니다. OSDev 문서가 담담하게 적어둔 문장이 있습니다. <strong>페이징 단계가 하나 늘 때마다 가상 주소 변환은 느려지고, 특히 TLB 미스일 때 그렇다</strong>고요.</p>
+  <hr>
+  <h2>엔트리 한 줄에 담긴 것들</h2>
+  <p>엔트리 8바이트 중 주소가 차지하지 않는 자리에는 플래그들이 들어갑니다. 이 비트들이 사실상 운영체제의 메모리 정책 전부를 떠받칩니다.</p>
+  <figure><img src="./images/body-2.png" alt="페이지 테이블 엔트리의 주요 비트와 각각의 역할을 정리한 비교 표" loading="lazy"><figcaption>페이지 테이블 엔트리의 주요 비트와 각각의 역할을 정리한 비교 표</figcaption></figure>
+  <p>몇 가지만 짚겠습니다.</p>
+  <p><strong>P(Present)</strong> 는 이 페이지가 지금 물리 메모리에 있는지를 표시합니다. 스왑으로 나가면 0이 됩니다. 0인 채로 접근하면 페이지 폴트가 납니다.</p>
+  <p><strong>R/W</strong> 와 <strong>U/S</strong> 는 권한입니다. 주의할 점은 <strong>상위 테이블의 비트도 함께 검사된다</strong>는 것입니다. 하나라도 0이면 아래가 아무리 열려 있어도 막힙니다. 유저 페이지를 만들려면 PT 엔트리뿐 아니라 그 위 디렉터리 엔트리의 U/S까지 켜야 합니다.</p>
+  <p><strong>A(Accessed)</strong> 와 <strong>D(Dirty)</strong> 는 MMU가 자동으로 세트합니다. 접근하면 A가, 쓰면 D가 켜집니다. 그런데 <strong>CPU는 이 비트를 지우지 않습니다.</strong> 지우는 책임은 운영체제에 있습니다. 이 비대칭이 뒤에서 페이지 교체 알고리즘의 재료가 됩니다.</p>
+  <p><strong>XD(NX)</strong> 는 63번 비트입니다. 세트되면 그 페이지에서는 명령어 실행이 금지됩니다.</p>
+  <p>그리고 가장 영리한 규칙이 하나 있습니다. <strong>P 비트가 0이면 프로세서는 엔트리의 나머지를 전부 무시합니다.</strong> 그러니 운영체제는 그 남은 비트를 자기 마음대로 쓸 수 있습니다. 어디에 쓸까요. 그 페이지가 <strong>스왑 공간 어디로 갔는지</strong>를 적어 둡니다.</p>
+  <p>스왑 아웃된 페이지의 행방은 별도의 자료구조가 아니라, 무효화된 페이지 테이블 엔트리 그 자리에 기록되어 있습니다.</p>
+  <hr>
+  <h2>TLB — 번역을 기억해 두는 작은 수첩</h2>
+  <p>네 단계를 매번 걸어 내려간다면 메모리 접근 한 번에 메모리를 다섯 번 만져야 합니다. 그래서는 쓸 수가 없습니다.</p>
+  <p>TLB가 그 자리를 메웁니다. 최근 변환 결과를 캐싱해 두고, 있으면 곧바로 답을 줍니다. TLB 히트는 <strong>1~2 사이클</strong>, 대략 1나노초 수준입니다. 없으면 page walker가 호출되어 진짜로 테이블을 걸어 내려갑니다. 이 페이지 워크는 <strong>약 100 사이클</strong>, 워크로드에 따라 20에서 150 사이클 범위로 보고됩니다.</p>
+  <p>일반적인 TLB 히트율은 90~95% 선입니다. 명령어 TLB는 대부분의 워크로드에서 99%를 넘습니다. 중간 단계 엔트리를 따로 캐싱하는 page walk cache까지 얹히면, 전부 적중했을 때 페이지 워크 비용이 200 사이클대에서 40 사이클대로 내려갑니다.</p>
+  <p>숫자로 보면 더 분명합니다. 7-cpu.com이 아이스레이크(i7-1065G7)에서 실측한 값입니다.</p>
+  <figure><img src="./images/body-3.png" alt="아이스레이크 i7-1065G7의 페이지 크기별 dTLB 엔트리 수와 미스 패널티 실측 비교 표" loading="lazy"><figcaption>아이스레이크 i7-1065G7의 페이지 크기별 dTLB 엔트리 수와 미스 패널티 실측 비교 표</figcaption></figure>
+  <p>4KB 모드에서 L1 데이터 TLB는 64 엔트리, 미스 패널티가 7 사이클입니다. 그 아래 L2 TLB는 2048 엔트리, 미스 패널티가 약 30 사이클입니다. 2MB 모드로 가면 L1이 32 엔트리, L2가 1024 엔트리가 됩니다. 1GB 모드에서는 L1이 8 엔트리로 줄어듭니다.</p>
+  <p>같은 자료에 이런 주석이 붙어 있습니다. <strong>페이지 테이블 워크가 L2 캐시에서 미스하면 느리고, 코어들이 대부분의 경우 페이지 테이블에 L3 캐시를 쓰지 않는 것으로 보인다</strong>고요. 번역 비용은 데이터 캐시와 별개의 경로를 탑니다.</p>
+  <p>무효화 쪽도 만만치 않습니다. INVLPG는 TLB에서 페이지 하나를 지우는 명령어인데, <strong>현재 프로세서의 TLB만</strong> 건드립니다. 멀티코어라면 다른 코어에 IPI를 보내 같은 일을 시켜야 합니다. 이것을 TLB shootdown이라 부르고, OSDev 문서는 여기에 &quot;매우 느리다&quot;는 한마디를 붙여 두었습니다.</p>
+  <p>커널도 정답이 없기는 마찬가지입니다. 리눅스 커널 문서는 전체 플러시와 개별 무효화 사이에서 <strong>&quot;본질적으로 &#x27;올바른&#x27; 지점은 없다&quot;</strong>고 적습니다. 그래서 <code>tlb_single_page_flush_ceiling</code>이라는 튜너블을 열어 두었습니다.</p>
+  <hr>
+  <h2>페이지를 키우면 지연이 사라집니다</h2>
+  <p>x86-64가 지원하는 페이지 크기는 세 가지입니다. <strong>4KB, 2MB, 1GB.</strong></p>
+  <p>만드는 법은 간단합니다. 엔트리의 <strong>PS(Page Size) 비트</strong>를 세트하면 그 아래로 더 내려가지 않고 바로 큰 페이지를 가리킵니다. PD 레벨에서 켜면 2MB, PDPT 레벨에서 켜면 1GB가 됩니다. 단계를 건너뛰니 워크도 짧아집니다.</p>
+  <p>효과는 TLB 커버리지에서 나옵니다. 엔트리 하나가 덮는 범위가 4KB에서 2MB로 가면 <strong>512배</strong>, 1GB로 가면 <strong>262,144배</strong>가 됩니다. 같은 수의 엔트리로 훨씬 넓은 영역을 감당합니다.</p>
+  <p>추상적으로 들리니 실측 곡선을 보겠습니다. 앞서 본 아이스레이크에서, 같은 CPU로 페이지 크기만 바꿔 작업집합을 키워 나간 결과입니다.</p>
+  <figure><img src="./images/body-4.png" alt="같은 CPU에서 4KB 페이지와 2MB 페이지의 작업집합별 접근 지연을 비교한 대비 이미지" loading="lazy"><figcaption>같은 CPU에서 4KB 페이지와 2MB 페이지의 작업집합별 접근 지연을 비교한 대비 이미지</figcaption></figure>
+  <p>4KB 모드에서는 작업집합 512KB에서 벌써 L1 TLB 미스로 7 사이클이 붙습니다. 16MB에서 L2 TLB 미스로 30 사이클이 더 붙고, 128MB에서 다시 18 사이클이 붙습니다. 1GB 지점의 지연은 <code>115 사이클 + 147ns</code>입니다.</p>
+  <p>2MB 모드에서는 512KB부터 64MB까지 TLB 미스 가산이 <strong>아예 없습니다.</strong> L1 TLB 미스가 처음 나타나는 지점이 128MB이고, 1GB 지점의 지연은 <code>49 사이클 + 87ns</code>에서 끝납니다.</p>
+  <p>같은 하드웨어, 같은 작업집합입니다. 바꾼 것은 페이지 크기 하나입니다.</p>
+  <p>리눅스는 이것을 THP(Transparent Huge Pages)로 자동화합니다. 프로세스는 자기 메모리가 2MB로 매핑되는지 4KB로 매핑되는지 모릅니다. 커널 재량으로 오갈 수도 있습니다. <code>khugepaged</code> 데몬이 흩어진 4KB 페이지들을 스캔해 큰 페이지로 묶습니다. 그래서 이름에 transparent가 붙었습니다.</p>
+  <p>다만 만능은 아닙니다. <strong>THP가 지원하는 크기는 2MB뿐</strong>입니다. 1GB는 대상이 아닙니다. 1GB 페이지는 전용 TLB 엔트리 자체가 한 자릿수라 실익이 상황을 탑니다. 설정값도 <code>always</code>, <code>madvise</code>, <code>never</code> 셋 중에서 고르게 되어 있는데, 기본값을 그대로 두는 것이 늘 정답은 아니라는 뜻이기도 합니다.</p>
+  <hr>
+  <h2>페이지 폴트는 사고가 아닙니다</h2>
+  <p>페이지 폴트라는 말에는 어감이 좀 억울한 구석이 있습니다. 실제로는 대부분 정상적인 진행 신호입니다.</p>
+  <p>OSDev 문서는 폴트를 두 갈래로 나눕니다. 접근 권한이 있는 프로세스가 낸 <strong>pure</strong> 폴트와, 보호 위반으로 생긴 <strong>invalid</strong> 폴트입니다. 그리고 못을 박습니다. <strong>pure 페이지 폴트는 에러가 아니다</strong>라고요. 핸들러가 매핑을 만들어 주거나 스왑을 처리하면 끝나는 일입니다.</p>
+  <p>CPU는 폴트를 낼 때 에러 코드를 스택에 얹어 줍니다. 0번 비트가 Present, 1번이 읽기/쓰기, 2번이 유저/슈퍼바이저, 3번이 reserved 비트 위반, 4번이 명령어 페치인지 데이터 접근인지를 알려줍니다. 그리고 <strong>폴트를 일으킨 주소는 CR2 레지스터</strong>에 담깁니다. 핸들러는 이 둘만 보고 상황을 판별합니다.</p>
+  <figure><img src="./images/body-5.png" alt="페이지 폴트의 네 가지 유형과 각각의 처리 방식을 정리한 핵심 포인트 카드" loading="lazy"><figcaption>페이지 폴트의 네 가지 유형과 각각의 처리 방식을 정리한 핵심 포인트 카드</figcaption></figure>
+  <p>비용 차이도 큽니다. 물리 메모리 안에서 매핑만 손보면 되는 <strong>minor fault</strong>는 마이크로초 단위입니다. 디스크까지 다녀와야 하는 <strong>major fault</strong>는 SSD에서 수십에서 수백 마이크로초, HDD에서는 밀리초 단위로 보고됩니다. 자릿수가 두세 개 벌어집니다.</p>
+  <p>이 구조 위에 디맨드 페이징이 섭니다. 프로그램 전체를 시작할 때 올리지 않습니다. 건드리는 순간에만 폴트를 내고, 그때 디스크에서 읽어오거나 0으로 채운 프레임을 붙여 줍니다. 메모리 매핑 파일도 같은 원리입니다. 프로세스는 장치를 직접 읽고 쓰는 것처럼 동작하지만, 실제로는 폴트 핸들러가 뒤에서 블록을 옮기고 있습니다.</p>
+  <hr>
+  <h2>누구를 내보낼 것인가</h2>
+  <p>메모리가 모자라면 누군가는 나가야 합니다. 여기서 페이지 교체 알고리즘이 등장합니다.</p>
+  <p>이론상 최적해는 정해져 있습니다. <strong>앞으로 가장 오래 쓰이지 않을 페이지</strong>를 내보내면 됩니다. 문제는 완벽한 미래 지식이 필요하다는 점입니다. 실제 시스템에서는 구현할 수 없고, 비교 기준선으로만 씁니다.</p>
+  <p>FIFO는 가장 먼저 들어온 것을 내보냅니다. 단순한 대신 이상한 성질이 있습니다. <strong>프레임을 더 줘도 성능이 오히려 나빠질 수 있습니다.</strong> Belady&#x27;s anomaly라고 부릅니다. LRU 계열은 그렇지 않습니다. 메모리를 더 주면 항상 같거나 더 낫습니다.</p>
+  <p>그렇다고 LRU를 그대로 쓰기도 어렵습니다. 페이지마다 마지막 접근 시각을 유지해야 하고, 교체할 때 전체를 훑어 가장 오래된 것을 찾아야 하니까요.</p>
+  <p>그래서 실무는 근사치로 갑니다. Second Chance, 흔히 Clock이라 부르는 방식입니다. 원형으로 돌면서 후보를 보되, 바로 내보내지 않고 <strong>한 번의 기회</strong>를 줍니다. 이때 쓰는 재료가 앞에서 본 <strong>A 비트</strong>입니다. MMU가 켜 두고 운영체제가 지우는, 바로 그 비트입니다.</p>
+  <p>리눅스는 오랫동안 active와 inactive 두 개의 LRU 리스트로 이 문제를 풀어 왔습니다. 쓰이는 것 같으면 active, 아닌 것 같으면 inactive로 보내고, 회수할 때가 되면 inactive에서 희생자를 고르는 방식입니다.</p>
+  <p>예전에는 그 두 리스트가 전부였습니다. 지금은 <strong>MGLRU</strong>가 그 개념을 여러 세대로 일반화해 커널 6.1에 들어와 있습니다. 페이지는 폴트될 때 세대 번호를 받고, 커널이 주기적으로 세대를 늙히며, 회수는 언제나 가장 오래된 세대부터 합니다.</p>
+  <hr>
+  <h2>fork가 빠른 이유, 그리고 격리가 깨졌던 날</h2>
+  <p>마지막으로 격리 이야기를 마저 하겠습니다.</p>
+  <p><code>fork</code>로 프로세스를 복제할 때 메모리를 전부 복사한다면 감당이 안 됩니다. 그래서 <strong>copy-on-write</strong>를 씁니다. 방식은 놀랍도록 간단합니다. 페이지 테이블 엔트리의 <strong>writable 비트를 끄고</strong>, 물리 페이지는 참조 카운트로 공유합니다.</p>
+  <p>복사는 계획된 동작이 아닙니다. 그 비트를 끈 결과로 발생하는 <strong>쓰기 보호 폴트의 부수 효과</strong>입니다. 실제로 누가 쓰기를 시도하기 전까지는 아무 일도 일어나지 않습니다.</p>
+  <p>여기서도 한계가 드러납니다. 데이터는 안 복사해도 <strong>페이지 테이블은 복사해야</strong> 합니다. 퍼듀 연구팀이 커널 메일링 리스트에 올린 패치 설명이 이 지점을 찌릅니다. 현재 fork가 걸리는 시간은 <strong>프로세스가 할당한 메모리 크기에 비례한다</strong>고요. 이들은 부모와 자식이 마지막 단계 페이지 테이블을 공유하게 하고 참조 카운트로 관리하는 설계를 제안했고, 50GB 환경에서 fork가 최대 270배 빨라졌다고 보고했습니다. 다만 본인들이 밝혔듯 x86 전용에 대형 페이지와 스와핑을 지원하지 않는 프로토타입이고, 메인라인에 들어간 기능은 아닙니다.</p>
+  <p>그리고 2018년, 이 격리가 실제로 뚫렸습니다. Meltdown입니다.</p>
+  <p>대응책이 <strong>PTI(Page Table Isolation)</strong>, 옛 이름 KAISER입니다. 방법은 정면 돌파에 가깝습니다. <strong>유저 실행 전용의 페이지 테이블 세트를 따로 하나 더 만듭니다.</strong> 시스템 콜이나 인터럽트로 커널에 들어가면 전체 커널 사본으로 갈아타고, 나올 때 다시 유저 사본으로 돌아옵니다. 유저 쪽 테이블에는 진입과 이탈에 꼭 필요한 최소한의 커널 데이터만 남깁니다.</p>
+  <p>커널 문서는 그 비용을 숨기지 않고 적어 두었습니다. 프로세스마다 PGD가 4KB 더 필요하고, <code>cpu_entry_area</code>가 2MB를 차지합니다. CR3 조작이 모든 진입과 이탈마다 들어가는데 <strong>CR3로의 이동은 수백 사이클 수준</strong>입니다. 여러 프로세스가 커널 매핑의 TLB 엔트리를 공유하게 해 주던 글로벌 페이지 기능도 잃습니다. 그나마 다행인 것은 그로 인한 <strong>실제 성능 손실이 1%를 넘지 않는다</strong>는 대목입니다.</p>
+  <p>주소 공간이 좁아지는 문제도 이미 예고편이 나와 있습니다. 4단계 페이징의 한계는 가상 256TiB, 물리 64TiB인데, 커널 문서가 이렇게 적습니다. <strong>&quot;우리는 이미 이 한계에 부딪히고 있다. 오늘날 일부 벤더는 64TiB 메모리를 탑재한 서버를 판다.&quot;</strong></p>
+  <figure><img src="./images/body-6.png" alt="4단계 페이징과 5단계 페이징의 주소 공간 및 특성을 비교한 표" loading="lazy"><figcaption>4단계 페이징과 5단계 페이징의 주소 공간 및 특성을 비교한 표</figcaption></figure>
+  <p>답은 단계를 하나 더 붙이는 것이었습니다. CR4의 12번 비트 LA57을 켜면 9비트 기술자가 하나 더 붙어 주소가 57비트가 되고, 공간이 512배 늘어 <strong>가상 128PiB, 물리 4PiB</strong>가 됩니다. 아이스레이크가 첫 구현이고 리눅스는 4.14부터 지원합니다.</p>
+  <p>물론 페이지 워크도 한 단계 길어집니다. 최악의 경우 메모리 접근 한 번에 물리 메모리를 다섯 번이 아니라 여섯 번 만져야 합니다.</p>
+  <p>재미있는 것은 소프트웨어 쪽 사정입니다. 리눅스는 5단계 페이징을 켜도 <strong>기본적으로는 47비트 위로 주소를 할당하지 않습니다.</strong> 일부 JIT 컴파일러가 포인터의 상위 비트에 자기 정보를 몰래 끼워 넣어 왔는데, 주소가 넓어지자 그게 진짜 포인터와 충돌해 크래시가 나기 때문입니다. 필요한 프로그램만 hint 주소로 명시해서 넓은 공간을 받아 갑니다.</p>
+  <hr>
+  <p>정리하면 이렇습니다.</p>
+  <p>가상 메모리는 거창한 마법이 아니라 번역표입니다. 48비트 주소를 9·9·9·9·12로 자르고, 4KB짜리 테이블 네 장을 걸어 내려가 물리 프레임을 찾습니다. 프로세스마다 다른 표를 걸어두니 같은 주소가 다른 곳에 도착하고, 그것이 격리의 전부입니다. 네 번 걷는 비용은 TLB가 감춰 주고, 없는 페이지는 폴트를 내서 그때 만들고, 부족하면 오래된 것부터 내보냅니다.</p>
+  <p>각 조각은 단순합니다. 엔트리 한 줄의 비트 몇 개를 어떻게 쓰느냐로 스왑도, 교체도, copy-on-write도, Meltdown 대응도 전부 설명됩니다.</p>
+  <p><strong>&quot;프로그램은 주소를 말하고, 페이지 테이블이 그 주소가 무슨 뜻인지 정합니다.&quot;</strong></p>
+  <p>이 구조를 알면 코드가 빨라지느냐고 물으신다면, 대개는 아니라고 답하겠습니다. 다만 프로파일러에 페이지 폴트 수치가 유난히 높게 찍힌 어느 날, 그 숫자가 무슨 말을 하려는지 알아들을 수는 있겠습니다.</p>
+  <hr>
+  <div class="tags"><span>#가상메모리</span> <span>#페이지테이블</span> <span>#TLB</span> <span>#주소변환</span> <span>#페이지폴트</span> <span>#x86_64</span> <span>#운영체제</span> <span>#copyonwrite</span></div>
+  <p class="srchead">참고 소스</p><ul class="src"><li>OSDev Wiki, &quot;X86 Paging&quot; (https://wiki.osdev.org/Paging) — 4/5단계 페이징 구조, 페이지 테이블 엔트리 비트 정의, 페이지 폴트 에러 코드, INVLPG와 TLB shootdown, PCID, copy-on-write</li><li>TU Graz ISEC, &quot;Paging on Intel x86-64&quot; (https://www.isec.tugraz.at/teaching/materials/os/tutorials/paging-on-intel-x86-64/) — 48비트 주소의 9·9·9·9·12비트 분해, 테이블당 512엔트리 × 8바이트, PML4E/PDPTE/PDE/PTE 구조체 비트</li><li>The Linux Kernel documentation, &quot;Memory Management&quot; arch/x86/x86_64/mm (https://docs.kernel.org/arch/x86/x86_64/mm.html) — 4단계/5단계 전체 가상 메모리 맵, 사용자 공간 ~128TB, 직접 매핑 64TB</li><li>The Linux Kernel documentation, &quot;5-level paging&quot; arch/x86/x86_64 (https://docs.kernel.org/arch/x86/x86_64/5level-paging.html) — 256TiB/64TiB 한계, 128PiB/4PiB 확장, 47비트 기본 제한과 JIT 포인터 태깅 충돌</li><li>The Linux Kernel documentation, &quot;The TLB&quot; arch/x86/tlb (https://docs.kernel.org/arch/x86/tlb.html) — 전체 플러시 대 개별 무효화의 트레이드오프, tlb_single_page_flush_ceiling, Intel SDM 4.10.4.2 인용</li><li>The Linux Kernel documentation, &quot;Page Table Isolation (PTI)&quot; arch/x86/pti (https://docs.kernel.org/arch/x86/pti.html) — KAISER/Meltdown 대응, 두 벌의 페이지 테이블, 프로세스당 4KB 추가, cpu_entry_area 2MB, CR3 이동 수백 사이클, 글로벌 페이지 손실 1% 미만</li><li>Wikipedia, &quot;Intel 5-level paging&quot; (https://en.wikipedia.org/wiki/Intel_5-level_paging) — LA57(CR4 비트 12), 57비트 주소, 128PiB, Ice Lake 최초 구현, Linux 4.14, 페이지 워크 5회→6회</li><li>7-cpu.com, &quot;Intel Ice Lake&quot; i7-1065G7 (https://www.7-cpu.com/cpu/Ice_Lake.html) — 4KB/2MB/1GB 모드별 dTLB·L2 TLB 엔트리 수와 미스 패널티, 작업집합별 접근 지연 실측 곡선, 페이지 테이블 워크와 L2 캐시 관계</li><li>The Linux Kernel documentation, &quot;Transparent Hugepage Support&quot; admin-guide/mm/transhuge (https://docs.kernel.org/admin-guide/mm/transhuge.html) — THP 2MB(PMD) 한정, khugepaged collapse, always/madvise/never, MADV_HUGEPAGE</li><li>LWN.net, &quot;Shared page tables during fork&quot; (Kaiyang Zhao, Purdue), 2021-07-01 (https://lwn.net/Articles/861547/) — fork 시간이 할당 메모리 크기에 비례, 마지막 단계 PTE 공유 + refcount, 50GB에서 최대 270배, AFL 처리량 2배 (프로토타입, 미병합)</li><li>LWN.net, &quot;Reconsidering the multi-generational LRU&quot; (https://lwn.net/Articles/1060967/) 및 The Linux Kernel documentation, &quot;Multi-Gen LRU&quot; (https://docs.kernel.org/admin-guide/mm/multigen_lru.html) — active/inactive 두 리스트 방식, MGLRU 커널 6.1 병합</li><li>OSTEP, &quot;18 Paging: Introduction&quot; / &quot;20 Paging: Smaller Tables&quot; (https://pages.cs.wisc.edu/~remzi/OSTEP/vm-paging.pdf) — 32비트·4KB·4바이트 PTE에서 프로세스당 4MB 선형 페이지 테이블, PFN 20비트 + 메타데이터 12비트</li><li>Cornell CS 4410 &quot;Page replacement&quot;, UMass CS Lec15, Univ. of Regina CS330 강의노트 — Optimal/FIFO/LRU/Second-Chance(Clock) 정의, Belady&#x27;s anomaly, LRU의 스택 성질</li><li>Netdata, &quot;Understanding Huge Pages&quot; / CubePath, &quot;Huge Pages Configuration for Databases&quot; — 대형 페이지의 TLB 커버리지 512배 / 262,144배</li></ul>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
