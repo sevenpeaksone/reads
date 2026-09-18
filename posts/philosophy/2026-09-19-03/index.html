@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>라이프니츠 충족이유율과 모나드, 왜 무엇인가 있는가에 그는 이렇게 답했다</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 48px 20px 80px;
+    background: #f4f4f6; color: #23242a;
+    font-family: 'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { width: 700px; max-width: 100%; margin: 0 auto; background: #fff;
+          padding: 52px 44px 64px; border-radius: 14px;
+          box-shadow: 0 2px 20px rgba(0,0,0,.06); }
+  h1 { font-size: 30px; line-height: 1.42; font-weight: 800; letter-spacing: -.02em;
+       margin: 0 0 20px; color: #17181d; }
+  .meta { display: flex; align-items: center; gap: 12px; margin: 0 0 34px;
+          padding-bottom: 22px; border-bottom: 1px solid #ececf0; }
+  .badge { display: inline-block; background: #2a2836; color: #a096ff;
+           font-size: 13px; font-weight: 700; letter-spacing: .04em;
+           padding: 6px 14px; border-radius: 999px; }
+  .date { font-size: 14px; color: #8c8d96; }
+  h2 { font-size: 21px; font-weight: 700; line-height: 1.5; letter-spacing: -.01em;
+       margin: 52px 0 20px; padding-left: 14px; color: #17181d;
+       border-left: 4px solid #a096ff; }
+  p { font-size: 16.5px; line-height: 1.85; margin: 0 0 20px; color: #33343b; word-break: keep-all; }
+  strong { font-weight: 700; color: #17181d; }
+  em { font-style: italic; color: #4a4b55; }
+  ul { margin: 0 0 22px; padding-left: 20px; }
+  li { font-size: 16.5px; line-height: 1.82; margin-bottom: 9px; color: #33343b; word-break: keep-all; }
+  hr { border: 0; border-top: 1px solid #ececf0; margin: 40px 0; }
+  figure { margin: 30px 0; }
+  img { max-width: 100%; height: auto; display: block; border-radius: 10px; }
+  .tags { font-size: 14px; color: #7a7b85; line-height: 2; }
+  .tags span { display: inline-block; background: #f2f2f5; border-radius: 6px;
+               padding: 3px 10px; margin: 0 5px 6px 0; }
+  @media (max-width: 760px) {
+    body { padding: 20px 12px 56px; }
+    .wrap { padding: 30px 20px 44px; }
+    h1 { font-size: 24px; }
+    h2 { font-size: 19px; margin-top: 42px; }
+    p, li { font-size: 16px; }
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+<h1>라이프니츠 충족이유율과 모나드, 왜 무엇인가 있는가에 그는 이렇게 답했다</h1>
+<div class="meta"><span class="badge">철학/인문</span><span class="date">2026-09-19</span></div>
+<p>이번 글에서는 라이프니츠의 충족이유율과 모나드 개념을 정리해 보겠습니다. &quot;왜 아무것도 없지 않고 무엇인가 있는가&quot;라는 물음을 처음 저 문장으로 다듬은 사람이 그였고, 모나드는 그 답을 떠받치기 위해 세워진 장치입니다.</p>
+<figure><img src="./images/thumbnail.png" alt="라이프니츠 충족이유율과 모나드 - 왜 아무것도 없지 않고 무엇인가 있는가를 다룬 글의 대표 이미지"></figure>
+<p><strong>세 줄 요약</strong></p>
+<ul>
+<li>충족이유율은 &quot;이유 없이는 아무 사실도 참일 수 없다&quot;는 원리입니다. 라이프니츠는 이 원리에 <strong>이름을 붙이고 체계의 중심에 놓았습니다.</strong></li>
+<li>이 원리를 우주 전체에 적용하면, 우연한 것들의 총합 바깥에 필연적인 존재자가 있어야 한다는 결론이 나옵니다. 그것이 그의 신 존재 논증입니다.</li>
+<li>모나드는 그 결론을 감당하기 위한 최소 단위입니다. 창이 없고, 서로 닿지 않으며, 신이 미리 맞춰둔 시계처럼 따로 돌아갑니다.</li>
+</ul>
+<hr>
+<h2>물음이 처음 문장이 된 자리</h2>
+<p>라이프니츠는 1712년부터 1714년 9월까지 마지막으로 빈에 머물렀습니다. 그때 자기 철학을 압축한 프랑스어 짧은 글 두 편을 썼습니다.</p>
+<p>하나가 사보이의 외젠 공을 위한 『이성에 근거한 자연과 은총의 원리』입니다. 이 글의 첫 물음이 바로 그것입니다. <strong>왜 아무것도 없지 않고 무엇인가 있는가.</strong></p>
+<p>기록된 역사에서 이 설명 요구를 한 문장으로 간결하게 표현한 최초의 사상가로 그가 꼽힙니다. 논리는 단순합니다. 무(無)가 더 단순하고 더 쉬웠을 것입니다. 지구도 별도 은하도 원자도 물리법칙도 없는 상태가 훨씬 손이 덜 가는 선택지였습니다. 그런데 그렇지 않습니다. 그러니 설명이 필요합니다.</p>
+<p>다른 한 편이 훗날 『모나드론』으로 불리게 된 글입니다. 여기에는 사연이 있습니다. 라이프니츠는 이 원고에 제목을 붙이지 않았고, 생전에 출간하지도 않았습니다. 크리스티안 볼프와 동료들이 1720년 독일어판을, 1721년 『악타 에루디토룸』이 라틴어판을 냈습니다. <strong>프랑스어 원문은 1840년에야 처음 나왔고, 그때 붙은 『라 모나돌로지』라는 제목이 그대로 굳었습니다.</strong> 약 90개 단락으로 된 짧은 글입니다.</p>
+<hr>
+<h2>두 개의 원리, 갈라진 영토</h2>
+<p>『모나드론』 31절과 32절에 그의 두 기둥이 나란히 놓입니다.</p>
+<p>31절은 <strong>모순율</strong>입니다. 모순을 포함하는 것은 거짓이고, 거짓과 대립하는 것은 참입니다.</p>
+<p>32절이 <strong>충족이유율</strong>입니다. 원문을 옮기면 이렇습니다. &quot;왜 그것이 이러이러하고 달리 되어 있지 않은지에 대한 충분한 이유 없이는, 어떤 참된 사실도 어떤 참된 언명도 발견할 수 없다.&quot; 그리고 라이프니츠는 곧바로 단서를 답니다. <strong>&quot;비록 대부분의 경우 그 이유들을 우리가 알 수는 없지만 말이다.&quot;</strong></p>
+<p>여기가 중요합니다. 그는 인간이 모든 이유를 알 수 있다고 말하지 않았습니다. 이유가 <em>있다</em>고 말했을 뿐입니다.</p>
+<p>이 원리 자체는 그가 처음 떠올린 것이 아닙니다. 아르키메데스의 저울, 아비센나, 아벨라르두스에게 선례가 있습니다. 스피노자가 라이프니츠보다 먼저 이 원리의 중요성을 알아보고 자기 체계의 중심에 두었다고 보는 학자가 많습니다. <strong>라이프니츠가 만든 것은 원리가 아니라 그 이름입니다.</strong> 프랑스어 <em>principe de raison suffisante</em>, 라틴어 <em>principium reddendae rationis</em>가 그의 작명입니다.</p>
+<p>그가 특별한 이유는 다른 데 있습니다. 두 원리에 서로 다른 영토를 나눠 준 <strong>체계성</strong>입니다.</p>
+<figure><img src="./images/body-1.png" alt="모순율과 충족이유율이 다스리는 진리와 학문 영역을 나란히 비교한 표"></figure>
+<p>모순율은 필연적 진리를 다스리고, 충족이유율은 우연적 진리를 다스립니다. 모순율은 수학을 가능하게 하고, 충족이유율은 형이상학과 자연신학과 물리학을 가능하게 합니다.</p>
+<p>다만 이 분업이 깔끔하지만은 않습니다. 형이상학과 자연신학에도 필연 명제가 있을 텐데, 그러면 충족이유율이 모순율의 영토를 침범합니다. 스탠퍼드 철학백과는 두 배정 방식이 동등하다는 보장이 없다고 지적합니다.</p>
+<hr>
+<h2>카이사르는 왜 루비콘을 건넜는가</h2>
+<p>충족이유율은 그의 진리론과 붙어 있습니다.</p>
+<p>라이프니츠에게 참인 명제란 <strong>술어가 주어 안에 포함된 명제</strong>입니다. &quot;파란색은 색이다&quot;에서는 포함이 눈에 보입니다. &quot;베드로는 아프다&quot;에서는 보이지 않습니다. 그래도 포함되어 있다는 것이 그의 주장입니다. 잠재적으로 말입니다.</p>
+<p>베드로에 관해 알아야 할 모든 것을 아는 개념, 그것이 <strong>완전개념</strong>입니다. 그 개념 안에 그가 지금 아프다는 사실이 이미 들어 있습니다.</p>
+<p>『형이상학 논고』 13절의 카이사르 구절이 이 생각의 정점입니다. 전체 논증을 완성할 수 있는 자라면, 카이사르의 미래의 독재가 그의 개념에 근거를 두고 있음을, 그리고 <strong>왜 그가 멈추지 않고 루비콘을 건너기로 결심했는지 그 이유를 거기서 발견할 수 있음</strong>을 보이리라는 것입니다.</p>
+<p>숨 막히는 이야기로 들립니다. 그래서 라이프니츠는 곧바로 제동을 겁니다. 같은 문장이 이렇게 이어집니다. 그것이 &quot;합리적이고 따라서 확정적이었음을 보일 것이나, <strong>그것이 그 자체로 필연적이라거나 그 반대가 모순을 함축한다는 것을 보이지는 않을 것이다.</strong>&quot;</p>
+<p>카이사르가 건너지 않았더라도 모순은 생기지 않습니다. 역사가 달라졌을 뿐입니다. 그의 속성들은 논리적으로 필연적이지 않습니다.</p>
+<p>그리고 결정적인 한 줄이 남습니다. 카이사르의 모든 속성은 그의 다른 속성으로 설명되지만, <strong>어떤 속성도 카이사르가 왜 존재했는지는 설명하지 못합니다.</strong></p>
+<hr>
+<h2>그물을 끝까지 당기면</h2>
+<p>바로 여기서 물음이 우주 전체로 확대됩니다.</p>
+<figure><img src="./images/body-2.png" alt="우연한 개체에서 필연적 존재자에 이르는 라이프니츠 논증의 네 단계 다이어그램"></figure>
+<p>첫째, 카이사르는 자기 존재를 설명하지 못합니다. 그는 우연적 존재자입니다. 존재하지 않을 수도 있었다는 뜻입니다.</p>
+<p>둘째, 충족이유율은 개념 안의 술어 하나하나에만 적용되는 것이 아닙니다. &quot;존재하는 것의 개념&quot;으로서 그 개념 전체에도 적용됩니다. 그러니 왜 다른 실체가 아니라, 혹은 아예 아무것도 아니라 바로 이 실체가 있는지에 대한 이유가 있어야 합니다.</p>
+<p>셋째, 부모가 설명해 줄까요. 그 부모는 또 다른 실체가 설명해야 합니다. 그런데 공간과 시간에 걸친 실체들의 총합, 곧 우주의 전 과정이 하나같이 우연적입니다. 다른 사물들도, 다른 우주들도 가능했습니다. <strong>우연한 것들의 총체는 자기 자신을 설명하지 못합니다.</strong></p>
+<p>넷째, 따라서 우연적 사물들의 총체를 넘어서는 무언가가 있어야 합니다. 그 자체로 필연적이어서 자기 바깥의 설명을 요구하지 않는 무언가가.</p>
+<p>여기에 꼭 덧붙여야 할 단서가 있습니다. <strong>이 논증은 우주의 시작이나 기원을 전제하지 않습니다.</strong> 시간이 과거로 무한히 뻗어 있다 해도 전체 경로에 대한 설명은 여전히 없기 때문입니다. 이 점이 흔히 오해됩니다.</p>
+<p>물론 여기까지는 맨 형이상학적 개념입니다. 종교적 내용은 아직 없습니다. 라이프니츠는 한 걸음 더 갑니다. 만약 이 우주가 신의 자의적 행위라면 신은 요구된 설명이 되지 못합니다. 그러므로 신은 필연적일 뿐 아니라 <strong>모든 것의 가지성의 원천</strong>이어야 합니다.</p>
+<p>인터넷 철학백과는 이 논증이 아퀴나스의 우주론적 논증 중 셋째의 한 판본이며, 같은 난점들에 똑같이 노출된다고 평가합니다. 칸트식 반론이 대표적입니다. 개별 존재자에게 정당하게 요구되는 설명을 <strong>총체</strong>에 요구하는 것은 개념의 고유 영역을 벗어난 사용이라는 것입니다.</p>
+<hr>
+<h2>모나드에 창이 없다는 말</h2>
+<p>이제 모나드입니다. 이 개념은 위의 결론을 감당하기 위해 만들어진 것에 가깝습니다.</p>
+<p>&#x27;모나드&#x27;는 <strong>하나인 것, 부분이 없고 따라서 나눌 수 없는 것</strong>을 뜻합니다. 라이프니츠는 1696년 중반 『신체계』를 인쇄에 넘기면서부터 이 말을 쓰기 시작했습니다.</p>
+<p>원자론의 대안으로 제시된 개념입니다. 차이는 분명합니다. 원자는 연장의 최소 단위이고 거기서 더 큰 연장체가 조립됩니다. <strong>모나드는 연장이 없습니다.</strong> 공간 자체가 그의 체계에서는 환상이기 때문입니다.</p>
+<figure><img src="./images/body-3.png" alt="모나드의 네 가지 성질을 정리한 카드 - 단순함, 창 없음, 우주의 거울, 영원함"></figure>
+<p>왜 나눌 수 없을까요. 완전개념이 그리는 설명의 그물망을 나누면, 어떤 술어는 이유를 잃거나 애초에 한 몸이 아니었던 둘을 갈라놓는 것에 불과하기 때문입니다.</p>
+<p>그리고 유명한 한 문장, &quot;모나드에는 창이 없다&quot;가 나옵니다.</p>
+<p>뜻은 이렇습니다. 관계적 술어가 실은 각 완전개념의 <strong>내적</strong> 속성이므로, 한 모나드의 속성에는 우주의 다른 모든 모나드와 맺는 관계 전부가 이미 들어 있습니다. 따라서 모나드는 다른 모나드와 실제로 관계 맺을 필요가 없습니다. <strong>모든 모나드가 우주 전체를 거울처럼 비추되, 무엇을 받아들이거나 내보낼 창은 어디에도 없습니다.</strong></p>
+<p>『형이상학 논고』 14절의 표현이 서늘합니다. 지금 나에게 일어나는 모든 것을 판명하게 고찰할 수 있다면 앞으로 영원히 나에게 일어날 모든 것을 볼 수 있을 것이고, 그것은 <strong>&quot;나 바깥의 모든 것이 파괴되고 오직 신과 나만 남는다 하더라도&quot;</strong> 그대로 일어난다는 것입니다.</p>
+<p>그래서 모나드는 미래를 &quot;임신&quot;하고 있고 과거를 &quot;싣고&quot; 있습니다. 모든 속성이 그 안에 접혀 있다가, 펼쳐질 충분한 이유가 생길 때 펼쳐집니다. 영향받을 수 없으니 태어나거나 파괴될 수도 없습니다. <strong>모든 모나드는 영원합니다.</strong></p>
+<hr>
+<h2>방 안의 두 시계</h2>
+<p>그렇다면 세상의 모든 인과는 무엇입니까.</p>
+<p>라이프니츠의 답이 <strong>예정조화</strong>입니다. 인터넷 철학백과가 소개하는 시계 비유가 이 개념을 가장 잘 보여줍니다.</p>
+<figure><img src="./images/body-4.png" alt="방 안의 두 시계 비유로 인과 설명과 예정조화 설명을 대조한 도표"></figure>
+<p>방 양쪽에 시계 두 개가 있고 둘 다 같은 시각을 가리킵니다. 시계를 모르는 사람은 하나가 주(主) 시계이고 다른 하나가 그것을 따른다고 의심할 수 있습니다. 두 사물이 나란히 움직이면 증거 없이도 인과를 가정하기 쉽습니다.</p>
+<p>시계를 아는 사람의 설명은 다릅니다. 둘은 서로에게 아무 영향도 주지 않습니다. 둘에게는 <strong>공통 원인</strong>이 있을 뿐입니다. 마지막으로 시각을 맞추고 태엽을 감은 사람 말입니다.</p>
+<p>모나드가 그렇습니다. 각자 독립적으로 작동하되, 완전한 우주에 대한 신의 구상에 따라 모두가 동기화되어 있습니다.</p>
+<p>대가는 작지 않습니다. 이 해법은 심신 문제를 풀어내지만, <strong>실체 사이의 모든 상호작용을 단순한 외관이라고 선언하는 값을 치릅니다.</strong> 인과도 잘 근거 지어진 환상일 뿐입니다. 배가 물을 밀어 파문을 만든다고 말할 이유가, 물이 파문을 만들고 그래서 배가 움직인다고 말할 이유보다 더 있지는 않다는 것입니다. 라이프니츠는 앞쪽 설명이 훨씬 단순하다고 답합니다만, 인터넷 철학백과의 논평이 날카롭습니다. <strong>&quot;그 단순함이 곧 참은 아니다.&quot;</strong></p>
+<hr>
+<h2>최선의 세계라는 결론</h2>
+<p>신이 이 우주를 고른 방식도 충족이유율에서 나옵니다.</p>
+<p>시간 밖의 신 앞에 무한히 많은 완전개념이 놓여 있습니다. 어느 것도 존재할 특별한 권리는 없습니다. 제약은 하나, 모순율입니다. 각각이 가능한 것으로는 부족하고 <strong>다 함께 가능해야</strong> 합니다. 양이 소보다 많으면서 동시에 소가 양보다 많은 우주는 만들 수 없습니다.</p>
+<p>그리고 신은 가장 완전한 것을 고릅니다. 완전성의 원리입니다. 그래서 <strong>이 세계가 가능한 모든 세계 중 최선</strong>이라는 결론이 나옵니다.</p>
+<p>&#x27;완전성&#x27;이 무엇인지도 그는 여러 후보를 저울질했습니다. 계속 돌아온 답은 <strong>최대의 본질량</strong>입니다. 최소한의 기본 법칙과 양립하는 한에서 각 실체의 풍요와 다양성을 최대로 하는 것입니다.</p>
+<figure><img src="./images/body-5.png" alt="신이 최선의 세계를 고르는 세 단계 - 무한한 가능 개념, 공가능성 제약, 완전성의 원리"></figure>
+<p>여기서 한계를 짚어야 공정합니다. <strong>현대 철학자들은 대체로 이 결론이 엄밀하게 따라 나오지 않는다고 봅니다.</strong> 라이프니츠 자신도 아르노와의 서신에서, 신이 완전성에 그리고 창조의 체계적 성격에 제약된다는 우려를 벗어나려 애썼습니다.</p>
+<hr>
+<h2>팡글로스는 라이프니츠가 아닙니다</h2>
+<p>1755년 리스본에 대지진이 닥칩니다. 볼테르는 그 뒤로 라이프니츠적 낙관주의를 적극적으로 거부했습니다. 이것이 가능한 최선의 세계라면 지금보다는 나아야 하지 않겠느냐는 것이었습니다.</p>
+<p>1759년 『캉디드』가 나옵니다. 팡글로스 박사가 어떤 참사 앞에서도 &quot;모든 것은 이 가능한 최선의 세계에서 최선을 위한 것&quot;이라는 후렴을 되풀이합니다.</p>
+<p>다만 이 조롱을 반박으로 곧장 받아들이기는 어렵습니다. 스탠퍼드 철학백과의 표현부터가 조심스럽습니다. 팡글로스는 라이프니츠의 낙관주의를 희화화하는 것으로 <strong>&quot;보인다&quot;</strong>고 씁니다.</p>
+<p>실제 라이프니츠의 주장은 훨씬 까다롭게 조여져 있습니다.</p>
+<figure><img src="./images/body-6.png" alt="변신론에서 라이프니츠가 구분한 형이상학적 악, 물리적 악, 도덕적 악을 정리한 표"></figure>
+<p>『변신론』은 1710년 암스테르담에서 익명으로 출간되었습니다. 저자임을 밝힌 것은 1712년 2판에서입니다. 집필 계기는 프로이센 궁정에서 오간 피에르 벨의 『역사·비평 사전』(1702년 2판) 논의였습니다. 그가 만든 말이 바로 &#x27;변신론(theodicy)&#x27;입니다.</p>
+<p>그는 악을 셋으로 나눕니다. <strong>형이상학적 악</strong>은 모든 피조물에 본래적인 근원적 불완전성입니다. <strong>물리적 악</strong>은 고통이고, <strong>도덕적 악</strong>은 죄입니다. 앞의 것이 뒤의 것들의 가능 조건입니다. 피조물은 필연적으로 신보다 못하고, 그 유한성이 고통에 취약하게 만들고 죄짓기 쉽게 만든다는 설명입니다.</p>
+<p>그의 응답은 세 갈래입니다. 하나, 인간은 우주의 극히 작은 조각만 본다는 것. 그림의 구석에서는 그림의 설계가 보이지 않는다는 비유입니다. 둘, <strong>최선의 세계란 악이 없다는 뜻이 아니라 전체 악이 더 적기가 불가능하다는 뜻</strong>이라는 것. 셋, 악은 적극적 실재가 아니라 결여라는 것.</p>
+<p>정교합니다. 그리고 여전히 부족합니다. 리스본에서 수만 명이 죽은 자리에서 &quot;부분만 보지 마십시오&quot;라는 답이 충분한지는 다른 문제입니다. 팡글로스가 겨눈 곳은 라이프니츠의 논리가 아니라 그 논리가 사람에게 닿는 자리였습니다.</p>
+<hr>
+<h2>300년 뒤에 남은 것</h2>
+<p>예전에는 라이프니츠의 체계 전체를 통째로 받아들이든 통째로 버리든 해야 한다고 여겼습니다. 지금은 부품별로 읽습니다.</p>
+<p>가장 멀리 간 부품은 <strong>가능세계</strong>입니다. 오늘날 양상논리의 표준 언어가 여기서 나왔습니다. 다만 여기에도 정확한 단서가 필요합니다. <strong>라이프니츠는 필연적 진리를 &quot;모든 가능세계에서 참&quot;이라고 문자 그대로 기술한 적이 없습니다.</strong> 그가 한 말은, 신이 다른 계획으로 세계를 만들었더라도 필연적 진리는 성립했으리라는 것, 그리고 반대가 모순을 함축할 때 진리가 필연적이라는 것이었습니다.</p>
+<p>그 착상을 현대 논리로 옮긴 사슬은 카르나프(1947)를 거쳐 힌티카와 바야르를 지나 크립키(1959, 1963)에 이릅니다. 크립키의 결정적 혁신은 세계들 사이에 <strong>접근가능성 관계</strong>를 놓은 것입니다. 라이프니츠에게는 없던 장치입니다.</p>
+<p>반대로 가장 크게 무너진 부품은 <strong>관계의 환원</strong>입니다. &quot;이 잎은 저 잎의 왼쪽에 있다&quot; 같은 명제는 주어가 하나가 아닙니다. 라이프니츠는 모든 관계를 각 실체의 내적 속성으로 환원할 수 있다고 보았습니다. 현대 논리학자들은 흔히 이것을 그의 논리학의, 나아가 형이상학 전체의 주된 결함으로 봅니다.</p>
+<p>미세지각 이야기도 남았습니다. 모나드가 우주의 거울이라면 내 영혼은 무한한 수의 지각을 갖습니다. 그런데 나는 그것을 전부 의식하지 못합니다. 그래서 그는 <strong>지각과 통각을 갈라놓았고, 이 둘을 구별하지 않은 것이 데카르트의 주요한 오류라고 논증했습니다.</strong> 해변의 파도 소리를 예로 듭니다. 하나로 들리는 그 소리는 사실 의식되지 않는 수많은 물방울 소리의 합입니다. 정신적 삶에서 무의식적인 것의 무게를 분석한 최초의 철학자 중 하나로 그를 꼽는 이유입니다.</p>
+<p>그의 실체관이 놓인 자리도 기억해 둘 만합니다. 데카르트의 이원론, 스피노자의 일원론과 나란히 놓으면 라이프니츠는 <strong>다원론</strong>입니다. 데카르트의 신이 초월적 창조자이고 스피노자의 신이 우주 그 자체라면, 라이프니츠의 신은 <strong>조율자</strong>입니다.</p>
+<hr>
+<p>끝으로 한 마디만 더 드리겠습니다.</p>
+<p>라이프니츠의 답을 오늘 그대로 받아들이는 철학자는 많지 않습니다. 최선의 세계 논증은 엄밀하지 않다고 평가받고, 관계 환원은 실패했다고 여겨집니다. 남은 것은 답이 아니라 <strong>물음의 형태</strong>입니다.</p>
+<p>그는 &quot;왜 무엇인가 있는가&quot;라는 막연한 불안을 <strong>&quot;이유가 없어도 되는가&quot;</strong>라는 따질 수 있는 질문으로 바꿔 놓았습니다. 그 뒤로 이 물음을 다루는 모든 논의가 그가 놓은 궤도 위를 지나갑니다.</p>
+<p>그래서 300년이 지난 지금도 그를 읽을 이유가 있느냐고 물으신다면, 저는 있다고 답하겠습니다. 답이 틀렸을 때에도 물음이 남는 일이 철학에서는 드물지 않습니다.</p>
+<hr>
+<p class="tags"><span>#라이프니츠</span><span>#충족이유율</span><span>#모나드론</span><span>#예정조화</span><span>#가능세계</span><span>#변신론</span><span>#서양철학사</span><span>#형이상학</span></p>
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
