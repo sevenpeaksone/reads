@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>오컴의 면도날, 더 단순한 설명이 더 참이라고 믿을 근거는 있는가</title>
+<style>
+  :root { --acc:#6a5ae0; --acc-soft:#f1eefc; --ink:#1f2430; --mute:#6b7280; --line:#e6e8ef; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:40px 16px 80px; background:#fafbfd;
+         font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+         color:var(--ink); -webkit-font-smoothing:antialiased; }
+  .wrap { width:700px; max-width:100%; margin:0 auto; background:#fff;
+          border:1px solid var(--line); border-radius:14px; padding:44px 40px 52px; }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .badge { display:inline-block; background:var(--acc); color:#fff; font-size:13px; font-weight:700;
+           padding:5px 12px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:29px; line-height:1.4; font-weight:800; margin:0 0 28px; letter-spacing:-.02em; }
+  h2 { font-size:21px; line-height:1.45; font-weight:800; margin:44px 0 16px; letter-spacing:-.01em;
+       padding-left:13px; border-left:4px solid var(--acc); }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 18px; }
+  ul { margin:0 0 20px; padding-left:20px; }
+  li { font-size:16.5px; line-height:1.85; margin-bottom:7px; }
+  strong { font-weight:700; color:#111827; }
+  em { font-style:italic; color:#3b3f52; }
+  hr { border:0; border-top:1px solid var(--line); margin:34px 0; }
+  figure { margin:26px 0; }
+  img { max-width:100%; height:auto; display:block; border-radius:10px; }
+  blockquote { margin:22px 0; padding:18px 20px; background:var(--acc-soft);
+               border-left:4px solid var(--acc); border-radius:0 8px 8px 0;
+               font-size:16px; line-height:1.8; color:#2f3545; }
+  table { width:100%; border-collapse:collapse; margin:22px 0; font-size:15px; }
+  th { background:var(--acc); color:#fff; font-weight:700; padding:11px 12px; text-align:left; }
+  td { padding:11px 12px; border-bottom:1px solid var(--line); line-height:1.65; vertical-align:top; }
+  tbody tr:nth-child(even) td { background:#f8f8fc; }
+  .tags { margin-top:34px; padding-top:22px; border-top:1px solid var(--line); }
+  .tag { display:inline-block; background:#f2f3f7; color:#4b5162; font-size:13.5px;
+         padding:6px 12px; border-radius:999px; margin:0 7px 9px 0; }
+  @media (max-width:740px){ .wrap{padding:30px 20px 40px;} h1{font-size:24px;} table{font-size:13.5px;} }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta"><span class="badge">철학/인문</span><span class="date">2026-09-20</span></div>
+  <h1>오컴의 면도날, 더 단순한 설명이 더 참이라고 믿을 근거는 있는가</h1>
+  <figure><img src="./images/thumbnail.png" alt="오컴의 면도날 - 더 단순한 설명이 더 참이라고 믿을 근거는 있는가"></figure>
+  <p>이번 글에서는 오컴의 면도날과 단순성의 원리를 정리해 보겠습니다. 널리 인용되는 문장 하나가 정작 오컴의 글에는 없다는 사실에서 출발해, 과학이 이 원리를 실제로 어떻게 썼는지, 그리고 현대 철학과 통계학이 이를 정당화하려 어디까지 갔는지를 따라가려 합니다.</p>
+  <p>먼저 결론을 세 줄로 적겠습니다.</p>
+  <ul><li>오컴의 면도날은 &quot;세계가 단순하다&quot;는 주장이 아니라, 오류 위험을 줄이려는 방법론 규칙이었습니다.</li><li>베이즈 추론, AIC·BIC, 최소기술길이(MDL)는 단순성 선호를 수학적으로 재구성하는 데 상당히 성공했습니다.</li><li>그러나 &quot;더 단순한 설명이 더 참&quot;이라는 존재론적 주장까지 정당화한 시도는, 아직 없습니다.</li></ul>
+  <hr>
+  <h2>오컴은 그 유명한 문장을 쓴 적이 없습니다</h2>
+  <p>가장 널리 알려진 형태는 라틴어 <strong>&quot;Entia non sunt multiplicanda praeter necessitatem&quot;</strong>입니다. 존재자를 필요 이상으로 늘리지 말라는 뜻이지요.</p>
+  <p>그런데 스탠퍼드 철학백과의 오컴 항목은 이렇게 못 박습니다. 그 정서는 분명 오컴의 것이지만, &quot;이 특정한 정식은 그의 텍스트 어디에도 없다&quot;고요. 인터넷 철학백과도 오컴이 &quot;그 대중적 정식을 사용하지 않는다&quot;고 적습니다.</p>
+  <p>출처는 따로 있습니다. 1918년 손번(W. M. Thorburn)이 학술지 『마인드』에 발표한 논문이 이 문제를 파헤쳤습니다. 결론은 이렇습니다. 이 문구는 중세의 것이 아니라 <strong>1639년</strong> 스코투스주의 주석가였던 코크의 존 폰스가 사실상 현재 형태로 만들어낸 것입니다. 폰스 자신은 이를 스콜라 학자들이 흔히 쓰는 &quot;통속적 공리&quot;라고만 적었고, 누구의 것인지는 밝히지 않았습니다.</p>
+  <p>손번은 그 &quot;스콜라 학자들&quot;에 오컴도 스코투스도 아퀴나스도 포함되지 않는다고 단언합니다.</p>
+  <p>오컴이 실제로 쓴 문장들은 따로 있습니다.</p>
+  <figure><img src="./images/body-1.png" alt="오컴이 실제로 쓴 라틴어 문구와 1639년 존 폰스가 만든 문구를 출전과 함께 비교한 표"></figure>
+  <p>그가 되풀이해 쓴 것은 <em>Pluralitas non est ponenda sine necessitate</em>(필요 없이 복수를 상정해서는 안 된다), 그리고 <em>Frustra fit per plura quod potest fieri per pauciora</em>(더 적은 것으로 될 일을 더 많은 것으로 하는 건 헛되다)였습니다.</p>
+  <p>미묘하지만 결정적인 차이가 있습니다. 후대의 문구는 <strong>존재자(entia)</strong>를 말하고, 오컴의 문구는 <strong>복수(pluralitas)</strong>를 말합니다. 세계에 무엇이 있느냐가 아니라, 설명에 무엇을 끌어들이느냐의 문제였던 셈입니다.</p>
+  <hr>
+  <h2>원리가 아니라 조건이었습니다</h2>
+  <p>오컴의 가장 완전한 정식은 이렇습니다. 어떤 복수도 <strong>이성</strong>이나 <strong>경험</strong>, 혹은 <strong>틀릴 수도 그르칠 수도 없는 권위</strong>로 입증되지 않는 한 상정되어서는 안 된다.</p>
+  <figure><img src="./images/body-2.png" alt="오컴의 면도날이 복수를 상정하도록 허용하는 세 가지 조건 - 이성, 경험, 무오한 권위"></figure>
+  <p>여기서 방향이 뒤집힙니다. 스탠퍼드 철학백과의 설명을 그대로 옮기면, 면도날은 &quot;단지 조심스러운 방법론적 원리&quot;이며, 저 조건 중 하나라도 충족되면 &quot;덜 절약적인 주장이 참이라고 생각할 좋은 이유를 갖게 된다&quot;는 것입니다.</p>
+  <p>즉 면도날은 기본값을 정하는 규칙입니다. 단순한 쪽이 언제나 참이라는 법칙이 아닙니다.</p>
+  <p>동기도 형이상학적이지 않았습니다. 인터넷 철학백과의 요약이 명료합니다. &quot;근본적으로 오컴이 단순성을 옹호하는 것은 오류의 위험을 줄이기 위해서다. 모든 가설은 틀릴 가능성을 안고 있다. 더 많은 가설을 받아들일수록 위험은 커진다.&quot;</p>
+  <p>세계가 최대로 단순하다는 독법은 오히려 차단됩니다. 전능한 신을 인정하는 신학자에게, 세계가 최대로 단순하다는 가정은 그 자체로 의심스러운 것이니까요. 실제로 오컴은 삼위일체와 성육신, 성찬례에 대해서는 관계적 존재자를 인정합니다. 자연적 인식 능력만으로는 상정할 이유가 없는 것들을, 신학적 근거로 받아들인 것입니다.</p>
+  <p>면도날이 그의 손에서 접힌 자리입니다.</p>
+  <p>한 가지 더 정정할 것이 있습니다. 면도날은 그의 보편자 논박 무기가 아니었습니다. 두 백과사전이 함께 지적하듯, 그는 실재론을 면도날로 자르지 않았습니다. 아예 정합적이지 않다고 보았기 때문입니다. 면도날이 주로 쓰인 자리는 아리스토텔레스의 열 개 범주를 실체와 질, 둘로 줄이는 작업이었습니다.</p>
+  <hr>
+  <h2>같은 수도원에 반대 원리가 있었습니다</h2>
+  <p>런던의 그레이프라이어스 수도원에서 오컴과 함께 지낸 월터 채턴은 정반대 규칙을 세웠습니다. 그는 이를 &quot;나의 규칙&quot;이라 불렀습니다.</p>
+  <p>&quot;어떤 긍정 명제를 검증하는 데 세 가지로 충분하지 않다면, 넷째를 상정해야 하고, 그렇게 계속 나아가야 한다.&quot;</p>
+  <p>칸트도 비슷한 말을 남겼습니다. <em>Entium varietates non temere esse minuendas</em> — 존재자의 다양성을 경솔하게 줄여서는 안 된다.</p>
+  <p>흥미로운 건 이 둘이 실은 모순되지 않는다는 점입니다. 스탠퍼드 철학백과는 절약과 설명적 충분성이 &quot;서로를 견제하는 평형추&quot;로 작동한다고 봅니다. 한쪽은 설명 부족을 벌하고, 다른 쪽은 존재론적 과잉을 벌합니다.</p>
+  <p>그리고 이렇게 덧붙입니다. 이 중세의 대립은 &quot;단순성과 적합도 사이의 올바른 균형을 둘러싼 오늘날 통계학자들의 논쟁을 역사적으로 반향한다&quot;고요.</p>
+  <p>700년 전의 논쟁이 지금 모형 선택 이론에서 되풀이되고 있는 셈입니다.</p>
+  <hr>
+  <h2>단순함에는 두 종류가 있습니다</h2>
+  <p>여기서 용어를 갈라야 논의가 진전됩니다.</p>
+  <figure><img src="./images/body-3.png" alt="단순성의 두 축 - 통사적 단순성인 우아함과 존재론적 단순성인 절약의 교환 관계"></figure>
+  <p>스탠퍼드 철학백과는 단순성을 둘로 쪼갭니다. <strong>우아함</strong>은 이론의 기본 원리가 몇 개나 되고 얼마나 간결한지를 잽니다. <strong>절약</strong>은 이론이 몇 종류의 존재자를 상정하는지를 잽니다. 간단히 말하면 이론의 단순함과 세계의 단순함입니다.</p>
+  <p>그리고 이 둘은 서로 당깁니다. 존재자를 더 상정하면 법칙이 간단해지고, 존재자를 줄이면 법칙이 복잡해집니다. 해왕성이 좋은 예입니다. 행성 하나를 더 상정한 덕분에, 천체역학의 법칙은 건드리지 않아도 되었습니다.</p>
+  <p>이 구분을 놓치면 논쟁이 엉킵니다. &quot;오컴의 면도날이 승리한 사례&quot;로 꼽히는 것들 상당수가 실은 절약이 아니라 우아함의 사례이기 때문입니다.</p>
+  <hr>
+  <h2>과학사의 증거는 생각보다 깨끗하지 않습니다</h2>
+  <p>세 가지 사례를 보겠습니다.</p>
+  <p><strong>코페르니쿠스.</strong> 흔히 프톨레마이오스는 원 80개, 코페르니쿠스는 34개라고들 합니다. 과학사가 오언 깅거리치는 이 통념을 정면으로 반박했습니다. 코페르니쿠스는 성숙한 체계에서 경도 장치를 재배치해 원 여섯 개를 줄였지만, 세차와 떨림을 다루는 장치와 내행성의 더 복잡한 위도 체계를 새로 들였습니다. 결과적으로 양쪽 다 서른 개가 넘는 원을 썼고, 경제성에서 우열을 가리기 어렵습니다. 초기에는 수치적 정확도조차 더 낫지 않았습니다. 깅거리치는 두 체계의 단순함과 복잡함이라는 대비가 &quot;전적으로 허구&quot;라고 적습니다.</p>
+  <p><strong>에테르.</strong> 특수상대성이론이 에테르를 잘라냈다는 이야기는 면도날의 대표 사례로 자주 인용됩니다. 그런데 스탠퍼드 철학백과는 이를 증거로 삼기 어렵다고 봅니다. 로런츠와 푸앵카레의 이론은 물리적 동기가 없는 임시 땜질이 여럿 필요했고, 무엇보다 에테르는 &quot;여분의 존재자일 뿐 아니라 <strong>검출 불가능한</strong> 여분의 존재자&quot;였습니다. 이긴 이유가 단순성인지 검출불가능성인지 구별되지 않습니다.</p>
+  <p><strong>생물지리학.</strong> 이쪽이 오히려 더 선명한 시험대입니다. 자연 장벽으로 나뉜 지역은 서로 다른 종을 갖는다는 뷔퐁의 법칙에 예외가 있었습니다. 다윈과 월리스는 해류와 바람과 유빙에 의한 드문 분산으로 설명했고, 확장론자들은 지금은 사라진 육교를 상정했습니다. 육교 가설이 밀린 결정적 이유는, 새로운 분포 이상이 나올 때마다 매번 새 육교를 그려 넣어야 했다는 점입니다.</p>
+  <p>절약적인 이론은 설명 부족으로 비판받고, 덜 절약적인 이론은 방만함으로 비판받습니다. 남는 물음은 언제나 하나입니다. 단순성과 적합도 사이의 균형점을 어디에 둘 것인가.</p>
+  <hr>
+  <h2>확률로 면도날을 증명하려는 시도</h2>
+  <p>20세기 들어 이 물음은 철학에서 통계학으로 옮겨 갑니다.</p>
+  <figure><img src="./images/body-4.png" alt="단순성을 정당화하려는 네 갈래 시도 - 오컴 인자, AIC와 BIC, 최소기술길이, 효율성 논증"></figure>
+  <p>출발점은 충돌이었습니다. 해럴드 제프리스는 &quot;더 단순한 법칙이 더 큰 사전확률을 갖는다&quot;고 주장했습니다. 포퍼는 그것이 확률 공리에 어긋난다고 반박합니다. 직선족은 이차곡선족의 부분집합이니, 확률은 오히려 직선족이 더 낮아야 한다는 것입니다. 그래서 포퍼는 정반대로 갑니다. 단순한 가설이 좋은 이유는 확률이 높아서가 아니라 <strong>반증하기 쉬워서</strong>라고요.</p>
+  <p><strong>베이즈주의</strong>는 다른 길을 찾았습니다. 제퍼리스와 버거가 1992년 『아메리칸 사이언티스트』에 쓴 논문의 논지는 이렇습니다. 면도날은 별도의 원리가 아니라 베이즈 추론의 귀결이다. 복잡한 모형은 예측 확률질량을 넓게 얇게 흩뿌립니다. 무엇이든 설명할 수 있다는 건, 실제로 관측된 그 데이터에 배정한 확률이 낮다는 뜻입니다. 단순한 모형은 질량을 좁게 모읍니다. 맞히면 크게 보상받습니다. 이 자동 벌점을 <strong>오컴 인자</strong>라 부릅니다.</p>
+  <p><strong>AIC와 BIC</strong>는 단순성을 자유 매개변수의 개수로 환산합니다. 적합도만 따지면 곡선이 모든 점을 지나도록 휘어버리는 과적합이 일어나므로, 매개변수 개수에 벌점을 매겨 균형을 잡습니다. BIC는 표본이 커질수록 단순성에 더 큰 가중치를 줍니다. 두 기준이 충돌하는 이유에 대해 포스터와 소버는 목표가 다르다고 설명합니다. 하나는 예측 정확도를, 다른 하나는 참일 확률을 겨냥한다는 것입니다.</p>
+  <p><strong>최소기술길이(MDL)</strong>는 1978년 리사넨이 제안했습니다. 학습을 압축으로 봅니다. 최선의 이론은 이론 자체를 적는 데 드는 비트 수와, 그 이론의 도움을 받아 데이터를 적는 데 드는 비트 수의 <strong>합</strong>을 최소화하는 이론입니다. 이론이 복잡해지면 앞이 커지고, 이론이 빈약하면 잔차를 일일이 적어야 해서 뒤가 커집니다. 합이 최소가 되는 지점이 곧 균형점입니다. 사람이 벌점을 임의로 정하지 않아도 된다는 점이 이 접근의 미덕입니다. 리사넨은 계산 불가능한 콜모고로프 복잡도를 계산 가능한 형태로 바꿔놓았습니다.</p>
+  <p><strong>켈리의 효율성 논증</strong>은 전제를 아예 바꿉니다. 단순한 가설이 참일 가능성이 높다는 주장을 포기하고, 진리에 도달하는 <strong>경로</strong>를 따집니다. 오컴 효율성 정리에 따르면 면도날을 지키는 과학자는 그러지 않는 과학자보다 의견을 덜, 그리고 더 일찍 번복합니다. 검출되기 전까지는 없다고 추측하라는 규칙은 많아야 한 번 번복하면 됩니다. 반대 규칙은 두 번 번복해야 하는 경우가 생깁니다.</p>
+  <p>정리하면, 예전에는 &quot;단순한 것이 참에 가깝다&quot;고 말했고, 지금은 &quot;단순한 것에서 출발해야 참에 빨리 도달한다&quot;고 말합니다.</p>
+  <hr>
+  <h2>그래도 남는 반론들</h2>
+  <figure><img src="./images/body-5.png" alt="단순성이 진리의 표지라는 주장에 대한 네 가지 반론 - 언어 상대성, 세는 방식, 정당화 부재, 반례"></figure>
+  <p><strong>첫째, 언어에 기댑니다.</strong> 한 언어에서 매우 복잡한 가설이 다른 언어에서는 아주 단순할 수 있습니다. 굿먼의 &#x27;그루&#x27; 역설이 고전적 사례입니다. 단순성이 기술 방식에 의존한다면, 그것은 세계에 관한 사실이 아닙니다. 정보이론 기법으로 일부 통사적 척도가 언어 선택과 점근적으로 무관함을 보일 수 있다는 부분적 반론은 있습니다만, 완전한 해소는 아닙니다.</p>
+  <p><strong>둘째, 무엇을 세느냐가 답을 정합니다.</strong> 소버가 드는 예가 날카롭습니다. 심리적 이기주의는 궁극적 욕구의 종류는 더 적게 상정하지만, 인과적 믿음은 더 많이 상정합니다. 무엇을 세고 어떻게 세느냐에 따라 어느 쪽이 더 절약적인지가 달라집니다. 그리고 그것을 정해주는 중립적 규칙은 없습니다.</p>
+  <p><strong>셋째, 전역적 정당화가 없습니다.</strong> 소버의 입장이 단호합니다. 절약의 정당성은 특정 연구 맥락에서 그 분야의 사후적 고려에 따라 서거나 무너지며, &quot;한 맥락에서 절약을 합리적으로 만드는 것이 다른 맥락에서 절약이 중요한 이유와 아무 공통점이 없을 수 있다&quot;는 것입니다.</p>
+  <p><strong>넷째, 반례가 있습니다.</strong> 스탠퍼드 철학백과가 드는 예는 소박하지만 아픕니다. 산소 분자는 원자 하나가 아니라 둘로 이루어져 있습니다. 더 단순한 쪽이 틀렸습니다. 손번은 1917년 동위원소 발견을 들어 같은 말을 했습니다. 그냥 &#x27;납&#x27;이라 불리던 것이 알고 보니 한없이 복잡한 조성이었다고요.</p>
+  <p>멘델의 사례도 곱씹을 만합니다. 그는 일곱 형질에서 우성 대 열성의 비가 평균 2.98 대 1로 나오자 참값을 3 대 1로 잡았습니다. 이 반올림은 어떤 설명 모형을 세우기 <strong>전에</strong> 이루어졌습니다. 그러니 이론적 고려가 시킨 일이 아닙니다. 단순성을 매개변수 개수로 정의하는 접근은 이런 &#x27;깔끔한 정수비 선호&#x27;를 아예 포착하지 못합니다.</p>
+  <p>아예 반대 방향의 원리도 있습니다. <strong>충만성의 원리</strong>는 가능한 것은 실제로 존재한다고 말합니다. 1931년 디랙은 자기 홀극이 양자역학과 양립 가능하다는 점을 보이고, 요구되지는 않는데도 그 존재를 주장했습니다. &quot;자연이 그것을 쓰지 않았다면 놀라운 일일 것&quot;이라면서요. 1969년의 타키온은 특수상대성이론과 양립 가능하다는 이유 하나만으로 그 존재가 상정되었습니다. 면도날과 정면으로 충돌하는 발상입니다.</p>
+  <p>그리고 토머스 쿤의 비관이 남아 있습니다. 단순성 같은 이론적 덕목에 각 과학자가 얼마나 무게를 두는지는 &quot;순전히 취향의 문제이며 합리적으로 해결되지 않는다&quot;는 것입니다.</p>
+  <hr>
+  <p>끝으로 한 마디만 더 드리겠습니다.</p>
+  <p>손번이 1918년에 남긴 경고가 이 글에서 가장 오래 남습니다. 테네만과 해밀턴의 부주의가 &quot;건전한 방법론 규칙을 형이상학적 교리로 바꿔버렸다&quot;는 문장입니다. 그는 이렇게 덧붙였습니다. 탐구 대상을 늘려 연구를 복잡하게 만드는 것은 어리석은 일이지만, 우리는 우주의 궁극적 구성에 대해 너무 적게 알고 있어서 그것이 보이는 것보다 훨씬 복잡할 수 없다고 단정할 수 없다고요.</p>
+  <p>스탠퍼드 철학백과의 단순성 항목에는 결론 절이 없습니다. 귀납 논의로 끝나고 곧장 참고문헌으로 넘어갑니다. 아프리오리 정당화는 정당화가 없는 것과 구별하기 어렵고, 자연주의는 실제 과학에서 원리를 읽어내는 데 실패하며, 통계적 정당화는 존재론적 절약에는 아무 적용력이 없습니다. 정의하기 쉬운 쪽은 정당화가 어렵고, 정당화가 진전된 쪽은 정의가 어렵습니다.</p>
+  <p>그러니 면도날은 진리 탐지기가 아닙니다. 아직 완벽한 정당화는 없습니다. 다만 그것이 무엇인지는 이제 분명해 보입니다.</p>
+  <p>&quot;덜 믿기 위한 규칙이지, 덜 존재한다는 주장이 아니다.&quot;</p>
+  <p>세계가 단순하냐고 물으신다면, 저는 모른다고 답하겠습니다. 다만 모르는 채로 어디서부터 시작할지는, 오컴이 이미 알려주었다고 생각합니다.</p>
+  <div class="tags"><span class="tag">#오컴의면도날</span><span class="tag">#단순성의원리</span><span class="tag">#과학철학</span><span class="tag">#절약의원리</span><span class="tag">#베이즈추론</span><span class="tag">#최소기술길이</span><span class="tag">#윌리엄오컴</span><span class="tag">#인식론</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

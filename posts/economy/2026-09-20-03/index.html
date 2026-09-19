@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>테일러 준칙으로 본 정책금리 결정, 중앙은행은 어떤 계산을 하나</title>
+<meta name="description" content="테일러 준칙을 정리했습니다. 1993년 원논문의 식과 0.5 계수의 의미, 인플레이션 반응계수가 1을 넘어야 하는 테일러 원리, 연준이 나란히 보는 다섯 가지 준칙, 1970년대와 2000년대의 괴리, 자연이자율·잠재산출·제로금리 하한이라는 세 미지수까지 다룹니다."/>
+<style>
+  :root { --accent:#2bbe78; --ink:#1a1c1a; --mute:#5b6b60; --line:#e2e8e4; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f5f7f5; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;
+    line-height:1.85; }
+  .wrap { max-width:700px; margin:0 auto; padding:40px 24px 80px; background:#ffffff; }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:22px; }
+  .badge { background:var(--accent); color:#08110c; font-weight:700; font-size:13px;
+    padding:5px 13px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:30px; line-height:1.35; font-weight:800; margin:0 0 30px; letter-spacing:-.01em;
+    word-break:keep-all; }
+  h2 { font-size:21px; font-weight:700; margin:44px 0 14px; padding-left:13px;
+    border-left:4px solid var(--accent); line-height:1.4; word-break:keep-all; }
+  p { font-size:16.5px; margin:0 0 18px; word-break:keep-all; }
+  ul { margin:0 0 20px; padding-left:20px; }
+  li { font-size:16.5px; margin-bottom:8px; word-break:keep-all; }
+  strong { font-weight:700; }
+  figure { margin:26px 0; }
+  img { max-width:100%; height:auto; border-radius:12px; display:block; }
+  hr { border:none; border-top:1px solid var(--line); margin:34px 0; }
+  .summary { background:#f2f9f5; border:1px solid #d6ece0; border-radius:12px;
+    padding:20px 22px 6px; margin:0 0 26px; }
+  .summary .stitle { font-size:14px; font-weight:700; color:var(--accent);
+    letter-spacing:.04em; margin-bottom:8px; }
+  .summary ul { margin-bottom:14px; }
+  .summary li { font-size:15.5px; }
+  .eq { font-family:'SFMono-Regular',Consolas,'D2Coding',monospace;
+    background:#10221a; color:#7fe3b0; font-size:17px; text-align:center;
+    padding:16px 14px; border-radius:10px; margin:0 0 20px; letter-spacing:.02em; }
+  table { width:100%; border-collapse:collapse; margin:0 0 22px; font-size:15.5px; }
+  th { background:#eef6f1; text-align:left; font-weight:700; padding:10px 12px;
+    border-bottom:2px solid var(--accent); word-break:keep-all; }
+  td { padding:10px 12px; border-bottom:1px solid var(--line); word-break:keep-all; }
+  .tags { margin-top:38px; padding-top:22px; border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:8px; }
+  .tag { color:var(--accent); background:#eaf7f0; font-size:13.5px;
+    padding:5px 11px; border-radius:8px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta"><span class="badge">경제</span><span class="date">2026-09-20</span></div>
+  <h1>테일러 준칙으로 본 정책금리 결정, 중앙은행은 어떤 계산을 하나</h1>
+
+<figure><img src="./images/thumbnail.png" alt="테일러 준칙과 정책금리 - 중앙은행은 어떤 계산으로 금리를 움직이나"/></figure>
+
+<p>이번 글에서는 테일러 준칙을 정리해 보겠습니다. 중앙은행이 정책금리를 정할 때 실제로 어떤 계산이 오가는지, 그 계산이 현실과 얼마나 어긋나는지까지 다룹니다.</p>
+
+<div class="summary">
+  <div class="stitle">세 줄 요약</div>
+  <ul>
+    <li>테일러 준칙은 정책금리를 인플레이션 갭과 산출갭 두 가지에 반응시키는 한 줄짜리 식입니다. 1993년 존 테일러가 제시했습니다.</li>
+    <li>핵심은 계수입니다. 인플레이션에 대한 반응이 1보다 커야 실질금리가 올라가고, 그래야 물가가 잡힙니다. 이것을 테일러 원리라고 부릅니다.</li>
+    <li>다만 이 식에는 눈으로 볼 수 없는 값이 세 개나 들어갑니다. 자연이자율, 잠재산출, 그리고 명목금리의 하한입니다. 연준도 준칙을 참고할 뿐 그대로 따르지는 않습니다.</li>
+  </ul>
+</div>
+
+<figure><img src="./images/body-1.png" alt="테일러 준칙 원식을 이루는 네 가지 구성 요소 - 정책금리, 인플레이션, 산출갭, 균형 실질금리"/></figure>
+
+<hr/>
+
+<h2>1993년 논문에 실린 한 줄짜리 식</h2>
+<p>출발점은 짧습니다. 존 테일러가 1993년 『카네기-로체스터 공공정책 총서』 39권에 실은 논문 「실무에서의 재량 대 정책준칙」입니다. 195쪽부터 214쪽까지, 스무 쪽 남짓한 글입니다.</p>
+<p>그 안에 이런 식이 하나 있습니다.</p>
+<div class="eq">r = p + 0.5y + 0.5(p &minus; 2) + 2</div>
+<p>기호는 단순합니다. r은 연방기금금리입니다. p는 직전 네 개 분기의 인플레이션율입니다. y는 실질 GDP가 추세에서 얼마나 벗어났는지를 백분율로 나타낸 값, 즉 산출갭입니다. 논문은 추세를 1984년 1분기부터 1992년 3분기까지 연 2.2%로 잡았습니다.</p>
+<p>식을 말로 풀면 이렇습니다. 인플레이션이 목표인 2%를 넘거나 실질 GDP가 추세를 넘으면 정책금리를 올린다. 둘 다 목표에 정확히 있으면 금리는 4%가 된다. 인플레이션 2%를 빼면 실질로 2%입니다.</p>
+<p>이 2%라는 균형 실질금리를 테일러는 어디서 가져왔을까요. 가정한 정상상태 성장률 2.2%에 가깝게 잡았습니다. 경제가 자라는 속도만큼이 중립적인 실질금리라는 발상입니다.</p>
+<p>그리고 결과가 인상적이었습니다. 논문의 그림 1은 1987년부터 1992년까지 실제 연방기금금리와 준칙이 그리는 경로를 겹쳐 보여줍니다. 두 선이 거의 붙어 있습니다. 눈에 띄는 이탈은 1987년 한 번뿐이었고, 그해 10월 주식시장이 무너졌을 때 연준이 금리를 내린 구간입니다.</p>
+
+<hr/>
+
+<h2>0.5라는 숫자가 하는 일</h2>
+<p>계수 이야기를 조금 더 하겠습니다.</p>
+<p>원식을 p에 대해 정리하면 모양이 달라집니다.</p>
+<div class="eq">r = 1.5p + 0.5y + 1</div>
+<p>인플레이션 계수가 1.5로 드러납니다. 물가가 1%p 오르면 명목 정책금리는 1.5%p 오른다는 뜻입니다. 명목금리에서 물가를 빼면 실질금리이므로, 실질금리는 0.5%p 올라갑니다.</p>
+<p>산출갭 계수 0.5는 다른 일을 합니다. 경기가 잠재 수준보다 2% 위에 있으면 금리를 1%p 더 올리라는 지시입니다. 경기가 4% 아래로 내려가면 2%p를 깎으라는 뜻이기도 합니다.</p>
+<p>숫자를 몇 개 넣어 보면 감이 옵니다.</p>
+<table>
+  <tr><th>인플레이션</th><th>산출갭</th><th>계산</th><th>처방 금리</th></tr>
+  <tr><td>2%</td><td>0%</td><td>1.5(2) + 0.5(0) + 1</td><td><strong>4.0%</strong></td></tr>
+  <tr><td>3%</td><td>0%</td><td>1.5(3) + 0.5(0) + 1</td><td><strong>5.5%</strong></td></tr>
+  <tr><td>4%</td><td>+2%</td><td>1.5(4) + 0.5(2) + 1</td><td><strong>8.0%</strong></td></tr>
+  <tr><td>1%</td><td>&minus;4%</td><td>1.5(1) + 0.5(&minus;4) + 1</td><td><strong>0.5%</strong></td></tr>
+  <tr><td>0%</td><td>&minus;6%</td><td>1.5(0) + 0.5(&minus;6) + 1</td><td><strong>&minus;2.0%</strong></td></tr>
+</table>
+<p>마지막 줄이 걸립니다. 식은 마이너스 2%를 부르는데 현실의 명목금리는 0 아래로 실질적으로 내려가지 않습니다. 이 문제는 뒤에서 다시 보겠습니다.</p>
+<p>한 가지 짚고 넘어가야 할 것이 있습니다. 테일러 본인은 0.5라는 값이 최적이라고 주장한 적이 없습니다. 논문에 이렇게 적혀 있습니다. 정책준칙 계수의 크기에 대해서는 합의가 없으며, 이 숫자들은 논의를 쉽게 하기 위한 어림수라고 말입니다.</p>
+
+<figure><img src="./images/body-2.png" alt="인플레이션과 산출갭 조합에 따른 테일러 준칙 처방 금리 계산 예시 표"/></figure>
+
+<hr/>
+
+<h2>계수가 1을 넘어야 하는 이유</h2>
+<p>여기서 이 식의 가장 중요한 성질이 나옵니다. 테일러 원리입니다.</p>
+<p>내용은 이렇습니다. 인플레이션이 오를 때 명목 정책금리를 1대1보다 더 크게 올려야 한다. 그래야 실질금리가 올라갑니다.</p>
+<p>뒤집어 보면 왜 중요한지가 분명해집니다. 반응계수가 1보다 작다고 해 봅시다. 물가가 1%p 오르는데 금리는 0.8%p만 오릅니다. 실질금리는 0.2%p 떨어집니다. 돈 빌리기가 더 쉬워지고, 총수요가 자극되고, 물가는 더 오릅니다. 물가가 오를 것이라는 최초의 예상이 스스로를 증명하는 구조가 됩니다.</p>
+<p>실증 연구가 이 지점을 겨냥했습니다. 클라리다·갈리·거틀러가 2000년 『계간 경제학지』에 실은 논문이 대표적입니다. 미국 연준의 반응함수를 볼커 취임 전후로 나눠 추정했습니다.</p>
+<p>결과는 이렇습니다.</p>
+<ul>
+  <li>볼커 이전(1960년 1분기~1979년 2분기): 인플레이션 계수 <strong>0.83</strong></li>
+  <li>볼커-그린스펀(1979년 3분기~1996년 4분기): 인플레이션 계수 <strong>2.15</strong></li>
+</ul>
+<p>앞 시기의 0.83은 1보다 작습니다. 테일러 원리를 위배한 값입니다. 저자들은 이 구간에서 균형이 비결정적이 되며, 근거 없는 기대 변동만으로도 물가가 출렁일 수 있다고 봤습니다. 산출갭 계수는 각각 0.27과 0.93이었고, 물가지수를 CPI로 바꾸거나 산출갭 대신 실업률을 써도 결론은 비슷했습니다.</p>
+<p>다만 균형 결정성과 관련해서는 정리해 둘 단서가 있습니다. 계수가 1보다 커야 한다는 조건은 기본 모형에서 성립하는 것이고, 전향적 기대를 넣은 뉴케인지언 모형에서는 충분조건일 뿐 필요조건은 아닙니다. 계수가 지나치게 커도 불안정해질 수 있다는 연구도 있습니다. 클라리다 등의 논문 각주도 유일성 구간에 상한이 존재한다고 적었습니다.</p>
+
+<figure><img src="./images/body-3.png" alt="인플레이션 반응계수가 1보다 작을 때와 클 때 실질금리가 반대로 움직이는 비교"/></figure>
+
+<hr/>
+
+<h2>연준이 보는 준칙은 하나가 아닙니다</h2>
+<p>테일러 준칙 하나만 본다고 생각하면 오해입니다. 연준은 공식 문서에서 다섯 개의 준칙을 나란히 제시합니다. FOMC 회의 전 스태프 보고서에 여러 준칙의 처방이 함께 실리고, 이 관행은 2004년부터 이어져 왔습니다.</p>
+<ul>
+  <li><strong>테일러 준칙</strong> — 산출갭 계수 0.5. 기준점입니다.</li>
+  <li><strong>균형접근 준칙</strong> — 산출갭 계수가 1.0. 테일러 준칙의 두 배입니다. 물가 안정과 고용 안정이 부딪칠 때 고용 쪽에 무게를 더 싣습니다.</li>
+  <li><strong>실효하한 조정 준칙</strong> — 금리를 0 아래로 내릴 수 없어 생긴 완화 부족분을 누적해 두었다가, 나중에 금리를 더 오래 낮게 유지합니다.</li>
+  <li><strong>관성 준칙</strong> — 직전 금리에 0.85, 새 처방에 0.15의 가중치를 둡니다. 급격한 변동을 줄입니다.</li>
+  <li><strong>1차 차분 준칙</strong> — 금리의 수준이 아니라 변화폭을 정합니다. 자연이자율도 잠재산출도 필요 없습니다.</li>
+</ul>
+<p>마지막 준칙이 흥미롭습니다. 관측할 수 없는 값을 아예 식에서 빼 버린 설계입니다. 대신 연준은 각주에 반대 근거도 달아두었습니다. 정책결정자의 추정이 심각하게 틀린 경우가 아니라면, 이런 준칙은 고용과 인플레이션의 변동성을 오히려 키운다는 연구가 있다는 것입니다.</p>
+
+<figure><img src="./images/body-4.png" alt="연준이 공식 문서에서 제시하는 다섯 가지 통화정책 준칙 비교 표"/></figure>
+
+<hr/>
+
+<h2>준칙과 실제가 갈라진 순간들</h2>
+<p>이제 현실입니다. 국제결제은행이 2012년 9월 분기보고서에서 이 문제를 정면으로 다뤘습니다. 선진 11개국과 신흥 17개국의 1995년부터 2012년까지 자료를 썼습니다.</p>
+<p>시기별로 그림이 다릅니다.</p>
+<table>
+  <tr><th>시기</th><th>준칙 대비 실제 정책금리</th></tr>
+  <tr><td>1970년대 대인플레이션</td><td>준칙보다 낮았다</td></tr>
+  <tr><td>1980년대 중반~2000년대 초</td><td>준칙과 대체로 일치</td></tr>
+  <tr><td>2000년대 초~금융위기</td><td>다시 준칙보다 낮았다</td></tr>
+  <tr><td>2003년 이후 글로벌</td><td>거의 항상 준칙 아래</td></tr>
+</table>
+<p>괴리의 크기도 계산됐습니다. 2003년 이후 신흥국은 평균 약 4.5%p, 선진국은 평균 2%p 미만이었습니다.</p>
+<p>원인을 두고는 의견이 갈립니다. 테일러 본인은 이를 정책 레짐이 바뀐 '대이탈'로 봅니다. 버냉키는 반박했습니다. 실시간 산출갭 추정치와 인플레이션 전망치로 벤치마크를 다시 만들면 체계적 괴리가 대부분 사라진다는 것입니다. 레짐이 바뀐 것이 아니라 투입 변수의 측정 문제라는 주장입니다. 또 다른 연구자들은 규제·감독 실패와 글로벌 불균형을 주된 동인으로 지목합니다. 보고서는 이 쟁점에 문헌이 합의에 이르지 못했다고 적었습니다.</p>
+<p>1970년대에도 같은 논쟁이 있습니다. 오르파니데스는 당시 정책이 준칙에서 벗어났다는 통념을 뒤집었습니다. 실시간 자료를 넣으면 1960~70년대 연방기금금리는 테일러 준칙과 꽤 잘 맞았다는 것입니다. 문제는 준칙이 아니라 데이터였습니다. 당시 실시간 잠재산출 추정치가 경제의 생산능력을 크게 과대평가했고, 생산성 둔화를 제때 잡아내지 못해 오차가 한 방향으로 계속 쌓였습니다.</p>
+
+<figure><img src="./images/body-5.png" alt="1970년대부터 2003년 이후까지 정책금리와 테일러 준칙 처방이 갈라진 시기별 비교 표"/></figure>
+
+<hr/>
+
+<h2>식 안에 숨은 세 개의 미지수</h2>
+<p>준칙을 실무에 쓸 때 걸리는 것은 계수가 아닙니다. 눈에 보이지 않는 값들입니다.</p>
+<p><strong>첫째, 자연이자율입니다.</strong> 경제가 완전히 힘을 낼 때, 인플레이션이 안정적일 때 성립할 실질 단기금리입니다. 관측되지 않습니다. 뉴욕 연준은 라우바흐-윌리엄스 모형과 홀스턴-라우바흐-윌리엄스 모형으로 이 값을 추정해 공표합니다. 코로나 이후에는 지속적 공급충격을 반영한 2023년 모형이 추가됐습니다. 뉴욕 연준은 이 추정치가 연준의 공식 전망이 아니라고 못 박아 둡니다.</p>
+<p>문제는 이 값이 움직였다는 것입니다. 연준 공식 문서에 따르면 미국의 장기 중립 실질금리는 금융위기 이전 2%를 조금 넘던 수준에서 최근 약 1% 또는 그 이하로 내려간 것으로 보입니다. 연준 위원들의 장기 전망 중앙값도 2012년 1월 2.25%에서 2017년 9월 0.75%로 떨어졌습니다. 고령화, 생산성 둔화, 안전자산 수요가 원인으로 지목됩니다.</p>
+<p>예전에는 균형 실질금리를 상수로 두고 계산해도 무리가 없었습니다. 지금은 그 상수 자체가 변수입니다.</p>
+<p><strong>둘째, 잠재산출입니다.</strong> 산출갭을 구하려면 잠재 GDP를 알아야 하는데, 이것도 추정치입니다. 오르파니데스가 1970년대에서 찾아낸 것이 바로 이 오차였습니다.</p>
+<p><strong>셋째, 명목금리의 하한입니다.</strong> 2008년 위기 때 다섯 준칙 모두 대폭 인하를 처방했습니다. 그리고 2009년에는 실효하한 조정 준칙을 뺀 모든 준칙이 0보다 낮은 금리를 처방했습니다. 균형접근 준칙이 부른 값은 상당 폭 마이너스였습니다. 산출갭 계수가 두 배이니 처방도 두 배로 내려간 것입니다.</p>
+<p>연준은 이 문제를 문서에 그대로 적어 두었습니다. 장기 중립 실질금리가 2% 이하면 하한이 자주 구속되고 인플레이션이 평균적으로 2% 목표에 미달한다는 모형 시뮬레이션 결과입니다.</p>
+
+<figure><img src="./images/body-6.png" alt="테일러 준칙을 실무에 적용할 때 걸리는 세 가지 미지수 - 자연이자율, 잠재산출, 명목금리 하한"/></figure>
+
+<hr/>
+
+<h2>그래서 준칙은 무엇에 쓰는가</h2>
+<p>연준의 답은 분명합니다. 준칙을 참고하되 기계적으로 따르지 않는다는 것입니다.</p>
+<p>공식 문서가 든 이유를 요약하면 이렇습니다. 경제의 진짜 구조는 알 수 없고, 그 구조는 시간에 따라 변합니다. 충격의 성격도 바뀝니다. 단순 준칙은 위험이 위아래로 대칭이라고 가정하지만 현실에서는 한쪽으로 크게 기울 때가 있습니다. 그리고 자연이자율 하락에 맞춰 준칙을 자주 고치면, 그 수정 자체가 중앙은행의 신뢰를 갉아먹습니다.</p>
+<p>2026년 9월 현재의 상황을 놓고 봐도 준칙이 답을 대신하지는 못합니다. 연준은 9월 16일 회의에서 만장일치로 연방기금금리 목표범위를 0.25%p 올려 3.75~4.00%로 정했습니다. 성명은 인플레이션이 여전히 높은 수준이라고 적었습니다. 한국은행 기준금리는 8월 27일 결정으로 연 3.00%입니다. 한국은행의 물가안정목표는 소비자물가 상승률 기준 2%이며, 중기적 시계에서 달성하는 단일 수치 목표입니다.</p>
+<p>준칙에 숫자를 넣으면 처방이 하나 나옵니다. 하지만 그 처방이 정답이라는 보장은 어디에도 없습니다. 자연이자율을 얼마로 놓느냐에 따라, 산출갭을 어떻게 재느냐에 따라, 어느 준칙을 쓰느냐에 따라 값이 크게 흔들리기 때문입니다.</p>
+<p>그럼에도 준칙이 사라지지 않는 이유가 있습니다. 준칙은 정답을 주는 장치가 아니라 질문을 주는 장치이기 때문입니다. 지금 금리가 준칙보다 낮다면, 왜 낮은지 설명해야 합니다. 그 설명을 요구하는 일이 준칙의 쓸모입니다.</p>
+
+<hr/>
+
+<p>정리하면 이렇습니다.</p>
+<p>테일러 준칙은 중앙은행의 판단을 대신하지 않습니다. 판단을 드러내게 만듭니다.</p>
+<p>1993년의 그 한 줄짜리 식이 서른 해를 넘겨 살아남은 이유를 묻는다면, 답이 맞아서가 아니라 질문이 좋아서라고 말하겠습니다.</p>
+
+<div class="tags">
+  <span class="tag">#테일러준칙</span><span class="tag">#정책금리</span><span class="tag">#기준금리</span><span class="tag">#통화정책</span><span class="tag">#중앙은행</span><span class="tag">#인플레이션</span><span class="tag">#산출갭</span><span class="tag">#자연이자율</span><span class="tag">#연준</span>
+</div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
