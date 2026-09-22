@@ -61,13 +61,6 @@
   ul.src li { font-size:13.5px; color:#8a909c; margin-bottom:6px; line-height:1.65; }
 </style>
 
-
-
-
-
-
-
-
 <style id="site-chrome-css">
   #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
   #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
@@ -109,21 +102,6 @@
 <body>
 <div id="read-progress"></div>
 <nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <div class="wrap">
   <div class="topbar"><span class="cat">IT</span><span class="date">2026-09-16</span></div>
@@ -234,29 +212,6 @@
   <div class="tags"><span>#가상메모리</span> <span>#페이지테이블</span> <span>#TLB</span> <span>#주소변환</span> <span>#페이지폴트</span> <span>#x86_64</span> <span>#운영체제</span> <span>#copyonwrite</span></div>
   <p class="srchead">참고 소스</p><ul class="src"><li>OSDev Wiki, &quot;X86 Paging&quot; (https://wiki.osdev.org/Paging) — 4/5단계 페이징 구조, 페이지 테이블 엔트리 비트 정의, 페이지 폴트 에러 코드, INVLPG와 TLB shootdown, PCID, copy-on-write</li><li>TU Graz ISEC, &quot;Paging on Intel x86-64&quot; (https://www.isec.tugraz.at/teaching/materials/os/tutorials/paging-on-intel-x86-64/) — 48비트 주소의 9·9·9·9·12비트 분해, 테이블당 512엔트리 × 8바이트, PML4E/PDPTE/PDE/PTE 구조체 비트</li><li>The Linux Kernel documentation, &quot;Memory Management&quot; arch/x86/x86_64/mm (https://docs.kernel.org/arch/x86/x86_64/mm.html) — 4단계/5단계 전체 가상 메모리 맵, 사용자 공간 ~128TB, 직접 매핑 64TB</li><li>The Linux Kernel documentation, &quot;5-level paging&quot; arch/x86/x86_64 (https://docs.kernel.org/arch/x86/x86_64/5level-paging.html) — 256TiB/64TiB 한계, 128PiB/4PiB 확장, 47비트 기본 제한과 JIT 포인터 태깅 충돌</li><li>The Linux Kernel documentation, &quot;The TLB&quot; arch/x86/tlb (https://docs.kernel.org/arch/x86/tlb.html) — 전체 플러시 대 개별 무효화의 트레이드오프, tlb_single_page_flush_ceiling, Intel SDM 4.10.4.2 인용</li><li>The Linux Kernel documentation, &quot;Page Table Isolation (PTI)&quot; arch/x86/pti (https://docs.kernel.org/arch/x86/pti.html) — KAISER/Meltdown 대응, 두 벌의 페이지 테이블, 프로세스당 4KB 추가, cpu_entry_area 2MB, CR3 이동 수백 사이클, 글로벌 페이지 손실 1% 미만</li><li>Wikipedia, &quot;Intel 5-level paging&quot; (https://en.wikipedia.org/wiki/Intel_5-level_paging) — LA57(CR4 비트 12), 57비트 주소, 128PiB, Ice Lake 최초 구현, Linux 4.14, 페이지 워크 5회→6회</li><li>7-cpu.com, &quot;Intel Ice Lake&quot; i7-1065G7 (https://www.7-cpu.com/cpu/Ice_Lake.html) — 4KB/2MB/1GB 모드별 dTLB·L2 TLB 엔트리 수와 미스 패널티, 작업집합별 접근 지연 실측 곡선, 페이지 테이블 워크와 L2 캐시 관계</li><li>The Linux Kernel documentation, &quot;Transparent Hugepage Support&quot; admin-guide/mm/transhuge (https://docs.kernel.org/admin-guide/mm/transhuge.html) — THP 2MB(PMD) 한정, khugepaged collapse, always/madvise/never, MADV_HUGEPAGE</li><li>LWN.net, &quot;Shared page tables during fork&quot; (Kaiyang Zhao, Purdue), 2021-07-01 (https://lwn.net/Articles/861547/) — fork 시간이 할당 메모리 크기에 비례, 마지막 단계 PTE 공유 + refcount, 50GB에서 최대 270배, AFL 처리량 2배 (프로토타입, 미병합)</li><li>LWN.net, &quot;Reconsidering the multi-generational LRU&quot; (https://lwn.net/Articles/1060967/) 및 The Linux Kernel documentation, &quot;Multi-Gen LRU&quot; (https://docs.kernel.org/admin-guide/mm/multigen_lru.html) — active/inactive 두 리스트 방식, MGLRU 커널 6.1 병합</li><li>OSTEP, &quot;18 Paging: Introduction&quot; / &quot;20 Paging: Smaller Tables&quot; (https://pages.cs.wisc.edu/~remzi/OSTEP/vm-paging.pdf) — 32비트·4KB·4바이트 PTE에서 프로세스당 4MB 선형 페이지 테이블, PFN 20비트 + 메타데이터 12비트</li><li>Cornell CS 4410 &quot;Page replacement&quot;, UMass CS Lec15, Univ. of Regina CS330 강의노트 — Optimal/FIFO/LRU/Second-Chance(Clock) 정의, Belady&#x27;s anomaly, LRU의 스택 성질</li><li>Netdata, &quot;Understanding Huge Pages&quot; / CubePath, &quot;Huge Pages Configuration for Databases&quot; — 대형 페이지의 TLB 커버리지 512배 / 262,144배</li></ul>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">

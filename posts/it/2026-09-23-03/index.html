@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>메모리 할당자 malloc 원리 — 힙은 어떻게 쪼개지고 왜 단편화될까</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1b1d21;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --accent: #2563eb;
+    --code-bg: #f3f4f6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 17px;
+    line-height: 1.85;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 48px 20px 88px;
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+  .date { color: var(--muted); font-size: 14px; }
+  h1 {
+    font-size: 30px;
+    line-height: 1.4;
+    font-weight: 800;
+    margin: 0 0 32px;
+    letter-spacing: -.01em;
+  }
+  h2 {
+    font-size: 21px;
+    line-height: 1.5;
+    font-weight: 700;
+    margin: 44px 0 16px;
+    padding-left: 13px;
+    border-left: 4px solid var(--accent);
+  }
+  p { margin: 0 0 20px; word-break: keep-all; }
+  strong { font-weight: 700; }
+  code {
+    background: var(--code-bg);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: .92em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  blockquote {
+    margin: 0 0 22px;
+    padding: 16px 20px;
+    background: #f8fafc;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    color: #111827;
+  }
+  blockquote code { background: #e5edfb; }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
+  figure { margin: 28px 0; }
+  figure img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+  }
+  .tags { margin-top: 40px; }
+  .tags span {
+    display: inline-block;
+    color: var(--accent);
+    background: #eff6ff;
+    border-radius: 999px;
+    padding: 3px 11px;
+    margin: 0 6px 8px 0;
+    font-size: 14px;
+  }
+  @media (max-width: 520px) {
+    body { font-size: 16px; }
+    .wrap { padding: 32px 16px 64px; }
+    h1 { font-size: 25px; }
+    h2 { font-size: 19px; }
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+  <div class="meta"><span class="badge">IT</span><span class="date">2026-09-23</span></div>
+  <h1>메모리 할당자 malloc 원리 — 힙은 어떻게 쪼개지고 왜 단편화될까</h1>
+  <p><code>malloc(24)</code>를 부르면 정확히 24바이트가 나올 것 같지만, 실제로는 32바이트짜리 덩어리가 잡힙니다. 이번 글에서는 메모리 할당자가 운영체제에서 힙을 얻어와 잘라 쓰는 과정과, 그 과정에서 단편화가 생기는 이유를 정리해 보겠습니다. 기준은 리눅스에서 가장 널리 쓰이는 glibc의 malloc(ptmalloc2), 64비트 환경입니다.</p>
+  <figure><img src="./images/01-hero.png" alt="메모리 할당자 malloc의 내부 구조와 단편화를 소개하는 대표 이미지"></figure>
+  <hr>
+  <h2>힙은 어디서 오는가 — brk와 mmap</h2>
+  <p>malloc은 마법사가 아닙니다. 자기도 커널에서 메모리를 받아 와야 합니다. 통로는 둘입니다.</p>
+  <p>하나는 <code>brk</code>/<code>sbrk</code>입니다. 프로세스의 힙 세그먼트 끝 경계(program break)를 밀어 올려 공간을 넓히는 방식입니다. 초기 유닉스에서는 이것이 힙을 늘리는 유일한 방법이었습니다.</p>
+  <p>다른 하나는 <code>mmap</code>입니다. glibc malloc은 요청 크기가 <code>M_MMAP_THRESHOLD</code> 이상이고 기존 빈 공간으로 감당이 안 되면, 경계를 밀지 않고 아예 독립된 익명 매핑을 새로 만듭니다. 기본 임계값은 128 KiB(131072바이트)입니다.</p>
+  <p>둘의 성격은 정반대입니다. mmap으로 얻은 블록은 free할 때 <strong>언제든 독립적으로 OS에 반환</strong>됩니다. 반면 brk로 늘린 힙은 <strong>맨 꼭대기에서 해제된 경우에만</strong> 줄일 수 있습니다. 대신 mmap은 페이지 정렬 때문에 낭비가 생기고, 커널이 매번 메모리를 0으로 채워야 해서 비쌉니다. 이 손익 계산의 타협점이 128 KiB인 셈입니다.</p>
+  <p>이 임계값은 고정이 아닙니다. 현재 임계값보다 크고 상한 이하인 블록이 free될 때마다 임계값이 그 크기까지 올라갑니다. 64비트에서 상한은 32 MiB입니다. 그리고 임계값이 바뀌면 힙을 줄이는 트림 임계값도 자동으로 그 두 배가 됩니다.</p>
+  <figure><img src="./images/02-flow.png" alt="malloc 요청이 tcache, bin 탐색, top chunk, 커널 호출 순으로 흘러가는 흐름도"></figure>
+  <hr>
+  <h2>청크 — 8바이트 머리말이 만드는 32바이트 바닥</h2>
+  <p>할당자가 힙을 잘라 관리하는 단위를 청크(chunk)라고 부릅니다. 청크에는 사용자 데이터만 들어 있지 않습니다. 앞쪽에 관리용 머리말이 붙습니다.</p>
+  <p>머리말은 두 칸입니다. <code>prev_size</code>는 앞 청크가 비어 있을 때 그 크기를 담습니다. <code>mchunk_size</code>는 현재 청크의 크기를 담는데, 크기가 늘 16의 배수라 하위 3비트가 남습니다. 할당자는 이 세 비트를 플래그로 씁니다. 앞 청크가 사용 중인지(PREV_INUSE), 이 청크가 mmap으로 얻어진 것인지(IS_MMAPPED), 메인 arena 소속이 아닌지(NON_MAIN_ARENA)를 표시합니다. 한 바이트도 놀리지 않는 설계입니다.</p>
+  <p>64비트에서 청크 크기 계산은 이렇습니다.</p>
+  <blockquote><strong>청크 크기 = (요청 크기 + 8 + 15) &amp; ~15</strong>, 단 최소 32바이트</blockquote>
+  <p><code>SIZE_SZ</code>가 8바이트, 정렬 단위가 16바이트, 최소 청크가 32바이트이기 때문입니다. 머리말이 두 칸인데 8바이트만 더하는 이유가 재미있습니다. <code>prev_size</code> 자리는 앞 청크가 살아 있는 동안 쓰이지 않으므로, <strong>다음 청크의 prev_size 칸을 미리 빌려 쓰는</strong> 것입니다.</p>
+  <p>결과는 계단입니다. 1바이트를 요청하든 24바이트를 요청하든 32바이트 청크가 나옵니다. 25바이트를 요청하면 48바이트로 뛰어오릅니다. tcache 설계자인 DJ Delorie는 이 점을 이렇게 경고했습니다. &quot;17바이트 요청을 대량으로 하지 마십시오. 건당 15바이트, 거의 메모리의 절반을 버리게 됩니다.&quot;</p>
+  <figure><img src="./images/03-chunk-size.png" alt="malloc 요청 크기별 실제 청크 크기와 못 쓰는 바이트를 정리한 표"></figure>
+  <hr>
+  <h2>다섯 개의 서랍 — tcache부터 large bin까지</h2>
+  <p>해제된 청크를 그냥 버리면 다음 요청 때 또 커널을 불러야 합니다. 그래서 할당자는 free된 청크를 크기별 목록에 모아 둡니다. 이 목록을 bin이라 부르며, glibc에는 성격이 다른 다섯 종류가 있습니다.</p>
+  <p><strong>tcache</strong>는 스레드마다 따로 두는 캐시입니다. 스레드 로컬 저장소에 있어 락도 원자 연산도 필요 없습니다. 스레드당 64개 목록, 목록마다 최대 7개 청크를 담습니다. 64비트에서 처리 가능한 요청 크기는 최대 1032바이트이고, 기본 설정에서 스레드 하나가 여기에 묶어 둘 수 있는 메모리는 대략 236 KB 수준입니다.</p>
+  <p><strong>fastbin</strong>은 작은 청크를 <strong>인접 빈 공간과 합치지 않고</strong> 그대로 쌓아 두는 곳입니다. 64비트에서 10개 목록이 32~160바이트 청크를 담당하고, 기본 컷오프는 128바이트 선입니다. 같은 크기를 반복해서 잡고 놓는 코드에는 대단히 빠릅니다만, 병합을 미루는 만큼 단편화가 늘 수 있습니다.</p>
+  <p><strong>unsorted bin</strong>은 단 하나뿐인 임시 서랍입니다. 해제된 청크와 분할하고 남은 조각이 일단 여기로 옵니다. 다음 malloc이 훑다가 크기가 맞으면 곧바로 재사용하고, 아니면 제 자리로 분류해 넣습니다. 한 번의 재사용 기회를 주는 완충 장치입니다.</p>
+  <p><strong>small bin</strong>은 62개이며 목록 하나가 <strong>정확히 한 가지 크기</strong>만 담습니다. 64비트에서 간격은 16바이트, 담당 구간은 1024바이트 미만입니다. <strong>large bin</strong>은 63개로 1024바이트 이상을 맡습니다. 여기는 한 목록이 크기 구간을 담당하므로 내림차순 정렬을 유지합니다. 크기가 다른 묶음끼리는 별도 포인터로 이어 두어, 긴 목록을 처음부터 훑지 않고 건너뛰며 찾습니다.</p>
+  <p>찾는 순서는 tcache → fastbin → unsorted bin → small/large bin입니다. 여기서도 못 찾으면 힙 맨 끝의 top chunk를 잘라 쓰고, 그마저 모자라면 그제야 커널을 부릅니다.</p>
+  <figure><img src="./images/04-bins.png" alt="tcache, fastbin, unsorted bin, small bin, large bin의 특징을 정리한 카드"></figure>
+  <hr>
+  <h2>쪼개고 붙이기 — splitting과 coalescing</h2>
+  <p>맞는 크기가 없으면 큰 청크를 쪼갭니다. 다만 아무렇게나 쪼개지 않습니다. 남는 조각이 최소 청크 크기인 32바이트 이상일 때만 분할하고, 그보다 작으면 <strong>쪼개지 않고 통째로 내줍니다.</strong> 이 순간 요청과 청크의 차이는 그대로 낭비가 됩니다.</p>
+  <p>반대 방향이 병합입니다. 원칙은 단순합니다 — 인접한 두 빈 청크는 공존할 수 없습니다. small bin과 large bin의 청크는 free되는 즉시 양옆을 확인해 합쳐집니다.</p>
+  <p>다만 fastbin은 예외입니다. 속도를 위해 병합을 미뤄 둡니다. 그래서 할당자는 일정 조건에서 fastbin을 한꺼번에 비워 인접 청크와 합치는 작업을 수행합니다. fastbin으로 감당 못 할 큰 요청이 들어올 때, 64 KB를 넘는 청크가 해제될 때가 그 시점입니다.</p>
+  <p>분할하고 남은 조각 중 가장 최근 것은 따로 기억해 둡니다. 다음에 들어오는 작은 요청에 이 조각을 우선 쓰면, 비슷한 시기에 만들어진 데이터가 메모리에서도 가까이 모입니다. 캐시 적중률을 생각한 배려입니다.</p>
+  <hr>
+  <h2>내부 단편화와 외부 단편화</h2>
+  <p>단편화는 한 종류가 아닙니다. 성격이 아주 다른 둘을 같은 말로 부르고 있을 뿐입니다.</p>
+  <p><strong>내부 단편화</strong>는 받은 블록 <strong>안쪽</strong>에서 남는 공간입니다. 17바이트를 요청했는데 32바이트를 받았다면 15바이트가 블록 안에서 놀고 있습니다. 정렬과 최소 크기 규칙이 있는 한 이 손실은 구조적으로 피할 수 없습니다.</p>
+  <p><strong>외부 단편화</strong>는 블록 <strong>바깥</strong>의 문제입니다. 필요한 총량은 충분히 남아 있는데, 조각조각 흩어져 있어 연속된 덩어리를 만들 수 없는 상태입니다. 창고에 빈 자리는 많은데 긴 책상 하나 들일 자리가 없는 상황과 같습니다.</p>
+  <p>고전 운영체제 교재에는 50% 규칙이라는 경험칙이 나옵니다. N개 블록을 할당하면 단편화만으로 0.5N개가 손실되고, 결국 메모리의 3분의 1이 못 쓰는 상태가 된다는 계산입니다.</p>
+  <p>단편화의 진짜 원인은 무엇일까요. 1995년 Wilson 등의 고전적 서베이는 이를 <strong>&quot;고립된 죽음&quot;</strong>이라고 불렀습니다. 어떤 객체가 혼자 사라지는데 양옆 이웃은 아직 살아 있을 때, 합쳐지지 못하는 빈 구멍이 남습니다. 어떤 객체를 어디에 놓았고 언제 죽는가의 문제라는 뜻입니다.</p>
+  <figure><img src="./images/05-fragmentation.png" alt="내부 단편화와 외부 단편화를 나란히 비교한 대조표"></figure>
+  <hr>
+  <h2>어디에 놓을 것인가 — first-fit과 best-fit</h2>
+  <p>빈 자리가 여럿일 때 어디에 넣을지가 배치 정책입니다. 고전적으로 셋이 있습니다. 처음부터 훑어 충분히 큰 첫 구멍을 쓰는 first-fit, 딱 맞는 가장 작은 구멍을 고르는 best-fit, 가장 큰 구멍을 쓰는 worst-fit입니다.</p>
+  <p>교과서는 오랫동안 best-fit을 경계했습니다. 딱 맞게 쓰다 보면 쓸 수 없을 만큼 작은 자투리가 목록 앞쪽에 쌓인다는 이유였습니다.</p>
+  <p>그런데 실측은 다른 이야기를 합니다. Johnstone과 Wilson이 1998년 ISMM에 발표한 연구는 실제 C/C++ 프로그램 8개를 대상으로 여러 할당자를 측정했습니다. 결론은 이랬습니다. <strong>헤더와 정렬 같은 구현 오버헤드를 걷어내면, 여러 전통적 할당자가 거의 0에 가까운 단편화를 보인다.</strong> best fit과 주소순 first fit은 모두 좋은 성적을 냈고, 오히려 first fit LIFO와 next fit LIFO가 특정 프로그램 하나에서 파멸적으로 나빴습니다.</p>
+  <p>두 사람의 결론은 단호합니다. 대부분의 프로그램에 대해 좋은 정책은 이미 손에 있고, 진짜 과제는 <strong>구현의 효율성</strong>이라는 것입니다. 오늘날 할당자들이 정책 논쟁보다 캐시와 락 회피에 공을 들이는 이유가 여기에 있습니다.</p>
+  <hr>
+  <h2>스레드가 늘어나면 — arena와 tcache</h2>
+  <p>여러 스레드가 동시에 malloc을 부르면 내부 자료구조가 망가집니다. 그래서 락이 필요합니다. 그런데 이 락은 CPU 캐시 사이, 때로는 물리 CPU 사이를 동기화해야 해서 <strong>할당 자체보다 비쌀 때가 많습니다.</strong></p>
+  <p>glibc의 답은 arena를 여러 개 두는 것이었습니다. arena는 힙 하나 이상과 그것을 추적하는 관리 구조의 묶음입니다. 스레드가 쓰려는 arena가 잠겨 있으면 다른 arena로 옮기거나 새로 만듭니다. 상한은 64비트에서 코어 수의 8배입니다. 쿼드코어라면 최대 32개가 생길 수 있습니다.</p>
+  <p>메인 arena는 brk로 힙을 늘리고, 스레드 arena는 mmap으로 힙을 받습니다. 스레드 arena의 힙이 기본 64 MB를 넘으면 새 힙을 하나 더 붙입니다.</p>
+  <p>여기에 대가가 따릅니다. 각 요청이 전체 힙이 아니라 <strong>자기 arena 안에서만</strong> 맞는 조각을 찾기 때문에, arena가 늘수록 단편화도 늘어납니다. 락 경합과 메모리 사용량을 맞바꾼 셈입니다.</p>
+  <p>그 다음 수가 tcache였습니다. 예전에는 아무리 작은 할당도 arena 락을 거쳐야 했습니다. 지금은 스레드 로컬 저장소에 놓인 tcache가 <strong>락을 아예 건드리지 않고</strong> 대부분의 작은 요청을 처리합니다. 스레드를 하나도 만들지 않는 프로그램조차 멀티스레드처럼 취급받는 환경에서, 이 차이는 작지 않습니다.</p>
+  <hr>
+  <h2>jemalloc과 tcmalloc은 다르게 접근합니다</h2>
+  <p>glibc가 자유로운 크기의 청크를 목록으로 관리한다면, jemalloc과 tcmalloc은 <strong>크기를 미리 정해진 계단(size class)에 밀어 넣는</strong> 쪽을 택했습니다.</p>
+  <p>jemalloc은 64비트에서 16바이트를 기본 단위로 삼고, 크기가 두 배가 될 때마다 size class를 네 개씩 배치합니다. 이 간격 설계 덕에 가장 작은 몇 개 클래스를 빼면 <strong>내부 단편화가 약 20% 이하로 묶입니다.</strong> 상한이 보장된다는 점이 중요합니다.</p>
+  <p>tcmalloc은 구조를 세 층으로 나눕니다. 대부분의 할당을 락 없이 처리하는 front-end, 이를 채워 주는 middle-end, OS와 이야기하는 back-end입니다. 작은 객체는 60~80개 수준의 size class 중 하나로 올림됩니다. 12바이트 요청은 16바이트 클래스가 받습니다.</p>
+  <p>tcmalloc의 front-end는 처음엔 스레드별 캐시였지만, 스레드 수에 비례해 메모리가 부푸는 문제 때문에 <strong>논리 CPU별 캐시</strong>로 옮겨 갔습니다. 락과 원자 연산 없이 이것이 가능한 이유는 restartable sequence라는 커널 기능 덕분입니다.</p>
+  <p>페이지 크기 선택도 흥미롭습니다. tcmalloc은 4 KiB부터 256 KiB까지 고를 수 있는데, 문서의 설명이 직관적입니다. 4 KiB 페이지는 512바이트 객체 여덟 개를 담고 32 KiB 페이지는 예순네 개를 담는데, <strong>예순네 개가 동시에 비어 있을 확률이 여덟 개보다 훨씬 낮습니다.</strong> 작은 페이지가 더 잘 반환된다는 뜻입니다.</p>
+  <figure><img src="./images/06-allocators.png" alt="glibc malloc, jemalloc, tcmalloc의 설계 방식을 비교한 표"></figure>
+  <hr>
+  <h2>돌려주지 않는 이유 — trim의 벽</h2>
+  <p>많이 받는 질문이 있습니다. free를 잔뜩 했는데 왜 프로세스 메모리 사용량이 그대로일까요.</p>
+  <p>답은 간단합니다. 대부분의 경우 <code>free()</code>는 OS가 아니라 <strong>할당자에게</strong> 메모리를 돌려줍니다. 매번 시스템 콜을 부르면 느리니 풀에 쥐고 있는 것입니다.</p>
+  <p>그럼 언제 돌려줄까요. 힙 <strong>꼭대기</strong>의 연속된 빈 공간이 트림 임계값에 도달했을 때입니다. 기본값은 128 KiB이고, -1로 설정하면 반환을 완전히 끌 수도 있습니다.</p>
+  <p>문제는 &#x27;꼭대기&#x27;라는 조건입니다. 100 MB를 해제했더라도 그 위에 오래 사는 작은 할당 하나만 남아 있으면, 그 100 MB 전체가 프로세스 메모리에 묶여 있습니다. 벽돌 한 장이 창고 문을 막고 있는 셈입니다.</p>
+  <p>그래서 실무 조언이 나옵니다. 아주 큰 할당과 작은 할당이 섞인 프로그램이라면 mmap 임계값을 &#x27;아주 큰&#x27; 크기 바로 아래로 낮춰 보십시오. 큰 할당이 mmap으로 빠지면 free할 때 곧바로 OS로 돌아가고, <strong>힙 한가운데 남아 작은 청크들의 병합을 막는 일도 없어집니다.</strong> 필요하다면 <code>malloc_trim()</code>을 직접 부르는 방법도 있습니다만, 애플리케이션이 명시적으로 호출해야 합니다.</p>
+  <p>물론 이런 튜닝이 만능은 아닙니다. 값 하나를 바꾸면 다른 쪽에서 시스템 콜이 늘거나 캐시 효율이 떨어집니다. 수치를 손대기 전에 먼저 측정해야 하는 이유입니다.</p>
+  <hr>
+  <p>정리하면 이렇습니다.</p>
+  <p>메모리 할당자는 커널에서 받은 큰 땅을 잘게 나눠 빌려주는 중개인입니다. 빠르게 빌려주려고 캐시를 두고, 낭비를 줄이려고 병합을 하고, 경합을 피하려고 영역을 나눕니다. 단편화는 이 세 가지 목표가 서로 당기는 힘 사이에서 필연적으로 흘러나오는 부산물입니다.</p>
+  <p>그래서 단편화를 &quot;없애야 할 버그&quot;로 보면 길을 잃습니다. 1998년의 실측이 알려준 것은 오히려 반대였습니다 — <strong>좋은 정책은 이미 나와 있고, 남은 문제는 얼마나 싸게 구현하느냐</strong>였습니다.</p>
+  <p><code>malloc(24)</code>가 왜 32바이트를 잡는지 이제 아시겠는지요. 8바이트는 머리말이고, 나머지는 16의 배수로 올려야 했기 때문입니다. 그 사소해 보이는 8바이트와 16바이트가, 서버의 메모리 그래프가 왜 그렇게 생겼는지를 설명하는 출발점입니다.</p>
+  <p class="tags"><span>#malloc</span> <span>#메모리할당자</span> <span>#힙메모리</span> <span>#메모리단편화</span> <span>#glibc</span> <span>#jemalloc</span> <span>#tcmalloc</span> <span>#시스템프로그래밍</span></p>
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
