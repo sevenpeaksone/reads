@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rust 소유권과 빌림 검사기 — GC 없이 메모리 안전을 지키는 원리</title>
+<style>
+  :root { --accent:#4f8cff; --ink:#1f2328; --mute:#6b7280; --line:#e6e8ec; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:48px 20px 90px;
+    background:#f6f7f9; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { width:700px; max-width:100%; margin:0 auto; background:#fff;
+          padding:52px 44px 60px; border:1px solid var(--line); border-radius:14px; }
+  .meta { margin-bottom:22px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .badge { display:inline-block; background:var(--accent); color:#fff;
+           font-size:13px; font-weight:700; letter-spacing:.04em;
+           padding:5px 13px; border-radius:999px; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:30px; line-height:1.42; font-weight:800; margin:0 0 30px;
+       letter-spacing:-.01em; word-break:keep-all; }
+  h2 { font-size:21px; line-height:1.5; font-weight:700; margin:46px 0 16px;
+       padding-left:13px; border-left:4px solid var(--accent); word-break:keep-all; }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 20px; word-break:keep-all; }
+  .lead { font-size:14px; font-weight:700; color:var(--accent);
+          margin:26px 0 10px; letter-spacing:.02em; }
+  ul.summary, ol.summary { margin:0 0 22px; padding-left:22px; }
+  ul.summary li, ol.summary li { font-size:16.5px; line-height:1.8; margin-bottom:9px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; margin:24px 0; font-size:15.5px; }
+  thead th { background:rgba(79,140,255,.10); color:var(--ink);
+             font-weight:700; text-align:left; padding:11px 14px;
+             border-bottom:2px solid rgba(79,140,255,.35); word-break:keep-all; }
+  tbody td { padding:11px 14px; border-bottom:1px solid var(--line);
+             line-height:1.7; word-break:keep-all; }
+  tbody tr:nth-child(even) td { background:#fafbfc; }
+  blockquote.formula { margin:24px 0; padding:18px 22px; background:rgba(79,140,255,.06);
+        border:1px solid rgba(79,140,255,.22); border-radius:10px;
+        font-size:17px; line-height:1.75; text-align:center; word-break:keep-all; }
+  blockquote.formula strong { font-weight:700; color:#123; }
+  strong { font-weight:700; color:#0f1113; }
+  code { background:rgba(79,140,255,.09); border-radius:5px; padding:2px 6px;
+         font-family:'SF Mono',Menlo,Consolas,monospace; font-size:14.5px; }
+  pre.code { background:#0f1420; color:#e6edf3; border-radius:10px; padding:16px 18px;
+             margin:22px 0; overflow-x:auto; line-height:1.6; }
+  pre.code code { background:none; color:inherit; padding:0; font-size:14px;
+                  font-family:'SF Mono',Menlo,Consolas,monospace; white-space:pre; }
+  hr { border:0; border-top:1px solid var(--line); margin:38px 0; }
+  figure { margin:30px 0; }
+  img { max-width:100%; height:auto; display:block; border-radius:10px; }
+  .tags { color:var(--accent); font-size:14.5px; line-height:1.9;
+          margin-top:34px; padding-top:26px; border-top:1px solid var(--line);
+          word-break:keep-all; }
+  @media (max-width:760px) { .wrap { padding:34px 20px 44px; } h1 { font-size:24px; } }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+  <div class="meta"><span class="badge">IT</span><span class="date">2026-09-26</span></div>
+  <h1>Rust 소유권과 빌림 검사기 — GC 없이 메모리 안전을 지키는 원리</h1>
+  <p>이번 글에서는 Rust 소유권과 빌림 검사기가 어떤 규칙으로 움직이는지 정리해 보겠습니다. 가비지 컬렉터 없이도 이중 해제, use-after-free, 데이터 레이스를 컴파일 단계에서 막는 방법이 주제입니다. 코드 몇 줄과 컴파일러 에러 메시지를 따라가며 원리를 살펴봅니다.</p>
+  <figure><img src="./images/thumbnail.png" alt="Rust 소유권과 빌림 검사기 - 소유자 String 하나를 불변 참조 세 개가 가리키고 가변 참조는 막혀 있는 그림"></figure>
+  <p class="lead">세 줄 요약</p>
+  <ul class="summary"><li>Rust는 GC도 수동 해제도 아닌 제3의 방식을 씁니다. <strong>모든 값에 소유자가 하나</strong> 있고, 소유자가 스코프를 벗어나면 값이 자동으로 해제됩니다.</li><li>값을 쓰고 싶을 때는 소유권을 넘기는 대신 <strong>빌립니다</strong>. 규칙은 &quot;가변 참조 하나 또는 불변 참조 여러 개&quot;와 &quot;참조는 항상 유효해야 한다&quot; 두 가지입니다.</li><li>이 규칙은 전부 컴파일 시점에 검사되어 <strong>실행 속도에 비용이 없습니다</strong>. Android는 이 방식으로 메모리 안전 취약점 비중을 76%에서 20% 아래로 낮췄습니다.</li></ul>
+  <hr>
+  <h2>왜 메모리 안전이 이렇게 중요한가</h2>
+  <p>숫자부터 보겠습니다.<br>Microsoft 보안대응센터(MSRC)는 2019년, 매년 CVE를 부여해 고치는 취약점의 약 70%가 메모리 안전 문제라고 밝혔습니다.<br>코드 리뷰와 교육, 정적 분석을 꾸준히 강화했는데도 이 비율은 10년 넘게 거의 변하지 않았습니다.<br>Chromium 프로젝트도 같은 결론에 이르렀습니다. 2015년 이후 심각도 높은 보안 버그 912건을 분석하니 약 70%가 메모리 문제였고, 그 절반이 use-after-free였습니다.</p>
+  <p>MSRC는 이런 버그를 세 갈래로 나눕니다.<br>할당된 범위 밖을 건드리는 <strong>공간적 오류</strong>, 이미 해제된 메모리를 가리키는 <strong>시간적 오류</strong>, 여러 스레드가 동기화 없이 같은 곳에 쓰는 <strong>데이터 레이스</strong>입니다.<br>특히 시간적 오류의 근본 원인을 &quot;가변 상태를 가리키는 포인터의 별칭&quot;이라고 짚었습니다.<br>이 표현을 기억해 두시면 뒤에 나올 빌림 규칙이 왜 그런 모양인지 자연스럽게 이해됩니다.</p>
+  <p>해결책이 없던 것은 아닙니다.<br>MSRC의 표현을 빌리면, 오늘날 쓰이는 언어 대부분은 가비지 컬렉션(GC) 덕분에 메모리 안전합니다.<br>문제는 운영체제 커널이나 네트워크 스택 같은 시스템 소프트웨어입니다. 이 영역은 GC라는 무거운 런타임을 감당하기 어렵습니다.<br>그래서 C와 C++이 오랫동안 자리를 지켜 왔고, 70%라는 숫자도 함께 따라왔습니다.</p>
+  <hr>
+  <h2>GC도 수동 해제도 아닌 세 번째 길</h2>
+  <p>Rust 공식 문서는 메모리 관리 방식을 세 가지로 구분합니다.</p>
+  <p>첫째는 GC입니다. 프로그램이 도는 동안 더는 쓰지 않는 메모리를 주기적으로 찾아 정리합니다.<br>둘째는 수동 관리입니다. 프로그래머가 직접 할당하고 해제합니다.<br>공식 문서는 수동 관리의 함정을 세 문장으로 요약합니다. 잊으면 메모리가 새고, 너무 일찍 해제하면 무효한 변수가 남고, 두 번 해제하면 그것도 버그입니다. 할당 한 번에 해제 한 번을 정확히 짝지어야 한다는 뜻입니다.</p>
+  <p>셋째가 Rust의 방식입니다.<br>메모리를 <strong>컴파일러가 검사하는 소유권 규칙</strong>으로 관리합니다. 규칙을 어기면 아예 컴파일되지 않습니다.<br>그리고 소유권 관련 기능은 실행 중인 프로그램을 느리게 하지 않습니다. 모든 판단이 빌드 단계에서 끝나기 때문입니다.</p>
+  <figure><img src="./images/body-1.png" alt="메모리 관리 방식 비교 표 - 가비지 컬렉션, 수동 해제, Rust 소유권의 해제 시점과 검사 시점, 런타임 비용"></figure>
+  <hr>
+  <h2>소유권 규칙 세 줄과 move</h2>
+  <p>규칙은 짧습니다.</p>
+  <ol class="summary"><li>Rust의 모든 값에는 소유자가 있습니다.</li><li>소유자는 한 번에 하나뿐입니다.</li><li>소유자가 스코프를 벗어나면 값은 drop됩니다.</li></ol>
+  <p>세 번째 규칙이 해제 시점을 정합니다.<br>변수가 닫는 중괄호 <code>}</code>에 닿으면 Rust가 <code>drop</code> 함수를 자동으로 호출해 힙 메모리를 돌려줍니다.<br>C++의 RAII 패턴을 언어 전체의 기본 규칙으로 끌어올린 셈입니다.</p>
+  <p>까다로운 부분은 두 번째 규칙입니다. 다음 코드를 보겠습니다.</p>
+  <pre class="code"><code>let s1 = String::from(&quot;hello&quot;);
+let s2 = s1;
+println!(&quot;{s1}, world!&quot;); // 컴파일 에러</code></pre>
+  <p><code>String</code>은 스택에 포인터, 길이, 용량 세 값을 두고 실제 글자는 힙에 둡니다.<br><code>let s2 = s1;</code>은 스택의 세 값만 복사합니다. 힙의 글자는 그대로입니다.<br>이 상태로 두 변수가 모두 스코프를 벗어나면 같은 힙 메모리를 두 번 해제하게 됩니다. 이중 해제, 곧 메모리 손상과 보안 취약점으로 이어지는 버그입니다.</p>
+  <p>Rust는 이를 막으려고 대입 직후 <code>s1</code>을 무효로 처리합니다.<br>얕은 복사가 아니라 <strong>move</strong>, 즉 소유권 이동입니다.<br>그래서 세 번째 줄은 <code>error[E0382]: borrow of moved value: s1</code>으로 거부됩니다.<br>컴파일러는 친절하게 <code>s1.clone()</code>을 대안으로 제시합니다.</p>
+  <p>여기에는 설계 원칙 하나가 숨어 있습니다. Rust는 깊은 복사를 절대 자동으로 하지 않습니다.<br>비용이 드는 복사는 반드시 <code>clone()</code>이라는 글자로 코드에 드러납니다.<br>반면 정수, <code>bool</code>, <code>f64</code>, <code>char</code>처럼 스택에만 사는 값은 <code>Copy</code> 트레이트가 있어 move 대신 그냥 복사됩니다.<br><code>Drop</code>을 구현한 타입은 <code>Copy</code>가 될 수 없습니다. 해제할 자원이 있는 값이 몰래 복제되는 일을 규칙 차원에서 막는 장치입니다.</p>
+  <figure><img src="./images/body-2.png" alt="Rust move 동작 - s1과 s2가 스택의 포인터·길이·용량을 복사해 같은 힙을 가리키고 s1이 무효가 되는 과정"></figure>
+  <hr>
+  <h2>빌림: 소유하지 않고 쓰는 방법</h2>
+  <p>소유권만 있다면 불편합니다.<br>함수에 <code>String</code>을 넘기면 소유권이 함수로 넘어가 호출한 쪽에서는 더 쓸 수 없습니다.<br>돌려받으려면 튜플로 다시 반환해야 합니다. 공식 문서도 이 방식을 &quot;너무 번거롭다&quot;고 인정합니다.</p>
+  <p>그래서 <strong>참조</strong>가 있습니다.<br><code>&amp;s1</code>은 값을 소유하지 않고 가리키기만 합니다. 이 행위를 빌림이라고 부릅니다.<br>참조가 스코프를 벗어나도 원래 값은 해제되지 않습니다. 애초에 소유한 적이 없기 때문입니다.<br>그리고 참조는 C의 포인터와 달리, 살아 있는 동안 반드시 유효한 값을 가리킨다는 보장을 받습니다.</p>
+  <p>빌림에는 두 가지 규칙이 붙습니다.</p>
+  <ul class="summary"><li>어느 시점이든 <strong>가변 참조(<code>&amp;mut</code>) 하나</strong>, 또는 <strong>불변 참조(<code>&amp;</code>) 여러 개</strong> 중 하나만 가질 수 있습니다.</li><li>참조는 항상 유효해야 합니다.</li></ul>
+  <p>첫 번째 규칙은 앞서 본 &quot;가변 상태를 가리키는 별칭&quot;을 정면으로 금지합니다.<br>읽기만 하는 사람은 몇 명이 있어도 서로 방해하지 않습니다. 쓰는 사람이 있다면 그 사람 혼자여야 합니다.<br>위반하면 에러 코드도 구체적입니다. 가변 참조를 두 번 만들면 <code>E0499</code>, 불변 참조가 살아 있는데 가변 참조를 만들면 <code>E0502</code>가 납니다.</p>
+  <p>이 규칙의 가장 큰 수확은 데이터 레이스입니다.<br>데이터 레이스는 둘 이상의 포인터가 같은 데이터에 동시에 접근하고, 그중 하나 이상이 쓰며, 동기화 장치가 없을 때 생깁니다.<br>빌림 규칙 아래에서는 &quot;쓰는 포인터가 있는데 다른 포인터도 있는&quot; 상황 자체가 컴파일되지 않습니다.<br>세 조건 중 두 개가 동시에 성립할 수 없으니, 데이터 레이스도 성립하지 않습니다.</p>
+  <figure><img src="./images/body-3.png" alt="Rust 빌림 규칙 - 불변 참조는 여러 개 허용, 가변 참조는 하나만 허용하며 데이터 레이스 세 조건을 막는 원리"></figure>
+  <p>두 번째 규칙은 댕글링 참조를 막습니다.</p>
+  <pre class="code"><code>fn dangle() -&gt; &amp;String {
+    let s = String::from(&quot;hello&quot;);
+    &amp;s
+} // s는 여기서 해제됨</code></pre>
+  <p>함수가 끝나면 <code>s</code>는 해제되는데, 그 참조를 밖으로 돌려주려는 코드입니다.<br>C라면 컴파일되고 나중에 알 수 없는 곳에서 터졌을 것입니다.<br>Rust는 &quot;반환 타입에 빌린 값이 있는데 빌려 올 원본이 없다&quot;는 메시지로 거부합니다. 해결책은 참조가 아닌 <code>String</code> 자체를 반환해 소유권을 넘기는 것입니다.</p>
+  <hr>
+  <h2>라이프타임, 참조가 살아 있는 구간</h2>
+  <p>빌림 검사기의 기본 원리는 한 문장입니다.<br>&quot;빌려준 동안에는 값을 바꾸거나 옮길 수 없다.&quot;</p>
+  <p>그러려면 컴파일러가 &quot;빌려준 동안&quot;이 언제까지인지 알아야 합니다.<br>이 구간을 <strong>라이프타임</strong>이라고 합니다.<br>NLL 설계 문서(RFC 2094)는 두 개념을 구분합니다. 참조의 라이프타임은 참조가 <strong>사용되는</strong> 구간이고, 값의 스코프는 값이 <strong>해제되기 전까지</strong>의 구간입니다.<br>규칙은 하나입니다. 참조의 라이프타임은 원본 값의 스코프를 넘을 수 없습니다. 넘는 순간 해제된 메모리를 가리키게 되니까요.</p>
+  <p>대부분은 컴파일러가 알아서 추론합니다.<br>공식 문서가 &quot;라이프타임 생략 규칙&quot;이라 부르는 세 가지 패턴에 들어맞으면 따로 적을 필요가 없습니다.<br>추론이 모호할 때만 직접 표시합니다.</p>
+  <pre class="code"><code>fn longest&lt;&#x27;a&gt;(x: &amp;&#x27;a str, y: &amp;&#x27;a str) -&gt; &amp;&#x27;a str {
+    if x.len() &gt; y.len() { x } else { y }
+}</code></pre>
+  <p><code>&#x27;a</code>는 &quot;반환되는 참조는 두 입력 중 더 짧게 사는 쪽만큼만 유효하다&quot;는 약속입니다.<br>라이프타임 표기는 수명을 늘리거나 줄이는 명령이 아닙니다. 컴파일러가 검증할 수 있도록 관계를 적어 두는 계약에 가깝습니다.</p>
+  <hr>
+  <h2>빌림 검사기도 똑똑해졌습니다 — NLL에서 Polonius까지</h2>
+  <p>초기 Rust의 빌림 검사기는 꽤 고지식했습니다.<br>참조를 변수에 담으면 그 변수의 블록이 끝날 때까지 빌림이 이어진다고 봤습니다.</p>
+  <pre class="code"><code>let mut data = vec![&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;];
+let slice = &amp;mut data[..];
+capitalize(slice);
+data.push(&#x27;d&#x27;); // 예전엔 에러</code></pre>
+  <p><code>slice</code>는 <code>capitalize</code> 호출 이후 다시 쓰이지 않습니다. 그런데도 예전 검사기는 블록 끝까지 빌린 상태로 판단해 <code>push</code>를 거부했습니다.<br>개발자는 의미 없는 중괄호 블록을 하나 더 감싸야 했습니다.</p>
+  <p>예전엔 &quot;블록이 끝나야 빌림이 끝난다&quot;였습니다.<br>지금은 &quot;마지막으로 쓰인 곳에서 빌림이 끝난다&quot;입니다.</p>
+  <p>이 변화가 <strong>NLL(Non-Lexical Lifetimes)</strong>입니다.<br>라이프타임을 소스 코드의 블록 구조가 아니라, 컴파일러 내부 표현인 MIR의 제어 흐름 그래프로 계산합니다.<br>Rust 2018 에디션(1.31)에서 도입됐고, 옛 검사기는 2019년에 물러났습니다. 호환용으로 남았던 migrate 모드까지 2022년, Rust 1.63에서 정리됐습니다.</p>
+  <p>다만 NLL에도 한계가 남았습니다.<br>대표적인 것이 &quot;맵에 값이 있으면 그 참조를 반환하고, 없으면 넣은 뒤 반환하는&quot; 함수입니다.<br><code>Some</code> 분기에서 참조를 함수 밖으로 돌려주기 때문에, NLL은 그 빌림이 함수 전체에 걸린다고 보고 <code>None</code> 분기의 <code>insert</code>까지 거부합니다.<br>NLL의 분석이 분기별 흐름을 구분하지 않기 때문입니다.</p>
+  <p>이 문제를 푸는 차세대 검사기가 <strong>Polonius</strong>입니다.<br>2018년 NLL 작업에서 갈라져 나왔지만, 초기 구현은 너무 느려 실용화되지 못했습니다.<br>2023년에 기존 NLL 구조를 크게 바꾸지 않는 새 설계가 나왔고, 2026년 8월 4일 Rust 공식 블로그는 이 &quot;Polonius Alpha&quot;를 nightly에서 기본으로 켰다고 발표했습니다.<br>목표는 연말 전 안정화입니다. 흐름에 민감한(flow-sensitive) 분석이라 앞의 맵 예제를 통과시킵니다.</p>
+  <p>비용도 솔직하게 공개됐습니다.<br>다운로드 상위 1만 개 크레이트에서 눈에 띄는 컴파일 시간 회귀는 드물었지만, 빌림이 많은 일부 크레이트는 최악의 경우 2~3배 느려졌습니다.<br>Polonius Alpha가 모든 올바른 코드를 받아들이는 것도 아닙니다. 공식 글은 초기 Polonius가 통과시키던 일부 코드를 여전히 거부한다고 밝혔습니다.<br>정확한 안정화 버전도 아직 정해지지 않았습니다.</p>
+  <figure><img src="./images/body-4.png" alt="빌림 검사기 진화 - 렉시컬 스코프, NLL의 마지막 사용 지점, Polonius Alpha의 분기별 흐름 분석 비교"></figure>
+  <hr>
+  <h2>컴파일러가 확신하지 못할 때</h2>
+  <p>정적 분석에는 태생적 한계가 있습니다.<br>공식 문서는 이 점을 숨기지 않습니다. 컴파일러가 확신하지 못하면 올바른 프로그램도 거부할 수 있다고 적습니다.<br>잘못된 프로그램을 통과시키면 모든 보장이 무너지지만, 올바른 프로그램을 거부하면 불편할 뿐 사고는 나지 않습니다. Rust는 일관되게 뒤쪽을 택합니다.</p>
+  <p>그래서 탈출구가 마련돼 있습니다.<br><code>RefCell&lt;T&gt;</code>는 같은 빌림 규칙을 <strong>런타임</strong>에 검사합니다. 활성 빌림 수를 세다가 규칙을 어기면 컴파일 에러 대신 <code>already borrowed: BorrowMutError</code>로 panic합니다.<br><code>Rc&lt;T&gt;</code>는 참조 카운팅으로 소유자를 여럿 둘 수 있게 해 줍니다. 둘을 합친 <code>Rc&lt;RefCell&lt;T&gt;&gt;</code>는 그래프나 트리처럼 공유와 변경이 모두 필요한 구조에 쓰입니다.<br>대가는 분명합니다. 약간의 런타임 비용이 들고, 오류가 배포 뒤에야 드러날 수도 있습니다.</p>
+  <p>그 아래에는 <code>unsafe</code>가 있습니다.<br>하드웨어 제어나 C와의 연동처럼 컴파일러가 검증할 수 없는 코드는 <code>unsafe</code> 블록 안에 둡니다.<br>흔한 오해와 달리 <code>unsafe</code>가 Rust의 안전 검사를 전부 끄지는 않습니다. 그리고 위험한 부분을 작은 블록에 가두고 안전한 API로 감싸는 것이 관례입니다.<br>Android의 Rust 코드에서 <code>unsafe</code> 블록은 약 4%입니다.</p>
+  <hr>
+  <h2>실제로 효과가 있었는가</h2>
+  <p>Google의 Android 팀은 2019년 무렵부터 새 코드를 메모리 안전 언어로 쓰는 쪽으로 방향을 틀었습니다.<br>Android 취약점 가운데 메모리 안전 문제의 비중은 2019년 76%에서 2024년 24%로 내려갔고, 2025년에는 처음으로 20% 아래로 떨어졌습니다.</p>
+  <p>2025년 11월 발표에는 더 구체적인 수치가 담겼습니다.<br>Android 플랫폼의 Rust 코드 약 500만 줄에서 나온 메모리 안전 취약점 후보는 단 1건이었고, 그마저 출시 전에 고쳐졌습니다.<br>100만 줄당 0.2건입니다. 같은 팀이 기록한 C/C++의 역사적 수치는 100만 줄당 1,000건 안팎입니다.<br>Google은 이를 &quot;1000배 이상 감소&quot;로 표현했습니다.</p>
+  <p>속도 면의 수확도 있었습니다.<br>중·대형 변경에서 Rust 코드의 롤백률은 C++보다 약 4배 낮았고, 코드 리뷰 시간은 약 25% 짧았습니다.<br>안전한 길이 느린 길이라는 통념과는 반대되는 결과입니다.</p>
+  <p>다만 읽을 때 주의할 점이 있습니다.<br>Rust 쪽 추정은 취약점 1건에 기댄 값이라 표본이 작습니다. 정밀한 배율보다는 자릿수가 다르다는 신호로 보는 편이 정확합니다.<br>Android 코드의 다수는 여전히 C와 C++입니다. Google도 감소 원인을 새 코드의 언어 전환과, 오래된 코드일수록 취약점이 줄어드는 경향이 겹친 결과로 설명합니다.</p>
+  <figure><img src="./images/body-5.png" alt="Android Rust 도입 성과 - 메모리 안전 취약점 비중 76%에서 20% 미만, 100만 줄당 0.2건 대 1,000건, 롤백률과 리뷰 시간"></figure>
+  <hr>
+  <p>끝으로 한 마디만 더 드리겠습니다.</p>
+  <p>Rust 소유권과 빌림 검사기가 하는 일은 결국 하나입니다.<br>&quot;누가 이 메모리를 책임지는가&quot;와 &quot;지금 누가 이 메모리를 바꿀 수 있는가&quot;를 컴파일러가 끝까지 따지는 것입니다.<br>GC는 이 질문을 실행 중에 대신 풀어 주고, C는 이 질문을 프로그래머의 기억력에 맡깁니다. Rust는 이 질문을 코드에 적게 만듭니다.</p>
+  <p>&quot;값의 주인은 하나, 쓰는 손도 한 번에 하나.&quot;</p>
+  <p>처음에는 컴파일러가 까다로운 선배처럼 느껴질 수 있습니다. 에러 메시지가 길고, 통과시켜 주지 않는 이유가 억울할 때도 있습니다.<br>그래도 그 거절 하나하나가 새벽의 크래시 리포트 대신 빌드 창에 먼저 나타난 것이라고 생각하면, 조금은 고마운 잔소리로 들립니다.<br>Rust를 배울 가치가 있느냐고 물으신다면, 이 규칙 두세 줄을 받아들일 여유만 있다면 충분히 그렇다고 답하겠습니다.</p>
+  <p class="tags">#Rust소유권 #빌림검사기 #Rust #메모리안전 #라이프타임 #NLL #Polonius #가비지컬렉션 #시스템프로그래밍 #러스트</p>
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

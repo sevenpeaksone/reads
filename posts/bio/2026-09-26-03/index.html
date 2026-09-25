@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>도파민 보상 예측 오차 원리 — 뇌는 쾌락보다 기대와의 차이에 반응한다</title>
+<style>
+  :root { --accent:#ff7676; --ink:#1f2226; --mute:#6d7480; --line:#e7e9ee; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:48px 20px 96px;
+    background:#fbfbfc; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { width:700px; max-width:100%; margin:0 auto; }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .badge {
+    display:inline-block; padding:5px 13px; border-radius:999px;
+    background:var(--accent); color:#fff; font-size:13px; font-weight:700; letter-spacing:.02em;
+  }
+  .date { color:var(--mute); font-size:14px; }
+  h1 {
+    font-size:30px; line-height:1.42; font-weight:800;
+    margin:0 0 28px; letter-spacing:-.01em; word-break:keep-all;
+  }
+  h2 {
+    font-size:21px; line-height:1.5; font-weight:700;
+    margin:52px 0 18px; padding-left:14px;
+    border-left:4px solid var(--accent); word-break:keep-all;
+  }
+  p { font-size:17px; line-height:1.85; margin:0 0 22px; word-break:keep-all; }
+  ul { margin:0 0 22px; padding-left:20px; }
+  li { font-size:17px; line-height:1.85; margin-bottom:8px; word-break:keep-all; }
+  strong { font-weight:700; }
+  code {
+    background:#f0f1f4; padding:1px 6px; border-radius:4px;
+    font-size:15px; font-family:'SFMono-Regular',Menlo,Consolas,monospace;
+  }
+  hr { border:0; border-top:1px solid var(--line); margin:44px 0; }
+  figure { margin:32px 0; }
+  figure img {
+    max-width:100%; height:auto; display:block;
+    border-radius:12px; border:1px solid var(--line);
+  }
+  figcaption {
+    margin-top:10px; font-size:13px; line-height:1.6;
+    color:var(--mute); text-align:center; word-break:keep-all;
+  }
+  .tags { margin-top:56px; padding-top:26px; border-top:1px solid var(--line); }
+  .tags span {
+    display:inline-block; margin:0 8px 8px 0; padding:6px 12px;
+    background:#f2f3f6; border-radius:999px; font-size:13px; color:#4a5058;
+  }
+  @media (max-width:520px) {
+    body { padding:28px 16px 64px; }
+    h1 { font-size:25px; } h2 { font-size:19px; } p, li { font-size:16px; }
+  }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<article class="wrap">
+  <div class="meta"><span class="badge">바이오</span><span class="date">2026-09-26</span></div>
+  <h1>도파민 보상 예측 오차 원리 — 뇌는 쾌락보다 기대와의 차이에 반응한다</h1>
+  <p>이번 글에서는 도파민이 &#x27;행복 물질&#x27;이라는 흔한 설명을 한 겹 벗겨 보려 합니다.<br>원숭이 실험에서 출발해 인공지능의 학습 공식, 그리고 중독까지 차례로 따라갑니다.<br>진단이나 치료에 관한 조언이 아니라 신경과학 원리를 정리한 글이라는 점을 먼저 밝혀 둡니다.</p>
+  <p>먼저 세 줄로 요약합니다.</p>
+  <ul><li>중뇌 도파민 뉴런은 보상 자체보다 <strong>&quot;예상보다 좋았는가, 나빴는가&quot;</strong>라는 차이, 곧 보상 예측 오차에 반응합니다.</li><li>이 신호는 인공지능의 <strong>시간차 학습(TD)</strong> 공식과 거의 같은 모양이며, 뇌가 무엇을 배울지 정하는 교사 역할을 합니다.</li><li>도파민은 쾌락(&#x27;좋아함&#x27;)보다 <strong>갈망(&#x27;원함&#x27;)</strong>에 가깝습니다. 중독은 이 둘이 벌어지는 현상으로 설명되기도 합니다.</li></ul>
+  <figure><img src="./images/thumbnail.png" alt="도파민 보상 예측 오차 원리 — 뇌는 쾌락보다 기대와의 차이에 반응한다"><figcaption>도파민 보상 예측 오차 원리 — 뇌는 쾌락보다 기대와의 차이에 반응한다</figcaption></figure>
+  <hr>
+  <h2>도파민 뉴런은 중뇌 깊숙한 두 곳에 모여 있습니다</h2>
+  <p>보상과 관련된 도파민 뉴런은 뇌간 바로 위, 중뇌에 모여 있습니다.<br>하나는 <strong>복측피개영역(VTA)</strong>, 다른 하나는 <strong>흑질</strong>입니다.</p>
+  <p>이 뉴런들은 긴 축삭을 뻗어 신호를 멀리 보냅니다.<br>도착지는 선조체, 측좌핵, 전두엽처럼 동기와 목표 행동을 다루는 곳입니다.</p>
+  <p>경로는 크게 셋으로 나뉩니다.</p>
+  <ul><li><strong>중변연계</strong>: VTA에서 측좌핵으로 갑니다. 약물 보상에서 특히 중요한 길입니다.</li><li><strong>중선조체</strong>: 흑질에서 배측 선조체로 갑니다. 배측 선조체는 습관 학습과 관련이 깊습니다.</li><li><strong>중피질</strong>: VTA에서 전두엽으로 갑니다.</li></ul>
+  <p>지난 20년의 연구를 정리한 2026년 리뷰에 따르면, 예측 오차 패턴이 가장 뚜렷한 곳은 VTA에서 측좌핵으로 가는 중변연계 경로입니다.</p>
+  <hr>
+  <h2>슐츠의 원숭이는 주스보다 불빛에 반응했습니다</h2>
+  <p>이야기는 스위스 프리부르대학의 볼프람 슐츠 연구실에서 시작됩니다.<br>연구진은 깨어 있는 원숭이의 도파민 뉴런 하나하나에 전극을 대고 활동을 기록했습니다.</p>
+  <p>처음 관찰은 단순했습니다.<br>입에 과일 주스가 한 방울 떨어지면 도파민 뉴런이 짧게 폭발하듯 발화했습니다. 이런 반응은 도파민 뉴런의 55~80%에서 나타났습니다.<br>공기 분사나 식염수 같은 불쾌한 자극에는 이런 폭발이 없었습니다.</p>
+  <p>흥미로운 일은 훈련 뒤에 일어났습니다.<br>원숭이에게 작은 불빛이 켜지면 레버를 만지고 주스를 받는 과제를 가르쳤습니다.<br>처음에는 주스가 들어올 때 뉴런이 발화했습니다.<br>며칠 훈련하자 주스에는 더 이상 반응하지 않았습니다. 대신 <strong>불빛이 켜지는 순간</strong> 발화했습니다.</p>
+  <p>더 놀라운 장면도 있었습니다.<br>불빛이 켜졌는데 주스가 오지 않자, 원래 주스가 와야 할 바로 그 시점에 발화가 평소보다 <strong>뚝 떨어졌습니다</strong>.<br>불빛 뒤 1초 넘게 아무 자극이 없었는데도 그랬습니다. 뇌가 보상이 언제 올지까지 기억하고 있었다는 뜻입니다.</p>
+  <figure><img src="./images/body-1.png" alt="슐츠 원숭이 실험에서 본 도파민 뉴런의 세 가지 반응 — 예상 밖 보상, 예상된 보상, 보상 누락"><figcaption>슐츠 원숭이 실험에서 본 도파민 뉴런의 세 가지 반응 — 예상 밖 보상, 예상된 보상, 보상 누락</figcaption></figure>
+  <p>1997년 슐츠는 피터 다얀, 리드 몬터규와 함께 이 결과를 《사이언스》에 정리했습니다.<br>결론은 세 줄의 규칙이었습니다.</p>
+  <ul><li>기대보다 좋으면 발화가 늘어납니다.</li><li>기대만큼이면 아무 변화가 없습니다.</li><li>기대보다 나쁘면 발화가 줄어듭니다.</li></ul>
+  <p>도파민 뉴런은 보상을 보고하는 것이 아니었습니다.<br><strong>실제 보상과 예측의 차이</strong>, 곧 보상 예측 오차를 보고하고 있었습니다.</p>
+  <hr>
+  <h2>인공지능의 학습 공식과 같은 모양이었습니다</h2>
+  <p>이 발견이 큰 반향을 일으킨 이유는 따로 있습니다.<br>공학자들이 이미 같은 계산을 쓰고 있었기 때문입니다.</p>
+  <p>리처드 서튼과 앤드루 바르토는 1980년대에 <strong>시간차 학습(TD)</strong>이라는 알고리즘을 내놓았습니다.<br>목표는 지금 보이는 단서로 앞으로 받을 보상의 합을 예측하는 것입니다.</p>
+  <p>핵심 식은 짧습니다.</p>
+  <p><code>δ = 지금 받은 보상 + 다음 순간의 예측 − 지금의 예측</code></p>
+  <p>이 δ가 TD 오차입니다.<br>모든 보상을 끝까지 기다리지 않아도 매 순간 계산할 수 있다는 점이 장점입니다.<br>예측이 맞으면 δ는 0이 되고, 더 배울 것이 없습니다.</p>
+  <figure><img src="./images/body-2.png" alt="시간차 학습(TD) 오차가 계산되는 4단계 — 단서, 예측, 결과, 차이 계산"><figcaption>시간차 학습(TD) 오차가 계산되는 4단계 — 단서, 예측, 결과, 차이 계산</figcaption></figure>
+  <p>슐츠 팀은 이 모델을 불빛-주스 과제에 그대로 돌려 보았습니다.<br>모델이 내놓는 오차 신호는 학습 과정 내내 실제 도파민 뉴런의 활동과 맞아떨어졌습니다.<br>신호가 보상에서 단서로 옮겨 가는 모습까지 같았습니다.</p>
+  <p>이 공식은 심리학의 오래된 수수께끼도 풀어 줍니다.<br>레온 카민이 쥐에게서 처음 보인 <strong>블로킹</strong> 현상입니다.<br>불빛이 먹이를 예고한다고 이미 배운 쥐에게 불빛과 소리를 함께 들려주고 먹이를 줍니다.<br>쥐는 소리에 대해 아무것도 배우지 않습니다. 먹이가 이미 완전히 예측되어 오차가 없기 때문입니다.</p>
+  <p>예전에는 가설이었고, 지금은 실험으로 확인된 사실입니다.<br>2013년 미국 연구진은 쥐의 VTA 도파민 뉴런을 빛으로 켜는 광유전학을 썼습니다.<br>보상이 주어지는 순간 인위적으로 도파민 신호를 더하자, 원래 막혀 있어야 할 학습이 일어났습니다.<br>예측 오차 신호가 학습의 <strong>원인</strong>이라는 직접 증거였습니다.</p>
+  <p>이후 연구는 신호를 더 정교하게 만들었습니다.<br>보상 확률을 달리하면 반응 크기가 확률에 맞춰 단계적으로 변했습니다(2003).<br>같은 양의 주스라도 2초, 4초, 8초, 16초로 늦게 준다고 알리면, 늦을수록 반응이 작아졌습니다. 도파민이 주관적 가치를 반영한다는 뜻입니다.<br>2015년에는 VTA 도파민 뉴런이 이웃 GABA 뉴런이 보내는 &#x27;기대&#x27; 신호를 <strong>빼서</strong> 오차를 계산한다는 회로 수준의 증거도 나왔습니다.</p>
+  <hr>
+  <h2>원하는 것과 좋아하는 것은 다른 회로입니다</h2>
+  <p>여기까지 읽으면 도파민이 곧 쾌락이라고 생각하기 쉽습니다.<br>미시간대의 켄트 베리지와 테리 로빈슨은 여기에 선을 긋습니다.<br>보상에는 적어도 두 얼굴이 있다는 것입니다.</p>
+  <ul><li><strong>원함(wanting)</strong>: 보상을 향해 움직이게 만드는 끌림입니다. 중변연 도파민을 포함한 크고 튼튼한 시스템이 만듭니다.</li><li><strong>좋아함(liking)</strong>: 실제로 맛보았을 때의 쾌감입니다. 작고 취약한 &#x27;쾌락 핫스폿&#x27;이 만들며, 도파민에 의존하지 않습니다.</li></ul>
+  <figure><img src="./images/body-3.png" alt="원함(wanting)과 좋아함(liking) 비교 표 — 담당 물질, 크기, 실험 증거, 중독에서의 변화"><figcaption>원함(wanting)과 좋아함(liking) 비교 표 — 담당 물질, 크기, 실험 증거, 중독에서의 변화</figcaption></figure>
+  <p>근거가 되는 실험은 꽤 극적입니다.<br>측좌핵과 배측 선조체의 도파민을 98~99% 없앤 쥐는 스스로 먹지도 마시지도 않았습니다.<br>그런데 입에 단물을 넣어 주면 &#x27;맛있다&#x27;는 얼굴 반응은 정상으로 나왔습니다.</p>
+  <p>반대 방향 실험도 있습니다.<br>도파민 수송체를 정상의 10%만 남겨 시냅스 도파민이 70% 늘어난 생쥐입니다.<br>이 생쥐는 단 보상을 향해 더 빨리 출발했고, 더 적은 시행으로 길을 배웠습니다.<br>하지만 설탕 맛에 대한 &#x27;좋아함&#x27; 반응은 늘지 않았습니다.</p>
+  <p>쾌락을 칠하는 붓은 다른 곳에 있었습니다.<br>측좌핵과 복측 창백핵 등에 있는 핫스폿으로, 쥐에서는 각각 약 1세제곱밀리미터 크기입니다.<br>이곳의 뮤 오피오이드와 엔도카나비노이드를 자극하면 단맛에 대한 좋아함 반응이 2~3배로 커졌습니다.</p>
+  <p>다만 이 구분이 예측 오차 이론과 완전히 맞아떨어지지는 않습니다.<br>한쪽은 도파민을 학습의 교사 신호로, 다른 쪽은 끌림을 부여하는 신호로 봅니다.<br>두 해석을 잇는 계산 모델이 제안되어 있지만, 아직 정리가 끝난 논쟁은 아닙니다.</p>
+  <hr>
+  <h2>중독은 예측이 따라잡지 못하는 오차입니다</h2>
+  <p>보상 예측 오차 원리로 보면 중독의 한 단면이 선명해집니다.</p>
+  <p>자연 보상은 반복될수록 예측됩니다.<br>예측되면 오차가 0이 되고, 도파민 폭발도 사라집니다. 배움이 멈추는 셈입니다.</p>
+  <p>약물은 사정이 다릅니다.<br>코카인은 도파민 수송체를 막고, 암페타민은 도파민을 쏟아내게 하며, 니코틴은 VTA 도파민 뉴런을 직접 켭니다.<br>2004년 데이비드 레디시는 이렇게 설명했습니다. 약물은 도파민을 약리적으로 직접 올리므로, 아무리 익숙해져도 그 오차가 예측으로 <strong>상쇄되지 않는다</strong>는 것입니다.<br>그 결과 약물로 가는 행동의 가치가 끝없이 부풀어 오릅니다.</p>
+  <p>사람 뇌 영상은 이야기를 한 단계 더 복잡하게 만듭니다.<br>노라 볼코우 연구팀의 PET 연구에서 코카인 중독자에게 비슷한 자극제를 주자, 도파민 증가는 대조군보다 해독 중인 사람에서 50%, 현재 사용 중인 사람에서 80% 낮았습니다.<br>약효는 둔해졌는데, 코카인을 구하고 피우는 장면이 담긴 영상에는 선조체 도파민이 뚜렷이 올랐습니다. 그 크기는 갈망 정도와 함께 움직였습니다.</p>
+  <figure><img src="./images/body-4.png" alt="중독에서 약물 자체와 약물 단서에 대한 도파민 반응의 간극"><figcaption>중독에서 약물 자체와 약물 단서에 대한 도파민 반응의 간극</figcaption></figure>
+  <p>연구진은 이 간극을 주목합니다.<br>단서가 만든 큰 기대와 둔해진 실제 효과 사이의 차이가, 기대한 보상을 찾아 계속 복용하게 만든다는 가설입니다.<br>로빈슨과 베리지의 유인 민감화 이론도 같은 방향을 가리킵니다. 약물이 &#x27;원함&#x27; 시스템을 민감하게 만들어, 좋아함이 줄어도 원함은 수개월에서 수년까지 남는다는 것입니다.</p>
+  <p>그렇다고 약물에 노출되면 누구나 중독되는 것은 아닙니다.<br>헤로인을 시도한 사람 중 중독에 이르는 비율은 25~40%로 보고됩니다.<br>통증 때문에 오피오이드를 처방받은 사람 중 문제적 사용으로 이어지는 경우는 4% 미만입니다.<br>유전이 위험의 약 절반을 설명하고, 청소년기와 스트레스 같은 환경도 영향을 줍니다.</p>
+  <hr>
+  <h2>아직 풀리지 않은 부분도 있습니다</h2>
+  <p>보상 예측 오차 가설은 신경과학에서 가장 영향력 있는 아이디어 중 하나입니다.<br>그래도 모든 것을 설명하지는 못합니다.</p>
+  <p>2013년에는 완전히 예측된 보상에 다가갈수록 측좌핵 도파민이 서서히 <strong>올라가는</strong> 현상이 보고되었습니다.<br>고전적 공식대로라면 일어나지 않아야 할 일입니다.<br>이것이 가치나 동기 신호라는 해석과, 공식을 조금 고치면 설명된다는 해석이 지금도 맞서고 있습니다.</p>
+  <p>2020년에는 도파민 뉴런마다 낙관적이거나 비관적인 정도가 달라, 뇌가 미래 보상을 평균값 하나가 아니라 <strong>분포</strong>로 표현할 수 있다는 결과도 나왔습니다.<br>도파민이 현저성이나 인과 관계를 부호화한다는 제안도 이어지고 있습니다.</p>
+  <figure><img src="./images/body-5.png" alt="도파민 예측 오차 가설에 남은 세 가지 쟁점 — 램프, 분포형 부호화, 대안 해석"><figcaption>도파민 예측 오차 가설에 남은 세 가지 쟁점 — 램프, 분포형 부호화, 대안 해석</figcaption></figure>
+  <hr>
+  <p>정리하면 이렇습니다.</p>
+  <p>도파민은 기쁨을 주는 물질이라기보다, 세상이 예상과 얼마나 다른지 알려 주는 신호입니다.<br>예상보다 좋으면 배우고, 예상대로면 조용하고, 예상보다 나쁘면 고칩니다.<br>그 신호가 약물처럼 끝없이 켜지면 원함은 커지고, 좋아함은 제자리이거나 오히려 줄어듭니다.</p>
+  <p>&quot;뇌는 쾌락이 아니라 기대와의 차이를 배운다.&quot;</p>
+  <p>같은 커피가 매일 아침 조금씩 덜 반가운 이유도 여기서 찾을 수 있을 것입니다.<br>그렇다면 익숙해진 즐거움은 사라진 것일까요. 저는 뇌가 그만큼 세상을 잘 알게 되었다는 뜻으로 읽고 싶습니다.</p>
+  <p>※ 이 글은 신경과학 원리를 설명하기 위한 것으로 의학적 진단이나 치료를 대신하지 않습니다. 중독이나 기분 문제로 어려움이 있다면 정신건강의학과 전문의나 전문 상담 기관의 도움을 받으시기 바랍니다.</p>
+  <div class="tags"><span>#도파민</span><span>#보상예측오차</span><span>#슐츠실험</span><span>#시간차학습</span><span>#강화학습</span><span>#원함과좋아함</span><span>#유인민감화</span><span>#중독의원리</span><span>#뇌과학</span></div>
+</article>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
