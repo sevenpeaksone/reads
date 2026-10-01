@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>아리스토텔레스 4원인설, &#x27;왜?&#x27;라는 질문에 답하는 네 가지 방식</title>
+<style>
+  :root { --acc:#6a5ae0; --acc-soft:#f1eefc; --ink:#1f2430; --mute:#6b7280; --line:#e6e8ef; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:40px 16px 80px; background:#fafbfd;
+         font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+         color:var(--ink); -webkit-font-smoothing:antialiased; }
+  .wrap { width:700px; max-width:100%; margin:0 auto; background:#fff;
+          border:1px solid var(--line); border-radius:14px; padding:44px 40px 52px; }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .badge { display:inline-block; background:var(--acc); color:#fff; font-size:13px; font-weight:700;
+           padding:5px 12px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:29px; line-height:1.4; font-weight:800; margin:0 0 28px; letter-spacing:-.02em; }
+  h2 { font-size:21px; line-height:1.45; font-weight:800; margin:44px 0 16px; letter-spacing:-.01em;
+       padding-left:13px; border-left:4px solid var(--acc); }
+  p { font-size:16.5px; line-height:1.85; margin:0 0 18px; }
+  ul { margin:0 0 20px; padding-left:20px; }
+  li { font-size:16.5px; line-height:1.85; margin-bottom:7px; }
+  strong { font-weight:700; color:#111827; }
+  em { font-style:italic; color:#3b3f52; }
+  hr { border:0; border-top:1px solid var(--line); margin:34px 0; }
+  figure { margin:26px 0; }
+  img { max-width:100%; height:auto; display:block; border-radius:10px; }
+  blockquote { margin:22px 0; padding:18px 20px; background:var(--acc-soft);
+               border-left:4px solid var(--acc); border-radius:0 8px 8px 0;
+               font-size:16px; line-height:1.8; color:#2f3545; }
+  table { width:100%; border-collapse:collapse; margin:22px 0; font-size:15px; }
+  th { background:var(--acc); color:#fff; font-weight:700; padding:11px 12px; text-align:left; }
+  td { padding:11px 12px; border-bottom:1px solid var(--line); line-height:1.65; vertical-align:top; }
+  tbody tr:nth-child(even) td { background:#f8f8fc; }
+  .tags { margin-top:34px; padding-top:22px; border-top:1px solid var(--line); }
+  .tag { display:inline-block; background:#f2f3f7; color:#4b5162; font-size:13.5px;
+         padding:6px 12px; border-radius:999px; margin:0 7px 9px 0; }
+  @media (max-width:740px){ .wrap{padding:30px 20px 40px;} h1{font-size:24px;} table{font-size:13.5px;} }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta"><span class="badge">철학/인문</span><span class="date">2026-10-02</span></div>
+  <h1>아리스토텔레스 4원인설, &#x27;왜?&#x27;라는 질문에 답하는 네 가지 방식</h1>
+  <figure><img src="./images/thumbnail.png" alt="아리스토텔레스 4원인설 - 왜라는 질문에 답하는 네 가지 방식"></figure>
+  <p>오늘은 아리스토텔레스의 4원인설에 대해 이야기해 보려 합니다. 질료인·형상인·작용인·목적인이라는 네 낱말은 철학 입문서마다 나오지만, 정작 이것이 무엇에 대한 이론인지는 흐릿하게 남기 쉽습니다. 이 글에서는 4원인설을 &#x27;왜?&#x27;라는 질문에 답하는 네 가지 방식으로 읽고, 그 틀이 오늘날 어디까지 이어지는지 따라가 보겠습니다.</p>
+  <p>먼저 결론을 세 줄로 적겠습니다.</p>
+  <ul><li>아리스토텔레스의 &#x27;원인(aitia)&#x27;은 오늘의 인과 개념보다 &#x27;설명&#x27;에 가깝습니다.</li><li>질료·형상·작용·목적은 하나의 사물을 각기 다른 물음으로 풀어내는 네 개의 답입니다.</li><li>근대과학은 이 중 일부를 덜어냈지만, 생물학은 지금도 그 질문들을 되묻고 있습니다.</li></ul>
+  <hr>
+  <h2>&#x27;원인&#x27;이라는 번역이 만드는 오해</h2>
+  <p>흔히 4원인설이라고 부르지만, 아리스토텔레스가 쓴 낱말은 아이티아(aitia)입니다. 스탠퍼드 철학백과는 이 말이 영어로 &#x27;원인&#x27;, &#x27;설명&#x27;, &#x27;왜냐하면&#x27; 등으로 갈린다는 점을 먼저 짚습니다. 위키피디아도 &#x27;설명&#x27;이 더 가까운 번역이라고 정리합니다.</p>
+  <p>워싱턴대의 마크 코언은 한 걸음 더 나아가 &#x27;설명 요인&#x27;이라는 표현을 권합니다. 이유가 있습니다. &#x27;만든다&#x27;라는 말에는 여러 뜻이 겹쳐 있기 때문입니다. 무엇으로 만들어졌는지, 무엇으로 규정되는지, 누가 만들었는지, 무엇을 위한 것인지가 모두 &#x27;만든다&#x27;의 한 갈래입니다. 이 가운데 어느 뜻을 취하느냐에 따라 &#x27;왜?&#x27;에 대한 답이 네 가지로 나뉩니다.</p>
+  <p>그러니 4원인설은 사건을 일으킨 네 가지 힘의 목록이 아닙니다. 하나의 사물을 이해하려고 던지는 네 가지 질문의 목록입니다.</p>
+  <p>아리스토텔레스에게 이는 앎의 조건이기도 했습니다. 『분석론 후서』에는 어떤 것의 원인을 파악했을 때에야 그것을 안다고 생각한다는 취지의 문장이 있고, 『자연학』 II권 3장에도 그 &#x27;왜&#x27;를 파악하기 전에는 안다고 생각하지 않는다는 대목이 있습니다. 질문이 네 갈래라면, 안다는 것도 네 갈래의 답을 갖추는 일이 됩니다.</p>
+  <hr>
+  <h2>네 가지 물음, 네 가지 답</h2>
+  <p>스탠퍼드 철학백과는 네 원인을 각각이 답하는 물음으로 정리합니다.</p>
+  <figure><img src="./images/body-1.png" alt="네 원인이 각각 답하는 물음 - 질료인은 무엇으로 만들어졌는가, 형상인은 그것은 무엇인가, 작용인은 변화는 어디서 오는가, 목적인은 무엇을 위한 것인가"></figure>
+  <p><strong>질료인(material cause)</strong>은 &quot;무엇으로 만들어져 있는가&quot;에 답합니다. 그리스어 휠레(hyle)가 이 자리에 있고, 각 사물이 그로부터 생겨나는 일차적 기체를 뜻합니다. 조각상의 청동, 그릇의 은이 아리스토텔레스가 든 예입니다.</p>
+  <p><strong>형상인(formal cause)</strong>은 &quot;그것은 무엇인가&quot;에 답합니다. 답에서 가려내는 것은 사물의 본질, 곧 &#x27;무엇이었음&#x27;입니다. 에이도스(eidos)라 부르며, 옥타브가 2대 1의 비율이라는 설명이 그 예로 전해집니다. 형상은 겉모양과 다릅니다. 그릇의 본질은 바깥 윤곽이 아니라 액체를 담을 수 있다는 데 있다는 해설이 이 구분을 잘 보여줍니다.</p>
+  <p><strong>작용인(efficient cause)</strong>은 &quot;변화는 어디서 오는가&quot;에 답합니다. 오늘날 우리가 &#x27;원인&#x27;이라 부를 때 떠올리는 것이 바로 이쪽입니다. 아버지가 아이의 원인이고, 제작자가 제작물의 원인입니다.</p>
+  <p><strong>목적인(final cause)</strong>은 &quot;그것의 좋음은 무엇인가&quot;에 답합니다. 끝, 곧 텔로스(telos)입니다. 코언이 옮긴 정의는 이렇습니다. 어떤 것이 무엇을 위한 것인지가 그것의 원인이며, 건강이 걷기의 원인인 것과 같다는 것입니다.</p>
+  <p>여기서 청동의 예를 한 번 더 보겠습니다. 청동이 조각상의 질료라는 사실만으로는, 그것이 왜 하필 &#x27;조각상&#x27;인지 설명되지 않습니다. 같은 청동으로 종이나 방패도 만들 수 있기 때문입니다. 질료에 형상이 더해져야 비로소 이 사물이 됩니다. 코언의 해설이 정확히 이 점을 짚습니다.</p>
+  <hr>
+  <h2>탁자 하나를 네 번 설명해 보기</h2>
+  <p>원문의 예시는 간결해서 오히려 추상적으로 읽힙니다. 위키피디아가 소개하는 탁자의 예를 가져와 네 질문을 한 번에 겹쳐 보겠습니다. 이는 현대 해설자의 예시이며, 아리스토텔레스 본문의 문장은 아닙니다.</p>
+  <figure><img src="./images/body-2.png" alt="질료인·형상인·작용인·목적인 네 원인을 물음, 아리스토텔레스의 원문 예시, 탁자 적용 예로 비교한 표"></figure>
+  <p>탁자가 단단하고 갈색인 것은 나무로 만들어졌기 때문입니다. 질료인입니다. 쓰러지지 않는 것은 길이가 같은 네 다리라는 구조 때문입니다. 형상인입니다. 목수가 나무를 베어 만들었다는 것은 작용인이고, 사람이 쓰기 알맞은 크기를 가졌다는 것은 목적인입니다.</p>
+  <p>어느 하나만 빠져도 &#x27;왜 이 탁자인가&#x27;라는 물음은 절반만 풀립니다. 나무만 말하면 의자와 구별되지 않고, 목수만 말하면 무엇이 만들어졌는지 알 수 없습니다. 아리스토텔레스가 하나의 원인으로 모든 것을 환원하려는 시도를 거부한 까닭이 여기에 있습니다. 스탠퍼드 철학백과는 이를 &#x27;인과적 다원주의&#x27;라 부르며, 원인이 여러 방식으로 말해지므로 한 사물에 둘 이상의 원인이 함께 본질적일 수 있다는 대목을 인용합니다.</p>
+  <p>한 가지 단서를 달아야 합니다. 같은 항목은 작용인의 핵심이 개별 장인의 사정이 아니라 &#x27;기술&#x27; 그 자체라고 강조합니다. 장인이 누구의 딸인지는 조각상을 설명하지 못합니다. 아리스토텔레스는 이를 &#x27;본질적 원인&#x27;과 &#x27;우연적 원인&#x27;의 구분으로 정리했고, 설명력은 본질적 원인에만 있다고 보았습니다.</p>
+  <hr>
+  <h2>정적인 두 원인, 동적인 두 원인</h2>
+  <p>네 원인은 성격에 따라 둘씩 묶어 볼 수 있습니다.</p>
+  <figure><img src="./images/body-3.png" alt="질료인과 형상인은 정적으로, 작용인과 목적인은 동적으로 설명한다는 두 묶음 대조"></figure>
+  <p>코언의 구분을 따르면, 질료인과 형상인은 세계를 정적으로 분석합니다. 지금 이 사물이 무엇이고 무엇으로 되어 있는가를 묻습니다. 작용인과 목적인은 동적으로 설명합니다. 변화가 어떻게, 그리고 무엇을 향해 일어나는가를 묻습니다. 위키피디아는 이와 비슷하게 질료와 형상을 대상에 내재하는 원인으로, 작용과 목적을 대상 바깥에서 오는 원인으로 나눕니다.</p>
+  <p>또 하나 눈여겨볼 대목이 있습니다. 『자연학』 II권 7장에 따르면 세 원인은 자주 겹칩니다. 자연물, 특히 생물에서는 형상인과 작용인과 목적인이 한 점에서 만납니다. 도토리를 떠올려 보시면 좋겠습니다. 참나무라는 형상, 그것이 되어 가려는 끝, 그리고 그리로 이끄는 변화가 한 사물 안에서 포개집니다. 이 예시는 제가 덧붙인 것이지만, 형상이 곧 도달할 목적과 겹친다는 해설에 근거합니다.</p>
+  <p>중세의 아퀴나스 전통은 여기에 위계를 매겼습니다. 위키피디아가 전하는 문장을 옮기면, 질료는 형상으로, 형상은 작용인으로, 작용인은 목적으로 완성된다는 것입니다. 목적인이 &#x27;원인들의 여왕&#x27;이라 불린 연유입니다.</p>
+  <hr>
+  <h2>목적인은 왜 가장 논쟁적인가</h2>
+  <p>네 원인 가운데 오늘 가장 불편하게 읽히는 것은 목적인입니다. 돌멩이가 떨어지는 데 목적이 있다고 말하는 것은 어색하게 들립니다.</p>
+  <p>아리스토텔레스의 논거는 &#x27;규칙성&#x27;이었습니다. 『자연학』 II권 8장에서 그는 질료와 작용만으로는 자연의 반복되는 패턴을 설명할 수 없다고 봅니다. 앞니는 날카롭고 어금니는 넓은 배치가 동물의 필요와 거듭 맞아떨어지는 것을 우연으로 돌리기는 어렵다는 것입니다. 『동물부분론』에는 우연의 부재와 목적에 대한 봉사가 자연의 작품에서 특히 발견된다는 대목도 있습니다.</p>
+  <p>그렇다고 의식적 의도를 불러들인 것은 아닙니다. 스탠퍼드 철학백과는 그의 모형이 심리적 요인과 무관하며, 의도 없는 기술적 제작을 모델로 삼는다고 봅니다. 위키피디아도 거미가 숙고 없이 목적에 맞게 집을 짓는 예를 듭니다. 이 해석에 이견이 아주 없지는 않습니다. 자연을 심리화한다는 비판이 학계에 있다는 점도 함께 적어 둡니다.</p>
+  <p>『자연학』 II권 9장의 &#x27;가언적 필연성&#x27;은 이 목적론을 한 단계 정밀하게 만듭니다. 질료적 과정은 특정 목적을 달성한다는 조건 아래에서 필연적이라는 것입니다. 인터넷 철학백과의 예가 이해를 돕습니다. 혀의 목적이 말이라면, 혀는 미세한 소리 차이를 낼 수 있도록 넓고 유연해야 합니다. 기능이 구조를 요구하는 방향입니다.</p>
+  <hr>
+  <h2>근대가 덜어낸 것, 생물학이 되묻는 것</h2>
+  <p>예전에는 네 가지가 한 세트였습니다. 근대에 들어서는 그 세트가 쪼개졌습니다.</p>
+  <p>프랜시스 베이컨은 자연철학을 둘로 나눕니다. 물리학은 질료인과 작용인을, 형이상학은 형상인과 목적인을 탐구한다는 구분입니다. 스탠퍼드 철학백과의 베이컨 항목이 전하는 내용입니다. 위키피디아의 요약대로라면, 자연과학의 몫은 질료인과 작용인으로 좁혀졌고 이후 과학의 틀이 되었습니다. 베이컨은 거미줄을 제 배에서 뽑아내는 거미에 아리스토텔레스주의자를 빗대고, 꿀벌처럼 재료를 모아 소화하라고 권했습니다. 다만 &#x27;배척&#x27;이 아니라 &#x27;다른 학문으로의 배정&#x27;에 가깝다는 해석의 차이는 남습니다.</p>
+  <p>그런데 생물학에서는 질문이 사라지지 않았습니다.</p>
+  <figure><img src="./images/body-4.png" alt="틴버겐의 네 가지 물음(기전·기능·계통발생·개체발생)과 아리스토텔레스의 네 원인을 대응시킨 표"></figure>
+  <p>동물행동학자 틴버겐은 1963년 논문 「동물행동학의 목표와 방법」에서 행동을 네 가지로 물었습니다. 기전, 개체발생, 기능, 계통발생입니다. 위키피디아는 이를 아리스토텔레스의 네 원인과 대응시켜, 기전을 작용인에, 기능을 목적인에 맞춥니다. 틴버겐은 기능과 계통발생을 갈라 놓음으로써 아리스토텔레스 틀의 빈틈을 메웠다고도 설명합니다. 다만 개체발생과 계통발생을 질료인과 형상인에 맞추는 대응은 하나의 소스에 의존한 서술이어서, 학계의 합의로 받아들이기는 이릅니다.</p>
+  <figure><img src="./images/body-5.png" alt="목적인을 둘러싼 입장 - 아리스토텔레스의 규칙성 논거, 베이컨의 분리, 마이어의 사후적 결과, 레녹스의 양립론"></figure>
+  <p>목적론의 지위를 두고는 지금도 의견이 갈립니다. 아얄라는 적응이라는 개념 자체가 목적론을 품고 있다고 주장하고, 제임스 레녹스는 다윈의 진화가 기계적이면서 동시에 목적론적일 수 있다고 봅니다. 반대편의 에른스트 마이어는 적응을 선험적 목표 추구가 아닌 사후적 결과로 보았습니다. 어느 쪽이 옳다고 여기서 판정하지는 않겠습니다. 다만 &#x27;이 기관은 무엇을 위한 것인가&#x27;라는 물음이 여전히 생물학의 언어에 살아 있다는 사실은 분명합니다.</p>
+  <p>하이데거는 『기술에 대한 물음』에서 네 원인을 &#x27;불러일으킴&#x27;의 방식으로 다시 읽었습니다. 집을 지을 때 질료와 형상, 목적과 작용이 하나의 통일된 과정으로 함께 책임을 진다는 것입니다. 네 가지를 따로 떼어 쓰는 습관이 오히려 낯설어지는 대목입니다.</p>
+  <hr>
+  <h2>정리하면 이렇습니다</h2>
+  <p>4원인설의 힘은 정답을 주는 데 있지 않고, 물음을 빠뜨리지 않게 해 주는 데 있다고 생각합니다. 무엇으로 되어 있는가, 무엇인가, 누가 혹은 무엇이 움직였는가, 무엇을 위한 것인가. 이 넷 중 하나만 붙들면 설명은 편해지지만 사물은 납작해집니다.</p>
+  <p>한계도 분명합니다. 이 목록이 모든 설명에 꼭 들어맞는지는 지금도 논쟁거리이고, 형상인과 목적인을 과학적 설명의 정당한 범주로 볼지 편의적 표현으로 볼지도 열려 있습니다. 위키피디아가 정리하듯, 근대과학이 질료와 작용에 집중한 것은 형이상학적 필연이 아니라 방법론적 선택이었다는 견해도 있습니다.</p>
+  <p>결국 남는 것은 하나입니다. &quot;왜?&quot;라는 물음에는 답이 하나가 아니라는 것.</p>
+  <p>다음에 어떤 사물이나 제도, 혹은 나 자신의 습관을 두고 &#x27;왜 이렇지?&#x27; 하고 물을 일이 생기면, 네 개의 질문을 차례로 던져 보시기를 권합니다. 답이 하나뿐일 때보다 훨씬 오래 그 사물 곁에 머물게 될 것입니다.</p>
+  <hr>
+  <div class="tags"><span class="tag">#아리스토텔레스</span><span class="tag">#4원인설</span><span class="tag">#질료인</span><span class="tag">#형상인</span><span class="tag">#작용인</span><span class="tag">#목적인</span><span class="tag">#철학</span><span class="tag">#자연학</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
