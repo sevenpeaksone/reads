@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>거미줄 모형과 돼지 사이클, 농산물 가격이 폭등과 폭락을 반복하는 이유</title>
+<meta name="description" content="거미줄 모형의 수렴·순환·발산 조건과 탄력성 비교, 합리적 기대의 비판, 한국 배추와 한돈 사례를 자료 수치로 정리했습니다."/>
+<style>
+  :root { --accent:#2bbe78; --ink:#1a1c1a; --mute:#5b6b60; --line:#e2e8e4; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f5f7f5; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;
+    line-height:1.85; }
+  .wrap { max-width:700px; margin:0 auto; padding:40px 24px 80px; background:#ffffff; }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:22px; }
+  .badge { background:var(--accent); color:#08110c; font-weight:700; font-size:13px;
+    padding:5px 13px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:30px; line-height:1.35; font-weight:800; margin:0 0 30px; letter-spacing:-.01em;
+    word-break:keep-all; }
+  h2 { font-size:21px; font-weight:700; margin:44px 0 14px; padding-left:13px;
+    border-left:4px solid var(--accent); line-height:1.4; word-break:keep-all; }
+  p { font-size:16.5px; margin:0 0 18px; word-break:keep-all; }
+  ul { margin:0 0 20px; padding-left:20px; }
+  li { font-size:16.5px; margin-bottom:8px; word-break:keep-all; }
+  strong { font-weight:700; }
+  figure { margin:26px 0; }
+  img { max-width:100%; height:auto; border-radius:12px; display:block; }
+  hr { border:none; border-top:1px solid var(--line); margin:34px 0; }
+  .tags { margin-top:38px; padding-top:22px; border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:8px; }
+  .tag { color:var(--accent); background:#eaf7f0; font-size:13.5px;
+    padding:5px 11px; border-radius:8px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta"><span class="badge">경제</span><span class="date">2026-10-06</span></div>
+  <h1>거미줄 모형과 돼지 사이클, 농산물 가격이 폭등과 폭락을 반복하는 이유</h1>
+<figure><img src="./images/thumbnail.png" alt="거미줄 모형과 돼지 사이클 - 농산물 가격은 왜 폭등과 폭락을 반복하나"/></figure>
+<p>이번 글에서는 농산물 가격이 폭등과 폭락을 번갈아 반복하는 이유를 거미줄 모형(cobweb model)으로 정리해 보겠습니다. 돼지 사이클이라는 이름으로도 불리는 이 현상이 왜 생기는지, 어떤 조건에서 가라앉고 어떤 조건에서 커지는지, 한국의 배추와 한돈에는 어떻게 비치는지 차례로 살펴봅니다.</p>
+<p>먼저 답부터 드리겠습니다.</p>
+<ul><li>핵심은 시차입니다. 농민은 지금 가격을 보고 심고 키우지만, 물건은 한참 뒤에 나옵니다.</li><li>가격에 공급이 수요보다 더 크게 반응하면 진동이 커지고, 덜 반응하면 가라앉습니다.</li><li>한국 사례는 이 모형만으로 깔끔하게 설명되지 않습니다. 기후와 질병, 수입이 함께 움직입니다.</li></ul>
+<hr/>
+<h2>한 바퀴 돌 때마다 가격이 뒤집힌다</h2>
+<p>거미줄 모형은 생산과 출하 사이의 시차에서 출발합니다. 농업이 대표적입니다. 파종과 수확 사이에 시간이 걸리기 때문입니다.</p>
+<p>니컬러스 칼도어가 1934년에 이 이론에 &#x27;거미줄 정리&#x27;라는 이름을 붙였습니다. 모르데카이 에제키엘이 1938년 논문 「The Cobweb Theorem」으로 널리 알렸고, 아서 하나우는 1928년 독일 돼지 시장의 변동을 기록했습니다.</p>
+<p>돼지가 가장 좋은 예입니다. 미국 확장(Extension) 자료에 따르면 번식 후 추가 돼지가 시장에 나오기까지 9~10개월이 걸립니다. 번식돈을 확보하고 규모를 늘리기까지 유리한 수익이 3~6개월은 이어져야 합니다.</p>
+<p>그래서 순서가 이렇게 흘러갑니다. 가격이 오릅니다. 농가가 사육을 늘립니다. 한참 뒤 물량이 한꺼번에 나와 가격이 떨어집니다. 농가가 사육을 줄입니다. 이번에는 물량이 모자라 가격이 다시 오릅니다.</p>
+<figure><img src="./images/body-1.png" alt="거미줄 모형이 한 바퀴 도는 6단계 순환 - 가격 상승에서 생산 확대, 시차, 공급 과잉, 가격 하락, 생산 축소까지"/></figure>
+<p>미국 자료로 보면 가격 주기는 평균 2.9년(1950~85년), 생산 주기는 평균 4.5년(1950~86년)이었습니다. 생산이 늘 때 가격은 대체로 내리막이고, 생산이 줄 때는 오르막이었습니다.</p>
+<hr/>
+<h2>수렴, 순환, 발산: 갈림길은 기울기의 비교</h2>
+<p>같은 시차가 있어도 모든 시장이 같은 길을 걷지는 않습니다. 갈림길은 수요와 공급이 가격에 얼마나 민감한가입니다.</p>
+<ul><li>수렴: 균형점에서 수요곡선이 공급곡선보다 더 탄력적일 때입니다. 진동 폭이 점점 줄어 균형에 가까워집니다.</li><li>순환: 두 곡선의 탄력성이 같을 때입니다. 같은 두 가격 사이를 영원히 오갑니다.</li><li>발산: 수요곡선이 공급곡선보다 가파를 때입니다. 가격과 수량이 매 주기 바깥으로 나선형을 그립니다.</li></ul>
+<p>식으로 보면 단순합니다. 수요를 Qd = a − bP, 공급을 이전 기 가격에 반응하는 Qs = c + dP(t−1)로 두면, 가격이 균형에서 벗어난 폭은 한 주기마다 (−d/b)배가 됩니다. d/b가 1보다 작으면 줄고, 1이면 그대로, 1보다 크면 커집니다.</p>
+<figure><img src="./images/body-2.png" alt="수렴·순환·발산 세 가지 거미줄 도형 - 공급과 수요의 기울기 비율에 따른 가격 경로"/></figure>
+<p>실험 연구도 같은 기준을 씁니다. 틴베르헌연구소에서 발표된 거미줄 실험은 공급 기울기와 수요 기울기의 비율 σ를 안정성 계수로 삼았고, 처치별 값은 −0.87에서 −7.75까지였습니다. 절댓값이 1보다 작은 쪽이 안정 시장입니다.</p>
+<p>다만 이 조건이 현실을 그대로 말해 주지는 않습니다. 칼도어는 단기 탄력성과 장기 탄력성의 차이를 무시한다고 비판했습니다. 이후 비선형 함수, 저장, 조정 속도가 모형에 더해졌습니다. 발산하던 경로가 일정한 폭을 오가는 한계 순환으로 바뀔 수 있다는 설명도 있습니다.</p>
+<hr/>
+<h2>농산물 수요는 왜 둔한가</h2>
+<p>농산물은 가격이 올랐다고 덜 먹기 어려운 물건입니다. 한국농수산식품유통공사 조사를 인용한 기사에 따르면 2005~2015년 주요 농축산물의 평균 가격탄력성은 0.28이었습니다. 양념류 0.19, 식량류 0.23, 과일류 0.15, 축산류 0.13입니다.</p>
+<p>수요가 이렇게 둔하면 같은 공급 변화도 가격에서는 크게 증폭됩니다. 농가가 가격에 민감하게 면적과 두수를 바꿀수록 발산 쪽으로 기웁니다.</p>
+<p>단, 숫자를 그대로 믿기에는 조심할 부분이 있습니다. 미국 육류 수요 연구는 공개 자료 기준으로 돼지고기 −0.978, 스캐너 자료 기준으로 −2.016을 얻었습니다. 한국의 축산류 0.13과는 대상도 방법도 달라 직접 비교할 수 없습니다. 탄력성은 어떻게 재느냐에 따라 달라지는 숫자입니다.</p>
+<figure><img src="./images/body-3.png" alt="농산물 수요 가격탄력성 비교 - 한국 품목별 평균 0.28과 미국 돼지고기 추정치"/></figure>
+<hr/>
+<h2>농민은 정말 같은 실수를 반복할까</h2>
+<p>거미줄 모형의 약한 고리는 기대입니다. 가장 단순한 형태는 &quot;내년 가격은 올해 가격과 같다&quot;고 믿는 것입니다. 불안정한 경우라면 농민의 오차가 매 주기 커지는데도 배우지 못한다는 이야기가 됩니다.</p>
+<p>존 무스는 1961년 논문에서 이 점을 짚었습니다. 그는 기대가 &quot;정보에 입각한 예측이므로 관련 경제 이론의 예측과 본질적으로 같다&quot;고 보았고, 거미줄 모형은 농민이 경험에서 배우지 못한다는 함의를 지닌다고 지적했습니다. 앞서 1958년 마크 널러브는 가격 믿음을 서서히 고치는 적응적 기대를 도입해 시장이 더 안정적으로 움직이도록 했습니다.</p>
+<p>그렇다면 실제 사람은 어떨까요. 틴베르헌연구소의 실험에서 6명 한 그룹이 시장 방정식을 모른 채 50기 연속 가격을 예측했습니다. 18개 그룹 중 17개에서 평균 가격은 합리적 기대 균형에 가까웠습니다. 안정 시장에서는 분산도 기준값(0.25)에 근접했습니다. 그러나 불안정 시장에서는 평균은 맞아도 그 주변의 변동이 계속 컸습니다.</p>
+<figure><img src="./images/body-4.png" alt="기대 형성 방식 비교 표 - 단순 기대, 적응적 기대, 합리적 기대와 실험 결과"/></figure>
+<p>시차 자체가 순환을 만든다는 반론도 있습니다. 로젠, 머피, 샤인크먼은 1994년 논문에서 소의 번식 시차를 반영한 모형이 1875~1990년 자료에 매우 잘 맞는다고 보였습니다.</p>
+<p>예전엔 순환의 원인을 농민의 근시안에서 찾았습니다. 지금은 합리적인 농민이라도 시차가 있으면 순환이 남는다고 봅니다.</p>
+<hr/>
+<h2>한국의 배추에서 보이는 모양</h2>
+<p>배추는 거미줄이 가장 잘 비치는 품목입니다. 한국농촌경제연구원은 마땅한 대체작목이 없어 전년도 가격에 따라 당해 연도의 재배면적 변화가 심하다고 설명한 바 있습니다.</p>
+<p>2015년 3월은 폭락 쪽입니다. 전년 풍작과 재배 확대가 겹쳐 공급이 넘쳤고, 한국농촌경제연구원은 도매가를 10kg당 4,000~5,000원으로 내다봤는데, 평년(8,766원)의 절반 정도였습니다.</p>
+<p>2024년 9월은 폭등 쪽입니다. 9월 23일 도매가는 포기당 11,895원으로 평년보다 98.3%, 전년보다 151.7% 높았습니다. 정부는 중국산 배추를 들여왔는데, 2010·2011·2012·2022년에 이은 역대 5번째였습니다. 가을배추 재배면적은 전년 13,152ha에서 12,998ha로 1.2% 줄어 5년 만에 가장 작았습니다.</p>
+<p>면적 감소 폭이 작다는 점은 기억해 둘 만합니다. 정부 자료가 든 원인은 재배면적 감소와 함께 극심한 가뭄과 이례적 고온이었습니다. 이 폭등을 거미줄만으로 설명하면 과장입니다.</p>
+<p>이후 농업전망 2025는 전년 가격이 좋았던 영향으로 무 생산이 17.3%, 배추 생산이 2.6% 늘 것으로 내다봤습니다. 농업전망 2026도 같은 장면입니다. 전년 동기 시세가 강해 가을배추 재배면적이 4.5%, 생산이 20.4% 늘 것으로 전망했고, 시세가 약했던 봄·여름·겨울배추는 생산이 2~4% 줄 것으로 보았습니다.</p>
+<hr/>
+<h2>한돈은 절반만 맞는다</h2>
+<p>한돈은 2025년이 거미줄 모양에 가깝습니다. 농촌경제연구원 자료로 2025년 모돈은 95만 1천 마리로 1.2% 줄었고, 도축은 1,870만 9천 마리로 1.6% 줄었습니다. 도매가격은 kg당 5,763원으로 10.0% 올랐습니다. 2026년은 국내 공급이 늘어 5,500~5,700원으로 내릴 것이라는 전망입니다.</p>
+<p>그러나 한 해의 모양으로 결론을 내릴 수는 없습니다. 한돈뉴스의 분석에 따르면 2019~2024년 도축 두수는 연평균 1.3% 늘었는데 지육 가격은 연 6.9%가량 올랐습니다. 공급과 가격 사이에 뚜렷한 상관이 보이지 않는다는 결론이었습니다. 2025년에는 구제역, 아프리카돼지열병 등 질병과 폭염으로 인한 폐사 증가도 있었습니다.</p>
+<p>미국에서도 모양은 달라졌습니다. 미국 농무부 경제연구청은 돼지 생산 주기가 과거보다 덜 뚜렷하고 더 가변적이며, 대규모 전문화로 생산자가 가격에 덜 반응하게 됐다고 설명합니다.</p>
+<figure><img src="./images/body-5.png" alt="한국 배추와 한돈 사례 표 - 시점별 변화와 거미줄 모형과의 관계"/></figure>
+<p>시차를 줄이는 도구도 있습니다. 농업관측으로 적정 재배면적을 유도하고, 비축과 수입으로 충격을 누그러뜨립니다. 2023년 4월 정부의 배추 비축 방출량은 4,654톤으로 과거 5년 평균(996톤)의 4.7배였습니다.</p>
+<hr/>
+<p>정리하면 이렇습니다.</p>
+<p>가격 신호는 정확해도 도착이 늦습니다. 거미줄 모형은 그 지연이 농민의 어리석음이 아니라 구조에서 나온다는 점을 보여 줍니다.</p>
+<p>&quot;가격은 오늘 정해지지만, 공급은 내일 도착한다.&quot;</p>
+<p>폭등한 가격표 앞에서 농가를 탓하기보다 시차를 줄일 방법을 먼저 묻는다면, 다음 폭락은 조금 더 얕아지지 않을까 생각합니다.</p>
+<div class="tags"><span class="tag">#거미줄모형</span><span class="tag">#돼지사이클</span><span class="tag">#농산물가격</span><span class="tag">#배추가격</span><span class="tag">#한돈가격</span><span class="tag">#가격탄력성</span><span class="tag">#합리적기대</span><span class="tag">#수급불균형</span><span class="tag">#경제공부</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
