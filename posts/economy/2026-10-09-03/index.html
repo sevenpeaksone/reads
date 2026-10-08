@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>코스 정리의 한계, 거래비용이 0이 아닐 때 오염 협상은 왜 실패하는가</title>
+<meta name="description" content="코스 정리의 한계를 실험 결과, 벌통과 샤스타 카운티 현장 연구, 스퍼 대 웹 판결, 미국 산성비 프로그램으로 짚어 봅니다."/>
+<style>
+  :root { --accent:#2bbe78; --ink:#1a1c1a; --mute:#5b6b60; --line:#e2e8e4; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f5f7f5; color:var(--ink);
+    font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;
+    line-height:1.85; }
+  .wrap { max-width:700px; margin:0 auto; padding:40px 24px 80px; background:#ffffff; }
+  .meta { display:flex; align-items:center; gap:10px; margin-bottom:22px; }
+  .badge { background:var(--accent); color:#08110c; font-weight:700; font-size:13px;
+    padding:5px 13px; border-radius:999px; letter-spacing:.02em; }
+  .date { color:var(--mute); font-size:14px; }
+  h1 { font-size:30px; line-height:1.35; font-weight:800; margin:0 0 30px; letter-spacing:-.01em;
+    word-break:keep-all; }
+  h2 { font-size:21px; font-weight:700; margin:44px 0 14px; padding-left:13px;
+    border-left:4px solid var(--accent); line-height:1.4; word-break:keep-all; }
+  p { font-size:16.5px; margin:0 0 18px; word-break:keep-all; }
+  ul { margin:0 0 20px; padding-left:20px; }
+  li { font-size:16.5px; margin-bottom:8px; word-break:keep-all; }
+  strong { font-weight:700; }
+  figure { margin:26px 0; }
+  img { max-width:100%; height:auto; border-radius:12px; display:block; }
+  hr { border:none; border-top:1px solid var(--line); margin:34px 0; }
+  .tags { margin-top:38px; padding-top:22px; border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:8px; }
+  .tag { color:var(--accent); background:#eaf7f0; font-size:13.5px;
+    padding:5px 11px; border-radius:8px; }
+</style>
+<style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<div class="wrap">
+  <div class="meta"><span class="badge">경제</span><span class="date">2026-10-09</span></div>
+  <h1>코스 정리의 한계, 거래비용이 0이 아닐 때 오염 협상은 왜 실패하는가</h1>
+<figure><img src="./images/thumbnail.png" alt="코스 정리와 거래비용 썸네일 - 외부효과는 협상으로 풀리는가"/></figure>
+<p>오늘은 코스 정리와 그 한계에 대해 이야기해 보려 합니다. 거래비용이 0이라면 당사자끼리의 협상만으로 오염 문제가 효율적으로 정리된다는 것이 정리의 내용입니다. 그러나 현실의 거래비용은 0이 아니고, 코스 본인도 이 점을 강조했습니다. 이 글은 정리가 정확히 무엇을 말하는지, 어디서 맞고 어디서 무너지는지를 실험과 판례, 정책 사례로 짚어 봅니다.</p>
+<hr/>
+<h2>정리가 실제로 말하는 것</h2>
+<p>1991년 노벨위원회는 로널드 코스에게 상을 주며 &quot;거래비용과 재산권이 갖는 의의를 발견하고 명확히 한 공로&quot;라고 밝혔습니다. 위원회의 설명에 따르면 정리의 골자는 이렇습니다. 재산권이 명확하고 이전할 수 있으며 거래비용이 0이면, 자원 사용은 권리가 처음 누구에게 배분되었는지에 의존하지 않습니다.</p>
+<p>공장 매연을 예로 들겠습니다. 공장에 오염할 권리가 있든 주민에게 맑은 공기를 누릴 권리가 있든, 저감 비용이 피해액보다 작다면 결국 저감이 이루어집니다. 권리가 공장에 있으면 주민이 돈을 내고 줄여 달라 하고, 주민에게 있으면 공장이 돈을 내고 오염할 권리를 삽니다. 누가 돈을 내느냐만 달라질 뿐입니다.</p>
+<figure><img src="./images/body-1.png" alt="거래비용이 0일 때와 0이 아닐 때 오염 협상 결과를 비교한 그림"/></figure>
+<p>흔히 놓치는 사실이 하나 있습니다. &#x27;정리&#x27;라는 이름은 코스가 붙이지 않았습니다. 조지 스티글러가 1966년 교과서에서 완전경쟁 아래 사적 비용과 사회적 비용이 같아진다고 정식화하며 그렇게 불렀습니다. 노벨위원회조차 거래비용 0은 가상의 비교 기준일 뿐이라고 못박았습니다.</p>
+<p>코스의 출발점은 오히려 &#x27;상호성&#x27;이었습니다. 연기 피해는 벽을 세운 사람과 불을 지핀 사람 양쪽이 함께 일으켰다는 것입니다. 1960년 논문 「사회적 비용의 문제」의 문장을 빌리면, 권리를 행사하는 비용은 언제나 다른 곳에서 발생하는 손실입니다. 공장을 막으면 공장 쪽이, 막지 않으면 주민 쪽이 손실을 입습니다. 누구를 악당으로 둘지가 아니라 어느 손실이 더 작은지가 질문이라는 뜻입니다.</p>
+<hr/>
+<h2>실험실에서는 꽤 잘 들어맞았습니다</h2>
+<p>이론이 현실에서 작동하는지 확인하려는 시도는 일찍부터 있었습니다. 엘리자베스 호프먼과 매슈 스피처는 1982년 『Journal of Law and Economics』에 「코스 정리: 몇 가지 실험적 검증」을 발표했습니다. 메데마와 저브가 정리한 바에 따르면 이 연구는 500회가 넘는 실험을 담았고, 집단은 1대1부터 1대19까지 다양했습니다.</p>
+<p>결과는 인상적입니다. 효율적인 결과에 도달한 비율이 약 92%였습니다. 정보를 모두 공개한 경우 약 94%, 정보가 불완전한 경우에도 약 90%였습니다. 1987년 쿠르시, 호프먼, 스피처의 후속 실험에서는 40회 중 38회가 효율적으로 끝났습니다.</p>
+<p>다만 해석에는 조심이 필요합니다. 스티븐 메데마는 학생 피험자의 실험실 결과를 실제 외부효과로 곧바로 옮길 수는 없다고 지적합니다. 슈왑의 노동계약 실험에서는 완전히 효율적인 계약이 약 20%에 그쳤습니다. 리처드 세일러의 실험도 흥미롭습니다. 현금과 맞바꿀 수 있는 토큰으로는 코스의 예측대로 거래가 이루어졌지만, 머그컵으로 하자 소유 효과 탓에 효율적 거래가 일어나지 않았습니다. 내 것을 내놓을 때는 더 많이 요구하게 되니, 처음 권리를 누구에게 주느냐가 결과를 바꾸는 셈입니다.</p>
+<hr/>
+<h2>협상이 무너지는 다섯 개의 지점</h2>
+<p>실험실 바깥에서 협상을 가로막는 요인은 문헌에서 반복해 확인됩니다.</p>
+<figure><img src="./images/body-2.png" alt="협상이 무너지는 다섯 가지 요인 카드 - 거래비용, 귀속 문제, 버티기, 무임승차, 정보 비대칭"/></figure>
+<p>첫째는 거래비용 자체입니다. 사회 규범과 어색함 때문에 두 사람 사이에서도 협상은 비쌉니다. 변호사 비용이 얻는 이익을 넘어서는 일도 있습니다.</p>
+<p>둘째는 귀속 문제입니다. 피해를 누가 냈는지 가려내고 금액으로 환산하는 일부터 쉽지 않습니다.</p>
+<p>셋째는 버티기입니다. 권리자가 많으면 마지막 한 사람이 더 많은 보상을 요구하며 합의를 무너뜨릴 수 있습니다. 넷째는 무임승차입니다. 혜택을 보는 사람이 많을수록 각자 지불을 미루려 합니다. 이 경우 법원 명령 같은 강제 참여만이 길이라는 논의가 있습니다.</p>
+<p>다섯째는 정보 비대칭입니다. 불완전한 정보 아래에서는 비용과 편익을 부풀려 말할 유인이 생기고, 협상 결과가 하나로 정해지지 않고 넓은 범위에서 갈립니다. 덴마크의 한 사례에서는 수도 회사가 농가와 자발적 재배 협약을 협상했으나, 정보 우위를 쥔 농가가 과다한 보상을 요구해 협상이 길어졌습니다.</p>
+<p>감정도 변수입니다. 파른스워스는 소음·냄새 분쟁 20건에서 판결 이후 당사자들이 협상한 경우가 한 건도 없었다고 보고했고, 협상 자체가 불공정하다는 분노가 이유의 일부였습니다. 규모가 커질수록 사정은 더 어렵습니다. 기후변화처럼 피해자가 수없이 많고 미래 세대까지 걸린 문제는 협상 테이블을 차리는 일부터 불가능합니다.</p>
+<hr/>
+<h2>현장 확인 1, 벌통과 사과밭</h2>
+<p>경제학자 제임스 미드는 1952년 사과 재배자가 벌이 주는 혜택을 가져가지 못하니 시장은 수분 서비스를 적게 공급할 것이라고 보았습니다. 보조금이나 정부 공급이 필요하다는 논리였습니다.</p>
+<p>스티븐 청은 1973년 워싱턴주를 직접 조사했습니다. 시장은 이미 돌아가고 있었습니다. 명시적 계약이 없어도 &#x27;과수원의 관습&#x27;이라는 암묵적 규칙이 있었습니다. 이웃과 같은 밀도로 벌통을 두지 않으면 나쁜 이웃으로 찍힙니다. 평균 과수원은 50에이커를 조금 넘고, 벌은 1마일 이상 날아 경계를 넘나듭니다. 돈이 흐르는 방향도 작물을 따라 달랐습니다. 사과꽃에는 꿀이 적어 사과 재배자가 양봉가에게 값을 치르고, 오렌지꽃에는 꿀이 많아 플로리다에서는 양봉가가 과수원에 값을 치르는 것이 관행이었습니다.</p>
+<p>관습이 거래비용을 낮게 유지해 준 덕분에 사적 협정이 가능했다는 해석입니다. 외부효과라고 해서 언제나 정부가 나서야 하는 것은 아닙니다.</p>
+<hr/>
+<h2>현장 확인 2, 샤스타 카운티의 이웃들</h2>
+<p>로버트 엘릭슨은 캘리포니아 샤스타 카운티에서 목축업자와 농민의 소 침입 분쟁을 조사했습니다. 1982년 여름 중심으로 토지 소유자 28명(목축업자 11명, 농민 4명, 소규모 목장 소유자 13명)을 만났고, 전문가 50명의 의견도 들었습니다. 표본이 작고 무작위가 아니라는 점은 저자 스스로 인정합니다.</p>
+<figure><img src="./images/body-3.png" alt="샤스타 카운티 연구 - 코스의 예측 중 맞은 것과 틀린 것 비교 표"/></figure>
+<p>결과는 이중적이었습니다. 소 침입의 책임 규칙이 바뀌어도 울타리 설치 행태는 변하지 않았습니다. 법적 권리가 자원 사용을 바꾸지 않는다는 예측은 맞은 것입니다. 그러나 이유가 달랐습니다. 엘릭슨에 따르면 재배분이 일어나지 않는 이유는 거래비용이 낮아서가 아니라 높아서였고, 이웃들은 법이 아닌 사적 규범으로 문제를 풀었습니다. 소가 넘어오면 목장주가 사과하고, 데려가고, 재발을 막습니다. 피해가 크면 토마토밭 재식재를 거드는 식으로 보상합니다. 집행은 험담 같은 비공식 수단이 맡았고, 법정에 가는 일은 극히 드물었습니다.</p>
+<p>정리하면 협상이 법을 대신한 것이 아니라 규범이 둘 다를 대신한 셈입니다. 긴밀한 공동체에서는 이것이 작동합니다. 그러나 모르는 사람끼리의 공해 분쟁에서까지 같은 방식을 기대하기는 어렵습니다.</p>
+<hr/>
+<h2>협상이 불가능할 때 법원은 어떻게 하는가</h2>
+<p>1972년 애리조나 대법원의 스퍼 인더스트리 대 델 웹 사건은 거래비용이 협상을 막은 장면을 잘 보여 줍니다. 웹 사는 1959년 피닉스 서쪽의 농지 약 2만 에이커를 1,500만 달러에 사서 은퇴자 도시 선시티를 개발했습니다. 그 곁의 소 사육장은 소송 당시 2만~3만 두 규모로 커져 있었습니다. 웹은 1,300개가 넘는 필지가 악취와 파리 때문에 팔기 어렵다며 소송을 냈습니다.</p>
+<p>법원은 사육장을 공중 방해로 보아 중지 명령을 인정했습니다. 흥미로운 대목은 그다음입니다. 사람들을 방해 시설로 불러들인 것은 웹이므로, 웹이 사육장의 이전·폐업 비용 중 합리적 부분을 보상하라고 판시했습니다. 해석은 필자의 것입니다만, 수많은 입주민과 사육장이 협상으로 풀기 어려우니 법원이 사실상 가격까지 정해 준 사례로 읽힙니다.</p>
+<p>이런 선택을 체계화한 것이 1972년 칼라브레시와 멜라메드의 논문입니다. 권리를 지키는 방식을 재산 규칙(자발적 거래로만 이전), 책임 규칙(정해진 금액을 내면 가져갈 수 있음), 불양도 규칙으로 나눕니다. 공해 분쟁에는 권리를 누구에게 주고 금지명령으로 지킬지 손해배상으로 지킬지에 따라 네 가지 조합이 나옵니다.</p>
+<hr/>
+<h2>협상 대신 권리를 만들어 거래시키다, 산성비 프로그램</h2>
+<p>협상이 어렵다면 거래비용을 낮추는 제도를 설계할 수 있습니다. 미국의 산성비 프로그램이 그 예입니다. 1990년 대기청정법 개정으로 만들어져 1995년 시행되었습니다. 총량 상한을 정하고 배출권을 거래하게 한 방식입니다.</p>
+<p>EPA 발표로는 2008년 발전소 이산화황 배출이 760만 톤으로 1990년 대비 52% 줄었습니다. 2010년 법정 상한은 895만 톤이었고 이미 그 아래였습니다. 대상 설비 3,572기가 2008년 100% 준수했고, 배출권 시장 규모는 29억 달러, 평균 가격은 톤당 179달러였습니다. 가장 최근 자료인 2023년에는 이산화황이 연 65만 톤으로 1995년 대비 96% 줄었습니다. 두 수치는 기준년이 다르니 이어 붙여 읽으시면 안 됩니다.</p>
+<figure><img src="./images/body-4.png" alt="미국 산성비 프로그램 이산화황 감축 핵심 수치 표"/></figure>
+<p>여기서 선을 그어 둘 점이 있습니다. 이 성과는 코스 정리를 검증한 증거가 아닙니다. 당사자 협상이 아니라 정부가 총량과 권리를 정한 제도이기 때문입니다. 다만 권리를 명확히 하고 거래를 쉽게 만들어 거래비용을 낮췄다는 점에서, 코스의 문제의식을 정책으로 옮긴 사례로 읽을 수는 있습니다.</p>
+<hr/>
+<p>정리하면 이렇습니다.</p>
+<p>코스 정리는 현실을 설명하는 법칙이라기보다 현실을 재는 자에 가깝습니다. 거래비용이 0인 세계를 기준점으로 삼아, 현실에서 무엇이 협상을 막는지 묻게 하기 때문입니다. 코스 본인도 거래비용 0 분석을 두고 거위 내장으로 미래를 점치는 일이라 깎아내린 적이 있습니다.</p>
+<p>&quot;정부가 해결하느냐, 시장이 해결하느냐&quot;가 아니라 &quot;어느 쪽의 거래비용이 더 작은가&quot;를 묻는 것. 코스가 남긴 질문은 이것이었습니다.</p>
+<p>벌통에서는 관습이, 샤스타에서는 이웃 규범이, 선시티에서는 법원이, 산성비에서는 배출권 시장이 각자의 자리에서 그 질문에 답했습니다. 다음에 공해 분쟁 기사를 접하신다면 누가 나쁜지보다 누가 어떤 비용 때문에 마주 앉지 못하는지를 먼저 살펴보시길 권합니다.</p>
+<figure><img src="./images/body-5.png" alt="거래비용 크기에 따라 해법이 갈리는 흐름 - 협상, 관습, 법원, 배출권 시장"/></figure>
+<hr/>
+<div class="tags"><span class="tag">#코스정리</span><span class="tag">#거래비용</span><span class="tag">#외부효과</span><span class="tag">#로널드코스</span><span class="tag">#환경경제학</span><span class="tag">#배출권거래제</span><span class="tag">#재산권</span><span class="tag">#법경제학</span></div>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
