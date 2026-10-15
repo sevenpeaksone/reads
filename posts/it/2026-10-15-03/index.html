@@ -1,0 +1,132 @@
+<!doctype html><html lang=ko><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>트랜스포머 셀프 어텐션 원리 — 쿼리·키·밸류는 어떻게 문장의 문맥을 계산할까</title>
+<style>body{margin:0;background:#fff;color:#222;font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;font-size:16.5px;line-height:1.85}
+.wrap{width:700px;max-width:100%;margin:0 auto;padding:40px 20px;box-sizing:border-box}
+.badge{display:inline-block;background:#2563eb;color:#fff;border-radius:14px;padding:2px 12px;font-size:14px;font-weight:700}
+.date{color:#777;font-size:14px;margin-left:8px}
+h1{font-size:28px;line-height:1.4;margin:14px 0 24px}h2{font-size:21px;margin:36px 0 10px;color:#1e3a8a}
+img{max-width:100%;height:auto}p.img{text-align:center;margin:22px 0}p{margin:10px 0}hr{border:0;border-top:1px solid #ddd;margin:30px 0}
+blockquote{margin:20px 0;padding:14px 18px;border-left:4px solid #2563eb;background:#f1f5f9;font-weight:700}
+.tags{color:#2563eb;font-size:15px}</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head><body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class=wrap>
+<div><span class=badge>IT</span><span class=date>2026-10-15</span></div><h1>트랜스포머 셀프 어텐션 원리 — 쿼리·키·밸류는 어떻게 문장의 문맥을 계산할까</h1>
+<p class=img><img src="./images/thumbnail.png" alt="대표 이미지 — 트랜스포머 셀프 어텐션: Q, K, V가 문맥을 계산하는 과정을 상징하는 썸네일"></p>
+<p><strong>세 줄 요약</strong></p>
+<ul>
+<li>셀프 어텐션은 단어마다 쿼리·키·밸류를 만들고, 쿼리와 키의 내적으로 "누구를 얼마나 볼지" 정한 뒤 밸류를 섞습니다.</li>
+<li>키 차원의 제곱근으로 나누고, 헤드를 여러 개 두고, 위치 정보를 더하는 것이 이 구조를 실제로 작동하게 만드는 세 장치입니다.</li>
+<li>대가는 시퀀스 길이의 제곱으로 늘어나는 연산량입니다. 긴 문맥 시대의 핵심 과제가 여기에 있습니다.</li>
+</ul>
+<p>이번 글에서는 트랜스포머의 심장인 셀프 어텐션을 정리해 보려 합니다. 쿼리·키·밸류가 무엇인지, 어떻게 문맥을 계산하는지, 그리고 왜 O(n²) 한계가 문제가 되는지까지 순서대로 다룹니다.</p>
+<hr>
+<h2>문맥을 계산한다는 것의 의미</h2>
+<blockquote>"그 동물은 길을 건너지 않았다. 너무 지쳐 있었기 때문이다." 이 문장에서 '그것'이 무엇을 가리키는지는 사람에게 쉽습니다. 기계에게는 그렇지 않습니다.</blockquote>
+<p>예전의 순환 신경망(RNN)은 단어를 하나씩 순서대로 읽으며 기억을 넘겼습니다. 멀리 떨어진 단어일수록 정보가 희미해졌고, 앞 단계가 끝나야 다음 단계를 계산할 수 있었습니다.</p>
+<p>2017년 논문 "Attention Is All You Need"는 방향을 바꿨습니다. 모든 단어가 다른 모든 단어를 한 번에 직접 바라보게 한 것입니다. 논문 Table 1에 따르면 셀프 어텐션 층은 순차 연산이 O(1)이고, 임의의 두 위치 사이 최대 경로 길이도 O(1)입니다. 순환층은 둘 다 O(n)입니다. 멀리 있는 단어와의 관계를 배우기가 그만큼 쉬워집니다.</p>
+<hr>
+<h2>쿼리, 키, 밸류 — 도서관 검색에 빗대면</h2>
+<p>각 단어의 임베딩에 학습되는 행렬 세 개를 곱하면 쿼리(Query), 키(Key), 밸류(Value) 벡터가 나옵니다. 원 논문 기본 모델에서 임베딩은 512차원이고, Q·K·V는 각각 64차원입니다.</p>
+<p>도서관에 비유하면 이렇습니다. 쿼리는 "내가 찾는 것", 키는 "각 책의 색인 라벨", 밸류는 "책의 실제 내용"입니다. 쿼리와 라벨이 잘 맞는 책일수록 내용을 더 많이 가져옵니다.</p>
+<p class=img><img src="./images/body-1.png" alt="입력 단어에서 Q, K, V를 만들고 점수 계산-소프트맥스-가중합으로 이어지는 단계별 다이어그램"></p>
+<p>계산은 여섯 단계입니다. Jay Alammar의 해설을 기준으로 정리하면 다음과 같습니다.</p>
+<ol>
+<li>단어마다 Q, K, V 벡터를 만든다.</li>
+<li>한 단어의 쿼리와 모든 단어의 키를 내적해 점수를 얻는다.</li>
+<li>점수를 키 차원의 제곱근(√64 = 8)으로 나눈다.</li>
+<li>softmax를 씌워 합이 1인 양수 가중치로 바꾼다.</li>
+<li>각 밸류에 그 가중치를 곱한다.</li>
+<li>모두 더해 그 위치의 출력으로 삼는다.</li>
+</ol>
+<p>행렬로 쓰면 softmax(QKᵀ/√d_k)V 한 줄입니다. 결과적으로 '그것'이라는 단어의 출력은 '동물'의 밸류를 크게 섞은 벡터가 됩니다. 문맥이 계산된다는 말은 곧 이 가중 평균을 뜻합니다.</p>
+<hr>
+<h2>왜 √d_k로 나눌까</h2>
+<p>이 나눗셈은 사소해 보이지만 학습 안정성을 좌우합니다. 논문 각주에 근거가 있습니다. 쿼리와 키의 성분이 평균 0, 분산 1로 독립이라면, 내적의 평균은 0이고 분산은 d_k입니다.</p>
+<p>차원이 커질수록 내적 값의 폭이 커집니다. 값이 크면 softmax가 한 칸에만 거의 1을 몰아주고, 그 영역에서는 기울기가 매우 작아 학습이 멈춥니다. √d_k로 나누면 분산이 다시 1 근처로 돌아옵니다.</p>
+<p>Alammar의 글은 이를 "더 안정적인 그래디언트"를 위한 단계라고 설명합니다. 참고로 나누는 값은 8입니다. 64의 제곱근이지, 8의 제곱근이 아닙니다.</p>
+<hr>
+<h2>멀티헤드 — 하나의 시선으로는 부족합니다</h2>
+<p>기본 모델은 헤드를 8개 둡니다. 헤드마다 Q·K·V 가중치가 따로 있고, 무작위로 초기화되어 각자 다르게 학습됩니다. 8개의 출력을 이어 붙인 뒤 출력 행렬 W^O를 곱해 하나로 합칩니다. 헤드당 차원이 64이므로 8 × 64 = 512, 전체 연산량은 헤드 하나를 512차원으로 돌릴 때와 비슷합니다.</p>
+<p>효과는 실험으로 확인됩니다. 논문 Table 3에서 헤드 1개는 24.9 BLEU로, 최적 설정 25.8보다 약 0.9 낮았습니다. 반대로 헤드를 32개까지 늘리면 25.4로 오히려 떨어졌습니다. 많을수록 좋은 것은 아닙니다.</p>
+<p>헤드들이 실제로 다른 일을 한다는 관찰도 있습니다. 원 논문은 5층의 일부 헤드가 대용어 해소에서 'its'에 매우 날카롭게 주목한다고 밝혔습니다. BERT를 분석한 Clark 등의 연구에서는 동사와 직접목적어, 명사와 한정사, 상호참조를 높은 정확도로 잇는 헤드가 발견됐습니다. 구분 토큰에만 붙어 있는 헤드나 같은 층에서 비슷하게 움직이는 헤드도 많았습니다. 모든 헤드가 유용한 것은 아닌 셈입니다.</p>
+<p class=img><img src="./images/body-2.png" alt="멀티헤드 어텐션 핵심 수치 카드 — 임베딩 512, 헤드 8, 헤드당 64, 헤드 1개 24.9 vs 최적 25.8 BLEU"></p>
+<hr>
+<h2>위치 인코딩 — 순서를 되돌려 주는 장치</h2>
+<p>셀프 어텐션에는 맹점이 있습니다. 모든 단어를 동시에 보기 때문에, 단어 순서를 바꿔도 내적 계산 자체는 달라지지 않습니다. 그래서 임베딩에 위치 벡터를 더해 줍니다.</p>
+<p>원 논문은 사인·코사인을 씁니다. 짝수 차원에는 sin(pos / 10000^(2i/d_model)), 홀수 차원에는 같은 꼴의 cos를 넣습니다. 차원마다 파장이 달라 시계의 시침·분침처럼 위치를 구분합니다. 고정된 간격 k만큼 떨어진 위치의 값이 선형 변환으로 표현되므로, 상대적 거리를 배우기 쉬울 것이라 저자들은 가정했습니다. 다만 학습형 위치 임베딩도 거의 같은 결과였다고 합니다.</p>
+<p>그 뒤로 방식은 진화했습니다. 2021년 RoFormer의 회전 위치 임베딩(RoPE)은 위치를 회전 행렬로 표현합니다. 그 결과 어텐션 점수에 토큰 사이의 상대 거리가 자연스럽게 반영되고, 거리가 멀수록 의존성이 감쇠합니다. 길이에 덜 묶인다는 점도 장점으로 꼽힙니다.</p>
+<p class=img><img src="./images/body-3.png" alt="위치 인코딩 방식 비교 표 — 사인·코사인, 학습형, RoPE의 위치 표현 방식과 특징"></p>
+<hr>
+<h2>O(n²) — 가장 큰 청구서</h2>
+<p>모든 단어가 모든 단어를 본다는 것은 n × n 크기의 점수표를 만든다는 뜻입니다. 논문 Table 1에서 셀프 어텐션의 층당 복잡도는 O(n²·d)입니다. n이 d보다 작은 문장 수준에서는 순환층보다 빠르지만, 문서 단위로 길어지면 이야기가 달라집니다.</p>
+<p>직접 계산해 보면 감이 옵니다. 길이 4,096이면 점수표 칸이 약 1,677만 개이고, 8,192로 두 배가 되면 약 6,711만 개로 네 배입니다. 시간과 메모리가 함께 불어납니다.</p>
+<p class=img><img src="./images/body-4.png" alt="시퀀스 길이에 따른 어텐션 점수표 크기 증가 — 1,024 / 4,096 / 8,192 토큰의 n×n 칸 수 비교"></p>
+<p>해법은 크게 두 갈래로 나뉩니다.</p>
+<p>첫째는 계산 대상을 줄이는 근사입니다. Longformer는 슬라이딩 윈도와 소수의 전역 토큰을 섞어 비용을 O(n × w)로 낮췄고, 4,096 토큰까지 다룹니다. Linformer는 어텐션 행렬이 저랭크로 근사된다는 점을 이용해 O(n)에 도달했다고 보고합니다. Reformer는 해싱으로 O(L log L)까지 줄였습니다. 다만 FlashAttention 논문은 기존 근사 기법이 품질을 희생하거나 실제 실행 시간 이득이 없는 경우가 많았다고 지적합니다.</p>
+<p>둘째는 계산은 그대로 두고 GPU 메모리 이동을 줄이는 방식입니다. FlashAttention은 정확한 어텐션을 유지한 채 타일링으로 HBM과 SRAM 사이의 읽기·쓰기를 줄였습니다. 논문 기준으로 GPT-2 학습이 3배, BERT-large가 15% 빨라졌습니다. 이론상 복잡도는 같아도 병목이 연산이 아니라 데이터 이동이었다는 사실을 보여준 사례입니다.</p>
+<hr>
+<h2>정리하며</h2>
+<p>정리하면 이렇습니다. 셀프 어텐션은 쿼리와 키로 관계의 세기를 정하고, 밸류를 그 비율로 섞어 문맥을 만듭니다. √d_k 스케일링은 학습을 안정시키고, 멀티헤드는 시선을 나누며, 위치 인코딩은 순서를 돌려줍니다.</p>
+<p>이 구조의 장점과 한계는 같은 곳에서 나옵니다. 모두가 모두를 본다는 것, 그래서 강력하고 그래서 비쌉니다.</p>
+<blockquote>"모든 것을 보는 대가는 제곱으로 청구된다."</blockquote>
+<p>긴 문서를 한 번에 읽는 모델이 늘어난 지금, 이 청구서를 어떻게 줄이느냐가 다음 세대 모델을 가르는 질문이라고 생각합니다. 식 하나(softmax(QKᵀ/√d_k)V)만 정확히 이해해 두신다면, 앞으로 나올 새로운 변형들도 어디를 건드린 것인지 한눈에 보이실 것입니다.</p>
+<p class=tags>#트랜스포머 #셀프어텐션 #어텐션메커니즘 #멀티헤드어텐션 #위치인코딩 #RoPE #FlashAttention #딥러닝</p></div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
