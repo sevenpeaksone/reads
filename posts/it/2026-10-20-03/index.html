@@ -12,7 +12,8 @@ p{margin:0 0 16px} hr{border:0;border-top:1px solid #e3e6ee;margin:36px 0}
 img{max-width:100%;height:auto;display:block;margin:0 auto}
 figure{margin:24px 0} ul,ol{margin:0 0 16px;padding-left:22px} li{margin-bottom:6px}
 .tags{color:#4f8cff;font-size:15px}
-</style><style id="site-chrome-css">
+</style>
+<style id="site-chrome-css">
   #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
   #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
     padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
@@ -51,7 +52,9 @@ figure{margin:24px 0} ul,ol{margin:0 0 16px;padding-left:22px} li{margin-bottom:
 </style>
 </head><body>
 <div id="read-progress"></div>
-<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+
+<div class="wrap">
 <div><span class="badge">IT</span><span class="date">2026-10-20</span></div>
 <h1>io_uring 원리: 링 버퍼로 시스템 콜을 줄이는 방법과 보안 이슈</h1>
 <figure><img src="./images/thumbnail.png" alt="io_uring 원리 한눈에 보기 - 제출 큐와 완료 큐 링 버퍼 대표 이미지"></figure>
@@ -135,7 +138,10 @@ figure{margin:24px 0} ul,ol{margin:0 0 16px;padding-left:22px} li{margin-bottom:
 <p>io_uring을 도입하겠냐고 물으신다면, 먼저 우리 환경에서 시스템 콜이 정말 병목인지부터 재 보겠다고 답하겠습니다.</p>
 <hr>
 <p class="tags">#io_uring #리눅스비동기IO #epoll #시스템콜 #링버퍼 #리눅스커널 #liburing #비동기IO</p>
-</div><button id="to-top" aria-label="맨 위로">↑</button>
+</div>
+
+
+<button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
   var root=document.documentElement, KEY='spk-theme';
