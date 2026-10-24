@@ -1,0 +1,204 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>콩도르세 역설, 다수결이 돌고 도는 이유와 보르다 방식 비교</title>
+<style>
+body{margin:0;background:#f4f6f5;color:#222;font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans CJK KR',sans-serif;font-size:16.5px;line-height:1.85}
+.wrap{width:700px;max-width:100%;margin:0 auto;background:#fff;padding:48px 32px 72px;box-sizing:border-box}
+.meta{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.badge{background:#2bbe78;color:#06150e;font-weight:700;font-size:13px;padding:3px 12px;border-radius:999px}
+.date{color:#7a8a82;font-size:14px}
+h1{font-size:30px;line-height:1.4;margin:0 0 28px;font-weight:700}
+h2{font-size:21px;margin:8px 0 14px;padding-left:12px;border-left:5px solid #2bbe78}
+p{margin:0 0 6px} p.img{margin:20px 0} img{max-width:100%;height:auto;display:block;border-radius:6px}
+ul{margin:10px 0 14px;padding-left:22px} li{margin-bottom:4px}
+hr{border:0;border-top:1px solid #dfe6e2;margin:32px 0}
+.tags{color:#2a8c5c;margin-top:24px;font-size:15px}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head><body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta"><span class="badge">경제</span><span class="date">2026-10-25</span></div><h1>콩도르세 역설, 다수결이 돌고 도는 이유와 보르다 방식 비교</h1>
+<p class="img"><img src="./images/thumbnail.png" alt="콩도르세 역설을 보여주는 A, B, C 순환 화살표 썸네일"></p>
+<p>오늘은 콩도르세 역설과 사회적 선택론에 대해 이야기해 보려 합니다.</p>
+<p>다수결로 후보를 하나씩 맞붙이면 A가 B를, B가 C를, C가 A를 이기는 순환이 생길 수 있습니다.</p>
+<p>이 글에서는 세 후보 예시, 보르다 방식과 콩도르세 승자의 차이, 실제 선거에서의 빈도와 사례를 차례로 정리하겠습니다.</p>
+<hr>
+<h2>■ 세 명의 유권자가 만드는 순환</h2>
+<p>가장 작은 예시부터 보겠습니다. 유권자는 세 명, 후보는 A, B, C입니다.</p>
+<ul>
+<li>1번 유권자: A &gt; B &gt; C</li>
+<li>2번 유권자: B &gt; C &gt; A</li>
+<li>3번 유권자: C &gt; A &gt; B</li>
+</ul>
+<p>두 후보씩 짝지어 투표해 보겠습니다.</p>
+<p>A와 B는 1번과 3번이 A를 앞에 두므로 2대1로 A가 이깁니다.</p>
+<p>B와 C는 1번과 2번이 B를 앞에 두므로 2대1로 B가 이깁니다.</p>
+<p>C와 A는 2번과 3번이 C를 앞에 두므로 2대1로 C가 이깁니다.</p>
+<p>개인의 순위는 모두 일관됩니다. 그런데 집단의 선호만 돌고 돕니다.</p>
+<p>A가 B보다, B가 C보다, C가 A보다 낫다는 결론이 동시에 나오는 셈입니다.</p>
+<p>이 순환이 콩도르세 역설입니다.</p>
+<p class="img"><img src="./images/body-1.png" alt="세 유권자의 선호 순위와 A, B, C 순환 다수결 결과 다이어그램"></p>
+<p>이 현상은 18세기 후반 프랑스의 콩도르세 후작이 1785년의 논문에서 다룬 것으로 알려져 있습니다.</p>
+<p>13세기에 라몬 률이 교회 선거를 연구하며 먼저 발견했지만, 그의 저작은 오랫동안 잊혔다가 21세기에야 다시 조명되었습니다.</p>
+<hr>
+<h2>■ 콩도르세 승자와 보르다 방식</h2>
+<p>모든 상대를 일대일 다수결로 이기는 후보를 콩도르세 승자라고 부릅니다.</p>
+<p>반대로 모든 상대에게 지는 후보는 콩도르세 패자입니다.</p>
+<p>순환이 생기면 콩도르세 승자는 존재하지 않습니다.</p>
+<p>보르다 방식은 다른 길을 택합니다. 후보가 n명이면 1순위에 n-1점, 2순위에 n-2점을 주고, 꼴찌는 0점입니다.</p>
+<p>점수를 모두 더해 가장 높은 후보가 당선됩니다.</p>
+<p>순위 전체를 반영하므로 1순위 표만 세는 다수득표제보다 정보를 많이 씁니다.</p>
+<p>그렇다면 두 방식은 같은 후보를 고를까요. 스탠퍼드 철학 백과사전의 예시가 답을 줍니다.</p>
+<p>유권자 21명이 후보 네 명(A, B, C, D)에 순위를 매겼습니다.</p>
+<p>3명은 ABCD, 5명은 ACBD, 7명은 BDCA, 6명은 CBDA 순입니다.</p>
+<ul>
+<li>다수득표제: A가 8표로 1위입니다. B는 7표, C는 6표입니다.</li>
+<li>보르다 방식: B가 44점으로 1위입니다. C는 38점, A는 24점, D는 20점입니다.</li>
+<li>콩도르세 기준: C가 A를 13대8, B를 11대10, D를 14대7로 이깁니다.</li>
+</ul>
+<p>같은 표를 놓고 방식에 따라 A, B, C가 각각 승자가 됩니다.</p>
+<p>더 눈여겨볼 점은 다수득표제의 승자 A입니다. A는 다른 세 후보 누구와 붙어도 8대13으로 집니다.</p>
+<p>1순위 표만 세다가 가장 외면받는 후보를 뽑은 셈입니다.</p>
+<p class="img"><img src="./images/body-2.png" alt="같은 표 21장에서 다수득표제, 보르다, 콩도르세가 서로 다른 승자를 고르는 비교"></p>
+<p>콩도르세는 이미 1785년에 보르다 방식의 약점을 짚었습니다.</p>
+<p>점수를 가장 많이 얻고도 1순위로 뽑은 사람이 한 명도 없을 수 있다는 것입니다.</p>
+<p>모든 일대일 다수결을 이긴 후보가 보르다 점수는 최고가 아닐 수도 있고, 경쟁자 순위를 일부러 낮추는 전략 투표에도 취약하다고 보았습니다.</p>
+<p>보르다가 조작 우려에 "내 방식은 정직한 사람들만을 위한 것"이라고 답했다는 일화도 전해집니다.</p>
+<p>그렇다고 보르다 방식이 사라진 것은 아닙니다.</p>
+<p>슬로베니아 국회는 90석 가운데 이탈리아계와 헝가리계 소수민족 2석을 보르다 방식으로 뽑습니다.</p>
+<p>MLB 최우수선수상이나 하이즈먼 트로피 같은 투표에서도 쓰입니다.</p>
+<hr>
+<h2>■ 결선투표와 순위선택제도 놓치는 승자</h2>
+<p>콩도르세 승자를 놓치는 것은 다수득표제와 보르다 방식만이 아닙니다.</p>
+<p>9명의 유권자 예시를 보겠습니다. 2명은 A&gt;B&gt;C, 3명은 B&gt;A&gt;C, 4명은 C&gt;A&gt;B입니다.</p>
+<p>1순위 표는 C가 4표로 가장 많습니다. 하지만 A는 B를 6대3, C를 5대4로 이깁니다. A가 콩도르세 승자입니다.</p>
+<p>결선투표와 순위선택제(IRV)는 1순위가 가장 적은 A를 먼저 탈락시킵니다. 이어 B가 C를 5대4로 이겨 B가 당선됩니다.</p>
+<p>모두에게 이기는 후보가 첫 라운드에서 사라지는 구조입니다.</p>
+<p>실제로 이런 일이 있었습니다. 2009년 미국 버몬트주 벌링턴 시장 선거입니다.</p>
+<ul>
+<li>1순위 득표: 공화당 커트 라이트 2,951표(32.9%), 진보당 밥 키스 2,585표(28.8%), 민주당 앤디 몬트롤 2,063표(23.0%)</li>
+<li>3인 라운드: 라이트 3,294표, 키스 2,981표, 몬트롤 2,554표로 몬트롤이 탈락했습니다.</li>
+<li>결선: 키스 4,313표(48.0%), 라이트 4,061표(45.2%)로 키스가 당선되었습니다.</li>
+</ul>
+<p>그런데 일대일로 붙이면 몬트롤이 라이트를 4,597대 3,664로, 키스를 4,064대 3,476으로 앞섭니다.</p>
+<p>몬트롤이 콩도르세 승자였던 셈입니다. 그는 개표에서는 3위로 떨어졌습니다.</p>
+<p>이 선거 이후 2010년 시민발의로 순위선택제는 3,972대 3,669, 약 52%대 48%로 폐지되었습니다.</p>
+<p class="img"><img src="./images/body-3.png" alt="2009 벌링턴 시장 선거의 득표 단계와 콩도르세 승자 몬트롤의 일대일 결과"></p>
+<p>다만 반론도 있습니다. 순위선택제를 옹호하는 FairVote는 이렇게 지적합니다.</p>
+<p>콩도르세 기준은 다수득표제, 보르다, 승인투표, 점수투표도 만족하지 못하므로 순위선택제만의 흠이 아니라는 것입니다.</p>
+<p>콩도르세 승자는 본질적으로 중도적이어서 '가장 덜 싫은' 후보일 수 있고, 몬트롤은 1순위 지지가 약했다는 점도 들었습니다.</p>
+<p>옹호 단체의 시각이라는 점은 감안하고 읽으시길 권합니다.</p>
+<hr>
+<h2>■ 순환은 실제로 얼마나 자주 일어날까</h2>
+<p>역설이 이론에만 머문다면 걱정할 이유가 없습니다. 확률을 보겠습니다.</p>
+<p>모든 순위가 무작위로 나온다고 가정한 모형에서, 후보 세 명이면 유권자가 늘수록 순환 확률은 약 8.77%에 수렴합니다.</p>
+<p>유권자 3명일 때 5.556%, 101명일 때 8.690%, 601명일 때 8.760%입니다.</p>
+<p>다른 논문의 계산에서도 콩도르세 승자가 존재할 확률이 0.9123이므로, 순환은 약 8.8%로 일치합니다.</p>
+<p>후보가 늘면 확률은 급격히 커집니다. 같은 가정에서 4후보는 승자가 없을 확률이 약 17.6%, 10후보는 승자 존재 확률이 0.5113까지 내려갑니다.</p>
+<p>유권자 25명을 시뮬레이션하면 3후보 8.4%, 5후보 24.2%, 10후보 47.5%가 나옵니다.</p>
+<p>예전엔 순환을 먼 이론의 이야기로 여기기 쉬웠습니다. 지금은 후보가 많은 모임에서는 제법 흔할 수 있다는 계산이 나와 있습니다.</p>
+<p>다만 실제 대규모 선거는 이야기가 다릅니다.</p>
+<ul>
+<li>영국 선거개혁협회 자료의 3후보 선거 883건에서는 0.7%</li>
+<li>미국 전국선거연구(1970~2004) 자료에서는 0.4%</li>
+<li>2004~2022년 미국 순위선택 선거 189건에서는 1건</li>
+<li>37개 연구를 종합한 실제 선거 265건에서는 25건, 9.4%(과대추정 가능성이 있다고 합니다)</li>
+</ul>
+<p>그 한 건이 2021년 미니애폴리스 2선거구입니다.</p>
+<p>아랍이 곤을 4,324대 4,098로, 곤이 월로바를 3,708대 3,635로, 월로바가 아랍을 4,056대 4,037로 이겼습니다.</p>
+<p>가장 근소한 한 쌍은 19표 차에 불과했습니다. 순위선택제로는 월로바가 당선되었고, 보르다 점수로는 아랍이 1위였습니다.</p>
+<p class="img"><img src="./images/body-4.png" alt="후보 수별 순환 확률과 실제 선거 자료의 순환 비율 막대 차트"></p>
+<p>후보가 좌우 한 줄 위에 놓이는 단봉형 선호라면, 중위투표자 정리에 따라 순환이 생기지 않습니다.</p>
+<p>현실의 선호가 이 모형에 가까울수록 순환은 드물어질 것입니다.</p>
+<hr>
+<h2>■ 사회적 선택론의 한계</h2>
+<p>어떤 규칙을 쓰든 문제가 사라지지 않는다는 점은 이론이 이미 보여주었습니다. 간단히만 짚겠습니다.</p>
+<p>애로 불가능성 정리는 후보가 세 명 이상일 때 네 가지 조건을 한꺼번에 만족하는 순위형 규칙이 없다고 말합니다.</p>
+<p>조건은 모든 선호 조합 허용, 독재자 없음, 만장일치 존중, 무관한 대안으로부터의 독립입니다.</p>
+<p>콩도르세 역설은 이 정리를 예고한 사례로 읽힙니다.</p>
+<p>기바드-새터스웨이트 정리는 한 걸음 더 나갑니다.</p>
+<p>결과가 세 가지 이상이고 독재가 아닌 순위형 규칙이라면, 거짓으로 순위를 적어 이득을 보는 유권자가 생길 수 있다는 내용입니다. 기바드가 1973년, 새터스웨이트가 1975년에 증명했습니다.</p>
+<p>빠져나갈 길도 알려져 있습니다. 점수투표나 승인투표처럼 선호의 강도를 쓰면 애로 정리가 적용되지 않습니다.</p>
+<p>선호를 단봉형으로 제한하는 길도 있습니다. 모두 다른 약점과 맞바꾸는 선택입니다.</p>
+<p class="img"><img src="./images/body-5.png" alt="콩도르세 역설, 애로 정리, 기바드-새터스웨이트 정리와 빠져나갈 길 요약 카드"></p>
+<hr>
+<h2>■ 제도와 의사결정에 주는 시사점</h2>
+<p>콩도르세 방식에는 코플랜드, 케메니, 미니맥스, 랭크드 페어, 슐츠 방식 등이 있습니다.</p>
+<p>모두 콩도르세 승자가 있으면 그를 뽑고, 순환이 생기면 각자의 규칙으로 풀어냅니다.</p>
+<p>데비안과 젠투 재단, 쿠버네티스 커뮤니티가 슐츠 방식을 씁니다. 위키미디어 재단도 2013년까지 이사 선거에 슐츠 방식을 썼습니다.</p>
+<p>다만 정부 선거에서 콩도르세 방식을 쓰는 곳은 알려진 바 없다고 합니다.</p>
+<p>한국 대통령 선거는 한 번의 투표로 1위가 당선되는 상대다수제입니다. 1987년에는 노태우 후보가 36.6%로 당선되었고, 김영삼 28.0%, 김대중 27.0%였습니다.</p>
+<p>이 득표율만으로 당시 일대일 선호를 알 수는 없습니다. 누가 콩도르세 승자였는지는 확인되지 않습니다.</p>
+<p>다만 1위 득표율이 낮을수록 1순위 표만으로는 다수의 뜻을 읽기 어렵다는 점은 분명합니다.</p>
+<p>실무적으로 얻을 수 있는 교훈은 세 가지입니다.</p>
+<ul>
+<li>후보가 세 명 이상이면 어떤 규칙을 쓰는지가 결과를 바꿀 수 있습니다.</li>
+<li>순환을 처리하는 규칙을 투표 전에 정해 두는 편이 안전합니다.</li>
+<li>어떤 방식도 완벽하지 않으므로 한계를 알고 쓰는 것이 중요합니다.</li>
+</ul>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>다수결은 두 후보 사이에서는 믿을 만하지만, 세 후보 이상에서는 투표 방식이 결과를 만듭니다.</p>
+<p>"누가 이겼는가"는 어떤 규칙으로 세었는가와 떼어놓고 말할 수 없습니다.</p>
+<p>콩도르세 방식이 정답이라고 말씀드리지는 않겠습니다. 순위선택제를 옹호하는 쪽의 반론에도 일리가 있습니다.</p>
+<p>다만 같은 표로 세 명의 다른 승자가 나올 수 있다는 사실을 알고 투표장에 가는 일과 모르고 가는 일은 다릅니다.</p>
+<p>다음에 다수결로 무언가를 정하게 된다면, 먼저 세는 방법부터 물어보시길 권합니다.</p>
+<p class="tags">#콩도르세역설 #다수결 #사회적선택론 #보르다방식 #콩도르세승자 #투표제도 #순위선택투표 #애로불가능성정리</p>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
