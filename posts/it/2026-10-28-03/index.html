@@ -4,7 +4,8 @@
 .meta{display:flex;gap:10px;align-items:center;font-size:14px;color:#777;margin-bottom:14px}
 .badge{background:#4f8cff;color:#fff;font-weight:700;padding:3px 12px;border-radius:12px}
 h1{font-size:30px;line-height:1.4;margin:0 0 28px}h2{font-size:22px;margin:34px 0 12px;padding-left:12px;border-left:5px solid #4f8cff}h3{font-size:18px;margin:26px 0 8px;color:#333}
-p{margin:0 0 14px}img{max-width:100%;height:auto;border-radius:8px}.img{margin:22px 0}hr{border:0;border-top:1px solid #ddd;margin:30px 0}.tags{color:#4f8cff;font-size:15px}</style><style id="site-chrome-css">
+p{margin:0 0 14px}img{max-width:100%;height:auto;border-radius:8px}.img{margin:22px 0}hr{border:0;border-top:1px solid #ddd;margin:30px 0}.tags{color:#4f8cff;font-size:15px}</style>
+<style id="site-chrome-css">
   #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
   #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
     padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
@@ -44,7 +45,9 @@ p{margin:0 0 14px}img{max-width:100%;height:auto;border-radius:8px}.img{margin:2
 </head>
 <body>
 <div id="read-progress"></div>
-<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap"><div class="meta"><span class="badge">IT</span><span>2026-10-28</span></div><h1>쓰기 시 복사(CoW) 원리, 복사를 미루는 대신 치르는 비용</h1>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+
+<div class="wrap"><div class="meta"><span class="badge">IT</span><span>2026-10-28</span></div><h1>쓰기 시 복사(CoW) 원리, 복사를 미루는 대신 치르는 비용</h1>
 <p class="img"><img src="./images/thumbnail.png" alt="쓰기 시 복사(CoW) 원리 — 복사를 미루는 대신 치르는 비용 썸네일"></p>
 <p>이번 글에서는 쓰기 시 복사(Copy-on-Write, CoW)의 원리를 정리해 보겠습니다. 복사를 &quot;실제로 바꾸는 순간&quot;까지 미루면 fork와 스냅샷은 거의 공짜가 됩니다. 다만 그 비용이 사라지는 것이 아니라 다른 곳으로 옮겨 간다는 점을 fork, ZFS·Btrfs, 불변 자료구조 세 곳에서 확인합니다.</p>
 <hr>
@@ -97,7 +100,10 @@ p{margin:0 0 14px}img{max-width:100%;height:auto;border-radius:8px}.img{margin:2
 <p>&quot;복사는 공짜가 아니라 미뤄진 것이다.&quot;</p>
 <p>스냅샷이 한순간에 끝났다는 사실에 안심하기 전에, 그 뒤로 무엇이 바뀔지부터 물어보시면 좋겠습니다. 비용의 크기는 그 답이 정합니다.</p>
 <hr>
-<p class="tags">#쓰기시복사 #CopyOnWrite #fork #ZFS #Btrfs #스냅샷 #불변자료구조 #Redis #페이지테이블</p></div><button id="to-top" aria-label="맨 위로">↑</button>
+<p class="tags">#쓰기시복사 #CopyOnWrite #fork #ZFS #Btrfs #스냅샷 #불변자료구조 #Redis #페이지테이블</p></div>
+
+
+<button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
   var root=document.documentElement, KEY='spk-theme';
