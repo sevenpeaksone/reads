@@ -1,0 +1,148 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Spring @Transactional 내부 호출이 무시되는 이유</title>
+<style>body{margin:0;background:#fff;color:#222;font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR','Noto Sans CJK KR',sans-serif;font-size:16.5px;line-height:1.85}
+.wrap{width:700px;max-width:100%;margin:0 auto;padding:48px 20px 80px;box-sizing:border-box}
+.meta{display:flex;gap:12px;align-items:center;color:#777;font-size:14px}.badge{background:#4f8cff;color:#fff;font-weight:700;padding:3px 12px;border-radius:12px}
+h1{font-size:30px;line-height:1.4;margin:16px 0 28px}h2{font-size:22px;margin:12px 0 4px;padding-left:12px;border-left:5px solid #4f8cff}
+p{margin:0 0 18px}img{max-width:100%;height:auto;display:block;margin:8px auto;border-radius:8px}.img{margin:24px 0}hr{border:0;border-top:1px solid #ddd;margin:36px 0}
+pre{background:#141a30;color:#e6eaf4;padding:16px 18px;border-radius:8px;overflow-x:auto;font-size:14px;line-height:1.6}code{font-family:'DejaVu Sans Mono',Menlo,monospace}p code,li code,blockquote code{background:#eef2fb;padding:1px 5px;border-radius:4px;font-size:14.5px}
+blockquote{margin:20px 0;padding:14px 20px;background:#f3f6fd;border-left:4px solid #4f8cff;border-radius:6px}.tags{color:#4f8cff;margin-top:30px}</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap"><div class="meta"><span class="badge">IT</span><span>2026-10-30</span></div><h1>Spring @Transactional 내부 호출이 무시되는 이유</h1>
+<p class='img'><img src="./images/thumbnail.png" alt="Spring @Transactional 내부 호출이 무시되는 이유 썸네일"></p>
+<p>오늘은 Spring <code>@Transactional</code>이 프록시 위에서 동작하는 방식을 정리해 보려 합니다.<br>같은 클래스 안에서 <code>@Transactional</code> 메서드를 부르면 트랜잭션이 걸리지 않는 이유가 핵심입니다.<br>전파 속성(REQUIRED, REQUIRES_NEW)과 체크 예외가 기본으로 롤백되지 않는 규칙, 그리고 해결책과 함정까지 차례로 살펴보겠습니다.</p>
+<blockquote>3줄 요약<br>1. <code>@Transactional</code>은 AOP 프록시가 호출을 가로채야만 동작하며, 가로채는 주체는 <code>TransactionInterceptor</code>입니다.<br>2. 같은 클래스 안의 <code>this</code> 호출은 프록시를 거치지 않으므로 트랜잭션 속성이 무시됩니다.<br>3. 기본 롤백은 <code>RuntimeException</code>과 <code>Error</code>뿐이며, 체크 예외는 <code>rollbackFor</code>로 따로 지정해야 합니다.</blockquote>
+<hr>
+<h2>■ 프록시가 호출을 가로채는 구조</h2>
+<p>Spring의 선언적 트랜잭션은 AOP 프록시를 통해 활성화됩니다.<br>공식 문서의 표현을 빌리면, 트랜잭션 메타데이터와 AOP가 결합해 <code>TransactionInterceptor</code>와 <code>TransactionManager</code>를 쓰는 프록시가 만들어집니다.<br>이 프록시가 메서드 호출의 앞뒤에서 트랜잭션을 구동하는 셈입니다.</p>
+<p><code>TransactionInterceptor</code>는 AOP Alliance의 <code>MethodInterceptor</code>입니다.<br>실제 트랜잭션 처리는 부모인 <code>TransactionAspectSupport</code>의 메서드를 정해진 순서로 부르는 방식으로 이루어집니다.<br>스레드 안전하게 설계되어 있고, 메서드 반환 타입으로 명령형과 리액티브 경로를 가려냅니다. <code>Publisher</code>나 Kotlin <code>Flow</code>면 리액티브, <code>void</code>를 포함한 나머지는 명령형입니다.</p>
+<p>호출 흐름을 그려 보면 이렇습니다.</p>
+<p class='img'><img src="./images/body-1.png" alt="클라이언트에서 AOP 프록시, TransactionInterceptor, 대상 객체로 이어지는 @Transactional 호출 흐름"></p>
+<p>한 가지 전제가 있습니다. <code>@Transactional</code>은 메타데이터일 뿐입니다.<br><code>@EnableTransactionManagement</code>(또는 <code>&lt;tx:annotation-driven/&gt;</code>)가 있어야 프록시가 만들어집니다.<br>또 이 트랜잭션은 스레드에 묶여 동작하므로, 메서드 안에서 새로 띄운 스레드로는 전파되지 않습니다.</p>
+<hr>
+<h2>■ JDK 동적 프록시와 CGLIB</h2>
+<p>프록시는 두 가지 방식으로 만들어집니다.<br>대상이 인터페이스를 하나 이상 구현하면 JDK 동적 프록시가, 인터페이스가 없으면 대상 타입을 상속한 CGLIB 프록시가 쓰입니다.<br>CGLIB는 <code>spring-core</code>에 재포장되어 들어 있어 별도 의존성이 필요 없습니다.</p>
+<p>예전엔 프레임워크 기본값이 인터페이스 기반이었습니다. <code>proxyTargetClass</code>의 기본값은 지금도 <code>false</code>입니다.<br>지금의 Spring Boot 앱은 다릅니다. 자동 구성이 기본적으로 CGLIB를 쓰도록 설정하고, JDK 프록시를 원하면 <code>spring.aop.proxy-target-class=false</code>로 바꿔야 합니다.<br>어느 쪽이 적용되는지는 환경에 따라 달라지므로, 직접 확인해 보시길 권합니다.</p>
+<p class='img'><img src="./images/body-2.png" alt="JDK 동적 프록시와 CGLIB 프록시 비교 표"></p>
+<p>CGLIB에는 제약이 따릅니다.<br><code>final</code> 클래스는 확장할 수 없어 프록시가 불가능하고, <code>final</code>·<code>private</code> 메서드는 오버라이드할 수 없어 트랜잭션 어드바이스가 적용되지 않습니다.<br>메서드 가시성도 버전에 따라 다릅니다. 5.3까지는 <code>public</code>이 아닌 메서드를 무시하는 것이 기본이었고, 6.0부터는 클래스 기반 프록시에서 <code>protected</code>나 패키지 가시 메서드도 트랜잭션 대상이 될 수 있습니다.<br>인터페이스 기반 프록시에서는 여전히 <code>public</code>이면서 인터페이스에 선언된 메서드여야 합니다.</p>
+<hr>
+<h2>■ 내부 호출에서 트랜잭션이 사라지는 이유</h2>
+<p>핵심은 <code>this</code>입니다.<br>외부 클라이언트가 쥐고 있는 것은 프록시 참조이고, 호출이 실제 대상 객체에 도달하면 그다음부터는 프록시가 끼어들 자리가 없습니다.<br>대상 객체 안에서 <code>this.bar()</code>처럼 자기 메서드를 부르면 프록시가 아니라 <code>this</code> 참조로 실행되기 때문입니다.</p>
+<pre><code>@Service
+public class OrderService {
+
+    public void placeOrder() {
+        this.saveOrder();      // this 호출: 프록시를 거치지 않음
+    }
+
+    @Transactional
+    public void saveOrder() {  // 트랜잭션이 시작되지 않는다
+        // 주문 저장
+    }
+}</code></pre>
+<p>Spring 문서는 이를 명확히 적고 있습니다. 프록시 모드에서는 프록시를 통한 외부 호출만 가로채지며, self-invocation은 호출된 메서드에 <code>@Transactional</code>이 붙어 있어도 실제 트랜잭션을 만들지 않는다는 것입니다.<br><code>@EnableTransactionManagement</code> 문서도 같은 취지로, 로컬 호출에 붙은 애노테이션은 인터셉터가 아예 개입하지 않으므로 무시된다고 설명합니다.</p>
+<p class='img'><img src="./images/body-3.png" alt="외부 호출은 프록시를 거쳐 트랜잭션이 적용되고 내부 this 호출은 우회되는 self-invocation 다이어그램"></p>
+<p>이 원리는 전파 속성에도 그대로 이어집니다.<br>같은 클래스 안에서 <code>REQUIRES_NEW</code> 메서드를 부르더라도 인터셉터가 개입하지 않으므로, 새 트랜잭션은 만들어지지 않습니다. 문서에 이 사례가 직접 적힌 것은 아니고, 위 원리에서 도출한 결과입니다.<br><code>@PostConstruct</code> 같은 초기화 코드에서도 조심해야 합니다. 프록시가 완전히 초기화되어야 기대대로 동작하기 때문입니다.</p>
+<hr>
+<h2>■ 해결책 네 가지와 각각의 함정</h2>
+<p>공식 문서가 제시하는 접근을 권장되는 순서대로 보겠습니다.</p>
+<ol><li>호출 구조를 리팩터링합니다. 문서가 최선으로 꼽는 방법입니다. 트랜잭션이 필요한 메서드를 별도 빈으로 분리해 주입받아 호출하면 됩니다.</li><li>자기 자신을 주입받아, <code>this</code> 대신 그 참조로 호출합니다. 문서가 대안으로 소개합니다.</li><li><code>AopContext.currentProxy()</code>로 현재 프록시를 꺼냅니다. 문서는 이 방법을 강력히 비권장합니다. 코드가 Spring AOP에 완전히 결합되고, 프록시 노출(<code>exposeProxy</code>) 설정이 필요하기 때문입니다.</li><li>AspectJ 모드로 전환합니다. <code>@EnableTransactionManagement(mode = AdviceMode.ASPECTJ)</code>를 쓰면 대상 클래스의 바이트코드를 위빙하므로 프록시가 없고, 로컬 호출도 가로채집니다.</li></ol>
+<pre><code>// 1번: 분리
+@Service
+public class OrderService {
+    private final OrderWriter writer;
+
+    public void placeOrder() {
+        writer.saveOrder();   // 다른 빈 -&gt; 프록시를 거친다
+    }
+}
+
+@Service
+public class OrderWriter {
+    @Transactional
+    public void saveOrder() { /* ... */ }
+}</code></pre>
+<p class='img'><img src="./images/body-4.png" alt="self-invocation 해결책 네 가지 비교 표"></p>
+<p>AspectJ 모드에는 조건이 붙습니다.<br><code>spring-aspects</code> 모듈이 클래스패스에 있어야 하고, 컴파일 타임 또는 로드 타임 위빙이 켜져 있어야 합니다. 이때 <code>proxyTargetClass</code> 값은 무시됩니다.<br>빌드 설정이 한 단계 늘어나는 부담이 있으므로, 대부분의 경우 1번으로 충분하다고 생각합니다.</p>
+<hr>
+<h2>■ 전파 속성: REQUIRED와 REQUIRES_NEW</h2>
+<p><code>@Transactional</code>의 기본 전파 속성은 <code>REQUIRED</code>입니다. 격리 수준은 <code>ISOLATION_DEFAULT</code>, 읽기-쓰기 트랜잭션입니다.<br>REQUIRED는 바깥 트랜잭션이 있으면 그것에 참여하고, 없으면 새로 만듭니다. 메서드마다 논리 트랜잭션 범위가 생기지만, 모두 같은 물리 트랜잭션에 매핑됩니다.</p>
+<p>여기서 흔한 함정이 하나 있습니다.<br>안쪽 범위에서 예외가 발생해 rollback-only 표시가 세워지면, 바깥 메서드는 예외를 던지지 않았더라도 커밋 시점에 <code>UnexpectedRollbackException</code>을 받습니다.<br>커밋된 줄 알았는데 실제로는 롤백된 상황을 호출자가 모르게 하지 않으려는, 의도된 동작입니다.<br>참여하는 쪽의 격리 수준·타임아웃·읽기 전용 설정은 기본적으로 조용히 무시된다는 점도 기억해 둘 만합니다.</p>
+<p><code>REQUIRES_NEW</code>는 항상 독립된 물리 트랜잭션을 씁니다.<br>안쪽이 롤백되어도 바깥은 영향받지 않고, 안쪽의 락은 완료 즉시 풀립니다. 감사 로그처럼 바깥 결과와 무관하게 남겨야 하는 작업에 어울립니다.</p>
+<p class='img'><img src="./images/body-5.png" alt="REQUIRED와 REQUIRES_NEW 전파 속성 비교 표"></p>
+<p>다만 대가가 있습니다.<br>바깥 트랜잭션의 커넥션은 그대로 잡힌 채 안쪽이 새 커넥션을 요구합니다. 여러 스레드가 이 상태로 서로 기다리면 커넥션 풀이 고갈되고 교착이 생길 수 있습니다.<br>문서는 풀 크기가 동시 스레드 수를 최소 1 초과하도록 적절히 키우지 않았다면 <code>REQUIRES_NEW</code>를 쓰지 말라고 권고합니다.<br>참고로 <code>NESTED</code>는 하나의 물리 트랜잭션 안에서 세이브포인트로 부분 롤백하는 방식이며, 주로 JDBC 세이브포인트에 매핑됩니다.</p>
+<hr>
+<h2>■ 롤백 규칙: 체크 예외는 기본으로 롤백되지 않습니다</h2>
+<p>기본 설정에서 롤백을 일으키는 것은 <code>RuntimeException</code>(과 그 하위 클래스), 그리고 <code>Error</code>입니다.<br>체크 예외가 던져지면 트랜잭션은 롤백되지 않고 커밋됩니다. 이 사실을 모르고 <code>throws Exception</code>을 쓰다가 데이터가 반쯤 저장된 채 남는 경우가 있습니다.</p>
+<pre><code>@Transactional                       // IOException(체크 예외) -&gt; 롤백되지 않음
+public void importA() throws IOException { ... }
+
+@Transactional(rollbackFor = Exception.class)   // 체크 예외도 롤백
+public void importB() throws IOException { ... }</code></pre>
+<p><code>rollbackFor</code>로 롤백할 예외 타입을, <code>noRollbackFor</code>로 롤백하지 않을 예외 타입을 지정합니다.<br>던져진 예외가 지정한 타입과 같거나 그 하위 클래스면 일치로 보며, 규칙이 충돌하면 가장 강하게 일치하는 규칙이 이깁니다.<br>6.2부터는 <code>@EnableTransactionManagement(rollbackOn=ALL_EXCEPTIONS)</code>로 전역 기본을 바꿀 수 있고, 문서는 우발적인 체크 예외까지 일관되게 다루기 위해 이를 권장합니다.</p>
+<p>예외를 직접 잡아 삼키는 경우도 주의해야 합니다.<br>롤백은 트랜잭션 경계로 예외가 던져져 나올 때 판단되므로, 메서드 안에서 <code>catch</code>로 처리해 버리면 인터셉터에 도달하지 않습니다.<br>꼭 필요하다면 <code>TransactionAspectSupport.currentTransactionStatus().setRollbackOnly()</code>를 쓸 수 있으나, 문서는 이 방식이 Spring에 결합되는 침투적 방법이라며 선언적 방식을 강하게 권합니다.</p>
+<hr>
+<p>정리하면 이렇습니다.<br><code>@Transactional</code>은 마법이 아니라 프록시와 <code>TransactionInterceptor</code>가 호출 앞뒤를 감싸는 구조이고, 그 사실 하나로 대부분의 함정이 설명됩니다.</p>
+<blockquote>&quot;프록시를 거치지 않은 호출에는 트랜잭션도 없다.&quot;</blockquote>
+<p>이 글에서 다룬 내용은 모두 공식 문서를 바탕으로 했지만, 버전과 설정에 따라 세부 동작은 달라질 수 있습니다. 실제 서비스에 적용하실 때는 사용 중인 Spring 버전의 문서와 직접 돌려 본 테스트로 확인하시길 바랍니다.<br>다음에 <code>@Transactional</code>이 말을 듣지 않는다면, 코드를 의심하기 전에 호출이 어디를 통과했는지부터 보시겠습니까. 대개 답은 거기에 있습니다.</p>
+<p class='tags'>#Spring #Transactional #스프링트랜잭션 #AOP프록시 #CGLIB #REQUIRES_NEW #트랜잭션전파 #롤백규칙 #자바백엔드</p></div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
