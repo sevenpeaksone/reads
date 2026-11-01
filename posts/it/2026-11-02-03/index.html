@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spring Data JPA N+1 문제, 쿼리 폭발 원리와 해결법 비교</title>
+<style>
+body{margin:0;background:#f4f5f7;color:#222;font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR','Noto Sans CJK KR',sans-serif;font-size:16.5px;line-height:1.85;word-break:keep-all}
+.wrap{width:700px;max-width:100%;margin:40px auto;background:#fff;padding:48px 40px 56px;box-sizing:border-box;border-radius:6px}
+.meta{display:flex;align-items:center;gap:12px;font-size:14px;color:#777}
+.badge{background:#4f8cff;color:#fff;font-weight:700;padding:3px 12px;border-radius:999px;font-size:13px}
+h1{font-size:30px;line-height:1.4;margin:18px 0 26px;letter-spacing:-0.5px}
+h2{font-size:21px;margin:44px 0 14px;padding-left:12px;border-left:5px solid #4f8cff;line-height:1.5}
+p{margin:0 0 16px}
+img{max-width:100%;height:auto;display:block;margin:22px auto;border-radius:8px}
+hr{border:0;border-top:1px solid #e1e4ea;margin:38px 0}
+pre{background:#141a30;color:#e6ebf5;padding:16px 18px;border-radius:8px;overflow-x:auto;font-size:14px;line-height:1.6}
+code{font-family:'DejaVu Sans Mono',Menlo,Consolas,monospace}
+p code,li code{background:#eef1f7;padding:1px 6px;border-radius:4px;font-size:.9em}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin:18px 0}
+th,td{border:1px solid #dde1ea;padding:9px 10px;text-align:left;vertical-align:top;word-break:keep-all}
+th{background:#eef2fb}
+ul{padding-left:22px;margin:0 0 16px} li{margin-bottom:6px}
+.tags{margin-top:34px;display:flex;flex-wrap:wrap;gap:8px;color:#4f8cff;font-size:14px}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head><body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta"><span class="badge">IT</span><span>작성일 2026-11-02</span></div>
+<h1>Spring Data JPA N+1 문제, 쿼리 폭발 원리와 해결법 비교</h1>
+<p><img alt="Spring Data JPA N+1 문제 썸네일" src="./images/thumbnail.png" /></p>
+<p>이번 글에서는 Spring Data JPA의 N+1 문제를 정리해 보겠습니다. 지연 로딩이 어떻게 쿼리 폭발로 번지는지 살펴보고, fetch join·@EntityGraph·배치 페치·DTO 프로젝션 네 가지 해법을 비교합니다.</p>
+<p>세 줄로 먼저 답하면 이렇습니다.</p>
+<ul>
+<li>연관 엔티티를 반복문에서 꺼내 쓸 때마다 쿼리가 한 번씩 더 나가는 현상이 N+1입니다.</li>
+<li>컬렉션이 없는 단순 연관은 fetch join이나 @EntityGraph, 읽기 전용 목록은 DTO 프로젝션이 가장 깔끔합니다.</li>
+<li>페이징과 컬렉션 fetch join을 함께 쓰면 HHH000104 경고와 함께 메모리 페이징이 일어나므로 배치 페치나 쿼리 분리로 풀어야 합니다.</li>
+</ul>
+<hr />
+<h2>■ N+1 문제가 생기는 원리</h2>
+<p>N+1은 한 번의 쿼리로 가져올 수 있었던 데이터를 위해 N번의 쿼리가 더 나가는 현상입니다. 전체 SQL은 1+N개가 됩니다.</p>
+<p>게시글 목록을 조회한 뒤 게시글마다 댓글 수를 세는 코드를 떠올려 보시면 됩니다.</p>
+<pre><code class="language-java">@Entity
+class Post {
+    @Id @GeneratedValue Long id;
+    String title;
+
+    @OneToMany(mappedBy = &quot;post&quot;)   // 기본값은 LAZY
+    List&lt;Comment&gt; comments = new ArrayList&lt;&gt;();
+}
+
+List&lt;Post&gt; posts = postRepository.findAll();      // 쿼리 1번
+for (Post p : posts) {
+    log.info(&quot;{}&quot;, p.getComments().size());       // 게시글마다 쿼리 1번씩
+}
+</code></pre>
+<p>게시글이 100건이라면 쿼리는 101번 나갑니다. 1,000건이라면 1,001번입니다.</p>
+<p>문제는 개별 쿼리가 모두 빠르다는 점입니다. 슬로우 쿼리 로그에는 한 줄도 남지 않습니다. 쿼리 수가 행 수에 비례해 늘어나므로, 로컬의 10건에서는 보이지 않다가 운영 데이터에서 DB CPU와 커넥션 풀이 먼저 비명을 지릅니다.</p>
+<p><img alt="N+1 쿼리 발생 흐름: findAll 쿼리 1번 뒤 게시글마다 댓글 select가 100번 나가 총 101번이 되는 과정" src="./images/body-1.png" /></p>
+<hr />
+<h2>■ EAGER와 LAZY, 둘 다 안전하지 않습니다</h2>
+<p>EAGER로 바꾸면 해결될 것 같지만, 그렇지 않습니다.</p>
+<p><code>@ManyToOne</code>과 <code>@OneToOne</code>의 JPA 기본값은 EAGER입니다. 그런데 JPQL이나 Criteria 쿼리는 엔티티의 기본 fetch 계획을 따르지 않습니다. JOIN을 넣어 주지 않습니다. 그래서 <code>select c from Comment c</code>를 실행하면 댓글 조회 1번에, 참조된 게시글을 읽는 쿼리가 따로 나갑니다. 게시글 4건을 참조하는 예에서는 총 5번입니다.</p>
+<p>LAZY로 바꾸면 최초 쿼리는 한 번뿐입니다. 대신 <code>comment.getPost()</code>에 접근하는 순간마다 select가 나갑니다. 쿼리가 사라진 것이 아니라 뒤로 미뤄졌을 뿐입니다.</p>
+<p>실무에서는 여기에 두 가지 요인이 더해집니다. 컨트롤러가 엔티티를 그대로 반환하면 Jackson 직렬화가 지연 연관을 따라가며 쿼리를 쏟아냅니다. OSIV가 켜져 있으면 이 현상이 서비스 계층 밖에서 조용히 일어납니다. OSIV를 꺼 두면 같은 코드가 <code>LazyInitializationException</code>으로 바로 드러납니다. 그래서 OSIV를 끄고 트랜잭션이 있는 서비스 계층 안에서 필요한 데이터를 모두 읽으라는 권고가 나옵니다.</p>
+<p>정리하면, 기본은 LAZY로 두고 필요한 연관을 쿼리 단위로 명시해서 가져오는 쪽이 안전합니다.</p>
+<p><img alt="N+1이 생기는 원인 3가지: EAGER 기본값과 JPQL, LAZY 접근 시점 로딩, 엔티티 직접 반환과 OSIV" src="./images/body-2.png" /></p>
+<hr />
+<h2>■ 해법 1. fetch join과 @EntityGraph</h2>
+<p>가장 먼저 쓰는 해법은 연관을 처음 쿼리에 함께 실어 보내는 방식입니다.</p>
+<pre><code class="language-java">@Query(&quot;select c from Comment c join fetch c.post&quot;)
+List&lt;Comment&gt; findAllWithPost();
+</code></pre>
+<p>SQL이 INNER JOIN 한 번으로 끝납니다. 앞서의 예시도 5번이 1번으로 줄어듭니다.</p>
+<p>Spring Data JPA에서는 JPQL을 직접 쓰지 않고 <code>@EntityGraph</code>로도 같은 효과를 냅니다.</p>
+<pre><code class="language-java">public interface CommentRepository extends JpaRepository&lt;Comment, Long&gt; {
+
+    @EntityGraph(attributePaths = {&quot;post&quot;})
+    List&lt;Comment&gt; findByPostIdIn(List&lt;Long&gt; postIds);
+}
+</code></pre>
+<p><code>attributePaths</code>로 지정한 속성은 EAGER처럼, 나머지는 LAZY로 취급됩니다(기본 type인 FETCH 기준). 매핑은 LAZY로 유지한 채 메서드마다 fetch 계획을 다르게 선언할 수 있다는 점이 장점입니다. JPQL을 중복해서 쓸 필요도 없습니다.</p>
+<p>한계도 분명합니다.</p>
+<ul>
+<li>일대다 컬렉션을 조인하면 부모 행이 자식 수만큼 중복됩니다. Hibernate가 메모리에서 중복 참조를 걷어내지만, DB는 더 큰 결과 집합을 처리해야 합니다.</li>
+<li>List 컬렉션 두 개를 한 쿼리에서 fetch join하면 <code>MultipleBagFetchException</code>이 발생합니다. 이 예외는 쿼리를 만드는 시점에 나므로 <code>@Query</code>라면 애플리케이션 기동에서 실패합니다.</li>
+<li>List를 Set으로 바꾸면 예외는 사라지지만 카테시안 곱은 그대로입니다. 게시글 50건에 댓글 20개, 태그 10개라면 50×20×10, 즉 10,000행이 됩니다.</li>
+</ul>
+<p>컬렉션이 둘이라면 쿼리를 나누는 편이 맞습니다. 첫 쿼리로 게시글과 댓글을 가져오고, 같은 영속성 컨텍스트 안에서 두 번째 쿼리로 <code>where p in :posts</code> 조건의 태그를 가져옵니다. 이미 올라와 있는 엔티티의 컬렉션이 채워집니다.</p>
+<hr />
+<h2>■ 해법 2. 배치 페치</h2>
+<p>컬렉션 fetch join이 부담스러울 때는 배치 페치가 대안이 됩니다. 연관을 하나씩 읽지 않고, 필요한 키를 모아 <code>IN</code> 조건으로 한꺼번에 읽는 방식입니다.</p>
+<pre><code class="language-java">@OneToMany(mappedBy = &quot;post&quot;)
+@BatchSize(size = 100)
+List&lt;Comment&gt; comments = new ArrayList&lt;&gt;();
+</code></pre>
+<p>전역으로는 <code>hibernate.default_batch_fetch_size</code>를 쓰며, Spring Boot에서는 <code>spring.jpa.properties.</code> 접두어를 붙여 application.yml에 넣습니다. 기본적으로 Hibernate는 <code>@BatchSize</code>가 명시된 곳에만 배치 페치를 적용하므로, 전역 설정을 켜야 모든 연관에 번집니다. 여기서 100은 예시일 뿐이며, 적정 크기를 제시한 공식 자료는 확인하지 못했습니다. 데이터와 DB에 맞춰 측정해서 정하는 편이 좋겠습니다.</p>
+<p>동작은 이렇습니다. 첫 게시글의 댓글에 접근하는 순간, 세션에 올라와 있는 미초기화 컬렉션들의 키를 모아 <code>IN</code> 쿼리 한 번으로 초기화합니다.</p>
+<p>한 사례를 보겠습니다. 저자 6명을 읽고 <code>@BatchSize(size = 5)</code>를 건 경우, 첫 저자의 도서 목록에 접근할 때 1~5번 저자를 묶은 쿼리가 한 번 나갑니다. 6번 저자는 단건 쿼리입니다. 최초 조회까지 합쳐 3번입니다. 하나씩 읽었다면 7번(1+6)이었을 것입니다.</p>
+<p>쿼리 수는 대략 부모 수를 배치 크기로 나눈 만큼으로 줄어듭니다. 매핑을 거의 건드리지 않고 기존 코드에 적용할 수 있다는 점이 강점입니다.</p>
+<p>다만 한계도 있습니다. 전용 쿼리로 처음부터 함께 가져오는 것보다는 느리고, 핫한 API의 장기 설계로 삼기에는 부족하다는 평가가 있습니다. 완화책이지 해결책은 아니라는 뜻입니다.</p>
+<p><img alt="배치 페치 효과: 저자 6명 예시에서 개별 로딩 7번 대 배치 크기 5 적용 3번" src="./images/body-3.png" /></p>
+<hr />
+<h2>■ 해법 3. DTO 프로젝션</h2>
+<p>화면에 필요한 값이 정해져 있다면 엔티티를 거치지 않는 것이 가장 확실합니다.</p>
+<pre><code class="language-java">public record PostSummary(Long id, String title, long commentCount) {}
+
+@Query(&quot;&quot;&quot;
+    select new com.example.PostSummary(p.id, p.title, count(c))
+    from Post p left join p.comments c
+    group by p.id, p.title
+    &quot;&quot;&quot;)
+List&lt;PostSummary&gt; findSummaries();
+</code></pre>
+<p>필요한 컬럼만 select하므로 SQL이 작고 메모리 사용이 적습니다. 영속 엔티티가 아니니 우발적인 지연 로딩이 원천적으로 일어나지 않습니다.</p>
+<p>Spring Data JPA는 인터페이스 기반과 클래스 기반(DTO, record) 프로젝션을 모두 지원합니다. 접근자가 모두 엔티티 속성과 일치하는 closed 프로젝션은 필요한 속성을 미리 알기에 쿼리를 최적화할 수 있습니다. 반면 SpEL을 쓰는 open 프로젝션은 최적화되지 않습니다.</p>
+<p>주의할 점이 있습니다. 중첩 프로퍼티가 조인으로 풀리면 중첩 대상 전체가 선택되어, 중첩 프로젝션이 조인 데이터를 줄여 주지 않습니다. JPQL 생성자 표현식에는 별칭을 붙이면 안 됩니다. 또 DTO는 영속 엔티티가 아니라서 값을 바꿔 저장하는 용도로는 쓸 수 없습니다.</p>
+<hr />
+<h2>■ 페이징과 컬렉션 fetch join의 한계</h2>
+<p>가장 자주 만나는 함정이 여기입니다. 게시글을 페이지 단위로 조회하면서 댓글까지 fetch join하면 이런 로그를 보게 됩니다.</p>
+<pre><code>HHH000104: firstResult/maxResults specified with collection fetch; applying in memory!
+</code></pre>
+<pre><code class="language-java">@Query(&quot;select p from Post p left join fetch p.comments&quot;)
+Page&lt;Post&gt; findAllWithComments(Pageable pageable);   // 메모리 페이징 발생
+</code></pre>
+<p>원인은 SQL의 구조에 있습니다. 컬렉션을 조인하면 DB는 게시글이 아니라 게시글과 댓글의 조합마다 한 행을 돌려줍니다. 여기에 LIMIT를 걸면 엔티티가 아니라 조합 행의 개수를 세게 됩니다. 한 게시글의 댓글이 중간에서 잘릴 수도 있습니다.</p>
+<p>그래서 Hibernate는 SQL에 LIMIT를 붙이지 않습니다. 조인 결과를 전부 읽어 온 뒤 메모리에서 잘라 냅니다. 결과는 정확합니다. 하지만 테이블이 크면 수천 행이 로딩되고, 쿼리가 느려지고, 메모리가 늘어납니다.</p>
+<p>예전엔 경고 한 줄로 지나쳤습니다. 지금은 이 경고를 에러로 바꿀 수 있습니다.</p>
+<pre><code class="language-yaml">spring:
+  jpa:
+    properties:
+      hibernate:
+        query:
+          fail_on_pagination_over_collection_fetch: true
+</code></pre>
+<p>이 속성을 켜면 경고 대신 <code>HibernateException</code>이 발생하며, Hibernate 5.2.13부터 사용할 수 있습니다. 테스트 단계에서 실수를 잡는 용도로 알맞습니다.</p>
+<p>해결은 두 갈래입니다.</p>
+<ul>
+<li>쿼리 분리: 먼저 루트 엔티티의 id만 페이징으로 조회합니다. 이때는 fetch join이 없으므로 DB가 LIMIT를 처리합니다. 그다음 <code>where p.id in :ids</code>와 컬렉션 fetch join으로 엔티티를 읽습니다. 두 번째 쿼리에는 <code>order by</code>를 다시 지정해야 순서가 보장됩니다.</li>
+<li>배치 페치: 컬렉션을 조인하지 않고 부모만 페이징한 뒤, 컬렉션은 앞서 본 <code>IN</code> 쿼리로 가져옵니다. 이는 위의 개념을 조합한 필자의 정리이며, 쿼리 수는 부모 수를 배치 크기로 나눈 정도로 늘어납니다.</li>
+</ul>
+<pre><code class="language-java">Page&lt;Long&gt; ids = postRepository.findPostIds(pageable);          // LIMIT는 DB에서
+List&lt;Post&gt; posts = postRepository.findWithComments(ids.getContent()); // IN + fetch join
+</code></pre>
+<p>Hibernate 6에서는 윈도 함수로 한 쿼리에 처리하는 방법도 소개되어 있습니다. 다만 코드가 복잡해지므로, 이 글에서는 이름만 언급하겠습니다.</p>
+<p><img alt="컬렉션 fetch join 페이징 문제와 해결: 메모리 페이징 대 id 페이징 후 IN 조회로 쿼리 분리" src="./images/body-4.png" /></p>
+<hr />
+<h2>■ 네 가지 해법, 무엇을 고를까</h2>
+<table>
+<thead>
+<tr>
+<th>방식</th>
+<th>쿼리 수</th>
+<th>주된 위험</th>
+<th>어울리는 곳</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fetch join</td>
+<td>1개</td>
+<td>중복 행, 페이징, 카테시안 곱</td>
+<td>부모 범위가 한정된 단일 컬렉션</td>
+</tr>
+<tr>
+<td>@EntityGraph</td>
+<td>메서드당 1개</td>
+<td>엔티티 전체 로딩</td>
+<td>유스케이스마다 그래프가 다를 때</td>
+</tr>
+<tr>
+<td>배치 페치</td>
+<td>부모 수 ÷ 배치 크기 정도</td>
+<td>핫 경로에서는 여전히 잦은 왕복</td>
+<td>기존 코드의 낮은 비용 완화</td>
+</tr>
+<tr>
+<td>DTO 프로젝션</td>
+<td>좁은 쿼리 1개</td>
+<td>영속 엔티티가 아님</td>
+<td>목록·조회 API</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="fetch join, @EntityGraph, 배치 페치, DTO 프로젝션의 쿼리 수와 위험, 적합한 용도 비교 표" src="./images/body-5.png" /></p>
+<p>제가 권하는 순서는 이렇습니다. 읽기 전용 화면이라면 DTO 프로젝션부터 검토하십시오. 엔티티가 필요하고 연관이 단건이라면 @EntityGraph나 fetch join을 쓰십시오. 컬렉션이 얽히고 페이징이 필요하다면 쿼리를 나누거나 배치 페치를 쓰십시오. 어느 쪽이든 요청당 쿼리 수를 테스트로 고정해 두어야 같은 문제가 다시 생기지 않습니다. 쿼리 수가 예산을 넘으면 CI가 실패하도록 두는 방식이 권장됩니다.</p>
+<p>한계도 인정해야 합니다. 이 글의 쿼리 수는 설명용 예시이며 실측 벤치마크가 아닙니다. 실제 효과는 데이터 분포와 DB, 인덱스 상태에 따라 달라집니다.</p>
+<hr />
+<p>정리하면 이렇습니다.</p>
+<p>"N+1은 코드가 아니라 데이터를 어떻게 가져올지 정하지 않은 데서 생깁니다."</p>
+<p>연관을 LAZY로 두는 것은 시작일 뿐이고, 화면마다 무엇을 읽을지 직접 정하는 것이 끝입니다. 다음에 쿼리 로그가 비슷한 문장으로 가득 찬 것을 보신다면, 가장 먼저 반복문 안의 getter부터 의심해 보시길 권합니다.</p>
+<div class="tags"><span>#SpringDataJPA</span> <span>#JPA</span> <span>#N플러스1</span> <span>#Hibernate</span> <span>#지연로딩</span> <span>#fetchjoin</span> <span>#EntityGraph</span> <span>#배치페치</span> <span>#DTO프로젝션</span> <span>#HHH000104</span></div>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

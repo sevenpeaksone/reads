@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>팃포탯 전략, 반복 죄수의 딜레마에서 협력이 자라는 조건</title>
+<meta property="og:image" content="./images/thumbnail.png">
+<style>
+body{margin:0;background:#f4f6f5;font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;color:#222;font-size:16.5px;line-height:1.85}
+.wrap{max-width:700px;margin:0 auto;padding:48px 24px 80px;background:#fff;min-height:100vh}
+.badge{display:inline-block;background:#1f9d62;color:#fff;font-size:13px;font-weight:700;padding:4px 12px;border-radius:999px;letter-spacing:.5px}
+.date{color:#8a948f;font-size:14px;margin-left:10px}
+h1{font-size:31px;line-height:1.4;margin:18px 0 28px;font-weight:800;letter-spacing:-.5px}
+h2{font-size:22px;margin:8px 0 14px;padding-left:12px;border-left:5px solid #1f9d62;line-height:1.5}
+p{margin:0 0 18px;word-break:keep-all}
+hr{border:0;border-top:1px solid #dde3e0;margin:38px 0}
+figure{margin:26px 0}
+img{max-width:100%;height:auto;display:block;border-radius:8px}
+blockquote{margin:26px 0;padding:18px 24px;background:#eef8f2;border-left:5px solid #1f9d62;font-size:20px;font-weight:700;border-radius:6px}
+.tags{color:#1f9d62;font-size:15px;margin-top:30px}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head><body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<span class="badge">경제</span><span class="date">작성일 2026-11-02</span>
+<h1>팃포탯 전략, 반복 죄수의 딜레마에서 협력이 자라는 조건</h1>
+<figure><img src="./images/thumbnail.png" alt="팃포탯 전략과 반복 죄수의 딜레마 대표 이미지"></figure>
+<p>이번 글에서는 반복 죄수의 딜레마와 액설로드의 컴퓨터 토너먼트를 정리해 보겠습니다.<br>
+단순한 규칙 하나인 팃포탯(tit-for-tat)이 어떻게 협력을 이끌어내는지, 어떤 조건이 필요한지 살펴봅니다.<br>
+마지막에는 실수가 섞인 현실에서 왜 &#x27;관대한 팃포탯&#x27;이 등장하는지까지 이어가겠습니다.</p>
+<p>먼저 결론부터 말씀드리면 이렇습니다.<br>
+팃포탯은 첫 수에 협력하고, 이후에는 상대의 직전 수를 그대로 따라 합니다.<br>
+이 단순한 규칙이 협력을 키우려면 서로 다시 만날 가능성, 곧 &#x27;미래의 그림자&#x27;가 충분히 길어야 합니다.<br>
+그리고 실수가 있는 세계에서는 보복에 약간의 용서를 더해야 합니다.</p>
+<hr>
+<h2>1회성 게임과 반복 게임은 무엇이 다른가</h2>
+<p>죄수의 딜레마는 두 사람이 협력할지 배신할지를 동시에 정하는 게임입니다.<br>
+보수는 배신 유혹(T) &gt; 상호협력(R) &gt; 상호배신(P) &gt; 호구(S) 순으로 크고, 2R &gt; T + S 도 성립해야 합니다.<br>
+이 조건은 협력과 배신을 번갈아 하는 편이 상호협력보다 유리해지는 일을 막습니다.<br>
+액설로드는 (T, R, P, S) = (5, 3, 1, 0)을 썼습니다.</p>
+<p>한 번만 하는 게임에서는 상대가 무엇을 고르든 배신이 더 나은 보수를 줍니다.<br>
+그래서 상호배신이 유일한 내쉬균형입니다.<br>
+횟수가 정해진 유한 반복도 마찬가지입니다. 마지막 판에는 배신이 합리적이고, 그 앞 판도 연쇄적으로 배신이 됩니다.</p>
+<p>협력의 문이 열리는 곳은 끝이 정해지지 않은 반복입니다.<br>
+라운드 수가 미정이거나 무한해야 협력이 나올 수 있고, 아우만(Aumann)은 1959년 연구에서 이를 보였습니다.<br>
+다시 만날 확률이 낮으면 항상 배신이 합리적이고, 충분히 높으면 한 번 당할 위험보다 계속 협력하는 이익이 커집니다.<br>
+이 확률이 미래의 그림자입니다.</p>
+<figure><img src="./images/body-1.png" alt="1회성 게임, 횟수가 확정된 반복, 끝이 미정인 반복 게임의 균형과 협력 가능성 비교 표"></figure>
+<hr>
+<h2>액설로드의 토너먼트, 숫자로 보면</h2>
+<p>정치학자 로버트 액설로드는 게임이론가들에게 프로그램을 받아 총당전(라운드 로빈)을 열었습니다.<br>
+1차에는 14명이 낸 프로그램과 무작위 전략 하나를 더해 15개가 참가했습니다.<br>
+각 쌍은 정확히 200판을 겨뤘고, 내내 협력하면 600점, 내내 배신하면 200점이었습니다.</p>
+<p>우승은 아나톨 라포포트가 낸 팃포탯이었습니다.<br>
+14개 진짜 프로그램 가운데 가장 단순했고, 평균 504점으로 1위를 차지했습니다.<br>
+흥미로운 대목이 있습니다. 이 프로그램은 어떤 상대와의 한 판에서도 상대를 이길 수 없었습니다. 승수는 0이었습니다.<br>
+이기는 것이 아니라 함께 점수를 쌓는 방식으로 이겼다는 뜻입니다.<br>
+상위권은 모두 먼저 배신하지 않는 &#x27;친절한&#x27; 프로그램이었습니다.</p>
+<p>2차는 규모가 컸습니다.<br>
+62개가 제출되어 무작위 전략과 함께 63개가 겨뤘고, 6개국의 컴퓨터 애호가와 여러 분야 교수들이 참여했습니다.<br>
+참가자들은 1차 결과를 알고 설계했는데도 이 전략이 다시 우승했습니다.<br>
+게임 길이도 바뀌었습니다. 고정 200판 대신 매 수 뒤 0.00346의 확률로 끝나게 해서 평균 길이가 151수 안팎이었습니다.<br>
+마지막 판을 미리 알 수 없게 만든 장치입니다.</p>
+<p>재현 연구도 있습니다. 2025년에 원본 코드를 그대로 돌린 결과 이 전략이 다시 1위였고, 2만 5천 번 반복한 토너먼트에서는 약 63%를 우승했습니다.<br>
+이 말은 뒤집어 보면 약 37%는 다른 전략이 이겼다는 뜻이기도 합니다.</p>
+<figure><img src="./images/body-2.png" alt="액설로드 1차·2차 토너먼트 참가 수와 점수 등 핵심 수치 카드"></figure>
+<hr>
+<h2>협력을 키우는 네 가지 성질</h2>
+<p>액설로드는 성적이 좋았던 전략의 공통점을 정리했습니다.<br>
+핵심은 네 가지입니다.</p>
+<p>첫째, 친절함입니다. 먼저 배신하지 않습니다.<br>
+둘째, 보복입니다. 부당한 배신에는 곧바로 응수하고, 협력에는 협력으로 답합니다.<br>
+셋째, 용서입니다. 한 번 되갚은 뒤 상대가 협력으로 돌아오면 같이 돌아옵니다.<br>
+넷째, 명료함입니다. 규칙이 단순해서 상대가 패턴을 읽고 협력이 이득임을 깨닫습니다.</p>
+<p>보복이 왜 필요한지는 팃포투탯(tit for two tats) 사례가 보여 줍니다.<br>
+상대가 두 번 연속 배신해야 응수하는 이 너그러운 전략은, 1차에서는 이길 수 있었다는 분석이 있었습니다.<br>
+그러나 2차에서는 24위에 그쳤습니다. 한 번씩 건너 배신하는 착취 전략이 등장했기 때문입니다.<br>
+친절함만으로는 부족하고, 응징이 없으면 협력은 이용당합니다.</p>
+<p>여기에 미래의 그림자가 더해집니다.<br>
+액설로드와 디온의 1988년 논문에 따르면, 매 수 뒤 게임이 끝날 확률이 충분히 낮으면 모두가 이 전략을 쓰는 집단이 균형이 되어 혼자 배신하는 쪽이 이득을 보지 못합니다.<br>
+다시 만날 가능성이 높고, 그 만남을 가볍게 여기지 않는 것이 전제입니다.</p>
+<figure><img src="./images/body-3.png" alt="협력을 키우는 네 가지 성질(친절, 보복, 용서, 명료)과 미래의 그림자"></figure>
+<hr>
+<h2>현실의 약점, 노이즈</h2>
+<p>그런데 현실에는 실수와 오해가 있습니다.<br>
+이 규칙을 따르는 두 사람이 협력하던 중 한쪽이 한 번 실수로 배신하면, 상대가 보복하고 다시 이쪽이 보복하는 연쇄가 이어집니다. 이를 &#x27;죽음의 나선&#x27;이라 부릅니다.<br>
+몰랑데르의 분석을 액설로드와 디온이 소개했는데, 잡음이 있으면 이 규칙을 따르는 두 사람은 장기적으로 무작위 두 명의 평균 보수에 머문다고 합니다.<br>
+오해 확률이 10%인 토너먼트에서 이 전략은 21개 중 6위였습니다.</p>
+<p>해법은 용서를 덧붙이는 것입니다.<br>
+관대한 팃포탯(generous tit-for-tat)은 협력에는 협력으로 답하고, 배신을 당하면 대부분 응수하되 가끔은 협력합니다.<br>
+디스커버 매거진이 소개한 설명으로는 배신 앞에서 평균 세 번 중 한 번 협력하는 수준입니다. 이 관용의 크기를 &#x27;빈의 황금률&#x27;이라 부르기도 합니다.<br>
+언제 용서할지를 정해 두면 곧 이용당하므로, 3분의 1은 일정이 아니라 평균입니다.</p>
+<p>나우악과 지그문트의 1992년 연구는 더 흥미로운 그림을 줍니다.<br>
+혼합 집단에서 상호성이 자리 잡으려면 소수의 팃포탯이 반드시 필요하고, 이 규칙은 이후 더 관대한 변형으로 이어집니다.<br>
+팃포탯은 진화의 목표가 아니라 &#x27;축(pivot)&#x27;이라는 표현이 그래서 나옵니다.<br>
+소개된 시뮬레이션에서는 초기에 이 전략 사용자를 약 1%만 넣어도 흐름이 배신에서 협력으로 뒤집혔습니다.</p>
+<p>다른 대안도 있습니다. 우와 액설로드는 1995년 논문에서 관대함, 참회(contrite), 파블로프 세 가지를 비교했습니다.<br>
+관대한 관대한 형태은 잡음에 적응하지 않은 상대에게 잘했고, 참회형은 상대가 적응한 경우 더 잘했습니다. 파블로프는 견고하지 않다고 결론 내렸습니다.<br>
+사람 실험도 비슷합니다. 잡음이 있는 무한 반복 게임에서 협력이 가능한 조건의 협력률은 약 49~61%였고, 가장 성공적인 전략은 첫 배신에 관대하고 처벌 뒤 용서하는 쪽이었습니다.<br>
+논문은 이를 &quot;불확실한 세상에서는 화를 천천히 내고 빨리 용서하는 것이 이득일 수 있다&quot;고 요약합니다.</p>
+<figure><img src="./images/body-4.png" alt="노이즈로 인한 죽음의 나선과 관대한 팃포탯의 회복 모식도"></figure>
+<hr>
+<h2>현실 사례와 그 한계</h2>
+<p>참호전이 대표적입니다. 1차대전 서부전선에서 병사들은 상대가 자제하는 한 치명적 사격을 삼가는 암묵적 합의를 만들었습니다.<br>
+1915년 여름 한 구역에서는 오전 8시에서 9시를 &#x27;사적인 시간&#x27;으로 여겼고, 양쪽 저격수는 깃발로 표시된 곳을 피했습니다.<br>
+우정 때문이 아니라 서로의 자제를 확인하는 호혜의 결과였습니다. 다만 치명적 폭력 한 번에 쉽게 깨졌고, 전쟁이 길어질수록 더 불안정해졌다고 합니다.<br>
+이 해석에는 반론도 있습니다. 조애나 고와와 앤드루 겔먼은 죄수의 딜레마의 가정이 이 사례에 맞지 않는다고 주장합니다.</p>
+<p>기업 담합은 어떨까요. 1990년대 초 사료용 라이신 카르텔은 세계 생산의 95%를 가진 네 회사가 만들었습니다.<br>
+이들은 약 3개월마다 고위 임원이 모여 가격과 생산 배분을 논의했고, 압수 문서에는 각사의 &#x27;판매 목표&#x27;와 &#x27;실제 판매&#x27;가 기록돼 있었습니다. 서로 지키는지 감시한 흔적입니다.<br>
+미국 라이신 가격은 1992년 7월 0.64달러에서 카르텔 이후 1달러를 넘는 수준으로 올랐습니다.<br>
+다만 이 사례가 보복을 주고받는 그 전략이었다는 근거는 아닙니다. 반복 접촉과 감시가 담합 유지의 뼈대였음을 보여 줄 뿐이고, 결국 1995년 FBI 수사로 무너졌습니다.</p>
+<p>이론적으로는 그린과 포터(1984)의 모형이 있습니다.<br>
+가격만 관측되는 상황에서 가격이 기준 아래로 떨어지면 일정 기간 경쟁으로 돌아갔다가 카르텔로 복귀하는 구조인데, 수요 충격만으로도 배신 없이 가격전쟁이 벌어집니다. 앞서 본 노이즈 문제와 닮은 구조입니다.</p>
+<p>국제 관계에서는 액설로드가 군비경쟁과 위기 협상을 반복 죄수의 딜레마로 모델링했습니다.<br>
+미국과 소련이 서로를 무기한 상대할 것이라 기대하면 암묵적 협력이 진화할 수 있고, 위반이 충분히 빨리 탐지되어 응징될 수 있어야 한다는 조건이 붙습니다.<br>
+이는 이론적 적용이며, 특정 협상에서 이 전략이 쓰여 성공했다는 사례까지 이번 조사에서 확인하지는 못했습니다.</p>
+<figure><img src="./images/body-5.png" alt="참호전, 라이신 카르텔, 군비통제 사례와 반복 게임 조건 비교 표"></figure>
+<hr>
+<h2>팃포탯의 한계도 있습니다</h2>
+<p>예전엔 이 전략을 협력의 정답처럼 읽는 시선이 많았습니다. 지금은 조건부 해답으로 보는 편이 합리적입니다.<br>
+만능이라는 결론은 안전하지 않습니다.<br>
+2단계 토너먼트로 다시 분석했더니 이 전략의 우승 비율은 11.0%에 그쳤고, 1차 순위는 DO와 GR 두 프로그램이 좌우한 &#x27;킹메이커&#x27; 효과가 컸다는 연구가 있습니다.<br>
+총점 순위와 승수 순위가 상관이 없다는 점, 보수 값에 따라 승자가 달라질 수 있다는 점도 지적됩니다.<br>
+참여자가 늘수록 협력이 어려워진다는 한계도 있습니다. 다자 협상이나 여러 나라가 얽힌 카르텔에서는 더 그렇습니다.<br>
+따라서 팃포탯은 &#x27;언제나 최선의 전략&#x27;이 아니라 &#x27;협력이 자랄 조건을 보여 주는 가장 선명한 사례&#x27;로 읽는 편이 정확합니다.</p>
+<hr>
+<p>정리하면 이렇습니다.<br>
+협력은 선의에서만 나오지 않고, 다시 만날 구조와 응징의 신뢰와 용서의 여지가 함께 있을 때 자랍니다.</p>
+<blockquote>먼저 믿고, 되갚되, 곧 잊는다.</blockquote>
+<p>혹시 지금 마음에 걸리는 관계가 있다면, 그 관계에서 다시 만날 일이 얼마나 남았는지부터 헤아려 보시길 권합니다.<br>
+저라면 실수가 의심되는 첫 번째 배신 앞에서는, 한 번쯤은 못 본 척 넘어가 보겠습니다.</p>
+<p class="tags">#팃포탯 #반복죄수의딜레마 #액설로드 #게임이론 #협력의진화 #관대한팃포탯 #미래의그림자 #경제</p>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
