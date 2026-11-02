@@ -20,7 +20,8 @@ th,td{border:1px solid #dde1ea;padding:9px 10px;text-align:left;vertical-align:t
 th{background:#eef2fb}
 ul{padding-left:22px;margin:0 0 16px} li{margin-bottom:6px}
 .tags{margin-top:34px;display:flex;flex-wrap:wrap;gap:8px;color:#4f8cff;font-size:14px}
-</style><style id="site-chrome-css">
+</style>
+<style id="site-chrome-css">
   #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
   #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
     padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
@@ -59,7 +60,9 @@ ul{padding-left:22px;margin:0 0 16px} li{margin-bottom:6px}
 </style>
 </head><body>
 <div id="read-progress"></div>
-<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+
+<div class="wrap">
 <div class="meta"><span class="badge">IT</span><span>작성일 2026-11-02</span></div>
 <h1>Spring Data JPA N+1 문제, 쿼리 폭발 원리와 해결법 비교</h1>
 <p><img alt="Spring Data JPA N+1 문제 썸네일" src="./images/thumbnail.png" /></p>
@@ -224,7 +227,10 @@ List&lt;Post&gt; posts = postRepository.findWithComments(ids.getContent()); // I
 <p>"N+1은 코드가 아니라 데이터를 어떻게 가져올지 정하지 않은 데서 생깁니다."</p>
 <p>연관을 LAZY로 두는 것은 시작일 뿐이고, 화면마다 무엇을 읽을지 직접 정하는 것이 끝입니다. 다음에 쿼리 로그가 비슷한 문장으로 가득 찬 것을 보신다면, 가장 먼저 반복문 안의 getter부터 의심해 보시길 권합니다.</p>
 <div class="tags"><span>#SpringDataJPA</span> <span>#JPA</span> <span>#N플러스1</span> <span>#Hibernate</span> <span>#지연로딩</span> <span>#fetchjoin</span> <span>#EntityGraph</span> <span>#배치페치</span> <span>#DTO프로젝션</span> <span>#HHH000104</span></div>
-</div><button id="to-top" aria-label="맨 위로">↑</button>
+</div>
+
+
+<button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
   var root=document.documentElement, KEY='spk-theme';
