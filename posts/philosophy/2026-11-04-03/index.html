@@ -1,0 +1,159 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>베이즈 정리와 베이즈주의 인식론, 믿음을 갱신하는 법과 한계</title>
+<style>body{margin:0;background:#fff;color:#222;font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;font-size:16.5px;line-height:1.85}
+.wrap{width:700px;max-width:100%;margin:0 auto;padding:48px 20px 80px;box-sizing:border-box}
+.badge{display:inline-block;background:#6c5ce7;color:#fff;font-size:13px;font-weight:700;padding:3px 12px;border-radius:999px}
+.date{color:#888;font-size:14px;margin-left:8px}
+h1{font-size:30px;line-height:1.4;margin:16px 0 28px}
+h2{font-size:21px;margin:36px 0 14px;padding-left:10px;border-left:4px solid #6c5ce7}
+p{margin:0 0 14px}img{max-width:100%;height:auto;display:block;margin:10px auto;border-radius:6px}
+hr{border:0;border-top:1px solid #ddd;margin:34px 0}ul{padding-left:22px}li{margin-bottom:8px}
+blockquote{margin:20px 0;padding:14px 20px;background:#f3f1ff;border-left:4px solid #6c5ce7;font-weight:700}
+.tags{color:#6c5ce7}.src{color:#888;font-size:13.5px;line-height:1.6}.img{margin:18px 0}</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head>
+<body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap"><span class="badge">철학/인문</span><span class="date">2026-11-04</span><h1>베이즈 정리와 베이즈주의 인식론, 믿음을 갱신하는 법과 한계</h1>
+<p class="img"><img src="./images/thumbnail.png" alt="베이즈 정리와 베이즈주의 인식론 대표 이미지"></p>
+<p>오늘은 베이즈 정리와 베이즈주의 인식론을 정리해 보려 합니다.</p>
+<p>증거를 만나면 믿음의 정도를 확률 규칙에 따라 고쳐야 한다는 것이 베이즈주의의 핵심 주장입니다.</p>
+<p>다만 이 규칙은 출발점인 사전확률을 정해 주지 못하고, 사람의 직관은 기저율을 자주 놓칩니다. 두 가지 한계를 함께 살펴보겠습니다.</p>
+<hr>
+<h2>■ 베이즈 정리, 수식보다 먼저 이해할 것</h2>
+<p>베이즈 정리는 가설 H가 증거 E를 만난 뒤의 확률을 계산하는 규칙입니다.</p>
+<p>증거를 보기 전의 확률(사전확률)에, 가설이 참일 때 그 증거가 나올 확률(우도)을 곱하고, 증거 자체가 나올 확률로 나눕니다.</p>
+<p>분모는 가설이 참일 때와 거짓일 때를 나누어 펼칠 수 있어서, 증거의 전체 확률을 따로 몰라도 계산이 됩니다.</p>
+<p>오즈 형태로 쓰면 더 직관적입니다. 사후 오즈는 우도비에 사전 오즈를 곱한 값입니다. 증거가 가설을 얼마나 밀어 올리는지는 우도비가 정하고, 출발선은 사전 오즈가 정하는 셈입니다.</p>
+<p class="img"><img src="./images/body-1.png" alt="사전확률에 우도를 곱해 사후확률이 되는 베이즈 갱신 3단계 다이어그램"></p>
+<p>역사도 짧게 짚어 두겠습니다.</p>
+<p>토머스 베이즈는 장로교 목사였고 1761년에 세상을 떠났습니다. 역확률에 관한 논문은 생전에 발표되지 않았습니다.</p>
+<p>친구 리처드 프라이스가 원고를 약 2년 손질하고 서문을 써서 1763년 12월 왕립학회에서 읽었고, 논문은 이듬해 학술지에 실렸다고 기록하는 자료도 있습니다. 발표 연도를 1763년으로 적는 문헌과 1764년으로 적는 문헌이 갈립니다.</p>
+<p>피에르시몽 라플라스는 베이즈의 연구를 모른 채 1774년에 같은 결과를 독립적으로 얻었고, 1812년 『확률의 해석적 이론』에 정리했습니다. 오늘날의 베이즈적 확률 해석을 발전시킨 사람은 라플라스로 평가됩니다. 우리가 "베이즈주의"라고 부르는 용어가 이런 뜻으로 쓰이기 시작한 때는 1950년경입니다.</p>
+<hr>
+<h2>■ 베이즈주의 인식론은 무엇을 요구하는가</h2>
+<p>스탠퍼드 철학 백과사전의 설명에 따르면, 베이즈주의 인식론은 믿음을 '있다/없다'가 아니라 정도(credence)로 다룹니다. 증거가 들어올 때 그 정도가 어떻게 바뀌어야 하는지를 규범으로 묻습니다.</p>
+<p>이 분야가 베이즈적인 이유는 정리 자체보다 두 가지 규범에 있습니다.</p>
+<p>첫째는 확률주의입니다. 어느 한 시점의 믿음 정도들은 확률의 공리를 지켜야 합니다. 음수가 없고, 가능성 전체의 합이 1이며, 서로 겹치지 않는 명제는 더해집니다.</p>
+<p>둘째는 조건화입니다. 증거 E를 얻으면 E와 양립할 수 없는 가능성의 믿음은 0으로 내립니다. 남은 가능성은 같은 비율로 키워서 합을 다시 1로 맞춥니다. 새 믿음은 옛 믿음에서 'X이면서 E인 경우'를 'E인 경우'로 나눈 값입니다.</p>
+<p>왜 이 규범을 따라야 할까요. 대표적인 답이 더치북 논증입니다.</p>
+<p>어떤 사람이 A에 0.75, A가 아닌 경우에 0.30의 믿음을 두었다고 해 보겠습니다. 합이 1을 넘는 이 사람은 두 내기를 모두 받아들이게 되고, 결과와 상관없이 5달러를 잃습니다. 램지와 데 피네티가 확률주의를, 이후 루이스와 텔러가 조건화를 이런 방식으로 뒷받침했습니다.</p>
+<p>다른 길도 있습니다. 믿음을 참(1)이나 거짓(0)에 대한 추정값으로 보고, 확률 공리를 어기는 믿음은 더 정확한 대안에 항상 밀린다고 보이는 정확성 논증입니다.</p>
+<p>물론 반론이 있습니다. 내기를 불편해하는 사람은 확신이 커도 내기를 거절할 수 있습니다. 또 돈을 잃는다는 실용적 이유로 인식적 규범을 정당화하는 것이 맞느냐는 물음도 남습니다.</p>
+<hr>
+<h2>■ 직관은 기저율을 놓친다</h2>
+<p>베이즈 갱신이 실제로 어떻게 어긋나는지는 의료 검사에서 가장 선명하게 드러납니다.</p>
+<p>유방촬영술 문제를 보겠습니다. 검진을 받는 여성의 1%가 유방암이고, 암이 있으면 80%가 양성, 암이 없어도 9.6%가 양성이 나옵니다. 양성이 나온 여성이 실제로 암일 확률은 얼마일까요.</p>
+<p>1만 명으로 환산하면 쉽습니다. 암 환자 100명 중 80명이 양성입니다. 암이 없는 9,900명 중 950명도 양성입니다. 양성 1,030명 중 암은 80명이므로 확률은 약 7.8%입니다.</p>
+<p class="img"><img src="./images/body-2.png" alt="1만 명 중 100명 환자, 9,900명 비환자의 양성 80명과 950명을 보여주는 자연빈도 도식"></p>
+<p>1982년 데이비드 에디는 이 문제를 의사들에게 냈습니다. 100명 가운데 약 95명이 양성일 때 악성일 확률을 약 75%로 어림했습니다.</p>
+<p>검사의 정확도가 높다는 사실에 끌려 환자 집단에서 암이 얼마나 드문지를 지워 버린 것입니다. 이것이 기저율 오류입니다. 거짓 양성이 참 양성보다 많아질 수 있다는 점은 '거짓 양성 역설'로도 불립니다.</p>
+<p>비슷한 결과는 반복해서 나왔습니다.</p>
+<ul>
+<li>하버드 의대 문제(1978년 보고): 유병률 1/1000, 거짓 양성률 5%일 때 정답은 약 2%입니다. 응답자의 45%가 95%라고 답했고, 대략 맞힌 사람은 약 18%였습니다. 이 수치는 2차 자료의 인용입니다.</li>
+<li>같은 질문을 2014년 단일 병원의 의대생·의사 등 61명에게 다시 물은 연구에서는 14명(약 23%)만 약 2%에 가까운 답을 했고, 가장 흔한 답은 이번에도 95%였습니다.</li>
+<li>택시 문제: 택시의 85%가 녹색, 15%가 파랑입니다. 정확도 80%의 목격자가 파란 택시라고 증언하면 사람들은 대개 80% 안팎으로 답합니다. 정답은 약 41%입니다. 100대 중 파란 택시 15대 가운데 12대를 맞히고 녹색 85대 가운데 17대를 파랑으로 오인하므로, 파랑 증언 29건 중 12건만 맞기 때문입니다.</li>
+</ul>
+<p class="img"><img src="./images/body-3.png" alt="세 문제의 흔한 직관 답과 베이즈 정답 비교 표 - 유방촬영술 약 75%와 7.8%, 하버드 문제 95%와 약 2%, 택시 문제 80%와 약 41%"></p>
+<p>같은 검사라도 기저율이 달라지면 결과가 크게 달라집니다. 1,000명에게 거짓 양성률 5%의 검사를 한다면, 감염률이 40%인 집단의 양성은 약 93%가 진짜입니다. 감염률이 2%인 집단에서는 약 29%에 그칩니다.</p>
+<p>법정에서도 이 문제는 비껴가지 않았습니다. 영국의 새라 클라크 사건에서는 영아 급사가 두 번 일어날 확률을 7,300만분의 1이라고 증언한 것이 유죄 판결(1999년)의 근거가 되었습니다. 왕립통계학회는 2001년 이 추론의 오류를 지적했고, 판결은 2003년 파기되었습니다.</p>
+<p>다행히 해법은 있습니다. 확률 대신 '자연빈도'로 말하는 것입니다.</p>
+<p>1995년 기거렌처와 호프라게의 연구에서 15개 베이즈 과제의 정답률은 약 10~20%에서 약 50%로 올랐다고 인용됩니다. 대학생 259명을 대상으로 한 2015년 연구에서는 자연빈도 문제의 정답률이 42%, 확률 문제는 5%였습니다. 시각화까지 더하면 51% 대 6%였습니다.</p>
+<p>부인과 의사 150명 중 검사 결과를 이해한 비율은 21%였는데, 한 시간 강의 뒤 87%로 올랐다는 보고도 있습니다.</p>
+<p>결국 문제는 사람의 머리가 아니라 정보를 제시하는 방식에 있었던 셈입니다.</p>
+<hr>
+<h2>■ 사전확률 문제, 출발선은 누가 정하는가</h2>
+<p>기저율 오류가 '사전확률을 무시하는' 실수라면, 철학자들이 오래 붙든 난제는 반대편에 있습니다. 사전확률을 도대체 어떻게 정하느냐는 물음입니다.</p>
+<p>확률주의와 조건화만으로는 귀납이 보장되지 않습니다. 정합적인 사전확률 중에는 과거의 규칙성이 이어질 것이라고 보는 것도 있고, 그렇지 않은 것도 있기 때문입니다.</p>
+<p>이 문제에 대한 대답은 크게 갈립니다.</p>
+<ul>
+<li>주관적 베이즈주의: 정합적이기만 하면 어떤 사전확률도 허용합니다. 대신 증거가 충분히 쌓이면 서로 다른 출발선의 의견이 수렴한다는 정리를 방패로 삼습니다. 이 수렴은 장기 시행과 가산 가법성이라는 가정에 기댑니다.</li>
+<li>객관적 베이즈주의: 사전확률이 편향을 피해야 한다고 보고 무차별의 원리 등으로 제약합니다.</li>
+</ul>
+<p>무차별의 원리는 증거가 어느 쪽도 편들지 않으면 믿음을 고르게 나누라는 규칙입니다. 라플라스도 널리 썼고, 케인스가 1921년 이 이름을 붙였습니다. 그런데 무엇을 고르게 나눌지가 문제입니다.</p>
+<p>한 상자의 라벨에 정육면체의 한 변이 3~5cm라고 적혀 있다고 해 보겠습니다. 길이를 고르게 보면 중간값은 4cm입니다. 넓이를 고르게 보면 102cm², 부피를 고르게 보면 76cm³입니다.</p>
+<p>세 가정은 동시에 참일 수 없습니다. 무지를 표현했다고 믿었던 균등분포가 사실은 어떤 변수로 재느냐에 따라 다른 주장이 되는 것입니다.</p>
+<p class="img"><img src="./images/body-4.png" alt="한 변 3~5cm 상자에서 길이 4cm, 넓이 102cm², 부피 76cm³가 서로 다른 중간값을 주는 사전확률 예시 카드"></p>
+<p>이에 대한 해법으로 제프리스와 제인스의 변환군, 최대 엔트로피 같은 방법이 제안되었습니다. 동등한 지식 상태에는 동등한 확률을 주자는 발상입니다. 다만 이것이 '정답'을 보장하는 것은 아니며, 실제 분포는 실험이 어떻게 진행되었는지에 달렸다는 단서가 붙습니다.</p>
+<p>라플라스의 일출 문제도 같은 교훈을 줍니다. 균등한 사전분포와 매일의 일출이 서로 독립이라는 가정을 놓고 계산하면, 일출을 많이 본 횟수만큼 내일의 일출이 더 믿을 만해집니다. 하지만 결과는 그 두 가정에, 그리고 어떤 경험의 범위(한 사람인지, 인류인지, 지구인지)를 따지느냐에 좌우됩니다.</p>
+<p>덧붙이자면 라플라스 스스로도 사전 정보를 무시한 오용을 경계했다는 지적이 있습니다.</p>
+<hr>
+<h2>■ 이상화의 대가, 베이즈주의가 설명하기 어려운 것들</h2>
+<p>사전확률 말고도 짚어 둘 한계가 있습니다.</p>
+<p>첫째, 옛 증거 문제입니다. 1915년 아인슈타인의 새 이론은 이미 알려져 있던 수성 근일점의 이상 이동을 설명했습니다. 이 일로 이론에 대한 신뢰는 올랐지만 새로 얻은 증거는 없었습니다.</p>
+<p>이미 아는 증거의 확률은 1이므로, 조건화로 계산하면 확증 효과가 0이 됩니다. 과학자들의 직관과 어긋납니다.</p>
+<p>둘째, 논리적 전지입니다. 확률주의는 논리적 진리에 믿음 1을 요구합니다. 날카로운 하나의 숫자, 완벽한 정합성까지 요구하니, 유한한 인간에게는 지키기 어려운 이상입니다. 하만, 폴리, 폴록 같은 철학자들이 이 점을 문제로 지적했습니다.</p>
+<p>셋째, 새 이론을 배우는 경우입니다. 논리적 사실을 새로 알고 옛 이론의 신뢰가 떨어지는 일은 조건화만으로 설명하기 어렵습니다.</p>
+<p class="img"><img src="./images/body-5.png" alt="베이즈주의의 한계 네 가지 - 사전확률, 무차별의 원리, 옛 증거, 논리적 전지 핵심 포인트 카드"></p>
+<p>베이즈주의 쪽의 대답은 이상화를 점진적으로 걷어 내거나, 이상을 향해 노력하는 기준으로 삼거나, 이상화가 과학적 응용을 쉽게 한다고 보는 것입니다. 이 논쟁은 아직 끝나지 않았습니다.</p>
+<p>통계학자 로열처럼 사전확률이 개인적이라는 이유로 우도비만을 증거의 척도로 삼자는 입장도 남아 있습니다.</p>
+<hr>
+<h2>■ 그래서 믿음을 어떻게 갱신해야 하는가</h2>
+<p>정리하면 이렇습니다.</p>
+<p>베이즈 정리는 계산 규칙이지만, 베이즈주의 인식론은 그 규칙을 '합리적 믿음의 기준'으로 삼자는 철학적 제안입니다. 그 제안은 증거의 힘(우도비)과 출발선(사전확률)을 분리해서 보게 해 줍니다.</p>
+<p>일상에서 쓸 수 있는 습관은 소박합니다.</p>
+<p>검사나 증언을 들으면 '정확도'와 함께 '애초에 얼마나 드문 일인가'를 먼저 묻습니다. 확률이 나오면 1,000명이나 1만 명의 사람으로 바꾸어 봅니다. 그리고 내 사전확률이 어디서 왔는지, 다른 출발선에서도 같은 결론이 나오는지를 따져 봅니다.</p>
+<p>끝으로 한 마디만 덧붙이겠습니다.</p>
+<blockquote>"증거는 믿음을 대신하지 않고, 믿음 위에서 움직인다."</blockquote>
+<p>베이즈주의가 정직한 이유는 출발선을 숨기지 않기 때문입니다. 그 출발선이 어디서 왔는지 끝내 답하지 못하는 순간에도, 우리는 적어도 무엇을 모르는지는 말할 수 있습니다.</p>
+<hr>
+<p class="tags">#베이즈정리 #베이즈주의 #인식론 #사전확률 #기저율오류 #철학 #확률 #거짓양성</p>
+<p class="src">참고: 스탠퍼드 철학 백과사전(Bayesian Epistemology, Bayes' Theorem), Frontiers in Psychology(2015), APS Observer(2007), Science News(2014), Wikipedia 관련 항목 등 (research.md 참고)</p>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
