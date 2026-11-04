@@ -16,7 +16,8 @@ code{font-family:'DejaVu Sans Mono',Menlo,Consolas,monospace}
 p code,li code{background:#eef2fb;padding:1px 6px;border-radius:4px;font-size:.9em}
 li{margin-bottom:6px;word-break:keep-all}
 p:last-child{color:#4f8cff}
-</style><style id="site-chrome-css">
+</style>
+<style id="site-chrome-css">
   #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
   #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
     padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
@@ -55,7 +56,9 @@ p:last-child{color:#4f8cff}
 </style>
 </head><body>
 <div id="read-progress"></div>
-<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+
+<div class="wrap">
 <div class="meta"><span class="badge">IT</span><span>2026-11-04</span></div>
 <h1>자바 메모리 모델과 happens-before, 가시성 문제의 해법</h1>
 <p><img alt="자바 메모리 모델과 happens-before 대표 이미지" src="./images/thumbnail.png" /></p>
@@ -181,7 +184,10 @@ synchronized (new Object()) { /* ... */ }
 <p>동시성 버그는 재현되지 않을 때가 가장 무섭습니다. 오늘 코드에서 공유되는 가변 필드를 하나만 찾아, 그 쓰기와 읽기 사이에 어떤 happens-before가 놓여 있는지 말로 설명해 보시길 권합니다. 설명이 막히는 곳이 있다면, 그곳이 바로 고쳐야 할 자리일 것입니다.</p>
 <hr />
 <h1>자바메모리모델 #happensbefore #volatile #synchronized #자바동시성 #스프링 #백엔드개발 #JMM</h1>
-</div><button id="to-top" aria-label="맨 위로">↑</button>
+</div>
+
+
+<button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
   var root=document.documentElement, KEY='spk-theme';
