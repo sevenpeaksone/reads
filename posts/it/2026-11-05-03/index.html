@@ -13,7 +13,8 @@ img{max-width:100%;height:auto;display:block;margin:6px auto} figure{margin:22px
 pre{background:#141a30;color:#e6ebff;padding:16px 18px;border-radius:10px;overflow-x:auto;font-size:14px;line-height:1.6}
 code{font-family:'SF Mono',Menlo,Consolas,monospace} p code,li code{background:#eef2fb;padding:1px 6px;border-radius:5px;font-size:.9em;color:#2a4fb0}
 ul{margin:0 0 18px;padding-left:22px} li{margin-bottom:6px} .tags{color:#4f6fb5;font-size:15px}
-</style><style id="site-chrome-css">
+</style>
+<style id="site-chrome-css">
   #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
   #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
     padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
@@ -52,7 +53,9 @@ ul{margin:0 0 18px;padding-left:22px} li{margin-bottom:6px} .tags{color:#4f6fb5;
 </style>
 </head><body>
 <div id="read-progress"></div>
-<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap"><span class="badge">IT</span><span class="date">2026-11-05</span>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+
+<div class="wrap"><span class="badge">IT</span><span class="date">2026-11-05</span>
 <h1>[IT] Saga 패턴과 아웃박스로 분산 트랜잭션을 일관되게 처리하는 법</h1>
 <figure><img src="./images/thumbnail.png" alt="Saga 패턴과 아웃박스로 분산 트랜잭션을 일관되게 처리하는 법 썸네일"></figure>
 <p>이번 글에서는 마이크로서비스에서 여러 서비스에 걸친 작업을 어떻게 일관되게 맞추는지 정리해 보겠습니다.<br>
@@ -171,7 +174,10 @@ COMMIT;  -- 커밋 뒤에만 ack</code></pre>
 &quot;분산 시스템에서 일관성은 한 번에 얻는 것이 아니라, 실패를 전제로 단계마다 쌓아 가는 것입니다.&quot;</p>
 <p>다음에 주문과 결제를 가르는 경계를 그어야 한다면, 락을 오래 잡는 코디네이터 대신 보상 계획과 outbox 테이블부터 그리게 될 것 같습니다.</p>
 <hr>
-<p class="tags">#Saga패턴 #트랜잭셔널아웃박스 #분산트랜잭션 #마이크로서비스 #Spring #보상트랜잭션 #멱등성 #CDC #Debezium #이벤트기반아키텍처</p></div><button id="to-top" aria-label="맨 위로">↑</button>
+<p class="tags">#Saga패턴 #트랜잭셔널아웃박스 #분산트랜잭션 #마이크로서비스 #Spring #보상트랜잭션 #멱등성 #CDC #Debezium #이벤트기반아키텍처</p></div>
+
+
+<button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
   var root=document.documentElement, KEY='spk-theme';
