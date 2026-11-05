@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kafka 컨슈머 리밸런싱 폭풍, 왜 생기고 어떻게 줄일까</title>
+<style>
+body{margin:0;background:#fff;color:#222;font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;font-size:16.5px;line-height:1.85}
+.wrap{width:700px;max-width:100%;margin:0 auto;padding:40px 20px 80px;box-sizing:border-box}
+.meta{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:14px;color:#777}
+.badge{background:#4f8cff;color:#fff;font-weight:700;padding:3px 12px;border-radius:999px;font-size:13px}
+h1{font-size:30px;line-height:1.4;margin:0 0 24px;font-weight:800}
+img{max-width:100%;height:auto;display:block;margin:22px auto;border-radius:8px}
+hr{border:0;border-top:1px solid #ddd;margin:34px 0}
+p{margin:0 0 14px}
+code{background:#eef2fb;padding:1px 6px;border-radius:4px;font-size:.9em;font-family:Menlo,Consolas,monospace}
+pre{background:#141a30;color:#dfe6ff;padding:16px 18px;border-radius:8px;overflow-x:auto;line-height:1.6;font-size:14px}
+pre code{background:none;padding:0;color:inherit}
+blockquote{margin:20px 0;padding:10px 18px;border-left:4px solid #4f8cff;background:#f4f7ff;font-weight:700}
+blockquote p{margin:0}
+ul{padding-left:22px}
+strong{font-weight:800}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head><body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta"><span class="badge">IT</span><span>2026-11-06</span></div>
+<h1>Kafka 컨슈머 리밸런싱 폭풍, 왜 생기고 어떻게 줄일까</h1>
+<p><img alt="Kafka 컨슈머 리밸런싱 폭풍 대표 이미지: cooperative sticky, static membership, Spring Kafka 설정" src="./images/thumbnail.png" /></p>
+<p><strong>3줄 요약</strong>
+- 리밸런싱 폭풍의 뿌리는 대개 <code>max.poll.interval.ms</code>(기본 5분)를 넘긴 느린 배치와, 재시작마다 반복되는 그룹 이탈·재가입입니다.
+- Cooperative sticky는 옮겨지는 파티션만 멈추게 하고, static membership은 짧은 재시작을 리밸런스 없이 넘기게 합니다.
+- Spring Kafka에서는 <code>max.poll.records</code>, <code>session.timeout.ms</code>, <code>group.instance.id</code>를 함께 조율하는 것이 핵심입니다.</p>
+<p>이번 글에서는 Kafka 컨슈머 그룹 리밸런싱이 어떤 원리로 일어나고, 왜 폭풍처럼 번지는지 정리해 보려 합니다.
+eager와 cooperative sticky 프로토콜의 차이, static membership, 그리고 Spring Kafka에서 쓸 수 있는 설정까지 순서대로 다룹니다.
+수치와 설정 이름은 Apache Kafka 4.0 문서와 KIP, Spring Kafka 레퍼런스를 근거로 했습니다.</p>
+<hr />
+<p>■ 세 개의 타이머가 컨슈머의 생사를 가른다</p>
+<p>리밸런싱을 이해하려면 먼저 컨슈머를 감시하는 타이머 세 개를 구분해야 합니다.</p>
+<p><img alt="session.timeout.ms, heartbeat.interval.ms, max.poll.interval.ms, max.poll.records 기본값과 감시 대상 비교 표" src="./images/body-1.png" /></p>
+<p>Kafka 4.0 문서 기준 기본값은 이렇습니다.
+<code>session.timeout.ms</code>는 45초, <code>heartbeat.interval.ms</code>는 3초, <code>max.poll.interval.ms</code>는 5분, <code>max.poll.records</code>는 500입니다.
+heartbeat 간격은 세션 타임아웃보다 작아야 하고, 문서는 보통 그 값의 3분의 1 이하를 권합니다.</p>
+<p>예전에는 heartbeat와 레코드 처리가 한 스레드에서 돌았습니다.
+처리가 세션 타임아웃보다 길어지면 곧바로 그룹에서 쫓겨났습니다.
+KIP-62가 백그라운드 heartbeat 스레드를 도입하면서 역할이 갈렸습니다.
+세션 타임아웃은 프로세스가 죽었는지를 보고, <code>max.poll.interval.ms</code>는 poll 루프가 멈췄는지를 봅니다.</p>
+<p>여기서 기억할 점이 하나 있습니다.
+heartbeat 스레드가 살아 있어도 <code>poll()</code>을 5분 안에 다시 부르지 못하면 컨슈머는 실패한 것으로 처리됩니다.
+Spring 개발자가 가장 자주 만나는 함정이 이 지점입니다.</p>
+<hr />
+<p>■ 리밸런싱 폭풍은 이렇게 시작됩니다</p>
+<p>폭풍은 대부분 정상 동작처럼 보이는 작은 계기에서 출발합니다.</p>
+<p><img alt="리밸런싱 폭풍이 시작되는 순서: 느린 배치에서 max.poll.interval.ms 초과, 그룹 이탈, 커밋 실패, 재가입까지" src="./images/body-2.png" /></p>
+<p>대표적인 시나리오는 이렇습니다.
+기본 설정에서 <code>poll()</code> 한 번에 최대 500건이 넘어옵니다.
+레코드 한 건에 외부 API 호출이 끼어 평균 1초가 걸린다고 가정해 보겠습니다.
+500건이면 500초이고, 한도인 300초를 넘깁니다. (계산을 위한 가정 값입니다.)</p>
+<p>그러면 브로커는 컨슈머를 죽은 것으로 보고 파티션을 다른 멤버에게 넘깁니다.
+뒤늦게 오프셋을 커밋하면 <code>CommitFailedException</code>이 납니다.
+메시지에는 "poll() 호출 간격이 설정된 max.poll.interval.ms보다 길었다"는 취지의 문구가 담깁니다.
+이미 처리한 레코드는 새 소유자가 다시 처리하게 됩니다.</p>
+<p>KIP-735는 가짜 장애가 만드는 두 번의 리밸런스를 짚습니다.
+멤버가 빠질 때 한 번, 다시 들어올 때 한 번입니다.
+같은 파티션을 받은 다른 컨슈머도 같은 느린 처리를 만난다면 같은 길을 걸을 수 있습니다. 이 연쇄는 제 해석이며, 문서가 직접 서술한 내용은 아닙니다.</p>
+<p>롤링 배포도 같은 구조입니다.
+인스턴스를 하나 내릴 때마다 이탈과 재가입이 일어나고, 그때마다 리밸런스가 생깁니다.
+KIP-345가 밝힌 동기가 바로 이 느린 롤링 재시작입니다.</p>
+<hr />
+<p>■ Eager의 정지 시간, Cooperative의 증분 이동</p>
+<p>기본 방식인 eager 프로토콜은 리밸런스 때마다 보유 파티션을 전부 반납합니다.
+한 파티션에는 소비자가 하나여야 한다는 보장 때문입니다.
+소유자가 놓기 전에는 새 소유자에게 줄 수 없으니, 옮길 필요가 없던 파티션까지 모두 멈춥니다.
+JoinGroup을 보낸 순간부터 SyncGroup 응답을 받을 때까지 컨슈머는 아무것도 처리하지 못합니다.</p>
+<p>KIP-429의 cooperative 프로토콜은 리밸런스를 두 번으로 나눕니다.</p>
+<p><img alt="멤버가 {1,2}를 갖고 {2,3}을 받을 때 eager와 cooperative의 파티션 정지 범위 비교" src="./images/body-3.png" /></p>
+<p>1라운드에서 각 멤버는 보유 파티션을 유지한 채 가입합니다.
+리더는 기존 소유 정보와 새 할당안을 비교해 옮겨야 할 파티션만 기존 소유자에게서 걷어냅니다.
+2라운드에서 걷어낸 파티션이 최종 소유자에게 갑니다.
+문서의 예로, {1, 2}를 가진 멤버가 {2, 3}을 받으면 1만 revoke 되고 2는 끊김 없이 처리됩니다.</p>
+<p>Confluent 블로그의 표현대로 동기화 장벽이 사라진 것은 아닙니다. 옮겨졌을 뿐입니다.
+다만 장벽에 걸리는 범위가 이동 대상 파티션으로 줄어듭니다.
+이 효과를 내려면 assignor가 sticky여야 합니다.
+기존 할당을 최대한 보존하지 않으면 cooperative가 eager처럼 퇴화합니다.</p>
+<p>수치도 있습니다.
+Confluent가 스테이트풀 Kafka Streams 앱 10개 인스턴스를 롤링 바운스한 실험에서 총 일시정지 시간은 eager 37,138ms, cooperative 3,522ms였습니다.
+약 10배 차이입니다.</p>
+<p><img alt="롤링 바운스 총 일시정지 시간 비교: eager 37,138ms, cooperative 3,522ms (Kafka Streams 사례)" src="./images/body-4.png" /></p>
+<p>다만 Streams 사례이고, 일반 컨슈머 앱에 같은 비율을 기대할 수는 없습니다. 한계를 분명히 해 두겠습니다.</p>
+<p>콜백 동작도 달라집니다.
+cooperative에서는 <code>onPartitionsRevoked</code>가 리밸런스 끝에, revoke 대상이 있을 때만 호출됩니다.
+<code>onPartitionsAssigned</code>는 빈 집합이어도 리밸런스가 끝날 때마다 한 번 호출되며, 새로 추가된 파티션만 전달됩니다.
+"리밸런스 시작"을 revoke 콜백으로 감지하던 코드는 손봐야 합니다.</p>
+<hr />
+<p>■ 기본 설정으로는 아직 eager일 수 있습니다</p>
+<p>Kafka 4.0 문서의 <code>partition.assignment.strategy</code> 기본값은 <code>RangeAssignor, CooperativeStickyAssignor</code>입니다.
+KIP-726이 이 기본값을 정리한 제안이었는데, 제안서 제목의 나열 순서는 "cooperative-sticky, range"로 문서와 다릅니다. 두 소스가 어긋나 있으니 순서는 단정하지 않겠습니다.</p>
+<p>분명한 것은 Range가 eager 전용이라는 점입니다.
+목록에 Range가 들어 있는 한, 그룹의 모든 멤버가 cooperative만 지원하게 될 때까지 프로토콜은 EAGER로 남습니다.
+아래처럼 명시적으로 지정해 확인하시길 권합니다.</p>
+<p><img alt="eager에서 cooperative로 가는 두 번의 롤링 바운스 업그레이드 경로" src="./images/body-5.png" /></p>
+<p>KIP-429가 설명한 전환 절차는 롤링 바운스 두 번입니다.
+1차에서 <code>cooperative-sticky, range</code>로 바꿔 배포합니다. 이때도 프로토콜은 EAGER입니다.
+모두 바뀐 뒤 2차에서 range를 제거하면 COOPERATIVE로 넘어갑니다.
+KIP-726의 목적이 이 번거로운 두 단계를 없애는 것이었다는 점도 참고하실 만합니다.</p>
+<p>Spring Boot 설정으로는 다음과 같이 쓸 수 있습니다. (설정 이름은 Kafka 문서 기준이며, 실제 앱에서 실행해 검증한 예시는 아닙니다.)</p>
+<pre><code class="language-yaml">spring:
+  kafka:
+    consumer:
+      group-id: order-service
+      properties:
+        partition.assignment.strategy: org.apache.kafka.clients.consumer.CooperativeStickyAssignor
+        max.poll.records: 100
+        max.poll.interval.ms: 300000
+</code></pre>
+<hr />
+<p>■ Static membership으로 재시작을 투명하게 만들기</p>
+<p>KIP-345의 static membership은 컨슈머에 고정 신원을 줍니다.
+<code>group.instance.id</code>를 비어 있지 않은 문자열로 지정하면 static 멤버가 됩니다.
+인스턴스마다 값이 고유해야 하고, 호스트명이 한 예입니다.</p>
+<p>static 멤버는 종료할 때 LeaveGroup을 보내지 않습니다.
+세션 타임아웃이 지나야 비로소 제거됩니다.
+그 안에 같은 ID로 돌아오면 브로커가 기존 할당을 그대로 돌려주고 리밸런스는 일어나지 않습니다.
+그래서 문서는 <code>session.timeout.ms</code>를 짧은 재시작이 끼어들 만큼 크게 잡으라고 권합니다.
+브로커의 <code>group.max.session.timeout.ms</code> 기본 상한이 30분인 것도 이런 쓰임을 염두에 둔 값입니다.</p>
+<p>대가도 있습니다.
+KIP는 liveness보다 state persistence를 우선한다고 밝힙니다.
+static 멤버가 정말 죽었다면 세션 타임아웃이 만료될 때까지 그 파티션은 처리되지 않습니다. 이 점은 문서 설계에서 제가 이끌어 낸 해석입니다.
+같은 ID를 가진 두 번째 인스턴스가 들어오면 <code>FENCED_INSTANCE_ID</code>(에러 코드 78)로 거절됩니다. 대개 설정 중복 버그입니다.
+계획된 스케일 다운에는 <code>AdminClient.removeMemberFromConsumerGroup</code>으로 멤버를 직접 제거해 기다림을 줄일 수 있습니다.</p>
+<p>Spring Kafka는 <code>concurrency</code>가 1보다 클 때 static membership을 지원합니다(2.3.8, 2.4.6부터).
+<code>group.instance.id</code> 뒤에 <code>-1</code>, <code>-2</code>처럼 번호가 붙고, 번호는 1부터 시작합니다.
+문서는 늘린 <code>session.timeout.ms</code>와 함께 쓰라고 안내합니다.</p>
+<pre><code class="language-yaml">spring:
+  kafka:
+    consumer:
+      properties:
+        group.instance.id: ${HOSTNAME}      # Pod 이름 등 인스턴스별 고유값
+        session.timeout.ms: 120000           # 예시 값: 재시작 소요 시간에 맞춰 조정
+        heartbeat.interval.ms: 15000         # 세션의 1/3 이하
+    listener:
+      concurrency: 3                         # 컨테이너별 -1, -2, -3 접미
+</code></pre>
+<p>앞서의 <code>listener.concurrency</code> 같은 Spring Boot 프로퍼티 이름은 일반 지식에 기댄 것이어서, 적용 전 Boot 문서로 한 번 확인해 주세요.</p>
+<hr />
+<p>■ Spring Kafka에서 실무로 옮기면</p>
+<p>설정을 한곳에 모으면 우선순위가 보입니다.</p>
+<p><img alt="Spring Kafka 리밸런싱 대응 5가지 점검 카드" src="./images/body-6.png" /></p>
+<p>첫째, 느린 배치부터 다룹니다.
+<code>max.poll.records</code>를 낮추거나 <code>max.poll.interval.ms</code>를 최악의 배치 처리 시간에 맞춥니다. KIP-62와 <code>CommitFailedException</code> 해설이 같은 방향입니다.
+Spring의 <code>idleBetweenPolls</code>는 설정값과 "max.poll.interval.ms에서 현재 배치 처리 시간을 뺀 값" 중 작은 쪽만큼만 쉬도록 조정되어, 쉬는 시간이 한도를 잠식하지 않습니다.
+다만 <code>nack()</code>은 해당 리스너가 맡은 모든 파티션을 sleep 동안 멈춘다는 점을 기억해 두셔야 합니다.</p>
+<p>둘째, 멀티 토픽을 구독한다면 기본 RangeAssignor가 놀고 있는 컨슈머를 만들 수 있습니다. Spring 문서는 RoundRobinAssignor를 제안합니다. 다만 round-robin은 sticky가 아니라 cooperative와 어울리지 않으므로, 쓰임새를 저울질해야 합니다.</p>
+<p>셋째, 리밸런스를 눈으로 보이게 합니다.
+리스너를 지정하지 않으면 컨테이너는 리밸런스를 INFO 로그로 남깁니다.
+오프셋을 외부에 저장해야 한다면 <code>ConsumerAwareRebalanceListener</code>의 <code>onPartitionsRevokedBeforeCommit</code>과 <code>AfterCommit</code>을 구분해 쓸 수 있습니다.
+<code>onPartitionsLost</code>(2.4부터)에서 <code>onPartitionsRevoked</code>로 위임하면 컨테이너가 이미 호출하는 탓에 두 번 실행되니 피해야 합니다.</p>
+<p>넷째, Kafka 4.0 브로커라면 <code>group.protocol=consumer</code>로 KIP-848 프로토콜을 쓸 수 있습니다.
+코디네이터가 목표 할당을 계산하고 멤버가 증분으로 맞춰 가므로, 전체를 세우는 장벽이 없습니다.
+Spring Kafka 4.0이 이를 지원하며, 이때는 <code>onPartitionsAssigned</code>가 작은 집합으로 여러 번 불릴 수 있습니다.
+클라이언트 측 커스텀 assignor는 무시되고 경고가 남습니다.
+클라이언트 측 assignor는 아직 구현되지 않았고, 이 프로토콜에서는 클라이언트의 <code>session.timeout.ms</code>가 지원되지 않아 서버의 <code>group.consumer.session.timeout.ms</code>(기본 45초)를 따릅니다.</p>
+<hr />
+<p>정리하면 이렇습니다.</p>
+<p>리밸런싱을 없앨 수는 없습니다. 줄일 수 있을 뿐입니다.
+느린 배치는 <code>max.poll.records</code>로, 전체 정지는 cooperative sticky로, 재시작 충격은 static membership으로 나누어 대응합니다.</p>
+<blockquote>
+<p>"리밸런스를 막으려 하지 말고, 리밸런스가 아프지 않게 만든다."</p>
+</blockquote>
+<p>한 가지는 미리 말씀드립니다.
+이 글의 수치는 문서와 공개 벤치마크에서 가져왔고, 여러분의 클러스터에서 같은 효과가 나는지는 직접 측정해야 합니다.
+<code>rebalance-total</code>, <code>rebalance-latency-avg</code> 같은 메트릭을 먼저 확인해 보시면 어디부터 손댈지가 보일 것입니다.</p>
+<h1>Kafka #카프카 #컨슈머그룹 #리밸런싱 #SpringKafka #CooperativeSticky #StaticMembership #백엔드개발</h1>
+</div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
