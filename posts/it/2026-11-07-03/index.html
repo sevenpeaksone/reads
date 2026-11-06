@@ -1,0 +1,261 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>스프링 시큐리티 필터 체인 원리 — 요청 하나는 어떻게 인증과 인가를 통과할까</title><style>
+body{margin:0;background:#fff;color:#222;font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;font-size:16.5px;line-height:1.85}
+.wrap{width:700px;max-width:100%;margin:0 auto;padding:48px 20px 80px;box-sizing:border-box}
+.badge{display:inline-block;background:#4f8cff;color:#fff;font-size:13px;font-weight:700;padding:3px 12px;border-radius:12px}
+.date{color:#888;font-size:14px;margin-left:8px}
+h1{font-size:28px;line-height:1.4;margin:16px 0 28px}
+h2{font-size:21px;margin:8px 0 12px}
+img{max-width:100%;height:auto;display:block;margin:24px auto;border-radius:8px}
+hr{border:0;border-top:1px solid #ddd;margin:36px 0}
+pre{background:#1e2233;color:#e8ecf5;padding:16px;border-radius:8px;overflow-x:auto;font-size:14px;line-height:1.6}
+code{font-family:'DejaVu Sans Mono',Menlo,monospace}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:20px 0}th,td{border:1px solid #ddd;padding:8px 10px;text-align:left}th{background:#f0f4ff}
+p{margin:0 0 14px}
+</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head><body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap"><span class="badge">IT</span><span class="date">2026-11-07</span><h1>스프링 시큐리티 필터 체인 원리 — 요청 하나는 어떻게 인증과 인가를 통과할까</h1><p><img alt="스프링 시큐리티 필터 체인 원리 썸네일" src="./images/thumbnail.png" /></p>
+<p>스프링 시큐리티 필터 체인은 컨트롤러에 닿기 전의 요청을 가로채, 인증 정보를 불러오고 공격을 막고 권한을 따지는 필터들의 줄입니다.
+이번 글에서는 요청 하나가 DelegatingFilterProxy에서 시작해 SecurityContext를 거쳐 인가까지 가는 길을 따라가 보겠습니다.
+필터 순서, SecurityFilterChain을 여러 개 두는 법, 세션과 JWT 무상태 선택, 흔한 오설정까지 함께 정리합니다.</p>
+<p>세 줄로 먼저 답하면 이렇습니다.</p>
+<ul>
+<li>서블릿 컨테이너는 스프링 빈을 모르므로, DelegatingFilterProxy가 FilterChainProxy라는 스프링 빈에 일을 넘깁니다.</li>
+<li>FilterChainProxy는 요청에 맞는 SecurityFilterChain을 하나만 골라 그 안의 필터를 순서대로 실행합니다.</li>
+<li>인증은 SecurityContext에 결과를 남기고, 인가는 그 결과를 읽어 허용 여부만 판단합니다.</li>
+</ul>
+<hr />
+<p>■ 서블릿 컨테이너에서 스프링 빈까지, 첫 관문</p>
+<p>톰캣 같은 서블릿 컨테이너는 자기 방식으로 Filter를 등록합니다.
+스프링이 만든 빈은 알지 못합니다.
+게다가 컨테이너는 시작하기 전에 필터를 등록해야 하는데, 스프링 빈은 보통 그보다 늦게 올라옵니다.</p>
+<p>이 간격을 메우는 것이 DelegatingFilterProxy입니다.
+컨테이너에는 이 프록시만 등록해 두고, 실제 요청이 들어올 때 빈 이름으로 스프링 빈 필터를 지연 조회해 일을 넘깁니다.
+공식 문서도 빈 조회를 미룰 수 있다는 점을 이 프록시의 장점으로 꼽습니다.</p>
+<p>위임받는 대상이 FilterChainProxy입니다.
+이름은 비슷하지만 역할은 다릅니다.
+FilterChainProxy는 스프링 시큐리티 서블릿 지원 전체의 출발점이며, 선택이 아닌 필수 작업도 맡습니다.
+요청이 끝나면 SecurityContext를 비워 메모리 누수를 막고, HttpFirewall을 적용해 비정상적인 요청을 걸러냅니다.</p>
+<p>서블릿 컨테이너는 URL만 보고 필터를 부릅니다.
+FilterChainProxy는 RequestMatcher로 요청의 어떤 요소든 기준 삼아 어떤 체인을 쓸지 정합니다.</p>
+<p><img alt="요청이 서블릿 컨테이너에서 DelegatingFilterProxy, FilterChainProxy, SecurityFilterChain을 거쳐 컨트롤러에 닿는 단계" src="./images/body-1.png" /></p>
+<hr />
+<p>■ 체인 안의 필터 순서, 무엇이 먼저 실행될까</p>
+<p>SecurityFilterChain은 필터들의 정해진 줄입니다.
+공식 문서의 기본 설정 시작 로그에는 15개 필터가 나옵니다. 앞쪽부터 보면 이렇습니다.</p>
+<p>DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CsrfFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, 이어서 BasicAuthenticationFilter, RequestCacheAwareFilter, AnonymousAuthenticationFilter가 오고, 맨 끝에 ExceptionTranslationFilter와 AuthorizationFilter가 놓입니다.</p>
+<p>모두 외울 필요는 없습니다. 흐름은 네 구간으로 읽으면 됩니다.</p>
+<ol>
+<li>준비 구간: SecurityContextHolderFilter가 저장소에서 SecurityContext를 읽어 SecurityContextHolder에 채웁니다.</li>
+<li>방어 구간: HeaderWriterFilter가 보안 헤더를 쓰고, CsrfFilter가 위조 요청을 가려냅니다.</li>
+<li>인증 구간: UsernamePasswordAuthenticationFilter나 Basic, Bearer 토큰 필터가 자격 증명을 Authentication으로 바꿔 검증합니다.</li>
+<li>인가 구간: 맨 끝의 AuthorizationFilter가 허용 여부를 판단합니다.</li>
+</ol>
+<p>특히 ExceptionTranslationFilter의 위치가 중요합니다.
+이 필터는 FilterChain.doFilter로 나머지를 먼저 호출하고, 그 안에서 던져진 AccessDeniedException이나 AuthenticationException을 잡아 HTTP 응답으로 번역합니다.
+자기보다 뒤에서 일어난 예외만 번역할 수 있으니, AuthorizationFilter 바로 앞에 놓이는 것입니다.</p>
+<p>미인증 사용자가 보호된 주소에 오면 이렇게 흘러갑니다.
+SecurityContextHolder를 비우고, 원래 요청을 RequestCache에 저장하고, AuthenticationEntryPoint가 로그인 페이지 이동이나 WWW-Authenticate 헤더로 자격 증명을 요구합니다.
+로그인에 성공하면 RequestCacheAwareFilter가 저장해 둔 요청을 꺼내 재생합니다.
+이미 인증됐는데 권한이 모자라면 AccessDeniedHandler가 403을 돌려줍니다.</p>
+<p>내 필터를 끼워 넣을 때의 기준도 공식 문서에 있습니다.
+악용 방어 필터는 SecurityContextHolderFilter 뒤, 인증 필터는 LogoutFilter 뒤, 인가 필터는 AnonymousAuthenticationFilter 뒤에 두라는 것입니다.</p>
+<p><img alt="필터 체인을 준비, 방어, 인증, 인가 네 구간으로 나눈 카드" src="./images/body-2.png" /></p>
+<hr />
+<p>■ SecurityContext는 어떻게 사용자를 기억할까</p>
+<p>인증 필터가 하는 일은 단순합니다.
+요청에서 자격 증명을 꺼내 Authentication 객체를 만들고, AuthenticationManager(구현체는 ProviderManager)에 넘깁니다.
+ProviderManager는 AuthenticationProvider 목록을 돌며 성공, 실패, 판단 불가 중 하나의 답을 받습니다.
+성공하면 비밀번호 같은 민감한 자격 증명을 기본으로 지운 Authentication이 돌아옵니다.</p>
+<p>이 결과가 놓이는 곳이 SecurityContextHolder입니다.
+기본 저장 방식은 ThreadLocal이라, 같은 스레드의 어느 메서드에서든 인자 없이 현재 사용자를 꺼낼 수 있습니다.
+ThreadLocal은 요청이 끝나고 스레드를 비워야 안전한데, 그 청소를 FilterChainProxy가 책임집니다.
+스레드 풀의 스레드가 다음 사용자에게 전 사용자의 신원을 물려주는 사고를 막는 장치입니다.</p>
+<p>여기서 한 번 짚어 둘 변화가 있습니다.
+예전엔 SecurityContextPersistenceFilter가 요청 끝에 컨텍스트를 자동으로 저장했습니다. 지금은 SecurityContextHolderFilter가 읽기만 하고, 저장은 개발자가 SecurityContextRepository에 명시적으로 합니다.
+공식 문서는 자동 저장이 요청이 끝나기 전에 일어나 사용자를 놀라게 할 수 있었다고 설명합니다.
+스프링 시큐리티 6부터의 기본 동작이며, 한 애플리케이션에는 두 필터 중 하나만 있어야 합니다.</p>
+<p>직접 로그인 컨트롤러를 짠다면 이 점을 꼭 기억하셔야 합니다.</p>
+<pre><code class="language-java">SecurityContext context = SecurityContextHolder.createEmptyContext();
+context.setAuthentication(authentication);
+SecurityContextHolder.setContext(context);
+securityContextRepository.saveContext(context, request, response); // 빠뜨리면 다음 요청에서 로그아웃 상태
+</code></pre>
+<hr />
+<p>■ 인가는 마지막에, 첫 번째로 맞는 규칙 하나만</p>
+<p>AuthorizationFilter는 SecurityContextHolder에서 Authentication을 꺼낼 Supplier를 만들고, 요청과 함께 AuthorizationManager에 넘깁니다.
+매니저는 authorizeHttpRequests의 패턴 중 맞는 규칙을 찾아 실행합니다.
+거부되면 AccessDeniedException을 던지고, 앞서 본 ExceptionTranslationFilter가 이를 받아 401이나 403으로 바꿉니다.</p>
+<p>규칙은 위에서 아래로 읽다가 첫 번째로 맞는 하나만 적용됩니다.</p>
+<pre><code class="language-java">http.authorizeHttpRequests(auth -&gt; auth
+    .requestMatchers(&quot;/admin/**&quot;).hasRole(&quot;ADMIN&quot;)
+    .requestMatchers(&quot;/css/**&quot;).permitAll()
+    .anyRequest().authenticated()   // 나머지는 인증 필수
+);
+</code></pre>
+<p>매칭되지 않은 주소를 막는 방식이 안전한 허용 목록이라고 문서도 권합니다.
+정적 리소스도 ignoring 대신 permitAll을 쓰라는 안내가 있습니다. 요청을 무시하면 보안 헤더를 쓸 수 없기 때문입니다.
+예전엔 매 요청 세션을 조회하는 비용이 문제였지만, 6 이후로는 규칙이 필요할 때만 세션을 확인합니다.</p>
+<p>한 가지 더 있습니다. AuthorizationFilter는 REQUEST뿐 아니라 FORWARD, ERROR 같은 모든 dispatch에서 실행됩니다.
+뷰 템플릿으로 포워드하거나 오류 페이지로 넘어갈 때 예상치 못한 403이 나온다면 이 때문일 수 있습니다.
+이때는 dispatcherTypeMatchers(FORWARD, ERROR).permitAll()로 풀어 줍니다.</p>
+<hr />
+<p>■ SecurityFilterChain을 여러 개 두는 법</p>
+<p>관리자 화면은 폼 로그인, API는 Bearer 토큰처럼 영역마다 인증 방식이 다를 때 체인을 나눕니다.
+SecurityFilterChain 빈을 여러 개 등록하면 됩니다.</p>
+<pre><code class="language-java">@Bean @Order(1)
+SecurityFilterChain api(HttpSecurity http) throws Exception {
+    http.securityMatcher(&quot;/api/**&quot;)
+        .authorizeHttpRequests(a -&gt; a.anyRequest().authenticated())
+        .oauth2ResourceServer(o -&gt; o.jwt(Customizer.withDefaults()));
+    return http.build();
+}
+
+@Bean
+SecurityFilterChain web(HttpSecurity http) throws Exception {
+    http.authorizeHttpRequests(a -&gt; a.anyRequest().authenticated())
+        .formLogin(Customizer.withDefaults());
+    return http.build();
+}
+</code></pre>
+<p>핵심 규칙은 하나입니다. 매칭되는 첫 번째 체인만 실행됩니다.
+/api/**는 첫 체인에서 끝나고, 나머지는 @Order가 없어 맨 뒤로 가는 두 번째 체인이 받습니다.</p>
+<p>주의할 점이 세 가지 있습니다.</p>
+<ul>
+<li>securityMatcher는 체인이 맡을 요청의 범위이고, requestMatchers는 그 체인 안의 개별 인가 규칙입니다. 둘은 다릅니다.</li>
+<li>어떤 체인에도 맞지 않는 요청은 스프링 시큐리티가 보호하지 않습니다. securityMatcher 없는 체인을 하나 두거나, 마지막에 anyRequest().denyAll() 체인을 두는 편이 안전합니다.</li>
+<li>앞 체인이 먼저 가져간 경로는 뒤 체인에 영영 닿지 않습니다. 공식 문서도 /approvals/ 경로 사례로 이 함정을 경고합니다.</li>
+</ul>
+<p>참고로 스프링 부트는 SecurityFilterChain 빈을 하나라도 등록하면 기본 웹 보안 설정을 통째로 끕니다. 액추에이터 보안까지 포함해서입니다.</p>
+<p><img alt="요청 경로에 따라 첫 번째로 맞는 SecurityFilterChain 하나만 실행되는 구조" src="./images/body-3.png" /></p>
+<hr />
+<p>■ 세션이냐 JWT 무상태냐, 무엇이 달라질까</p>
+<p>기본값은 세션입니다. 스프링 시큐리티는 보안 컨텍스트를 HTTP 세션에 저장합니다.
+로그인할 때 세션 ID를 바꿔 세션 고정 공격을 막고, maximumSessions로 동시 접속 수도 제한할 수 있습니다.
+브라우저가 쿠키를 알아서 들고 다니니 편합니다.
+다만 세션은 서버가 기억하는 상태이므로, 서버를 여러 대로 늘리면 세션 공유 문제가 따라옵니다.</p>
+<p>무상태로 가려면 SessionCreationPolicy.STATELESS를 씁니다.
+이 설정은 NullSecurityContextRepository를 사용해 컨텍스트를 저장하지 않고, 요청도 세션에 저장하지 않게 합니다.
+매 요청마다 토큰을 들고 와 새로 인증하는 방식입니다.</p>
+<p>JWT 리소스 서버의 흐름은 이렇습니다.
+Bearer 토큰 인증 필터가 토큰을 BearerTokenAuthenticationToken으로 감싸 ProviderManager에 넘기고, JwtAuthenticationProvider가 JwtDecoder로 서명과 만료를 검증합니다.
+공식 문서 기준으로 서명은 인증 서버가 공개한 키로, exp, nbf, iss는 각각 시간과 발급자 검사로 확인합니다.
+토큰의 scope 값은 SCOPE_ 접두어가 붙은 권한이 됩니다.
+그래서 hasAuthority("SCOPE_messages")처럼 접두어를 포함해 써야 합니다.</p>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>세션</th>
+<th>JWT 무상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>상태 저장</td>
+<td>서버 세션에 SecurityContext 저장</td>
+<td>저장하지 않음, 매 요청 토큰 검증</td>
+</tr>
+<tr>
+<td>설정</td>
+<td>기본값</td>
+<td>STATELESS + oauth2ResourceServer(jwt)</td>
+</tr>
+<tr>
+<td>장점</td>
+<td>즉시 무효화, 동시 접속 제어</td>
+<td>서버 확장과 API 호출에 유리</td>
+</tr>
+<tr>
+<td>부담</td>
+<td>서버 확장 시 세션 공유</td>
+<td>발급된 토큰의 즉시 폐기가 번거로움</td>
+</tr>
+</tbody>
+</table>
+<p>마지막 줄은 공식 문서의 직접 서술이 아니라, 서버가 상태를 갖지 않는다는 구조에서 따라오는 일반적인 성질입니다.</p>
+<p>CSRF도 따로 판단해야 합니다.
+공식 문서는 브라우저 트래픽을 처리하지 않는 백엔드라면 CSRF를 끌 수 있다고 안내하고, 브라우저 트래픽도 받는다면 보호를 유지하라고 합니다.
+토큰을 브라우저 어디에 둘지에 따른 판단은 이 문서만으로는 확인되지 않으니, 서비스 구조에 맞춰 따로 검토하시길 권합니다.</p>
+<p><img alt="세션 방식과 JWT 무상태 방식 비교표" src="./images/body-4.png" /></p>
+<hr />
+<p>■ 흔한 오설정 여섯 가지</p>
+<p>실제 현장에서 자주 마주치는 실수를 문서 근거와 함께 추려 보았습니다.</p>
+<ol>
+<li>로그인은 되는데 다음 요청에서 풀립니다. 직접 만든 로그인 로직에서 saveContext를 빠뜨렸거나, 세션이 필요한데 STATELESS로 둔 경우입니다.</li>
+<li>무상태라 했는데 세션이 생깁니다. NEVER여도 인증 후 재요청을 위해 요청이 세션에 저장되기 때문입니다. NullRequestCache로 막을 수 있습니다.</li>
+<li>체인 순서가 꼬입니다. 넓은 securityMatcher의 체인이 먼저 평가되면 뒤 체인은 영영 실행되지 않습니다.</li>
+<li>보호되지 않는 구멍이 생깁니다. securityMatcher로 일부 경로만 묶고 나머지를 비워 두면 그 경로는 보호 대상이 아닙니다.</li>
+<li>커스텀 필터가 두 번 실행됩니다. 필터를 빈(@Component)으로 만들고 addFilterBefore로도 추가하면, 컨테이너 등록과 보안 체인 등록이 겹칠 수 있습니다. 이 항목은 공식 문서가 아니라 커뮤니티 질의응답에서 확인한 사례입니다. @Component를 빼거나 FilterRegistrationBean으로 자동 등록을 끄는 방법이 제시됩니다.</li>
+<li>요청이 방화벽에서 거절됩니다. 기본 StrictHttpFirewall은 정규화되지 않은 요청과 허용 목록 밖의 HTTP 메서드를 거부하고, 세미콜론 허용은 설정으로 풀 수 있습니다. 다만 문서는 완화하면 공격에 노출될 수 있다고 경고합니다.</li>
+</ol>
+<p><img alt="스프링 시큐리티 흔한 오설정 여섯 가지 점검 포인트" src="./images/body-5.png" /></p>
+<hr />
+<p>정리하면 이렇습니다.
+요청은 DelegatingFilterProxy에서 FilterChainProxy로, 맞는 체인 하나로, 그 안의 필터를 차례로 지나 마지막에 인가 판단을 받습니다.
+이 흐름만 머릿속에 있으면 로그만 보고도 어느 필터에서 요청이 멈췄는지 짐작할 수 있습니다.</p>
+<p>저는 설정을 늘리기 전에 로그에 찍힌 필터 목록부터 확인하는 편을 권합니다.</p>
+<p>"인증은 컨텍스트에 남기고, 인가는 컨텍스트를 읽는다."</p>
+<p>필터 하나하나를 외우지 못하더라도, 이 한 줄이 어디서 막혔는지 찾는 길잡이가 되어 주리라 생각합니다.</p>
+<hr />
+<p>※ 이 글은 스프링 시큐리티 공식 문서(6 이후 기준 서술, 7.x 페이지 확인)를 바탕으로 정리했으며, 필터 목록은 문서 예시 로그 기준이라 설정과 버전에 따라 달라질 수 있습니다. 코드 예시는 문서 예제를 바탕으로 줄여 쓴 것으로 직접 실행해 검증한 것은 아닙니다.</p>
+<p style='color:#4f8cff;font-size:14px'>#스프링시큐리티 #SpringSecurity #필터체인 #SecurityFilterChain #JWT #세션인증 #스프링부트 #백엔드개발 #인증인가</p></div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

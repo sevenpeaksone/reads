@@ -1,0 +1,160 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>조절 T세포와 FOXP3 원리, 면역계의 브레이크는 어떻게 작동할까</title>
+<style>body{margin:0;background:#fff;color:#222;font-family:'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif;font-size:16.5px;line-height:1.85}
+.wrap{width:700px;max-width:100%;margin:0 auto;padding:40px 20px 80px;box-sizing:border-box}
+.meta{display:flex;gap:12px;align-items:center;color:#777;font-size:14px;margin-bottom:14px}
+.badge{background:#ff7676;color:#281418;font-weight:700;border-radius:6px;padding:2px 10px}
+h1{font-size:28px;line-height:1.4;margin:0 0 24px}h2{font-size:21px;margin:12px 0 8px;border-left:4px solid #ff7676;padding-left:10px}
+p{margin:0 0 12px}img{max-width:100%;height:auto;display:block;margin:12px auto}hr{border:0;border-top:1px solid #ddd;margin:30px 0}
+blockquote{margin:18px 0;padding:12px 18px;background:#fff3f3;border-left:4px solid #ff7676;font-weight:700}
+.tags{color:#c24a4a;font-size:14px}.note{color:#777;font-size:14px}li{margin-bottom:4px}</style><style id="site-chrome-css">
+  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
+  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
+  #site-nav a:hover{color:#2f57d6;}
+  #site-nav .nav-spacer{margin-left:auto;}
+  #site-nav .nav-list{color:#555;font-weight:500;}
+  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
+  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
+    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
+  #theme-toggle:hover{border-color:#c7ccd6;}
+  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
+    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
+  #to-top.show{display:flex;align-items:center;justify-content:center;}
+  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
+     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
+  html.dark{background:#0f1117;}
+  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
+  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
+    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
+  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
+  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
+  html.dark body :where(h2)::before{opacity:.9;}
+  html.dark body a{color:#7aa2ff !important;}
+  html.dark hr{border-color:#2a2e3a !important;}
+  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
+  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
+  html.dark #site-nav a{color:#e8eaf0 !important;}
+  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
+  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
+  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
+  html.dark #read-progress{background:#7aa2ff !important;}
+</style>
+</head><body>
+<div id="read-progress"></div>
+<nav id="site-nav"><a class="nav-home" href="/reads/index.html">← SevenPeaks Reads</a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav><div class="wrap">
+<div class="meta"><span class="badge">바이오</span><span>작성일 2026-11-07</span></div><h1>조절 T세포와 FOXP3 원리, 면역계의 브레이크는 어떻게 작동할까</h1>
+<p class="img"><img src="./images/thumbnail.png" alt="조절 T세포와 FOXP3 - 면역계의 브레이크"></p>
+<p>오늘은 조절 T세포(Treg)와 FOXP3에 대해 이야기해 보려 합니다.</p>
+<p>면역계에는 액셀만 있는 것이 아니라, 반응을 눌러 주는 세포 집단이 따로 있습니다.</p>
+<p>이 세포가 어떻게 만들어지고, 무엇에 기대어 살아가며, 자가면역과 암에서 왜 정반대의 얼굴을 보이는지 차례로 정리해 보겠습니다.</p>
+<hr>
+<h2>■ 한눈에 보는 핵심</h2>
+<ul>
+<li>조절 T세포는 FOXP3라는 유전자를 정체성의 열쇠로 삼는 억제 전담 T세포입니다.</li>
+<li>대부분은 흉선에서 만들어지고(tTreg), 일부는 말초에서 일반 T세포가 전환되어 생깁니다(pTreg).</li>
+<li>Treg는 IL-2를 스스로 만들지 않고 받아서 삽니다. 이 의존성이 치료의 손잡이가 됩니다.</li>
+<li>자가면역에서는 브레이크가 모자라 문제이고, 종양에서는 브레이크가 과해서 문제입니다.</li>
+</ul>
+<hr>
+<h2>■ 흉선만으로는 설명되지 않던 관용</h2>
+<p>예전에는 자기 몸을 공격하는 T세포를 흉선에서 제거하면 관용이 끝난다고 보았습니다.</p>
+<p>지금은 그 설명이 절반뿐이라는 것이 정설입니다.</p>
+<p>1995년 사카구치 시몬(Shimon Sakaguchi)은 조절 T세포라는 새로운 세포군을 확인했습니다. 흉선 밖에도 통제층이 하나 더 있다는 뜻이었습니다.</p>
+<p>2001년에는 브런코(Mary Brunkow)와 램스델(Fred Ramsdell)이 자가면역에 취약한 마우스에서 변이 유전자를 찾아 Foxp3라고 이름 붙였습니다.</p>
+<p>2003년에 사카구치가 Foxp3가 Treg의 발생과 기능을 지배한다는 점을 보였고, 세 사람은 2025년 노벨 생리의학상을 함께 받았습니다.</p>
+<p class="img"><img src="./images/body-1.png" alt="조절 T세포 발견 타임라인 1995-2025"></p>
+<hr>
+<h2>■ FOXP3 하나가 무너지면 벌어지는 일</h2>
+<p>FOXP3는 431개 아미노산으로 이루어진 단백질로, Treg의 정체성과 억제 기능에 꼭 필요합니다.</p>
+<p>이 유전자가 고장 나면 어떻게 될까요. 사람에게서는 IPEX 증후군이 나타납니다.</p>
+<p>IPEX는 공격적인 자가면역과 이른 사망을 특징으로 하는 희귀 질환입니다.</p>
+<p>흥미로운 점이 있습니다. 높은 IgE를 빼면 면역결핍을 시사하는 검사 소견이 뚜렷하지 않습니다.</p>
+<p>면역이 약해서가 아니라, 브레이크가 없어서 생기는 병이라는 뜻입니다.</p>
+<p>2002년 보고에서 검사한 환자 14명 중 13명에게서 FOXP3 변이가 확인되었습니다.</p>
+<p>장기 면역억제제는 일시적 이득만 주었고, 골수이식으로 관해에 이른 예가 있었으나 장기 결과는 불확실하다고 정리되었습니다.</p>
+<p>사람 말초혈액 CD4+ T세포의 약 5~10%가 이런 자연 발생 Treg로 알려져 있습니다.</p>
+<hr>
+<h2>■ 흉선 유래 Treg와 말초 유도 Treg</h2>
+<p>Treg는 출신에 따라 둘로 나뉩니다.</p>
+<ul>
+<li>tTreg(nTreg): 흉선에서 발달합니다. 마우스 연구 기준으로 CD4 단일양성 흉선세포의 약 2~3%입니다.</li>
+<li>pTreg: 말초에서 항원 자극을 받은 일반 CD4+ T세포가 전환된 세포입니다. TGF-β가 중요한 역할을 합니다.</li>
+</ul>
+<p>두 집단을 구분하는 표지로 Helios와 Nrp1이 쓰입니다. 다만 항상 깨끗하게 갈리지는 않아서, 단일 표지로 확정하기는 어렵다는 것이 리뷰들의 입장입니다.</p>
+<p class="img"><img src="./images/body-2.png" alt="tTreg와 pTreg 비교 표"></p>
+<hr>
+<h2>■ IL-2를 만들지 못하는 세포의 생존법</h2>
+<p>Treg의 가장 독특한 성질은 IL-2에 대한 의존입니다.</p>
+<p>Treg는 IL-2 수용체 알파 쇄인 CD25를 높게 발현합니다. 그래서 같은 IL-2를 두고 다른 T세포보다 유리하게 경쟁합니다.</p>
+<p>이펙터 T세포가 IL-2를 얻지 못하면 사이토카인 결핍으로 약해지거나 세포자멸로 향할 수 있습니다.</p>
+<p>IL-2 신호는 STAT5b를 거쳐 Treg의 억제 기능을 유지합니다.</p>
+<p>발달 단계에서도 같은 원리가 보입니다. 마우스에서 IL-2 또는 IL-2 수용체 알파가 없으면 Foxp3+ Treg가 약 절반만 남고, 수용체 베타가 없으면 성숙 Treg가 거의 사라집니다.</p>
+<p>IL-2 소비는 억제 수단의 하나일 뿐입니다. Treg는 CTLA-4로 수지상세포를 관용 쪽으로 돌리고, IL-10과 TGF-β를 분비하며, CD39/CD73을 통한 아데노신 생성이나 퍼포린·그랜자임 같은 수단도 씁니다.</p>
+<p class="img"><img src="./images/body-3.png" alt="Treg의 IL-2 경쟁과 억제 수단 다이어그램"></p>
+<hr>
+<h2>■ 정체성을 지키는 일, 그리고 흔들릴 때</h2>
+<p>Treg가 Treg로 남으려면 FOXP3 발현이 안정적으로 유지되어야 합니다.</p>
+<p>이 안정성의 핵심은 FOXP3 유전자 조절부위 CNS2(TSDR이라고도 부릅니다)의 탈메틸화입니다. 일반 T세포에서는 이 부위가 거의 메틸화되어 있지만, 성숙 Treg에서는 열려 있습니다.</p>
+<p>탈메틸화가 먼저 일어나고, 그다음 FOXP3 자신이 발현을 강화하는 두 단계로 안정화된다고 설명됩니다.</p>
+<p>그런데 염증이 심하면 이야기가 달라집니다. IL-6, IFN-γ 같은 사이토카인은 불안정과 연관되고, Foxp3를 잃은 ex-Treg는 IFN-γ나 IL-17을 만드는 이펙터 비슷한 세포가 될 수 있습니다.</p>
+<p>다만 얼마나 흔한 일인지는 아직 논쟁 중입니다. 계통추적 연구에서 Foxp3를 잃은 세포 비율이 10~15%라는 보고와 5% 미만이라는 보고가 엇갈립니다. 한 연구에서는 성숙 tTreg의 약 1%만 Foxp3를 잃었습니다.</p>
+<p>이 불일치는 세포치료의 안전성을 따질 때 곧바로 쟁점이 됩니다.</p>
+<hr>
+<h2>■ 자가면역에서는 브레이크를 보강한다</h2>
+<p>브레이크가 모자란 질환이라면 Treg를 늘리는 접근이 떠오릅니다.</p>
+<p>가장 먼저 시도된 것이 저용량 IL-2입니다. 용량을 낮게 쓰면 CD25가 높은 Treg가 우선 반응하도록 유도할 수 있다는 발상입니다.</p>
+<p>루푸스(SLE) 시험 두 건을 보겠습니다.</p>
+<ul>
+<li>ILT-101 2상(100명): 12주 SRI-4 반응률이 치료군 68%, 위약군 58%로 1차 평가를 충족하지 못했습니다(p=0.3439). 저자들은 불가리아 두 기관의 위약군 반응률이 100%였던 점을 이유로 들었고, 이 두 기관을 뺀 사후 분석에서는 83.3% 대 51.7%였습니다. 사후 분석이므로 신중히 읽어야 합니다.</li>
+<li>60명 대상 무작위 시험(보도 기준): 12주에는 55.2% 대 30%(p=0.052)로 1차 평가에 못 미쳤고, 24주에는 65.5% 대 36.7%(p=0.027)였습니다.</li>
+</ul>
+<p>두 시험 모두 12주 1차 평가는 넘지 못했다는 점이 공통입니다. 가능성은 보이되 확정은 이르다는 것이 정직한 요약입니다.</p>
+<p>세포치료도 있습니다. Treg를 채취해 키워 되돌려 넣는 방식입니다. 제1형 당뇨 환자에게 다클론 Treg를 주입한 연구들은 안전성은 확인했으나 효과는 일시적이었습니다. 후속 보고에서는 2년 안에 모든 환자가 다시 인슐린에 의존했다고 합니다.</p>
+<p>그래서 이식 분야에서는 특정 항원을 겨냥하는 CAR-Treg로 나아가고 있습니다. HLA-A2를 표적으로 하는 CAR-Treg가 신장·간 이식 임상시험(NCT04817774, NCT04838171)에 들어가 있습니다.</p>
+<p class="img"><img src="./images/body-4.png" alt="자가면역 Treg 치료 접근 비교 표"></p>
+<hr>
+<h2>■ 종양에서는 같은 세포가 방패가 된다</h2>
+<p>종양에서 Treg는 정반대 역할을 합니다.</p>
+<p>말초 CD4+ 림프구에서 Treg 비율은 1~2% 정도인데, 종양미세환경에서는 이펙터 Treg가 CD4+ T세포의 10~50%에 이르는 경우가 있다는 리뷰가 있습니다. 폐암, 난소암, 위암, 흑색종 등에서 Treg가 많을수록 예후가 나쁘다는 상관이 보고됩니다.</p>
+<p>그렇다면 Treg를 없애면 될까요. 문제는 몸 전체의 브레이크까지 풀릴 수 있다는 점입니다.</p>
+<p>그래서 종양 안의 Treg만 겨냥하는 표지를 찾았고, 그중 하나가 CCR8입니다. 마우스 폐암 모델에서 종양 Treg의 약 57%가 CCR8을 가졌지만 흉선은 약 8%, 비장은 약 9%였습니다.</p>
+<p>이 연구에서 흥미로운 점은 차단이 아니라 제거가 필요했다는 것입니다. CCR8을 막기만 한 항체는 종양을 줄이지 못했고, NK세포가 죽이도록 설계한 항체는 종양 속 Treg만 줄였습니다. 항 PD-1과 병용하면 MC38 모델에서 치료 종료 후 모든 마우스가 종양을 완전히 거부했습니다. 다만 어디까지나 마우스 결과이고, 저자 일부가 관련 기업 소속이라는 점도 밝혀져 있습니다.</p>
+<p>항 CCR8 항체 다섯 종이 2023년 리뷰 기준 임상시험 중이었습니다. 자가면역 부작용이 얼마나 나타날지가 가장 큰 숙제로 꼽힙니다.</p>
+<p class="img"><img src="./images/body-5.png" alt="자가면역과 종양에서 Treg 브레이크 부족과 과잉 비교"></p>
+<hr>
+<p>정리하면 이렇습니다.</p>
+<p>Treg는 면역을 약하게 만드는 세포가 아니라, 면역이 제자리에 머물도록 붙잡는 세포입니다. 같은 세포가 어떤 병에서는 늘려야 할 대상이 되고, 어떤 병에서는 줄여야 할 대상이 됩니다.</p>
+<p>그 사이에서 길잡이 노릇을 하는 것이 FOXP3와 IL-2입니다.</p>
+<blockquote>"브레이크는 약할 때도, 너무 강할 때도 병이 된다."</blockquote>
+<p>아직 풀리지 않은 질문도 많습니다. Treg가 얼마나 쉽게 정체성을 잃는지, 종양 속 Treg만 정확히 겨냥할 수 있는지는 연구가 이어지고 있습니다.</p>
+<p>브레이크를 다루는 일이 액셀을 다루는 일만큼 정교해야 한다는 것, 이 분야가 우리에게 보여 주는 가장 분명한 사실이라고 생각합니다.</p>
+<hr>
+<p class="note">※ 이 글은 건강·의학 일반 정보를 담았으며 개인의 진단이나 치료를 대신하지 않습니다. 건강 문제는 의료진과 상의하시기 바랍니다.</p>
+<p class="tags">#조절T세포 #Treg #FOXP3 #IPEX증후군 #저용량IL2 #면역관용 #자가면역 #종양미세환경 #노벨생리의학상 #CCR8</p></div><button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var root=document.documentElement, KEY='spk-theme';
+  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
+  var tb=document.getElementById('theme-toggle');
+  if(tb) tb.addEventListener('click',function(){
+    root.classList.toggle('dark');
+    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
+  });
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
