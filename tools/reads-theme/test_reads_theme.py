@@ -17,9 +17,12 @@ class ReadsThemeTests(unittest.TestCase):
         self.assertIn('Title &lt;one&gt; &amp; two', result)
         self.assertIn('IT &amp; science', result)
         self.assertIn(body, result)
-        self.assertIn('data-reads-theme="lime-v3"', result)
+        self.assertIn('data-reads-theme="lime-v4"', result)
         self.assertIn('class="reads-wordmark"', result)
         self.assertEqual(result.count('<h1>'), 1)
+        self.assertEqual(result.count('id="reads-theme-init"'), 1)
+        self.assertEqual(result.count('id="reads-theme-script"'), 1)
+        self.assertEqual(result.count('id="theme-toggle"'), 1)
 
     def test_rejects_empty_content(self):
         with self.assertRaises(ValueError):
@@ -61,20 +64,29 @@ class ReadsThemeTests(unittest.TestCase):
                     self.assertEqual(result.count('id="site-chrome-css"'), 1)
                     self.assertEqual(result.count('id="site-chrome-js"'), 1)
                     self.assertNotIn('id="reads-article-theme"', result)
-                    self.assertIn('data-reads-theme="lime-v3"', result)
-                    self.assertIn('href="/reads/assets/reads-theme.css?v=lime-v3"', result)
+                    self.assertIn('data-reads-theme="lime-v4"', result)
+                    self.assertIn('href="/reads/assets/reads-theme.css?v=lime-v4"', result)
                     self.assertNotIn('<style id="site-chrome-css"', result)
+                    for marker in ('id="reads-theme-init"', 'id="reads-theme-script"', 'id="theme-toggle"'):
+                        self.assertEqual(result.count(marker), 1)
+                    self.assertIn('/reads/assets/reads-theme.js?v=lime-v4', result)
                     if path in previous:
                         self.assertEqual(previous[path], result)
                     previous[path] = result
             for relative in ('index.html', 'posts/index.html', 'news/index.html', 'favorites.html'):
                 result = (site / relative).read_text(encoding='utf-8')
                 self.assertIn('id="reads-theme"', result)
-                self.assertIn('href="/reads/assets/reads-theme.css?v=lime-v3"', result)
+                self.assertIn('href="/reads/assets/reads-theme.css?v=lime-v4"', result)
                 self.assertNotIn('--bg:#0f1117', result)
+                self.assertEqual(result.count('id="theme-toggle"'), 1)
+                self.assertIn('class="reads-controls"', result)
+                self.assertLess(result.index('id="reads-theme-init"'), result.index('id="reads-theme"'))
+                self.assertIn('/reads/assets/reads-theme.js?v=lime-v4', result)
             self.assertEqual(len(json.loads((site / 'search.json').read_text())), 2)
             self.assertEqual((site / 'assets/reads-theme.css').read_bytes(),
                              (THEME_DIR / 'reads_theme.css').read_bytes())
+            self.assertEqual((site / 'assets/reads-theme.js').read_bytes(),
+                             (THEME_DIR / 'reads_theme.js').read_bytes())
             self.assertTrue((site / 'assets/7peaks-wordmark-light.svg').is_file())
             self.assertEqual((site / 'assets/7peaks-point-field.png').read_bytes(),
                              (THEME_DIR / 'assets/7peaks-point-field.png').read_bytes())

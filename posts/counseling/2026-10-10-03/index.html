@@ -9,10 +9,22 @@ p{margin:0 0 14px} img{max-width:100%;height:auto;display:block;margin:22px auto
 hr{border:0;border-top:1px solid #ddd;margin:36px 0}
 ul,ol{padding-left:22px} li{margin-bottom:6px} .tags{color:#2f9e88;font-size:15px}
 </style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
-</head><body data-reads-theme="lime-v3" data-reads-view="article">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
+</head><body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><span class="badge">상담</span><span class="date">2026-10-10</span>
 <h1>사회불안 인지모델과 안전행동, 불안을 줄이려다 오히려 유지시키는 이유</h1>
 <p><img alt="사회불안 인지모델과 안전행동 대표 이미지" src="./images/thumbnail.png" /></p>
@@ -142,13 +154,6 @@ ul,ol{padding-left:22px} li{margin-bottom:6px} .tags{color:#2f9e88;font-size:15p
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

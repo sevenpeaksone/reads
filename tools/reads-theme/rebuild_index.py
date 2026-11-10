@@ -7,7 +7,7 @@ BASE_URL = "/reads"
 # GoatCounter 방문자 수 코드. 가입 후 받은 코드(예: "sevenpeaks")만 넣으면 활성화된다.
 # 비워두면 방문자 수 기능은 표시되지 않는다.
 GOATCOUNTER_CODE = os.environ.get("GOATCOUNTER_CODE", "sevenpeaks")
-READS_THEME_VERSION = "lime-v3"
+READS_THEME_VERSION = "lime-v4"
 THEME_DIR = os.path.dirname(os.path.abspath(__file__))
 CAT_ORDER = [("IT", "it"), ("과학", "science"), ("경제", "economy"), ("바이오", "bio"),
              ("철학/인문", "philosophy"), ("상담", "counseling"), ("세계", "world"), ("종교", "religion")]
@@ -25,6 +25,14 @@ FONT_LINK = ""  # The shared theme imports the same Geist/Noto Sans KR families 
 
 # The common stylesheet is the design source for listings and articles.
 THEME_URL = f"{BASE_URL}/assets/reads-theme.css?v={READS_THEME_VERSION}"
+with open(os.path.join(THEME_DIR, "reads_theme_init.js"), encoding="utf-8") as theme_file:
+    READS_THEME_INIT_JS = theme_file.read().strip()
+THEME_HEAD = (
+    f'<script id="reads-theme-init">{READS_THEME_INIT_JS}</script>\n'
+    f'<script id="reads-theme-script" src="{BASE_URL}/assets/reads-theme.js?v={READS_THEME_VERSION}" defer></script>'
+)
+THEME_BUTTON = ('<button id="theme-toggle" data-reads-theme-toggle type="button" '
+                'aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button>')
 
 
 def get_title(p):
@@ -116,6 +124,7 @@ def page(title, body):
             '<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
             f'<title>{html.escape(title)}</title>\n'
+            f'{THEME_HEAD}\n'
             f'{FONT_LINK}\n'
             f'<link id="reads-theme" rel="stylesheet" href="{THEME_URL}">\n</head>\n<body>\n{body}\n'
             f'<footer>{visit}© 2026 7Peaks Reads · <a href="https://7peaks.io/ko/">7Peaks 홈페이지 ↗</a></footer>\n'
@@ -158,7 +167,10 @@ def topnav_html(active="home"):
         f'      <a{current("saved")} href="{BASE_URL}/favorites.html">★ 즐겨찾기</a>\n'
         '      <a class="company-link" href="https://7peaks.io/ko/">7Peaks ↗</a>\n'
         '    </div>\n'
-        '    <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">\n'
+        '    <div class="reads-controls">\n'
+        '      <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">\n'
+        f'      {THEME_BUTTON}\n'
+        '    </div>\n'
         '  </nav>\n')
 
 
@@ -373,13 +385,6 @@ POST_CHROME_CSS = (f'<link id="site-chrome-css" rel="stylesheet" '
 
 POST_CHROME_JS = """<script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
@@ -394,6 +399,8 @@ POST_CHROME_JS = """<script id="site-chrome-js">
 </script>"""
 
 _OLD_CHROME_PATTERNS = [
+    r'<script id="reads-theme-init"[^>]*>.*?</script>',
+    r'<script id="reads-theme-script"[^>]*>.*?</script>',
     r'<style id="reads-article-theme"[^>]*>.*?</style>',
     r'<style id="site-nav-css">.*?</style>',
     r'<style id="site-chrome-css">.*?</style>',
@@ -451,8 +458,7 @@ def ensure_post_chrome(cat_order=CAT_ORDER, base_dir="posts", list_suffix="목�
                    f'<a class="nav-list" href="{BASE_URL}/{base_dir}/{cslug}/index.html">{html.escape(cat)} {list_suffix}</a>'
                    '<span class="nav-spacer"></span>'
                    '<span class="read-time" id="read-time"></span>'
-                   '<button id="theme-toggle" type="button">◐ 테마</button>'
-                   '</nav>')
+                   + THEME_BUTTON + '</nav>')
             t = re.sub(r"(<body\b)([^>]*>)",
                        lambda m: m.group(0) if 'data-reads-view=' in m.group(2)
                        else m.group(1) + ' data-reads-view="article"' + m.group(2), t, count=1)
@@ -463,7 +469,7 @@ def ensure_post_chrome(cat_order=CAT_ORDER, base_dir="posts", list_suffix="목�
             t = re.sub(r"""data-reads-theme=["'][^"']*["']""",
                        f'data-reads-theme="{READS_THEME_VERSION}"', t)
             if "</head>" in t:
-                t = t.replace("</head>", POST_CHROME_CSS + "\n</head>", 1)
+                t = t.replace("</head>", THEME_HEAD + "\n" + POST_CHROME_CSS + "\n</head>", 1)
             t = re.sub(r"(<body[^>]*>)", r"\1\n" + nav.replace("\\", "\\\\"), t, count=1)
             if "</body>" in t:
                 t = t.replace("</body>",
@@ -485,6 +491,8 @@ shutil.copyfile(os.path.join(THEME_DIR, "assets", "7peaks-wordmark-dark.svg"),
                 os.path.join(SITE, "assets", "7peaks-wordmark-dark.svg"))
 shutil.copyfile(os.path.join(THEME_DIR, "reads_theme.css"),
                 os.path.join(SITE, "assets", "reads-theme.css"))
+shutil.copyfile(os.path.join(THEME_DIR, "reads_theme.js"),
+                os.path.join(SITE, "assets", "reads-theme.js"))
 _svg_path = os.path.join(SITE, "assets", "logo.svg")
 if os.path.exists(_svg_path):
     os.remove(_svg_path)  # 예전 SVG 잔재 제거

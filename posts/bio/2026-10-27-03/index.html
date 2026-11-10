@@ -17,10 +17,22 @@ ul{background:#fff4f4;border-radius:10px;padding:16px 20px 16px 38px;margin:0 0 
 blockquote{margin:26px 0;padding:14px 20px;background:#fff4f4;border-left:4px solid #ff7676;font-weight:700;font-size:18px}
 .tags span{color:#c0504d;margin-right:8px;font-size:14px}
 </style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
-</head><body data-reads-theme="lime-v3" data-reads-view="article">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
+</head><body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/bio/index.html">바이오 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap">
 <div><span class="badge">바이오</span><span class="date">2026-10-27</span></div>
 <h1>SNARE 단백질과 시냅스 소포 방출, 칼슘이 밀리초 만에 여는 원리</h1>
@@ -83,13 +95,6 @@ blockquote{margin:26px 0;padding:14px 20px;background:#fff4f4;border-left:4px so
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

@@ -10,11 +10,23 @@ h2{font-size:21px;margin:36px 0 12px;font-weight:800;border-left:5px solid #e945
 p{margin:0 0 14px}img{max-width:100%;height:auto;display:block;margin:8px auto}p.img{margin:20px 0}
 hr{border:0;border-top:1px solid #ddd;margin:30px 0}.tags{color:#3b5bdb;font-size:14px}.note{color:#777;font-size:14px}
 ul{background:#f5f6fa;border-radius:8px;padding:14px 18px 14px 36px;margin:0 0 16px}li{margin:4px 0}</style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
 </head>
-<body data-reads-theme="lime-v3" data-reads-view="article">
+<body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/world/index.html">국제/세계 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/world/index.html">국제/세계 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><div><span class="badge">국제 뉴스</span><span class="date">작성일 2026-11-09</span></div>
 <h1>다카이치 대만 발언 1년, 중국인 방일 44% 감소와 APEC 회담 변수</h1>
 <p class="img"><img src="./images/thumbnail.png" alt="다카이치 대만 발언 1년, 중일 관계 교착을 보여주는 대표 이미지"></p>
@@ -74,13 +86,6 @@ ul{background:#f5f6fa;border-radius:8px;padding:14px 18px 14px 36px;margin:0 0 1
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

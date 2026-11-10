@@ -6,11 +6,23 @@ h1{font-size:30px;line-height:1.4;margin:0 0 28px}h2{font-size:21px;margin:12px 
 p{margin:0 0 10px}img{max-width:100%;height:auto;display:block;margin:14px auto}hr{border:0;border-top:1px solid #ddd;margin:34px 0}
 ul{background:#f1f4ff;border-radius:10px;padding:16px 20px 16px 38px;margin:6px 0 18px}.sumh{font-weight:700;margin-bottom:4px}
 blockquote{margin:20px 0;padding:14px 18px;background:#fff8e6;border-left:4px solid #f0b429;color:#555;font-size:15px}.key{font-size:19px;font-weight:700;margin:18px 0;color:#2f4bd8}.tags{color:#2f4bd8;font-size:15px;margin-top:20px}</style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
 </head>
-<body data-reads-theme="lime-v3" data-reads-view="article">
+<body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/economy/index.html">경제 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/economy/index.html">경제 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><div class="meta"><span class="badge">경제 뉴스</span><span class="date">작성일 2026-11-01</span></div><h1>10월 수출 1153억 달러, 반도체 절반 속 1조 달러 돌파 전망</h1>
 <p class="img"><img src="./images/thumbnail.png" alt="10월 수출 1,153억 달러, 연 수출 1조 달러 11월 돌파 전망 썸네일"></p>
 <p class="sumh"><strong>3줄 요약</strong></p>
@@ -103,13 +115,6 @@ blockquote{margin:20px 0;padding:14px 18px;background:#fff8e6;border-left:4px so
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

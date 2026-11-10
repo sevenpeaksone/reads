@@ -13,10 +13,22 @@ hr{border:0;border-top:1px solid #e3e3ea;margin:36px 0}
 ul{padding-left:22px;margin:0 0 16px}li{margin-bottom:6px}
 .tags{color:#6a5acd;font-size:14px}
 </style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
-</head><body data-reads-theme="lime-v3" data-reads-view="article">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
+</head><body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><div class="meta"><span class="cat">철학/인문</span><span class="date">2026-10-09</span></div><h1>롤스 무지의 베일, 내 처지를 모른 채 고르는 정의의 두 원칙</h1>
 <figure><img src="./images/thumbnail.png" alt="롤스 무지의 베일 정의의 두 원칙 대표 이미지"><figcaption>롤스 무지의 베일 정의의 두 원칙 대표 이미지</figcaption></figure>
 <p>오늘은 존 롤스의 &#x27;무지의 베일&#x27;과 &#x27;정의의 두 원칙&#x27;에 대해 이야기해 보려 합니다. 내가 어떤 처지로 태어날지 모른 채 사회의 규칙을 정한다면 무엇을 고르게 되는지, 롤스가 왜 그 답을 두 원칙으로 정리했는지, 그리고 그 답에 어떤 반론이 따랐는지를 차례로 살펴보겠습니다.</p>
@@ -83,13 +95,6 @@ ul{padding-left:22px;margin:0 0 16px}li{margin-bottom:6px}
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

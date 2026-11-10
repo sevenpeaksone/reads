@@ -10,11 +10,23 @@ p{margin:0 0 16px} img{max-width:100%;height:auto;display:block;margin:18px auto
 .img{margin:0} hr{border:0;border-top:1px solid #ddd;margin:36px 0}
 blockquote{margin:20px 0;padding:14px 20px;background:#f2f9f5;border-left:4px solid #2bbe78;border-radius:4px}
 blockquote ul{margin:6px 0 0;padding-left:20px} .qt{margin:0;font-weight:700} .tags{color:#2b8a5c;font-size:14px;word-break:keep-all}</style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
 </head>
-<body data-reads-theme="lime-v3" data-reads-view="article">
+<body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/economy/index.html">경제 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><h1>케인스의 미인 대회 비유 — 주식시장은 왜 남들의 생각을 맞히는 게임일까</h1><div class="meta"><span class="badge">경제</span><span>2026-10-24</span></div>
 <p class="img"><img src="./images/thumbnail.png" alt="케인스의 미인 대회 비유 — 주식시장은 왜 남들의 생각을 맞히는 게임일까 대표 이미지"></p>
 <p class="tags">#케인스미인대회 #케인스 #일반이론 #p미인대회 #레벨k사고 #행동경제학 #게임이론 #주식시장심리 #경제교양</p>
@@ -73,13 +85,6 @@ blockquote ul{margin:6px 0 0;padding-left:20px} .qt{margin:0;font-weight:700} .t
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

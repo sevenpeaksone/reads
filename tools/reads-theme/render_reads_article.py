@@ -23,6 +23,8 @@ def render_article(title, category, published_date, body_html):
         "CATEGORY_ESCAPED": html.escape(category),
         "DATE_ISO": published_date,
         "READS_THEME_CSS": (THEME_DIR / "reads_theme.css").read_text(encoding="utf-8"),
+        "READS_THEME_INIT_JS": (THEME_DIR / "reads_theme_init.js").read_text(encoding="utf-8"),
+        "READS_THEME_JS": (THEME_DIR / "reads_theme.js").read_text(encoding="utf-8"),
         "READS_WORDMARK_SVG": wordmark,
         "ARTICLE_BODY_HTML": body_html,
     }

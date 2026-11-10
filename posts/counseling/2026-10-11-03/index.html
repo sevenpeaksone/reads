@@ -20,10 +20,22 @@ img{max-width:100%;height:auto;display:block;border-radius:10px}
 .tags{color:var(--accent);font-size:14.5px;line-height:1.9;margin-top:34px;padding-top:26px;border-top:1px solid var(--line)}
 @media(max-width:760px){.wrap{padding:34px 20px 44px}h1{font-size:24px}}
 </style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
-</head><body data-reads-theme="lime-v3" data-reads-view="article">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
+</head><body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/counseling/index.html">상담 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <article class="wrap"><div class="meta"><span class="badge">상담</span><span class="date">2026-10-11</span></div><h1>반추 사고와 마음챙김 인지치료 MBCT, 우울 재발을 줄이는 원리</h1>
 <figure><img src="./images/thumbnail.png" alt="반추 사고와 마음챙김 인지치료 MBCT, 우울 재발을 줄이는 원리"></figure>
 <p>이번 글에서는 같은 생각을 되씹는 반추 사고가 우울을 어떻게 붙잡아 두는지 정리해 보겠습니다.<br>이어서 생각을 사실이 아닌 하나의 사건으로 바라보는 훈련, 곧 마음챙김 기반 인지치료(MBCT)와 MBSR이 재발 방지에서 어떤 근거를 가지는지 살펴봅니다.<br>심리상담 교양 차원의 안내이며, 개인의 진단이나 치료를 대신하지 않습니다.</p>
@@ -84,13 +96,6 @@ img{max-width:100%;height:auto;display:block;border-radius:10px}
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

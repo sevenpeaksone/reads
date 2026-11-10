@@ -6,10 +6,22 @@ main{max-width:700px;margin:0 auto;padding:40px 20px 80px}h1{font-size:30px;line
 h2{font-size:22px;margin:36px 0 12px;color:#16213e}p{margin:0 0 14px}hr{border:0;border-top:1px solid #ddd;margin:32px 0}
 img{max-width:100%;height:auto;display:block;margin:0 auto}figure{margin:22px 0}ul{background:#f5f6fa;padding:16px 20px 16px 36px;border-radius:8px}
 .tags{color:#16609e;font-size:14px}.note{color:#777;font-size:14px}</style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
-</head><body data-reads-theme="lime-v3" data-reads-view="article">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
+</head><body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <main>
 <h1>초광역특구법 노동특례, 노동장관이 비정규직 우려 인정한 이유와 쟁점</h1><div class=meta><span class=badge>정치·사회 뉴스</span><time datetime="2026-11-09">작성일 2026-11-09</time></div>
 <figure><img src="./images/thumbnail.png" alt="초광역특구법 노동특례 논란 대표 이미지"></figure>
@@ -87,13 +99,6 @@ img{max-width:100%;height:auto;display:block;margin:0 auto}figure{margin:22px 0}
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

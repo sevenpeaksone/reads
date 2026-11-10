@@ -1,7 +1,7 @@
 @import url("https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5.3.0/index.css");
 @import url("https://cdn.jsdelivr.net/npm/@fontsource-variable/noto-sans-kr@5.3.0/index.css");
 
-/* 7Peaks Reads — company Light identity, lime-v3.
+/* 7Peaks Reads — company Light identity, lime-v4.
    Layout and presentation live here; article content and publishing paths do not change. */
 :root {
   color-scheme: light;
@@ -1400,5 +1400,118 @@ html.dark body[data-reads-view="article"] #read-progress {
     scroll-behavior: auto !important;
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* One color-mode preference for home, listings, favorites, and article pages. */
+:root.dark {
+  color-scheme: dark;
+  --bg: #17201b;
+  --card: #203026;
+  --text: #f6f8ed;
+  --muted: #b7c2ad;
+  --line: #3b4b39;
+}
+.topnav .reads-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.topnav .reads-controls #site-search {
+  width: 198px;
+  min-width: 0;
+  flex: 1;
+}
+.topnav #theme-toggle {
+  flex: 0 0 auto;
+  min-height: 44px;
+  min-width: 88px;
+  white-space: nowrap;
+}
+html.dark .topnav .tn-logo {
+  content: url("/reads/assets/7peaks-wordmark-dark.svg");
+}
+html.dark .topnav #site-search {
+  color: var(--text);
+  background: #203026;
+  border-color: var(--line);
+}
+html.dark input::placeholder {
+  color: #a8b59e;
+}
+html.dark .hero-cta {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: #17201b;
+}
+html.dark .hero-cta:hover {
+  background: #e0ff5c;
+}
+html.dark .hero-art img {
+  mix-blend-mode: lighten;
+  filter: invert(1) hue-rotate(180deg) brightness(0.9);
+}
+html.dark .thumb,
+html.dark .news-thumb {
+  background: #26372b;
+}
+html.dark .thumb.ph,
+html.dark .news-thumb.ph {
+  color: var(--muted);
+}
+html.dark .news-item:hover {
+  background: #223428;
+}
+html.dark .badge,
+html.dark .news-cat {
+  background: #354022;
+  color: #dfedb5;
+}
+html.dark
+  .badge:is(
+    [data-cat="economy"],
+    [data-cat="politics"],
+    [data-cat="counseling"]
+  ),
+html.dark .news-cat:is([data-cat="economy"], [data-cat="politics"]) {
+  background: #472f20;
+  color: #f5bb88;
+}
+html.dark .badge:is([data-cat="philosophy"], [data-cat="world"]),
+html.dark .news-cat[data-cat="world"] {
+  background: #382943;
+  color: #d4b4f2;
+}
+html.dark
+  .badge:is([data-cat="science"], [data-cat="bio"], [data-cat="religion"]) {
+  background: #213e2e;
+  color: #a6dcb9;
+}
+html.dark .fav {
+  background: #263326;
+  color: var(--lime);
+  border-color: var(--line);
+}
+html.dark .fav.on,
+html.dark .fav:hover,
+html.dark .prefs .seg button.on,
+html.dark .pager .cur,
+html.dark .topnav #theme-toggle {
+  background: var(--lime);
+  color: #17201b;
+  border-color: var(--lime);
+}
+html.dark .prefs .seg,
+html.dark .prefs select,
+html.dark .fav-tools button,
+html.dark #theme-toggle {
+  border-color: var(--line);
+}
+html.dark :focus-visible {
+  outline-color: var(--lime);
+}
+@media (max-width: 1250px) {
+  .topnav .reads-controls {
+    width: 100%;
   }
 }

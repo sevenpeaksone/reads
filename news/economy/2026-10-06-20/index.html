@@ -9,11 +9,23 @@ p{margin:0 0 14px}img{max-width:100%;height:auto;display:block;margin:18px auto;
 .img{margin:0}hr{border:0;border-top:1px solid #ddd;margin:30px 0}
 blockquote{background:#f3faf6;border-left:4px solid #2bbe78;margin:16px 0;padding:12px 16px;border-radius:6px}
 .key{font-size:19px;font-weight:700;color:#168a55;margin:20px 0}.note{font-size:14px;color:#666}.tags{color:#2b7de0;font-size:14px}</style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
 </head>
-<body data-reads-theme="lime-v3" data-reads-view="article">
+<body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/economy/index.html">경제 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/economy/index.html">경제 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><div><span class="badge">경제 뉴스</span><span class="date">작성일 2026-10-06</span></div><h1>단일종목 레버리지 ETF 국감, 손실엔 &quot;송구&quot; 책임은 금융위로 선 그은 정부</h1>
 <p class="img"><img src="./images/thumbnail.png" alt="썸네일 - 단일종목 레버리지 ETF 국감 공방, 송구 발언과 책임 공방"></p>
 <p>오늘은 10월 6일 국정감사에서 불거진 단일종목 레버리지 ETF 공방을 정리해 보려 합니다. 이형일 부총리와 권대영 재정경제부 1차관은 개인투자자 손실에 &quot;송구하다&quot;고 답했습니다. 다만 도입을 결정한 주체는 금융위원회라며 선을 그었고, 야당은 1월 청와대 비공개회의와 선거 직전 출시 일정을 문제 삼았습니다.</p>
@@ -67,13 +79,6 @@ blockquote{background:#f3faf6;border-left:4px solid #2bbe78;margin:16px 0;paddin
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

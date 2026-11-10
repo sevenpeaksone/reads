@@ -10,10 +10,22 @@ img{max-width:100%;height:auto;display:block;margin:0 auto;border-radius:6px}.fi
 hr{border:0;border-top:1px solid #e1e4ea;margin:34px 0}blockquote{margin:22px 0;padding:14px 20px;background:#f0f3ff;border-left:4px solid #3b5bdb;font-weight:700}
 .tags span{display:inline-block;color:#3b5bdb;margin:0 8px 6px 0;font-size:15px}
 </style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
-</head><body data-reads-theme="lime-v3" data-reads-view="article">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
+</head><body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class=wrap><div class=meta><span class=badge>IT</span><span>2026-10-12</span></div><h1>쿠버네티스 조정 루프 원리, 선언한 상태와 실제 상태를 맞추는 방법</h1>
 <p class=fig><img src="./images/thumbnail.png" alt="쿠버네티스 조정 루프 원리 대표 이미지"></p>
 <p>오늘은 쿠버네티스 컨트롤러가 일하는 방식, 곧 조정 루프(reconcile loop)에 대해 이야기해 보려 합니다. 핵심은 한 줄입니다. 컨트롤러는 사용자가 선언한 원하는 상태와 클러스터의 현재 상태를 계속 비교하고, 차이가 있으면 그 차이를 줄이는 일만 합니다. 아래에서 이 루프가 내부에서 어떻게 돌아가는지, 왜 이벤트를 놓쳐도 무너지지 않는지 차례로 정리하겠습니다.</p>
@@ -84,13 +96,6 @@ hr{border:0;border-top:1px solid #e1e4ea;margin:34px 0}blockquote{margin:22px 0;
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

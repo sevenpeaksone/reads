@@ -5,11 +5,23 @@
 h1{font-size:30px;line-height:1.4;margin:16px 0 24px}h2{font-size:21px;margin:36px 0 12px;padding-left:10px;border-left:5px solid #4f6df5}
 p{margin:0 0 14px}img{max-width:100%;height:auto;border-radius:8px}.img{margin:20px 0;text-align:center}hr{border:0;border-top:1px solid #ddd;margin:32px 0}
 blockquote{margin:18px 0;padding:14px 18px;background:#f3f5fd;border-left:4px solid #4f6df5;border-radius:6px;font-size:15.5px}.tags{color:#4f6df5;font-size:14px}</style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
 </head>
-<body data-reads-theme="lime-v3" data-reads-view="article">
+<body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/politics/index.html">정치/사회 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><span class="badge">정치·사회 뉴스</span><span class="date">작성일 2026-10-12</span><h1>정청래 미국 비자 보류, 한미관계 이상 신호인가 개별 사안인가</h1>
 <p class="img"><img src="./images/thumbnail.png" alt="정청래 미국 비자 보류와 한미관계 공방"></p>
 <p>이번 글에서는 정청래 더불어민주당 의원의 미국 비자 보류가 어떻게 한미관계 공방으로 번졌는지 정리해 보겠습니다. 같은 주에 불거진 국정원 직원 비자 지연, 이종석 국정원장 방미 불발 주장, 대북정보 공유 제한 논란이 함께 얽혀 있습니다. 확인된 사실과 확인되지 않은 주장을 나눠서 살펴보겠습니다.</p>
@@ -61,13 +73,6 @@ blockquote{margin:18px 0;padding:14px 18px;background:#f3f5fd;border-left:4px so
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

@@ -5,11 +5,23 @@
 h1{font-size:30px;line-height:1.4;margin:16px 0 24px;color:#0b2545}h2{font-size:22px;margin:12px 0 8px;color:#0b2545;border-left:5px solid #e08a00;padding-left:12px}
 p{margin:0 0 14px}img{max-width:100%;height:auto;display:block;margin:0 auto}.img{margin:22px 0}hr{border:0;border-top:1px solid #ddd;margin:34px 0}
 .disc{background:#f5f7fa;border:1px solid #dde3ea;padding:14px 16px;font-size:14.5px;color:#555;border-radius:6px;margin-top:28px}.tags{color:#1d5fa8;font-size:15px}</style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
 </head>
-<body data-reads-theme="lime-v3" data-reads-view="article">
+<body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/economy/index.html">경제 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/economy/index.html">경제 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><span class="badge">경제 뉴스</span><span class="date">작성일 2026-10-16</span><h1>미국 물가 쇼크와 한미 금리차, 한은 10월 금통위 동결 뒤 선택지는</h1>
 <p class="img"><img src="./images/thumbnail.png" alt="美 물가 쇼크와 한은의 선택 - 미국 9월 CPI 3.7%, 한국 3.00%, 미국 상단 4.00%"></p>
 <p>오늘은 미국 9월 소비자물가 발표가 한국은행의 10월 22일 금융통화위원회에 어떤 부담을 얹었는지 정리해 보려 합니다.</p>
@@ -76,13 +88,6 @@ p{margin:0 0 14px}img{max-width:100%;height:auto;display:block;margin:0 auto}.im
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

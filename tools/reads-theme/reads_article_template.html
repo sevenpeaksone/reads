@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="ko" data-reads-theme="lime-v3">
+<html lang="ko" data-reads-theme="lime-v4">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{TITLE_ESCAPED}} — 7Peaks Reads</title>
+  <script id="reads-theme-init">{{READS_THEME_INIT_JS}}</script>
   <style id="reads-article-theme">{{READS_THEME_CSS}}</style>
 </head>
-<body data-reads-view="article" data-reads-theme="lime-v3">
+<body data-reads-view="article" data-reads-theme="lime-v4">
   <nav id="site-nav" aria-label="글 탐색">
     <a class="nav-home" href="https://sevenpeaksone.github.io/reads/">{{READS_WORDMARK_SVG}}<span>Reads</span></a>
     <span class="nav-spacer"></span>
     <a href="https://7peaks.io/ko/">7Peaks ↗</a>
+    <button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button>
   </nav>
   <main class="wrap">
     <div class="meta"><span class="badge">{{CATEGORY_ESCAPED}}</span> <time class="date" datetime="{{DATE_ISO}}">{{DATE_ISO}}</time></div>
     <h1>{{TITLE_ESCAPED}}</h1>
     {{ARTICLE_BODY_HTML}}
   </main>
+  <script id="reads-theme-script">{{READS_THEME_JS}}</script>
 </body>
 </html>

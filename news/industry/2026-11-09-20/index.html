@@ -9,11 +9,23 @@ h1{font-size:28px;line-height:1.4;margin:10px 0 12px}h2{font-size:21px;margin:34
 img{max-width:100%;height:auto;display:block;margin:18px auto}p{margin:0 0 14px}.img{margin:0}
 hr{border:0;border-top:1px solid #ddd;margin:30px 0}ul{padding-left:22px;margin:0 0 16px}li{margin-bottom:6px}
 blockquote{margin:22px 0;padding:14px 20px;background:#f3f4fb;border-left:4px solid #4a56a8;font-weight:700}.tags{color:#4a56a8;font-size:14px;margin-top:30px}</style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
 </head>
-<body data-reads-theme="lime-v3" data-reads-view="article">
+<body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><h1>앤트로픽 IPO 정정 신고서, 매출 12배와 8954억 달러 약정의 명암</h1><div class="meta"><span class="badge">산업·IT 뉴스</span><span class="date">작성일 2026-11-09</span></div>
 <p class="img"><img src="./images/thumbnail.png" alt="앤트로픽 IPO 정정 신고서 대표 이미지: 매출 12배와 약정 8954억 달러"></p>
 <p>오늘은 클로드를 만드는 앤트로픽이 11월 2일 미국 증권거래위원회에 낸 수정 증권신고서(S-1/A)를 정리해 보려 합니다. 3분기 매출은 약 170억 달러로 1년 전의 12배가 됐지만, 영업은 다시 적자로 돌아섰습니다. 동시에 앞으로 2045년까지 이어질 컴퓨팅 약정이 약 8954억 달러로 공개됐고, 시장이 매기는 몸값은 한 달 새 크게 흔들렸습니다.</p>
@@ -92,13 +104,6 @@ blockquote{margin:22px 0;padding:14px 20px;background:#f3f4fb;border-left:4px so
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

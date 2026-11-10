@@ -4,11 +4,23 @@
 h1{font-size:28px;line-height:1.45;margin:0 0 14px}h2{font-size:21px;margin:12px 0 14px;padding-left:12px;border-left:4px solid #b8955a}
 .meta{display:flex;gap:12px;align-items:center;margin-bottom:24px;font-size:14px;color:#777}.badge{background:#2a2836;color:#d6b678;padding:3px 12px;border-radius:14px;font-weight:700;font-size:13px}
 img{max-width:100%;height:auto;display:block;margin:0 auto}p.img{margin:24px 0}p{margin:0 0 16px}hr{border:0;border-top:1px solid #ddd;margin:36px 0}.tags{color:#8a6f3b;font-size:14px}</style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
 </head>
-<body data-reads-theme="lime-v3" data-reads-view="article">
+<body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/religion/index.html">종교 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/religion/index.html">종교 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><h1>성직자 독신 전통의 비교종교학 — 사제와 승려는 왜 다른 길을 택했을까</h1>
 <div class="meta"><span class="badge">종교</span><span class="date">2026-10-18</span></div>
 <p class="img"><img src="./images/thumbnail.png" alt="성직자 독신 전통의 비교종교학 대표 이미지"></p>
@@ -67,13 +79,6 @@ img{max-width:100%;height:auto;display:block;margin:0 auto}p.img{margin:24px 0}p
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

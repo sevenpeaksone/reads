@@ -4,10 +4,22 @@
 h1{font-size:30px;line-height:1.4;margin:10px 0 12px}h2{font-size:21px;margin:36px 0 12px;padding-left:10px;border-left:4px solid #7b6fe0}
 .meta{margin-bottom:28px;font-size:14px;color:#777}.badge{display:inline-block;background:#7b6fe0;color:#fff;border-radius:999px;padding:3px 12px;font-weight:700;margin-right:10px}
 p{margin:0 0 14px}p.img{margin:22px 0}img{max-width:100%;height:auto;display:block;margin:0 auto}hr{border:0;border-top:1px solid #ddd;margin:32px 0}p.tags{color:#6a5fd0}</style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
-</head><body data-reads-theme="lime-v3" data-reads-view="article">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
+</head><body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/philosophy/index.html">철학/인문 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap">
 <h1>마르크스 소외론, 경제학-철학 수고로 읽는 노동의 네 얼굴</h1><div class="meta"><span class="badge">철학/인문</span><span class="date">2026-10-19</span></div>
 <p class="img"><img src="./images/thumbnail.png" alt="마르크스 소외론 - 경제학-철학 수고로 읽는 노동의 네 얼굴 대표 이미지"></p>
@@ -62,13 +74,6 @@ p{margin:0 0 14px}p.img{margin:22px 0}img{max-width:100%;height:auto;display:blo
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

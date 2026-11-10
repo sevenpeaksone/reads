@@ -13,10 +13,22 @@ hr{border:0;border-top:1px solid #e3e3e8;margin:34px 0}
 blockquote{margin:20px 0;padding:14px 20px;border-left:4px solid #4a3fd6;background:#f7f7fb;font-size:18px;font-weight:700;line-height:1.7}
 .note{font-size:14px;color:#666}.tags{color:#4a3fd6;font-size:15px}
 </style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
-</head><body data-reads-theme="lime-v3" data-reads-view="article">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
+</head><body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><div><span class="badge">산업·IT 뉴스</span><span class="date">작성일 2026-10-03</span></div><h1>브로드컴 앤트로픽 420억 달러 대출, TPU 리스 순환금융의 속사정</h1>
 <figure><img src="./images/thumbnail.png" alt="브로드컴 앤트로픽 420억 달러 대출 대표 이미지"></figure>
 <p>오늘은 브로드컴이 앤트로픽에 빌려주기로 한 최대 420억 달러, 우리 돈 약 56조~57조 원 규모의 대출을 정리해 보려 합니다.<br>2026년 10월 1일 로이터가 앤트로픽의 기업공개(IPO) 서류를 인용해 전한 내용입니다.<br>누가 누구에게 무엇을 빌려주는지, 그리고 왜 '순환금융'이라는 비판이 따라붙는지 차례로 살펴보겠습니다.</p>
@@ -64,13 +76,6 @@ blockquote{margin:20px 0;padding:14px 20px;border-left:4px solid #4a3fd6;backgro
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

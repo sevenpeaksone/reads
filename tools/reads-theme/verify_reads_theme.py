@@ -80,13 +80,15 @@ def verify(baseline, staged):
             fragments.append(str(relative))
         if content(old) != content(new):
             errors.append(f"Article text/images/links changed: {relative}")
-        for marker in ('id="site-nav"', 'id="site-chrome-css"', 'id="site-chrome-js"', 'data-reads-view="article"'):
+        for marker in ('id="site-nav"', 'id="site-chrome-css"', 'id="site-chrome-js"', 'data-reads-view="article"', 'id="reads-theme-init"', 'id="reads-theme-script"', 'id="theme-toggle"'):
             if new.count(marker) != 1:
                 errors.append(f"Invalid marker count ({marker}): {relative}")
-        if '<link id="site-chrome-css"' not in new or '/reads/assets/reads-theme.css?v=lime-v3' not in new:
+        if '<link id="site-chrome-css"' not in new or '/reads/assets/reads-theme.css?v=lime-v4' not in new:
             errors.append(f"Missing canonical design link: {relative}")
         if '<style id="site-chrome-css"' in new:
             errors.append(f"Legacy embedded chrome stylesheet: {relative}")
+        if '/reads/assets/reads-theme.js?v=lime-v4' not in new:
+            errors.append(f"Missing shared color-mode script: {relative}")
     if not sum(counts.values()):
         errors.append("No articles were checked")
     search_unchanged = json.loads((baseline / "search.json").read_text()) == json.loads((staged / "search.json").read_text())
@@ -98,7 +100,7 @@ def verify(baseline, staged):
         staged / 'tools/reads-theme/reads_theme.css').read_bytes()
     if not stylesheet_matches_source:
         errors.append("Published stylesheet does not match its canonical source")
-    script_names = {"SEARCH_JS", "PREFS_JS", "FAV_JS", "VISIT_JS", "POST_CHROME_JS"}
+    script_names = {"SEARCH_JS", "PREFS_JS", "FAV_JS", "VISIT_JS"}
     def scripts(directory):
         result = {}
         for node in ast.parse((directory / 'tools/reads-theme/rebuild_index.py').read_text()).body:
@@ -110,15 +112,29 @@ def verify(baseline, staged):
     original_scripts, current_scripts = scripts(baseline), scripts(staged)
     scripts_unchanged = (set(original_scripts) == script_names
                          and original_scripts == current_scripts)
+    def reading_behavior(directory):
+        for node in ast.parse((directory / 'tools/reads-theme/rebuild_index.py').read_text()).body:
+            if isinstance(node, ast.Assign) and any(
+                isinstance(target, ast.Name) and target.id == "POST_CHROME_JS"
+                for target in node.targets
+            ):
+                script = ast.literal_eval(node.value)
+                anchor = "  var rt=document.getElementById('read-time');"
+                assert anchor in script, "Missing article reading controls"
+                return script.split(anchor, 1)[1]
+        raise AssertionError("Missing article reading script")
+    scripts_unchanged = scripts_unchanged and reading_behavior(baseline) == reading_behavior(staged)
     if not scripts_unchanged:
-        errors.append("Existing search/preferences/favorites/visits/article scripts changed")
+        errors.append("Non-theme search/preferences/favorites/visits/reading behavior changed")
+    if (staged / "assets/reads-theme.js").read_bytes() != (staged / "tools/reads-theme/reads_theme.js").read_bytes():
+        errors.append("Published color-mode script does not match its source")
     return {
         "article_count": dict(counts),
         "styled_articles": sum(counts.values()) - len(empty),
         "empty_sources_preserved": empty,
         "legacy_fragments_wrapped": fragments,
         "search_data_unchanged": search_unchanged,
-        "interactive_scripts_unchanged": scripts_unchanged,
+        "non_theme_interactions_unchanged": scripts_unchanged,
         "stylesheet_matches_source": stylesheet_matches_source,
         "errors": errors,
         "passed": not errors,

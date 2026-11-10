@@ -1,11 +1,23 @@
 <!DOCTYPE html>
-<html lang="ko" data-reads-theme="lime-v3">
+<html lang="ko" data-reads-theme="lime-v4">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SevenPeaks Reads</title>
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
 
-<link id="reads-theme" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
+<link id="reads-theme" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
 </head>
 <body>
   <nav class="topnav" aria-label="Reads 탐색">
@@ -17,7 +29,10 @@
       <a href="/reads/favorites.html">★ 즐겨찾기</a>
       <a class="company-link" href="https://7peaks.io/ko/">7Peaks ↗</a>
     </div>
-    <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
+    <div class="reads-controls">
+      <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
+      <button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button>
+    </div>
   </nav>
   <section class="hero hero-split" data-section="home">
     <div class="hero-copy">

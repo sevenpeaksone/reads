@@ -6,11 +6,23 @@
 h2{font-size:22px;margin:38px 0 12px;padding-left:12px;border-left:5px solid #6c5ce7}p{margin:0 0 14px}hr{border:0;border-top:1px solid #ddd;margin:34px 0}
 img{max-width:100%;height:auto;display:block;margin:10px auto}.img{margin:18px 0}ul,ol{padding-left:22px;margin:0 0 14px}li{margin-bottom:6px}
 blockquote{margin:20px 0;padding:14px 20px;background:#f3f1ff;border-left:5px solid #6c5ce7;font-weight:700}.tags{color:#5b4fd6;font-size:15px}</style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
 </head>
-<body data-reads-theme="lime-v3" data-reads-view="article">
+<body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/world/index.html">국제/세계 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/world/index.html">국제/세계 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><div class="meta"><span class="badge">국제 뉴스</span>작성일 2026-10-24</div><h1>이란 유가 공방, 미국 중간선거와 휘발유값은 어떻게 얽혔나</h1>
 <p class="img"><img src="./images/thumbnail.png" alt="이란 유가 공방과 미국 중간선거 썸네일"></p>
 <p>이번 글에서는 트럼프 대통령이 "이란이 선거 전에 유가를 올리려 가짜 타격을 꾸민다"고 주장한 사안을 정리해 보겠습니다. 호르무즈 선박 공격 자체가 아니라, 이 공방이 11월 3일 미국 중간선거 정치와 어떻게 맞물리는지에 초점을 둡니다. 먼저 결론부터 말씀드리면, 선박 피격이 실제였는지는 양쪽 주장 모두 아직 독립적으로 검증되지 않았고, 확인된 사실은 유가와 휘발유값이 높다는 점입니다.</p>
@@ -69,13 +81,6 @@ blockquote{margin:20px 0;padding:14px 20px;background:#f3f1ff;border-left:5px so
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

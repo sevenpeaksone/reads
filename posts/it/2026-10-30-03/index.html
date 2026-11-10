@@ -6,11 +6,23 @@ h1{font-size:30px;line-height:1.4;margin:16px 0 28px}h2{font-size:22px;margin:12
 p{margin:0 0 18px}img{max-width:100%;height:auto;display:block;margin:8px auto;border-radius:8px}.img{margin:24px 0}hr{border:0;border-top:1px solid #ddd;margin:36px 0}
 pre{background:#141a30;color:#e6eaf4;padding:16px 18px;border-radius:8px;overflow-x:auto;font-size:14px;line-height:1.6}code{font-family:'DejaVu Sans Mono',Menlo,monospace}p code,li code,blockquote code{background:#eef2fb;padding:1px 5px;border-radius:4px;font-size:14.5px}
 blockquote{margin:20px 0;padding:14px 20px;background:#f3f6fd;border-left:4px solid #4f8cff;border-radius:6px}.tags{color:#4f8cff;margin-top:30px}</style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
 </head>
-<body data-reads-theme="lime-v3" data-reads-view="article">
+<body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><div class="meta"><span class="badge">IT</span><span>2026-10-30</span></div><h1>Spring @Transactional 내부 호출이 무시되는 이유</h1>
 <p class='img'><img src="./images/thumbnail.png" alt="Spring @Transactional 내부 호출이 무시되는 이유 썸네일"></p>
 <p>오늘은 Spring <code>@Transactional</code>이 프록시 위에서 동작하는 방식을 정리해 보려 합니다.<br>같은 클래스 안에서 <code>@Transactional</code> 메서드를 부르면 트랜잭션이 걸리지 않는 이유가 핵심입니다.<br>전파 속성(REQUIRED, REQUIRES_NEW)과 체크 예외가 기본으로 롤백되지 않는 규칙, 그리고 해결책과 함정까지 차례로 살펴보겠습니다.</p>
@@ -92,13 +104,6 @@ public void importB() throws IOException { ... }</code></pre>
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }

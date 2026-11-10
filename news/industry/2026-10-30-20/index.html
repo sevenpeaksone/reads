@@ -7,10 +7,22 @@ h1{font-size:30px;line-height:1.4;margin:16px 0 28px}h2{font-size:21px;margin:36
 p{font-size:16.5px;line-height:1.85;margin:0 0 14px}img{max-width:100%;height:auto;display:block;margin:18px 0}p.img{margin:0}
 hr{border:0;border-top:1px solid #ddd;margin:30px 0}blockquote{margin:18px 0;padding:14px 18px;background:#f7f7f9;border-left:4px solid #ccc;font-size:15.5px;line-height:1.8;color:#444}
 .tags{color:#0a6;font-size:15px;margin-top:24px}</style>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
-</head><body data-reads-theme="lime-v3" data-reads-view="article">
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
+</head><body data-reads-theme="lime-v4" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" type="button">◐ 테마</button></nav>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/news/industry/index.html">산업·IT/과학 뉴스</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
 <div class="wrap"><span class="badge">산업·IT 뉴스</span><span class="date">작성일 2026-10-30</span><h1>아마존 3분기 실적, AWS 39% 성장에도 주가 7% 급락한 이유</h1>
 <p class="img"><img src="./images/thumbnail.png" alt="아마존 3분기 실적 AWS 39% 성장에도 주가 7% 급락 대표 이미지"></p>
 <p>아마존이 10월 29일(미국 시간) 장 마감 후 2026년 3분기 실적을 내놓았습니다. 클라우드 사업 AWS는 약 5년 만에 가장 빠르게 성장했지만, 주가는 시간외 거래에서 6~7% 밀렸습니다. 이번 글에서는 숫자 자체보다 시장이 왜 그렇게 반응했는지를 정리해 보겠습니다.</p>
@@ -80,13 +92,6 @@ hr{border:0;border-top:1px solid #ddd;margin:30px 0}blockquote{margin:18px 0;pad
 <button id="to-top" aria-label="맨 위로">↑</button>
 <script id="site-chrome-js">
 (function(){
-  var root=document.documentElement, KEY='spk-theme';
-  try{ if(localStorage.getItem(KEY)==='dark') root.classList.add('dark'); }catch(e){}
-  var tb=document.getElementById('theme-toggle');
-  if(tb) tb.addEventListener('click',function(){
-    root.classList.toggle('dark');
-    try{ localStorage.setItem(KEY, root.classList.contains('dark')?'dark':'light'); }catch(e){}
-  });
   var rt=document.getElementById('read-time');
   if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
     rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
