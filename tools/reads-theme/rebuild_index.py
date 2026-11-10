@@ -7,7 +7,7 @@ BASE_URL = "/reads"
 # GoatCounter 방문자 수 코드. 가입 후 받은 코드(예: "sevenpeaks")만 넣으면 활성화된다.
 # 비워두면 방문자 수 기능은 표시되지 않는다.
 GOATCOUNTER_CODE = os.environ.get("GOATCOUNTER_CODE", "sevenpeaks")
-READS_THEME_VERSION = "lime-v2"
+READS_THEME_VERSION = "lime-v3"
 THEME_DIR = os.path.dirname(os.path.abspath(__file__))
 CAT_ORDER = [("IT", "it"), ("과학", "science"), ("경제", "economy"), ("바이오", "bio"),
              ("철학/인문", "philosophy"), ("상담", "counseling"), ("세계", "world"), ("종교", "religion")]
@@ -20,9 +20,8 @@ NEWS_ORDER = [("경제", "economy"), ("정치/사회", "politics"),
 HOME_PER_CAT = 5   # 홈에서 카테고리별로 보여줄 최신 글 수 (그리드 5열 = 한 줄)
 CAT_PER_PAGE = 12  # 카테고리 보관 페이지 1장당 글 수
 
-# 웹폰트(Pretendard) — OS 무관하게 일정한 한글 렌더링
-FONT_LINK = ('<link rel="stylesheet" '
-             'href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">')
+# Shared company-site typography is loaded by the canonical theme.
+FONT_LINK = ""  # The shared theme imports the same Geist/Noto Sans KR families as the company site.
 
 # The common stylesheet is the design source for listings and articles.
 THEME_URL = f"{BASE_URL}/assets/reads-theme.css?v={READS_THEME_VERSION}"
@@ -144,21 +143,40 @@ def pager(p, pages):
     return "\n".join(parts)
 
 
-def topnav_html():
+def topnav_html(active="home"):
     # 최상위 2대분류(블로그 / 뉴스) 중심으로 단순화. 개별 카테고리는 각 메인 안에서 탐색.
+    def current(key):
+        return ' aria-current="page"' if key == active else ''
     return (
         '  <nav class="topnav" aria-label="Reads 탐색">\n'
         f'    <a class="tn-brand" href="{BASE_URL}/index.html">'
         f'<img class="tn-logo" src="{BASE_URL}/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a>\n'
         '    <div class="tn-cats">\n'
-        f'      <a href="{BASE_URL}/index.html">홈</a>\n'
-        f'      <a href="{BASE_URL}/posts/index.html">블로그</a>\n'
-        f'      <a href="{BASE_URL}/news/index.html">뉴스</a>\n'
-        f'      <a href="{BASE_URL}/favorites.html">★ 즐겨찾기</a>\n'
+        f'      <a{current("home")} href="{BASE_URL}/index.html">홈</a>\n'
+        f'      <a{current("blog")} href="{BASE_URL}/posts/index.html">블로그</a>\n'
+        f'      <a{current("news")} href="{BASE_URL}/news/index.html">뉴스</a>\n'
+        f'      <a{current("saved")} href="{BASE_URL}/favorites.html">★ 즐겨찾기</a>\n'
         '      <a class="company-link" href="https://7peaks.io/ko/">7Peaks ↗</a>\n'
         '    </div>\n'
         '    <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">\n'
         '  </nav>\n')
+
+
+
+def brand_hero(eyebrow, title_html, description, section="home", action="읽을거리 보기"):
+    """The approved company-site hero, adapted to the reading service."""
+    return (f'  <section class="hero hero-split" data-section="{section}">\n'
+            '    <div class="hero-copy">\n'
+            f'      <p class="reads-eyebrow">{html.escape(eyebrow)}</p>\n'
+            f'      <h1>{title_html}</h1>\n'
+            f'      <p>{html.escape(description)}</p>\n'
+            f'      <a class="hero-cta" href="#reading">{html.escape(action)} <span aria-hidden="true">↗</span></a>\n'
+            '    </div>\n'
+            '    <figure class="hero-art">\n'
+            f'      <img src="{BASE_URL}/assets/7peaks-point-field.png" alt="" width="1347" height="1167" decoding="async">\n'
+            '      <figcaption>더 넓은 생각으로.</figcaption>\n'
+            '    </figure>\n'
+            '  </section>\n')
 
 
 SEARCH_WRAP = ('    <div id="search-wrap" hidden>\n'
@@ -393,6 +411,11 @@ _OLD_CHROME_PATTERNS = [
 def _strip_chrome(t):
     for pat in _OLD_CHROME_PATTERNS:
         t = re.sub(pat, "", t, flags=re.S)
+    # Repeated daily publishing must not accumulate whitespace around the
+    # injected design/chrome. Do not normalize the editorial body itself.
+    t = re.sub(r"\n[ \t\r\n]*(?=</head>)", "\n", t)
+    t = re.sub(r"(<body\b[^>]*>)[ \t\r\n]+", r"\1\n", t)
+    t = re.sub(r"\n[ \t\r\n]*(?=</body>)", "\n", t)
     return t
 
 
@@ -456,6 +479,10 @@ data = collect()
 os.makedirs(os.path.join(SITE, "assets"), exist_ok=True)
 shutil.copyfile(os.path.join(THEME_DIR, "assets", "7peaks-wordmark-light.svg"),
                 os.path.join(SITE, "assets", "7peaks-wordmark-light.svg"))
+shutil.copyfile(os.path.join(THEME_DIR, "assets", "7peaks-point-field.png"),
+                os.path.join(SITE, "assets", "7peaks-point-field.png"))
+shutil.copyfile(os.path.join(THEME_DIR, "assets", "7peaks-wordmark-dark.svg"),
+                os.path.join(SITE, "assets", "7peaks-wordmark-dark.svg"))
 shutil.copyfile(os.path.join(THEME_DIR, "reads_theme.css"),
                 os.path.join(SITE, "assets", "reads-theme.css"))
 _svg_path = os.path.join(SITE, "assets", "logo.svg")
@@ -498,13 +525,9 @@ def latest_cards(data, base_prefix, id_prefix, n):
 
 # ---------------------------------------------------------------- 블로그 메인(/posts/index.html)
 os.makedirs(os.path.join(SITE, "posts"), exist_ok=True)
-blog_body = (topnav_html() +
-             '  <div class="hero">\n'
-             '    <p class="reads-eyebrow">BLOG</p>\n'
-             '    <h1>블로그</h1>\n'
-             '    <p>익숙한 주제를 깊이, 새로운 관점을 넓게.</p>\n'
-             '  </div>\n'
-             '  <main>\n'
+blog_body = (topnav_html("blog") +
+             brand_hero("BLOG", "호기심을 넘어,<br>깊이 있는 생각으로.", "익숙한 주제를 깊이, 새로운 관점을 넓게.", "blog", "블로그 읽기") +
+             '  <main id="reading">\n'
              + SEARCH_WRAP +
              '    <div id="page-content">\n'
              '    <a class="back" href="../index.html">← 홈으로</a>\n'
@@ -523,13 +546,13 @@ for cat, cslug, items in data:
     total = len(items)
     cards = "\n".join(card(it, f"./{it['slot']}/index.html",
                            f"./{it['slot']}/images/thumbnail.png", cat, cslug) for it in items)
-    body = (topnav_html() +
+    body = (topnav_html("blog") +
             '  <div class="hero sub">\n'
             '    <h1><a href="../index.html">블로그</a></h1>\n'
             f'    <p><span class="cat-head" data-cat="{cslug}">{html.escape(cat)}</span> '
             f'전체 {total}편</p>\n'
             '  </div>\n'
-            '  <main>\n'
+            '  <main id="reading">\n'
             + SEARCH_WRAP +
             '    <div id="page-content">\n'
             '    <a class="back" href="../index.html">← 블로그 메인</a>\n'
@@ -671,13 +694,13 @@ FAV_JS = (FAV_JS.replace("__BASE__", BASE_URL)
           .replace("__NEWSCATS__", json.dumps([[cslug, cat] for cat, cslug in NEWS_ORDER], ensure_ascii=False))
           .replace("__BLOGCATS__", json.dumps([[cslug, cat] for cat, cslug in CAT_ORDER], ensure_ascii=False)))
 
-fav_body = (topnav_html() +
+fav_body = (topnav_html("saved") +
             '  <div class="hero sub">\n'
             '    <p class="reads-eyebrow">SAVED STORIES</p>\n'
             '    <h1>즐겨찾기</h1>\n'
             '    <p>다시 읽고 싶은 글을 모아둡니다.</p>\n'
             '  </div>\n'
-            '  <main>\n'
+            '  <main id="reading">\n'
             + SEARCH_WRAP +
             '    <div id="page-content">\n'
             '    <a class="back" href="./index.html">← 홈으로</a>\n'
@@ -721,13 +744,9 @@ if not news_sections:
     news_sections = ('    <p style="color:var(--muted);padding:24px 0">아직 등록된 뉴스 해설이 없습니다. '
                      '곧 매일 업데이트됩니다.</p>\n')
 
-news_home_body = (topnav_html() +
-                  '  <div class="hero">\n'
-                  '    <p class="reads-eyebrow">NEWS</p>\n'
-                  '    <h1>뉴스 해설</h1>\n'
-                  '    <p>오늘의 이슈를 맥락과 함께 읽습니다.</p>\n'
-                  '  </div>\n'
-                  '  <main>\n'
+news_home_body = (topnav_html("news") +
+                  brand_hero("NEWS", "오늘의 흐름을,<br>더 넓은 시선으로.", "오늘의 이슈를 맥락과 함께 읽습니다.", "news", "뉴스 읽기") +
+                  '  <main id="reading">\n'
                   + SEARCH_WRAP +
                   f'    <div id="page-content">\n'
                   '    <a class="back" href="../index.html">← 홈</a>\n'
@@ -746,13 +765,13 @@ for cat, cslug, items in news_data:
     total = len(items)
     rows = "\n".join(news_card(it, f"./{it['slot']}/index.html",
                                f"./{it['slot']}/images/thumbnail.png", cat, cslug) for it in items)
-    body = (topnav_html() +
+    body = (topnav_html("news") +
             '  <div class="hero sub">\n'
             '    <h1><a href="../index.html">뉴스</a></h1>\n'
             f'    <p><span class="cat-head" data-cat="{cslug}">{html.escape(cat)}</span> '
             f'전체 {total}편</p>\n'
             '  </div>\n'
-            '  <main>\n'
+            '  <main id="reading">\n'
             + SEARCH_WRAP +
             '    <div id="page-content">\n'
             '    <a class="back" href="../index.html">← 뉴스 메인</a>\n'
@@ -793,12 +812,8 @@ root_blog_block = (
        else '      <p style="color:var(--muted)">준비 중입니다.</p>\n')
     + '    </section>\n')
 root_body = (topnav_html() +
-             '  <div class="hero">\n'
-             '    <p class="reads-eyebrow">NEWS &amp; STORIES</p>\n'
-             '    <h1>오늘의 뉴스.<br>새로운 관점.</h1>\n'
-             '    <p>세상의 흐름과 깊이 있는 이야기를 전합니다.</p>\n'
-             '  </div>\n'
-             '  <main>\n'
+             brand_hero("NEWS & STORIES", "오늘을 읽고,<br>생각을 넓히다.", "뉴스와 깊이 있는 이야기, 한곳에서.") +
+             '  <main id="reading">\n'
              + SEARCH_WRAP +
              f'    <div id="page-content">\n{root_news_block}{root_blog_block}    </div>\n'
              '  </main>\n'

@@ -4,7 +4,9 @@ News, commentary, and blog articles published at [7Peaks Reads](https://sevenpea
 
 Korean: [README.ko.md](README.ko.md).
 
-The website and articles use the **lime-v2** design: ivory, charcoal, lime, orange, purple, and green. The main page, news, blog, category archives, favorites, and existing articles use the same common design.
+The website and articles use the **lime-v3** design: ivory, charcoal, lime, orange, purple, and green. The main page, news, blog, category archives, favorites, and existing articles use the same common design.
+
+Reads now follows the company website's Light identity: the same wordmark, Geist/Noto Sans KR typography, generous layout, lime underline navigation, charcoal controls, and approved point-field artwork. Reading screens adapt that system to articles rather than introducing a separate magazine theme.
 
 - Published design: [`assets/reads-theme.css`](assets/reads-theme.css).
 - Editable design source: [`tools/reads-theme/reads_theme.css`](tools/reads-theme/reads_theme.css).

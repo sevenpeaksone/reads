@@ -1,4 +1,4 @@
-# 7Peaks Reads design — lime-v2
+# 7Peaks Reads design — lime-v3
 
 English canonical guide. Korean translation: [README.ko.md](README.ko.md).
 
@@ -16,9 +16,15 @@ This is the approved design source for the existing [Reads site](https://sevenpe
 
 In Reads these files live in `tools/reads-theme/`. In the producer project the same resources live in `docs/`, with this guide named `docs/READS_DESIGN.md` and its Korean companion `docs/READS_DESIGN.ko.md`.
 
+## Company identity alignment
+
+Reads is the reading service in the 7Peaks brand family, not an independent magazine theme. It reuses the approved company wordmark and point-field artwork unchanged, Geist Variable/Noto Sans KR Variable, the 1,440px/56px desktop grid, lime underline navigation, large headlines, and charcoal 13px-radius controls. Open editorial cards replace boxed dashboard tiles; article pages keep a narrower reading measure. Lime is the primary brand accent, with orange for news and purple/green for editorial categories. Subtle artwork motion respects reduced-motion preferences.
+
+The two pinned Fontsource 5.3.0 font stylesheets load through jsDelivr. Layout remains local; offline previews fall back to system fonts when these font resources are unavailable. Source artwork is `assets/7peaks-point-field.png` in this directory and is copied to the same public filename. Do not recolor or recompress the source or article images.
+
 ## Source and generated HTML
 
-Published listing pages and every non-empty article reference the same repository-local `assets/reads-theme.css?v=lime-v2`. The generator copies that stylesheet from this source directory. Old listing/chrome styles are no longer embedded ahead of the new design. Original article-specific markup and styles remain intact for content compatibility; the common theme normalizes their presentation. Standalone article previews embed this exact same stylesheet. A theme change must update this source, regenerate the site, and update the producer copy so future articles retain the design.
+Published listing pages and every non-empty article reference the same repository-local `assets/reads-theme.css?v=lime-v3`. The generator copies that stylesheet from this source directory. Old listing/chrome styles are no longer embedded ahead of the new design. Original article-specific markup and styles remain intact for content compatibility; the common theme normalizes their presentation. Standalone article previews embed this exact same stylesheet. A theme change must update this source, regenerate the site, and update the producer copy so future articles retain the design.
 
 ## Future article assembly
 
@@ -34,7 +40,7 @@ python3 docs/render_reads_article.py \
 
 Use actual metadata, not the example values. Existing output is not overwritten by default; inspect and back it up before adding `--overwrite` when needed. The helper escapes metadata and embeds the exact stylesheet/wordmark, so local preview needs no remote stylesheet. Keep `final.md` for content review.
 
-The final document has one h1, `body[data-reads-view="article"]`, and `data-reads-theme="lime-v2"`. Leave no unresolved template tokens. Hashtags belong in a paragraph, not another h1. Keep image content/relative paths, meaningful alt text, and responsive sizing. Styling must not change research, editorial rules, image generation, or subjects. Do not add unimplemented AI/wiki features to company marketing; this does not prohibit news about AI.
+The final document has one h1, `body[data-reads-view="article"]`, and `data-reads-theme="lime-v3"`. Leave no unresolved template tokens. Hashtags belong in a paragraph, not another h1. Keep image content/relative paths, meaningful alt text, and responsive sizing. Styling must not change research, editorial rules, image generation, or subjects. Do not add unimplemented AI/wiki features to company marketing; this does not prohibit news about AI.
 
 ## Publishing contract
 

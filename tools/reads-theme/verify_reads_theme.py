@@ -83,7 +83,7 @@ def verify(baseline, staged):
         for marker in ('id="site-nav"', 'id="site-chrome-css"', 'id="site-chrome-js"', 'data-reads-view="article"'):
             if new.count(marker) != 1:
                 errors.append(f"Invalid marker count ({marker}): {relative}")
-        if '<link id="site-chrome-css"' not in new or '/reads/assets/reads-theme.css?v=lime-v2' not in new:
+        if '<link id="site-chrome-css"' not in new or '/reads/assets/reads-theme.css?v=lime-v3' not in new:
             errors.append(f"Missing canonical design link: {relative}")
         if '<style id="site-chrome-css"' in new:
             errors.append(f"Legacy embedded chrome stylesheet: {relative}")

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko" data-reads-theme="lime-v2">
+<html lang="ko" data-reads-theme="lime-v3">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>즐겨찾기 - SevenPeaks Reads</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
-<link id="reads-theme" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v2">
+
+<link id="reads-theme" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
 </head>
 <body>
   <nav class="topnav" aria-label="Reads 탐색">
@@ -14,7 +14,7 @@
       <a href="/reads/index.html">홈</a>
       <a href="/reads/posts/index.html">블로그</a>
       <a href="/reads/news/index.html">뉴스</a>
-      <a href="/reads/favorites.html">★ 즐겨찾기</a>
+      <a aria-current="page" href="/reads/favorites.html">★ 즐겨찾기</a>
       <a class="company-link" href="https://7peaks.io/ko/">7Peaks ↗</a>
     </div>
     <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
@@ -24,7 +24,7 @@
     <h1>즐겨찾기</h1>
     <p>다시 읽고 싶은 글을 모아둡니다.</p>
   </div>
-  <main>
+  <main id="reading">
     <div id="search-wrap" hidden>
       <p id="search-meta"></p>
       <div id="search-results" class="grid"></div>

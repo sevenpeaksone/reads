@@ -1,30 +1,37 @@
 <!DOCTYPE html>
-<html lang="ko" data-reads-theme="lime-v2">
+<html lang="ko" data-reads-theme="lime-v3">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>블로그 - SevenPeaks Reads</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
-<link id="reads-theme" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v2">
+
+<link id="reads-theme" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
 </head>
 <body>
   <nav class="topnav" aria-label="Reads 탐색">
     <a class="tn-brand" href="/reads/index.html"><img class="tn-logo" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a>
     <div class="tn-cats">
       <a href="/reads/index.html">홈</a>
-      <a href="/reads/posts/index.html">블로그</a>
+      <a aria-current="page" href="/reads/posts/index.html">블로그</a>
       <a href="/reads/news/index.html">뉴스</a>
       <a href="/reads/favorites.html">★ 즐겨찾기</a>
       <a class="company-link" href="https://7peaks.io/ko/">7Peaks ↗</a>
     </div>
     <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
   </nav>
-  <div class="hero">
-    <p class="reads-eyebrow">BLOG</p>
-    <h1>블로그</h1>
-    <p>익숙한 주제를 깊이, 새로운 관점을 넓게.</p>
-  </div>
-  <main>
+  <section class="hero hero-split" data-section="blog">
+    <div class="hero-copy">
+      <p class="reads-eyebrow">BLOG</p>
+      <h1>호기심을 넘어,<br>깊이 있는 생각으로.</h1>
+      <p>익숙한 주제를 깊이, 새로운 관점을 넓게.</p>
+      <a class="hero-cta" href="#reading">블로그 읽기 <span aria-hidden="true">↗</span></a>
+    </div>
+    <figure class="hero-art">
+      <img src="/reads/assets/7peaks-point-field.png" alt="" width="1347" height="1167" decoding="async">
+      <figcaption>더 넓은 생각으로.</figcaption>
+    </figure>
+  </section>
+  <main id="reading">
     <div id="search-wrap" hidden>
       <p id="search-meta"></p>
       <div id="search-results" class="grid"></div>

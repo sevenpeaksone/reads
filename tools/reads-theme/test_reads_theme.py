@@ -17,7 +17,7 @@ class ReadsThemeTests(unittest.TestCase):
         self.assertIn('Title &lt;one&gt; &amp; two', result)
         self.assertIn('IT &amp; science', result)
         self.assertIn(body, result)
-        self.assertIn('data-reads-theme="lime-v2"', result)
+        self.assertIn('data-reads-theme="lime-v3"', result)
         self.assertIn('class="reads-wordmark"', result)
         self.assertEqual(result.count('<h1>'), 1)
 
@@ -50,6 +50,7 @@ class ReadsThemeTests(unittest.TestCase):
                 target.parent.mkdir(parents=True)
                 target.write_text(render_article(title, category, '2026-11-10', body), encoding='utf-8')
             env = dict(os.environ, SITE=str(site), GOATCOUNTER_CODE='')
+            previous = {}
             for _ in range(2):
                 subprocess.run([sys.executable, '-B', str(THEME_DIR / 'rebuild_index.py')],
                                env=env, check=True, capture_output=True, text=True)
@@ -60,18 +61,32 @@ class ReadsThemeTests(unittest.TestCase):
                     self.assertEqual(result.count('id="site-chrome-css"'), 1)
                     self.assertEqual(result.count('id="site-chrome-js"'), 1)
                     self.assertNotIn('id="reads-article-theme"', result)
-                    self.assertIn('data-reads-theme="lime-v2"', result)
-                    self.assertIn('href="/reads/assets/reads-theme.css?v=lime-v2"', result)
+                    self.assertIn('data-reads-theme="lime-v3"', result)
+                    self.assertIn('href="/reads/assets/reads-theme.css?v=lime-v3"', result)
                     self.assertNotIn('<style id="site-chrome-css"', result)
+                    if path in previous:
+                        self.assertEqual(previous[path], result)
+                    previous[path] = result
             for relative in ('index.html', 'posts/index.html', 'news/index.html', 'favorites.html'):
                 result = (site / relative).read_text(encoding='utf-8')
                 self.assertIn('id="reads-theme"', result)
-                self.assertIn('href="/reads/assets/reads-theme.css?v=lime-v2"', result)
+                self.assertIn('href="/reads/assets/reads-theme.css?v=lime-v3"', result)
                 self.assertNotIn('--bg:#0f1117', result)
             self.assertEqual(len(json.loads((site / 'search.json').read_text())), 2)
             self.assertEqual((site / 'assets/reads-theme.css').read_bytes(),
                              (THEME_DIR / 'reads_theme.css').read_bytes())
             self.assertTrue((site / 'assets/7peaks-wordmark-light.svg').is_file())
+            self.assertEqual((site / 'assets/7peaks-point-field.png').read_bytes(),
+                             (THEME_DIR / 'assets/7peaks-point-field.png').read_bytes())
+            home = (site / 'index.html').read_text(encoding='utf-8')
+            self.assertIn('hero hero-split', home)
+            self.assertIn('오늘을 읽고,<br>생각을 넓히다.', home)
+            self.assertIn('href="#reading"', home)
+            self.assertIn('<main id="reading">', home)
+            css = (THEME_DIR / 'reads_theme.css').read_text(encoding='utf-8')
+            self.assertIn('Geist Variable', css)
+            self.assertIn('Noto Sans KR Variable', css)
+            self.assertIn('prefers-reduced-motion', css)
 
 
     def test_legacy_article_is_upgraded_without_changing_content(self):

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko" data-reads-theme="lime-v2">
+<html lang="ko" data-reads-theme="lime-v3">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>뉴스 - SevenPeaks Reads</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">
-<link id="reads-theme" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v2">
+
+<link id="reads-theme" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v3">
 </head>
 <body>
   <nav class="topnav" aria-label="Reads 탐색">
@@ -13,18 +13,25 @@
     <div class="tn-cats">
       <a href="/reads/index.html">홈</a>
       <a href="/reads/posts/index.html">블로그</a>
-      <a href="/reads/news/index.html">뉴스</a>
+      <a aria-current="page" href="/reads/news/index.html">뉴스</a>
       <a href="/reads/favorites.html">★ 즐겨찾기</a>
       <a class="company-link" href="https://7peaks.io/ko/">7Peaks ↗</a>
     </div>
     <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
   </nav>
-  <div class="hero">
-    <p class="reads-eyebrow">NEWS</p>
-    <h1>뉴스 해설</h1>
-    <p>오늘의 이슈를 맥락과 함께 읽습니다.</p>
-  </div>
-  <main>
+  <section class="hero hero-split" data-section="news">
+    <div class="hero-copy">
+      <p class="reads-eyebrow">NEWS</p>
+      <h1>오늘의 흐름을,<br>더 넓은 시선으로.</h1>
+      <p>오늘의 이슈를 맥락과 함께 읽습니다.</p>
+      <a class="hero-cta" href="#reading">뉴스 읽기 <span aria-hidden="true">↗</span></a>
+    </div>
+    <figure class="hero-art">
+      <img src="/reads/assets/7peaks-point-field.png" alt="" width="1347" height="1167" decoding="async">
+      <figcaption>더 넓은 생각으로.</figcaption>
+    </figure>
+  </section>
+  <main id="reading">
     <div id="search-wrap" hidden>
       <p id="search-meta"></p>
       <div id="search-results" class="grid"></div>
