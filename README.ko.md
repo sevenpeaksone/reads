@@ -4,6 +4,12 @@
 
 영문 원본: [README.md](README.md).
 
-확정된 사이트·기사 디자인은 **lime-v1**입니다. 공통 스타일·로고·단독 기사 템플릿·조립 도구·공통 생성기·검사는 [`tools/reads-theme/`](tools/reads-theme/README.ko.md)에 버전 관리합니다. 기사 HTML을 만들거나 수정하기 전에 이 가이드를 읽고, 예전 기사별 디자인을 다시 만들지 않습니다.
+사이트와 기사는 아이보리·차콜·라임·주황·보라·녹색의 **lime-v2** 디자인을 사용합니다. 메인, 뉴스, 블로그, 분류별 보관함, 즐겨찾기, 기존 기사에 같은 공통 디자인을 적용합니다.
+
+- 공개용 디자인: [`assets/reads-theme.css`](assets/reads-theme.css).
+- 수정할 디자인 원본: [`tools/reads-theme/reads_theme.css`](tools/reads-theme/reads_theme.css).
+- 생성기·단독 기사 템플릿·검사: [디자인 가이드](tools/reads-theme/README.ko.md).
+
+예전 CSS 위에 스타일을 계속 덧붙이지 말고 원본을 수정한 뒤 HTML을 재생성합니다. 앞으로 생성할 기사에도 디자인이 유지되도록 제작 프로젝트의 템플릿·스타일 사본도 일치시킵니다. 기사 HTML을 만들거나 수정하기 전에 디자인 가이드를 읽습니다.
 
 기존 기사 경로, 이미지, 분류, 보관함, 검색 ID, 즐겨찾기, 발행 방식을 유지합니다. GitHub Pages를 계속 사용하며 기사 파일을 Cloudflare로 이전하지 않습니다.

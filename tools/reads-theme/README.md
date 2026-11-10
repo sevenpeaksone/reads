@@ -1,4 +1,4 @@
-# 7Peaks Reads design — lime-v1
+# 7Peaks Reads design — lime-v2
 
 English canonical guide. Korean translation: [README.ko.md](README.ko.md).
 
@@ -6,7 +6,7 @@ This is the approved design source for the existing [Reads site](https://sevenpe
 
 ## Design source
 
-- `reads_theme.css`: ivory `#F6F8ED`, charcoal `#17201B`, lime `#D5F43B`, orange `#F28B3C`, purple `#9270D8`, green `#2BA978`.
+- `reads_theme.css`: the complete canonical layout and design, not an override of a separate dark stylesheet. Ivory `#F6F8ED`, charcoal `#17201B`, lime `#D5F43B`, orange `#F28B3C`, purple `#9270D8`, green `#2BA978`.
 - `assets/7peaks-wordmark-light.svg`: approved wordmark. Do not redraw it or prepend another 7.
 - `reads_article_template.html`: standalone article structure.
 - `render_reads_article.py`: deterministic assembly with the template, stylesheet, and inline wordmark.
@@ -15,6 +15,10 @@ This is the approved design source for the existing [Reads site](https://sevenpe
 - `verify_reads_theme.py`: read-only comparison of original/restyled article bodies, image references, links, and search records.
 
 In Reads these files live in `tools/reads-theme/`. In the producer project the same resources live in `docs/`, with this guide named `docs/READS_DESIGN.md` and its Korean companion `docs/READS_DESIGN.ko.md`.
+
+## Source and generated HTML
+
+Published listing pages and every non-empty article reference the same repository-local `assets/reads-theme.css?v=lime-v2`. The generator copies that stylesheet from this source directory. Old listing/chrome styles are no longer embedded ahead of the new design. Original article-specific markup and styles remain intact for content compatibility; the common theme normalizes their presentation. Standalone article previews embed this exact same stylesheet. A theme change must update this source, regenerate the site, and update the producer copy so future articles retain the design.
 
 ## Future article assembly
 
@@ -30,7 +34,7 @@ python3 docs/render_reads_article.py \
 
 Use actual metadata, not the example values. Existing output is not overwritten by default; inspect and back it up before adding `--overwrite` when needed. The helper escapes metadata and embeds the exact stylesheet/wordmark, so local preview needs no remote stylesheet. Keep `final.md` for content review.
 
-The final document has one h1, `body[data-reads-view="article"]`, and `data-reads-theme="lime-v1"`. Leave no unresolved template tokens. Hashtags belong in a paragraph, not another h1. Keep image content/relative paths, meaningful alt text, and responsive sizing. Styling must not change research, editorial rules, image generation, or subjects. Do not add unimplemented AI/wiki features to company marketing; this does not prohibit news about AI.
+The final document has one h1, `body[data-reads-view="article"]`, and `data-reads-theme="lime-v2"`. Leave no unresolved template tokens. Hashtags belong in a paragraph, not another h1. Keep image content/relative paths, meaningful alt text, and responsive sizing. Styling must not change research, editorial rules, image generation, or subjects. Do not add unimplemented AI/wiki features to company marketing; this does not prohibit news about AI.
 
 ## Publishing contract
 

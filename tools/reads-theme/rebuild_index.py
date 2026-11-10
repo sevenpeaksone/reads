@@ -7,10 +7,8 @@ BASE_URL = "/reads"
 # GoatCounter 방문자 수 코드. 가입 후 받은 코드(예: "sevenpeaks")만 넣으면 활성화된다.
 # 비워두면 방문자 수 기능은 표시되지 않는다.
 GOATCOUNTER_CODE = os.environ.get("GOATCOUNTER_CODE", "sevenpeaks")
-READS_THEME_VERSION = "lime-v1"
+READS_THEME_VERSION = "lime-v2"
 THEME_DIR = os.path.dirname(os.path.abspath(__file__))
-with open(os.path.join(THEME_DIR, "reads_theme.css"), encoding="utf-8") as theme_file:
-    READS_THEME_CSS = theme_file.read()
 CAT_ORDER = [("IT", "it"), ("과학", "science"), ("경제", "economy"), ("바이오", "bio"),
              ("철학/인문", "philosophy"), ("상담", "counseling"), ("세계", "world"), ("종교", "religion")]
 CAT_NAME = {slug: name for name, slug in CAT_ORDER}
@@ -22,203 +20,12 @@ NEWS_ORDER = [("경제", "economy"), ("정치/사회", "politics"),
 HOME_PER_CAT = 5   # 홈에서 카테고리별로 보여줄 최신 글 수 (그리드 5열 = 한 줄)
 CAT_PER_PAGE = 12  # 카테고리 보관 페이지 1장당 글 수
 
-# 7Peaks 로고 (SVG 벡터 재현 — 다크 테마 네온 시안). /assets/logo.png 로 저장.
-LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 104" fill="none" role="img" aria-label="7Peaks">
-  <defs>
-    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="1.7" result="b"/>
-      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
-  <g filter="url(#glow)" stroke="#5fe3f2" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none">
-    <path d="M60 9 L110 95 L10 95 Z"/>
-    <path d="M60 33 L90 85 L30 85 Z"/>
-    <path d="M46 50 H74 L57 85"/>
-  </g>
-  <g fill="#9af0fb">
-    <circle cx="60" cy="9" r="4"/><circle cx="110" cy="95" r="4"/><circle cx="10" cy="95" r="4"/>
-    <circle cx="35" cy="52" r="4"/><circle cx="85" cy="52" r="4"/><circle cx="60" cy="95" r="4"/>
-  </g>
-</svg>"""
-
 # 웹폰트(Pretendard) — OS 무관하게 일정한 한글 렌더링
 FONT_LINK = ('<link rel="stylesheet" '
              'href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css">')
 
-# ---------------------------------------------------------------- 목록 스타일
-CSS = """
-  :root { --bg:#0f1117; --card:#1a1d27; --line:#2a2e3a; --text:#e8eaf0; --muted:#9aa0ad;
-    --it:#4f8cff; --philosophy:#b07cff; --economy:#2bb673; --bio:#ff7c7c; --counseling:#f0a532;
-    --science:#20c4cf; --world:#c2883f; --religion:#6f86d6;
-    --politics:#e0667a; --industry:#3fb6a8; }
-  * { box-sizing:border-box; }
-  body { margin:0; font-family:'Pretendard','Pretendard Variable','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
-    background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; }
-  a { color:inherit; }
-  .hero { text-align:center; padding:64px 20px 44px; border-bottom:1px solid var(--line);
-    background:linear-gradient(160deg,#161a2b,#0f1117); }
-  .hero.sub { padding:46px 20px 32px; }
-  .hero h1 { margin:0; font-size:34px; font-weight:800; letter-spacing:-.6px; }
-  .hero.sub h1 { font-size:24px; }
-  .hero h1 a { text-decoration:none; }
-  .hero p { margin:12px 0 0; color:var(--muted); font-size:15px; }
-  main { max-width:1200px; margin:0 auto; padding:36px 20px 80px; }
-  .cat-section { margin-bottom:46px; }
-  .cat-bar { display:flex; align-items:center; justify-content:space-between; margin:0 0 18px; }
-  .cat-head { font-size:15px; font-weight:700; display:inline-block; padding:5px 14px;
-    border-radius:20px; color:#fff; background:#3a4050; }
-  .cat-head[data-cat=news]{background:#e0667a;}
-  .cat-head[data-cat=blog]{background:#4f8cff;}
-  .cat-head[data-cat=it]{background:var(--it);}
-  .cat-head[data-cat=philosophy]{background:var(--philosophy);}
-  .cat-head[data-cat=economy]{background:var(--economy);}
-  .cat-head[data-cat=bio]{background:var(--bio);}
-  .cat-head[data-cat=counseling]{background:var(--counseling);}
-  .cat-head[data-cat=science]{background:var(--science);}
-  .cat-head[data-cat=world]{background:var(--world);}
-  .cat-head[data-cat=religion]{background:var(--religion);}
-  .cat-head[data-cat=politics]{background:var(--politics);}
-  .cat-head[data-cat=industry]{background:var(--industry);}
-  .more-link { font-size:13px; color:var(--muted); text-decoration:none; white-space:nowrap; }
-  .more-link:hover { color:var(--text); }
-  .back { display:inline-block; margin-bottom:22px; color:var(--muted); text-decoration:none; font-size:14px; }
-  .back:hover { color:var(--text); }
-
-  /* 카드 그리드 (홈: 한 줄 5개 / 자동 반응형) */
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:18px; }
-  .card { display:flex; flex-direction:column; background:var(--card); border:1px solid var(--line);
-    border-radius:14px; overflow:hidden; text-decoration:none; color:var(--text);
-    transition:transform .14s ease, border-color .14s, box-shadow .14s; }
-  .card:hover { transform:translateY(-4px); border-color:#3a4050; box-shadow:0 12px 30px rgba(0,0,0,.38); }
-  .thumb { width:100%; aspect-ratio:16/10; object-fit:cover; display:block; background:#11141d; }
-  .thumb.ph { display:flex; align-items:center; justify-content:center; }
-  .thumb.ph span { font-weight:800; color:#fff; font-size:20px; letter-spacing:-.3px; opacity:.92; }
-  .thumb.ph[data-cat=it]{background:linear-gradient(135deg,#1b2140,var(--it));}
-  .thumb.ph[data-cat=philosophy]{background:linear-gradient(135deg,#241b40,var(--philosophy));}
-  .thumb.ph[data-cat=economy]{background:linear-gradient(135deg,#10301f,var(--economy));}
-  .thumb.ph[data-cat=bio]{background:linear-gradient(135deg,#3a1b1b,var(--bio));}
-  .thumb.ph[data-cat=counseling]{background:linear-gradient(135deg,#3a2c12,var(--counseling));}
-  .thumb.ph[data-cat=science]{background:linear-gradient(135deg,#10302f,var(--science));}
-  .thumb.ph[data-cat=world]{background:linear-gradient(135deg,#2e2410,var(--world));}
-  .thumb.ph[data-cat=religion]{background:linear-gradient(135deg,#191f3a,var(--religion));}
-  .thumb.ph[data-cat=politics]{background:linear-gradient(135deg,#3a1820,var(--politics));}
-  .thumb.ph[data-cat=industry]{background:linear-gradient(135deg,#10302c,var(--industry));}
-  .card-body { padding:13px 15px 15px; display:flex; flex-direction:column; gap:8px; flex:1; }
-  .badge { align-self:flex-start; font-size:11px; font-weight:700; color:#fff; padding:3px 10px; border-radius:20px; }
-  .badge[data-cat=it]{background:var(--it);}
-  .badge[data-cat=philosophy]{background:var(--philosophy);}
-  .badge[data-cat=economy]{background:var(--economy);}
-  .badge[data-cat=bio]{background:var(--bio);}
-  .badge[data-cat=counseling]{background:var(--counseling);}
-  .badge[data-cat=science]{background:var(--science);}
-  .badge[data-cat=world]{background:var(--world);}
-  .badge[data-cat=religion]{background:var(--religion);}
-  .badge[data-cat=politics]{background:var(--politics);}
-  .badge[data-cat=industry]{background:var(--industry);}
-  .card-title { margin:0; font-size:15px; font-weight:600; line-height:1.45;
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-  .card-date { margin-top:auto; font-size:12px; color:var(--muted); }
-
-  .pager { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:40px; }
-  .pager a, .pager span { min-width:38px; text-align:center; padding:8px 12px; border-radius:9px;
-    border:1px solid var(--line); font-size:14px; text-decoration:none; color:var(--text); background:var(--card); }
-  .pager a:hover { border-color:#3a4050; }
-  .pager .cur { background:#3a4050; border-color:#3a4050; font-weight:700; }
-  .pager .dots { border:none; background:none; color:var(--muted); min-width:auto; padding:8px 4px; }
-
-  /* 상단 카테고리 탭 + 검색 */
-  .topnav { position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:14px; flex-wrap:wrap;
-    padding:10px 20px; background:rgba(15,17,23,.92); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line); }
-  .topnav .tn-brand { display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:16px;
-    text-decoration:none; letter-spacing:-.3px; }
-  .topnav .tn-logo { height:28px; width:auto; display:block; }
-  .hero-logo { height:76px; width:auto; display:block; margin:0 auto 16px;
-    filter:drop-shadow(0 0 12px rgba(95,227,242,.4)); }
-  .topnav .tn-cats { display:flex; gap:4px; flex-wrap:wrap; }
-  .topnav .tn-cats a { font-size:14px; text-decoration:none; color:var(--muted); padding:5px 10px; border-radius:8px; }
-  .topnav .tn-cats a:hover { color:var(--text); background:var(--card); }
-  .topnav #site-search { margin-left:auto; background:var(--card); border:1px solid var(--line); border-radius:9px;
-    color:var(--text); padding:8px 12px; font-size:14px; min-width:150px; outline:none;
-    font-family:inherit; }
-  .topnav #site-search:focus { border-color:#3a4050; }
-  #search-meta { color:var(--muted); font-size:14px; margin:0 0 18px; }
-
-  footer { text-align:center; color:var(--muted); font-size:13px; padding:24px; border-top:1px solid var(--line); }
-  .visit { margin-bottom:6px; font-size:12px; color:var(--muted); }
-  .visit b { color:var(--text); font-weight:700; }
-
-  /* 즐겨찾기 별 버튼 (카드 위) */
-  .card { position:relative; }
-  .fav { position:absolute; top:9px; right:9px; z-index:3; width:30px; height:30px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px; line-height:1;
-    color:#ffd24a; background:rgba(15,17,23,.62); border:1px solid rgba(255,255,255,.14);
-    -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); transition:transform .12s, background .12s; }
-  .fav:hover { transform:scale(1.12); background:rgba(15,17,23,.85); }
-  .fav.on { background:#ffd24a; color:#1a1d27; border-color:#ffd24a; }
-
-  /* 보기 설정 + 페이지당 카드수 컨트롤 바 */
-  .prefs { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin:0 0 22px; }
-  .prefs .seg { display:inline-flex; border:1px solid var(--line); border-radius:9px; overflow:hidden; }
-  .prefs .seg button { background:var(--card); color:var(--muted); border:none; padding:7px 15px;
-    font-size:13px; cursor:pointer; font-family:inherit; }
-  .prefs .seg button.on { background:#3a4050; color:#fff; font-weight:700; }
-  .prefs label { display:inline-flex; align-items:center; gap:7px; color:var(--muted); font-size:13px; }
-  .prefs select { background:var(--card); border:1px solid var(--line); color:var(--text);
-    border-radius:8px; padding:6px 10px; font-size:13px; font-family:inherit; outline:none; }
-  .prefs .grow { margin-left:auto; }
-  .prefs .fav-link { color:var(--muted); text-decoration:none; font-size:13px; }
-  .prefs .fav-link:hover { color:#ffd24a; }
-
-  /* 목록형 보기 */
-  .grid.view-list { display:block; }
-  .grid.view-list .card { flex-direction:row; margin-bottom:12px; align-items:stretch; }
-  .grid.view-list .thumb { width:170px; flex:0 0 170px; height:auto; aspect-ratio:16/10; }
-  .grid.view-list .thumb.ph { aspect-ratio:16/10; }
-  .grid.view-list .card-body { flex:1; }
-  .grid.view-list .card-title { -webkit-line-clamp:3; }
-  @media(max-width:560px){ .grid.view-list .thumb{ width:110px; flex-basis:110px; } }
-
-  #fav-empty { color:var(--muted); font-size:15px; padding:30px 0; }
-  .fav-tools { display:flex; align-items:center; gap:10px; margin:0 0 18px; flex-wrap:wrap; }
-  .fav-tools button { background:var(--card); color:var(--text); border:1px solid var(--line);
-    border-radius:9px; padding:8px 14px; font-size:13px; cursor:pointer; font-family:inherit; }
-  .fav-tools button:hover { border-color:#3a4050; }
-  .fav-tools #fav-msg { color:var(--muted); font-size:13px; }
-
-  /* ── 뉴스 전용: 헤드라인 리스트 (블로그 카드와 다른, 신문 느낌) */
-  .news-list { display:flex; flex-direction:column; border-top:2px solid #e0667a; }
-  .news-item { position:relative; display:flex; gap:16px; align-items:center;
-    padding:15px 8px 15px 4px; border-bottom:1px solid var(--line);
-    text-decoration:none; color:var(--text); transition:background .12s; }
-  .news-item:hover { background:var(--card); }
-  .news-thumb { width:108px; height:72px; flex:0 0 108px; border-radius:8px;
-    object-fit:cover; background:#11141d; }
-  .news-thumb.ph { display:flex; align-items:center; justify-content:center;
-    color:#fff; font-weight:800; font-size:13px; text-align:center; padding:4px; }
-  .news-thumb.ph[data-cat=economy]{background:linear-gradient(135deg,#10301f,var(--economy));}
-  .news-thumb.ph[data-cat=politics]{background:linear-gradient(135deg,#3a1820,var(--politics));}
-  .news-thumb.ph[data-cat=world]{background:linear-gradient(135deg,#2e2410,var(--world));}
-  .news-thumb.ph[data-cat=industry]{background:linear-gradient(135deg,#10302c,var(--industry));}
-  .news-body { flex:1; min-width:0; display:flex; flex-direction:column; gap:7px; }
-  .news-meta { display:flex; align-items:center; gap:10px; font-size:12px; }
-  .news-cat { color:#fff; padding:2px 9px; border-radius:4px; font-weight:700; font-size:11px;
-    letter-spacing:.2px; background:#3a4050; }
-  .news-cat[data-cat=economy]{background:var(--economy);}
-  .news-cat[data-cat=politics]{background:var(--politics);}
-  .news-cat[data-cat=world]{background:var(--world);}
-  .news-cat[data-cat=industry]{background:var(--industry);}
-  .news-time { color:var(--muted); }
-  .news-time::before { content:"● "; color:#e0667a; font-size:9px; vertical-align:middle; }
-  .news-title { font-size:16.5px; font-weight:700; line-height:1.42; letter-spacing:-.2px;
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-  .news-item:hover .news-title { color:#fff; }
-  .news-item .fav { top:12px; right:6px; }
-  @media(max-width:560px){ .news-thumb{ width:82px; flex-basis:82px; height:58px; } .news-title{ font-size:15px; } }
-"""
-
-
-CSS += "\n" + READS_THEME_CSS
+# The common stylesheet is the design source for listings and articles.
+THEME_URL = f"{BASE_URL}/assets/reads-theme.css?v={READS_THEME_VERSION}"
 
 
 def get_title(p):
@@ -311,7 +118,7 @@ def page(title, body):
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
             f'<title>{html.escape(title)}</title>\n'
             f'{FONT_LINK}\n'
-            f'<style>{CSS}</style>\n</head>\n<body>\n{body}\n'
+            f'<link id="reads-theme" rel="stylesheet" href="{THEME_URL}">\n</head>\n<body>\n{body}\n'
             f'<footer>{visit}© 2026 7Peaks Reads · <a href="https://7peaks.io/ko/">7Peaks 홈페이지 ↗</a></footer>\n'
             f'{PREFS_JS}\n{VISIT_JS}\n{goatcounter_script()}\n</body>\n</html>')
 
@@ -543,47 +350,8 @@ def clean_category_pages(cslug, base_dir="posts"):
 
 
 # ---------------------------------------------------------------- 글 페이지 편의기능 주입
-POST_CHROME_CSS = """<style id="site-chrome-css">
-  #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:#2f57d6;transition:width .08s linear;}
-  #site-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
-    padding:11px 20px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);
-    backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb;
-    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
-  #site-nav a{color:#2b2b2b;text-decoration:none;font-size:14px;font-weight:600;}
-  #site-nav a:hover{color:#2f57d6;}
-  #site-nav .nav-spacer{margin-left:auto;}
-  #site-nav .nav-list{color:#555;font-weight:500;}
-  #site-nav .read-time{color:#8a8f98;font-size:13px;font-weight:500;}
-  #theme-toggle{border:1px solid #e5e7eb;background:#fff;color:#2b2b2b;border-radius:8px;
-    padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;}
-  #theme-toggle:hover{border-color:#c7ccd6;}
-  #to-top{position:fixed;right:22px;bottom:22px;z-index:100;width:46px;height:46px;border-radius:50%;
-    border:1px solid #e5e7eb;background:#fff;color:#2f57d6;font-size:20px;line-height:1;cursor:pointer;
-    box-shadow:0 4px 14px rgba(0,0,0,.14);display:none;}
-  #to-top.show{display:flex;align-items:center;justify-content:center;}
-  /* 다크 모드(본문): 글마다 클래스명이 달라도 동작하도록 컨테이너를 투명화해 어두운 body가 비치게 하고,
-     글자는 밝게 강제. 내 사이트 chrome(네비/버튼)은 id 선택자로 다시 복구한다. */
-  html.dark{background:#0f1117;}
-  html.dark body{background:#0f1117 !important;color:#d7dae2 !important;}
-  html.dark body :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th){
-    background-color:transparent !important; background-image:none !important; border-color:#2a2e3a !important; }
-  html.dark body :where(p,li,td,th,figcaption,blockquote,span,em){color:#ccd2dd !important;}
-  html.dark body :where(h1,h2,h3,h4,h5,strong,b){color:#f4f6fa !important;}
-  html.dark body :where(h2)::before{opacity:.9;}
-  html.dark body a{color:#7aa2ff !important;}
-  html.dark hr{border-color:#2a2e3a !important;}
-  /* 사이트 chrome 복구 (id 우선순위로 위 일반 규칙을 덮는다) */
-  html.dark #site-nav{background:rgba(18,21,29,.97) !important;border-bottom-color:#2a2e3a !important;}
-  html.dark #site-nav a{color:#e8eaf0 !important;}
-  html.dark #site-nav .nav-list,html.dark #site-nav .read-time{color:#aeb4c0 !important;}
-  html.dark #theme-toggle{background:#1a1d27 !important;color:#e8eaf0 !important;border-color:#2a2e3a !important;}
-  html.dark #to-top{background:#1a1d27 !important;color:#7aa2ff !important;border-color:#2a2e3a !important;}
-  html.dark #read-progress{background:#7aa2ff !important;}
-</style>"""
-
-# The same local theme is embedded into each HTML file, so article publishing
-# does not depend on an extra stylesheet request or a new hosting service.
-POST_CHROME_CSS = POST_CHROME_CSS.replace("</style>", "\n" + READS_THEME_CSS + "\n</style>")
+POST_CHROME_CSS = (f'<link id="site-chrome-css" rel="stylesheet" '
+                   f'href="{THEME_URL}">')
 
 POST_CHROME_JS = """<script id="site-chrome-js">
 (function(){
@@ -611,6 +379,7 @@ _OLD_CHROME_PATTERNS = [
     r'<style id="reads-article-theme"[^>]*>.*?</style>',
     r'<style id="site-nav-css">.*?</style>',
     r'<style id="site-chrome-css">.*?</style>',
+    r'<link\b[^>]*\bid="site-chrome-css"[^>]*>',
     r'<nav id="site-nav"[^>]*>.*?</nav>',
     r'<div id="read-progress"></div>',
     r'<button id="to-top"[^>]*>.*?</button>',
@@ -667,6 +436,9 @@ def ensure_post_chrome(cat_order=CAT_ORDER, base_dir="posts", list_suffix="목�
             t = re.sub(r"(<body\b)([^>]*>)",
                        lambda m: m.group(0) if 'data-reads-theme=' in m.group(2)
                        else m.group(1) + f' data-reads-theme="{READS_THEME_VERSION}"' + m.group(2), t, count=1)
+            # Upgrade existing version markers as well as newly received articles.
+            t = re.sub(r"""data-reads-theme=["'][^"']*["']""",
+                       f'data-reads-theme="{READS_THEME_VERSION}"', t)
             if "</head>" in t:
                 t = t.replace("</head>", POST_CHROME_CSS + "\n</head>", 1)
             t = re.sub(r"(<body[^>]*>)", r"\1\n" + nav.replace("\\", "\\\\"), t, count=1)

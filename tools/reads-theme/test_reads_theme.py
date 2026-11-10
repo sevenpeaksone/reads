@@ -17,7 +17,7 @@ class ReadsThemeTests(unittest.TestCase):
         self.assertIn('Title &lt;one&gt; &amp; two', result)
         self.assertIn('IT &amp; science', result)
         self.assertIn(body, result)
-        self.assertIn('data-reads-theme="lime-v1"', result)
+        self.assertIn('data-reads-theme="lime-v2"', result)
         self.assertIn('class="reads-wordmark"', result)
         self.assertEqual(result.count('<h1>'), 1)
 
@@ -60,11 +60,41 @@ class ReadsThemeTests(unittest.TestCase):
                     self.assertEqual(result.count('id="site-chrome-css"'), 1)
                     self.assertEqual(result.count('id="site-chrome-js"'), 1)
                     self.assertNotIn('id="reads-article-theme"', result)
-                    self.assertIn('data-reads-theme="lime-v1"', result)
+                    self.assertIn('data-reads-theme="lime-v2"', result)
+                    self.assertIn('href="/reads/assets/reads-theme.css?v=lime-v2"', result)
+                    self.assertNotIn('<style id="site-chrome-css"', result)
+            for relative in ('index.html', 'posts/index.html', 'news/index.html', 'favorites.html'):
+                result = (site / relative).read_text(encoding='utf-8')
+                self.assertIn('id="reads-theme"', result)
+                self.assertIn('href="/reads/assets/reads-theme.css?v=lime-v2"', result)
+                self.assertNotIn('--bg:#0f1117', result)
             self.assertEqual(len(json.loads((site / 'search.json').read_text())), 2)
             self.assertEqual((site / 'assets/reads-theme.css').read_bytes(),
                              (THEME_DIR / 'reads_theme.css').read_bytes())
             self.assertTrue((site / 'assets/7peaks-wordmark-light.svg').is_file())
+
+
+    def test_legacy_article_is_upgraded_without_changing_content(self):
+        with tempfile.TemporaryDirectory(prefix='reads-legacy-theme-test-') as directory:
+            site = Path(directory)
+            target = site / 'posts/it/2026-11-10-03/index.html'
+            target.parent.mkdir(parents=True)
+            body = '<main><h1>Existing article</h1><p>Original words.</p><img src="./images/original.png"></main>'
+            target.write_text(
+                '<!DOCTYPE html><html lang="ko" data-reads-theme="lime-v1">'
+                '<head><title>Existing article</title><style id="site-chrome-css">body{background:black}</style></head>'
+                '<body data-reads-view="article" data-reads-theme="lime-v1">' + body + '</body></html>',
+                encoding='utf-8')
+            env = dict(os.environ, SITE=str(site), GOATCOUNTER_CODE='')
+            for _ in range(2):
+                subprocess.run([sys.executable, '-B', str(THEME_DIR / 'rebuild_index.py')],
+                               env=env, check=True, capture_output=True, text=True)
+                result = target.read_text(encoding='utf-8')
+                self.assertIn(body, result)
+                self.assertNotIn('data-reads-theme="lime-v1"', result)
+                self.assertEqual(result.count('id="site-chrome-css"'), 1)
+                self.assertIn('<link id="site-chrome-css"', result)
+                self.assertNotIn('body{background:black}', result)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,5 @@
-/* 7Peaks Reads: presentation only. Keep publishing paths and data contracts unchanged. */
+/* 7Peaks Reads — canonical site design, lime-v2.
+   Layout and presentation live here; article content and publishing paths do not change. */
 :root {
   color-scheme: light;
   --bg: #f6f8ed;
@@ -21,6 +22,82 @@
   --politics: var(--orange);
   --industry: var(--lime);
 }
+/* Shared layout: standalone previews and published pages use this same source. */
+body {
+  margin: 0;
+  font-family: 'Pretendard','Pretendard Variable','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+button,input,select { font-family: inherit; }
+.cat-bar { display: flex; justify-content: space-between; }
+.cat-head,.back { display: inline-block; }
+.back { color: var(--muted); text-decoration: none; }
+.back:hover { color: var(--text); }
+.grid { display: grid; }
+.card { position: relative; display: flex; flex-direction: column; overflow: hidden; text-decoration: none; color: var(--text); }
+.thumb { width: 100%; object-fit: cover; display: block; }
+.thumb.ph,.news-thumb.ph { display: flex; align-items: center; justify-content: center; background: #e7eddb; color: #43512c; }
+.thumb.ph span { font-weight: 750; font-size: 20px; }
+.card-body { display: flex; flex-direction: column; flex: 1; }
+.badge { align-self: flex-start; }
+.card-title { margin: 0; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+.card-date { margin-top: auto; color: var(--muted); }
+.pager { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 40px; }
+.pager a,.pager span { min-width: 38px; text-align: center; border: 1px solid var(--line); font-size: 14px; text-decoration: none; color: var(--text); }
+.pager .cur { font-weight: 700; }
+.pager .dots { border: 0; color: var(--muted); min-width: auto; padding: 8px 4px; }
+.topnav { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; flex-wrap: wrap; }
+.topnav .tn-brand { display: inline-flex; align-items: center; font-weight: 800; font-size: 16px; text-decoration: none; }
+.topnav .tn-logo { display: block; }
+.topnav .tn-cats { display: flex; flex-wrap: wrap; }
+.topnav .tn-cats a { text-decoration: none; }
+.topnav #site-search { border: 1px solid var(--line); color: var(--text); font-size: 14px; }
+#search-meta { color: var(--muted); font-size: 14px; margin: 0 0 18px; }
+footer { color: var(--muted); }
+.visit { margin-bottom: 6px; font-size: 12px; }
+.visit b { color: var(--text); font-weight: 700; }
+.fav { position: absolute; top: 9px; right: 9px; z-index: 3; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; line-height: 1; transition: transform .12s,background .12s; }
+.prefs { display: flex; align-items: center; flex-wrap: wrap; }
+.prefs .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
+.prefs .seg button { background: var(--card); color: var(--muted); border: 0; font-size: 13px; cursor: pointer; }
+.prefs .seg button.on { font-weight: 700; }
+.prefs label { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 13px; }
+.prefs select { background: var(--card); border: 1px solid var(--line); color: var(--text); border-radius: 8px; padding: 6px 10px; font-size: 13px; }
+.prefs .grow { margin-left: auto; }
+.prefs .fav-link { color: var(--muted); text-decoration: none; font-size: 13px; }
+.grid.view-list { display: block; }
+.grid.view-list .card { flex-direction: row; margin-bottom: 12px; align-items: stretch; }
+.grid.view-list .thumb { flex: 0 0 180px; height: auto; aspect-ratio: 16/10; }
+.grid.view-list .card-body { flex: 1; }
+.grid.view-list .card-title { -webkit-line-clamp: 3; }
+#fav-empty { color: var(--muted); font-size: 15px; padding: 30px 0; }
+.fav-tools { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; flex-wrap: wrap; }
+.fav-tools button { background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 9px; padding: 8px 14px; font-size: 13px; cursor: pointer; }
+.fav-tools button:hover { border-color: #657b23; }
+.fav-tools #fav-msg { color: var(--muted); font-size: 13px; }
+.news-item { position: relative; display: flex; align-items: center; text-decoration: none; color: var(--text); transition: background .12s; }
+.news-thumb { flex-shrink: 0; object-fit: cover; }
+.news-thumb.ph { font-weight: 750; font-size: 13px; text-align: center; padding: 4px; }
+.news-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 7px; }
+.news-meta { display: flex; align-items: center; font-size: 12px; }
+.news-cat { letter-spacing: .2px; }
+.news-time { color: var(--muted); }
+.news-time::before { content: '● '; font-size: 9px; vertical-align: middle; }
+.news-title { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+#read-progress { position: fixed; top: 0; left: 0; width: 0; z-index: 200; transition: width .08s linear; }
+#site-nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+#site-nav a { text-decoration: none; font-size: 14px; font-weight: 600; }
+#site-nav .nav-spacer { margin-left: auto; }
+#site-nav .nav-list,#site-nav .read-time { font-weight: 500; }
+#theme-toggle { border: 1px solid var(--line); font-size: 13px; cursor: pointer; }
+#to-top { position: fixed; right: 22px; bottom: 22px; z-index: 100; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); font-size: 20px; line-height: 1; cursor: pointer; display: none; }
+#to-top.show { display: flex; align-items: center; justify-content: center; }
+/* Normalize arbitrary legacy article containers only in the existing dark mode. */
+html.dark { background: #17201b; }
+html.dark body[data-reads-view=article] :where(div,section,article,header,footer,main,aside,p,ul,ol,li,blockquote,figure,figcaption,table,thead,tbody,tr,td,th) { background-color: transparent !important; background-image: none !important; border-color: #354131 !important; }
+html.dark body[data-reads-view=article] h2::before { opacity: .9; }
+html.dark body[data-reads-view=article] hr { border-color: #354131 !important; }
 html { scroll-padding-top: 120px; }
 body { background: var(--bg); color: var(--text); line-height: 1.65; }
 *, *::before, *::after { box-sizing: border-box; }

@@ -1,5 +1,6 @@
 """Read-only checks for a staged Reads theme against its publishing baseline."""
 import argparse
+import ast
 from collections import Counter
 from html.parser import HTMLParser
 import json
@@ -82,6 +83,10 @@ def verify(baseline, staged):
         for marker in ('id="site-nav"', 'id="site-chrome-css"', 'id="site-chrome-js"', 'data-reads-view="article"'):
             if new.count(marker) != 1:
                 errors.append(f"Invalid marker count ({marker}): {relative}")
+        if '<link id="site-chrome-css"' not in new or '/reads/assets/reads-theme.css?v=lime-v2' not in new:
+            errors.append(f"Missing canonical design link: {relative}")
+        if '<style id="site-chrome-css"' in new:
+            errors.append(f"Legacy embedded chrome stylesheet: {relative}")
     if not sum(counts.values()):
         errors.append("No articles were checked")
     search_unchanged = json.loads((baseline / "search.json").read_text()) == json.loads((staged / "search.json").read_text())
@@ -89,12 +94,32 @@ def verify(baseline, staged):
         errors.append("Search metadata changed")
     if (staged / "assets/7peaks-wordmark-light.svg").read_bytes() == b"":
         errors.append("Missing wordmark")
+    stylesheet_matches_source = (staged / 'assets/reads-theme.css').read_bytes() == (
+        staged / 'tools/reads-theme/reads_theme.css').read_bytes()
+    if not stylesheet_matches_source:
+        errors.append("Published stylesheet does not match its canonical source")
+    script_names = {"SEARCH_JS", "PREFS_JS", "FAV_JS", "VISIT_JS", "POST_CHROME_JS"}
+    def scripts(directory):
+        result = {}
+        for node in ast.parse((directory / 'tools/reads-theme/rebuild_index.py').read_text()).body:
+            if isinstance(node, ast.Assign):
+                for target in node.targets:
+                    if isinstance(target, ast.Name) and target.id in script_names:
+                        result[target.id] = ast.dump(node.value, include_attributes=False)
+        return result
+    original_scripts, current_scripts = scripts(baseline), scripts(staged)
+    scripts_unchanged = (set(original_scripts) == script_names
+                         and original_scripts == current_scripts)
+    if not scripts_unchanged:
+        errors.append("Existing search/preferences/favorites/visits/article scripts changed")
     return {
         "article_count": dict(counts),
         "styled_articles": sum(counts.values()) - len(empty),
         "empty_sources_preserved": empty,
         "legacy_fragments_wrapped": fragments,
         "search_data_unchanged": search_unchanged,
+        "interactive_scripts_unchanged": scripts_unchanged,
+        "stylesheet_matches_source": stylesheet_matches_source,
         "errors": errors,
         "passed": not errors,
     }
