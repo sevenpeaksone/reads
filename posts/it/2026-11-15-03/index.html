@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko" data-reads-theme="lime-v4">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>리액티브 스트림 백프레셔 원리 — 느린 소비자는 어떻게 속도를 정할까 — 7Peaks Reads</title>
+<script id="reads-theme-init">(function () {
+  var mode = "light";
+  try {
+    if (localStorage.getItem("spk-theme") === "dark") mode = "dark";
+  } catch (error) {
+    // Storage may be unavailable in a restricted browsing context.
+  }
+  var root = document.documentElement;
+  root.classList.toggle("dark", mode === "dark");
+  root.dataset.readsColorMode = mode;
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=lime-v4" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=lime-v4">
+</head>
+<body data-reads-view="article" data-reads-theme="lime-v4">
+<div id="read-progress"></div>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span><button id="theme-toggle" data-reads-theme-toggle type="button" aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button></nav>
+<main class="wrap">
+    <div class="meta"><span class="badge">IT</span> <time class="date" datetime="2026-11-15">2026-11-15</time></div>
+    <h1>리액티브 스트림 백프레셔 원리 — 느린 소비자는 어떻게 속도를 정할까</h1>
+    <p><img loading="lazy" style="max-width:100%;height:auto" alt="리액티브 스트림 백프레셔 원리 썸네일 — Publisher와 Subscriber 사이를 오가는 onNext와 request(n) 신호" src="./images/thumbnail.png" /></p>
+<p>이번 글에서는 리액티브 스트림의 백프레셔(Backpressure)를 정리해 보겠습니다.
+빠른 생산자와 느린 소비자 사이에서 데이터 흐름을 누가, 어떤 신호로 조절하는지가 핵심입니다.
+명세의 규칙에서 출발해 Reactor·Spring WebFlux의 연산자, TCP·Kafka와의 비교, 실무에서 자주 빠지는 함정까지 차례로 살펴봅니다.</p>
+<blockquote>
+<p><strong>세 줄 요약</strong></p>
+<ol>
+<li>백프레셔는 소비자가 <code>request(n)</code>으로 "n개까지 받겠다"고 알리고, 생산자는 그 수를 넘겨 보내지 않는 약속입니다.</li>
+<li>Reactor에서는 <code>limitRate</code>·prefetch로 요청을 다듬고, 늦출 수 없는 소스에는 <code>onBackpressureBuffer/Drop/Latest/Error</code>로 넘치는 데이터를 처리합니다.</li>
+<li>HTTP 위의 WebFlux에서 네트워크 구간의 조절은 원소 개수가 아니라 TCP의 바이트 단위 흐름 제어가 맡습니다.</li>
+</ol>
+</blockquote>
+<hr />
+<h2>■ 왜 백프레셔가 필요한가</h2>
+<p>초당 1만 건을 만드는 생산자와 초당 1천 건만 처리하는 소비자가 있다고 해 보겠습니다.
+차이 9천 건은 어딘가에 쌓여야 합니다.
+보통은 둘 사이의 큐입니다.</p>
+<p>이 상태가 몇 초면 괜찮습니다.
+몇 분, 몇 시간 이어지면 큐는 끝없이 자라고, 결국 메모리가 바닥납니다.
+Reactive Streams 명세도 이 지점을 정확히 짚습니다.
+큐가 무한히 커지는 것은 "발행자가 구독자보다 높은 속도를 오래 유지할 때"이며, 백프레셔는 스레드 사이를 잇는 큐를 <strong>유한하게(bounded)</strong> 유지하기 위한 장치라고 설명합니다.</p>
+<p>Reactive Manifesto의 정의는 조금 더 넓습니다.
+한 구성요소가 따라가지 못할 때 시스템 전체가 합리적으로 반응해야 하며, 압박받는 쪽이 치명적으로 실패하거나 통제 없이 메시지를 버려서는 안 된다고 말합니다.
+그래서 이 개념을 부하에 우아하게 대응하기 위한 <strong>피드백 메커니즘</strong>이라고 부릅니다.</p>
+<p><img loading="lazy" style="max-width:100%;height:auto" alt="수요 신호가 없을 때 큐가 무한히 커지는 모습과 request(n)으로 큐를 유한하게 유지하는 모습 비교" src="./images/body-1.png" /></p>
+<p>예전에는 "소비자를 더 빠르게 만들자"가 흔한 해법이었습니다.
+지금의 리액티브 설계는 다른 질문을 던집니다.
+"소비자가 감당할 수 있는 양을 생산자에게 어떻게 알려줄 것인가."</p>
+<hr />
+<h2>■ Reactive Streams 명세: 네 개의 인터페이스와 request(n)</h2>
+<p>Reactive Streams는 Kaazing, Lightbend, Netflix, Pivotal, Red Hat, Twitter 등의 엔지니어가 함께 만든 작은 명세입니다.
+목적은 한 문장입니다.
+"비차단(non-blocking) 백프레셔를 갖춘 비동기 스트림 처리의 표준."
+현재 최신판은 2022년 5월에 나온 1.0.4입니다.</p>
+<p>인터페이스는 네 개뿐입니다.</p>
+<table>
+<thead>
+<tr>
+<th>인터페이스</th>
+<th>메서드</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Publisher&lt;T&gt;</code></td>
+<td><code>subscribe(Subscriber)</code></td>
+<td>데이터를 만드는 쪽</td>
+</tr>
+<tr>
+<td><code>Subscriber&lt;T&gt;</code></td>
+<td><code>onSubscribe</code>, <code>onNext</code>, <code>onError</code>, <code>onComplete</code></td>
+<td>데이터를 받는 쪽</td>
+</tr>
+<tr>
+<td><code>Subscription</code></td>
+<td><code>request(long n)</code>, <code>cancel()</code></td>
+<td>둘을 잇는 계약, 수요를 전달</td>
+</tr>
+<tr>
+<td><code>Processor&lt;T,R&gt;</code></td>
+<td>Subscriber + Publisher</td>
+<td>중간 가공 단계</td>
+</tr>
+</tbody>
+</table>
+<p>흐름은 이렇게 진행됩니다.
+구독자가 <code>subscribe</code>를 호출하면 발행자는 가장 먼저 <code>onSubscribe(subscription)</code>을 보냅니다(규칙 1.9).
+구독자는 이 <code>Subscription</code>으로 <code>request(n)</code>을 호출해 수요를 알립니다(규칙 2.1).
+발행자는 요청된 총수를 넘겨 <code>onNext</code>를 보낼 수 없습니다(규칙 1.1).
+더 받고 싶으면 구독자가 다시 <code>request</code>를 부르고, 그만 받고 싶으면 <code>cancel()</code>을 부릅니다.</p>
+<p><img loading="lazy" style="max-width:100%;height:auto" alt="Reactive Streams 신호 순서 다이어그램 — subscribe, onSubscribe, request(3), onNext 3회, request(2), onNext 2회, onComplete와 수요 변화" src="./images/body-2.png" /></p>
+<p>명세는 이 수를 <strong>수요(demand)</strong> 라고 부릅니다.
+구독자가 요청했지만 아직 전달받지 못한 원소의 개수입니다.
+몇 가지 세부 규칙도 눈여겨볼 만합니다.</p>
+<ul>
+<li><strong>0 이하 요청은 오류입니다.</strong> <code>request(0)</code>이나 음수는 <code>IllegalArgumentException</code>으로 <code>onError</code>를 받아야 합니다(규칙 3.9).</li>
+<li><strong>Long.MAX_VALUE는 사실상 무제한입니다.</strong> 수요는 2^63-1까지 지원해야 하고, 그 이상은 "effectively unbounded"로 다뤄도 됩니다(규칙 3.17). 나노초마다 한 개씩 소비해도 292년이 걸리는 수이기 때문입니다.</li>
+<li><strong>재귀에는 상한이 있습니다.</strong> <code>onNext</code> 안에서 곧바로 <code>request</code>를 불러도 되지만, onNext → request → onNext로 이어지는 동기 재귀의 깊이를 제한해야 합니다(규칙 3.2, 3.3).</li>
+<li><strong>취소 후 요청은 무시됩니다.</strong> <code>cancel()</code> 뒤의 <code>request</code>는 아무 효과가 없어야 합니다(규칙 3.6).</li>
+</ul>
+<p>규칙 2.1의 부연도 실무적입니다.
+한 개씩 요청하면 매번 멈추고 기다리는 "stop-and-wait"가 되어 비효율적이니, 처리 가능한 상한만큼 요청하라고 권합니다.
+흐름 제어가 "느리게 받기"가 아니라 "감당할 만큼 넉넉히 받기"라는 점을 보여주는 대목입니다.</p>
+<p>이 네 인터페이스는 JDK에도 들어왔습니다.
+JEP 266으로 Java 9에 <code>java.util.concurrent.Flow</code>가 추가됐고, <code>Flow.Publisher</code>·<code>Flow.Subscriber</code>·<code>Flow.Subscription</code>·<code>Flow.Processor</code>가 같은 구조로 중첩돼 있습니다.
+<code>Flow.defaultBufferSize()</code>는 256을 돌려주고, 구현 도구로 <code>SubmissionPublisher</code>가 함께 제공됩니다.
+Reactive Streams 쪽은 1.0.2부터 두 타입을 오가는 <code>FlowAdapters</code>를 제공합니다.</p>
+<hr />
+<h2>■ Push와 Pull 사이: 동적 push-pull</h2>
+<p>생산자가 알아서 밀어 넣는 방식을 push, 소비자가 필요할 때 가져가는 방식을 pull이라 부릅니다.
+push는 지연이 짧지만 소비자를 압도할 수 있습니다.
+pull은 안전하지만, 데이터가 없을 때 계속 물어보는 낭비가 생기기 쉽습니다.</p>
+<p>Reactive Streams는 스스로를 "동적 push-pull 스트림"이라고 설명합니다.
+Reactor 레퍼런스는 이를 더 풀어서 말합니다.
+소비자는 처음 요청하기 전에는 아무것도 받지 않는다는 점에서 pull입니다.
+소스는 데이터가 생기는 대로 보낸다는 점에서 push입니다.
+다만 그 push는 언제나 <strong>요청된 개수 안에서만</strong> 일어납니다.</p>
+<p>정리하면 수요가 넉넉할 때는 push처럼, 수요가 바닥나면 pull처럼 움직이는 셈입니다.
+요청 신호가 데이터와 반대 방향으로 흐른다는 것이 구조의 핵심입니다.</p>
+<hr />
+<h2>■ Reactor와 WebFlux에서 수요를 다루는 법</h2>
+<h3>기본값은 '무제한'입니다</h3>
+<p>가장 먼저 알아둘 사실이 있습니다.
+Reactor에서 <code>subscribe()</code>와 대부분의 람다 변형, <code>block()</code>, <code>blockFirst()</code>, <code>blockLast()</code>, <code>toIterable()</code>·<code>toStream()</code> 순회는 구독 즉시 <code>Long.MAX_VALUE</code>를 요청합니다.
+코드를 평범하게 쓰면 수요 조절이 "꺼진 것처럼" 동작한다는 뜻입니다.</p>
+<p>직접 수요를 조절하려면 <code>BaseSubscriber</code>를 상속합니다.</p>
+<pre><code class="language-java">Flux.range(1, 1_000)
+    .subscribe(new BaseSubscriber&lt;Integer&gt;() {
+        @Override
+        protected void hookOnSubscribe(Subscription s) {
+            request(10);            // 처음엔 10개만
+        }
+        @Override
+        protected void hookOnNext(Integer v) {
+            process(v);
+            request(1);             // 하나 처리할 때마다 하나 더
+        }
+    });
+</code></pre>
+<p><code>hookOnSubscribe</code>를 재정의했다면 최소 한 번은 <code>request</code>를 불러야 합니다.
+부르지 않으면 데이터가 한 건도 흐르지 않습니다.</p>
+<h3>연산자는 요청을 다시 빚습니다</h3>
+<p>수요는 체인을 거슬러 올라가며 모양이 바뀝니다.
+<code>buffer(N)</code>이 하류에서 <code>request(2)</code>를 받으면 "꽉 찬 버퍼 두 개"로 해석해 상류에는 2×N개를 요청합니다.</p>
+<p><code>flatMap</code>처럼 내부 시퀀스를 다루는 연산자에는 <strong>prefetch</strong>가 있습니다.
+내부 시퀀스에 처음 보내는 요청량이고, 대부분 기본값이 32입니다.
+여기에 <strong>replenishing 최적화</strong>가 붙습니다.
+prefetch의 75%가 채워지면 그만큼을 미리 다시 요청합니다.
+32라면 24개를 받은 시점에 24개를 더 요청하는 식이라, 큐가 완전히 빌 때까지 기다리지 않습니다.
+참고로 Reactor 내부 상수 <code>Queues.XS_BUFFER_SIZE</code>는 32, <code>Queues.SMALL_BUFFER_SIZE</code>는 256이며 각각 시스템 프로퍼티(<code>reactor.bufferSize.x</code>, <code>reactor.bufferSize.small</code>)로 바꿀 수 있습니다.</p>
+<h3>limitRate와 limitRequest</h3>
+<p>하류가 <code>Long.MAX_VALUE</code>를 요청하더라도 상류에는 조금씩 전달하고 싶을 때가 있습니다.
+이때 쓰는 것이 <code>limitRate(N)</code>입니다.
+하류의 <code>request(100)</code>이 <code>limitRate(10)</code>을 지나면 상류에는 최대 10개짜리 요청이 열 번 나뉘어 올라갑니다.
+<code>limitRate(highTide, lowTide)</code> 변형으로 보충 시점을 조절할 수 있고, lowTide를 0으로 두면 정확히 highTide 단위로만 요청합니다.</p>
+<p><img loading="lazy" style="max-width:100%;height:auto" alt="limitRate(10)이 request(100)을 10개씩 나누는 과정과 prefetch 32에서 75%인 24개마다 재요청하는 replenishing 설명" src="./images/body-3.png" /></p>
+<p><code>limitRequest(N)</code>은 성격이 다릅니다.
+요청을 쪼개는 것이 아니라 <strong>총량의 상한</strong>을 둡니다.
+N개가 나오면 하류에 완료 신호를 보내고 소스를 취소합니다.</p>
+<pre><code class="language-java">repository.findAll()          // 상류: DB 스트림
+    .limitRate(100)           // 100개씩 끊어서 요청
+    .flatMap(this::enrich, 8) // 외부 호출은 동시에 8개까지만
+    .subscribe();
+</code></pre>
+<hr />
+<h2>■ 늦출 수 없는 소스: onBackpressure 전략 네 가지</h2>
+<p>모든 생산자가 요청에 맞춰 속도를 늦출 수 있는 것은 아닙니다.
+시계 틱, 마우스 움직임, 외부에서 밀려오는 이벤트가 그렇습니다.
+Spring 문서의 표현처럼, 늦출 수 없는 발행자는 <strong>버퍼링할지, 버릴지, 실패할지</strong> 정해야 합니다.</p>
+<p>Reactor의 <code>onBackpressure*</code> 연산자는 이 선택을 명시적으로 만듭니다.
+공통적으로 상류에는 최대치를 요청하고, 하류의 요청이 모자랄 때 정해진 전략을 적용합니다.</p>
+<p><img loading="lazy" style="max-width:100%;height:auto" alt="상류 6개, 하류 요청 2개 상황에서 onBackpressureBuffer, Drop, Latest, Error 전략별 전달·보관·폐기 결과를 보여주는 마블 다이어그램" src="./images/body-4.png" /></p>
+<table>
+<thead>
+<tr>
+<th>연산자</th>
+<th>하류 수요가 없을 때</th>
+<th>유실</th>
+<th>어울리는 곳</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>onBackpressureBuffer</code></td>
+<td>쌓아 둔다(유한·무한)</td>
+<td>버퍼가 넘칠 때만</td>
+<td>순간적인 폭주를 흡수할 때</td>
+</tr>
+<tr>
+<td><code>onBackpressureDrop</code></td>
+<td>새 값을 버린다</td>
+<td>있음</td>
+<td>일부 유실이 괜찮은 지표·로그</td>
+</tr>
+<tr>
+<td><code>onBackpressureLatest</code></td>
+<td>버리되 마지막 값 하나는 남긴다</td>
+<td>있음</td>
+<td>최신 상태만 중요한 UI·시세</td>
+</tr>
+<tr>
+<td><code>onBackpressureError</code></td>
+<td><code>IllegalStateException</code>을 낸다</td>
+<td>스트림 종료</td>
+<td>넘침 자체가 버그인 경우</td>
+</tr>
+</tbody>
+</table>
+<p>유한 버퍼에는 넘칠 때의 정책을 붙일 수 있습니다.
+<code>BufferOverflowStrategy</code>는 세 가지입니다.
+<code>ERROR</code>는 <code>IllegalStateException</code>을 전파하고, <code>DROP_LATEST</code>는 새로 들어온 원소를 조용히 버리며, <code>DROP_OLDEST</code>는 가장 오래된 원소를 빼고 새 원소를 뒤에 넣습니다.</p>
+<pre><code class="language-java">sensorEvents                                  // 늦출 수 없는 외부 이벤트
+    .onBackpressureBuffer(
+        1_000,                                // 버퍼 상한
+        dropped -&gt; log.warn(&quot;dropped {}&quot;, dropped),
+        BufferOverflowStrategy.DROP_OLDEST)
+    .publishOn(Schedulers.boundedElastic())   // 느린 처리는 별도 스레드에서
+    .subscribe(this::save);
+</code></pre>
+<p>장점만 있는 전략은 없습니다.
+버퍼는 유실을 늦출 뿐 없애지 못하고, 드롭은 상류를 전혀 늦추지 않습니다.
+실제로 <code>onBackpressureDrop</code>의 구현을 보면 구독 직후 상류에 <code>request(Long.MAX_VALUE)</code>를 보냅니다.
+상류는 계속 최대 속도로 흐르고, 연산자가 하류 수요가 0일 때 값을 버리며 discard 훅에 넘길 뿐입니다.</p>
+<hr />
+<h2>■ TCP 흐름 제어, Kafka pull과 나란히 보기</h2>
+<p>받는 쪽이 속도를 정한다는 발상은 새롭지 않습니다.
+오래된 네트워크 기술에도 같은 생각이 들어 있습니다.</p>
+<p><strong>TCP 흐름 제어</strong>는 수신 측이 매 세그먼트에 "지금 받을 수 있는 양"을 윈도로 실어 보냅니다.
+송신 측은 아직 확인받지 못한 데이터가 이 윈도를 넘지 않게 보냅니다.
+수신 애플리케이션이 느리게 읽으면 윈도가 줄고, 버퍼가 가득 차면 0이 되어 송신이 멈춥니다.
+윈도 필드는 16비트라 스케일 없이는 최대 64KiB이고, 윈도 스케일 옵션의 지수는 최대 14까지라 최대 1GiB까지 넓힐 수 있습니다(RFC 7323).
+Reactive Streams의 누적 수요와 구조가 닮았지만, 단위가 <strong>바이트</strong>라는 점이 다릅니다.</p>
+<p><strong>Kafka 소비자</strong>는 철저한 pull입니다.
+Kafka 설계 문서는 push 방식에서 소비 속도가 생산 속도보다 떨어지면 소비자가 압도되며, 이것이 사실상 서비스 거부 공격과 같다고 설명합니다.
+pull에서는 소비자가 그저 뒤처졌다가 여유가 생길 때 따라잡으면 됩니다.
+데이터가 없을 때 바쁘게 다시 묻는 낭비는 long poll로 줄입니다.
+<code>max.poll.records</code> 기본값은 500, <code>fetch.max.wait.ms</code>는 500ms입니다.
+대신 <code>max.poll.interval.ms</code>(기본 5분) 안에 다음 poll을 하지 못하면 실패로 간주돼 리밸런스가 일어납니다.
+느린 소비자의 부담이 메모리가 아니라 lag과 리밸런스로 옮겨 가는 셈입니다.</p>
+<p><img loading="lazy" style="max-width:100%;height:auto" alt="Reactive Streams, TCP 흐름 제어, Kafka consumer, RSocket의 수요 단위·신호 방법·느린 소비자 대응 비교 표" src="./images/body-5.png" /></p>
+<p>여기서 WebFlux 개발자가 꼭 알아야 할 사실이 하나 있습니다.
+HTTP 위의 WebFlux에서 <code>request(n)</code>은 네트워크를 건너가지 않습니다.
+Stack Overflow에 올라온 Oleh Dokuka의 답변과 Baeldung의 정리에 따르면, 네트워크 구간의 조절은 TCP의 바이트 단위 흐름 제어가 맡고 수신 측의 실제 원소 수요는 송신 측에 드러나지 않습니다.
+원소 단위의 수요는 서버 안, WebFlux와 비즈니스 로직 사이에서만 유효합니다.</p>
+<p>수요 자체를 네트워크 너머로 보내야 한다면 RSocket이 대안입니다.
+Spring 문서에 따르면 Request-Stream·Channel 상호작용에서 초기 수요는 요청 프레임에 실리고, 이후 수요는 <code>REQUEST_N</code> 프레임으로 전달됩니다.
+응답 측을 원천에서부터 늦출 수 있어 네트워크 계층의 버퍼링 의존을 줄일 수 있습니다.</p>
+<hr />
+<h2>■ 실무에서 자주 빠지는 함정</h2>
+<ol>
+<li><strong><code>subscribe()</code> 하나로 수요 조절이 사라집니다.</strong> 기본 요청이 <code>Long.MAX_VALUE</code>이므로, 상류가 빠르면 중간 큐가 그대로 부풀 수 있습니다. 소비 속도가 중요하다면 <code>limitRate</code>나 <code>BaseSubscriber</code>로 수요를 명시하시길 권합니다.</li>
+<li><strong>크기 없는 <code>onBackpressureBuffer()</code>는 무한 큐입니다.</strong> 명세가 막으려던 바로 그 구조를 다시 만드는 셈입니다. 상한과 오버플로 정책을 함께 정해 두는 편이 안전합니다.</li>
+<li><strong>Drop·Latest는 상류를 늦추지 않습니다.</strong> 버려도 되는 데이터에만 씁니다. 주문·결제처럼 한 건도 잃으면 안 되는 흐름에는 맞지 않습니다.</li>
+<li><strong>시간 기반 소스는 기다려 주지 않습니다.</strong> <code>Flux.interval</code>은 수요가 제때 없으면 overflow로 <code>onError</code>를 냅니다. 뒤에 느린 작업이 있다면 전략 연산자를 앞에 두어야 합니다.</li>
+<li><strong><code>flatMap</code>의 기본 동시성은 256입니다.</strong> 외부 API나 DB 호출을 <code>flatMap</code>으로 감싸면 한꺼번에 수백 건이 나갈 수 있습니다. <code>concurrency</code> 인자로 상대 시스템이 감당할 수를 정해 두십시오.</li>
+<li><strong>이벤트 루프에서 블로킹하면 모든 것이 막힙니다.</strong> WebFlux는 작은 고정 스레드 풀로 요청을 처리합니다. 블로킹 라이브러리를 꼭 써야 한다면 <code>publishOn</code>으로 다른 스케줄러로 옮기고, JPA·JDBC 중심이라면 Spring MVC가 더 맞을 수 있습니다.</li>
+<li><strong>HTTP 경계 너머의 수요는 보이지 않습니다.</strong> 클라이언트가 느리면 서버는 TCP 윈도가 줄어드는 형태로만 그것을 느낍니다. 서버 사이 스트리밍에서 정확한 수요 전달이 필요하다면 RSocket 같은 프로토콜을 검토할 만합니다.</li>
+</ol>
+<p>솔직히 말해 이 장치가 모든 과부하를 해결하지는 않습니다.
+원천이 사용자의 요청이거나 외부 이벤트라면 결국 어딘가에서 버리거나, 거절하거나, 기다리게 해야 합니다.
+백프레셔가 주는 것은 그 선택을 <strong>코드에 드러나게</strong> 하는 능력입니다.</p>
+<hr />
+<p>정리하면 이렇습니다.
+Reactive Streams는 네 개의 인터페이스와 <code>request(n)</code> 하나로 "받는 쪽이 속도를 정한다"는 약속을 만들었습니다.
+Reactor는 그 위에 prefetch·<code>limitRate</code>·<code>onBackpressure*</code> 같은 도구를 얹었고, WebFlux는 그 흐름을 서버 안에서 이어 갑니다.
+다만 HTTP 경계에서는 TCP가, 메시지 브로커에서는 Kafka의 pull이 각자의 방식으로 같은 문제를 풉니다.</p>
+<p>"넘치는 데이터를 어떻게 할지 정하지 않았다면, 시스템이 대신 정합니다 — 대개 가장 나쁜 방식으로."</p>
+<p>내 서비스의 리액티브 체인에서 수요가 어디서 정해지고 어디서 사라지는지 한 번 따라가 보시길 권합니다.
+그 길을 한 번이라도 그려 본 분이라면, 다음 장애 앞에서 훨씬 차분해질 수 있을 것입니다.</p>
+<hr />
+<h2>출처</h2>
+<ol>
+<li>Reactive Streams JVM 명세 README v1.0.4 — <a href="https://github.com/reactive-streams/reactive-streams-jvm/blob/v1.0.4/README.md" target="_blank" rel="noopener">https://github.com/reactive-streams/reactive-streams-jvm/blob/v1.0.4/README.md</a></li>
+<li>Reactive Streams Release Notes — <a href="https://github.com/reactive-streams/reactive-streams-jvm/blob/v1.0.4/RELEASE-NOTES.md" target="_blank" rel="noopener">https://github.com/reactive-streams/reactive-streams-jvm/blob/v1.0.4/RELEASE-NOTES.md</a></li>
+<li>OpenJDK JEP 266: More Concurrency Updates — <a href="https://openjdk.org/jeps/266" target="_blank" rel="noopener">https://openjdk.org/jeps/266</a></li>
+<li>Java SE 21 <code>java.util.concurrent.Flow</code> Javadoc — <a href="https://cs-214.epfl.ch/jdk-21.0.9-docs/api/java.base/java/util/concurrent/Flow.html" target="_blank" rel="noopener">https://cs-214.epfl.ch/jdk-21.0.9-docs/api/java.base/java/util/concurrent/Flow.html</a></li>
+<li>Reactor Core Reference Guide — <a href="https://docs.spring.io/projectreactor/reactor-core/docs/3.4.13/reference/html" target="_blank" rel="noopener">https://docs.spring.io/projectreactor/reactor-core/docs/3.4.13/reference/html</a></li>
+<li>Reactor Reference 부록 "Which operator do I need?" — <a href="https://docs.spring.io/projectreactor/reactor-core/docs/3.7.x/reference/html/apdx-operatorChoice.html" target="_blank" rel="noopener">https://docs.spring.io/projectreactor/reactor-core/docs/3.7.x/reference/html/apdx-operatorChoice.html</a></li>
+<li>Reactor <code>BufferOverflowStrategy</code> Javadoc — <a href="https://docs.enterprise.spring.io/reactor-core/docs/3.5.23/javadoc-api/reactor/core/publisher/BufferOverflowStrategy.html" target="_blank" rel="noopener">https://docs.enterprise.spring.io/reactor-core/docs/3.5.23/javadoc-api/reactor/core/publisher/BufferOverflowStrategy.html</a></li>
+<li>reactor-core 소스(Queues, FluxOnBackpressureDrop, FluxPublishOn) — <a href="https://code.yawk.at/io.projectreactor/reactor-core/3.4.2/reactor/util/concurrent/Queues.java" target="_blank" rel="noopener">https://code.yawk.at/io.projectreactor/reactor-core/3.4.2/reactor/util/concurrent/Queues.java</a></li>
+<li>Spring Framework Reference — WebFlux Overview — <a href="https://docs.spring.io/spring-framework/reference/7.0.6/web/webflux/new-framework.html" target="_blank" rel="noopener">https://docs.spring.io/spring-framework/reference/7.0.6/web/webflux/new-framework.html</a></li>
+<li>Spring Framework Reference — RSocket — <a href="https://docs.spring.io/spring-framework/reference/7.0.6/rsocket.html" target="_blank" rel="noopener">https://docs.spring.io/spring-framework/reference/7.0.6/rsocket.html</a></li>
+<li>Apache Kafka Design — <a href="https://kafka.apache.org/42/design/design/" target="_blank" rel="noopener">https://kafka.apache.org/42/design/design/</a></li>
+<li>Apache Kafka Consumer Configs — <a href="https://kafka.apache.org/23/configuration/consumer-configs/" target="_blank" rel="noopener">https://kafka.apache.org/23/configuration/consumer-configs/</a></li>
+<li>RFC 7323, TCP Extensions for High Performance — <a href="https://www.rfc-editor.org/rfc/rfc7323.html" target="_blank" rel="noopener">https://www.rfc-editor.org/rfc/rfc7323.html</a></li>
+<li>RFC 9293, Transmission Control Protocol — <a href="https://www.rfc-editor.org/rfc/rfc9293.html" target="_blank" rel="noopener">https://www.rfc-editor.org/rfc/rfc9293.html</a></li>
+<li>Brian Storti, "TCP Flow Control" — <a href="https://brianstorti.com/tcp-flow-control" target="_blank" rel="noopener">https://brianstorti.com/tcp-flow-control</a></li>
+<li>Reactive Manifesto Glossary — <a href="https://reactivemanifesto.org/glossary" target="_blank" rel="noopener">https://reactivemanifesto.org/glossary</a></li>
+<li>Baeldung, "Backpressure Mechanism in Spring WebFlux" — <a href="https://www.baeldung.com/spring-webflux-backpressure" target="_blank" rel="noopener">https://www.baeldung.com/spring-webflux-backpressure</a></li>
+<li>Stack Overflow, "Backpressure mechanism in Spring WebFlux" (Oleh Dokuka 답변, 보관본) — <a href="https://kiwix.lema.org/stackoverflow.com_en_all_2023-11/questions/52244808/backpressure-mechanism-in-spring-web-flux" target="_blank" rel="noopener">https://kiwix.lema.org/stackoverflow.com_en_all_2023-11/questions/52244808/backpressure-mechanism-in-spring-web-flux</a></li>
+<li>Logicbig, Reactor flatMap — <a href="https://www.logicbig.com/tutorials/misc/reactive-programming/reactor/flat-map.html" target="_blank" rel="noopener">https://www.logicbig.com/tutorials/misc/reactive-programming/reactor/flat-map.html</a></li>
+</ol>
+<p>#리액티브스트림 #백프레셔 #Backpressure #ProjectReactor #SpringWebFlux #limitRate #ReactiveStreams #TCP흐름제어</p>
+  </main>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
