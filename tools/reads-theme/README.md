@@ -1,4 +1,4 @@
-# 7Peaks Reads design — lime-v4
+# 7Peaks Reads design — light-v5
 
 English canonical guide. Korean translation: [README.ko.md](README.ko.md).
 
@@ -7,8 +7,8 @@ This is the approved design source for the existing [Reads site](https://sevenpe
 ## Design source
 
 - `reads_theme.css`: the complete canonical layout and design, not an override of a separate dark stylesheet. Ivory `#F6F8ED`, charcoal `#17201B`, lime `#D5F43B`, orange `#F28B3C`, purple `#9270D8`, green `#2BA978`.
-- `reads_theme_init.js` / `reads_theme.js`: pre-paint initialization and shared light/dark controls.
-- `assets/7peaks-wordmark-light.svg`: approved wordmark. Do not redraw it or prepend another 7.
+- `reads_theme_init.js` / `reads_theme.js`: pre-paint light-only initialization and cleanup of retired theme controls/preferences.
+- `assets/7peaks-a-lockup.webp`: approved A symbol and light-weight wordmark. Do not redraw it or prepend another 7.
 - `reads_article_template.html`: standalone article structure.
 - `render_reads_article.py`: deterministic assembly with the template, stylesheet, and inline wordmark.
 - `rebuild_index.py`: common listing/article generator. It installs the public logo and `assets/reads-theme.css` into the site.
@@ -19,17 +19,17 @@ In Reads these files live in `tools/reads-theme/`. In the producer project the s
 
 ## Company identity alignment
 
-Reads is the reading service in the 7Peaks brand family, not an independent magazine theme. It reuses the approved company wordmark and point-field artwork unchanged, Geist Variable/Noto Sans KR Variable, the 1,440px/56px desktop grid, lime underline navigation, large headlines, and charcoal 13px-radius controls. Open editorial cards replace boxed dashboard tiles; article pages keep a narrower reading measure. Lime is the primary brand accent, with orange for news and purple/green for editorial categories. Subtle artwork motion respects reduced-motion preferences.
+Reads belongs to the 7Peaks brand family. It shares the approved A symbol and thin wordmark, Geist Variable/Noto Sans KR Variable, ivory backgrounds, charcoal regular-weight headings, lime accents, and 46px compact pill controls with the company homepage. Its home photograph blends into the page background without an image box. Listing pages remain concise and articles keep a comfortable reading measure. Orange, purple and green remain editorial category accents. Preserve search, favorites, view preferences, pagination, reading progress, and all article content.
 
-The two pinned Fontsource 5.3.0 font stylesheets load through jsDelivr. Layout remains local; offline previews fall back to system fonts when these font resources are unavailable. Source artwork is `assets/7peaks-point-field.png` in this directory and is copied to the same public filename. Do not recolor or recompress the source or article images.
+The two pinned Fontsource 5.3.0 font stylesheets load through jsDelivr. Layout remains local; offline previews fall back to system fonts. The shared home photo is `assets/hero-thought.webp`. Do not recolor, resize, recompress, replace, or delete article images. Archive point-field and old-logo assets are not active design sources.
 
 ## Source and generated HTML
 
-Published listing pages and every non-empty article reference the same repository-local `assets/reads-theme.css?v=lime-v4`. The generator copies that stylesheet from this source directory. Old listing/chrome styles are no longer embedded ahead of the new design. Original article-specific markup and styles remain intact for content compatibility; the common theme normalizes their presentation. Standalone article previews embed this exact same stylesheet. A theme change must update this source, regenerate the site, and update the producer copy so future articles retain the design.
+Published listings and every non-empty article reference `assets/reads-theme.css?v=light-v5` and the matching shared script. Original article-specific markup remains intact; the common theme normalizes presentation. Standalone previews embed the exact stylesheet and logo image. Update this source, regenerate the site, and synchronize the producer copy so future articles retain the same design.
 
-## Shared light/dark preference
+## Light-only presentation
 
-Home, news/blog listings, category archives, favorites, and article details share the existing `spk-theme` preference. The default is light; an existing saved choice is preserved. Apply it in the document head before the stylesheet so navigation does not briefly show the wrong mode. Every screen uses the same accessible toggle, and storage events synchronize other tabs. Standalone article previews embed the same initializer and controller. Do not reintroduce a separate article-only toggle or hard-code list pages to light. When storage is blocked the current-page toggle still works, but cross-page persistence cannot be guaranteed.
+The owner removed dark mode on 2026-11-17. Home, listings, archives, favorites and articles must always use the light identity, even when the OS or a retired saved preference is dark. Do not emit theme-toggle markup or dark-mode CSS. Apply light mode in the document head before styles, remove only the retired `spk-theme` key, and handle stale back/forward pages or tabs. Do not remove favorites, search/view preferences, or other storage. Blocked storage must not prevent light rendering. New standalone articles use the same light-only initializer.
 
 ## Future article assembly
 
@@ -45,7 +45,7 @@ python3 docs/render_reads_article.py \
 
 Use actual metadata, not the example values. Existing output is not overwritten by default; inspect and back it up before adding `--overwrite` when needed. The helper escapes metadata and embeds the exact stylesheet/wordmark, so local preview needs no remote stylesheet. Keep `final.md` for content review.
 
-The final document has one h1, `body[data-reads-view="article"]`, and `data-reads-theme="lime-v4"`. Leave no unresolved template tokens. Hashtags belong in a paragraph, not another h1. Keep image content/relative paths, meaningful alt text, and responsive sizing. Styling must not change research, editorial rules, image generation, or subjects. Do not add unimplemented AI/wiki features to company marketing; this does not prohibit news about AI.
+The final document has one h1, `body[data-reads-view="article"]`, and `data-reads-theme="light-v5"`. Leave no unresolved template tokens. Hashtags belong in a paragraph, not another h1. Keep image content/relative paths, meaningful alt text, and responsive sizing. Styling must not change research, editorial rules, image generation, or subjects. Do not add unimplemented AI/wiki features to company marketing; this does not prohibit news about AI.
 
 ## Publishing contract
 
@@ -62,4 +62,4 @@ python3 -B -m unittest discover -s tools/reads-theme -p 'test_reads_theme.py' -v
 node --test tools/reads-theme/test_reads_theme_script.mjs
 ```
 
-Run bulk generation on an internal-disk copy with `SITE` set to that explicit site directory, never on the external SSD. Check one news/blog article at desktop/mobile widths, image references, search, favorites, pagination, and article light/dark mode. Report preview, source installation, commit/push, and verified live deployment as separate states.
+Run bulk generation on an internal-disk copy with `SITE` set to that explicit directory, never on the external SSD. Check news/blog articles at desktop/mobile widths, image references, search, favorites, pagination, and light rendering with old saved dark preferences. Report preview, source installation, commit/push, and verified live deployment separately.

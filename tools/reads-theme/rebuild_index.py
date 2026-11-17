@@ -7,7 +7,7 @@ BASE_URL = "/reads"
 # GoatCounter 방문자 수 코드. 가입 후 받은 코드(예: "sevenpeaks")만 넣으면 활성화된다.
 # 비워두면 방문자 수 기능은 표시되지 않는다.
 GOATCOUNTER_CODE = os.environ.get("GOATCOUNTER_CODE", "sevenpeaks")
-READS_THEME_VERSION = "lime-v4"
+READS_THEME_VERSION = "light-v5"
 THEME_DIR = os.path.dirname(os.path.abspath(__file__))
 CAT_ORDER = [("IT", "it"), ("과학", "science"), ("경제", "economy"), ("바이오", "bio"),
              ("철학/인문", "philosophy"), ("상담", "counseling"), ("세계", "world"), ("종교", "religion")]
@@ -31,8 +31,7 @@ THEME_HEAD = (
     f'<script id="reads-theme-init">{READS_THEME_INIT_JS}</script>\n'
     f'<script id="reads-theme-script" src="{BASE_URL}/assets/reads-theme.js?v={READS_THEME_VERSION}" defer></script>'
 )
-THEME_BUTTON = ('<button id="theme-toggle" data-reads-theme-toggle type="button" '
-                'aria-label="어두운 테마" aria-pressed="false" hidden>◐ 테마</button>')
+THEME_BUTTON = ""  # Light-only identity: no theme control is emitted.
 
 
 def get_title(p):
@@ -159,7 +158,7 @@ def topnav_html(active="home"):
     return (
         '  <nav class="topnav" aria-label="Reads 탐색">\n'
         f'    <a class="tn-brand" href="{BASE_URL}/index.html">'
-        f'<img class="tn-logo" src="{BASE_URL}/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a>\n'
+        f'<img class="tn-logo" src="{BASE_URL}/assets/7peaks-a-lockup.webp" alt="7Peaks"><span>Reads</span></a>\n'
         '    <div class="tn-cats">\n'
         f'      <a{current("home")} href="{BASE_URL}/index.html">홈</a>\n'
         f'      <a{current("blog")} href="{BASE_URL}/posts/index.html">블로그</a>\n'
@@ -169,7 +168,6 @@ def topnav_html(active="home"):
         '    </div>\n'
         '    <div class="reads-controls">\n'
         '      <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">\n'
-        f'      {THEME_BUTTON}\n'
         '    </div>\n'
         '  </nav>\n')
 
@@ -185,8 +183,7 @@ def brand_hero(eyebrow, title_html, description, section="home", action="읽을�
             f'      <a class="hero-cta" href="#reading">{html.escape(action)} <span aria-hidden="true">↗</span></a>\n'
             '    </div>\n'
             '    <figure class="hero-art">\n'
-            f'      <img src="{BASE_URL}/assets/7peaks-point-field.png" alt="" width="1347" height="1167" decoding="async">\n'
-            '      <figcaption>더 넓은 생각으로.</figcaption>\n'
+            f'      <img src="{BASE_URL}/assets/hero-thought.webp" alt="" width="1672" height="941" decoding="async">\n'
             '    </figure>\n'
             '  </section>\n')
 
@@ -454,7 +451,7 @@ def ensure_post_chrome(cat_order=CAT_ORDER, base_dir="posts", list_suffix="목�
             nav = ('<div id="read-progress"></div>\n'
                    '<nav id="site-nav" aria-label="글 탐색">'
                    f'<a class="nav-home" href="{BASE_URL}/index.html">'
-                   f'<img class="reads-wordmark" src="{BASE_URL}/assets/7peaks-wordmark-light.svg" alt="7Peaks"><span>Reads</span></a>'
+                   f'<img class="reads-wordmark" src="{BASE_URL}/assets/7peaks-a-lockup.webp" alt="7Peaks"><span>Reads</span></a>'
                    f'<a class="nav-list" href="{BASE_URL}/{base_dir}/{cslug}/index.html">{html.escape(cat)} {list_suffix}</a>'
                    '<span class="nav-spacer"></span>'
                    '<span class="read-time" id="read-time"></span>'
@@ -483,12 +480,9 @@ def ensure_post_chrome(cat_order=CAT_ORDER, base_dir="posts", list_suffix="목�
 data = collect()
 # 로고 에셋 폴더 보장 (실제 로고 파일 assets/logo.png 는 저장소에 커밋되어 있음)
 os.makedirs(os.path.join(SITE, "assets"), exist_ok=True)
-shutil.copyfile(os.path.join(THEME_DIR, "assets", "7peaks-wordmark-light.svg"),
-                os.path.join(SITE, "assets", "7peaks-wordmark-light.svg"))
-shutil.copyfile(os.path.join(THEME_DIR, "assets", "7peaks-point-field.png"),
-                os.path.join(SITE, "assets", "7peaks-point-field.png"))
-shutil.copyfile(os.path.join(THEME_DIR, "assets", "7peaks-wordmark-dark.svg"),
-                os.path.join(SITE, "assets", "7peaks-wordmark-dark.svg"))
+for asset_name in ("7peaks-a-lockup.webp", "hero-thought.webp"):
+    shutil.copyfile(os.path.join(THEME_DIR, "assets", asset_name),
+                    os.path.join(SITE, "assets", asset_name))
 shutil.copyfile(os.path.join(THEME_DIR, "reads_theme.css"),
                 os.path.join(SITE, "assets", "reads-theme.css"))
 shutil.copyfile(os.path.join(THEME_DIR, "reads_theme.js"),

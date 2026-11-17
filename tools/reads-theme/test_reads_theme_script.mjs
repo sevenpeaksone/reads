@@ -1,142 +1,33 @@
-import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
-import test from "node:test";
-import vm from "node:vm";
-
-const init = readFileSync(
-  new URL("./reads_theme_init.js", import.meta.url),
-  "utf8",
-);
-const script = readFileSync(
-  new URL("./reads_theme.js", import.meta.url),
-  "utf8",
-);
-
-function page(storage = new Map(), blocked = false, ready = "complete") {
-  const classes = new Set();
-  const attrs = new Map();
-  const clicks = new Map();
-  const events = new Map();
-  const documentEvents = new Map();
-  const root = {
-    dataset: {},
-    classList: {
-      contains: (name) => classes.has(name),
-      toggle(name, on) {
-        if (on) classes.add(name);
-        else classes.delete(name);
-      },
-    },
-  };
-  const button = {
-    hidden: true,
-    setAttribute: (name, value) => attrs.set(name, value),
-    addEventListener: (name, handler) => clicks.set(name, handler),
-  };
-  const sandbox = {
-    document: {
-      documentElement: root,
-      readyState: ready,
-      querySelectorAll: () => [button],
-      addEventListener: (name, handler) => documentEvents.set(name, handler),
-    },
-    window: { addEventListener: (name, handler) => events.set(name, handler) },
-    localStorage: {
-      getItem(key) {
-        if (blocked) throw new Error("Storage denied");
-        return storage.get(key) ?? null;
-      },
-      setItem(key, value) {
-        if (blocked) throw new Error("Storage denied");
-        storage.set(key, value);
-      },
-    },
-  };
-  vm.runInNewContext(init, sandbox);
-  const beforeBoot = root.classList.contains("dark");
-  vm.runInNewContext(script, sandbox);
-  return {
-    root,
-    button,
-    attrs,
-    storage,
-    beforeBoot,
-    click: () => clicks.get("click")(),
-    storageChanged: (key = "spk-theme") => events.get("storage")({ key }),
-    pageShown: () => events.get("pageshow")(),
-    domReady: () => documentEvents.get("DOMContentLoaded")(),
-  };
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import test from 'node:test';
+import vm from 'node:vm';
+const init=readFileSync(new URL('./reads_theme_init.js',import.meta.url),'utf8');
+const script=readFileSync(new URL('./reads_theme.js',import.meta.url),'utf8');
+function page(storage=new Map(),blocked=false,ready='complete'){
+ const classes=new Set(['dark']), events=new Map(), documentEvents=new Map();
+ let removed=0;
+ const root={dataset:{},style:{},classList:{contains:name=>classes.has(name),remove:name=>classes.delete(name)}};
+ const sandbox={document:{documentElement:root,readyState:ready,querySelectorAll:()=>[{remove:()=>removed++}],addEventListener:(name,fn)=>documentEvents.set(name,fn)},window:{addEventListener:(name,fn)=>events.set(name,fn)},localStorage:{removeItem:key=>{if(blocked)throw Error('Storage denied');storage.delete(key);}}};
+ vm.runInNewContext(init,sandbox);
+ const beforeBoot=root.classList.contains('dark');
+ vm.runInNewContext(script,sandbox);
+ return {root,storage,beforeBoot,removed:()=>removed,domReady:()=>documentEvents.get('DOMContentLoaded')(),pageShown:()=>events.get('pageshow')(),storageChanged:()=>events.get('storage')({key:'spk-theme'})};
 }
-
-test("new visitors start light with an accessible theme control", () => {
-  const p = page();
-  assert.equal(p.beforeBoot, false);
-  assert.equal(p.root.dataset.readsColorMode, "light");
-  assert.equal(p.button.hidden, false);
-  assert.equal(p.attrs.get("aria-label"), "어두운 테마");
-  assert.equal(p.attrs.get("aria-pressed"), "false");
+test('light-only mode is applied before the document paints',()=>{
+ const p=page();assert.equal(p.beforeBoot,false);assert.equal(p.root.dataset.readsColorMode,'light');assert.equal(p.root.style.colorScheme,'light');assert.equal(p.removed(),1);
 });
-
-test("saved dark mode applies before the controls boot", () => {
-  const p = page(new Map([["spk-theme", "dark"]]), false, "loading");
-  assert.equal(p.beforeBoot, true);
-  assert.equal(p.button.hidden, true);
-  p.domReady();
-  assert.equal(p.attrs.get("aria-pressed"), "true");
-  assert.equal(p.button.textContent, "☾ 다크");
+test('an old saved dark preference is removed, never restored',()=>{
+ const p=page(new Map([['spk-theme','dark']]),false,'loading');assert.equal(p.beforeBoot,false);assert.equal(p.storage.has('spk-theme'),false);assert.equal(p.removed(),0);p.domReady();assert.equal(p.removed(),1);
 });
-
-test("home -> blog -> article -> news -> home shares one preference", () => {
-  const storage = new Map();
-  const home = page(storage);
-  home.click();
-  assert.equal(storage.get("spk-theme"), "dark");
-  for (const name of [
-    "blog",
-    "blog article",
-    "news",
-    "news article",
-    "refreshed home",
-  ]) {
-    assert.equal(page(storage).root.classList.contains("dark"), true, name);
-  }
-  const article = page(storage);
-  article.click();
-  assert.equal(page(storage).root.classList.contains("dark"), false);
-  assert.equal(storage.get("spk-theme"), "light");
+test('home, blog, news, article and favorites remain light',()=>{
+ const saved=new Map([['spk-theme','dark'],['spk-favs','article-id'],['spk-view','list']]);
+ for(const _name of ['home','blog','article','news','favorites'])assert.equal(page(saved).root.classList.contains('dark'),false);
+ assert.equal(saved.get('spk-favs'),'article-id');assert.equal(saved.get('spk-view'),'list');
 });
-
-test("a preference change in another tab and cleared storage synchronize", () => {
-  const storage = new Map();
-  const p = page(storage);
-  storage.set("spk-theme", "dark");
-  p.storageChanged();
-  assert.equal(p.attrs.get("aria-pressed"), "true");
-  storage.clear();
-  p.storageChanged(null);
-  assert.equal(p.attrs.get("aria-pressed"), "false");
+test('blocked browser storage does not break light-only presentation',()=>{
+ const p=page(new Map(),true);assert.equal(p.root.dataset.readsColorMode,'light');assert.doesNotThrow(p.pageShown);
 });
-
-test("blocked storage does not break the theme button", () => {
-  const p = page(new Map(), true);
-  assert.doesNotThrow(() => p.click());
-  assert.equal(p.root.classList.contains("dark"), true);
-  p.click();
-  assert.equal(p.root.classList.contains("dark"), false);
-});
-
-test("a page restored by browser back/forward rereads the selected mode", () => {
-  const storage = new Map([["spk-theme", "dark"]]);
-  const cached = page(storage);
-  storage.set("spk-theme", "light");
-  cached.pageShown();
-  assert.equal(cached.root.classList.contains("dark"), false);
-  assert.equal(cached.attrs.get("aria-pressed"), "false");
-});
-
-test("unknown preferences fall back to light", () => {
-  assert.equal(
-    page(new Map([["spk-theme", "unknown"]])).root.dataset.readsColorMode,
-    "light",
-  );
+test('back-forward restoration and stale tabs cannot restore dark mode',()=>{
+ const saved=new Map();const p=page(saved);saved.set('spk-theme','dark');p.storageChanged();assert.equal(saved.has('spk-theme'),false);p.pageShown();assert.equal(p.root.classList.contains('dark'),false);
 });
