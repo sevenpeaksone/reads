@@ -7,7 +7,7 @@ BASE_URL = "/reads"
 # GoatCounter 방문자 수 코드. 가입 후 받은 코드(예: "sevenpeaks")만 넣으면 활성화된다.
 # 비워두면 방문자 수 기능은 표시되지 않는다.
 GOATCOUNTER_CODE = os.environ.get("GOATCOUNTER_CODE", "sevenpeaks")
-READS_THEME_VERSION = "light-v5"
+READS_THEME_VERSION = "light-v7"
 THEME_DIR = os.path.dirname(os.path.abspath(__file__))
 CAT_ORDER = [("IT", "it"), ("과학", "science"), ("경제", "economy"), ("바이오", "bio"),
              ("철학/인문", "philosophy"), ("상담", "counseling"), ("세계", "world"), ("종교", "religion")]
@@ -163,8 +163,8 @@ def topnav_html(active="home"):
         f'      <a{current("home")} href="{BASE_URL}/index.html">홈</a>\n'
         f'      <a{current("blog")} href="{BASE_URL}/posts/index.html">블로그</a>\n'
         f'      <a{current("news")} href="{BASE_URL}/news/index.html">뉴스</a>\n'
-        f'      <a{current("saved")} href="{BASE_URL}/favorites.html">★ 즐겨찾기</a>\n'
-        '      <a class="company-link" href="https://7peaks.io/ko/">7Peaks ↗</a>\n'
+        f'      <a{current("saved")} href="{BASE_URL}/favorites.html">즐겨찾기</a>\n'
+        '      <a class="company-link" href="https://7peaks.io/ko/">7Peaks</a>\n'
         '    </div>\n'
         '    <div class="reads-controls">\n'
         '      <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">\n'
@@ -174,18 +174,20 @@ def topnav_html(active="home"):
 
 
 def brand_hero(eyebrow, title_html, description, section="home", action="읽을거리 보기"):
-    """The approved company-site hero, adapted to the reading service."""
-    return (f'  <section class="hero hero-split" data-section="{section}">\n'
-            '    <div class="hero-copy">\n'
-            f'      <p class="reads-eyebrow">{html.escape(eyebrow)}</p>\n'
-            f'      <h1>{title_html}</h1>\n'
-            f'      <p>{html.escape(description)}</p>\n'
-            f'      <a class="hero-cta" href="#reading">{html.escape(action)} <span aria-hidden="true">↗</span></a>\n'
-            '    </div>\n'
-            '    <figure class="hero-art">\n'
-            f'      <img src="{BASE_URL}/assets/hero-thought.webp" alt="" width="1672" height="941" decoding="async">\n'
-            '    </figure>\n'
-            '  </section>\n')
+    """Reading-service masthead, deliberately separate from the company hero."""
+    title = {"home": "뉴스와 블로그", "blog": "블로그", "news": "뉴스"}.get(section, eyebrow)
+    artwork = {
+        "home": ("reads-world-b.webp", "책과 지도, 태블릿으로 세상 이야기를 읽는 장면", 2048, 768),
+        "blog": ("reads-world-b.webp", "책과 지도, 태블릿으로 깊이 있는 이야기를 읽는 장면", 2048, 768),
+        "news": ("reads-news-paper.webp", "신문과 태블릿으로 뉴스를 읽는 장면", 1774, 887),
+    }.get(section)
+    visual = (f'    <figure class="reads-editorial-inline"><img src="{BASE_URL}/assets/{artwork[0]}" '
+              f'alt="{artwork[1]}" width="{artwork[2]}" height="{artwork[3]}" decoding="async"></figure>\n') if artwork else ""
+    return (f'  <header class="reads-heading" data-section="{section}">\n'
+            f'    <div class="reads-heading-copy"><h1>{html.escape(title)}</h1><p>{html.escape(description)}</p>'
+            f'<a class="reads-index-link" href="#reading">{html.escape(action)}</a></div>\n'
+            + visual +
+            '  </header>\n')
 
 
 SEARCH_WRAP = ('    <div id="search-wrap" hidden>\n'
@@ -311,7 +313,7 @@ PREFS_JS = ('<script id="site-prefs-js">' + r"""
       '</div>'):'')+
       (pg?('<label>페이지당 <select id="perpage">'+perOpts+'</select> 개</label>'):'')+
       '<span class="grow"></span>'+
-      '<a class="fav-link" href="'+BASE+'/favorites.html">★ 즐겨찾기</a>';
+      '<a class="fav-link" href="'+BASE+'/favorites.html">즐겨찾기</a>';
     pc.insertBefore(bar, pc.firstChild);
     var seg=bar.querySelector('#view-seg');
     if(seg){
@@ -480,7 +482,7 @@ def ensure_post_chrome(cat_order=CAT_ORDER, base_dir="posts", list_suffix="목�
 data = collect()
 # 로고 에셋 폴더 보장 (실제 로고 파일 assets/logo.png 는 저장소에 커밋되어 있음)
 os.makedirs(os.path.join(SITE, "assets"), exist_ok=True)
-for asset_name in ("7peaks-a-lockup.webp", "hero-thought.webp"):
+for asset_name in ("7peaks-a-lockup.webp", "reads-world-b.webp", "reads-news-paper.webp"):
     shutil.copyfile(os.path.join(THEME_DIR, "assets", asset_name),
                     os.path.join(SITE, "assets", asset_name))
 shutil.copyfile(os.path.join(THEME_DIR, "reads_theme.css"),
@@ -799,7 +801,7 @@ root_news_block = (
     '    <section class="cat-section">\n'
     '      <div class="cat-bar">\n'
     '        <h2 class="cat-head" data-cat="news">뉴스</h2>\n'
-    '        <a class="more-link" href="./news/index.html">뉴스 더보기 →</a>\n'
+    '        <a class="more-link" href="./news/index.html">뉴스 더보기</a>\n'
     '      </div>\n'
     + (f'      <div class="news-list">\n{news_rows}\n      </div>\n' if news_rows
        else '      <p style="color:var(--muted)">준비 중입니다.</p>\n')
@@ -808,7 +810,7 @@ root_blog_block = (
     '    <section class="cat-section">\n'
     '      <div class="cat-bar">\n'
     '        <h2 class="cat-head" data-cat="blog">블로그</h2>\n'
-    '        <a class="more-link" href="./posts/index.html">블로그 더보기 →</a>\n'
+    '        <a class="more-link" href="./posts/index.html">블로그 더보기</a>\n'
     '      </div>\n'
     + (f'      <div class="grid home">\n{blog_cards}\n      </div>\n' if blog_cards
        else '      <p style="color:var(--muted)">준비 중입니다.</p>\n')

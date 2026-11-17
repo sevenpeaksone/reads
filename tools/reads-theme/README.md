@@ -1,4 +1,4 @@
-# 7Peaks Reads design — light-v5
+# 7Peaks Reads design — light-v7
 
 English canonical guide. Korean translation: [README.ko.md](README.ko.md).
 
@@ -19,13 +19,13 @@ In Reads these files live in `tools/reads-theme/`. In the producer project the s
 
 ## Company identity alignment
 
-Reads belongs to the 7Peaks brand family. It shares the approved A symbol and thin wordmark, Geist Variable/Noto Sans KR Variable, ivory backgrounds, charcoal regular-weight headings, lime accents, and 46px compact pill controls with the company homepage. Its home photograph blends into the page background without an image box. Listing pages remain concise and articles keep a comfortable reading measure. Orange, purple and green remain editorial category accents. Preserve search, favorites, view preferences, pagination, reading progress, and all article content.
+Reads is a distinct service for reading stories about the world, not a copy of the company landing page. It shares the A symbol, original wordmark at a reduced display height, typefaces, ivory/charcoal/lime tokens and 32px visually slim controls. Its compact masthead leads directly into news and blog articles. The company home photographs, slides and marketing hero must never be inserted into Reads. Selected B imagery is persistent on the normal home/blog routes; news uses a separate newspaper/tablet image. All photo boundaries are softly feathered into the ivory surface. The original logo is proportionally displayed at exactly one-third of the prior preview size; navigation text is unchanged, while content headings/body are smaller. Orange, purple and green remain editorial category accents. Preserve search, favorites, view preferences, pagination, reading progress, and all article content.
 
-The two pinned Fontsource 5.3.0 font stylesheets load through jsDelivr. Layout remains local; offline previews fall back to system fonts. The shared home photo is `assets/hero-thought.webp`. Do not recolor, resize, recompress, replace, or delete article images. Archive point-field and old-logo assets are not active design sources.
+The two pinned Fontsource 5.3.0 font stylesheets load through jsDelivr. Layout remains local; offline previews fall back to system fonts. Company photo assets are not used on Reads. The selected reading image is assets/reads-world-b.webp; the separate news image is assets/reads-news-paper.webp. Do not recolor, resize, recompress, replace, or delete article images. Archive point-field and old-logo assets are not active design sources.
 
 ## Source and generated HTML
 
-Published listings and every non-empty article reference `assets/reads-theme.css?v=light-v5` and the matching shared script. Original article-specific markup remains intact; the common theme normalizes presentation. Standalone previews embed the exact stylesheet and logo image. Update this source, regenerate the site, and synchronize the producer copy so future articles retain the same design.
+Published listings and every non-empty article reference `assets/reads-theme.css?v=light-v7` and the matching shared script. Original article-specific markup remains intact; the common theme normalizes presentation. Standalone previews embed the exact stylesheet and logo image. Update this source, regenerate the site, and synchronize the producer copy so future articles retain the same design.
 
 ## Light-only presentation
 
@@ -45,7 +45,7 @@ python3 docs/render_reads_article.py \
 
 Use actual metadata, not the example values. Existing output is not overwritten by default; inspect and back it up before adding `--overwrite` when needed. The helper escapes metadata and embeds the exact stylesheet/wordmark, so local preview needs no remote stylesheet. Keep `final.md` for content review.
 
-The final document has one h1, `body[data-reads-view="article"]`, and `data-reads-theme="light-v5"`. Leave no unresolved template tokens. Hashtags belong in a paragraph, not another h1. Keep image content/relative paths, meaningful alt text, and responsive sizing. Styling must not change research, editorial rules, image generation, or subjects. Do not add unimplemented AI/wiki features to company marketing; this does not prohibit news about AI.
+The final document has one h1, `body[data-reads-view="article"]`, and `data-reads-theme="light-v7"`. Leave no unresolved template tokens. Hashtags belong in a paragraph, not another h1. Keep image content/relative paths, meaningful alt text, and responsive sizing. Styling must not change research, editorial rules, image generation, or subjects. Do not add unimplemented AI/wiki features to company marketing; this does not prohibit news about AI.
 
 ## Publishing contract
 

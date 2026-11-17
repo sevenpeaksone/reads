@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" data-reads-theme="light-v5">
+<html lang="ko" data-reads-theme="light-v7">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,9 +15,9 @@
     // Light presentation also works when browser storage is unavailable.
   }
 })();</script>
-<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=light-v5" defer></script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=light-v7" defer></script>
 
-<link id="reads-theme" rel="stylesheet" href="/reads/assets/reads-theme.css?v=light-v5">
+<link id="reads-theme" rel="stylesheet" href="/reads/assets/reads-theme.css?v=light-v7">
 </head>
 <body>
   <nav class="topnav" aria-label="Reads 탐색">
@@ -26,24 +26,17 @@
       <a aria-current="page" href="/reads/index.html">홈</a>
       <a href="/reads/posts/index.html">블로그</a>
       <a href="/reads/news/index.html">뉴스</a>
-      <a href="/reads/favorites.html">★ 즐겨찾기</a>
-      <a class="company-link" href="https://7peaks.io/ko/">7Peaks ↗</a>
+      <a href="/reads/favorites.html">즐겨찾기</a>
+      <a class="company-link" href="https://7peaks.io/ko/">7Peaks</a>
     </div>
     <div class="reads-controls">
       <input id="site-search" type="search" placeholder="제목·카테고리 검색…" autocomplete="off" aria-label="검색">
     </div>
   </nav>
-  <section class="hero hero-split" data-section="home">
-    <div class="hero-copy">
-      <p class="reads-eyebrow">NEWS &amp; STORIES</p>
-      <h1>오늘을 읽고,<br>생각을 넓히다.</h1>
-      <p>뉴스와 깊이 있는 이야기, 한곳에서.</p>
-      <a class="hero-cta" href="#reading">읽을거리 보기 <span aria-hidden="true">↗</span></a>
-    </div>
-    <figure class="hero-art">
-      <img src="/reads/assets/hero-thought.webp" alt="" width="1672" height="941" decoding="async">
-    </figure>
-  </section>
+  <header class="reads-heading" data-section="home">
+    <div class="reads-heading-copy"><h1>뉴스와 블로그</h1><p>뉴스와 깊이 있는 이야기, 한곳에서.</p><a class="reads-index-link" href="#reading">읽을거리 보기</a></div>
+    <figure class="reads-editorial-inline"><img src="/reads/assets/reads-world-b.webp" alt="책과 지도, 태블릿으로 세상 이야기를 읽는 장면" width="2048" height="768" decoding="async"></figure>
+  </header>
   <main id="reading">
     <div id="search-wrap" hidden>
       <p id="search-meta"></p>
@@ -53,7 +46,7 @@
     <section class="cat-section">
       <div class="cat-bar">
         <h2 class="cat-head" data-cat="news">뉴스</h2>
-        <a class="more-link" href="./news/index.html">뉴스 더보기 →</a>
+        <a class="more-link" href="./news/index.html">뉴스 더보기</a>
       </div>
       <div class="news-list">
       <a class="news-item" href="./news/economy/2026-11-17-20/index.html">
@@ -93,7 +86,7 @@
     <section class="cat-section">
       <div class="cat-bar">
         <h2 class="cat-head" data-cat="blog">블로그</h2>
-        <a class="more-link" href="./posts/index.html">블로그 더보기 →</a>
+        <a class="more-link" href="./posts/index.html">블로그 더보기</a>
       </div>
       <div class="grid home">
       <a class="card" href="./posts/it/2026-11-18-03/index.html">
@@ -271,7 +264,7 @@
       '</div>'):'')+
       (pg?('<label>페이지당 <select id="perpage">'+perOpts+'</select> 개</label>'):'')+
       '<span class="grow"></span>'+
-      '<a class="fav-link" href="'+BASE+'/favorites.html">★ 즐겨찾기</a>';
+      '<a class="fav-link" href="'+BASE+'/favorites.html">즐겨찾기</a>';
     pc.insertBefore(bar, pc.firstChild);
     var seg=bar.querySelector('#view-seg');
     if(seg){

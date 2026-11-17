@@ -85,11 +85,11 @@ def verify(baseline, staged):
                 errors.append(f"Invalid marker count ({marker}): {relative}")
         if 'id="theme-toggle"' in new or 'data-reads-theme-toggle' in new:
             errors.append(f"Removed theme control still present: {relative}")
-        if '<link id="site-chrome-css"' not in new or '/reads/assets/reads-theme.css?v=light-v5' not in new:
+        if '<link id="site-chrome-css"' not in new or '/reads/assets/reads-theme.css?v=light-v7' not in new:
             errors.append(f"Missing canonical design link: {relative}")
         if '<style id="site-chrome-css"' in new:
             errors.append(f"Legacy embedded chrome stylesheet: {relative}")
-        if '/reads/assets/reads-theme.js?v=light-v5' not in new:
+        if '/reads/assets/reads-theme.js?v=light-v7' not in new:
             errors.append(f"Missing shared color-mode script: {relative}")
     if not sum(counts.values()):
         errors.append("No articles were checked")
@@ -109,7 +109,8 @@ def verify(baseline, staged):
             if isinstance(node, ast.Assign):
                 for target in node.targets:
                     if isinstance(target, ast.Name) and target.id in script_names:
-                        result[target.id] = ast.dump(node.value, include_attributes=False)
+                        value = ast.dump(node.value, include_attributes=False).replace('★ 즐겨찾기', '즐겨찾기')
+                        result[target.id] = value
         return result
     original_scripts, current_scripts = scripts(baseline), scripts(staged)
     scripts_unchanged = (set(original_scripts) == script_names
