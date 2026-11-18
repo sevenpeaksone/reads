@@ -4,9 +4,9 @@ News, commentary, and blog articles published at [7Peaks Reads](https://sevenpea
 
 Korean: [README.ko.md](README.ko.md).
 
-The website and articles use the **light-v7** design: ivory, charcoal, lime, orange, purple, and green. The main page, news, blog, category archives, favorites, and existing articles use the same common design.
+The website and articles use the **light-v8** design: ivory, charcoal, lime, orange, purple, and green. The main page, news, blog, category archives, favorites, and existing articles use the same common design.
 
-Reads follows the company website's compact light identity: the original A-symbol wordmark displayed at one-third of the previous preview height, unchanged navigation text, smaller content typography and 32px controls. Home/blog use the selected B reading image; news uses a newspaper/tablet image. Edges blend into the ivory background. Reads never reuses the company home photographs or slideshow.
+Reads follows the company website's compact light identity: the original A-symbol wordmark displayed at one-third of the original company header size (433f751), not one-third of an already reduced preview, unchanged navigation text, smaller content typography and 32px controls. Home/blog use the selected B reading image; news uses a newspaper/tablet image. Edges blend into the ivory background. Reads never reuses the company home photographs or slideshow.
 
 The site is light-only, including the home page, all listings, favorites, and article details. Dark-mode controls are removed. Old saved dark preferences are retired without changing favorites or view preferences.
 

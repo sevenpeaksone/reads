@@ -7,7 +7,7 @@ BASE_URL = "/reads"
 # GoatCounter 방문자 수 코드. 가입 후 받은 코드(예: "sevenpeaks")만 넣으면 활성화된다.
 # 비워두면 방문자 수 기능은 표시되지 않는다.
 GOATCOUNTER_CODE = os.environ.get("GOATCOUNTER_CODE", "sevenpeaks")
-READS_THEME_VERSION = "light-v7"
+READS_THEME_VERSION = "light-v8"
 THEME_DIR = os.path.dirname(os.path.abspath(__file__))
 CAT_ORDER = [("IT", "it"), ("과학", "science"), ("경제", "economy"), ("바이오", "bio"),
              ("철학/인문", "philosophy"), ("상담", "counseling"), ("세계", "world"), ("종교", "religion")]

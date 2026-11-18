@@ -11,13 +11,22 @@ from render_reads_article import render_article, THEME_DIR
 
 
 class ReadsThemeTests(unittest.TestCase):
+    def test_logo_uses_original_company_header_reference_not_reduced_preview(self):
+        css = (THEME_DIR / 'reads_theme.css').read_text()
+        self.assertIn('--brand-logo-height: calc(286px / 9);', css)
+        self.assertIn('--brand-logo-height: 26px;', css)
+        self.assertIn('--brand-logo-height: calc(208px / 9);', css)
+        self.assertIn('@media(max-width:1100px)', css)
+        self.assertIn('@media(max-width:600px)', css)
+        self.assertIn('height: var(--brand-logo-height)', css)
+
     def test_escaped_metadata_and_unchanged_body(self):
         body = '<p>Original text {{TITLE_ESCAPED}}</p><img src="./images/thumbnail.png" alt="Example">'
         result = render_article('Title <one> & two', 'IT & science', '2026-11-10', body)
         self.assertIn('Title &lt;one&gt; &amp; two', result)
         self.assertIn('IT &amp; science', result)
         self.assertIn(body, result)
-        self.assertIn('data-reads-theme="light-v7"', result)
+        self.assertIn('data-reads-theme="light-v8"', result)
         self.assertIn('class="reads-wordmark"', result)
         self.assertEqual(result.count('<h1>'), 1)
         self.assertEqual(result.count('id="reads-theme-init"'), 1)
@@ -64,24 +73,24 @@ class ReadsThemeTests(unittest.TestCase):
                     self.assertEqual(result.count('id="site-chrome-css"'), 1)
                     self.assertEqual(result.count('id="site-chrome-js"'), 1)
                     self.assertNotIn('id="reads-article-theme"', result)
-                    self.assertIn('data-reads-theme="light-v7"', result)
-                    self.assertIn('href="/reads/assets/reads-theme.css?v=light-v7"', result)
+                    self.assertIn('data-reads-theme="light-v8"', result)
+                    self.assertIn('href="/reads/assets/reads-theme.css?v=light-v8"', result)
                     self.assertNotIn('<style id="site-chrome-css"', result)
                     for marker in ('id="reads-theme-init"', 'id="reads-theme-script"'):
                         self.assertEqual(result.count(marker), 1)
-                    self.assertIn('/reads/assets/reads-theme.js?v=light-v7', result)
+                    self.assertIn('/reads/assets/reads-theme.js?v=light-v8', result)
                     if path in previous:
                         self.assertEqual(previous[path], result)
                     previous[path] = result
             for relative in ('index.html', 'posts/index.html', 'news/index.html', 'favorites.html'):
                 result = (site / relative).read_text(encoding='utf-8')
                 self.assertIn('id="reads-theme"', result)
-                self.assertIn('href="/reads/assets/reads-theme.css?v=light-v7"', result)
+                self.assertIn('href="/reads/assets/reads-theme.css?v=light-v8"', result)
                 self.assertNotIn('--bg:#0f1117', result)
                 self.assertEqual(result.count('id="theme-toggle"'), 0)
                 self.assertIn('class="reads-controls"', result)
                 self.assertLess(result.index('id="reads-theme-init"'), result.index('id="reads-theme"'))
-                self.assertIn('/reads/assets/reads-theme.js?v=light-v7', result)
+                self.assertIn('/reads/assets/reads-theme.js?v=light-v8', result)
             self.assertEqual(len(json.loads((site / 'search.json').read_text())), 2)
             self.assertEqual((site / 'assets/reads-theme.css').read_bytes(),
                              (THEME_DIR / 'reads_theme.css').read_bytes())
