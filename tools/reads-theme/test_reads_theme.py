@@ -85,7 +85,8 @@ class ReadsThemeTests(unittest.TestCase):
             for relative in ('index.html', 'posts/index.html', 'news/index.html', 'favorites.html'):
                 result = (site / relative).read_text(encoding='utf-8')
                 self.assertIn('id="reads-theme"', result)
-                self.assertIn('href="/reads/assets/reads-theme.css?v=light-v8"', result)
+                revision = '-text-sections' if relative in ('posts/index.html', 'news/index.html') else ''
+                self.assertIn(f'href="/reads/assets/reads-theme.css?v=light-v8{revision}"', result)
                 self.assertNotIn('--bg:#0f1117', result)
                 self.assertEqual(result.count('id="theme-toggle"'), 0)
                 self.assertIn('class="reads-controls"', result)

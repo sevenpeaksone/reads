@@ -119,13 +119,17 @@ def latest_per_cat(data):
 
 def page(title, body):
     visit = '<div class="visit" id="visit-count"></div>' if GOATCOUNTER_CODE else ""
+    style_url = THEME_URL
+    if any(f'<header class="reads-heading" data-section="{section}">' in body
+           for section in ("blog", "news")):
+        style_url += "-text-sections"
     return (f'<!DOCTYPE html>\n<html lang="ko" data-reads-theme="{READS_THEME_VERSION}">\n<head>\n'
             '<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
             f'<title>{html.escape(title)}</title>\n'
             f'{THEME_HEAD}\n'
             f'{FONT_LINK}\n'
-            f'<link id="reads-theme" rel="stylesheet" href="{THEME_URL}">\n</head>\n<body>\n{body}\n'
+            f'<link id="reads-theme" rel="stylesheet" href="{style_url}">\n</head>\n<body>\n{body}\n'
             f'<footer>{visit}© 2026 7Peaks Reads · <a href="https://7peaks.io/ko/">7Peaks 홈페이지 ↗</a></footer>\n'
             f'{PREFS_JS}\n{VISIT_JS}\n{goatcounter_script()}\n</body>\n</html>')
 
