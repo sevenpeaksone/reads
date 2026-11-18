@@ -101,7 +101,14 @@ class ReadsThemeTests(unittest.TestCase):
             home = (site / 'index.html').read_text(encoding='utf-8')
             self.assertIn('reads-heading', home)
             self.assertIn('/reads/assets/reads-world-b.webp', home)
-            self.assertIn('/reads/assets/reads-news-paper.webp', (site / 'news/index.html').read_text())
+            for relative in ('posts/index.html', 'news/index.html'):
+                listing = (site / relative).read_text(encoding='utf-8')
+                heading = listing.split('<header class="reads-heading"', 1)[1].split('</header>', 1)[0]
+                self.assertNotIn('<figure', heading)
+                self.assertNotIn('<img', heading)
+                self.assertNotIn('reads-editorial-inline', listing)
+                self.assertIn('href="#reading"', heading)
+            self.assertIn('reads-editorial-inline', home)
             self.assertIn('뉴스와 블로그', home)
             self.assertIn('href="#reading"', home)
             self.assertIn('<main id="reading">', home)

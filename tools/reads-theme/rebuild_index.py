@@ -178,8 +178,6 @@ def brand_hero(eyebrow, title_html, description, section="home", action="읽을�
     title = {"home": "뉴스와 블로그", "blog": "블로그", "news": "뉴스"}.get(section, eyebrow)
     artwork = {
         "home": ("reads-world-b.webp", "책과 지도, 태블릿으로 세상 이야기를 읽는 장면", 2048, 768),
-        "blog": ("reads-world-b.webp", "책과 지도, 태블릿으로 깊이 있는 이야기를 읽는 장면", 2048, 768),
-        "news": ("reads-news-paper.webp", "신문과 태블릿으로 뉴스를 읽는 장면", 1774, 887),
     }.get(section)
     visual = (f'    <figure class="reads-editorial-inline"><img src="{BASE_URL}/assets/{artwork[0]}" '
               f'alt="{artwork[1]}" width="{artwork[2]}" height="{artwork[3]}" decoding="async"></figure>\n') if artwork else ""
