@@ -11,6 +11,19 @@ from render_reads_article import render_article, THEME_DIR
 
 
 class ReadsThemeTests(unittest.TestCase):
+    def test_home_type_matches_company_home_without_resizing_other_sections(self):
+        css = (THEME_DIR / 'reads_theme.css').read_text()
+        home = css.split('/* The Reads home shares the company home type scale;', 1)[1]
+        self.assertIn('.reads-heading[data-section="home"] h1', home)
+        self.assertIn('font-size: clamp(34px, 3vw, 46px);', home)
+        self.assertIn('font-size: 48px;', home)
+        self.assertIn('font-size: clamp(24px, 3.4vw, 36px);', home)
+        self.assertIn('font-size: clamp(20px, 4.4vw, 30px);', home)
+        self.assertIn('font-size: 18px;', home)
+        self.assertIn('line-height: 1.38;', home)
+        self.assertIn('line-height: 1.3;', home)
+        self.assertNotIn('body[data-reads-view="article"]', home)
+
     def test_logo_uses_original_company_header_reference_not_reduced_preview(self):
         css = (THEME_DIR / 'reads_theme.css').read_text()
         self.assertIn('--brand-logo-height: calc(286px / 9);', css)
@@ -85,7 +98,8 @@ class ReadsThemeTests(unittest.TestCase):
             for relative in ('index.html', 'posts/index.html', 'news/index.html', 'favorites.html'):
                 result = (site / relative).read_text(encoding='utf-8')
                 self.assertIn('id="reads-theme"', result)
-                revision = '-text-sections' if relative in ('posts/index.html', 'news/index.html') else ''
+                revision = ('-home-type' if relative == 'index.html' else
+                            '-text-sections' if relative in ('posts/index.html', 'news/index.html') else '')
                 self.assertIn(f'href="/reads/assets/reads-theme.css?v=light-v8{revision}"', result)
                 self.assertNotIn('--bg:#0f1117', result)
                 self.assertEqual(result.count('id="theme-toggle"'), 0)

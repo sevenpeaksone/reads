@@ -120,7 +120,9 @@ def latest_per_cat(data):
 def page(title, body):
     visit = '<div class="visit" id="visit-count"></div>' if GOATCOUNTER_CODE else ""
     style_url = THEME_URL
-    if any(f'<header class="reads-heading" data-section="{section}">' in body
+    if '<header class="reads-heading" data-section="home">' in body:
+        style_url += "-home-type"
+    elif any(f'<header class="reads-heading" data-section="{section}">' in body
            for section in ("blog", "news")):
         style_url += "-text-sections"
     return (f'<!DOCTYPE html>\n<html lang="ko" data-reads-theme="{READS_THEME_VERSION}">\n<head>\n'
