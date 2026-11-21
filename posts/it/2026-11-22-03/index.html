@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko" data-reads-theme="light-v8">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CDC와 Debezium 원리 — DB 트랜잭션 로그가 Kafka 이벤트가 되기까지 — 7Peaks Reads</title>
+<script id="reads-theme-init">(function () {
+  var root = document.documentElement;
+  root.classList.remove("dark");
+  root.dataset.readsColorMode = "light";
+  root.style.colorScheme = "light";
+  try {
+    localStorage.removeItem("spk-theme");
+  } catch (error) {
+    // Light presentation also works when browser storage is unavailable.
+  }
+})();</script>
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=light-v8" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=light-v8">
+</head>
+<body data-reads-view="article" data-reads-theme="light-v8">
+<div id="read-progress"></div>
+<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-a-lockup.webp" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span></nav>
+<main class="wrap">
+    <div class="meta"><span class="badge">IT</span> <time class="date" datetime="2026-11-22">2026-11-22</time></div>
+    <h1>CDC와 Debezium 원리 — DB 트랜잭션 로그가 Kafka 이벤트가 되기까지</h1>
+    <p><img alt="CDC와 Debezium 원리 대표 이미지 — DB 트랜잭션 로그가 Kafka 이벤트가 되기까지" src="./images/thumbnail.png" /></p>
+<p>이번 글에서는 CDC(Change Data Capture)와 그 대표 구현체인 Debezium이 어떻게 동작하는지 정리해 보겠습니다.
+핵심은 하나입니다. 데이터베이스가 원래 쓰고 있던 트랜잭션 로그를 읽어, 변경 하나하나를 Kafka 이벤트로 바꾸는 것입니다.
+MySQL binlog와 PostgreSQL WAL을 읽는 방식, 스냅샷과 스트리밍, 전달 보장, 스키마 변경, 그리고 운영에서 자주 밟는 함정까지 차례로 살펴봅니다.</p>
+<blockquote>
+<p><strong>세 줄 요약</strong></p>
+<ol>
+<li>로그 기반 CDC는 폴링과 달리 삭제와 중간 변경까지 커밋 순서대로 잡아냅니다.</li>
+<li>Debezium은 "초기 스냅샷 → 로그 스트리밍"으로 기존 데이터와 이후 변경을 빈틈없이 잇고, 기본 전달 보장은 최소 한 번입니다.</li>
+<li>운영의 최대 함정은 PostgreSQL 복제 슬롯의 WAL 누적과 MySQL binlog 만료입니다.</li>
+</ol>
+</blockquote>
+<hr />
+<h2>■ 폴링으로는 왜 부족한가</h2>
+<p>다른 시스템에 DB 변경을 알리는 가장 흔한 방법은 폴링입니다.
+몇 초마다 <code>updated_at &gt; 마지막 조회 시각</code>으로 바뀐 행을 가져오는 식입니다.
+스프링으로 오래 개발해 오신 분이라면 이런 배치를 한 번쯤 짜 보셨을 겁니다.</p>
+<p>단순해서 좋습니다만, 구조적인 빈틈이 있습니다.
+Debezium 블로그에 실린 Gunnar Morling의 2018년 글은 로그 기반 CDC의 장점을 다섯 가지로 정리합니다.</p>
+<ul>
+<li><strong>삭제를 볼 수 없다.</strong> 폴링은 지난 조회 이후 사라진 행을 알아낼 방법이 없습니다.</li>
+<li><strong>중간 변경을 놓친다.</strong> 두 번의 조회 사이에 값이 A→B→C로 바뀌면 C만 보입니다.</li>
+<li><strong>지연과 부하가 맞물린다.</strong> 주기를 줄이면 원본 DB 부하가 늘고, 늘리면 지연이 커집니다.</li>
+<li><strong>스키마에 손을 대야 한다.</strong> 모든 대상 테이블에 <code>LAST_UPDATE_TIMESTAMP</code> 같은 컬럼이 있어야 하고, 누군가 그 값을 꼬박꼬박 갱신해야 합니다.</li>
+<li><strong>이전 값이 없다.</strong> 폴링은 현재 상태만 돌려줍니다. 로그 기반은 update·delete의 이전 값과 트랜잭션 ID 같은 메타데이터까지 줄 수 있습니다.</li>
+</ul>
+<p>로그를 읽으면 이 문제가 한꺼번에 풀립니다.
+원문 표현을 빌리면, 데이터베이스 로그에는 모든 변경이 "적용된 정확한 순서대로" 남아 있기 때문입니다.</p>
+<p><img alt="폴링 방식과 로그 기반 CDC를 삭제 감지, 중간 변경, 지연, 부하, 스키마 요구, 이전 값, 도입 비용으로 비교한 표" src="./images/body-1.png" /></p>
+<p>물론 공짜는 아닙니다.
+DB 설정을 바꾸고 복제 권한을 줘야 하며, 로그 보존이라는 새 운영 과제가 생깁니다.
+이 대가는 뒤에서 따로 다루겠습니다.</p>
+<hr />
+<h2>■ Debezium 파이프라인의 기본 구조</h2>
+<p>Debezium은 보통 Kafka Connect 위에서 소스 커넥터로 돌아갑니다.
+흐름은 이렇습니다.</p>
+<ol>
+<li>애플리케이션이 평소처럼 DB에 쓰고 커밋합니다.</li>
+<li>DB는 복구와 복제를 위해 원래 트랜잭션 로그(binlog, WAL)를 기록합니다.</li>
+<li>Debezium 커넥터가 복제 클라이언트처럼 붙어 그 로그를 읽습니다.</li>
+<li>행 단위 변경을 이벤트로 바꿔 테이블별 Kafka 토픽에 씁니다.</li>
+<li>어디까지 읽었는지(오프셋)는 Kafka Connect가 별도 토픽에 기록합니다.</li>
+</ol>
+<p>애플리케이션 코드는 아무것도 모릅니다.
+이벤트 발행 코드를 넣지 않아도 커밋된 변경이 스트림으로 흘러나옵니다.</p>
+<p>이벤트 하나는 <code>before</code>, <code>after</code>, <code>source</code>, <code>op</code>, <code>ts_ms</code>로 이루어진 봉투(envelope) 구조입니다.
+<code>op</code>는 <code>c</code>(생성), <code>u</code>(수정), <code>d</code>(삭제), <code>r</code>(스냅샷 읽기), <code>t</code>(truncate) 등으로 구분됩니다.
+<code>source</code>에는 어느 DB, 어느 로그 위치에서 나온 변경인지가 담깁니다.</p>
+<p>삭제 이벤트 뒤에는 같은 키에 값이 null인 <strong>툼스톤</strong> 이벤트가 하나 더 붙습니다.
+Kafka 로그 컴팩션이 그 키의 이전 메시지를 정리할 수 있게 하려는 장치입니다.</p>
+<p><img alt="애플리케이션, 데이터베이스 로그, Debezium 커넥터, Kafka 토픽으로 이어지는 CDC 파이프라인과 오프셋·스키마 히스토리 토픽, 이벤트 봉투 구조" src="./images/body-2.png" /></p>
+<hr />
+<h2>■ MySQL은 binlog를, PostgreSQL은 WAL을 읽는다</h2>
+<p>같은 "로그 읽기"라도 두 DB는 방식이 꽤 다릅니다.</p>
+<h3>MySQL — 레플리카인 척 binlog를 받는다</h3>
+<p>MySQL binlog는 커밋된 순서대로 DDL과 행 변경을 모두 기록합니다.
+Debezium은 MySQL 입장에서 하나의 레플리카처럼 접속해 이 로그를 받아 갑니다.
+그래서 계정에 <code>REPLICATION SLAVE</code>, <code>REPLICATION CLIENT</code>와 함께 <code>SELECT</code>, <code>RELOAD</code>, <code>SHOW DATABASES</code> 권한을 줍니다.</p>
+<p>설정에서 반드시 확인할 값이 두 가지 있습니다.</p>
+<ul>
+<li><code>binlog_format = ROW</code> — SQL 문장이 아니라 바뀐 행 자체를 기록해야 합니다.</li>
+<li><code>binlog_row_image = FULL</code> — 변경 전후의 모든 컬럼 값이 남아야 합니다.</li>
+</ul>
+<p>GTID는 필수는 아니지만 켜 두기를 권합니다.
+읽기 전용 증분 스냅샷 같은 기능은 GTID를 전제로 합니다.</p>
+<p>여기에 한 가지 숨은 문제가 있습니다.
+binlog의 행 이벤트만으로는 "세 번째 컬럼이 무엇인지" 알 수 없습니다.
+그래서 Debezium은 binlog 안의 DDL을 직접 파싱해 테이블 구조를 추적하고, 그 DDL을 binlog 위치와 함께 <strong>스키마 히스토리 토픽</strong>에 저장합니다.
+재시작하면 시작 위치까지 DDL을 다시 재생해 당시 구조를 복원합니다.
+이 토픽은 내부용이며, 순서가 생명이라 파티션을 반드시 1개로 둡니다.</p>
+<h3>PostgreSQL — 논리적 디코딩과 복제 슬롯</h3>
+<p>PostgreSQL WAL은 원래 물리적 복구용이라 그대로 읽기 어렵습니다.
+그래서 9.4부터 <strong>논리적 디코딩</strong>이 생겼습니다.
+WAL의 내부 표현을 "내부 상태를 몰라도 해석할 수 있는" 형식으로 풀어 주는 기능입니다.</p>
+<p>준비물은 세 가지입니다.</p>
+<ul>
+<li><code>wal_level = logical</code></li>
+<li>출력 플러그인 — PostgreSQL 10부터 내장된 <code>pgoutput</code>이 표준입니다.</li>
+<li><strong>복제 슬롯</strong> — 한 DB의 변경을 원래 순서대로 재생해 주는 스트림이자, 소비자가 어디까지 읽었는지 기억하는 책갈피입니다.</li>
+</ul>
+<p>Debezium의 오프셋은 이벤트마다 기록된 LSN(로그 순번)입니다.
+커넥터가 처리를 확인해 줘야 슬롯이 앞으로 나아가고, 그제야 PostgreSQL이 오래된 WAL을 지울 수 있습니다.
+이 성질이 뒤에서 말할 운영 함정의 씨앗이 됩니다.</p>
+<p>update·delete 이벤트의 <code>before</code>에 무엇이 담기는지는 테이블의 <strong>REPLICA IDENTITY</strong>가 정합니다.
+기본값(DEFAULT)이면 기본키 값만, FULL이면 모든 컬럼의 이전 값이 들어옵니다.
+기본키가 없는 테이블을 DEFAULT로 두면 생성 이벤트만 나옵니다.
+FULL은 편하지만 공짜가 아닙니다. Morling이 인용한 한 벤치마크에서는 피크 CPU가 30%에서 35%로 올랐습니다.</p>
+<p><img alt="MySQL binlog와 PostgreSQL WAL 기반 CDC의 필수 설정, 접속 방식, 오프셋, 이전 값, 스키마 추적, 로그 보존 비교" src="./images/body-3.png" /></p>
+<hr />
+<h2>■ 스냅샷과 스트리밍, 두 단계로 빈틈을 메운다</h2>
+<p>로그에는 보존 기간이 있습니다.
+커넥터를 처음 붙였을 때, 이미 테이블에 있는 수백만 행의 생성 기록은 로그에 남아 있지 않습니다.
+그래서 Debezium은 먼저 <strong>초기 스냅샷</strong>을 뜨고, 그 다음 <strong>스트리밍</strong>으로 넘어갑니다.</p>
+<p>까다로운 부분은 둘의 경계입니다.
+스냅샷을 뜨는 동안에도 쓰기는 계속 들어오니까요.
+MySQL 커넥터의 기본 절차는 이 문제를 이렇게 풉니다.</p>
+<ol>
+<li>전역 읽기 잠금을 걸어 잠시 쓰기를 막습니다.</li>
+<li>REPEATABLE READ 트랜잭션을 시작합니다. 이후 읽기는 하나의 일관된 시점을 봅니다.</li>
+<li><strong>바로 그 시점의 binlog 위치를 읽어 둡니다.</strong></li>
+<li>테이블 스키마를 캡처하고 잠금을 풉니다.</li>
+<li>일관된 시점 기준으로 테이블을 훑으며 행마다 <code>op=r</code> 이벤트를 냅니다.</li>
+<li>끝나면 3번에서 기억한 위치부터 binlog 스트리밍을 시작합니다.</li>
+</ol>
+<p>잠금은 위치를 잡는 짧은 순간에만 필요합니다.
+스냅샷 데이터와 이후 변경이 정확히 한 지점에서 맞물리므로 누락이 없습니다.
+관리형 DB처럼 전역 잠금이 허용되지 않는 환경에서는 테이블 단위 잠금으로 대신합니다.
+PostgreSQL도 원리는 같습니다. 트랜잭션 안에서 현재 LSN을 읽고 스캔한 뒤, 그 LSN부터 스트리밍합니다.</p>
+<p><img alt="Debezium 초기 스냅샷 6단계와 기록한 로그 위치부터 스트리밍으로 넘어가는 과정, 증분 스냅샷 워터마크 방식 요약" src="./images/body-4.png" /></p>
+<p>다만 테이블이 크면 이야기가 달라집니다.
+Netflix 엔지니어들은 2020년 DBLog 논문에서 잠금 기반 스냅샷이 MySQL RDS에서 "모든 행을 SELECT할 때까지 쓰기를 막는다"고 지적했습니다.
+그들이 내놓은 답이 <strong>워터마크 방식</strong>입니다.</p>
+<ul>
+<li>워터마크 테이블에 저(low) 워터마크를 기록합니다.</li>
+<li>기본키 순으로 한 청크만 읽어 메모리에 둡니다.</li>
+<li>고(high) 워터마크를 기록합니다.</li>
+<li>두 워터마크 사이 로그에 등장한 키와 겹치는 청크 행은 버립니다. 로그 쪽 값이 더 새것이기 때문입니다.</li>
+</ul>
+<p>테이블 잠금 없이 로그 처리와 청크 조회를 번갈아 진행하는 셈입니다.
+Debezium의 <strong>증분 스냅샷</strong>이 이 아이디어를 따릅니다.
+시그널링 테이블이나 Kafka 토픽으로 <code>execute-snapshot</code> 신호를 보내면, 운영 중에도 특정 테이블만 다시 스냅샷할 수 있습니다.</p>
+<p><code>snapshot.mode</code>도 알아 두면 좋습니다.
+기본값 <code>initial</code>은 오프셋이 없을 때 스냅샷 후 스트리밍, <code>when_needed</code>는 기록된 위치를 더는 쓸 수 없을 때도 자동으로 스냅샷을 다시 뜹니다.</p>
+<hr />
+<h2>■ 오프셋과 전달 보장 — 최소 한 번이 기본이다</h2>
+<p>예전에는 "Debezium은 최소 한 번(at-least-once)"이라는 한 문장으로 정리됐습니다.
+지금은 정확히 한 번(exactly-once)도 선택지가 되었습니다만, 왜 중복이 생기는지부터 아는 편이 좋습니다.</p>
+<p>Kafka Connect는 레코드를 Kafka에 먼저 보내고, 오프셋은 별도 내부 토픽에 타이머로 기록합니다.
+레코드는 나갔는데 오프셋을 쓰기 직전에 워커가 죽으면 어떻게 될까요.
+재시작한 커넥터는 마지막으로 저장된 오프셋부터 다시 읽고, 이미 보낸 이벤트를 한 번 더 보냅니다.
+Kafka의 KIP-618 문서가 정확히 이 시나리오를 문제로 짚습니다.</p>
+<p>PostgreSQL도 같은 태도입니다.
+공식 문서는 슬롯 위치가 체크포인트 때만 저장되므로 크래시 후 최근 변경이 다시 전송될 수 있고, 중복 처리의 책임은 클라이언트에 있다고 명시합니다.</p>
+<p>반대로 <strong>유실</strong>은 Debezium 자체의 문제가 아닙니다.
+Morling은 "Debezium은 스스로 이벤트를 놓쳐서는 안 된다"고 썼습니다.
+유실은 커넥터가 읽기 전에 DB가 로그를 지워 버리는 운영 공백에서 생깁니다.</p>
+<p>정확히 한 번은 KIP-618이 길을 열었습니다.
+소스 태스크가 트랜잭션 프로듀서로 <strong>레코드와 오프셋을 같은 트랜잭션에</strong> 원자적으로 쓰고, 이전 세대의 좀비 태스크는 펜싱으로 막습니다.
+워커 설정 <code>exactly.once.source.support</code>를 모든 워커에서 <code>preparing</code>, 다음 롤링에서 <code>enabled</code>로 두 단계에 걸쳐 켭니다. 분산 모드에서만 됩니다.</p>
+<p>Debezium 3.3 시리즈는 모든 커넥터에서 정확히 한 번 전달을 지원한다고 밝혔습니다.
+Red Hat의 Debezium 3.4.3 릴리스 노트는 조금 더 조심스럽습니다.
+MySQL, PostgreSQL 등 코어 커넥터에 정식 지원(GA)이지만, <strong>PostgreSQL은 스트리밍 구간만 기술 미리보기이고 스냅샷에는 적용되지 않는다</strong>고 적고 있습니다.</p>
+<p><img alt="최소 한 번 전달에서 중복이 생기는 지점과 KIP-618 정확히 한 번 전달에서 레코드와 오프셋을 한 트랜잭션으로 커밋하는 흐름" src="./images/body-5.png" /></p>
+<p>여기서 오해하기 쉬운 지점이 있습니다.
+이 보장은 "Kafka 토픽에 쓰는 데까지"입니다.
+소비자가 이벤트를 받아 다른 DB에 반영하는 구간은 여전히 소비자 몫입니다.
+그래서 저는 EOS를 켜더라도 소비자는 멱등하게 만드는 쪽을 권합니다.
+보안 이벤트처럼 같은 건이 두 번 집계되면 곤란한 데이터라면 더욱 그렇습니다.</p>
+<hr />
+<h2>■ 스키마가 바뀔 때</h2>
+<p>운영 중 컬럼 추가는 일상입니다.
+CDC 입장에서는 "이 이벤트를 어떤 구조로 읽어야 하는가"의 문제가 됩니다.</p>
+<p>MySQL 커넥터는 앞서 말한 스키마 히스토리 토픽으로 이를 해결합니다.
+DDL이 binlog 위치와 함께 저장되므로, 과거 위치의 이벤트도 당시 구조로 해석할 수 있습니다.
+대신 이 토픽이 깨지면 커넥터가 이벤트를 해석하지 못합니다.
+이때는 <code>snapshot.mode=recovery</code>로 히스토리를 다시 만듭니다.
+DDL 파서는 지금도 꾸준히 손보는 영역입니다. 최근 릴리스 노트에도 <code>ALTER TABLE</code> 파싱 수정이 올라와 있습니다.</p>
+<p>PostgreSQL은 사정이 다릅니다.
+공식 문서 표현 그대로 논리적 디코딩은 DDL을 지원하지 않습니다.
+소비자에게 "컬럼이 추가되었다"는 DDL 이벤트를 따로 줄 수 없다는 뜻입니다.
+스키마 변경을 다운스트림까지 자동으로 끌고 가야 한다면, 이 차이를 설계 단계에서 감안해야 합니다.</p>
+<p>어느 쪽이든 원칙은 같습니다.
+컬럼 추가처럼 하위 호환되는 변경은 비교적 안전하고, 이름 변경이나 타입 변경은 소비자를 깨뜨리기 쉽습니다.</p>
+<hr />
+<h2>■ 아웃박스 패턴과 만나는 지점</h2>
+<p>아웃박스 패턴 자체는 지난 'Saga 패턴과 아웃박스' 글에서 다뤘으니, 여기서는 CDC와 맞물리는 부분만 보겠습니다.</p>
+<p>업무 테이블을 그대로 CDC로 내보내면 내부 스키마가 곧 외부 계약이 됩니다.
+컬럼 하나 바꿀 때마다 소비자 팀과 협의해야 하는 상황이 옵니다.
+아웃박스는 애플리케이션이 같은 트랜잭션 안에서 <code>outbox</code> 테이블에 "공개용 이벤트"를 한 줄 쓰고, CDC는 그 테이블만 읽게 합니다.</p>
+<p>Debezium의 <strong>Outbox Event Router</strong> 변환이 이 역할을 맡습니다.</p>
+<ul>
+<li><code>aggregatetype</code> 값으로 토픽을 고릅니다. <code>Order</code>면 <code>outbox.event.order</code>로 갑니다.</li>
+<li><code>aggregateid</code>가 Kafka 메시지 키가 되어, 같은 주문의 이벤트가 같은 파티션에서 순서를 지킵니다.</li>
+<li><code>id</code>(UUID)는 메시지 헤더로 실려, 소비자가 중복을 걸러내는 키로 쓸 수 있습니다.</li>
+</ul>
+<p>앞 장의 "최소 한 번"과 이 <code>id</code> 헤더가 짝을 이루는 셈입니다.
+폴링으로 아웃박스를 읽던 구조를 CDC로 바꾸면, 발행 지연과 원본 부하라는 두 문제가 함께 줄어듭니다.</p>
+<hr />
+<h2>■ 운영에서 가장 먼저 밟는 함정 — WAL 누적</h2>
+<p>PostgreSQL 공식 문서에는 이런 경고가 있습니다.
+복제 슬롯은 크래시를 넘어 살아남고, 소비자 상태를 전혀 모르며, <strong>연결이 없어도 필요한 자원의 삭제를 막는다</strong>는 것입니다.
+WAL뿐 아니라 VACUUM이 지워야 할 카탈로그 행도 붙잡아, 극단적인 경우 트랜잭션 ID 고갈을 막으려고 DB가 멈출 수도 있다고 적혀 있습니다.</p>
+<p>현장에서 자주 보는 원인은 두 가지입니다.</p>
+<ol>
+<li><strong>버려진 슬롯</strong> — 커넥터를 지워도 슬롯은 남습니다. 아무도 읽지 않는 슬롯이 WAL을 계속 붙잡습니다.</li>
+<li><strong>한가한 DB, 바쁜 인스턴스</strong> — WAL은 인스턴스 전체 단위로 쌓이는데 슬롯은 DB 단위입니다. 캡처 대상 테이블에 변경이 없으면 슬롯이 전진할 계기가 없고, 그 사이 다른 DB가 만든 WAL이 고스란히 쌓입니다.</li>
+</ol>
+<p>두 번째가 특히 고약합니다.
+커넥터는 멀쩡히 RUNNING인데 디스크만 조용히 차오르기 때문입니다.</p>
+<p>해법은 <strong>하트비트</strong>입니다.
+<code>heartbeat.interval.ms</code>와 <code>heartbeat.action.query</code>를 설정해 주기적으로 하트비트 테이블에 쓰거나, PostgreSQL 14부터는 <code>pg_logical_emit_message()</code>로 테이블 없이 WAL에 메시지만 남길 수 있습니다.
+AWS가 2026년 9월 공개한 사례에서는 하트비트 적용 후 Debezium 슬롯 지연이 23GB에서 1,680바이트로, RDS for PostgreSQL의 WAL 디렉터리가 23GB에서 4,032MB로 줄었습니다.
+권장 주기는 WAL 생성량에 따라 30초에서 5분 사이로 제시합니다.</p>
+<p>그래도 사고는 납니다. 그래서 안전망을 겹으로 둡니다.</p>
+<ul>
+<li><code>max_slot_wal_keep_size</code>(PostgreSQL 13+)로 슬롯이 붙잡을 WAL 상한을 둡니다. 넘으면 슬롯이 무효화되고 새 스냅샷이 필요하지만, 프라이머리 디스크가 가득 차는 것보다는 낫습니다.</li>
+<li>PostgreSQL 18의 <code>idle_replication_slot_timeout</code>으로 오래 놀고 있는 슬롯을 정리할 수 있습니다.</li>
+<li><code>pg_replication_slots</code>에서 슬롯별 보유 WAL과 활성 여부를 봅니다.</li>
+</ul>
+<p>Morling이 제안한 알림 기준은 디스크 사용률 60~70% 초과, 슬롯 30분 이상 비활성, 슬롯당 보유 WAL 10~20GB 초과입니다.
+절대값뿐 아니라 증가 속도에도 알림을 걸라는 조언이 덧붙어 있습니다.</p>
+<p>MySQL은 반대 방향의 함정입니다.
+슬롯 같은 장치가 없어 디스크는 안전하지만, 기한이 지나면 binlog가 지워집니다.
+MySQL 8.0부터 기본 보존 기간은 30일입니다.
+커넥터가 그보다 오래 멈춰 있으면 위치를 잃고 새 스냅샷을 떠야 합니다.
+커넥터가 오래 멈춰 있는지 감시하는 알림이 필요한 이유입니다.</p>
+<p><img alt="PostgreSQL 복제 슬롯 WAL 누적과 MySQL binlog 만료에 대비하는 CDC 운영 체크리스트 여섯 가지" src="./images/body-6.png" /></p>
+<hr />
+<p>정리하면 이렇습니다.
+CDC는 새로운 무언가를 만드는 기술이라기보다, 데이터베이스가 이미 남기고 있던 기록을 꺼내 쓰는 기술입니다.
+그래서 강력하고, 그래서 그 기록을 관리하는 책임도 함께 넘겨받습니다.</p>
+<p>예전에는 "변경을 어떻게 알아낼까"를 고민했다면, 이제는 "로그를 얼마나, 누가 붙잡고 있는가"를 지켜봐야 합니다.</p>
+<p>"로그는 이미 거기 있다. 남은 일은 그것을 잃지도, 쌓아 두지도 않는 것이다."</p>
+<p>폴링 배치를 CDC로 바꿀 만하냐고 물으신다면, 하트비트와 알림을 함께 챙긴다는 조건으로 그렇다고 답하겠습니다.</p>
+<hr />
+<h3>참고자료</h3>
+<ol>
+<li>Debezium Documentation — Debezium connector for MySQL: <a href="https://debezium.io/documentation/reference/connectors/mysql.html" target="_blank" rel="noopener">https://debezium.io/documentation/reference/connectors/mysql.html</a></li>
+<li>Debezium Documentation — Debezium connector for PostgreSQL: <a href="https://debezium.io/documentation/reference/connectors/postgresql.html" target="_blank" rel="noopener">https://debezium.io/documentation/reference/connectors/postgresql.html</a></li>
+<li>Gunnar Morling, "Five Advantages of Log-Based Change Data Capture", Debezium Blog (2018): <a href="https://debezium.io/blog/2018/07/19/advantages-of-log-based-change-data-capture/" target="_blank" rel="noopener">https://debezium.io/blog/2018/07/19/advantages-of-log-based-change-data-capture/</a></li>
+<li>Gunnar Morling, "Mastering Postgres Replication Slots" (2025): <a href="https://morling.dev/blog/mastering-postgres-replication-slots" target="_blank" rel="noopener">https://morling.dev/blog/mastering-postgres-replication-slots</a></li>
+<li>Gunnar Morling, "Can Debezium Lose Events?" (2023): <a href="https://morling.dev/blog/can-debezium-lose-events" target="_blank" rel="noopener">https://morling.dev/blog/can-debezium-lose-events</a></li>
+<li>Apache Kafka, KIP-618: Exactly-Once Support for Source Connectors: <a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-618:+Exactly-Once+Support+for+Source+Connectors" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-618:+Exactly-Once+Support+for+Source+Connectors</a></li>
+<li>Red Hat, Release Notes for Red Hat build of Debezium 3.4.3: <a href="https://docs.redhat.com/en/documentation/red_hat_build_of_debezium/3.4.3/html-single/release_notes_for_red_hat_build_of_debezium_3.4.3/index" target="_blank" rel="noopener">https://docs.redhat.com/en/documentation/red_hat_build_of_debezium/3.4.3/html-single/release_notes_for_red_hat_build_of_debezium_3.4.3/index</a></li>
+<li>Debezium Releases 3.3: <a href="https://debezium.io/releases/3.3" target="_blank" rel="noopener">https://debezium.io/releases/3.3</a></li>
+<li>Andreakis &amp; Papapanagiotou, "DBLog: A Watermark Based Change-Data-Capture Framework" (2020): <a href="https://arxiv.org/abs/2010.12597" target="_blank" rel="noopener">https://arxiv.org/abs/2010.12597</a></li>
+<li>Debezium Documentation — Outbox Event Router: <a href="https://debezium.io/documentation/reference/2.4/transformations/outbox-event-router.html" target="_blank" rel="noopener">https://debezium.io/documentation/reference/2.4/transformations/outbox-event-router.html</a></li>
+<li>AWS Database Blog, "Resolving PostgreSQL replication lag with heartbeat tables in change data capture scenarios" (2026): <a href="https://aws.amazon.com/blogs/database/resolving-postgresql-replication-lag-with-heartbeat-tables-in-change-data-capture-scenarios/" target="_blank" rel="noopener">https://aws.amazon.com/blogs/database/resolving-postgresql-replication-lag-with-heartbeat-tables-in-change-data-capture-scenarios/</a></li>
+<li>PostgreSQL Documentation — Logical Decoding Concepts: <a href="https://www.postgresql.org/docs/current/logicaldecoding-explanation.html" target="_blank" rel="noopener">https://www.postgresql.org/docs/current/logicaldecoding-explanation.html</a></li>
+<li>MySQL Worklog WL#10478 — Defaults: Enable Binary Log Expiration: <a href="https://dev.mysql.com/worklog/task/?id=10478" target="_blank" rel="noopener">https://dev.mysql.com/worklog/task/?id=10478</a></li>
+<li>Confluent Documentation — Debezium MySQL CDC Source Connector: <a href="https://docs.confluent.io/debezium-connect-mysql-source/current/overview.html" target="_blank" rel="noopener">https://docs.confluent.io/debezium-connect-mysql-source/current/overview.html</a></li>
+<li>Redis Docs — Prepare MySQL/MariaDB for RDI: <a href="https://redis.io/docs/latest/integrate/redis-data-integration/data-pipelines/prepare-dbs/my-sql-mariadb/" target="_blank" rel="noopener">https://redis.io/docs/latest/integrate/redis-data-integration/data-pipelines/prepare-dbs/my-sql-mariadb/</a></li>
+</ol>
+<p class="hashtags">#CDC #Debezium #ChangeDataCapture #Kafka #KafkaConnect #binlog #WAL #복제슬롯 #아웃박스패턴 #데이터파이프라인</p>
+  </main>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script id="site-chrome-js">
+(function(){
+  var rt=document.getElementById('read-time');
+  if(rt){ var txt=(document.body.innerText||'').replace(/\s/g,'');
+    rt.textContent='약 '+Math.max(1,Math.round(txt.length/500))+'분 읽기'; }
+  var pb=document.getElementById('read-progress'), tt=document.getElementById('to-top');
+  function onScroll(){ var h=document.documentElement;
+    var sh=h.scrollHeight-h.clientHeight, p=sh>0?(h.scrollTop/sh*100):0;
+    if(pb) pb.style.width=p+'%';
+    if(tt) tt.classList.toggle('show', h.scrollTop>400); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(tt) tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
+</script>
+<script data-goatcounter="https://sevenpeaks.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
