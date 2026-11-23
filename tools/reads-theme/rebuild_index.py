@@ -7,7 +7,7 @@ BASE_URL = "/reads"
 # GoatCounter 방문자 수 코드. 가입 후 받은 코드(예: "sevenpeaks")만 넣으면 활성화된다.
 # 비워두면 방문자 수 기능은 표시되지 않는다.
 GOATCOUNTER_CODE = os.environ.get("GOATCOUNTER_CODE", "sevenpeaks")
-READS_THEME_VERSION = "light-v8"
+READS_THEME_VERSION = "light-v9"
 THEME_DIR = os.path.dirname(os.path.abspath(__file__))
 CAT_ORDER = [("IT", "it"), ("과학", "science"), ("경제", "economy"), ("바이오", "bio"),
              ("철학/인문", "philosophy"), ("상담", "counseling"), ("세계", "world"), ("종교", "religion")]
@@ -163,8 +163,8 @@ def topnav_html(active="home"):
         return ' aria-current="page"' if key == active else ''
     return (
         '  <nav class="topnav" aria-label="Reads 탐색">\n'
-        '    <a class="tn-brand" href="https://7peaks.io/ko/" aria-label="7Peaks 홈페이지">'
-        f'<img class="tn-logo" src="{BASE_URL}/assets/7peaks-a-lockup.webp" alt="7Peaks"><span>Reads</span></a>\n'
+        '    <div class="tn-brand"><a class="company-brand" href="https://7peaks.io/ko/" aria-label="7Peaks 홈페이지">'
+        f'<img class="tn-logo" src="{BASE_URL}/assets/7peaks-wordmark-light.svg" alt="7Peaks"></a><a class="reads-home" href="{BASE_URL}/index.html">Reads</a></div>\n'
         '    <div class="tn-cats">\n'
         f'      <a{current("home")} href="{BASE_URL}/index.html">홈</a>\n'
         f'      <a{current("blog")} href="{BASE_URL}/posts/index.html">블로그</a>\n'
@@ -455,8 +455,8 @@ def ensure_post_chrome(cat_order=CAT_ORDER, base_dir="posts", list_suffix="목�
                      + '</head><body>' + t[first_block.start():] + '</body></html>')
             nav = ('<div id="read-progress"></div>\n'
                    '<nav id="site-nav" aria-label="글 탐색">'
-                   f'<a class="nav-home" href="{BASE_URL}/index.html">'
-                   f'<img class="reads-wordmark" src="{BASE_URL}/assets/7peaks-a-lockup.webp" alt="7Peaks"><span>Reads</span></a>'
+                   '<div class="nav-home"><a class="company-brand" href="https://7peaks.io/ko/" aria-label="7Peaks 홈페이지">'
+                   f'<img class="reads-wordmark" src="{BASE_URL}/assets/7peaks-wordmark-light.svg" alt="7Peaks"></a><a class="reads-home" href="{BASE_URL}/index.html">Reads</a></div>'
                    f'<a class="nav-list" href="{BASE_URL}/{base_dir}/{cslug}/index.html">{html.escape(cat)} {list_suffix}</a>'
                    '<span class="nav-spacer"></span>'
                    '<span class="read-time" id="read-time"></span>'
@@ -485,7 +485,7 @@ def ensure_post_chrome(cat_order=CAT_ORDER, base_dir="posts", list_suffix="목�
 data = collect()
 # 로고 에셋 폴더 보장 (실제 로고 파일 assets/logo.png 는 저장소에 커밋되어 있음)
 os.makedirs(os.path.join(SITE, "assets"), exist_ok=True)
-for asset_name in ("7peaks-a-lockup.webp", "reads-world-b.webp", "reads-news-paper.webp"):
+for asset_name in ("7peaks-wordmark-light.svg", "reads-world-b.webp", "reads-news-paper.webp"):
     shutil.copyfile(os.path.join(THEME_DIR, "assets", asset_name),
                     os.path.join(SITE, "assets", asset_name))
 shutil.copyfile(os.path.join(THEME_DIR, "reads_theme.css"),

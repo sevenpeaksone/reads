@@ -16,12 +16,12 @@ blockquote{margin:20px 0;padding:14px 20px;background:#f2f6ff;border-left:4px so
     // Light presentation also works when browser storage is unavailable.
   }
 })();</script>
-<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=light-v8" defer></script>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=light-v8">
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=light-v9" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=light-v9">
 </head>
-<body data-reads-theme="light-v8" data-reads-view="article">
+<body data-reads-theme="light-v9" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-a-lockup.webp" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span></nav>
+<nav id="site-nav" aria-label="글 탐색"><div class="nav-home"><a class="company-brand" href="https://7peaks.io/ko/" aria-label="7Peaks 홈페이지"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"></a><a class="reads-home" href="/reads/index.html">Reads</a></div><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span></nav>
 <div class="wrap"><div><span class="badge">IT</span><span class="date">2026-10-24</span></div><h1>가십 프로토콜 원리 — 노드들은 어떻게 소문만으로 장애를 감지할까</h1>
 <figure><img src="./images/thumbnail.png" alt="가십 프로토콜 원리 대표 이미지"></figure>
 <p>오늘은 가십 프로토콜과 SWIM 장애 감지에 대해 이야기해 보려 합니다. 핵심만 먼저 말씀드리면 이렇습니다. 노드가 서로를 일일이 확인하는 대신, 매 주기마다 무작위로 한 곳만 점검하고 그 결과를 오가는 메시지에 얹어 소문처럼 퍼뜨리는 방식입니다. 이 구조 덕분에 클러스터가 커져도 노드 한 대의 부담은 거의 늘지 않습니다.</p>

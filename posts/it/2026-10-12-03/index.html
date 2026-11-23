@@ -21,11 +21,11 @@ hr{border:0;border-top:1px solid #e1e4ea;margin:34px 0}blockquote{margin:22px 0;
     // Light presentation also works when browser storage is unavailable.
   }
 })();</script>
-<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=light-v8" defer></script>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=light-v8">
-</head><body data-reads-theme="light-v8" data-reads-view="article">
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=light-v9" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=light-v9">
+</head><body data-reads-theme="light-v9" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-a-lockup.webp" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span></nav>
+<nav id="site-nav" aria-label="글 탐색"><div class="nav-home"><a class="company-brand" href="https://7peaks.io/ko/" aria-label="7Peaks 홈페이지"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"></a><a class="reads-home" href="/reads/index.html">Reads</a></div><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span></nav>
 <div class=wrap><div class=meta><span class=badge>IT</span><span>2026-10-12</span></div><h1>쿠버네티스 조정 루프 원리, 선언한 상태와 실제 상태를 맞추는 방법</h1>
 <p class=fig><img src="./images/thumbnail.png" alt="쿠버네티스 조정 루프 원리 대표 이미지"></p>
 <p>오늘은 쿠버네티스 컨트롤러가 일하는 방식, 곧 조정 루프(reconcile loop)에 대해 이야기해 보려 합니다. 핵심은 한 줄입니다. 컨트롤러는 사용자가 선언한 원하는 상태와 클러스터의 현재 상태를 계속 비교하고, 차이가 있으면 그 차이를 줄이는 일만 합니다. 아래에서 이 루프가 내부에서 어떻게 돌아가는지, 왜 이벤트를 놓쳐도 무너지지 않는지 차례로 정리하겠습니다.</p>

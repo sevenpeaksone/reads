@@ -17,8 +17,8 @@ def render_article(title, category, published_date, body_html):
     if re.search(r"<(?:html|head|body|h1)\b", body_html, re.I):
         raise ValueError("Provide a body fragment without document tags or a duplicate h1")
     template = (THEME_DIR / "reads_article_template.html").read_text(encoding="utf-8")
-    image = base64.b64encode((THEME_DIR / "assets/7peaks-a-lockup.webp").read_bytes()).decode("ascii")
-    wordmark = f'<img class="reads-wordmark" src="data:image/webp;base64,{image}" alt="7Peaks">'
+    image = base64.b64encode((THEME_DIR / "assets/7peaks-wordmark-light.svg").read_bytes()).decode("ascii")
+    wordmark = f'<img class="reads-wordmark" src="data:image/svg+xml;base64,{image}" alt="7Peaks">'
     values = {
         "TITLE_ESCAPED": html.escape(title),
         "CATEGORY_ESCAPED": html.escape(category),

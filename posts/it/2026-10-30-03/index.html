@@ -17,12 +17,12 @@ blockquote{margin:20px 0;padding:14px 20px;background:#f3f6fd;border-left:4px so
     // Light presentation also works when browser storage is unavailable.
   }
 })();</script>
-<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=light-v8" defer></script>
-<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=light-v8">
+<script id="reads-theme-script" src="/reads/assets/reads-theme.js?v=light-v9" defer></script>
+<link id="site-chrome-css" rel="stylesheet" href="/reads/assets/reads-theme.css?v=light-v9">
 </head>
-<body data-reads-theme="light-v8" data-reads-view="article">
+<body data-reads-theme="light-v9" data-reads-view="article">
 <div id="read-progress"></div>
-<nav id="site-nav" aria-label="글 탐색"><a class="nav-home" href="/reads/index.html"><img class="reads-wordmark" src="/reads/assets/7peaks-a-lockup.webp" alt="7Peaks"><span>Reads</span></a><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span></nav>
+<nav id="site-nav" aria-label="글 탐색"><div class="nav-home"><a class="company-brand" href="https://7peaks.io/ko/" aria-label="7Peaks 홈페이지"><img class="reads-wordmark" src="/reads/assets/7peaks-wordmark-light.svg" alt="7Peaks"></a><a class="reads-home" href="/reads/index.html">Reads</a></div><a class="nav-list" href="/reads/posts/it/index.html">IT 목록</a><span class="nav-spacer"></span><span class="read-time" id="read-time"></span></nav>
 <div class="wrap"><div class="meta"><span class="badge">IT</span><span>2026-10-30</span></div><h1>Spring @Transactional 내부 호출이 무시되는 이유</h1>
 <p class='img'><img src="./images/thumbnail.png" alt="Spring @Transactional 내부 호출이 무시되는 이유 썸네일"></p>
 <p>오늘은 Spring <code>@Transactional</code>이 프록시 위에서 동작하는 방식을 정리해 보려 합니다.<br>같은 클래스 안에서 <code>@Transactional</code> 메서드를 부르면 트랜잭션이 걸리지 않는 이유가 핵심입니다.<br>전파 속성(REQUIRED, REQUIRES_NEW)과 체크 예외가 기본으로 롤백되지 않는 규칙, 그리고 해결책과 함정까지 차례로 살펴보겠습니다.</p>

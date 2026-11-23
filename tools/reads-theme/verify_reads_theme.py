@@ -85,18 +85,18 @@ def verify(baseline, staged):
                 errors.append(f"Invalid marker count ({marker}): {relative}")
         if 'id="theme-toggle"' in new or 'data-reads-theme-toggle' in new:
             errors.append(f"Removed theme control still present: {relative}")
-        if '<link id="site-chrome-css"' not in new or '/reads/assets/reads-theme.css?v=light-v8' not in new:
+        if '<link id="site-chrome-css"' not in new or '/reads/assets/reads-theme.css?v=light-v9' not in new:
             errors.append(f"Missing canonical design link: {relative}")
         if '<style id="site-chrome-css"' in new:
             errors.append(f"Legacy embedded chrome stylesheet: {relative}")
-        if '/reads/assets/reads-theme.js?v=light-v8' not in new:
+        if '/reads/assets/reads-theme.js?v=light-v9' not in new:
             errors.append(f"Missing shared color-mode script: {relative}")
     if not sum(counts.values()):
         errors.append("No articles were checked")
     search_unchanged = json.loads((baseline / "search.json").read_text()) == json.loads((staged / "search.json").read_text())
     if not search_unchanged:
         errors.append("Search metadata changed")
-    if (staged / "assets/7peaks-a-lockup.webp").read_bytes() == b"":
+    if (staged / "assets/7peaks-wordmark-light.svg").read_bytes() == b"":
         errors.append("Missing wordmark")
     stylesheet_matches_source = (staged / 'assets/reads-theme.css').read_bytes() == (
         staged / 'tools/reads-theme/reads_theme.css').read_bytes()
